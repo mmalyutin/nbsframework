@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-core" default="create-jar">
+
+	<property file="build.properties" />
+
+	<path id="plazma-classpath">
+		<fileset dir="../lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create-jar" description="Create jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/plazma-framework-core-${version}.jar" basedir="${classes.dir}" includes="**">
+
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-framework-core" description="Clean framework core">
+		<delete dir="${framework.core.target.dir}"/>
+    </target>
+
+
+	<target name="create-framework-core" description="Create framework core" depends="clean-framework-core">
+		
+		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${framework.core.target.dir}" />
+		<mkdir dir="${framework.core.target.dir}/dist" />
+		<mkdir dir="${framework.core.target.dir}/lib" />
+		
+		<copy todir="${framework.core.target.dir}">
+			<fileset dir="${framework.core.dir}">
+				<include name="**" />
+				<exclude name=".settings/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.core.target.dir}/dist">
+			<fileset dir="${dist.dir}">
+				<include name="plazma-framework-core-${version}.jar" />
+			</fileset>
+		</copy>
+		
+		<!--
+		<copy todir="${framework.core.target.dir}/lib">
+			<fileset dir="${lib.dir}">
+				<include name="hsqldb.jar" />
+				<include name="jdom_1_0.jar" />
+			</fileset>
+		</copy>
+		-->
+		
+      	<replace file="${framework.core.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+
+	</target>
+
+
+</project>
