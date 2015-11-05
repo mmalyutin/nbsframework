@@ -1,0 +1,35 @@
+<module>
+
+    <source path="core">
+    	<exclude name="data/Accessor.java"/>
+    	<exclude name="data/ClassPropertyProvider.java"/>
+    	<exclude name="data/ClassPropertyProviderFactory.java"/>
+    	<exclude name="dataset/**" />
+    	<exclude name="datasource/**" />
+    	<exclude name="resource/BundleResource.java"/>
+    	<exclude name="resource/BundleResourceProvider.java"/>
+    	<exclude name="service/ReflectionServiceMethodCaller.java"/>
+    	<exclude name="service/ReflectionServiceMethodInvoker.java"/>
+    	<exclude name="logging/ConsoleHandler.java"/>
+    	<exclude name="logging/Log4JHandler.java"/>
+    </source>
+    
+    <source path="util">
+		<exclude name="BundleUtils.java" />
+		<exclude name="ClassUtils.java" />
+		<exclude name="DBUtils.java" />
+		<exclude name="FileLocator.java" />
+		<exclude name="FileUtils.java" />
+ 		<exclude name="IPropertiesStore.java" />
+		<exclude name="LocalePartInfo.java" />
+		<exclude name="LocalePropertiesStore.java" />
+		<exclude name="LocaleRepository.java" />
+		<exclude name="PropertiesStore.java" />
+		<exclude name="PropertyElement.java" />
+		<exclude name="PropertyValue.java" />
+		<exclude name="PropertyValueStore.java" />
+		<exclude name="SystemInfo.java" />
+		<exclude name="SystemUtils.java" />
+    </source>
+
+</module>
