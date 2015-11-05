@@ -148,4 +148,17 @@ public interface DSDataSource extends Serializable, LocalizedIdentifier {
     boolean hasGroups();
 
     int getGroupCount();
+    
+    
+    List<DSDimension> getDimensions();
+
+    void setDimensions(List<DSDimension> dimensions);
+    
+    void addDimension(DSDimension dimension);
+
+    void removeGroup(DSDimension dimension);
+    
+    boolean hasDimensions();
+
+    int getDimensionCount();
 }

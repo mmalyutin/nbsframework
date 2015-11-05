@@ -22,12 +22,19 @@
 
 package org.plazmaforge.framework.core.data;
 
-import org.plazmaforge.framework.core.type.TypeUtils;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.plazmaforge.framework.core.type.Types;
+import org.plazmaforge.framework.core.data.presenter.BytePresenter;
+import org.plazmaforge.framework.core.data.presenter.DatePresenter;
+import org.plazmaforge.framework.core.data.presenter.DateTimePresenter;
 import org.plazmaforge.framework.core.data.presenter.DoublePresenter;
 import org.plazmaforge.framework.core.data.presenter.FloatPresenter;
 import org.plazmaforge.framework.core.data.presenter.IntegerPresenter;
+import org.plazmaforge.framework.core.data.presenter.ShortPresenter;
 import org.plazmaforge.framework.core.data.presenter.StringPresenter;
+import org.plazmaforge.framework.core.data.presenter.TimePresenter;
 
 /**
  * Value Presenter Factory
@@ -37,30 +44,65 @@ import org.plazmaforge.framework.core.data.presenter.StringPresenter;
  */
 public class ValuePresenterFactory {
 
+
+    private Map<String, ValuePresenter> presenters = new HashMap<String, ValuePresenter>();
     
-    public static ValuePresenter getValuePresenter(String type) {
+    public ValuePresenterFactory() {
+	super();
+    }
+
+    public void registerValuePresenter(String type, ValuePresenter valuePresenter) {
+	presenters.put(type, valuePresenter);
+    }
+
+    public void unregisterValuePresenter(String type) {
+	presenters.remove(type);
+    }
+    
+    public void registerDefaultValuePresenters() {
+	registerValuePresenter(Types.StringType, new StringPresenter());
+	registerValuePresenter(Types.TextType, new StringPresenter());
+	registerValuePresenter(Types.BooleanType, new BytePresenter());
+	registerValuePresenter(Types.ShortType, new ShortPresenter());
+	registerValuePresenter(Types.IntegerType, new IntegerPresenter());
+	registerValuePresenter(Types.FloatType, new FloatPresenter());
+	registerValuePresenter(Types.DoubleType, new DoublePresenter());
+	registerValuePresenter(Types.DateType, new DatePresenter());
+	registerValuePresenter(Types.TimeType, new TimePresenter());
+	registerValuePresenter(Types.DateTimeType, new DateTimePresenter());
+    }
+    
+    
+    public ValuePresenter getValuePresenter(String type) {
 	return getValuePresenter(type, null);
     }
 
-    public static ValuePresenter getValuePresenter(String type, String format) {
+    public ValuePresenter getValuePresenter(String type, String format) {
 	
-	// TODO
+	/*
 	if (type == null) {
 	    return null;
 	}
+	
 	if (TypeUtils.isLikeStringType(type)) {
 	    return new StringPresenter();
-	} else if (Types.IntegerType.equals(type) ){
+	} else if (Types.IntegerType.equals(type)) {
 	    return new IntegerPresenter();
-	} else if (Types.FloatType.equals(type) ){
+	} else if (Types.FloatType.equals(type)) {
 	    return new FloatPresenter();
-	} else if (Types.DoubleType.equals(type) ){
+	} else if (Types.DoubleType.equals(type)) {
 	    return new DoublePresenter();
 	}
-
-
 	return null;
+	*/
+	
+	return doGetValuePresenter(type);
     }
+    
+    protected ValuePresenter doGetValuePresenter(String type) {
+	return presenters.get(type);
+    }
+    
     
 
 }

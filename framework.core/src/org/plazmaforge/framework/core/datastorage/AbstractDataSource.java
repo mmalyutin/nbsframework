@@ -22,6 +22,9 @@
 
 package org.plazmaforge.framework.core.datastorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
 
 /**
@@ -41,6 +44,8 @@ public abstract class AbstractDataSource extends BaseLocalizedIdentifier {
     private String parentName;
     
     private String dataConnectorName;
+    
+    private List<DSDimension> dimensions;
     
     public AbstractDataSource() {
     }
@@ -96,6 +101,31 @@ public abstract class AbstractDataSource extends BaseLocalizedIdentifier {
         this.dataConnectorName = dataConnectorName;
     }
     
+    public List<DSDimension> getDimensions() {
+	if (dimensions == null) {
+	    dimensions = new ArrayList<DSDimension>();
+	}
+        return dimensions;
+    }
+
+    public void setDimensions(List<DSDimension> dimensions) {
+        this.dimensions = dimensions;
+    }
     
+    public void addDimension(DSDimension dimension) {
+        getDimensions().add(dimension);
+    }
+
+    public void removeGroup(DSDimension dimension) {
+        getDimensions().remove(dimension);
+    }    
+    
+    public boolean hasDimensions() {
+	return dimensions != null && !dimensions.isEmpty();
+    }
+
+    public int getDimensionCount() {
+	return dimensions == null ? 0 : dimensions.size();
+    }
     
 }
