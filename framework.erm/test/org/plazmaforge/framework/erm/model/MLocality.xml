@@ -1,0 +1,10 @@
+<entity-mapping>
+	<entity name="MLocality" class="org.plazmaforge.framework.erm.model.MLocality" table="LOCALITY">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="name" column="NAME"/>
+			<attribute name="localityTypeId" column="LOCALITY_TYPE_ID"/>
+			<reference name="country" column="COUNTRY_ID" class="org.plazmaforge.framework.erm.model.MCountry"/>
+		</attributes>
+	</entity>
+</entity-mapping>

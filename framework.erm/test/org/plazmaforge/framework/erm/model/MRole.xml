@@ -1,0 +1,8 @@
+<entity-mapping>
+	<entity name="MRole" class="org.plazmaforge.framework.erm.model.MRole" table="SYS_ROLE">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="name" column="NAME"/>
+		</attributes>
+	</entity>
+</entity-mapping>

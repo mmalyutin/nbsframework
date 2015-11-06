@@ -1,0 +1,9 @@
+<entity-mapping>
+	<entity name="MCountry" class="org.plazmaforge.framework.erm.model.MCountry" table="COUNTRY">
+		<attributes>
+			<key name="id" column="ID" type="Integer" generator-type="increment"/>
+			<attribute name="code" column="CODE" type="String"/>
+			<attribute name="name" column="NAME" type="String"/>
+		</attributes>
+	</entity>
+</entity-mapping>

@@ -1,0 +1,11 @@
+<entity-mapping>
+	<entity name="MUser" class="org.plazmaforge.framework.erm.model.MUser" table="SYS_USER">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="userName" column="USER_NAME"/>
+			<attribute name="password" column="USER_PASSWORD"/>
+			<attribute name="registerDate" column="REG_DATE"/>
+			<collection name="roles" join-class="org.plazmaforge.framework.erm.model.MUserRole" join-attribute="user" cascade="delete"/>			
+		</attributes>
+	</entity>
+</entity-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/erm" xmlns:erm="http://plazmaforge.org/erm" elementFormDefault="qualified">
+	<include schemaLocation="entity.xsd"/>
+	<element name="entity-mapping">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="erm:entity" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="erm:joined-entity" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="erm:subclass-entity" minOccurs="0" maxOccurs="unbounded" />
+			</choice>
+		</complexType>
+	</element>
+</schema>

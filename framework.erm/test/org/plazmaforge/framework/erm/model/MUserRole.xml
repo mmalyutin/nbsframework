@@ -1,0 +1,9 @@
+<entity-mapping>
+	<entity name="MUserRole" class="org.plazmaforge.framework.erm.model.MUserRole" table="SYS_USER_ROLE">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<reference name="user" column="USER_ID" class="org.plazmaforge.framework.erm.model.MUser"/>
+			<reference name="role" column="ROLE_ID" class="org.plazmaforge.framework.erm.model.MRole"/>			
+		</attributes>
+	</entity>
+</entity-mapping>

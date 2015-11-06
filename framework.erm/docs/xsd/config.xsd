@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/erm/config" xmlns:config="http://plazmaforge.org/erm/config" elementFormDefault="qualified">
+
+	<element name="configuration">
+		<complexType>
+			<sequence>
+				<element ref="config:properties" minOccurs="0" maxOccurs="1" />
+				<element ref="config:types" minOccurs="0" maxOccurs="1" />
+				<element ref="config:validators" minOccurs="0" maxOccurs="1" />
+				<element ref="config:procedures" minOccurs="0" maxOccurs="1" />
+				<element ref="config:mapping" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+
+	
+	<element name="properties">
+		<complexType>
+			<sequence>
+				<element ref="config:property" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="types">
+		<complexType>
+			<sequence>
+				<element ref="config:type" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="validators">
+		<complexType>
+			<sequence>
+				<element ref="config:validator" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="procedures">
+		<complexType>
+			<sequence>
+				<element ref="config:procedure" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="mapping">
+		<complexType>
+			<sequence>
+				<element ref="config:path" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+
+
+	
+	<element name="property">
+		<complexType mixed="true">
+			<attribute name="name" type="string" use="required"/>
+		</complexType>
+	</element>
+	
+	<element name="type">
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="class" type="string" use="required"/>
+		</complexType>
+	</element>
+		
+	<element name="validator">
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="class" type="string" use="required"/>
+		</complexType>
+	</element>
+
+	<element name="procedure">
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="class" type="string" use="required"/>
+			<attribute name="entry-point" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="path">
+		<complexType mixed="true">
+		</complexType>
+	</element>
+
+</schema>

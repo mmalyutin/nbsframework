@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-erm" default="create-jar">
+
+	<property file="build.properties" />
+
+	<path id="plazma-classpath">
+		<fileset dir="../lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create-jar" description="Create jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/plazma-framework-erm-${version}.jar" basedir="${classes.dir}" includes="**">
+
+			<exclude name="org/plazmaforge/framework/erm/model/**" />
+			<exclude name="org/plazmaforge/framework/erm/**/*Test.class" />
+			<exclude name="org/plazmaforge/framework/erm/**/*TestCase.class" />
+
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-framework-erm" description="Clean framework erm">
+		<delete dir="${framework.erm.target.dir}"/>
+    </target>
+
+
+	<target name="create-framework-erm" description="Create framework erm" depends="clean-framework-erm">
+		
+		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${framework.erm.target.dir}" />
+		<mkdir dir="${framework.erm.target.dir}/dist" />
+		<mkdir dir="${framework.erm.target.dir}/lib" />
+		
+		<copy todir="${framework.erm.target.dir}">
+			<fileset dir="${framework.erm.dir}">
+				<include name="**" />
+				<exclude name=".settings/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.erm.target.dir}/dist">
+			<fileset dir="${dist.dir}">
+				<include name="plazma-framework-erm-${version}.jar" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.erm.target.dir}/lib">
+			<fileset dir="${lib.dir}">
+				<include name="hsqldb.jar" />
+				<include name="jdom_1_0.jar" />
+			</fileset>
+		</copy>
+		
+      	<replace file="${framework.erm.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+
+	</target>
+
+
+</project>
