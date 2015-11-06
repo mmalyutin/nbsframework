@@ -1,0 +1,7 @@
+<entity-mapping>
+	<subclass-entity name="MRectangle" class="org.plazmaforge.framework.erm.model.MRectangle" extends-class="org.plazmaforge.framework.erm.model.MFigure" discriminator-value="RECTANGLE">
+		<attributes>
+			<attribute name="rectangleAttr" column="RECTANGLE_ATTR"/>
+		</attributes>
+	</subclass-entity>
+</entity-mapping>

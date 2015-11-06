@@ -1,0 +1,9 @@
+<entity-mapping>
+	<entity name="MFigure" class="org.plazmaforge.framework.erm.model.MFigure" table="FIGURE">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<discriminator column="TYPE"/>			
+			<attribute name="name" column="NAME"/>
+		</attributes>
+	</entity>
+</entity-mapping>

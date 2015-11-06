@@ -1,0 +1,8 @@
+<entity-mapping>
+	<joined-entity name="MCity" class="org.plazmaforge.framework.erm.model.MCity" extends-class="org.plazmaforge.framework.erm.model.MLocality" table="CITY">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="phoneCode" column="PHONE_CODE"/>
+		</attributes>
+	</joined-entity>
+</entity-mapping>

@@ -1,0 +1,7 @@
+<entity-mapping>
+	<subclass-entity name="MDefPartnerPhone" class="org.plazmaforge.framework.erm.model.MDefPartnerPhone" extends-class="org.plazmaforge.framework.erm.model.MDefPhone" discriminator-value="PARTNER">
+		<attributes>
+			<attribute name="phoneString" column="PHONE_STRING"/>
+		</attributes>
+	</subclass-entity>
+</entity-mapping>

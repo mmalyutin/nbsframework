@@ -1,0 +1,9 @@
+<entity-mapping>
+	<entity name="MPartner" class="org.plazmaforge.framework.erm.model.MPartner" table="PARTNER">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="name" column="NAME"/>
+			<entry name="phone" join-attribute="contactable" class="org.plazmaforge.framework.erm.model.MDefPhone"/>
+		</attributes>
+	</entity>
+</entity-mapping>

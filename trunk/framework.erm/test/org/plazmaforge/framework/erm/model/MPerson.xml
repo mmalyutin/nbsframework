@@ -1,0 +1,9 @@
+<entity-mapping>
+	<entity name="MPerson" class="org.plazmaforge.framework.erm.model.MPerson" table="PERSON">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="code" column="CODE"/>
+			<entry name="personPart" join-attribute="person" class="org.plazmaforge.framework.erm.model.MPersonPart" cascade="all"/>
+		</attributes>
+	</entity>
+</entity-mapping>

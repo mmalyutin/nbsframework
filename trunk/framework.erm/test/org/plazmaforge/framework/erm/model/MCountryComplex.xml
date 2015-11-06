@@ -1,0 +1,13 @@
+<entity-mapping>
+	<entity name="MCountryComplex" class="org.plazmaforge.framework.erm.model.MCountryComplex" table="COUNTRY">
+		<attributes>
+			<composite-key  generator-type="increment">
+				<attribute name="id" column="ID"/>
+				<attribute name="code" column="CODE"/>
+			</composite-key>
+			<composite name="composite" class="org.plazmaforge.framework.erm.model.MComposite">
+				<attribute name="name" column="NAME"/>
+			</composite>
+		</attributes>
+	</entity>
+</entity-mapping>

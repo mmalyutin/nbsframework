@@ -1,0 +1,9 @@
+<entity-mapping>
+	<entity name="MPersonPart" class="org.plazmaforge.framework.erm.model.MPersonPart" table="PERSON_MILITARY">
+		<attributes>
+			<key name="id" column="ID" generator-type="increment"/>
+			<attribute name="record" column="SPECIAL_RECORD"/>
+			<reference name="person" column="PERSON_ID" class="org.plazmaforge.framework.erm.model.MPerson"/>
+		</attributes>
+	</entity>
+</entity-mapping>

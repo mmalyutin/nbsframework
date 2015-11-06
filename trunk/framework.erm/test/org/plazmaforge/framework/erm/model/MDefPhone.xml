@@ -1,0 +1,10 @@
+<entity-mapping>
+	<entity name="MDefPhone" class="org.plazmaforge.framework.erm.model.MDefPhone" table="V_DEF_CONTACTABLE_PHONE">
+		<attributes>
+			<key name="id" column="CONTACTABLE_ID" generator-type="increment"/>
+			<discriminator column="ENTITY_ID"/>
+			<attribute name="phoneString" column="PHONE_STRING"/>
+			<reference name="contactable" column="CONTACTABLE_ID" class="org.plazmaforge.framework.erm.model.MPartner"/>
+		</attributes>
+	</entity>
+</entity-mapping>
