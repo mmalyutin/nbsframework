@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/package-config" xmlns:package-config="http://plazmaforge.org/config/package-config" elementFormDefault="qualified">
+
+	<element name="package-config">
+		<complexType>
+			<sequence>
+				<element ref="package-config:package" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="package">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="class" type="string"/>
+			<attribute name="enabled" type="boolean"/>
+		</complexType>
+	</element>
+		
+
+</schema>

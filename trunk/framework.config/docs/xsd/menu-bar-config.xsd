@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/menu-bar-config" xmlns:menu-bar-config="http://plazmaforge.org/config/menu-bar-config" elementFormDefault="qualified">
+
+	<element name="menu-bar-config">
+		<complexType>
+			<sequence>
+				<element ref="menu-bar-config:menu-bar" minOccurs="0" maxOccurs="unbounded"/>
+				<element ref="menu-bar-config:interface" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="interface">
+		<complexType>
+			<sequence>
+				<element ref="menu-bar-config:menu-bar" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+		</complexType>
+	</element>
+
+
+	<element name="menu-bar">
+		<complexType>
+			<sequence>
+				<element ref="menu-bar-config:menu" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="type" type="string"/>
+			<attribute name="ui-type" type="string"/>
+		</complexType>
+	</element>
+		
+
+	<element name="menu">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="menu-bar-config:menu" minOccurs="0" maxOccurs="unbounded"/>
+				<element ref="menu-bar-config:menu-item" minOccurs="0" maxOccurs="unbounded"/>
+				<element ref="menu-bar-config:menu-separator" minOccurs="0" maxOccurs="unbounded"/>
+			</choice>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="text" type="string"/> <!--  NLS -->
+			<attribute name="icon" type="string"/> <!--  RESERVED -->
+			<attribute name="type" type="string"/>
+			<attribute name="global" type="boolean"/>
+		</complexType>
+	</element>
+
+	<element name="menu-item">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="text" type="string"/> <!--  NLS -->
+			<attribute name="icon" type="string"/> <!--  RESERVED -->
+			<attribute name="action" type="string"/>
+			<attribute name="command" type="string"/> <!--  RESERVED -->
+		</complexType>
+	</element>
+
+	<element name="menu-separator"/>
+
+</schema>

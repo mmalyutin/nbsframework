@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/system-config" xmlns:system-config="http://plazmaforge.org/config/system-config" elementFormDefault="qualified">
+
+	<element name="system-config">
+		<complexType>
+			<sequence>
+				<element ref="system-config:properties" minOccurs="0" maxOccurs="1" />
+				<element ref="system-config:configurers" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="provider" type="string"/>			
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+
+	
+	<element name="properties">
+		<complexType>
+			<sequence>
+				<element ref="system-config:property" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="configurers">
+		<complexType>
+			<sequence>
+				<element ref="system-config:configurer" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+
+
+	
+	<element name="property">
+		<complexType mixed="true">
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="system" type="boolean"/>
+		</complexType>
+	</element>
+	
+	<element name="configurer">
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="type" type="string"/>
+			<attribute name="class" type="string"/>
+		</complexType>
+	</element>
+		
+
+</schema>

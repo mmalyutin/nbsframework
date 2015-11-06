@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/report-config" xmlns:report-config="http://plazmaforge.org/config/report-config" elementFormDefault="qualified">
+
+	<element name="report-config">
+		<complexType>
+			<sequence>
+				<element ref="report-config:report" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="report">
+		<complexType>
+			<sequence>
+				<element ref="report-config:acceptor" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="type" type="string"/>
+			<attribute name="class" type="string"/>
+			<attribute name="path" type="string"/>
+			<attribute name="file" type="string"/> <!-- TODO -->
+			<attribute name="region" type="string"/>
+			<attribute name="country" type="string"/>
+			<attribute name="language" type="string"/>
+			<attribute name="acceptor" type="string"/>
+			<attribute name="ui-type" type="string"/>
+			<attribute name="single" type="boolean"/>
+			<attribute name="custom" type="boolean"/>
+		</complexType>
+	</element>
+
+
+	<element name="acceptor">
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+		</complexType>
+	</element>
+
+
+</schema>
