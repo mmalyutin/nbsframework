@@ -1,0 +1,14 @@
+<module>
+
+    <source path="ext">
+    	<exclude name="association/**" />
+    	<exclude name="config/**" />
+    	<exclude name="data/ClassType.java" />
+    	<exclude name="model/ImageEntryHelper.java" />
+    	<exclude name="security/support/**" />
+    	<exclude name="security/UserContextHolder" />
+    	<exclude name="service/**" />
+    	<exclude name="structure/PeriodUtils.java" />
+    </source>
+    
+</module>
