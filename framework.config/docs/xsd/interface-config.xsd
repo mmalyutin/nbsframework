@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/interface-config" xmlns:interface-config="http://plazmaforge.org/config/interface-config" elementFormDefault="qualified">
+
+	<element name="interface-config">
+		<complexType>
+			<sequence>
+				<element ref="interface-config:interface" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+	
+	<element name="interface">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="class" type="string"/>
+			<attribute name="enable" type="boolean"/>
+		</complexType>
+	</element>
+		
+
+</schema>

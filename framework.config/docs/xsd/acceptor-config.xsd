@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/acceptor-config" xmlns:acceptor-config="http://plazmaforge.org/config/acceptor-config" elementFormDefault="qualified">
+
+	<element name="acceptor-config">
+		<complexType>
+			<sequence>
+				<element ref="acceptor-config:acceptor" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+	
+	<element name="acceptor">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="class" type="string"/>
+		</complexType>
+	</element>
+		
+
+</schema>

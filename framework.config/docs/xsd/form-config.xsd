@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/form-config" xmlns:form-config="http://plazmaforge.org/config/form-config" elementFormDefault="qualified">
+
+	<element name="form-config">
+		<complexType>
+			<sequence>
+				<element ref="form-config:form" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="form">
+		<complexType>
+			<sequence>
+				<element ref="form-config:actions" minOccurs="0" maxOccurs="1"/>
+				<element ref="form-config:reports" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="type" type="string"/>
+			<attribute name="class" type="string"/>
+			<attribute name="ui-type" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="actions">
+		<complexType>
+			<sequence>
+				<element ref="form-config:action" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	
+	<element name="reports">
+		<complexType>
+			<sequence>
+				<element ref="form-config:report" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>		
+
+		
+	<element name="action">
+		<complexType>
+			<attribute name="id" type="string"/> <!--  RESERVED -->
+			<attribute name="name" type="string"/> <!--  RESERVED -->
+			<attribute name="text" type="string"/> <!--  RESERVED -->
+			<attribute name="icon" type="string"/> <!--  RESERVED -->
+			<attribute name="ref" type="string"/>
+			<attribute name="command" type="string"/> <!--  RESERVED -->
+			<attribute name="control-type" type="string"/>
+			<attribute name="control-position" type="string"/>
+			<attribute name="control-relative" type="string"/>
+		</complexType>
+	</element>
+			
+
+	<element name="report">
+		<complexType>
+			<attribute name="id" type="string"/> <!--  RESERVED -->
+			<attribute name="name" type="string"/> <!--  RESERVED -->
+			<attribute name="ref" type="string"/>
+		</complexType>
+	</element>
+
+</schema>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/action-config" xmlns:action-config="http://plazmaforge.org/config/action-config" elementFormDefault="qualified">
+
+	<element name="action-config">
+		<complexType>
+			<sequence>
+				<element ref="action-config:action" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="action">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="icon" type="string"/>
+			<attribute name="type" type="string"/>
+			<attribute name="class" type="string"/>
+			<attribute name="command" type="string"/>
+			<attribute name="ui-type" type="string"/>
+		</complexType>
+	</element>
+		
+
+</schema>

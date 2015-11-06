@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/config/association-config" xmlns:association-config="http://plazmaforge.org/config/association-config" elementFormDefault="qualified">
+
+	<element name="association-config">
+		<complexType>
+			<sequence>
+				<element ref="association-config:association" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="provider" type="string"/>
+			<attribute name="version" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+	
+	<element name="association">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/> <!--  NLS -->
+			<attribute name="description" type="string"/> <!--  NLS -->
+			<attribute name="class" type="string"/>
+		</complexType>
+	</element>
+		
+
+</schema>

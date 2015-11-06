@@ -1,0 +1,10 @@
+<module>
+
+    <source path="config">
+    	<!-- <exclude name="configurer/xml/**" /> -->
+    	<include name="ConfigUtils.java" />
+    	<include name="object/**" />
+    	<include name="configurer/ConfigurerInfo.java" />
+    </source>
+
+</module>
