@@ -1,0 +1,15 @@
+<module>
+    <source path="uwt">
+    	<exclude name="ant/**"/>
+    	<exclude name="generator/**"/>
+    	<exclude name="storage/ClassTemplateProvider.java"/>
+    	<exclude name="storage/FileTemplateProvider.java"/>
+    	<exclude name="storage/XMLInfo.java"/>
+    	<exclude name="storage/XMLReader.java"/>
+    	<exclude name="util/FormatUtils.java"/>
+    	<exclude name="util/NumberUtils.java"/>
+    	<exclude name="util/UWTUtils.java"/>
+    	<exclude name="AbstractDesktopApplication.java"/>
+    	<exclude name="DesktopApplication.java"/>
+    </source>
+</module>

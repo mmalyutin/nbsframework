@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd"/>
+	<include schemaLocation="dialog.xsd"/>
+	<include schemaLocation="wizard.xsd"/>
+	<include schemaLocation="view.xsd"/>
+	<include schemaLocation="form.xsd"/>
+	
+	<element name="ui">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="ui:composite" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:window" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:frame" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:dialog" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:wizard" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:view" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:form" minOccurs="0" maxOccurs="unbounded" />
+			</choice>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+</schema>

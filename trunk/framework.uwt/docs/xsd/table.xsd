@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd"/>
+	
+	<element name="table">
+		<complexType>
+			<complexContent>
+				<extension base="ui:AbstractCompositeType">
+					<sequence>
+						<element ref="ui:columns" minOccurs="0" maxOccurs="1" />
+						<element ref="ui:items" minOccurs="0" maxOccurs="1" />
+					</sequence>
+					<attribute name="lines-visible" type="boolean" />
+					<attribute name="header-visible" type="boolean" />
+					<attribute name="sortable" type="boolean" />
+					<attribute name="selection-index" type="integer" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	
+</schema>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd"/>
+	
+	<element name="panel" type="ui:PanelType"/>
+	
+	<element name="horizontal-panel" type="ui:PanelType" />
+	
+	<element name="vertical-panel" type="ui:PanelType" />
+	
+	<element name="group-panel">
+			<complexType>
+			<complexContent>
+				<extension base="ui:PanelType">
+					<attribute name="title" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="title-panel" type="ui:TitlePanelType"/>
+
+	<element name="collapse-panel" type="ui:TitlePanelType"/>
+
+	<element name="split-panel">
+		<complexType>
+			<complexContent>
+				<extension base="ui:PanelType">
+					<attribute name="orientation" type="string" /> <!-- TODO: Must use OrientationType -->
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	
+	<element name="tab-panel">
+		<complexType>
+			<complexContent>
+				<extension base="ui:PanelType">
+					<sequence>
+						<element ref="ui:tab-items" minOccurs="0" maxOccurs="1" />
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	<element name="tab-items">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="ui:tab-item" minOccurs="0" maxOccurs="unbounded" />
+			</choice>
+		</complexType>
+	</element>
+	
+	<element name="tab-item">
+		<complexType>
+			<complexContent>
+				<extension base="ui:CompositeType">
+					<attribute name="title" type="string"/>
+					<attribute name="icon" type="string"/>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+
+	<complexType name="TitlePanelType">
+		<complexContent>
+			<extension base="ui:PanelType">
+				<attribute name="title" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	
+</schema>

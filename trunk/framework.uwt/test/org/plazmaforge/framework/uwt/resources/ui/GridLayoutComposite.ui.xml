@@ -1,0 +1,46 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- <composite id="1234567890" name="MyComposite" x="10" y="20" width="100" height="200" visible="true" enabled="true" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip"> -->
+	<composite name="MyComposite" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip">
+		<children>
+			<label text="Login"/><text-field value="mylogin"/>
+			<label text="Password"/><password-field/>
+			<label text="Notes"/><text-area value="My Notes"/>
+			<label text="Number"/><number-field value="120.23"/>
+			<label text="Integer"/><integer-field value="123456789"/>
+			<label text="Currency"/><currency-field value="345.78"/>
+			<label text="Percent"/><percent-field value="99.99"/>
+			<label text="Quantity"/><quantity-field value="100.20"/>
+			<label text="Spinner"/><spinner-field value="10"/>
+			<label text="Slider"/><slider value="10"/>
+			<label text="Date"/><date-field value="2010-12-31"/>
+			<label text="Time"/><time-field value="10:11:12"/>
+			<label text="DateTime"/><date-time-field value="2013-11-12 09:10:33"/>
+			<label text="CheckBox"/><check-box value="true"/>
+			<label text="ComboBox"/>
+				<combo-box selection-index="0">
+					<items>
+						<item>Combo Item 1</item>
+						<item>Combo Item 2</item>
+						<item>Combo Item 3</item>
+					</items>
+				</combo-box>
+			<label text="ListBox"/>
+				<list-box selection-index="0">
+					<items>
+						<item>List Item 1</item>
+						<item>List Item 2</item>
+						<item>List Item 3</item>
+						<item>List Item 4</item>
+						<item>List Item 5</item>
+					</items>
+				</list-box>
+ 			<composite layout="GridLayout(columnCount=3)" layout-data="GridData(columnSpan=2; align=fill)">
+ 				<children>
+ 					<label layout-data="GridData(flex=true)"/>
+					<button name="okButton" text="OK" icon="images/ok.png" width="70"/>
+					<button name="cancelButton" text="Cancel" icon="images/cancel.png" width="70"/>
+				</children>			
+			</composite>
+		</children>
+	</composite>
+</ui>

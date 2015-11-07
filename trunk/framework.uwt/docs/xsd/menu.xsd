@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd"/>
+
+	<element name="menu-bar">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="ui:menu" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:menu-item" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:menu-separator" minOccurs="0" maxOccurs="unbounded" />
+			</choice>
+		</complexType>
+	</element>
+
+	<element name="menu">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ActionItem">
+					<choice minOccurs="0" maxOccurs="unbounded">
+						<element ref="ui:menu" minOccurs="0" maxOccurs="unbounded" />
+						<element ref="ui:menu-item" minOccurs="0" maxOccurs="unbounded" />
+						<element ref="ui:menu-separator" minOccurs="0" maxOccurs="unbounded" />
+					</choice>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>	
+	
+	<element name="menu-item" type="ui:ActionItem"/>
+	
+	<element name="menu-separator"/>
+	
+</schema>

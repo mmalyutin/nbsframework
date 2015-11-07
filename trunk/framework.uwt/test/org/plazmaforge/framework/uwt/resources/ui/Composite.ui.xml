@@ -1,0 +1,10 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<composite id="1234567890" name="MyComposite" x="10" y="20" width="100" height="200" visible="true" enabled="true" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip">
+		<children>
+			<label text="Label1"></label>
+			<button name="cancelButton" text="Cancel" icon="images/cancel.png"></button>
+			<label text="Label2"></label>
+			<button name="okButton" text="OK" icon="images/ok.png"></button>
+		</children>
+	</composite>
+</ui>

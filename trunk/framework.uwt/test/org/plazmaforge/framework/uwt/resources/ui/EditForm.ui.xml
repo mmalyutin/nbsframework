@@ -1,0 +1,15 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<form name="MyEditForm" type="EditForm" title="My Edit Form-0">
+		<tool-bar>
+			<tool-item icon="form/setup.png"/>
+		</tool-bar>	
+		<content layout="GridLayout(columnCount=2)">
+			<children>
+				<label text="First Name"/>
+				<text-field value="Alex"/>
+				<label text="Last Name"/>
+				<text-field value="Bird"/>
+			</children>
+		</content>
+	</form>
+</ui>

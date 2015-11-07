@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd" />
+	
+	<element name="dialog">
+		<complexType>
+			<complexContent>
+				<extension base="ui:WindowType">
+					<choice minOccurs="0" maxOccurs="unbounded">
+						<element ref="ui:content" minOccurs="0" maxOccurs="1" />
+						<!-- <element ref="ui:button-bar" minOccurs="0" maxOccurs="1" /> -->
+					</choice>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+</schema>
+
+

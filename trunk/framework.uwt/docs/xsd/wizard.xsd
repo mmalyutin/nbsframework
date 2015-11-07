@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd"/>
+
+	<element name="wizard">
+		<complexType>
+			<complexContent>
+				<extension base="ui:CompositeType">
+					<attribute name="title" type="string" /> <!-- TODO -->
+					<attribute name="icon" type="string" /> <!-- TODO -->
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+</schema>
