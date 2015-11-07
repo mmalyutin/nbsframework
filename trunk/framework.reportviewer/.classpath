@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.swt"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.report"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.swing"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
