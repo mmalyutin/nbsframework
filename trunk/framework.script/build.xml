@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="plazma-framework-script" default="run">
+
+  <path id="classpath">
+    <pathelement location="classes/" />
+    <pathelement location="src/" />
+    <fileset dir="../lib/antlr">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <target name="clean" description="Removes all binaries.">
+      <!-- 
+      <delete dir="classes/" />
+      <mkdir dir="classes/" />
+      -->
+  </target>
+
+  <target name="compile" depends="clean" description="Compiles all source files.">
+    <javac srcdir="src/" destdir="classes/" includeantruntime="false">
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="generate" depends="clean" description="Generates the lexer and parser.">
+    <echo>Generating the lexer and parser...</echo>
+    <java classname="org.antlr.Tool" fork="true" failonerror="true">
+      <arg value="-fo" />
+      <arg value="gen/plazma/parser/" />
+      <arg value="grammar/PlazmaScript.g" />
+      <classpath refid="classpath" />
+    </java>
+    <echo>Generating the tree walker...</echo>
+    <java classname="org.antlr.Tool" fork="true" failonerror="true">
+      <arg value="-fo" />
+      <arg value="gen/plazma/parser/" />
+      <arg value="grammar/PlazmaScriptWalker.g" />
+      <classpath refid="classpath" />
+    </java>
+    <antcall target="compile" />
+  </target>
+
+  <target name="run" depends="generate" description="Executes the main class.">
+    <echo>Running the main class...</echo>
+    <java classname="plazma.Main">
+      <classpath refid="classpath" />
+    </java>
+  </target>
+
+  <target name="run-test" description="Executes the main class.">
+    <echo>Running the main class...</echo>
+    <java classname="plazma.Main">
+      <classpath refid="classpath" />
+    </java>
+  </target>
+  
+</project>
