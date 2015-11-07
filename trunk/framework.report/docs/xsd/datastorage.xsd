@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/report" xmlns:report="http://plazmaforge.org/report" elementFormDefault="qualified">
+
+	<include schemaLocation="report.xsd"/>
+
+	<element name="data-connectors">
+		<complexType>
+			<sequence>
+				<element ref="report:data-connector" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="data-connector">
+		<complexType>
+			<sequence>
+				<element ref="report:properties" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="ref" type="string"/>
+			<attribute name="type" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="data-sources">
+		<complexType>
+			<sequence>
+				<element ref="report:data-source" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="data-source">
+		<complexType>
+			<sequence>
+				<element ref="report:properties" minOccurs="0" maxOccurs="1" />
+				<element ref="report:parameters" minOccurs="0" maxOccurs="1" />
+				<element ref="report:fields" minOccurs="0" maxOccurs="1" />
+				<element ref="report:variables" minOccurs="0" maxOccurs="1" />
+				<element ref="report:query" minOccurs="0" maxOccurs="1" />
+				<element ref="report:dimensions" minOccurs="0" maxOccurs="1" />				
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="ref" type="string"/>
+			<attribute name="type" type="string"/>
+			<attribute name="parent-id" type="string"/> 		<!-- ID of parent DataSource -->
+			<attribute name="parent" type="string"/> 			<!-- Name of parent DataSource -->
+			<attribute name="data-connector-id" type="string"/> <!-- ID of DataConnector -->
+			<attribute name="data-connector" type="string"/> 	<!-- Name of DataConnector -->
+		</complexType>
+	</element>
+
+
+	<element name="dimensions">
+		<complexType>
+			<sequence>
+				<element ref="report:dimension" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="dimension">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+	
+	
+	<element name="query"> 
+		<complexType mixed="true">
+			<attribute name="language" type="string"/>
+		</complexType>
+	</element>
+	
+</schema>

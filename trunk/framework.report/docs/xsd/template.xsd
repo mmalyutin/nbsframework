@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/report" xmlns:report="http://plazmaforge.org/report" elementFormDefault="qualified">
+
+	<include schemaLocation="report.xsd"/>
+
+	<element name="templates">
+		<complexType>
+			<sequence>
+				<element ref="report:template" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="template">
+		<complexType>
+			<sequence>
+				<element ref="report:page-setup" minOccurs="0" maxOccurs="1" />
+				<element ref="report:columns" minOccurs="0" maxOccurs="1" />
+				<element ref="report:report-groups" minOccurs="0" maxOccurs="1" />
+				<element ref="report:bands" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="type" type="string"/> <!--  TableTemplate -->
+			<attribute name="paging" type="boolean"/>			
+		</complexType>
+	</element>
+
+
+	<element name="bands">
+		<complexType>
+			<sequence>
+				<element ref="report:band" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="band">
+		<complexType>
+			<complexContent>
+				<extension base="report:BandType" />
+			</complexContent>
+		</complexType>
+	</element>
+	
+	
+	<element name="report-groups">
+		<complexType>
+			<sequence>
+				<element ref="report:report-group" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="report-group">
+		<complexType>
+			<sequence>
+				<element ref="report:expression" minOccurs="0" maxOccurs="1" />
+				<element ref="report:bands" minOccurs="0" maxOccurs="1" />
+			</sequence>		
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="size">
+		<complexType>
+			<attribute name="width" type="string"/>
+			<attribute name="height" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="margin">
+		<complexType>
+			<attribute name="top" type="string"/>
+			<attribute name="left" type="string"/>			
+			<attribute name="right" type="string"/>
+			<attribute name="bottom" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="padding">
+		<complexType>
+			<attribute name="top" type="string"/>
+			<attribute name="left" type="string"/>			
+			<attribute name="right" type="string"/>
+			<attribute name="bottom" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="page-setup">
+		<complexType>
+			<sequence>
+				<element ref="report:size" minOccurs="0" maxOccurs="1" />
+				<element ref="report:margin" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="format" type="string"/>
+			<attribute name="orientation" type="string"/> <!-- Page Layout: Portrait, Landscape -->
+		</complexType>
+	</element>
+	
+	<element name="report-elements">
+		<complexType>
+			<sequence>
+				<element ref="report:report-element" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="report-element">
+		<complexType>
+			<sequence>
+				<element ref="report:properties" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="type" type="string"/>
+			<attribute name="x" type="string"/>
+			<attribute name="y" type="string"/>
+			<attribute name="width" type="string"/>
+			<attribute name="height" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="columns">
+		<complexType>
+			<sequence>
+				<element ref="report:column" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="column">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="text" type="string"/>
+			<attribute name="width" type="string"/>			
+		</complexType>
+	</element>
+	
+	<element name="rows">
+		<complexType>
+			<sequence>
+				<element ref="report:row" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="row">
+		<complexType>
+			<sequence>
+				<element ref="report:cells" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="text" type="string"/>
+			<attribute name="height" type="string"/>			
+		</complexType>
+	</element>
+
+	<element name="cells">
+		<complexType>
+			<sequence>
+				<element ref="report:cell" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+
+	<element name="cell">
+		<complexType>
+			<sequence>
+				<choice minOccurs="0" maxOccurs="unbounded">
+					<element ref="report:value" minOccurs="0" maxOccurs="1" />
+					<element ref="report:expression" minOccurs="0" maxOccurs="1" />
+				</choice>
+				<element ref="report:report-elements" minOccurs="0"	maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="id" type="string" />
+			<attribute name="colspan" type="string" />
+			<attribute name="rowspan" type="string" />
+			<attribute name="data-type" type="string" />
+			<attribute name="format" type="string" />
+		</complexType>
+	</element>
+
+
+	<element name="grid">
+		<complexType>
+			<sequence>
+				<element ref="report:columns" minOccurs="0" maxOccurs="1" />
+				<element ref="report:rows" minOccurs="0" maxOccurs="1" />
+			</sequence>		
+			<attribute name="id" type="string"/>
+			<attribute name="width" type="string"/>
+			<attribute name="height" type="string"/>			
+		</complexType>
+	</element>
+
+
+	<complexType name="BandType">
+		<choice minOccurs="0" maxOccurs="unbounded">
+			<element ref="report:rows" minOccurs="0" maxOccurs="1" />
+			<element ref="report:report-elements" minOccurs="0" maxOccurs="unbounded" />
+		</choice>
+		<attribute name="id" type="string" />
+		<attribute name="name" type="string" />
+		<attribute name="type" type="string" />
+		<attribute name="height" type="string" />
+	</complexType>
+
+	
+</schema>

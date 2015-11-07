@@ -1,0 +1,61 @@
+<report name="Report1" caption="Report 1">
+	<data-sources>
+		<data-source>
+			<fields>
+				<field name="PRODUCT_ID" data-type="Integer"/>
+				<field name="PRODUCT_NAME" data-type="String"/>
+				<field name="GROUP_NAME" data-type="String"/>
+				<field name="PRICE" data-type="Float"/>
+			</fields>
+			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT</query>
+		</data-source>
+	</data-sources>
+	<report-group>
+		<report-group name="PRODUCT_GROUP">
+			<expression>$F{GROUP_NAME}</expression>
+		</report-group>
+	</report-group>
+	<templates>
+		<template type="Table">
+			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24"/>
+			<columns>
+				<column width="150" />
+				<column width="250" />
+				<column width="100" />
+			</columns>
+			<bands>
+				<band type="ReportHeader">
+					<rows>
+						<row height="15">
+							<cells>
+								<cell colspan="3"><value>My Report</value></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="ColumnHeader">
+					<rows>
+						<row height="30">
+							<cells>
+								<cell><value>Product ID</value></cell>
+								<cell><value>Product Name</value></cell>
+								<cell><value>Price</value></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="Detail">
+					<rows>
+						<row height="20">
+							<cells>
+								<cell><expression>$F{PRODUCT_ID}</expression></cell>
+								<cell><expression>$F{PRODUCT_NAME}</expression></cell>
+								<cell format="#.00"><expression>$F{PRICE}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+			</bands>
+		</template>
+	</templates>
+</report>
