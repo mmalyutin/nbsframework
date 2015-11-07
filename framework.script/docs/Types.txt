@@ -1,0 +1,36 @@
+
+Types:
+==========================================================================================================
+
+byte		Byte		8		0..255
+
+sbyte*		SByte		8		-128..127
+
+short		Short		16		-32 768..32 767	
+
+ushort*		UShort		16		0..65 535
+
+integer		Integer		32		-2 147 483 648..2 147 483 647
+
+uinteger*	UInteger	32		0..4 294 967 295
+
+long		Long		64		-922 337 203 685 477 508..922 337 203 685 477 507
+
+ulong**		ULong		64		0..18 446 744 073 709 551 615
+
+
+float		Float		32		3.4å-038..3.4å+038
+
+double 		Double		64		1.7å-308..1.7å+308
+
+decimal		Decimal		64?
+
+currency	Currency	64?
+
+
+char		Char		16		Unicode chars (0..65 535)
+
+			String
+			
+			
+boolean		Boolean		8		true|false			
