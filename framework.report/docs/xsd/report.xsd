@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/report" xmlns:report="http://plazmaforge.org/report" elementFormDefault="qualified">
+
+	<include schemaLocation="datastorage.xsd"/>
+	<include schemaLocation="template.xsd"/>
+	
+	<element name="report">
+		<complexType>
+			<sequence>
+				<element ref="report:properties" minOccurs="0" maxOccurs="1" />
+				<element ref="report:parameters" minOccurs="0" maxOccurs="1" />
+				<element ref="report:variables" minOccurs="0" maxOccurs="1" />
+				<element ref="report:data-connectors" minOccurs="0" maxOccurs="1" />				
+				<element ref="report:data-sources" minOccurs="0" maxOccurs="1" />
+				<element ref="report:styles" minOccurs="0" maxOccurs="1" />				
+				<element ref="report:templates" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="type" type="string"/> <!--  TableReport, CrosstabReport -->
+			<attribute name="language" type="string"/> <!--  Expression/Script language -->
+			<attribute name="data-connector" type="string"/>			
+			<attribute name="data-source" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="properties">
+		<complexType>
+			<sequence>
+				<element ref="report:property" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="property">
+		<complexType  mixed="true">
+			<attribute name="name" type="string"  use="required"/>
+		</complexType>
+	</element>
+
+	<element name="x-property">
+		<complexType  mixed="true">
+			<choice>
+				<element ref="report:property-ref" minOccurs="0" maxOccurs="1" />
+				<element ref="report:property-composite" minOccurs="0" maxOccurs="1" />
+				<element ref="report:property-collection" minOccurs="0" maxOccurs="1" />
+			</choice>
+			<attribute name="name" type="string"  use="required"/>
+		</complexType>
+	</element>
+
+	<element name="property-ref">
+		<complexType>
+			<attribute name="name" type="string"  use="required"/>
+		</complexType>
+	</element>
+
+	<element name="property-composite">
+		<complexType>
+			<sequence>
+				<element ref="report:property" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="property-collection">
+		<complexType>
+			<sequence>
+				<element ref="report:property-item" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="property-item">
+		<complexType mixed="true">
+			<choice>
+				<element ref="report:property-ref" minOccurs="0" maxOccurs="1" />
+				<element ref="report:property-composite" minOccurs="0" maxOccurs="1" />
+				<element ref="report:property-collection" minOccurs="0" maxOccurs="1" />
+			</choice>
+			<attribute name="key" type="string"/> <!-- List: index, Map: key -->
+		</complexType>
+	</element>
+
+	<element name="parameters">
+		<complexType>
+			<sequence>
+				<element ref="report:parameter" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="parameter">
+		<complexType>
+			<sequence>
+				<element ref="report:default-value" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="data-type" type="string"/>
+		</complexType>
+	</element>
+	
+	
+	<element name="variables">
+		<complexType>
+			<sequence>
+				<element ref="report:variable" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="variable">
+		<complexType>
+			<sequence>
+				<element ref="report:expression" minOccurs="0" maxOccurs="1" />
+				<element ref="report:init-value" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="data-type" type="string"/>
+			<attribute name="reset-type" type="string"/>
+			<attribute name="reset-value" type="string"/>
+			<attribute name="aggregation" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="fields">
+		<complexType>
+			<sequence>
+				<element ref="report:field" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="field">
+		<complexType>
+			<sequence>
+				<element ref="report:expression" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			<attribute name="data-type" type="string"/>
+		</complexType>
+	</element>	
+		
+		
+	<element name="styles">
+		<complexType>
+			<sequence>
+				<element ref="report:style" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="style">
+		<complexType>
+			<sequence>
+				<element ref="report:properties" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+		</complexType>
+	</element>		
+	
+	<element name="script">
+		<complexType mixed="true">
+			<attribute name="language" type="string"/>
+		</complexType>
+	</element>		
+	
+	<element name="text">
+		<complexType mixed="true"/>
+	</element>
+		
+	<element name="value">
+		<complexType mixed="true"/>
+	</element>
+
+	<element name="default-value">
+		<complexType mixed="true"/>
+	</element>
+
+	<element name="init-value">
+		<complexType mixed="true"/>
+	</element>
+	
+	<element name="expression">
+		<complexType mixed="true">
+			<attribute name="id" type="string"/>
+			<attribute name="data-type" type="string"/>		
+		</complexType>
+	</element>
+	
+	
+</schema>
