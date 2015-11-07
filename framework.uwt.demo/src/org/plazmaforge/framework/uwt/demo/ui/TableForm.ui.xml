@@ -1,0 +1,20 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<form type="ListForm" title="My Table Form">
+		<content layout="FitLayout">
+			<children>
+				<table>
+					<columns>
+						<column text="First Name"/>
+						<column text="Last Name"/>
+						<column text="Phone"/>
+					</columns>
+					<items>
+						<item><value>First Name 1</value><value>Last Name 1</value><value>12345-1</value></item>
+						<item><value>First Name 2</value><value>Last Name 2</value><value>12345-2</value></item>
+						<item><value>First Name 3</value><value>Last Name 3</value><value>12345-3</value></item>
+					</items>					
+				</table>
+			</children>
+		</content>
+	</form>
+</ui>

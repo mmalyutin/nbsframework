@@ -1,0 +1,15 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<form type="EditForm" title="@{DemoWindow.title}" resource="org.plazmaforge.framework.uwt.demo.messages">
+		<tool-bar>
+			<tool-item icon="form/setup.png" tooltip="Refresh"/>
+		</tool-bar>
+		<content layout="GridLayout(columnCount=2)">
+			<children>
+				<label text="First Name"/>
+				<text-field value="Alex"/>
+				<label text="Last Name"/>
+				<text-field value="Bird"/>
+			</children>
+		</content>
+	</form>
+</ui>
