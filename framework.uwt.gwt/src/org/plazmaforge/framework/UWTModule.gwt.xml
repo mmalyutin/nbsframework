@@ -1,0 +1,21 @@
+<module>
+
+    <inherits name='com.google.gwt.user.User'/>
+    <source path="uwt"/>
+    
+    <source path="uwt">
+    	<exclude name="gxt/core/XBeanModelGenerator.java"/>
+    	<exclude name="gxt/core/XEntityCreatorGenerator.java"/>
+    	<exclude name="gxt/core/XFormCreatorGenerator.java"/>
+    </source>    
+
+
+	
+	<!-- DISABLE: Use XBeanModelGenerator in your GWT Application -->
+	<!-- 
+	<generate-with	class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelGenerator">
+		<when-type-assignable class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelLookup" />
+	</generate-with>
+	 -->
+    
+</module>
