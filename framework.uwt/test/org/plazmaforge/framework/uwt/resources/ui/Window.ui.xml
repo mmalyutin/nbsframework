@@ -1,0 +1,54 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<window name="MyWindow" title="My Window" pack="true" layout="GridLayout(columnCount=2)">
+			<imports>
+				<import path="org.plazmaforge.framework.uwt.widget.MessageBox"/>
+			</imports>
+			<children>
+				<label text="First Name">
+					<events>
+						<event type="MouseClick">
+							<script language="Java">
+								MessageBox.information("Label: Click");
+							</script>
+						</event>
+						<event type="KeyDown">
+							<script language="Java">
+								MessageBox.information("Label: KeyDown");
+							</script>
+						</event>
+						<event type="KeyUp">
+							<script language="Java">
+								MessageBox.information("Label: KeyUp");
+							</script>
+						</event>
+						<event type="FocusIn">
+							<script language="Java">
+								MessageBox.information("Label: FocusIn");
+							</script>
+						</event>
+					</events>
+				</label>
+				<text-field value="Alex"/>
+				<label text="Last Name"/>
+				<text-field value="Bird"/>
+				<radio-group layout-data="GridData(columnSpan=2)">
+					<radio-buttons>
+						<radio-button text="Radio 1"></radio-button>
+ 						<radio-button text="Radio 2"></radio-button>
+						<radio-button text="Radio 3"></radio-button>
+						<radio-button text="Radio 4"></radio-button>
+					</radio-buttons>
+				</radio-group>
+				<image-box image="widget/refresh.gif"/>
+				<button text="Script Button">
+					<events>
+						<event type="Selection">
+							<script language="Java">
+								MessageBox.information("Select button");
+							</script>
+						</event>
+					</events>
+				</button>
+			</children>
+	</window>
+</ui>

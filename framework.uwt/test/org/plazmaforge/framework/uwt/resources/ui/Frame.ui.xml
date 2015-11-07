@@ -1,0 +1,25 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<frame name="MyFrame" title="My Frame" pack="true" layout="GridLayout(columnCount=2)">
+ 		<menu-bar>
+			<menu text="File">
+				<menu-item text="New"/>
+				<menu-item text="Open File..."/>
+				<menu-separator/>
+				<menu-item text="Close"/>
+				<menu-item text="Close All"/>
+				<menu-separator/>
+				<menu-item text="Save"/>
+				<menu-item text="Save As..."/>
+				<menu-item text="Save All"/>
+				<menu-separator/>
+				<menu-item text="Exit"/>
+			</menu>
+		</menu-bar>
+ 		<children>
+			<label text="First Name" />
+			<text-field value="Alex" />
+			<label text="Last Name" />
+			<text-field value="Bird" />
+		</children>
+	</frame>
+</ui>

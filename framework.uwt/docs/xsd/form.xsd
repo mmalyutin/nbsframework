@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="widget.xsd"/>
+	<include schemaLocation="view.xsd"/>
+	
+	<element name="form" type="ui:FormType"/>
+	
+	<complexType name="FormType">
+		<complexContent>
+			<extension base="ui:ViewType"/>
+		</complexContent>
+	</complexType>
+</schema>

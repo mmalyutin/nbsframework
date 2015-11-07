@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/ui" xmlns:ui="http://plazmaforge.org/ui" elementFormDefault="qualified">
+
+	<include schemaLocation="panel.xsd"/>
+	<include schemaLocation="table.xsd"/>
+	<include schemaLocation="tree.xsd"/>
+	<include schemaLocation="menu.xsd"/>
+	<include schemaLocation="tool.xsd"/>
+
+	<element name="widget" type="ui:WidgetType"/>
+
+	<element name="control" type="ui:ControlType"/>
+
+	<element name="composite" type="ui:CompositeType"/>
+
+	<element name="content" type="ui:CompositeType"/>
+	
+	<element name="children">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="ui:control" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:composite" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:label" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:separator" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:button" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:toggle-button" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:link" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:image-box" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:text-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:text-area" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:password-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:number-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:integer-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:currency-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:percent-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:quantity-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:spinner-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:slider" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:date-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:time-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:date-time-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:check-box" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:radio-group" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:combo-box" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:list-box" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:lookup-field" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:table" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:tree" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:horizontal-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:vertical-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:group-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:title-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:collapse-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:split-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:tab-panel" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:tool-bar" minOccurs="0" maxOccurs="unbounded" />
+			</choice>
+		</complexType>
+	</element>
+	
+	<element name="window" type="ui:WindowType"/>
+
+	<element name="frame">
+		<complexType>
+			<complexContent>
+				<extension base="ui:AbstractWindowType">
+					<sequence>
+						<element ref="ui:imports" minOccurs="0" maxOccurs="1" />
+						<element ref="ui:menu-bar" minOccurs="0" maxOccurs="1" />
+						<element ref="ui:children" minOccurs="0" maxOccurs="1" />
+					</sequence>
+					<attribute name="layout" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="columns">
+		<complexType>
+			<sequence>
+				<element ref="ui:column" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="column">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="text" type="string"/>
+			<attribute name="property" type="string"/>
+			<attribute name="data-type" type="string"/>
+			<attribute name="width" type="integer"/>
+			<attribute name="visible" type="boolean"/>
+		</complexType>
+	</element>
+
+	<element name="items">
+		<complexType>
+			<sequence>
+				<element ref="ui:item" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="item">
+		<complexType  mixed="true">
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element ref="ui:items" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:value" minOccurs="0" maxOccurs="unbounded" />
+			</choice>
+			<attribute name="id" type="string"/>
+			<attribute name="value" type="string"/> <!-- TODO -->
+		</complexType>
+	</element>
+
+	<element name="value">
+		<complexType  mixed="true">
+			<attribute name="text" type="string"/> <!-- TODO -->
+			<attribute name="image" type="string"/> <!-- TODO -->
+		</complexType>
+	</element>
+
+
+	<element name="label">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ControlType">
+					<attribute name="text" type="string" />
+					<attribute name="icon" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="separator">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ControlType">
+					<attribute name="orientation" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	<element name="button">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ControlType">
+					<attribute name="text" type="string" />
+					<attribute name="icon" type="string" />
+					<attribute name="command" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="toggle-button">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ControlType">
+					<attribute name="text" type="string" />
+					<attribute name="icon" type="string" />
+					<attribute name="command" type="string" />
+					<attribute name="selected" type="boolean" />
+					<attribute name="group" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="link">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ControlType">
+					<attribute name="text" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+
+
+	<element name="image-box">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ControlType">
+					<attribute name="image" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	
+	<element name="text-field" type="ui:TextFieldType"/>
+	
+	<element name="text-area" type="ui:TextFieldType"/>
+	
+	<element name="password-field" type="ui:TextFieldType"/>
+	
+	<element name="number-field" type="ui:NumberFieldType"/>
+	
+	<element name="integer-field" type="ui:NumberFieldType"/>
+
+	<element name="currency-field" type="ui:NumberFieldType"/>
+	
+	<element name="percent-field" type="ui:NumberFieldType"/>
+	
+	<element name="quantity-field" type="ui:NumberFieldType"/>
+	
+	<element name="spinner-field" type="ui:NumberFieldType"/>
+	
+	<element name="slider" type="ui:NumberFieldType"/>
+	
+	<element name="date-field" type="ui:FormatFieldType"/>
+	
+	<element name="time-field" type="ui:FormatFieldType"/>
+	
+	<element name="date-time-field" type="ui:FormatFieldType"/>
+	
+	<element name="check-box">
+		<complexType>
+			<complexContent>
+				<extension base="ui:FieldType">
+					<attribute name="text" type="string" />
+					<attribute name="selected" type="boolean" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+
+	<element name="radio-group">
+		<complexType>
+			<complexContent>
+				<extension base="ui:AbstractCompositeType">
+					<sequence>
+						<element ref="ui:radio-buttons" minOccurs="0" maxOccurs="1" />
+					</sequence>
+					<attribute name="value" type="string" />
+					<attribute name="property" type="string" />
+					<attribute name="data-type" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="radio-buttons">
+		<complexType>
+			<sequence>
+				<element ref="ui:radio-button" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="radio-button">
+		<complexType>
+			<complexContent>
+				<extension base="ui:FieldType">
+					<attribute name="text" type="string" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	<element name="combo-box">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ViewerFieldType">
+					<attribute name="selection-index" type="integer" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	<element name="list-box">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ViewerFieldType">
+					<attribute name="selection-index" type="integer" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>	
+	
+	<element name="lookup-field">
+		<complexType>
+			<complexContent>
+				<extension base="ui:ViewerFieldType">
+					<attribute name="selection-index" type="integer" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>	
+
+	<element name="imports">
+		<complexType>
+			<sequence>
+				<element ref="ui:import" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="import">
+		<complexType>
+			<attribute name="static" type="boolean"/>
+			<attribute name="path" type="string" use="required"/>		
+		</complexType>
+	</element>
+	
+	<element name="events">
+		<complexType>
+			<sequence>
+				<element ref="ui:event" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="event">
+		<complexType>
+			<sequence>
+				<element ref="ui:script" minOccurs="0" maxOccurs="1" />
+			</sequence>		
+			<attribute name="name" type="string"/>		
+			<attribute name="type" type="string" use="required"/>
+			<attribute name="handler" type="string"/>
+		</complexType>
+	</element>
+	
+		
+	<element name="script">
+		<complexType mixed="true">
+			<attribute name="language" type="string"/>
+		</complexType>
+	</element>
+
+	
+	
+	
+	
+	<!-- DEFINITION TYPES -->
+
+	<complexType name="WidgetType">
+		<sequence>
+			<element ref="ui:events" minOccurs="0" maxOccurs="1" />
+		</sequence>
+		<attribute name="id" type="string" />
+		<attribute name="name" type="string" />
+		<attribute name="type" type="string" />
+		<attribute name="locale" type="string" />
+		<attribute name="resource" type="string" />
+	</complexType>
+
+	<complexType name="ControlType">
+		<complexContent>
+			<extension base="ui:WidgetType">
+				<attribute name="background" type="string" />
+				<attribute name="foreground" type="string" />
+				<attribute name="font" type="string" />
+				<attribute name="x" type="integer" />
+				<attribute name="y" type="integer" />
+				<attribute name="width" type="integer" />
+				<attribute name="height" type="integer" />
+				<attribute name="visible" type="boolean" />
+				<attribute name="enabled" type="boolean" />
+				<attribute name="tooltip" type="string" />
+				<attribute name="layout-data" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="AbstractCompositeType">
+		<complexContent>
+			<extension base="ui:ControlType"/>
+		</complexContent>
+	</complexType>
+
+	<complexType name="CompositeType">
+		<complexContent>
+			<extension base="ui:AbstractCompositeType">
+				<sequence>
+					<element ref="ui:imports" minOccurs="0" maxOccurs="1" />
+					<element ref="ui:children" minOccurs="0" maxOccurs="1" />
+				</sequence>
+				<attribute name="layout" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="PanelType">
+		<complexContent>
+			<extension base="ui:CompositeType"/>
+		</complexContent>
+	</complexType>
+
+	<complexType name="AbstractWindowType">
+		<complexContent>
+			<extension base="ui:AbstractCompositeType">
+				<attribute name="title" type="string" />
+				<attribute name="icon" type="string" /> <!-- TODO -->
+				<attribute name="modal" type="boolean" />
+				<attribute name="pack" type="boolean" />
+				<attribute name="center" type="boolean" />
+				<attribute name="resizable" type="boolean" />
+				<attribute name="closable" type="boolean" />
+				<attribute name="minimizable" type="boolean" />
+				<attribute name="maximizable" type="boolean" />
+				<attribute name="undecorated" type="boolean" />
+				<attribute name="dispose-when-close" type="boolean" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="WindowType">
+		<complexContent>
+			<extension base="ui:AbstractWindowType">
+				<sequence>
+					<element ref="ui:imports" minOccurs="0" maxOccurs="1" />
+					<element ref="ui:children" minOccurs="0" maxOccurs="1" />
+				</sequence>
+				<attribute name="layout" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="PresenterType"> <!--  TODO: Must change name -->
+		<complexContent>
+			<extension base="ui:CompositeType">
+				<sequence>
+						<element ref="ui:menu-bar" minOccurs="0" maxOccurs="1" />
+						<element ref="ui:tool-bar" minOccurs="0" maxOccurs="1" />
+						<element ref="ui:content" minOccurs="0" maxOccurs="1" />
+				</sequence>
+				<attribute name="title" type="string" /> <!-- TODO -->
+				<attribute name="icon" type="string" /> <!-- TODO -->
+			</extension>
+		</complexContent>
+	</complexType>
+	
+
+	
+	<complexType name="FieldType">
+		<complexContent>
+			<extension base="ui:ControlType">
+				<attribute name="value" type="string" />
+				<attribute name="property" type="string" />
+				<attribute name="data-type" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="TextFieldType">
+		<complexContent>
+			<extension base="ui:FieldType">
+				<attribute name="text" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="NumberFieldType">
+		<complexContent>
+			<extension base="ui:FormatFieldType"/>
+		</complexContent>
+	</complexType>
+
+	<complexType name="FormatFieldType">
+		<complexContent>
+			<extension base="ui:FieldType">
+				<attribute name="format" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ViewerFieldType">
+		<complexContent>
+			<extension base="ui:FieldType">
+					<sequence>
+						<element ref="ui:items" minOccurs="0" maxOccurs="1" />
+					</sequence>			
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ActionItem">
+		<sequence>
+			<element ref="ui:events" minOccurs="0" maxOccurs="1" />
+		</sequence>
+		<attribute name="text" type="string" />
+		<attribute name="icon" type="string" />
+		<attribute name="tooltip" type="string" />
+		<attribute name="enabled" type="boolean" />
+		<attribute name="command" type="string" />
+	</complexType>
+	
+</schema>

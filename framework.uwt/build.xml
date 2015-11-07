@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+ 
+<project name="plazma-framework-uwt" default="create-jar">
+
+	<property file="build.properties"/>
+	
+    <target name="create-jar" description="Create UWT jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.jar}" basedir="${classes.dir}" includes="**">
+        </jar>
+    </target>
+
+	<target name="create-jar-all" description="Create All UWT jar files" depends="create-jar, create-jar-client, create-jar-source, create-jar-client-source"/>
+	
+    <target name="create-jar-client" description="Create UWT Client jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.client.jar}" basedir="${classes.dir}" includes="**">
+        	<exclude name="org/plazmaforge/framework/uwt/util/FormatUtils.class"/>
+        	<exclude name="org/plazmaforge/framework/uwt/util/NumberUtils.class"/>
+        	<exclude name="org/plazmaforge/framework/uwt/util/UWTUtils.class"/>
+        	<exclude name="org/plazmaforge/framework/uwt/data/Accessor.class"/>
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+        </jar>
+    </target>
+
+    <target name="create-jar-source" description="Create UWT jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.source.jar}" basedir="${src.dir}" includes="**">
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+        </jar>
+    </target>
+
+    <target name="create-jar-client-source" description="Create UWT Client source jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.client.source.jar}" basedir="${src.dir}" includes="**">
+        	<exclude name="org/plazmaforge/framework/uwt/util/FormatUtils.java"/>
+        	<exclude name="org/plazmaforge/framework/uwt/util/NumberUtils.java"/>
+        	<exclude name="org/plazmaforge/framework/uwt/util/UWTUtils.java"/>
+        	<exclude name="org/plazmaforge/framework/uwt/data/Accessor.java"/>
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+        </jar>
+    </target>
+	
+    <target name="create-jar-task" description="Create Ant task jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module}-ant-${version}.jar" basedir="${classes.dir}" includes="**">
+        	<!--<include name="org/plazmaforge/framework/uwt/ant/**"/>-->
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+        </jar>
+    </target>
+
+	<!--
+    <target name="generate-ui" description="Generate UI" depends="create-jar-task">
+    	<taskdef name="uigenerator" classname="org.plazmaforge.framework.uwt.ant.UIGeneratorTask" classpath="${dist.dir}/plazma-framework-uwt-1.0.3.jar;${dist.dir}/plazma-framework-core-1.0.3.jar;${lib.dir}/jdom_1_0.jar"/>
+    	<uigenerator srcdir="${test.dir}" gendir="${test.gen.dir}" basepackage="org.plazmaforge.framework.uwt.demo" usefilepackage="false" filesuffix="$Gen"/>
+    </target>
+    -->
+	
+
+</project>
