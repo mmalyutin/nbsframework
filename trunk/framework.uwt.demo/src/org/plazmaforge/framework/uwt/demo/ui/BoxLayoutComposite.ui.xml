@@ -1,0 +1,10 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<composite layout="BoxLayout(orientation=vertical)">
+		<children>
+			<label text="Label1"></label>
+			<button text="Button1"></button>
+			<label text="Label2"></label>
+			<button text="Button2"></button>
+		</children>
+	</composite>
+</ui>

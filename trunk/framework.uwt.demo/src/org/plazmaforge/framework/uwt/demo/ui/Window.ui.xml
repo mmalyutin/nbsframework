@@ -1,0 +1,17 @@
+<ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<window title="@{DemoWindow.title}" pack="true" layout="GridLayout(columnCount=2)" resource="org.plazmaforge.framework.uwt.demo.messages">
+			<children>
+				<label text="@{DemoWindow.firstName}"/><text-field value="Alex"/>
+				<label text="@{DemoWindow.lastName}"/><text-field value="Bird"/>
+				<radio-group layout-data="GridData(columnSpan=2)">
+					<radio-buttons>
+						<radio-button text="Radio 1"></radio-button>
+						<radio-button text="Radio 2"></radio-button>
+						<radio-button text="Radio 3"></radio-button>
+						<radio-button text="Radio 4"></radio-button>
+					</radio-buttons>
+				</radio-group>
+				<image-box image="widget/refresh.gif"/>
+			</children>
+	</window>
+</ui>

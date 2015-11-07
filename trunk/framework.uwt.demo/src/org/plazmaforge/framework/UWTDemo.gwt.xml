@@ -1,0 +1,9 @@
+<module>
+
+    <source path="uwt">
+    	<exclude name="demo/DemoServiceCaller.java"/>
+    	<exclude name="demo/DemoServiceCallerFactory.java"/>
+    	<exclude name="demo/DemoUWT.java"/>
+    </source>
+
+</module>
