@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-sql" default="create-jar">
+
+	<property file="build.properties" />
+
+	<path id="plazma-classpath">
+		<fileset dir="../lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create-jar" description="Create jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/plazma-framework-sql-${version}.jar" basedir="${classes.dir}" includes="**">
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-framework-sql" description="Clean framework sql">
+		<delete dir="${framework.sql.target.dir}"/>
+    </target>
+
+
+	<target name="create-framework-sql" description="Create framework sql" depends="clean-framework-sql">
+		
+		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${framework.sql.target.dir}" />
+		<mkdir dir="${framework.sql.target.dir}/dist" />
+		<mkdir dir="${framework.sql.target.dir}/lib" />
+		
+		<copy todir="${framework.sql.target.dir}">
+			<fileset dir="${framework.sql.dir}">
+				<include name="**" />
+				<exclude name=".settings/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.sql.target.dir}/dist">
+			<fileset dir="${dist.dir}">
+				<include name="plazma-framework-sql-${version}.jar" />
+			</fileset>
+		</copy>
+		
+      	<replace file="${framework.sql.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+
+	</target>
+
+
+</project>
