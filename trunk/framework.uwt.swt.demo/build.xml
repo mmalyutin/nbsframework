@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-uwt-swt-demo" default="create-demo-install-all">
+
+	<property file="build.properties"/>
+
+
+    <target name="create-demo-install-all" description="Create All UWT demo jar files" depends="create-win32-demo-install, create-win32-x86_64-demo-install, create-linux-gtk-demo-install, create-linux-gtk-x86_64-demo-install"/>
+
+	<target name="create-win32-demo-install" description="Create UWT-SWT win32 installation">
+
+		<!-- Special for long classpath string -->
+		<path id="compile.classpath">
+			<fileset dir="${lib.dir}" includes="swt/win32/swt.jar"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</path>
+
+		<pathconvert property="jar.classpath" pathsep=" ">
+			<path refid="compile.classpath" />
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+
+		<!--
+		<manifestclasspath property="jar.classpath.win32" jarfile="${dist.dir}/${module.demo.jar}">
+			<classpath refid="compile.classpath"/>
+		</manifestclasspath>
+		-->
+
+		<mkdir dir="${install.win32.demo.dir}"/>
+		<mkdir dir="${install.win32.demo.dir}/lib"/>
+
+		<copy todir="${install.win32.demo.dir}/lib" preservelastmodified="true" flatten="true">
+			<fileset dir="${lib.dir}" includes="swt/win32/*"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</copy>
+
+		<jar destfile="${install.win32.demo.dir}/lib/${module.win32.demo.jar}">
+			<manifest>
+				<attribute name="Main-Class" value="org.plazmaforge.framework.uwt.swt.DemoUWT" />
+				<attribute name="Class-Path" value="${jar.classpath}" />
+			</manifest>
+		</jar>
+
+		<concat destfile="${install.win32.demo.dir}/start.bat" fixlastline="yes">java -jar lib/${module.win32.demo.jar} -ui swt</concat>
+
+		<zip destfile="${target.dir}/${install.win32.demo}-${version}.zip"  basedir="${install.win32.demo.dir}"/>
+		<delete dir="${install.win32.demo.dir}"/>
+	</target>
+
+
+	<target name="create-win32-x86_64-demo-install" description="Create UWT-SWT win32 x86_64 installation">
+		<mkdir dir="${dist.dir}"/>
+
+		<!-- Special for long classpath string -->
+		<path id="compile.classpath">
+			<fileset dir="${lib.dir}" includes="swt/win32-x86_64/swt.jar"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</path>
+		<pathconvert property="jar.classpath.win32.x86.64" pathsep=" ">
+			<path refid="compile.classpath" />
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+
+		<mkdir dir="${install.win32.x86.64.demo.dir}"/>
+		<mkdir dir="${install.win32.x86.64.demo.dir}/lib"/>
+
+		<copy todir="${install.win32.x86.64.demo.dir}/lib" preservelastmodified="true" flatten="true">
+			<fileset dir="${lib.dir}" includes="swt/win32-x86_64/*"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</copy>
+
+		<jar destfile="${install.win32.x86.64.demo.dir}/lib/${module.win32.x86.64.demo.jar}">
+			<manifest>
+				<attribute name="Main-Class" value="org.plazmaforge.framework.uwt.demo.DemoUWT" />
+				<attribute name="Class-Path" value="${jar.classpath.win32.x86.64}" />
+			</manifest>
+		</jar>
+
+		<concat destfile="${install.win32.x86.64.demo.dir}/start.bat" fixlastline="yes">java -jar lib/${module.win32.x86.64.demo.jar} -ui swt</concat>
+
+		<zip destfile="${target.dir}/${install.win32.x86.64.demo}-${version}.zip"  basedir="${install.win32.x86.64.demo.dir}"/>
+		<delete dir="${install.win32.x86.64.demo.dir}"/>
+
+	</target>
+
+
+	<target name="create-linux-gtk-demo-install" description="Create UWT-SWT linux gtk installation">
+		<mkdir dir="${dist.dir}"/>
+
+		<!-- Special for long classpath string -->
+		<path id="compile.classpath">
+			<fileset dir="${lib.dir}" includes="swt/linux-gtk/swt.jar"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</path>
+		<pathconvert property="jar.classpath.linux.gtk" pathsep=" ">
+			<path refid="compile.classpath" />
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+
+		<mkdir dir="${install.linux.gtk.demo.dir}"/>
+		<mkdir dir="${install.linux.gtk.demo.dir}/lib"/>
+
+		<copy todir="${install.linux.gtk.demo.dir}/lib" preservelastmodified="true" flatten="true">
+			<fileset dir="${lib.dir}" includes="swt/linux-gtk/*"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</copy>
+
+		<jar destfile="${install.linux.gtk.demo.dir}/lib/${module.linux.gtk.demo.jar}">
+			<manifest>
+				<attribute name="Main-Class" value="org.plazmaforge.framework.uwt.demo.DemoUWT" />
+				<attribute name="Class-Path" value="${jar.classpath.linux.gtk}" />
+			</manifest>
+		</jar>
+
+		<concat destfile="${install.linux.gtk.demo.dir}/start.sh" fixlastline="yes">java -jar lib/${module.linux.gtk.demo.jar} -ui swt</concat>
+
+		<zip destfile="${target.dir}/${install.linux.gtk.demo}-${version}.zip"  basedir="${install.linux.gtk.demo.dir}"/>
+		<delete dir="${install.linux.gtk.demo.dir}"/>
+
+	</target>
+
+
+	<target name="create-linux-gtk-x86_64-demo-install" description="Create UWT-SWT linux gtk x86_64 installation">
+		<mkdir dir="${dist.dir}"/>
+
+		<!-- Special for long classpath string -->
+		<path id="compile.classpath">
+			<fileset dir="${lib.dir}" includes="swt/linux-gtk-x86_64/swt.jar"/>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</path>
+		<pathconvert property="jar.classpath.linux.gtk.x86.64" pathsep=" ">
+			<path refid="compile.classpath" />
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+
+		<mkdir dir="${install.linux.gtk.x86.64.demo.dir}" />
+		<mkdir dir="${install.linux.gtk.x86.64.demo.dir}/lib" />
+
+		<copy todir="${install.linux.gtk.x86.64.demo.dir}/lib" preservelastmodified="true" flatten="true">
+			<fileset dir="${lib.dir}" includes="swt/linux-gtk-x86_64/*" />
+			<fileset dir="${dist.dir}" includes="${dist.fileset}" />
+			<fileset dir="${lib.dir}" includes="${lib.fileset}" />
+		</copy>
+
+
+		<jar destfile="${install.linux.gtk.x86.64.demo.dir}/lib/${module.linux.gtk.x86.64.demo.jar}">
+			<manifest>
+				<attribute name="Main-Class" value="org.plazmaforge.framework.uwt.demo.DemoUWT" />
+				<attribute name="Class-Path" value="${jar.classpath.linux.gtk.x86.64}" />
+			</manifest>
+		</jar>
+
+		<concat destfile="${install.linux.gtk.x86.64.demo.dir}/start.sh" fixlastline="yes">java -jar lib/${module.linux.gtk.x86.64.demo.jar} -ui swt</concat>
+
+		<zip destfile="${target.dir}/${install.linux.gtk.x86.64.demo}-${version}.zip"  basedir="${install.linux.gtk.x86.64.demo.dir}"/>
+		<delete dir="${install.linux.gtk.x86.64.demo.dir}"/>
+
+	</target>
+
+</project>
