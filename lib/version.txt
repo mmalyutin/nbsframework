@@ -1,0 +1,9 @@
+
+* asm-1.5.3 (Corresponding with Hibernate, Spring)
+
+* asm-attr-1.5.3 (Corresponding with Hibernate, Spring)
+
+* cglib-2.1_3 (Corresponding with Hibernate, Spring)
+
+  IMPORTANT! cglib-2.0-rc2 has problems with Java 1.6 ! It was replaced.
+
