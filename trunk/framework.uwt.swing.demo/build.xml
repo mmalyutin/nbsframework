@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-uwt-swing-demo" default="create-demo-install-all">
+
+	<property file="build.properties"/>
+
+	<target name="create-demo-install-all" description="Create All UWT-Swing jar files" depends="create-demo-install"/>
+	
+	<target name="create-demo-install" description="Create UWT-Swing demo installation">
+		<mkdir dir="${dist.dir}"/>
+
+		<!-- Special for long classpath string -->
+		
+		<path id="compile.classpath">
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</path>
+		
+		<pathconvert property="jar.classpath" pathsep=" ">
+		    <path refid="compile.classpath" />
+		    <mapper>
+		        <chainedmapper>
+		            <flattenmapper />
+		        </chainedmapper>
+		    </mapper>
+		</pathconvert>
+		
+		<!--
+		<manifestclasspath property="jar.classpath" jarfile="${dist.dir}/${module.demo.jar}">
+			<classpath refid="convert.classpath"/>
+		</manifestclasspath>
+		-->
+
+		<mkdir dir="${install.demo.dir}"/>
+		<mkdir dir="${install.demo.dir}/lib"/>
+		
+    	<copy todir="${install.demo.dir}/lib" preservelastmodified="true" flatten="true">
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</copy>
+
+		<jar destfile="${install.demo.dir}/lib/${module.demo.jar}">
+			<manifest>
+				<attribute name="Main-Class" value="org.plazmaforge.framework.uwt.demo.DemoUWT" />
+				<attribute name="Class-Path" value="${jar.classpath}"/>
+			</manifest>
+			<fileset dir="${classes.dir}" includes="**"/>
+		</jar>
+		
+		<concat destfile="${install.demo.dir}/start.bat" fixlastline="yes">java -jar lib/${module.demo.jar} -ui swing</concat>
+		<concat destfile="${install.demo.dir}/start.sh" fixlastline="yes">java -jar lib/${module.demo.jar} -ui swing</concat>
+		
+		<zip destfile="${target.dir}/${install.demo}-${version}.zip"  basedir="${install.demo.dir}"/>
+		<delete dir="${install.demo.dir}"/>
+	</target>
+
+	
+	
+	<target name="create-demo-nsi" description="Create UWT-Swing demo NSI installation">
+		<mkdir dir="${dist.dir}"/>
+
+		<!-- Special for long classpath string -->
+		
+		<path id="compile.classpath">
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</path>
+		
+		<pathconvert property="jar.classpath" pathsep=" ">
+		    <path refid="compile.classpath" />
+		    <mapper>
+		        <chainedmapper>
+		            <flattenmapper />
+		        </chainedmapper>
+		    </mapper>
+		</pathconvert>
+		
+		<!--
+		<manifestclasspath property="jar.classpath" jarfile="${dist.dir}/${module.demo.jar}">
+			<classpath refid="convert.classpath"/>
+		</manifestclasspath>
+		-->
+
+		<mkdir dir="${install.demo.dir}"/>
+		<mkdir dir="${install.demo.dir}/lib"/>
+		
+    	<copy todir="${install.demo.dir}/lib" preservelastmodified="true" flatten="true">
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</copy>
+
+		<jar destfile="${install.demo.dir}/lib/${module.demo.jar}">
+			<manifest>
+				<attribute name="Main-Class" value="org.plazmaforge.framework.uwt.demo.DemoUWT" />
+				<attribute name="Class-Path" value="${jar.classpath}"/>
+			</manifest>
+			<fileset dir="${classes.dir}" includes="**"/>
+		</jar>
+		
+		<concat destfile="${install.demo.dir}/start.bat" fixlastline="yes">java -jar lib/${module.demo.jar} -ui swing</concat>
+		<concat destfile="${install.demo.dir}/start.sh" fixlastline="yes">java -jar lib/${module.demo.jar} -ui swing</concat>
+		
+		<exec executable="${makensis.exe}" failonerror="true" >
+			<arg value="/Dapp.name=Plazma UWT Swing Demo ${version}"/>
+			<arg value="/Dinstaller.name=${target.dir}/${install.demo}-${version}.exe"/>
+			<arg value="/Dinstall.directory=PlazmaUWT-Swing-Demo-${version}"/>
+			<arg value="/Dproject.directory=${install.demo.dir}"/>
+			<arg value="${basedir}\install-swing-demo.nsi"/>
+		</exec>
+		
+		
+		<delete dir="${install.demo.dir}"/>
+	</target>
+
+</project>
