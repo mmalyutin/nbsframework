@@ -1,0 +1,2 @@
+serviceClass: org.plazmaforge.uwt.gwt.demo.client.UIResourceService
+path: 09EF54F6D6F10608863BC0AD539C9C48.gwt.rpc

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module rename-to='application'>
+
+  <!-- Inherit the core Web Toolkit stuff                         -->
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.extjs.gxt.ui.GXT"/>
+
+  <!-- Inherit the default GWT style sheet                        -->
+  <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+  <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+
+  <!-- Other module inherits                                      -->
+  <inherits name='org.plazmaforge.framework.Core'/>
+  <inherits name='org.plazmaforge.framework.UWT'/>
+  <inherits name='org.plazmaforge.framework.UWTModule'/> <!--  UWT.GXT -->
+  <inherits name='org.plazmaforge.framework.UWTDemo'/>
+
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='org.plazmaforge.uwt.gwt.demo.client.WebApplication'/>
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client'/>
+  <source path='shared'/>
+
+  <!-- <extend-configuration-property name="rpc.whitelist" value="org.plazmaforge.uwt.gwt.demo.shared.TestBean"/> -->
+  <!-- <set-configuration-property name="rpc.whitelist" value="org.plazmaforge.uwt.gwt.demo.shared.TestBean"/> -->
+  
+  <!-- <set-property name="user.agent" value="ie8, ie6" /> -->
+  
+  <!-- GXT: BeanModelGenerator for ModelMarker                    -->
+  <!-- GXT: Use own BeanModelGenerator for other marker           -->
+  <generate-with class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelGenerator">
+        <when-type-assignable class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelLookup"/>
+  </generate-with>
+
+</module>

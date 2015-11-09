@@ -1,0 +1,2 @@
+serviceClass: org.plazmaforge.uwt.gwt.demo.client.CallService
+path: BF11CC529FDD48C20C22BCD684D9DED8.gwt.rpc
