@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/transform" xmlns:transform="http://plazmaforge.org/transform" elementFormDefault="qualified">
+
+	<include schemaLocation="datastorage.xsd"/>
+	
+	<element name="transform">
+		<complexType>
+			<sequence>
+				<element ref="transform:properties" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:datasources" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:datasets" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:transform-tasks" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="datasource" type="string"/>
+			<attribute name="dataset" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="properties">
+		<complexType>
+			<sequence>
+				<element ref="transform:property" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="property">
+		<complexType  mixed="true">
+			<attribute name="name" type="string"  use="required"/>
+		</complexType>
+	</element>
+
+
+	<element name="parameters">
+		<complexType>
+			<sequence>
+				<element ref="transform:parameter" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="parameter">
+		<complexType>
+			<sequence>
+				<element ref="transform:default-value" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="type" type="string"/>
+		</complexType>
+	</element>
+	
+	
+	<element name="variables">
+		<complexType>
+			<sequence>
+				<element ref="transform:variable" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="variable">
+		<complexType>
+			<sequence>
+				<element ref="transform:expression" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:initial-value" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="type" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="fields">
+		<complexType>
+			<sequence>
+				<element ref="transform:field" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="field">
+		<complexType>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="type" type="string"/>
+		</complexType>
+	</element>	
+		
+		
+	<element name="script">
+		<complexType mixed="true">
+			<attribute name="language" type="string"/>
+		</complexType>
+	</element>		
+	
+	
+	<element name="value">
+		<complexType mixed="true"/>
+	</element>
+
+	<element name="default-value">
+		<complexType mixed="true"/>
+	</element>
+
+	<element name="initial-value">
+		<complexType mixed="true"/>
+	</element>
+	
+	<element name="expression">
+		<complexType mixed="true"/>
+	</element>
+	
+	
+	<element name="transform-tasks">
+		<complexType>
+			<sequence>
+				<element ref="transform:transform-task" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="transform-task">
+		<complexType>
+			<sequence>
+				<element ref="transform:properties" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:source-datasets" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:target-datasets" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:dataset-mappings" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="dataset-mappings">
+		<complexType>
+			<sequence>
+				<element ref="transform:dataset-mapping" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="dataset-mapping">
+		<complexType>
+			<sequence>
+				<element ref="transform:field-mappings" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="source-dataset" type="string"/>
+			<attribute name="target-dataset" type="string"/>
+		</complexType>
+	</element>
+	
+	<element name="field-mappings">
+		<complexType>
+			<sequence>
+				<element ref="transform:field-mapping" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="field-mapping">
+		<complexType>
+			<sequence>
+				<element ref="transform:expression" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="source-field" type="string"/>
+			<attribute name="target-field" type="string"/>
+		</complexType>
+	</element>
+	
+</schema>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/transform" xmlns:transform="http://plazmaforge.org/transform" elementFormDefault="qualified">
+
+	<include schemaLocation="transform.xsd"/>
+
+	<element name="datasources">
+		<complexType>
+			<sequence>
+				<element ref="transform:datasource" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="datasource">
+		<complexType>
+			<sequence>
+				<element ref="transform:properties" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="type" type="string"/>
+		</complexType>
+	</element>
+
+
+	<element name="datasets">
+		<complexType>
+			<sequence>
+				<element ref="transform:dataset" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="source-datasets">
+		<complexType>
+			<sequence>
+				<element ref="transform:source-dataset" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="target-datasets">
+		<complexType>
+			<sequence>
+				<element ref="transform:target-dataset" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="dataset">
+		<complexType>
+			<complexContent>
+				<extension base="transform:DatasetType"/>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="source-dataset">
+		<complexType>
+			<complexContent>
+				<extension base="transform:DatasetType"/>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="target-dataset">
+		<complexType>
+			<complexContent>
+				<extension base="transform:DatasetType"/>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="query">
+		<complexType>
+			<sequence>
+				<element ref="transform:parameters" minOccurs="0" maxOccurs="1" />
+				<element ref="transform:script" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+
+	<complexType name="DatasetType">
+		<sequence>
+			<element ref="transform:properties" minOccurs="0" maxOccurs="1" />
+			<element ref="transform:parameters" minOccurs="0" maxOccurs="1" />
+			<element ref="transform:fields" minOccurs="0" maxOccurs="1" />
+			<element ref="transform:script" minOccurs="0" maxOccurs="1" />
+			<element ref="transform:datasets" minOccurs="0" maxOccurs="1" />
+		</sequence>
+		<attribute name="id" type="string" />
+		<attribute name="name" type="string" />
+		<attribute name="ref" type="string" />
+		<attribute name="type" type="string" />
+	</complexType>
+	
+</schema>
