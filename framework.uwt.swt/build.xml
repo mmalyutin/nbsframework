@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-uwt-swt" default="create-jar">
+
+	<property file="build.properties"/>
+
+	<target name="create-jar" description="Create UWT-SWT jar file">
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/${module.jar}"
+           basedir="${classes.dir}"
+           includes="**">
+		</jar>
+	</target>
+
+	<target name="create-jar-all" description="Create All UWT-SWT jar files" depends="create-jar"/>
+
+</project>

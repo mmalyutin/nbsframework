@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt"/>
+	<classpathentry kind="var" path="PLAZMA_SWT/swt.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/eclipse/org.eclipse.jface_3.4.1.M20080827-2000.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/eclipse/org.eclipse.core.runtime_3.4.0.v20080512.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/eclipse/org.eclipse.core.commands_3.4.0.I20080509-2000.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/eclipse/org.eclipse.equinox.common_3.4.0.v20080421-2006.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/nebula/nebula_pgroup_ALPHA.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/nebula/nebula_pshelf_ALPHA.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.core"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
