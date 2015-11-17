@@ -48,7 +48,6 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	List<String> fieldNames = getFieldNames();
 	this.resultSet = new SQLResultSet(fieldNames, rs);
 	
-	generateFieldIndexesForName();
     }
 
     @Override
