@@ -23,30 +23,38 @@
 /**
  * 
  */
-package org.plazmaforge.framework.core.datastorage;
+package org.plazmaforge.framework.datastorage.sql;
 
+import java.sql.ResultSet;
 import java.util.List;
+
+import org.plazmaforge.framework.core.datastorage.AbstractWrappedDataSet;
+import org.plazmaforge.framework.core.datastorage.DSDataSet;
+import org.plazmaforge.framework.core.datastorage.DSField;
+import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * @author ohapon
  *
  */
-public class DSWrappedDataSet extends AbstractWrappedDataSet implements DSDataSet {
+public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
-    public DSWrappedDataSet(List<DSField> fields, DSResultSet resultSet) {
-	super();
+    public SQLDataSet(List<DSField> fields, ResultSet rs) {
 	
 	assert(fields != null);
-	assert(resultSet != null);
+	assert(rs != null);
 	
 	setFields(fields);
-	this.resultSet = resultSet;
+	List<String> fieldNames = getFieldNames();
+	this.resultSet = new SQLResultSet(fieldNames, rs);
 	
 	generateFieldIndexesForName();
-	
     }
 
-    
-    
+    @Override
+    public Object getValue(int index) throws DSException {
+	//TODO: Must optimize
+	return super.getValue(index);
+    }
     
 }
