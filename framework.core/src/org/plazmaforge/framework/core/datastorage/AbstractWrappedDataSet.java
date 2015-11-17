@@ -25,9 +25,7 @@
  */
 package org.plazmaforge.framework.core.datastorage;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.plazmaforge.framework.core.exception.DSException;
 
@@ -39,9 +37,6 @@ public class AbstractWrappedDataSet extends AbstractStructuredDataSet {
 
     protected DSResultSet resultSet;
     
-    private Map<Integer, String> fieldIndexNameMap;
-
-
     //@Override
     public boolean next() throws DSException {
 	return resultSet.next();
@@ -49,8 +44,7 @@ public class AbstractWrappedDataSet extends AbstractStructuredDataSet {
 
     //@Override
     public Object getValue(int index) throws DSException {
-	//TODO: Must optimize: use DSIndexedResultSet: getValue(int)
-	return getValue(fieldIndexNameMap.get(index));
+	return resultSet.getValue(index);
     }
 
     //@Override
@@ -60,8 +54,7 @@ public class AbstractWrappedDataSet extends AbstractStructuredDataSet {
 
     //@Override
     public Object getValue(DSField field) throws DSException {
-	//TODO: BUG: Not implemented
-	return field == null ? null : field.getName();
+	return getValue(field == null ? null : field.getName());
     }
     
     //@Override
@@ -91,17 +84,4 @@ public class AbstractWrappedDataSet extends AbstractStructuredDataSet {
 	return record;
     }
  
-    protected void generateFieldIndexesForName() {
-	List<DSField> fields = getFields();
-	fieldIndexNameMap = new HashMap<Integer, String>();	
-	int count = fields.size();
-	for (int i = 0; i < count; i++) {
-	    DSField field = fields.get(i);
-	    if (field == null || field.getName() == null) {
-		continue;
-	    }
-	    fieldIndexNameMap.put(i, field.getName());
-	}
-    }
-
 }

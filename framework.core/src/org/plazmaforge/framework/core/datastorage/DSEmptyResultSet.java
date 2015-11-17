@@ -77,7 +77,12 @@ public class DSEmptyResultSet implements DSScrollableResultSet, Serializable {
     public Object getValue(String name) throws DSException {
 	return null;
     }
-    
+
+    @Override
+    public Object getValue(int index) throws DSException {
+	return null;
+    }
+
     @Override
     public boolean canScroll() throws DSException {
 	return false;

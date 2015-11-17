@@ -44,6 +44,13 @@ public interface DSResultSet  {
      */
     Object getValue(String name) throws DSException;
     
+    /**
+     * Return value of current record by index
+     * @param name
+     * @return
+     * @throws DSException 
+     */
+    Object getValue(int index) throws DSException;
 
     /**
      * Return true if DSResultSet is empty

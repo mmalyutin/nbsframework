@@ -42,8 +42,6 @@ public class DSWrappedDataSet extends AbstractWrappedDataSet implements DSDataSe
 	setFields(fields);
 	this.resultSet = resultSet;
 	
-	generateFieldIndexesForName();
-	
     }
 
     

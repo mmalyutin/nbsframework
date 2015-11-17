@@ -263,7 +263,7 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	return getValue(index);
     }
   
-    //@Override
+    @Override
     public Object getValue(int index) throws DSException {
 	try {
 	    return rs.getObject(index + 1);
