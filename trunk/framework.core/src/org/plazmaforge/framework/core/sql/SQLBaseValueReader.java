@@ -104,14 +104,23 @@ public class SQLBaseValueReader extends AbstractSQLWorker implements SQLValueRea
 	}
 	case Types.DATE: {
 	    value = rs.getDate(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	    break;
 	}
 	case Types.TIMESTAMP: {
 	    value = rs.getTimestamp(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	    break;
 	}
 	case Types.TIME: {
 	    value = rs.getTime(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	    break;
 	}
 	case Types.CHAR:
@@ -120,20 +129,30 @@ public class SQLBaseValueReader extends AbstractSQLWorker implements SQLValueRea
 	case Types.LONGVARCHAR:
 	case Types.ROWID: {
 	    value = rs.getString(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	    break;
 	}
 	case Types.BLOB: {
 	    value = rs.getBlob(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	    break;
 	}
 	case Types.CLOB: {
 	    value = rs.getClob(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	    break;
 	}
-	
-
 	default: {
 	    value = rs.getObject(index);
+	    if (rs.wasNull()) {
+		value = null;
+	    }
 	}
 
 	}

@@ -265,12 +265,20 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
   
     @Override
     public Object getValue(int index) throws DSException {
+	return getNativeValue(index);
+    }
+
+    protected Object getNativeValue(int index) throws DSException {
 	try {
 	    return rs.getObject(index + 1);
 	} catch (SQLException ex) {
 	    handleSQLException(ex);
 	}
 	return null;
+    }
+    
+    protected ResultSet getNativeResultSet() {
+	return rs;
     }
 
     @Override

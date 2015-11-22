@@ -26,12 +26,16 @@
 package org.plazmaforge.framework.datastorage.sql;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.AbstractWrappedDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.core.sql.SQLBaseValueReader;
+import org.plazmaforge.framework.core.sql.SQLEnvironment;
+import org.plazmaforge.framework.core.sql.SQLValueReader;
 
 /**
  * @author ohapon
@@ -39,6 +43,8 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
+    private SQLValueReader valueReader; 
+    
     public SQLDataSet(List<DSField> fields, ResultSet rs) {
 	
 	assert(fields != null);
@@ -50,10 +56,42 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	
     }
 
+    public SQLValueReader getValueReader() {
+	if (valueReader == null) {
+	    valueReader = new SQLBaseValueReader();
+	}
+        return valueReader;
+    }
+
+    public void setValueReader(SQLValueReader valueReader) {
+        this.valueReader = valueReader;
+    }
+
+    @Override
+    public Object getValue(String fieldName) throws DSException {
+	//TODO: Must optimize
+	int index = getFieldIndex(fieldName);
+	DSField field = getField(fieldName);
+	String dataType = field.getDataType();
+	int type = SQLEnvironment.getSQLType(dataType);
+	return getValue(((SQLResultSet) resultSet).getNativeResultSet(), index, type);
+    }
+    
     @Override
     public Object getValue(int index) throws DSException {
 	//TODO: Must optimize
-	return super.getValue(index);
+	DSField field = getField(index);
+	String dataType = field.getDataType();
+	int type = SQLEnvironment.getSQLType(dataType);
+	return getValue(((SQLResultSet) resultSet).getNativeResultSet(), index, type);
+    }
+ 
+    protected Object getValue(ResultSet rs, int index, int type) throws DSException {
+	try {
+	    return getValueReader().getValue(rs, index, type);	    
+	} catch (SQLException e) {
+	    throw new DSException(e);
+	}
     }
     
 }
