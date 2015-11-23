@@ -88,6 +88,7 @@ public class DataManagerTest extends DataTestCase {
 	dataSource.setType("sql");
 	dataSource.setQueryText(query);
 	
+	
 	DSResultSet resultSet = DataManager.openResultSet(session, dataSource);
 	assertNotNull(resultSet);
 	
@@ -119,4 +120,57 @@ public class DataManagerTest extends DataTestCase {
 
 	
     }
+    
+    
+    public void testOpenDataSet() throws Exception  {
+
+	Connection connection = getConnection();
+	assertNotNull(connection);
+	
+	DSSession session = DataManager.openSession(connection);
+	assertNotNull(session);
+	
+	assertEquals(session.isClosed(), false);
+	
+	// By DataSource
+	String query = "SELECT PRODUCT_ID, PRODUCT_NAME, PRICE FROM PRODUCT";
+	DSDataSource dataSource = new DSBaseDataSource();
+	dataSource.setType("sql");
+	dataSource.setQueryText(query);
+	
+	DSField field = new DSField();
+	field.setName("PRODUCT_ID");
+	field.setDataType("Integer");
+	dataSource.addField(field);
+
+	field = new DSField();
+	field.setName("PRODUCT_NAME");
+	field.setDataType("String");
+	dataSource.addField(field);
+
+	field = new DSField();
+	field.setName("PRICE");
+	field.setDataType("Float");
+	dataSource.addField(field);
+	
+	System.out.println("Open DataSet...");
+	DSDataSet dataSet = DataManager.openDataSet(session, dataSource);
+	assertNotNull(dataSet);
+	
+	assertEquals(dataSet.isEmpty(), false); // TODO
+	
+	int count = 0;
+	while (dataSet.next()) {
+	    count++;
+	    //System.out.println("" + resultSet.getValue(0) + ", " + resultSet.getValue(1) + ", " + resultSet.getValue(2));
+	}
+	assertEquals(count, 100);
+	System.out.println("Load records " + count);
+
+	
+
+
+	
+    }
+    
 }
