@@ -174,18 +174,13 @@ public abstract class AbstractDataProducer implements DataProducer {
 
     }
 
-    protected String compileQuery(String query, int parameterCount) throws DSException {
+    protected String compileQuery(String query, int inputParameterCount) throws DSException {
 	String sql = normalize(query);
 	if (sql == null) {
 	    return null;
 	}
 
-	boolean hasParameters = parameterCount > 0;
-	
-	//boolean hasParameters = !isEmpty(parameters);
-	//int inputParameterCount = hasParameters ? parameters.length : 0;
-
-	boolean needAnalizeQuery = hasParameters || ALWAYS_ANALIZE_QUERY;
+	boolean needAnalizeQuery = inputParameterCount > 0 || ALWAYS_ANALIZE_QUERY;
 	if (!needAnalizeQuery) {
 	    return sql;
 	}
@@ -197,9 +192,9 @@ public abstract class AbstractDataProducer implements DataProducer {
 
 	// TODO: Only for named parameters (:param1, :param2)
 	// But it doesn't work for '?' parameters!
-	if (parameterCount != uniqueParameterCount) {handleContextException(DataManager.CONTEXT_RESULT_SET,
-		"Incorrect parameter count. Input/Query parameters: "
-		+ parameterCount + "/" + uniqueParameterCount);
+	if (inputParameterCount != uniqueParameterCount) {
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, 
+		    "Incorrect parameter count. Input/Query parameters: " + inputParameterCount + "/" + uniqueParameterCount);
 	}
 
 	sql = queryInfo.getCompileQuery();
