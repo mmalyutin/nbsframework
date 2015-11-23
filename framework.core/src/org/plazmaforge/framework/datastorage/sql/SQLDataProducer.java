@@ -30,6 +30,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -39,12 +41,12 @@ import org.plazmaforge.framework.core.datastorage.AbstractDataProducer;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
+import org.plazmaforge.framework.core.datastorage.DSField;
+import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.data.QueryAnalyzer;
-import org.plazmaforge.framework.core.datastorage.data.QueryInfo;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.core.sql.SQLBaseValueWriter;
 import org.plazmaforge.framework.core.sql.SQLEnvironment;
@@ -57,7 +59,7 @@ import org.plazmaforge.framework.core.sql.SQLValueWriter;
 public class SQLDataProducer extends AbstractDataProducer implements DataProducer {
 
 
-    public static final boolean ALWAYS_ANALIZE_QUERY = false;
+    
     
     
     @Override
@@ -162,44 +164,14 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Connection is null");
 	}
 
-	String sql = normalize(query);
+	int parameterCount = parameters == null ? 0 : parameters.length;
+	String sql = compileQuery(query, parameterCount);
 	if (sql == null) {
 	    return new SQLResultSet(null);
 	}
 	
-	boolean hasParameters = !isEmpty(parameters);
-	int inputParameterCount = hasParameters ? parameters.length : 0;
-	
-	boolean needAnalizeQuery = hasParameters || ALWAYS_ANALIZE_QUERY; 
-	if (needAnalizeQuery) {
-	    QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
-	    QueryInfo queryInfo = queryAnalyzer.analyzeQuery(sql);
-	    
-	    
-	    int queryParameterCount = queryInfo.getParameterCount();
-	    int uniqueParameterCount = queryInfo.getUniqueParameterCount();
-	    
-	    // TODO: Only for named parameters (:param1, :param2)
-	    // But it doesn't work for '?' parameters! 
-	    if (inputParameterCount !=  uniqueParameterCount) {
-		handleContextException(DataManager.CONTEXT_RESULT_SET, "Incorrect parameter count. Input/Query parameters: " + inputParameterCount + "/" + uniqueParameterCount);
-	    }
-	    
-	    sql = queryInfo.getCompileQuery();
-	}
-
-	
 	try {
-	    PreparedStatement stm = cn.prepareStatement(sql);
-	    if (hasParameters) {
-		SQLValueWriter valueWriter = new SQLBaseValueWriter();
-		ParameterValue parameter = null; 
-		for (int i = 0; i < inputParameterCount; i++) {
-		    parameter = parameters[i];
-		    setParameter(valueWriter, stm, parameter.getValue(), i + 1, parameter.getType());
-		}
-	    }
-	    ResultSet rs = stm.executeQuery();
+	    ResultSet rs = prepareResultSet(cn, sql, parameters);
 	    data = new SQLResultSet(rs);
 	    return data;
 	} catch (SQLException ex) {
@@ -210,12 +182,75 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException {
-	// TODO
-	return null;
+	
+	if (session == null) {
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	}
+	if (!(session instanceof SQLSession)) {
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be SQLSession");
+	}
+
+	SQLDataSet data = null;
+	SQLSession sqlSession = (SQLSession) session;
+	Connection cn = sqlSession.getConnection();
+	if (cn == null) {
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Connection is null");
+	}
+
+	String query = dataSource.getQueryText();
+	List<DSParameter> dsParameters = dataSource.getParameters();
+	
+	List<DSField> dsFields = dataSource.getFields();
+	List<DSField> fields = new ArrayList<DSField>();
+	DSField field = null;
+	for (DSField dsField: dsFields) {
+	    field = dsField.clone();
+	    fields.add(field);
+	}
+	
+	int parameterCount = dsParameters == null ? 0 : dsParameters.size();
+	String sql = compileQuery(query, parameterCount);
+	if (sql == null) {
+	    return new SQLDataSet(fields, null);
+	}
+	
+	// Default value of parameter
+	List<ParameterValue> parameters = null;
+	if (parameterCount > 0) {
+	    parameters = new ArrayList<ParameterValue>();
+	    ParameterValue parameter = null;
+	    for (DSParameter dsParameter: dsParameters) {
+		parameter = new ParameterValue(dsParameter.getDataType(), dsParameter.getDefaultValue());
+		parameters.add(parameter);
+	    }
+	}
+	
+	try {
+	    ResultSet rs = prepareResultSet(cn, sql, parameters == null ? null : parameters.toArray(new ParameterValue[0]));
+	    data = new SQLDataSet(fields, rs);
+	    return data;
+	} catch (SQLException ex) {
+	    throw new DSException(ex);
+	}
     }
 
 
     ////
+    
+    protected ResultSet prepareResultSet(Connection cn, String sql, ParameterValue[] parameters) throws SQLException {
+	PreparedStatement stm = cn.prepareStatement(sql);
+	int inputParameterCount = parameters == null ? 0 : parameters.length;
+	if (inputParameterCount > 0) {
+	    SQLValueWriter valueWriter = new SQLBaseValueWriter();
+	    ParameterValue parameter = null;
+	    for (int i = 0; i < inputParameterCount; i++) {
+		parameter = parameters[i];
+		setParameter(valueWriter, stm, parameter.getValue(), i + 1, parameter.getType());
+	    }
+	}
+	ResultSet rs = stm.executeQuery();
+	return rs;
+    }
     
     protected void setParameter(SQLValueWriter valueWriter, PreparedStatement stm, Object value, int index, String type) throws SQLException {
 	int sqlType = SQLEnvironment.getSQLType(type);

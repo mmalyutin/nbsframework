@@ -31,6 +31,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.ParameterValue;
+import org.plazmaforge.framework.core.datastorage.data.QueryAnalyzer;
+import org.plazmaforge.framework.core.datastorage.data.QueryInfo;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.util.SystemUtils;
@@ -41,9 +43,10 @@ import org.plazmaforge.framework.util.SystemUtils;
  */
 public abstract class AbstractDataProducer implements DataProducer {
 
+    public static final boolean ALWAYS_ANALIZE_QUERY = false;
     
     @Override
-    public DSResultSet openResultSet(DSSession session, DSDataSource dataSource)  throws DSException {
+    public DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
 	}
@@ -51,29 +54,7 @@ public abstract class AbstractDataProducer implements DataProducer {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "DataSource is null");
 	}
 	
-	List<ParameterValue> parameters = null;
-	if (dataSource.hasParameters()) {
-	    
-	    // Prepare parameter values
-	    // Value is default value of parameter
-	    List<DSParameter> dsParameters = dataSource.getParameters();
-	    int dsParameterCount = dsParameters == null ? 0: dsParameters.size();
-	    
-	    parameters = new ArrayList<ParameterValue>();
-	    ParameterValue parameter = null;
-	    DSParameter dsParameter = null;
-	    
-	    for (int i = 0; i < dsParameterCount; i++) {
-		dsParameter = dsParameters.get(i);
-		parameter = new ParameterValue();
-		parameter.setName(dsParameter.getName());
-		parameter.setType(dsParameter.getDataType());
-		parameter.setValue(dsParameter.getDefaultValue());
-		parameters.add(parameter);
-	    }
-	    
-	}
-	
+	List<ParameterValue> parameters = createParameters(dataSource);
 	return openResultSet(session, dataSource.getQueryText(), parameters == null ? null : parameters.toArray(new ParameterValue[0]));
     }
 
@@ -87,37 +68,7 @@ public abstract class AbstractDataProducer implements DataProducer {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "DataSource is null");
 	}
 	
-	List<ParameterValue> parameters = null;
-	if (dataSource.hasParameters()) {
-	    
-	    // Prepare parameter values
-	    // Value is default value of parameter
-	    List<DSParameter> dsParameters = dataSource.getParameters();
-	    
-	    int inputParameterCount = parameterValues == null ? 0: parameterValues.length;
-	    int dsParameterCount = dsParameters == null ? 0: dsParameters.size();
-	    
-	    if (inputParameterCount !=  dsParameterCount) {
-		handleContextException(DataManager.CONTEXT_RESULT_SET, "Incorrect parameter count. Input/DataSource parameters: " + inputParameterCount + "/" + dsParameterCount);
-	    }
-	    
-	    parameters = new ArrayList<ParameterValue>();
-	    ParameterValue parameter = null;
-	    DSParameter dsParameter = null;
-	    
-	    for (int i = 0; i < dsParameterCount; i++) {
-		dsParameter = dsParameters.get(i);
-		
-		parameter = new ParameterValue();
-		parameter.setName(dsParameter.getName());
-		parameter.setType(dsParameter.getDataType());
-		parameter.setValue(parameterValues[i]);
-		
-		parameters.add(parameter);
-	    }
-	    
-	}
-	
+	List<ParameterValue> parameters = createParameters(dataSource, parameterValues);
 	return openResultSet(session, dataSource.getQueryText(), parameters == null ? null : parameters.toArray(new ParameterValue[0]));
     }
     
@@ -157,5 +108,102 @@ public abstract class AbstractDataProducer implements DataProducer {
  	return SystemUtils.isEmpty(collection);
     }
 
+    ////
+    
+    protected List<ParameterValue> createParameters(DSDataSource dataSource) throws DSException {
+	if (!dataSource.hasParameters()) {
+	    return null;
+	}
+	List<ParameterValue> parameters = null;
 
+	// Prepare parameter values
+	// Value is default value of parameter
+	List<DSParameter> dsParameters = dataSource.getParameters();
+	int dsParameterCount = dsParameters == null ? 0 : dsParameters.size();
+
+	parameters = new ArrayList<ParameterValue>();
+	ParameterValue parameter = null;
+	DSParameter dsParameter = null;
+
+	for (int i = 0; i < dsParameterCount; i++) {
+	    dsParameter = dsParameters.get(i);
+	    parameter = new ParameterValue();
+	    parameter.setName(dsParameter.getName());
+	    parameter.setType(dsParameter.getDataType());
+	    parameter.setValue(dsParameter.getDefaultValue());
+	    parameters.add(parameter);
+	}
+	return parameters;
+
+    }
+    
+    protected List<ParameterValue> createParameters(DSDataSource dataSource, Object[] parameterValues) throws DSException {
+	if (!dataSource.hasParameters()) {
+	    return null;
+	}
+	List<ParameterValue> parameters = null;
+
+	// Prepare parameter values
+	// Value is default value of parameter
+	List<DSParameter> dsParameters = dataSource.getParameters();
+
+	int inputParameterCount = parameterValues == null ? 0 : parameterValues.length;
+	int dsParameterCount = dsParameters == null ? 0 : dsParameters.size();
+
+	if (inputParameterCount != dsParameterCount) {
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Incorrect parameter count. Input/DataSource parameters: "
+			    + inputParameterCount + "/" + dsParameterCount);
+	}
+
+	parameters = new ArrayList<ParameterValue>();
+	ParameterValue parameter = null;
+	DSParameter dsParameter = null;
+
+	for (int i = 0; i < dsParameterCount; i++) {
+	    dsParameter = dsParameters.get(i);
+
+	    parameter = new ParameterValue();
+	    parameter.setName(dsParameter.getName());
+	    parameter.setType(dsParameter.getDataType());
+	    parameter.setValue(parameterValues[i]);
+
+	    parameters.add(parameter);
+	}
+
+	return parameters;
+
+    }
+
+    protected String compileQuery(String query, int parameterCount) throws DSException {
+	String sql = normalize(query);
+	if (sql == null) {
+	    return null;
+	}
+
+	boolean hasParameters = parameterCount > 0;
+	
+	//boolean hasParameters = !isEmpty(parameters);
+	//int inputParameterCount = hasParameters ? parameters.length : 0;
+
+	boolean needAnalizeQuery = hasParameters || ALWAYS_ANALIZE_QUERY;
+	if (!needAnalizeQuery) {
+	    return sql;
+	}
+	QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
+	QueryInfo queryInfo = queryAnalyzer.analyzeQuery(sql);
+
+	int queryParameterCount = queryInfo.getParameterCount();
+	int uniqueParameterCount = queryInfo.getUniqueParameterCount();
+
+	// TODO: Only for named parameters (:param1, :param2)
+	// But it doesn't work for '?' parameters!
+	if (parameterCount != uniqueParameterCount) {handleContextException(DataManager.CONTEXT_RESULT_SET,
+		"Incorrect parameter count. Input/Query parameters: "
+		+ parameterCount + "/" + uniqueParameterCount);
+	}
+
+	sql = queryInfo.getCompileQuery();
+	return sql;
+
+    }
 }
