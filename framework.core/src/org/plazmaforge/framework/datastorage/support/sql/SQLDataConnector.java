@@ -33,9 +33,19 @@ import org.plazmaforge.framework.core.datastorage.AbstractDataConnector;
  */
 public class SQLDataConnector extends AbstractDataConnector {
 
+    private String url;
+    
     private String driverClassName;
     
     public SQLDataConnector() {
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getDriverClassName() {
@@ -44,6 +54,11 @@ public class SQLDataConnector extends AbstractDataConnector {
 
     public void setDriverClassName(String driverClassName) {
         this.driverClassName = driverClassName;
+    }
+
+    @Override
+    public String getType() {
+	return SQLDataProducerFactory.TYPE;
     }
     
     

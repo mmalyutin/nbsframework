@@ -29,24 +29,27 @@ package org.plazmaforge.framework.core.datastorage;
  * @author ohapon
  *
  */
-public class DSBaseDataConnector extends AbstractDataConnector implements DSDataConnector {
+public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 
-    private String type;
+    private String folderName;
     
+    private String fileName;
+
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
     
-    public DSBaseDataConnector() {
-	super();
-    }
-
-
-    public String getType() {
-        return type;
-    }
-
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     
 }
