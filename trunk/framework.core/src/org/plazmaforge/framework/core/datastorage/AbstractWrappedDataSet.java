@@ -44,7 +44,10 @@ public class AbstractWrappedDataSet extends AbstractStructuredDataSet {
 
     //@Override
     public Object getValue(int index) throws DSException {
-	return resultSet.getValue(index);
+	// Must optimize
+	DSField field = getField(index);
+	return getValue(field);
+	//return resultSet.getValue(index);
     }
 
     //@Override

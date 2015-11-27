@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,58 +20,24 @@
  * ohapon@users.sourceforge.net
  */
 
-
+/**
+ * 
+ */
 package org.plazmaforge.framework.core.datastorage;
 
 import org.plazmaforge.framework.core.exception.DSException;
 
+/**
+ * @author ohapon
+ *
+ */
+public interface DSIndexableResultSet extends DSResultSet {
 
-public interface DSResultSet  {
-
-    /**
-     * Move marker to next position.
-     * @return
-     * @throws DSException 
-     */
-    boolean next() throws DSException;
-    
-
-    /**
-     * Return value of current record by field name
-     * @param name
-     * @return
-     * @throws DSException 
-     */
-    Object getValue(String name) throws DSException;
-    
     /**
      * Return value of current record by index
      * @param name
      * @return
      * @throws DSException 
      */
-    //Object getValue(int index) throws DSException;
-
-    /**
-     * Return true if DSResultSet is empty
-     * @return
-     */
-    boolean isEmpty() throws DSException;
-    
-    /**
-     * Return true if DSResultSet is closed
-     * @return
-     */
-    boolean isClosed() throws DSException;
-    
-    
-    /**
-     * Close DSResultSet
-     * @throws DSException
-     */
-    void close() throws DSException;
-    
-   
-
-
+    Object getValue(int index) throws DSException;
 }

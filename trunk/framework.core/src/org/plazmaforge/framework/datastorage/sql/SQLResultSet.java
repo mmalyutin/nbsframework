@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.datastorage.AbstractResultSet;
+import org.plazmaforge.framework.core.datastorage.DSIndexableResultSet;
 import org.plazmaforge.framework.core.datastorage.DSScrollableResultSet;
 import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
@@ -43,7 +44,7 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public class SQLResultSet extends AbstractResultSet implements DSScrollableResultSet, DSStructuredResultSet {
+public class SQLResultSet extends AbstractResultSet implements DSScrollableResultSet, DSIndexableResultSet, DSStructuredResultSet {
 
     private ResultSet rs;
 
@@ -215,7 +216,7 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
     }
     
     @Override
-    public boolean top() throws DSException {
+    public boolean beforeFirst() throws DSException {
 	if (isInvalid()){
 	    return false;
 	}
@@ -234,7 +235,7 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
     }
 
     @Override
-    public boolean bottom() throws DSException {
+    public boolean afterLast() throws DSException {
 	if (isInvalid()){
 	    return false;
 	}
