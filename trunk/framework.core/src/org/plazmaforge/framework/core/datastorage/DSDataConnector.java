@@ -45,18 +45,12 @@ import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 public interface DSDataConnector extends LocalizedIdentifier {
 
     /**
-     * Return type (SQL, XML, CSV, JSON...)
+     * Return type (SQL, CSV, XML, XLS, XLSX, JSON...)
      * 
      * @return
      */
     String getType();
     
-    void setType(String type);
-
-    String getUrl();
-    
-    void setUrl(String url);
-
     String getUsername();
     
     void setUsername(String username);

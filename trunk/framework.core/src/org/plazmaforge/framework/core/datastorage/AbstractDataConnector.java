@@ -33,34 +33,20 @@ import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
  */
 public abstract class AbstractDataConnector extends BaseLocalizedIdentifier {
 
-    private String type;
-
-    private String url;
-    
     private String username;
     
     private String password;
     
+    private String dateFormat;
+    
+    private String numberFormat;    
 
     public AbstractDataConnector() {
 	super();
     }
 
-    public String getType() {
-        return type;
-    }
+    public abstract String getType();
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public String getUsername() {
         return username;
@@ -78,7 +64,21 @@ public abstract class AbstractDataConnector extends BaseLocalizedIdentifier {
         this.password = password;
     }
 
-    
-    
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public String getNumberFormat() {
+        return numberFormat;
+    }
+
+    public void setNumberFormat(String numberFormat) {
+        this.numberFormat = numberFormat;
+    }
+
     
 }
