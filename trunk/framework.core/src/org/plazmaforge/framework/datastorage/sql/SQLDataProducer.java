@@ -67,6 +67,9 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	if (dataConnector == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null.");
 	}
+	if (!(dataConnector instanceof SQLDataConnector)) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be SQLDataConnector");
+	}	
 	String url = dataConnector.getUrl();
 	String username = dataConnector.getUsername();
 	String password = dataConnector.getPassword();
