@@ -23,29 +23,22 @@
 /**
  * 
  */
-package org.plazmaforge.framework.datastorage.sql;
+package org.plazmaforge.framework.datastorage.support.sql;
 
-import org.plazmaforge.framework.core.datastorage.AbstractDataConnector;
+import org.plazmaforge.framework.core.datastorage.DataProducer;
+import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
 
 /**
  * @author ohapon
  *
  */
-public class SQLDataConnector extends AbstractDataConnector {
+public class SQLDataProducerFactory implements DataProducerFactory {
 
-    private String driverClassName;
+    public static final String TYPE = "SQL";
     
-    public SQLDataConnector() {
+    @Override
+    public DataProducer getDataProducer() {
+	return new SQLDataProducer();
     }
-
-    public String getDriverClassName() {
-        return driverClassName;
-    }
-
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-    
-    
 
 }

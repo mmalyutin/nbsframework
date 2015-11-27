@@ -23,7 +23,7 @@
 /**
  * 
  */
-package org.plazmaforge.framework.datastorage.sql;
+package org.plazmaforge.framework.datastorage.support.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

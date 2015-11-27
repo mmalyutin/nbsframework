@@ -33,7 +33,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.sql.SQLDataProducerFactory;
+import org.plazmaforge.framework.datastorage.support.sql.SQLDataProducerFactory;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
