@@ -75,7 +75,7 @@ public interface DSScrollableResultSet extends DSResultSet {
      * @return
      * @throws DSException
      */
-    boolean top() throws DSException;
+    boolean beforeFirst() throws DSException;
 
     
     /**
@@ -83,6 +83,6 @@ public interface DSScrollableResultSet extends DSResultSet {
      * @return
      * @throws DSException
      */
-    boolean bottom() throws DSException;
+    boolean afterLast() throws DSException;
 
 }

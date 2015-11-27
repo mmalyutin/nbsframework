@@ -25,15 +25,13 @@
  */
 package org.plazmaforge.framework.core.datastorage;
 
-import java.io.Serializable;
-
 import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * @author ohapon
  *
  */
-public class DSEmptyResultSet implements DSScrollableResultSet, Serializable {
+public class DSEmptyResultSet implements DSScrollableResultSet, DSIndexableResultSet, DSSerializableResultSet {
 
     private static final long serialVersionUID = 9108216287910137742L;
     
@@ -64,12 +62,12 @@ public class DSEmptyResultSet implements DSScrollableResultSet, Serializable {
     }
 
     @Override
-    public boolean top() throws DSException {
+    public boolean beforeFirst() throws DSException {
 	return false;
     }
 
     @Override
-    public boolean bottom() throws DSException {
+    public boolean afterLast() throws DSException {
 	return false;
     }
     
