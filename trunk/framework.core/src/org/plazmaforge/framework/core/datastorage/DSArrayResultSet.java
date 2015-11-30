@@ -25,7 +25,6 @@
  */
 package org.plazmaforge.framework.core.datastorage;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.plazmaforge.framework.core.exception.DSException;
@@ -34,7 +33,7 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public class DSArrayResultSet extends AbstractResultSet implements DSStructuredResultSet, Serializable {
+public class DSArrayResultSet extends AbstractResultSet implements DSStructuredResultSet, DSXResultSet {
 
     private static final long serialVersionUID = 7093284630751499898L;
     
@@ -64,7 +63,7 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	this(null, records);
     }
     
-
+    @Override
     public boolean first() throws DSException {
 	if (isEmpty()) {
 	    return false;
@@ -73,6 +72,16 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	return true;
     }
     
+    @Override
+    public boolean beforeFirst() throws DSException {
+	if (isEmpty()) {
+	    return false;
+	}
+	position = -1;
+	return true;
+    }
+    
+    @Override
     public boolean move(int index) throws DSException {
 	if (isEmpty() || index < 0 || index > getRecordCount() - 1) {
 	    return false;
@@ -81,6 +90,7 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	return true;
     }
     
+    @Override
     public boolean last() throws DSException {
 	if (isEmpty()) {
 	    return false;
@@ -89,6 +99,16 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	return true;
     }
 
+    @Override
+    public boolean afterLast() throws DSException {
+	if (isEmpty()) {
+	    return false;
+	}
+	position = getRecordCount();
+	return true;
+    }
+    
+    @Override
     public boolean next() throws DSException {
 	if (isEmpty()) {
 	    return false;
@@ -99,6 +119,24 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	position++;
 	return true;
     }
+    
+    @Override
+    public boolean canScroll() throws DSException {
+	return true;
+    }
+
+    @Override
+    public boolean prev() throws DSException {
+	if (isEmpty()) {
+	    return false;
+	}
+	if (position - 1 == -1) {
+	    return false;
+	}
+	position--;
+	return true;
+    }
+    
     
     public void setData(List<Object[]> records) {
 	this.records = records;
@@ -115,7 +153,7 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	return records.get(index);
     }
 
-    
+    @Override
     public Object getValue(int index) throws DSException {
 	return getRecord()[index];
     }
@@ -155,6 +193,8 @@ public class DSArrayResultSet extends AbstractResultSet implements DSStructuredR
 	records.clear();
 	records = null;
     }
+
+  
 
     
 }
