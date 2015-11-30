@@ -72,6 +72,10 @@ public abstract class AbstractResultSet implements DSResultSet {
         generateFieldIndexes();
     }
     
+    public boolean hasFields() {
+        return fieldNames != null && !fieldNames.isEmpty();
+    }
+    
     protected void setFieldIndexes(Map<String, Integer> fieldIndexes) {
 	this.fieldIndexes = fieldIndexes == null ? null : new HashMap<String, Integer>(fieldIndexes); 
 	
