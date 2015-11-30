@@ -27,19 +27,22 @@ package org.plazmaforge.framework.datastorage.support.csv;
 
 import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
 
+
 /**
  * @author ohapon
  *
  */
 public class CSVDataConnector extends AbstractFileDataConnector {
 
-    public static final String DEFAULT_FIELD_DELIMETER = ",";
-    public static final String DEFAULT_RECORD_DELIMETER = "\\n";    
+    public static final String DEFAULT_FIELD_DELIMITER = ",";
+    public static final String DEFAULT_RECORD_DELIMITER = "\\n";
+    
+    //public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? "\r\n" : "\n";
     
     
-    private String fieldDelimiter = DEFAULT_FIELD_DELIMETER;
+    private String fieldDelimiter = DEFAULT_FIELD_DELIMITER;
 
-    private String recordDelimiter = DEFAULT_RECORD_DELIMETER;
+    private String recordDelimiter = DEFAULT_RECORD_DELIMITER;
    
     private boolean useFirstRowAsHeader;
 
