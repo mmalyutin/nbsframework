@@ -169,7 +169,9 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
    	String row = getRow();
    	if (row == null)// || row.length() == 0)
    	    return false;
-
+   	
+   	char fieldDelimiterChar = getFieldDelimiterChar();
+   	
    	while (pos < row.length()) {
    	    c = row.charAt(pos);
 
@@ -195,7 +197,7 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
    		}
    	    }
    	    // field delimiter found, copy the field contents to the field array
-   	    if (c == getFieldDelimiterChar() && !insideQuotes) {
+   	    if (c == fieldDelimiterChar && !insideQuotes) {
    		String field = row.substring(startFieldPos, pos);
    		// if an illegal quote was found, the entire field is considered
    		// illegal
