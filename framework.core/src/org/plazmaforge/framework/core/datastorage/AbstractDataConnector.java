@@ -31,7 +31,7 @@ import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
  * @author ohapon
  *
  */
-public abstract class AbstractDataConnector extends BaseLocalizedIdentifier {
+public abstract class AbstractDataConnector extends BaseLocalizedIdentifier implements DSDataConnector {
 
     private String username;
     
