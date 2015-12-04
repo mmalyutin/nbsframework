@@ -25,19 +25,42 @@
  */
 package org.plazmaforge.framework.datastorage.support.csv;
 
+import org.plazmaforge.framework.core.datastorage.DSResultSet;
+import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+
+import junit.framework.TestCase;
 
 /**
  * @author ohapon
  *
  */
-public class CSVDataProducerFactory implements DataProducerFactory {
+public class CSVDataConnectorTest extends TestCase {
 
-    public static final String TYPE = "CSV";
+    public void testConnector() throws Exception {
 
-    @Override
-    public DataProducer getDataProducer() {
-	return new CSVDataProducer();
+	// Data Producer
+	DataProducer producer = new CSVDataProducerFactory().getDataProducer();
+	assertNotNull(producer);
+	
+	// Data Connector
+	CSVDataConnector dataConnector = new CSVDataConnector();
+	dataConnector.setFileName("C:\\test.csv");
+
+	// Session
+	DSSession session = producer.openSession(dataConnector);
+	assertNotNull(session);
+	
+	DSResultSet resultSet = producer.openResultSet(session, (String) null);
+	assertNotNull(resultSet);
+	
+	int row = 0;
+	while (resultSet.next()) {
+	    row++;
+	    System.out.println("Row[" + row + "]");
+	}
+	
+	session.close();
+	
     }
 }
