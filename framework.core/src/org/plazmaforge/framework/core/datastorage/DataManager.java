@@ -266,7 +266,10 @@ public class DataManager {
      * Check and parse connection string
      * @param context
      * @param connectionString
-     * @return
+     * @return String array
+     *  [0] - type
+     *  [1] - connection
+     *   
      * @throws DSException
      */
     public static String[] parseConnectionString(String context, String connectionString) throws DSException {
@@ -302,24 +305,10 @@ public class DataManager {
     
     public static DataProducer getCheckDataProducer(String context, String type) throws DSException {
 	
-	/*
-	if (type == null) {
-	    handleContextException(context, "DataConnector type is null.");
-	}
-	type = type.trim();
-	if (type.isEmpty()) {
-	    handleContextException(context, "DataConnector type is empty.");
-	}
-	*/
-
 	// By default DataConnector type is SQL
+	type = normalize(type);
 	if (type == null) {
 	    type = SQL;
-	} else {
-	    type = type.trim();
-	    if (type.isEmpty()) {
-		type = SQL;
-	    }
 	}
 	
 	DataProducer dataProducer = getDataProducer(type);
@@ -345,15 +334,13 @@ public class DataManager {
 	throw new DSException(message + " " + cause);
     }
 
+    private static String normalize(String str) {
+	return StringUtils.normalizeString(str);
+    }
+    
     private static String normalizeKey(String key) {
-	if (key == null) {
-	    return key;
-	}
-	key = key.trim();
-	if (key.isEmpty()) {
-	    return null;
-	}
-	return key.toUpperCase();
+	key = normalize(key);
+	return key == null ? null : key.toUpperCase();
     }
 }
 
