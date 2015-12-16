@@ -46,6 +46,12 @@ public abstract class AbstractDataProducer implements DataProducer {
     public static final boolean ALWAYS_ANALIZE_QUERY = false;
     
     @Override
+    public DSResultSet openResultSet(String connectionString) throws DSException {
+	// By default unsupported operation. Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet)
+	throw new DSException("Unsupported operation");
+    }
+    
+    @Override
     public DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
@@ -75,6 +81,12 @@ public abstract class AbstractDataProducer implements DataProducer {
     @Override
     public DSResultSet openResultSet(DSSession session, String query) throws DSException {
 	return openResultSet(session, query, null);
+    }
+    
+    @Override
+    public DSResultSet openResultSet(DSSession session) throws DSException {
+	// By default unsupported operation. Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet)
+	throw new DSException("Unsupported operation");
     }
     
     ////

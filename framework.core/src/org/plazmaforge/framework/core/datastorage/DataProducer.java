@@ -51,9 +51,13 @@ public interface DataProducer {
     DSSession openWrapSession(Object data) throws DSException;
     
     
+    DSResultSet openResultSet(String connectionString) throws DSException;
+    
     DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException;
     
     DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Object[] parameters) throws DSException;
+    
+    DSResultSet openResultSet(DSSession session) throws DSException;
     
     DSResultSet openResultSet(DSSession session, String query) throws DSException;
     
