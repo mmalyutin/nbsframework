@@ -28,14 +28,13 @@ package org.plazmaforge.framework.datastorage.support.csv;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
-
-import junit.framework.TestCase;
+import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
 
 /**
  * @author ohapon
  *
  */
-public class CSVDataConnectorTest extends TestCase {
+public class CSVDataConnectorTest extends AbstractDSTestCase {
 
     public void testConnector() throws Exception {
 
@@ -45,7 +44,11 @@ public class CSVDataConnectorTest extends TestCase {
 	
 	// Data Connector
 	CSVDataConnector dataConnector = new CSVDataConnector();
-	dataConnector.setFileName("C:\\test.csv");
+	
+	String fileName = getResourcesFileName("test.csv");
+	dataConnector.setFileName(fileName);
+	
+	System.out.println("Create CSVDataConnector: " + fileName);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
@@ -55,9 +58,10 @@ public class CSVDataConnectorTest extends TestCase {
 	assertNotNull(resultSet);
 	
 	int row = 0;
+	System.out.println("Load CSV data:");
 	while (resultSet.next()) {
 	    row++;
-	    System.out.println("Row[" + row + "]");
+	    System.out.println(" Row[" + row + "]");
 	}
 	
 	session.close();
