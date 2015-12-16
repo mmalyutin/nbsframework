@@ -27,7 +27,9 @@ package org.plazmaforge.framework.datastorage.support.csv;
 
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DSSession;
+import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
+import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
 
 /**
@@ -48,23 +50,45 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	String fileName = getResourcesFileName("test.csv");
 	dataConnector.setFileName(fileName);
 	
-	System.out.println("Create CSVDataConnector: " + fileName);
+	System.out.println("Create CSVDataConnector: fileName=" + fileName);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
 	assertNotNull(session);
-	
-	DSResultSet resultSet = producer.openResultSet(session, (String) null);
-	assertNotNull(resultSet);
-	
-	int row = 0;
-	System.out.println("Load CSV data:");
-	while (resultSet.next()) {
-	    row++;
-	    System.out.println(" Row[" + row + "]");
-	}
+
+	// 1.
+	CSVResultSet csvResultSet = (CSVResultSet) producer.openResultSet(session);
+	assertNotNull(csvResultSet);
+	System.out.println("\nOpen CSVResultSet by session: fileName=" + fileName);
+	printResultSet(csvResultSet);
 	
 	session.close();
 	
+	// 2.
+	String connectionString = fileName;
+	csvResultSet = (CSVResultSet) producer.openResultSet(connectionString);
+	assertNotNull(csvResultSet);
+	System.out.println("\nOpen CSVResultSet by internal connection string: '" + connectionString + "'");
+	printResultSet(csvResultSet);
     }
+    
+    public void testDatamMnager() throws Exception {
+	DataManager.registerDataProducerFactory(CSVDataProducerFactory.TYPE, new CSVDataProducerFactory());
+	
+	String fileName = getResourcesFileName("test.csv");
+	String connectionString = "csv::" + fileName;
+	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
+	printResultSet(csvResultSet);
+    }
+    
+    private void printResultSet(CSVResultSet csvResultSet) throws DSException {
+	int row = 0;
+	System.out.println("Load CSV data:");
+	while (csvResultSet.next()) {
+	    row++;
+	    System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
+	}
+    }
+    
 }

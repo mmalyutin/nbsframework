@@ -32,6 +32,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.plazmaforge.framework.core.data.ParameterValue;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.datastorage.support.sql.SQLDataProducerFactory;
 import org.plazmaforge.framework.util.StringUtils;
@@ -156,6 +157,15 @@ public class DataManager {
 	return dataProducer.openWrapSession(dataSource);
     }
 
+    public static DSResultSet openResultSet(String connectionString) throws DSException {
+	String[] values = parseConnectionString(CONTEXT_RESULT_SET, connectionString);
+	String type = values[0];
+	String connection = values[1];
+	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type);
+	
+	return dataProducer.openResultSet(connection);
+    }
+    
     public static DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Object[] parameterValues) throws DSException {
 	if (session == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
@@ -182,6 +192,16 @@ public class DataManager {
 	return dataProducer.openResultSet(session, dataSource);
     }
 
+    public static DSResultSet openResultSet(DSSession session) throws DSException {
+	if (session == null) {
+	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
+	}
+	String type = session.getType();
+	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type); // Session type
+	
+	return dataProducer.openResultSet(session);
+    }
+    
     public static DSResultSet openResultSet(DSSession session, String query) throws DSException {
 	if (session == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
@@ -192,6 +212,17 @@ public class DataManager {
 	return dataProducer.openResultSet(session, query);
     }
 
+    public static DSResultSet openResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
+	if (session == null) {
+	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
+	}
+	String type = session.getType();
+	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type); // Session type
+	
+	return dataProducer.openResultSet(session, query, parameters);
+    }
+
+    
     
     public static DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException {
 	if (session == null) {

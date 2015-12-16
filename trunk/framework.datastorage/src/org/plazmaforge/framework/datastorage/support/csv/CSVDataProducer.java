@@ -136,7 +136,29 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     }
 
     @Override
+    public DSResultSet openResultSet(String connectionString) throws DSException {
+	String url = getCheckConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String fileName = url;
+	try {
+	    Reader reader = new FileReader(fileName);
+	    return new CSVResultSet(reader);
+	} catch (IOException ex) {
+	    throw new DSException(ex);
+	}
+    }
+
+    @Override
+    public DSResultSet openResultSet(DSSession session) throws DSException {
+	return doOpenResultSet(session, null, null);
+    }
+    
+    @Override
     public DSResultSet openResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
+	return doOpenResultSet(session, query, parameters);
+    }
+
+    // General method
+    protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
 	}
@@ -152,8 +174,8 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	// query is not supported
 	return new CSVResultSet(reader);
 
-    }
-
+    }  
+    
     @Override
     public DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException {
 	
