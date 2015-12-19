@@ -199,11 +199,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    field = dsField.clone();
 	    fields.add(field);
 	}
-	// query is not supported
-	//return new CSVDataSet(fields, reader);
-	
-	//TODO: Not implemented
-	return null;
+	return new CSVDataSet(fields, reader);
 	
     }
 

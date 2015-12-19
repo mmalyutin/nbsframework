@@ -25,6 +25,9 @@
  */
 package org.plazmaforge.framework.datastorage.support.csv;
 
+import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
+import org.plazmaforge.framework.core.datastorage.DSDataSource;
+import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
@@ -70,6 +73,41 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	assertNotNull(csvResultSet);
 	System.out.println("\nOpen CSVResultSet by internal connection string: '" + connectionString + "'");
 	printResultSet(csvResultSet);
+	
+	//3.
+	
+	// Session
+	dataConnector.setUseFirstRowAsHeader(true);
+	session = producer.openSession(dataConnector);
+	assertNotNull(session);
+	
+	DSDataSource dataSource = new DSBaseDataSource();
+	dataSource.setType("csv");
+	
+	DSField field = new DSField();
+	field.setName("A");
+	field.setDataType("Integer");
+	dataSource.addField(field);
+
+	field = new DSField();
+	field.setName("B");
+	field.setDataType("Integer");
+	dataSource.addField(field);
+
+	field = new DSField();
+	field.setName("C");
+	field.setDataType("Integer");
+	dataSource.addField(field);
+	
+	
+	CSVDataSet csvDataSet = (CSVDataSet) producer.openDataSet(session, dataSource);
+	
+	int row = 0;
+   	System.out.println("Load CSV DataSet:");
+   	while (csvDataSet.next()) {
+   	    row++;
+   	    System.out.println(" Row[" + row + "] : " + csvDataSet.getValue("A") + ", " + csvDataSet.getValue("B") + ", " + csvDataSet.getValue("C"));
+   	}
     }
     
     public void testDatamMnager() throws Exception {
