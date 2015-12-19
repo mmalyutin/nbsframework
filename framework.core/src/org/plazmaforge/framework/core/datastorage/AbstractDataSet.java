@@ -22,7 +22,16 @@
 
 package org.plazmaforge.framework.core.datastorage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
+import org.plazmaforge.framework.core.data.ValuePresenter;
+import org.plazmaforge.framework.core.data.presenter.DoublePresenter;
+import org.plazmaforge.framework.core.data.presenter.FloatPresenter;
+import org.plazmaforge.framework.core.data.presenter.IntegerPresenter;
+import org.plazmaforge.framework.core.data.presenter.StringPresenter;
+import org.plazmaforge.framework.util.StringUtils;
 
 /**
  * 
@@ -31,6 +40,10 @@ import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
  */
 public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 
+
+    // We use presenters like converters to convert value form string to typed value
+    private Map<String, ValuePresenter> converters;
+    
 
     private String dataSourceName;
 
@@ -42,6 +55,26 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
         this.dataSourceName = dataSourceName;
     }
     
+    /**
+     * Initialize data type converters
+     */
+    protected void initConverts() {
+	converters = new HashMap<String, ValuePresenter>();
+	converters.put("String", new StringPresenter());
+	converters.put("Integer", new IntegerPresenter());
+	converters.put("Float", new FloatPresenter());
+	converters.put("Double", new DoublePresenter());
+    }
+    
+    protected Object convert(String value, String type) {
+	if (converters == null) {
+	    initConverts();
+	}
+	value = StringUtils.normalizeString(value);
+	ValuePresenter converter = type == null ? null : converters.get(type);
+	Object result = converter == null ? null : converter.toValue(value);
+	return result;
+    }
     
 
 }

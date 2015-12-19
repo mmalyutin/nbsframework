@@ -112,12 +112,22 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
 
     @Override
     public Object getValue(String name) throws DSException {
-	int index = getFieldIndex(name);
-	return getValue(index);
+	return getStringValue(name);
     }
 
     @Override
     public Object getValue(int index) throws DSException {
+	return getStringValue(index);
+    }
+
+    //Native
+    public String getStringValue(String name) throws DSException {
+	int index = getFieldIndex(name);
+	return getStringValue(index);
+    }
+    
+    //Native
+    public String getStringValue(int index) throws DSException {
 	if (values == null || values.isEmpty() || index < 0 || index >= values.size()) {
 	    return null;
 	}
