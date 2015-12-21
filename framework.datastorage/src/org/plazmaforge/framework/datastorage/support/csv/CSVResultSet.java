@@ -57,9 +57,9 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
     
     private boolean processing;
     
-    private String fieldDelimiter;
-    private String recordDelimiter;
-    private boolean includeHeader;
+    private String columnDelimiter;
+    private String rowDelimiter;
+    private boolean firstRowHeader;
 
     public CSVResultSet(List<String> fieldNames, Reader reader) {
 	super(fieldNames);
@@ -75,7 +75,7 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
     public boolean next() throws DSException {
 	try {
 	    if (!processing) {
-		if (isIncludeHeader()) {
+		if (isFirstRowHeader()) {
 
 		    boolean hasRow = parseRow();
 		    if (!hasRow) {
@@ -158,12 +158,6 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
 	}
     }
     
-    protected void handleIOException(IOException ex) throws DSException {
-	if (ex == null) {
-	    return;
-	}
-	throw new DSException(ex);
-    }
 
     ////
     
@@ -180,7 +174,7 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
    	if (row == null)// || row.length() == 0)
    	    return false;
    	
-   	char fieldDelimiterChar = getFieldDelimiterChar();
+   	char fieldDelimiterChar = getColumnDelimiterChar();
    	
    	while (pos < row.length()) {
    	    c = row.charAt(pos);
@@ -237,7 +231,7 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
    	    // not an actual record delimiter,
    	    // so another line should be read
    	    if ((pos == row.length()) && insideQuotes) {
-   		row = row + getRecordDelimiter() + getRow();
+   		row = row + getRowDelimiter() + getRow();
    	    }
    	}
 
@@ -269,28 +263,28 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
     private String getRow() throws IOException {
 	StringBuffer row = new StringBuffer();
 	char c;
-
+	String rowDelimiter = getRowDelimiter();
 	while (true) {
 	    try {
 		c = getChar();
 
 		// searches for the first character of the record delimiter
-		if (c == getRecordDelimiter().charAt(0)) {
+		if (c == rowDelimiter.charAt(0)) {
 		    int i;
-		    char[] temp = new char[getRecordDelimiter().length()];
+		    char[] temp = new char[rowDelimiter.length()];
 		    temp[0] = c;
 		    boolean isDelimiter = true;
 		    // checks if the following characters in the stream form the
 		    // record delimiter
-		    for (i = 1; i < getRecordDelimiter().length()
-			    && isDelimiter; i++) {
+		    for (i = 1; i < rowDelimiter.length() && isDelimiter; i++) {
 			temp[i] = getChar();
-			if (temp[i] != getRecordDelimiter().charAt(i))
+			if (temp[i] != rowDelimiter.charAt(i))
 			    isDelimiter = false;
 		    }
 
-		    if (isDelimiter)
+		    if (isDelimiter) {
 			return row.toString();
+		    }
 
 		    row.append(temp, 0, i);
 		}
@@ -328,54 +322,61 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
      
     ////
        
-    public String getFieldDelimiter() {
-	if (fieldDelimiter == null) {
-	    return CSVDataConnector.DEFAULT_FIELD_DELIMITER;
+    public String getColumnDelimiter() {
+	if (columnDelimiter == null) {
+	    return CSVDataConnector.DEFAULT_COLUMN_DELIMITER;
 	}
-	return fieldDelimiter;
+	return columnDelimiter;
     }
 
-    public void setFieldDelimiter(String filedDelimiter) {
+    public void setColumnDelimiter(String columnDelimiter) {
 	if (processing) {
-	    handlePropertyModifyMessage();
+	    handlePropertyModifyException();
 	}
-	this.fieldDelimiter = filedDelimiter;
+	this.columnDelimiter = columnDelimiter;
     }
 
-    public char getFieldDelimiterChar() {
-	String filedDelimiter = getFieldDelimiter();
-	if (StringUtils.isEmpty(filedDelimiter)) {
+    public char getColumnDelimiterChar() {
+	String columnDelimiter = getColumnDelimiter();
+	if (StringUtils.isEmpty(columnDelimiter)) {
 	    return 0;
 	}
-	return filedDelimiter.charAt(0);
+	return columnDelimiter.charAt(0);
     }
 
-    public String getRecordDelimiter() {
-	if (recordDelimiter == null) {
-	    return CSVDataConnector.DEFAULT_RECORD_DELIMITER;
+    public String getRowDelimiter() {
+	if (rowDelimiter == null) {
+	    return CSVDataConnector.DEFAULT_ROW_DELIMITER;
 	}
-	return recordDelimiter;
+	return rowDelimiter;
     }
 
-    public void setRecordDelimiter(String recordDelimiter) {
+    public void setRowDelimiter(String rowDelimiter) {
 	if (processing) {
-	    handlePropertyModifyMessage();
+	    handlePropertyModifyException();
 	}
-	this.recordDelimiter = recordDelimiter;
+	this.rowDelimiter = rowDelimiter;
     }
 
-    public boolean isIncludeHeader() {
-	return includeHeader;
+    public boolean isFirstRowHeader() {
+	return firstRowHeader;
     }
 
-    public void setIncludeHeader(boolean includeHeader) {
+    public void setFirstRowHeader(boolean firstRowHeader) {
 	if (processing) {
-	    handlePropertyModifyMessage();
+	    handlePropertyModifyException();
 	}
-	this.includeHeader = includeHeader;
+	this.firstRowHeader = firstRowHeader;
     }
 
-    protected void handlePropertyModifyMessage() {
+    protected void handleIOException(IOException ex) throws DSException {
+	if (ex == null) {
+	    return;
+	}
+	throw new DSException(ex);
+    }
+    
+    protected void handlePropertyModifyException() {
 	String message = "Cannot modify '" + getClass().getSimpleName()	+ "' properties after data processing has started";
 	throw new RuntimeException(message);
     }

@@ -35,18 +35,23 @@ import org.plazmaforge.framework.util.SystemInfo;
  */
 public class CSVDataConnector extends AbstractFileDataConnector {
 
+    public static final String PROPERTY_COLUMN_DELIMITER = "columnDelimiter";
+    public static final String PROPERTY_ROW_DELIMITER = "rowDelimiter";
+    public static final String PROPERTY_FIRST_ROW_HEADER = "firstRowHeader";
+    
+    
     public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? "\r\n" : "\n";
-    public static final String DEFAULT_FIELD_DELIMITER = ",";
-    public static final String DEFAULT_RECORD_DELIMITER = DEFAULT_LINE_DELIMITER; //"\\n";
+    public static final String DEFAULT_COLUMN_DELIMITER = ",";
+    public static final String DEFAULT_ROW_DELIMITER = DEFAULT_LINE_DELIMITER; //"\\n";
     
     
     
     
-    private String fieldDelimiter = DEFAULT_FIELD_DELIMITER;
+    private String columnDelimiter = DEFAULT_COLUMN_DELIMITER;
 
-    private String recordDelimiter = DEFAULT_RECORD_DELIMITER;
+    private String rowDelimiter = DEFAULT_ROW_DELIMITER;
    
-    private boolean useFirstRowAsHeader;
+    private boolean firstRowHeader;
 
 
     public CSVDataConnector() {
@@ -58,29 +63,30 @@ public class CSVDataConnector extends AbstractFileDataConnector {
 	return CSVDataProducerFactory.TYPE;
     }
 
-    public String getFieldDelimiter() {
-        return fieldDelimiter;
+    public String getColumnDelimiter() {
+        return columnDelimiter;
     }
 
-    public void setFieldDelimiter(String fieldDelimiter) {
-        this.fieldDelimiter = fieldDelimiter;
+    public void setColumnDelimiter(String columnDelimiter) {
+        this.columnDelimiter = columnDelimiter;
     }
 
-    public String getRecordDelimiter() {
-        return recordDelimiter;
+    public String getRowDelimiter() {
+        return rowDelimiter;
     }
 
-    public void setRecordDelimiter(String recordDelimiter) {
-        this.recordDelimiter = recordDelimiter;
+    public void setRowDelimiter(String rowDelimiter) {
+        this.rowDelimiter = rowDelimiter;
     }
 
-    public boolean isUseFirstRowAsHeader() {
-        return useFirstRowAsHeader;
+    public boolean isFirstRowHeader() {
+        return firstRowHeader;
     }
 
-    public void setUseFirstRowAsHeader(boolean useFirstRowAsHeader) {
-        this.useFirstRowAsHeader = useFirstRowAsHeader;
+    public void setFirstRowHeader(boolean firstRowHeader) {
+        this.firstRowHeader = firstRowHeader;
     }
+
 
 
     

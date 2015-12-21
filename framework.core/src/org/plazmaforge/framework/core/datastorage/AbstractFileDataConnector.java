@@ -31,6 +31,12 @@ package org.plazmaforge.framework.core.datastorage;
  */
 public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 
+    public static final String PROPERTY_FOLDER_NAME = "folderName";
+    
+    public static final String PROPERTY_FILE_NAME = "fileName";
+
+    
+    
     private String folderName;
     
     private String fileName;

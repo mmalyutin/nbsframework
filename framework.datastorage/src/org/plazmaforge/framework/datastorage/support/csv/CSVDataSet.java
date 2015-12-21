@@ -46,7 +46,10 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	
 	setFields(fields);
 	List<String> fieldNames = getFieldNames();
-	this.resultSet = new CSVResultSet(fieldNames, reader);
+	
+	CSVResultSet csvResultSet = new CSVResultSet(fieldNames, reader);
+	
+	this.resultSet = csvResultSet;
 	
     }
 
@@ -69,6 +72,30 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	
 	String value = ((CSVResultSet) resultSet).getStringValue(index);
 	return convert(value, dataType);
+    }
+
+    public String getColumnDelimiter() {
+        return ((CSVResultSet) resultSet).getColumnDelimiter();
+    }
+
+    public void setColumnDelimiter(String columnDelimiter) {
+        ((CSVResultSet) resultSet).setColumnDelimiter(columnDelimiter);
+    }
+
+    public String getRowDelimiter() {
+        return ((CSVResultSet) resultSet).getRowDelimiter();
+    }
+
+    public void setRowDelimiter(String rowDelimiter) {
+        ((CSVResultSet) resultSet).setRowDelimiter(rowDelimiter);
+    }
+
+    public boolean isFirstRowHeader() {
+        return ((CSVResultSet) resultSet).isFirstRowHeader();
+    }
+
+    public void setFirstRowHeader(boolean firstRowHeader) {
+        ((CSVResultSet) resultSet).setFirstRowHeader(firstRowHeader);
     }
  
   

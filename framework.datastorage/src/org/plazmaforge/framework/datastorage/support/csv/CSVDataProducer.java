@@ -29,7 +29,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.plazmaforge.framework.core.data.ParameterValue;
@@ -60,24 +62,46 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be CSVDataConnector");
 	}	
 	CSVDataConnector sqlDataConnector = (CSVDataConnector) dataConnector;
-	String url = sqlDataConnector.getFileName();
+	
+	String fileName = sqlDataConnector.getFileName();
 	String username = sqlDataConnector.getUsername();
 	String password = sqlDataConnector.getPassword();
-	return openSession(url, username, password);
+	String columnDelimiter = sqlDataConnector.getColumnDelimiter();
+	String rowDelimiter = sqlDataConnector.getRowDelimiter();
+	Boolean firstRowHeader = sqlDataConnector.isFirstRowHeader();
+	
+	
+	Map<String, Object> data = new HashMap<String, Object>();
+	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
+	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
+	data.put(CSVDataConnector.PROPERTY_COLUMN_DELIMITER, columnDelimiter);
+	data.put(CSVDataConnector.PROPERTY_ROW_DELIMITER, rowDelimiter);
+	data.put(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
+	
+	return doOpenSession(data);
+	
+	//return openSession(url, username, password);
     }
 
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	return doOpenSession(url, null, null);
+	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	
+	Map<String, Object> data = new HashMap<String, Object>();
+	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	
+	return doOpenSession(data);
+	
+	//return doOpenSession(url, null, null);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
-	if (url == null || url.isEmpty()) {
-	    url = properties.getProperty(DataManager.PROPERTY_URL);
+	if (fileName == null || fileName.isEmpty()) {
+	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
 	}
 	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
 	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
@@ -85,13 +109,29 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	if (username == null) {
 	    username = properties.getProperty(DataManager.PROPERTY_USER);
 	}
-	return doOpenSession(url, username, password);
+	
+	Map<String, Object> data = new HashMap<String, Object>();
+	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
+	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
+	
+	return doOpenSession(data);
+	
+	//return doOpenSession(url, username, password);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	return doOpenSession(url, username, password);
+	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	
+	Map<String, Object> data = new HashMap<String, Object>();
+	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
+	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
+	
+	return doOpenSession(data);
+	
+	//return doOpenSession(url, username, password);
     }
     
     @Override
@@ -100,7 +140,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null.");
 	}
 	
-	String url = properties.getProperty(DataManager.PROPERTY_URL);
+	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
 	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
 	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
 	
@@ -108,7 +148,14 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    username = properties.getProperty(DataManager.PROPERTY_USER);
 	}
 
-	return doOpenSession(url, username, password);
+	Map<String, Object> data = new HashMap<String, Object>();
+	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
+	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
+	
+	return doOpenSession(data);
+	
+	//return doOpenSession(url, username, password);
     }
 	
     @Override
@@ -130,6 +177,28 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	try {
 	    Reader reader = new FileReader(fileName);
 	    return new CSVSession(reader);
+	} catch (IOException ex) {
+	    throw new DSException(ex);
+	}
+    }
+
+    // General method
+    protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
+	
+	String fileName = (String) data.get(CSVDataConnector.PROPERTY_FILE_NAME);
+	String columnDelimiter = (String) data.get(CSVDataConnector.PROPERTY_COLUMN_DELIMITER);
+	String rowDelimiter = (String) data.get(CSVDataConnector.PROPERTY_ROW_DELIMITER);
+	Boolean firstRowHeader = (Boolean) data.get(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER);
+	
+	try {
+	    Reader reader = new FileReader(fileName);
+	    CSVSession session = new CSVSession(reader);
+	    session.setColumnDelimiter(columnDelimiter);
+	    session.setRowDelimiter(rowDelimiter);
+	    if (firstRowHeader != null) {
+		session.setFirstRowHeader(firstRowHeader);
+	    }
+	    return session;
 	} catch (IOException ex) {
 	    throw new DSException(ex);
 	}
@@ -172,7 +241,13 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
 	// query is not supported
-	return new CSVResultSet(reader);
+	CSVResultSet resultSet = new CSVResultSet(reader);
+	
+	resultSet.setColumnDelimiter(csvSession.getColumnDelimiter());
+	resultSet.setRowDelimiter(csvSession.getRowDelimiter());
+	resultSet.setFirstRowHeader(csvSession.isFirstRowHeader());
+	
+	return resultSet;
 
     }  
     
@@ -199,8 +274,14 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    field = dsField.clone();
 	    fields.add(field);
 	}
-	return new CSVDataSet(fields, reader);
+	CSVDataSet dataSet = new CSVDataSet(fields, reader);
+
+	dataSet.setColumnDelimiter(csvSession.getColumnDelimiter());
+	dataSet.setRowDelimiter(csvSession.getRowDelimiter());
+	dataSet.setFirstRowHeader(csvSession.isFirstRowHeader());
 	
+	return dataSet;
+
     }
 
 

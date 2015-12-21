@@ -77,7 +77,7 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	//3.
 	
 	// Session
-	dataConnector.setUseFirstRowAsHeader(true);
+	dataConnector.setFirstRowHeader(true);
 	session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	

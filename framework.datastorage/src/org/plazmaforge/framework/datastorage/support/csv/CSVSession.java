@@ -35,6 +35,13 @@ import org.plazmaforge.framework.core.datastorage.AbstractFileSession;
  */
 public class CSVSession extends AbstractFileSession {
 
+    private String columnDelimiter = CSVDataConnector.DEFAULT_COLUMN_DELIMITER;
+
+    private String rowDelimiter = CSVDataConnector.DEFAULT_ROW_DELIMITER;
+   
+    private boolean firstRowHeader;
+    
+    
     public CSVSession(Reader reader) {
 	super(reader);
     }
@@ -42,6 +49,30 @@ public class CSVSession extends AbstractFileSession {
     @Override
     public String getType() {
 	return CSVDataProducerFactory.TYPE;
+    }
+
+    public String getColumnDelimiter() {
+        return columnDelimiter;
+    }
+
+    public void setColumnDelimiter(String columnDelimiter) {
+        this.columnDelimiter = columnDelimiter;
+    }
+
+    public String getRowDelimiter() {
+        return rowDelimiter;
+    }
+
+    public void setRowDelimiter(String rowDelimiter) {
+        this.rowDelimiter = rowDelimiter;
+    }
+
+    public boolean isFirstRowHeader() {
+        return firstRowHeader;
+    }
+
+    public void setFirstRowHeader(boolean firstRowHeader) {
+        this.firstRowHeader = firstRowHeader;
     }
 
     
