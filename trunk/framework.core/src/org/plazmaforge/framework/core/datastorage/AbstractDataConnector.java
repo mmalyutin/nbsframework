@@ -33,13 +33,24 @@ import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
  */
 public abstract class AbstractDataConnector extends BaseLocalizedIdentifier implements DSDataConnector {
 
+    public static final String PROPERTY_USERNAME = "username";
+    
+    public static final String PROPERTY_PASSWORD = "password";
+
+    public static final String PROPERTY_DATE_FROMAT = "dateFormat";
+    
+    public static final String PROPERTY_NUMBER_FROMAT = "numberFormat";
+    
+    
+    
     private String username;
     
     private String password;
     
     private String dateFormat;
     
-    private String numberFormat;    
+    private String numberFormat;
+    
 
     public AbstractDataConnector() {
 	super();
