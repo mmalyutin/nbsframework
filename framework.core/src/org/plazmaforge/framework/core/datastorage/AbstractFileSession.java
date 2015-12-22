@@ -33,7 +33,7 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public abstract class AbstractFileSession implements DSSession {
+public abstract class AbstractFileSession extends AbstractSession {
 
     private Reader reader;
 

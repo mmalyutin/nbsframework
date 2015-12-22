@@ -46,6 +46,11 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
     
 
     private String dataSourceName;
+    
+    private String dateFormat;
+
+    private String numberFormat;
+    
 
     public String getDataSourceName() {
         return dataSourceName;
@@ -55,6 +60,22 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
         this.dataSourceName = dataSourceName;
     }
     
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public String getNumberFormat() {
+        return numberFormat;
+    }
+
+    public void setNumberFormat(String numberFormat) {
+        this.numberFormat = numberFormat;
+    }
+
     /**
      * Initialize data type converters
      */
