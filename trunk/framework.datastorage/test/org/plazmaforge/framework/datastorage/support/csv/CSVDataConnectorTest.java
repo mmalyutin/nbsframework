@@ -153,7 +153,7 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
     
     
     public void testDataMnager() throws Exception {
-	DataManager.registerDataProducerFactory(CSVDataProducerFactory.TYPE, new CSVDataProducerFactory());
+	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
 	
 	String fileName = getResourcesFileName("test.csv");
 	String connectionString = "csv::" + fileName;

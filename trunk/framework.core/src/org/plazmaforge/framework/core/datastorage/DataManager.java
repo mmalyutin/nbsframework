@@ -34,6 +34,7 @@ import javax.sql.DataSource;
 
 import org.plazmaforge.framework.core.data.ParameterValue;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.sql.SQLDataConnector;
 import org.plazmaforge.framework.datastorage.support.sql.SQLDataProducerFactory;
 import org.plazmaforge.framework.util.StringUtils;
 
@@ -290,7 +291,7 @@ public class DataManager {
 	dataProducers = new HashMap<String, DataProducerFactory>();
 	
 	// Add producers by default 
-	dataProducers.put(SQLDataProducerFactory.TYPE, new SQLDataProducerFactory());
+	dataProducers.put(SQLDataConnector.TYPE, new SQLDataProducerFactory());
     }
     
     /**

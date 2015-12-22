@@ -35,6 +35,8 @@ import org.plazmaforge.framework.util.SystemInfo;
  */
 public class CSVDataConnector extends AbstractFileDataConnector {
 
+    public static final String TYPE = "CSV";
+    
     public static final String PROPERTY_COLUMN_DELIMITER = "columnDelimiter";
     public static final String PROPERTY_ROW_DELIMITER = "rowDelimiter";
     public static final String PROPERTY_FIRST_ROW_HEADER = "firstRowHeader";
@@ -43,6 +45,7 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? "\r\n" : "\n";
     public static final String DEFAULT_COLUMN_DELIMITER = ",";
     public static final String DEFAULT_ROW_DELIMITER = DEFAULT_LINE_DELIMITER; //"\\n";
+    public static final boolean DEFAULT_FIRST_ROW_HEADER = false;
     
     
     
@@ -51,7 +54,7 @@ public class CSVDataConnector extends AbstractFileDataConnector {
 
     private String rowDelimiter = DEFAULT_ROW_DELIMITER;
    
-    private boolean firstRowHeader;
+    private boolean firstRowHeader = DEFAULT_FIRST_ROW_HEADER;
 
 
     public CSVDataConnector() {
@@ -60,7 +63,7 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     
     @Override
     public String getType() {
-	return CSVDataProducerFactory.TYPE;
+	return TYPE;
     }
 
     public String getColumnDelimiter() {

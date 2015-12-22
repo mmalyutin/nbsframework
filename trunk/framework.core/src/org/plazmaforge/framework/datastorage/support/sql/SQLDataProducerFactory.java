@@ -34,7 +34,7 @@ import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
  */
 public class SQLDataProducerFactory implements DataProducerFactory {
 
-    public static final String TYPE = "SQL";
+
     
     @Override
     public DataProducer getDataProducer() {
