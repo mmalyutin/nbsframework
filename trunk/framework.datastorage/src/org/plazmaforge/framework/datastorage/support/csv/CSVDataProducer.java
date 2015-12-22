@@ -69,6 +69,8 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String columnDelimiter = sqlDataConnector.getColumnDelimiter();
 	String rowDelimiter = sqlDataConnector.getRowDelimiter();
 	Boolean firstRowHeader = sqlDataConnector.isFirstRowHeader();
+	String dateFormat = sqlDataConnector.getDateFormat();
+	String numberFormat = sqlDataConnector.getNumberFormat();
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
@@ -78,10 +80,10 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	data.put(CSVDataConnector.PROPERTY_COLUMN_DELIMITER, columnDelimiter);
 	data.put(CSVDataConnector.PROPERTY_ROW_DELIMITER, rowDelimiter);
 	data.put(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
+	data.put(CSVDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
+	data.put(CSVDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
 	return doOpenSession(data);
-	
-	//return openSession(url, username, password);
     }
 
     @Override
@@ -92,8 +94,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
 	
 	return doOpenSession(data);
-	
-	//return doOpenSession(url, null, null);
     }
 
     @Override
@@ -116,8 +116,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
-	
-	//return doOpenSession(url, username, password);
     }
 
     @Override
@@ -130,8 +128,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
-	
-	//return doOpenSession(url, username, password);
     }
     
     @Override
@@ -154,8 +150,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
-	
-	//return doOpenSession(url, username, password);
     }
 	
     @Override
@@ -189,6 +183,8 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String columnDelimiter = (String) data.get(CSVDataConnector.PROPERTY_COLUMN_DELIMITER);
 	String rowDelimiter = (String) data.get(CSVDataConnector.PROPERTY_ROW_DELIMITER);
 	Boolean firstRowHeader = (Boolean) data.get(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER);
+	String dateFormat = (String) data.get(CSVDataConnector.PROPERTY_DATE_FROMAT);
+	String numberFormat = (String) data.get(CSVDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
 	    Reader reader = new FileReader(fileName);
@@ -198,6 +194,8 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    if (firstRowHeader != null) {
 		session.setFirstRowHeader(firstRowHeader);
 	    }
+	    session.setDateFormat(dateFormat);
+	    session.setNumberFormat(numberFormat);
 	    return session;
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -279,6 +277,8 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	dataSet.setColumnDelimiter(csvSession.getColumnDelimiter());
 	dataSet.setRowDelimiter(csvSession.getRowDelimiter());
 	dataSet.setFirstRowHeader(csvSession.isFirstRowHeader());
+	dataSet.setDateFormat(csvSession.getDateFormat());
+	dataSet.setNumberFormat(csvSession.getNumberFormat());
 	
 	return dataSet;
 

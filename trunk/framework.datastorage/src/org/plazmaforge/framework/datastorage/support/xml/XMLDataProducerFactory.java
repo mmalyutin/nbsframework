@@ -31,5 +31,5 @@ package org.plazmaforge.framework.datastorage.support.xml;
  */
 public class XMLDataProducerFactory {
 
-    public static final String TYPE = "XML";
+   
 }

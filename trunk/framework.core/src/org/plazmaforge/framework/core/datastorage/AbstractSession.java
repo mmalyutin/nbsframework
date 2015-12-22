@@ -20,29 +20,34 @@
  * ohapon@users.sourceforge.net
  */
 
+package org.plazmaforge.framework.core.datastorage;
+
 /**
  * 
- */
-package org.plazmaforge.framework.datastorage.support.xml;
-
-import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
-
-/**
  * @author ohapon
  *
  */
-public class XMLDataConnector extends AbstractFileDataConnector {
+public abstract class AbstractSession implements DSSession {
 
-    public static final String TYPE = "XML";
+    private String dateFormat;
+
+    private String numberFormat;
     
-    public XMLDataConnector() {
-	super();
-    }
-    
-    @Override
-    public String getType() {
-	return TYPE;
+
+    public String getDateFormat() {
+        return dateFormat;
     }
 
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
+    public String getNumberFormat() {
+        return numberFormat;
+    }
+
+    public void setNumberFormat(String numberFormat) {
+        this.numberFormat = numberFormat;
+    }
+    
 }
