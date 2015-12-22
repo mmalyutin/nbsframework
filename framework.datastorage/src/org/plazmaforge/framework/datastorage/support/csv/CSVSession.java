@@ -39,7 +39,7 @@ public class CSVSession extends AbstractFileSession {
 
     private String rowDelimiter = CSVDataConnector.DEFAULT_ROW_DELIMITER;
    
-    private boolean firstRowHeader;
+    private boolean firstRowHeader = CSVDataConnector.DEFAULT_FIRST_ROW_HEADER;
     
     
     public CSVSession(Reader reader) {
@@ -48,7 +48,7 @@ public class CSVSession extends AbstractFileSession {
 
     @Override
     public String getType() {
-	return CSVDataProducerFactory.TYPE;
+	return CSVDataConnector.TYPE;
     }
 
     public String getColumnDelimiter() {

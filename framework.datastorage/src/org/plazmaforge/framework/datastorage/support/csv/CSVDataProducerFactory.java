@@ -34,7 +34,6 @@ import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
  */
 public class CSVDataProducerFactory implements DataProducerFactory {
 
-    public static final String TYPE = "CSV";
 
     @Override
     public DataProducer getDataProducer() {

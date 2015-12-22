@@ -74,7 +74,7 @@ public class SQLSession implements DSSession {
 
     @Override
     public String getType() {
-	return SQLDataProducerFactory.TYPE;
+	return SQLDataConnector.TYPE;
     }
     
     

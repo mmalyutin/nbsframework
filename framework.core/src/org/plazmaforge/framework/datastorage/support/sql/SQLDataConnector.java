@@ -33,6 +33,9 @@ import org.plazmaforge.framework.core.datastorage.AbstractDataConnector;
  */
 public class SQLDataConnector extends AbstractDataConnector {
 
+    public static final String TYPE = "SQL";
+    
+    
     private String url;
     
     private String driverClassName;
@@ -58,7 +61,7 @@ public class SQLDataConnector extends AbstractDataConnector {
 
     @Override
     public String getType() {
-	return SQLDataProducerFactory.TYPE;
+	return TYPE;
     }
     
     
