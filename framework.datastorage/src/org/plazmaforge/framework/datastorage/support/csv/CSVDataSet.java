@@ -47,9 +47,7 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	setFields(fields);
 	List<String> fieldNames = getFieldNames();
 	
-	CSVResultSet csvResultSet = new CSVResultSet(fieldNames, reader);
-	
-	this.resultSet = csvResultSet;
+	this.resultSet = new CSVResultSet(fieldNames, reader);
 	
     }
 
@@ -58,44 +56,44 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	//TODO: Must optimize
 	int index = getFieldIndex(fieldName);
 	DSField field = getField(fieldName);
-	String dataType = field.getDataType();
-	
 	String value = ((CSVResultSet) resultSet).getStringValue(index);
-	return convert(value, dataType);
+	return convertString(value, field);
     }
     
     @Override
     public Object getValue(int index) throws DSException {
 	//TODO: Must optimize
 	DSField field = getField(index);
-	String dataType = field.getDataType();
-	
 	String value = ((CSVResultSet) resultSet).getStringValue(index);
-	return convert(value, dataType);
+	return convertString(value, field);
     }
 
+    protected CSVResultSet getCSVResultSet() {
+	return ((CSVResultSet) resultSet);
+    }
+    
     public String getColumnDelimiter() {
-        return ((CSVResultSet) resultSet).getColumnDelimiter();
+        return getCSVResultSet().getColumnDelimiter();
     }
 
     public void setColumnDelimiter(String columnDelimiter) {
-        ((CSVResultSet) resultSet).setColumnDelimiter(columnDelimiter);
+	getCSVResultSet().setColumnDelimiter(columnDelimiter);
     }
 
     public String getRowDelimiter() {
-        return ((CSVResultSet) resultSet).getRowDelimiter();
+        return getCSVResultSet().getRowDelimiter();
     }
 
     public void setRowDelimiter(String rowDelimiter) {
-        ((CSVResultSet) resultSet).setRowDelimiter(rowDelimiter);
+	getCSVResultSet().setRowDelimiter(rowDelimiter);
     }
 
     public boolean isFirstRowHeader() {
-        return ((CSVResultSet) resultSet).isFirstRowHeader();
+        return getCSVResultSet().isFirstRowHeader();
     }
 
     public void setFirstRowHeader(boolean firstRowHeader) {
-        ((CSVResultSet) resultSet).setFirstRowHeader(firstRowHeader);
+	getCSVResultSet().setFirstRowHeader(firstRowHeader);
     }
  
   

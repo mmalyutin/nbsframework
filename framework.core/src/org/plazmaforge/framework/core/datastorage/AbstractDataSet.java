@@ -66,15 +66,70 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 	converters.put("Double", new DoublePresenter());
     }
     
-    protected Object convert(String value, String type) {
-	if (converters == null) {
-	    initConverts();
+    /**
+     * Convert string value by type and format
+     * @param value
+     * @param field
+     * @return
+     */
+    protected Object convertString(String value, DSField field) {
+	if (field == null) {
+	    return null;
 	}
 	value = StringUtils.normalizeString(value);
-	ValuePresenter converter = type == null ? null : converters.get(type);
+	String type = field.getDataType();
+	String format = getFormat(field);
+	ValuePresenter converter = getConverter(type, format);
 	Object result = converter == null ? null : converter.toValue(value);
 	return result;
     }
     
+    /**
+     * Return converter by type and format
+     * @param type
+     * @param format
+     * @return
+     */
+    protected ValuePresenter getConverter(String type, String format) {
+	if (type == null) {
+	    return null;
+	}
+	String key = null;
+	if (format == null) {
+	    key = type;
+	} else {
+	    key = type + "::" + format;
+	}
+	if (converters == null) {
+	    initConverts();
+	}
+	return converters.get(key);
+    }
+
+    /**
+     * Return format by field
+     * @param field
+     * @return
+     */
+    protected String getFormat(DSField field) {
+	if (field == null) {
+	    return null;
+	}
+	String format = null; //field.getFormat() // TODO
+	if (format == null) {
+	    format = getFormat(field.getDataType());
+	}
+	return format;
+    }
+    
+    /**
+     * Return format by type
+     * @param type
+     * @return
+     */
+    protected String getFormat(String type) {
+	//TODO
+	return null;
+    }
 
 }

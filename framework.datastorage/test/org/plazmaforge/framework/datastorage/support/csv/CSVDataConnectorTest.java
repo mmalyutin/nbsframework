@@ -26,6 +26,7 @@
 package org.plazmaforge.framework.datastorage.support.csv;
 
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
+import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
@@ -74,7 +75,26 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	System.out.println("\nOpen CSVResultSet by internal connection string: '" + connectionString + "'");
 	printResultSet(csvResultSet);
 	
+    }
+    
+    public void testCSVDataSet() throws Exception {
 	//3.
+
+	// Data Producer
+	DataProducer producer = new CSVDataProducerFactory().getDataProducer();
+	assertNotNull(producer);
+	
+	// Data Connector
+	CSVDataConnector dataConnector = new CSVDataConnector();
+	
+	String fileName = getResourcesFileName("test.csv");
+	dataConnector.setFileName(fileName);
+	
+	System.out.println("\nCreate CSVDataConnector: fileName=" + fileName);
+
+	// Session
+	DSSession session = producer.openSession(dataConnector);
+	assertNotNull(session);
 	
 	// Session
 	dataConnector.setFirstRowHeader(true);
@@ -100,17 +120,39 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	dataSource.addField(field);
 	
 	
-	CSVDataSet csvDataSet = (CSVDataSet) producer.openDataSet(session, dataSource);
+	DSDataSet dataSet = producer.openDataSet(session, dataSource);
 	
 	int row = 0;
    	System.out.println("Load CSV DataSet:");
-   	while (csvDataSet.next()) {
+   	Integer valueA = null;
+   	Integer valueB = null;
+   	Integer valueC = null;
+   	while (dataSet.next()) {
+   	    valueA = (Integer) dataSet.getValue("A");
+   	    valueB = (Integer) dataSet.getValue("B");
+   	    valueC = (Integer) dataSet.getValue("C");
+   	    if (row == 0) {
+   		assertEquals(valueA, new Integer(1));
+   		assertEquals(valueB, new Integer(2));
+   		assertEquals(valueC, new Integer(3));
+   	    } else if (row == 1) {
+   		assertEquals(valueA, new Integer(4));
+   		assertEquals(valueB, new Integer(5));
+   		assertEquals(valueC, new Integer(6));
+   	    } else if (row == 2) {
+   		assertEquals(valueA, new Integer(7));
+   		assertEquals(valueB, new Integer(8));
+   		assertEquals(valueC, new Integer(9));
+   	    }
+
+   	    System.out.println(" Row[" + row + "] : " + valueA + ", " + valueB + ", " + valueC);
    	    row++;
-   	    System.out.println(" Row[" + row + "] : " + csvDataSet.getValue("A") + ", " + csvDataSet.getValue("B") + ", " + csvDataSet.getValue("C"));
    	}
+	assertEquals(row, 3);
     }
     
-    public void testDatamMnager() throws Exception {
+    
+    public void testDataMnager() throws Exception {
 	DataManager.registerDataProducerFactory(CSVDataProducerFactory.TYPE, new CSVDataProducerFactory());
 	
 	String fileName = getResourcesFileName("test.csv");
@@ -120,13 +162,14 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	printResultSet(csvResultSet);
     }
     
-    private void printResultSet(CSVResultSet csvResultSet) throws DSException {
+    private int printResultSet(CSVResultSet csvResultSet) throws DSException {
 	int row = 0;
 	System.out.println("Load CSV data:");
 	while (csvResultSet.next()) {
-	    row++;
 	    System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
+	    row++;
 	}
+	return row;
     }
     
 }
