@@ -239,8 +239,8 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be XMLSession");
 	}
 
-	XMLSession csvSession = (XMLSession) session;
-	Reader reader = csvSession.getReader();
+	XMLSession xmlSession = (XMLSession) session;
+	Reader reader = xmlSession.getReader();
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
@@ -255,8 +255,8 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	XMLDataSet dataSet = new XMLDataSet(fields, reader);
 	dataSet.setSelectExpression(dataSource.getQueryText());
 
-	dataSet.setDateFormat(csvSession.getDateFormat());
-	dataSet.setNumberFormat(csvSession.getNumberFormat());
+	dataSet.setDateFormat(xmlSession.getDateFormat());
+	dataSet.setNumberFormat(xmlSession.getNumberFormat());
 	
 	return dataSet;
 
