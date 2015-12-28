@@ -20,24 +20,10 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package org.plazmaforge.framework.datastorage.support.xml;
+package org.plazmaforge.framework.core.xml;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+public interface XPathExecuterFactory {
 
-/**
- * @author ohapon
- *
- */
-public class XMLDataProducerFactory implements DataProducerFactory {
-
-
-    @Override
-    public DataProducer getDataProducer() {
-	return new XMLDataProducer();
-    }
-   
+    XPathExecuter getXPathExecuter();
+    
 }
