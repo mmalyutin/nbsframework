@@ -56,7 +56,7 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	//TODO: Must optimize
 	int index = getFieldIndex(fieldName);
 	DSField field = getField(fieldName);
-	String value = ((CSVResultSet) resultSet).getStringValue(index);
+	String value = getCSVResultSet().getStringValue(index);
 	return convertString(value, field);
     }
     
@@ -64,7 +64,7 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
     public Object getValue(int index) throws DSException {
 	//TODO: Must optimize
 	DSField field = getField(index);
-	String value = ((CSVResultSet) resultSet).getStringValue(index);
+	String value = getCSVResultSet().getStringValue(index);
 	return convertString(value, field);
     }
 

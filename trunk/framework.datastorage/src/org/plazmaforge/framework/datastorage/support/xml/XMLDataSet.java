@@ -56,7 +56,7 @@ public class XMLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     public Object getValue(String fieldName) throws DSException {
 	//TODO: Must optimize
 	DSField field = getField(fieldName);
-	String path = getFieldPath(field);
+	String path = getPath(field);
 	String value = getXMLResultSet().getStringValue(path);
 	return convertString(value, field);
     }
@@ -65,7 +65,7 @@ public class XMLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     public Object getValue(int index) throws DSException {
 	//TODO: Must optimize
 	DSField field = getField(index);
-	String path = getFieldPath(field);
+	String path = getPath(field);
 	String value = getXMLResultSet().getStringValue(path);
 	return convertString(value, field);
     }
@@ -83,14 +83,6 @@ public class XMLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     }
     
  
-    protected String getFieldPath(DSField field) {
-	if (field == null) {
-	    return null;
-	}
-	String path = field.getPath();
-	return path == null ? field.getName() : path; 
-    }
-  
 
 
 }
