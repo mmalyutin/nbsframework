@@ -51,6 +51,10 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
     public static final int CENTER_ALIGN = 2;
     public static final int RIGHT_ALIGN = 3;
 
+    /**
+     * Field path in native data source
+     */
+    private String path;
 
     /**
      *  Field data type
@@ -95,6 +99,14 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
     private boolean foreignKey;
     
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public int getAlign() {
         return align;
     }
@@ -133,6 +145,7 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
 	field.setName(getName());
 	field.setCaption(getCaption());
 	field.setDescription(getDescription());
+	field.setPath(path);
 	field.setDataType(dataType);
 	field.setNativeTypeCode(nativeTypeCode);
 	field.setNativeType(nativeType);

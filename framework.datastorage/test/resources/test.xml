@@ -1,0 +1,13 @@
+<data-set>
+	<records>
+		<record>
+			<A>1</A><B>2</B><C>3</C>
+		</record>
+		<record>
+			<A>4</A><B>5</B><C>6</C>
+		</record>
+		<record>
+			<A>7</A><B>8</B><C>9</C>
+		</record>
+	</records>
+</data-set>

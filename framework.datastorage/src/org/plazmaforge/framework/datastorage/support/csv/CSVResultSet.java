@@ -30,7 +30,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.core.datastorage.AbstractResultSet;
+import org.plazmaforge.framework.core.datastorage.AbstractFileResultSet;
 import org.plazmaforge.framework.core.datastorage.DSIndexableResultSet;
 import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
@@ -40,10 +40,8 @@ import org.plazmaforge.framework.util.StringUtils;
  * @author ohapon
  *
  */
-public class CSVResultSet extends AbstractResultSet implements DSIndexableResultSet, DSStructuredResultSet {
+public class CSVResultSet extends AbstractFileResultSet implements DSIndexableResultSet, DSStructuredResultSet {
 
-    
-    private Reader reader;
     
     private List<String> values;
 
@@ -54,9 +52,6 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
     // Only for loading default columns
     private int startColumnIndex = 1;
 
-    
-    private boolean processing;
-    
     private String columnDelimiter;
     private String rowDelimiter;
     private boolean firstRowHeader;
@@ -134,30 +129,7 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
 	return values.get(index);
     }
     
-    @Override
-    public boolean isEmpty() throws DSException {
-	// TODO
-	return reader == null;
-    }
-
-    @Override
-    public boolean isClosed() throws DSException {
-	return reader == null;
-    }
-
-    @Override
-    public void close() throws DSException {
-	if (reader == null) {
-	    return;
-	}
-	try {
-	    reader.close();
-	    reader = null;
-	} catch (IOException ex) {
-	    handleIOException(ex);
-	}
-    }
-    
+  
 
     ////
     
@@ -369,16 +341,6 @@ public class CSVResultSet extends AbstractResultSet implements DSIndexableResult
 	this.firstRowHeader = firstRowHeader;
     }
 
-    protected void handleIOException(IOException ex) throws DSException {
-	if (ex == null) {
-	    return;
-	}
-	throw new DSException(ex);
-    }
     
-    protected void handlePropertyModifyException() {
-	String message = "Cannot modify '" + getClass().getSimpleName()	+ "' properties after data processing has started";
-	throw new RuntimeException(message);
-    }
        
 }

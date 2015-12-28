@@ -20,24 +20,28 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
 package org.plazmaforge.framework.datastorage.support.xml;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+import java.io.Reader;
+
+import org.plazmaforge.framework.core.datastorage.AbstractFileSession;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class XMLDataProducerFactory implements DataProducerFactory {
+public class XMLSession extends AbstractFileSession {
 
+    public XMLSession(Reader reader) {
+	super(reader);
+    }
 
     @Override
-    public DataProducer getDataProducer() {
-	return new XMLDataProducer();
+    public String getType() {
+	return XMLDataConnector.TYPE;
     }
-   
+
+
+
 }
