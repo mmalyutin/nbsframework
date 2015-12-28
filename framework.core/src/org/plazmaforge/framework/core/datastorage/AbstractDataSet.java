@@ -153,4 +153,18 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 	return null;
     }
 
+
+    /**
+     * Return path of field
+     * @param field
+     * @return
+     */
+    protected String getPath(DSField field) {
+	if (field == null) {
+	    return null;
+	}
+	String path = field.getPath();
+	return path == null ? field.getName() : path; 
+    }
+  
 }

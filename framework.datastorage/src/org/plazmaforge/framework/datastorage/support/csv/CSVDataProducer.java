@@ -61,16 +61,16 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	if (!(dataConnector instanceof CSVDataConnector)) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be CSVDataConnector");
 	}	
-	CSVDataConnector sqlDataConnector = (CSVDataConnector) dataConnector;
+	CSVDataConnector csvDataConnector = (CSVDataConnector) dataConnector;
 	
-	String fileName = sqlDataConnector.getFileName();
-	String username = sqlDataConnector.getUsername();
-	String password = sqlDataConnector.getPassword();
-	String columnDelimiter = sqlDataConnector.getColumnDelimiter();
-	String rowDelimiter = sqlDataConnector.getRowDelimiter();
-	Boolean firstRowHeader = sqlDataConnector.isFirstRowHeader();
-	String dateFormat = sqlDataConnector.getDateFormat();
-	String numberFormat = sqlDataConnector.getNumberFormat();
+	String fileName = csvDataConnector.getFileName();
+	String username = csvDataConnector.getUsername();
+	String password = csvDataConnector.getPassword();
+	String columnDelimiter = csvDataConnector.getColumnDelimiter();
+	String rowDelimiter = csvDataConnector.getRowDelimiter();
+	Boolean firstRowHeader = csvDataConnector.isFirstRowHeader();
+	String dateFormat = csvDataConnector.getDateFormat();
+	String numberFormat = csvDataConnector.getNumberFormat();
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
@@ -256,7 +256,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
 	}
 	if (!(session instanceof CSVSession)) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be SQLSession");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be CSVSession");
 	}
 
 	CSVSession csvSession = (CSVSession) session;
