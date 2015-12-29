@@ -314,14 +314,81 @@ public class DataManager {
 	if (index >= 0) {
 	    type = connectionString.substring(0, index);
 	    index = index + 2; // ::
-	    connection = index == connectionString.length() ? "" : connectionString.substring(index);
+	    connection = index == connectionString.length() ? null : connectionString.substring(index);
 	} else if (StringUtils.isJavaIdentifier(connectionString)) {
 	    type = connectionString;
 	} else {
 	    connection = connectionString;
 	}
+	
+	type = normalize(type);
+	connection = normalize(connection);
+	
+	if (connection == null) {
+	    handleContextException(context, "Connection is null");
+	}
+	
 	String[] values = new String[] {type, connection};
 	return values;
+    }
+    
+    
+    public static String[] parseLocalConnectionString(String context, String connectionString) throws DSException {
+	
+	connectionString = getCheckConnectionString(context, connectionString);
+	
+	String connection = getCheckConnectionString(context, connectionString);
+	String parameters = null;
+	int index = 0;
+	
+	index = connection.indexOf("->");
+	if (index >= 0) {
+
+	    connection = connectionString.substring(0, index);
+	    index = index + 2; // ->
+	    parameters = index == connectionString.length() ? null : connectionString.substring(index);
+	    parameters = normalize(parameters);
+
+	    if (parameters != null) {
+		int startIndex = parameters.startsWith("(") ? 1 : 0;
+		int endIndex = parameters.endsWith(")") ? parameters.length() - 1 : parameters.length();
+		if (startIndex == endIndex) {
+		    parameters = null;
+		} else {
+		    parameters = parameters.substring(startIndex, endIndex);
+		}
+	    }
+	}
+	
+	String[] values = new String[] {connection, parameters};
+	return values;
+    }
+    
+    public static Map<String, Object> createParameterData(String parametersString) throws DSException {
+	Map<String, Object> data = new HashMap<String, Object>();
+	if (parametersString == null) {
+	    return data;
+	}
+	populateParameterData(parametersString, data);
+	return data;
+    }
+    
+    public static void populateParameterData(String parametersString, Map<String, Object> data) throws DSException {
+	if (parametersString == null) {
+	    return;
+	}
+	String[] parameterLines = parametersString.split(",");
+	for (String parameterLine : parameterLines ) {
+	    parameterLine = normalize(parameterLine);
+	    if (parameterLine == null) {
+		continue;
+	    }
+	    String[] values = parameterLine.split("=");
+	    if (values.length > 1) {
+		data.put(values[0], values[1]);
+	    }
+	}
+	
     }
     
     public static String getCheckConnectionString(String context, String connectionString) throws DSException {
@@ -334,6 +401,7 @@ public class DataManager {
 	}
 	return connectionString;
     }
+    
     
     public static DataProducer getCheckDataProducer(String context, String type) throws DSException {
 	

@@ -28,7 +28,9 @@ package org.plazmaforge.framework.core.datastorage;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.plazmaforge.framework.core.data.ParameterValue;
 import org.plazmaforge.framework.core.datastorage.data.QueryAnalyzer;
@@ -94,7 +96,19 @@ public abstract class AbstractDataProducer implements DataProducer {
     protected String getCheckConnectionString(String context, String connectionString) throws DSException {
 	return DataManager.getCheckConnectionString(context, connectionString);
     }
+
+    protected String[] parseLocalConnectionString(String context, String connectionString) throws DSException {
+	return DataManager.parseLocalConnectionString(context, connectionString);
+    }
     
+    
+    protected Map<String, Object> createParameterData(String parametersString) throws DSException {
+	return DataManager.createParameterData(parametersString);
+    }
+    
+    protected  void populateParameterData(String parametersString, Map<String, Object> data) throws DSException {
+	DataManager.populateParameterData(parametersString, data);
+    }
     
     protected void handleContextException(String context, Throwable cause) throws DSException {
 	DataManager.handleContextException(context, cause);

@@ -73,11 +73,15 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	session.close();
 	
 	// 2.
-	//String connectionString = fileName;
-	//xmlResultSet = (XMLResultSet) producer.openResultSet(connectionString);
-	//assertNotNull(csvResultSet);
-	//System.out.println("\nOpen XMLResultSet by internal connection string: '" + connectionString + "'");
-	//printResultSet(csvResultSet);
+	String connectionString = fileName + "->(query=/data-set/record)";
+	resultSet = producer.openResultSet(connectionString);
+	assertNotNull(resultSet);
+	assertNotNull(resultSet instanceof XMLResultSet);
+	xmlResultSet = (XMLResultSet) resultSet;
+
+	
+	System.out.println("\nOpen XMLResultSet by internal connection string: '" + connectionString + "'");
+	printXMLResultSet(xmlResultSet);
 	
     }
     
@@ -156,17 +160,15 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
     }
     
     
-    /*
     public void testDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
+	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
 	
-	String fileName = getResourcesFileName("test.csv");
-	String connectionString = "csv::" + fileName;
-	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
-	printResultSet(csvResultSet);
+	String fileName = getResourcesFileName("test.xml");
+	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
+	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
+	printXMLResultSet(xmlResultSet);
     }
-    */
     
     private int printXMLResultSet(XMLResultSet csvResultSet) throws DSException {
 	int row = 0;

@@ -188,11 +188,17 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = url;
+	//String url = getCheckConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String fileName = values[0];
+	String parametersString = values[1];
+	Map<String, Object>  parameterData = createParameterData(parametersString); 
 	try {
 	    Reader reader = new FileReader(fileName);
-	    return new XMLResultSet(reader);
+	    XMLResultSet resultSet = new XMLResultSet(reader);
+	    resultSet.setSelectExpression((String) parameterData.get("query"));
+	    
+	    return resultSet;
 	} catch (IOException ex) {
 	    throw new DSException(ex);
 	}
