@@ -60,12 +60,15 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	DSSession session = producer.openSession(dataConnector);
 	assertNotNull(session);
 
-	// 1.
-	String query = "/data-set/records/record";
-	XMLResultSet xmlResultSet = (XMLResultSet) producer.openResultSet(session, query);
-	assertNotNull(xmlResultSet);
+	// 1. by Session
+	String query = "/data-set/record";
+	DSResultSet resultSet = producer.openResultSet(session, query);
+	assertNotNull(resultSet);
+	assertNotNull(resultSet instanceof XMLResultSet);
+	XMLResultSet xmlResultSet = (XMLResultSet) resultSet;
+	
 	System.out.println("\nOpen XMLResultSet by session: fileName=" + fileName);
-	printResultSet(xmlResultSet);
+	printXMLResultSet(xmlResultSet);
 	
 	session.close();
 	
@@ -79,7 +82,6 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
     }
     
     public void testXMLDataSet() throws Exception {
-	//3.
 
 	// Data Producer
 	DataProducer producer = new XMLDataProducerFactory().getDataProducer();
@@ -101,7 +103,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	
-	String query = "/data-set/records/record";
+	String query = "/data-set/record";
 	DSDataSource dataSource = new DSBaseDataSource();
 	dataSource.setQueryText(query);
 	dataSource.setType("xml");
@@ -166,7 +168,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
     }
     */
     
-    private int printResultSet(XMLResultSet csvResultSet) throws DSException {
+    private int printXMLResultSet(XMLResultSet csvResultSet) throws DSException {
 	int row = 0;
 	System.out.println("Load XML data:");
 	while (csvResultSet.next()) {

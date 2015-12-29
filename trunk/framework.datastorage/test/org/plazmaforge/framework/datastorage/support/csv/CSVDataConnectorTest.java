@@ -42,7 +42,8 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class CSVDataConnectorTest extends AbstractDSTestCase {
 
-    public void testConnector() throws Exception {
+    
+    public void testCSVResultSet() throws Exception {
 
 	// Data Producer
 	DataProducer producer = new CSVDataProducerFactory().getDataProducer();
@@ -59,26 +60,32 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	// Session
 	DSSession session = producer.openSession(dataConnector);
 	assertNotNull(session);
+	assertTrue(session instanceof CSVSession);
 
-	// 1.
-	CSVResultSet csvResultSet = (CSVResultSet) producer.openResultSet(session);
-	assertNotNull(csvResultSet);
+	// 1. by Session
+	DSResultSet resultSet = producer.openResultSet(session);
+	assertNotNull(resultSet);
+	assertTrue(resultSet instanceof CSVResultSet);
+	CSVResultSet csvResultSet = (CSVResultSet) resultSet;
+	
 	System.out.println("\nOpen CSVResultSet by session: fileName=" + fileName);
-	printResultSet(csvResultSet);
+	printCSVResultSet(csvResultSet);
 	
 	session.close();
 	
-	// 2.
+	// 2. by Connection string
 	String connectionString = fileName;
-	csvResultSet = (CSVResultSet) producer.openResultSet(connectionString);
-	assertNotNull(csvResultSet);
+	resultSet = producer.openResultSet(connectionString);
+	assertNotNull(resultSet);
+	assertTrue(resultSet instanceof CSVResultSet);
+	csvResultSet = (CSVResultSet) resultSet;
+	
 	System.out.println("\nOpen CSVResultSet by internal connection string: '" + connectionString + "'");
-	printResultSet(csvResultSet);
+	printCSVResultSet(csvResultSet);
 	
     }
     
     public void testCSVDataSet() throws Exception {
-	//3.
 
 	// Data Producer
 	DataProducer producer = new CSVDataProducerFactory().getDataProducer();
@@ -96,7 +103,7 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	DSSession session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	
-	// Session
+	// 1. By Session
 	dataConnector.setFirstRowHeader(true);
 	session = producer.openSession(dataConnector);
 	assertNotNull(session);
@@ -152,17 +159,17 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
     }
     
     
-    public void testDataMnager() throws Exception {
+    public void testCSVDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
 	
 	String fileName = getResourcesFileName("test.csv");
 	String connectionString = "csv::" + fileName;
 	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
-	printResultSet(csvResultSet);
+	printCSVResultSet(csvResultSet);
     }
     
-    private int printResultSet(CSVResultSet csvResultSet) throws DSException {
+    private int printCSVResultSet(CSVResultSet csvResultSet) throws DSException {
 	int row = 0;
 	System.out.println("Load CSV data:");
 	while (csvResultSet.next()) {
