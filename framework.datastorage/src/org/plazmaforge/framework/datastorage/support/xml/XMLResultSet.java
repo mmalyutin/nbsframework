@@ -29,8 +29,10 @@ import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
 
 import org.plazmaforge.framework.core.xml.XPathExecuter;
+import org.plazmaforge.framework.datastorage.support.xml.support.JaxenXPathExecuter;
 import org.plazmaforge.framework.datastorage.support.xml.support.XalanXPathExecuter;
 import org.plazmaforge.framework.util.StringUtils;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 /**
@@ -51,6 +53,7 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 
     protected XPathExecuter createXPathExecuter() {
 	XalanXPathExecuter executer = new XalanXPathExecuter();
+	//JaxenXPathExecuter executer = new JaxenXPathExecuter();
 	return executer;
     }
     
@@ -100,8 +103,7 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 
     @Override
     public Object getValue(String name) throws DSException {
-	// TODO
-	String expression = name;
+	String expression = name; // Name like path expression
 	return getStringValue(expression);
     }
 
@@ -109,11 +111,23 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 	if (currentNode == null)
 	    return null;
 
-	if (expression == null || expression.length() == 0) {
+	if (expression == null || expression.isEmpty()) {
 	    return null;
 	}
 	Object selectedObject = xPathExecuter.selectObject(currentNode, expression);
-	return selectedObject == null ? null : selectedObject.toString();
+	return getStringValue(selectedObject);
+    }
+    
+
+    protected String getStringValue(Object nodeObject) throws DSException {
+	if (nodeObject == null) {
+	    return null;
+	}
+	if (nodeObject instanceof Node) {
+	    String text = getText((Node) nodeObject);
+	    return text;
+	}
+	return nodeObject.toString();
     }
     
     /*
@@ -138,7 +152,7 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 	    if (selectedObject instanceof Node) {
 		String text = getText((Node) selectedObject);
 		if (text != null) {
-		    value = convert(text, type);
+		    value = convertString(text, type);
 		}
 	    } else if (selectedObject instanceof Boolean && type.equals(Types.BooleanType)) {
 		value = selectedObject;
