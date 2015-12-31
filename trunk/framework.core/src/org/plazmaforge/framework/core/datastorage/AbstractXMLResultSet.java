@@ -102,7 +102,7 @@ public abstract class AbstractXMLResultSet extends AbstractFileResultSet {
      * @param node a DOM node
      * @return a String representing node contents or null
      */
-    public String getText(Node node) {
+    protected String getText(Node node) {
 	
 	if (!node.hasChildNodes()) {
 	    return node.getNodeValue();

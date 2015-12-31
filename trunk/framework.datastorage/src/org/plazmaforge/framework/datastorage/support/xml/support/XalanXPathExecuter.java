@@ -52,15 +52,7 @@ public class XalanXPathExecuter implements XPathExecuter {
 
     public Object selectObject(Node contextNode, String expression) throws DSException {
 	try {
-	    
-	    
 	    XObject object = xpathAPI.eval(contextNode, expression);
-	    
-	    //TODO	    
-	    return object == null ? null : object.toString();
-
-	    //
-	    /*
 	    Object value = null; 
 	    switch (object.getType()) {
 	    case XObject.CLASS_NODESET:
@@ -77,7 +69,6 @@ public class XalanXPathExecuter implements XPathExecuter {
 		break;
 	    }
 	    return value;
-	    */
 	} catch (TransformerException e) {
 	    throw new DSException("XPath selection failed. Expression: " + expression, e);
 	}
