@@ -33,13 +33,15 @@ import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
  */
 public class JSONDataConnector extends AbstractFileDataConnector {
 
+    public static final String TYPE = "JSON";
+    
     public JSONDataConnector() {
 	super();
     }
     
     @Override
     public String getType() {
-	return JSONDataProducerFactory.TYPE;
+	return TYPE;
     }
 
 

@@ -47,8 +47,8 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
     public XMLResultSet(Reader reader) throws DSException {
 	super();
 	this.reader = reader;
-	this.xPathExecuter = createXPathExecuter();
 	this.document = parse(new InputSource(reader));
+	this.xPathExecuter = createXPathExecuter();
     }
 
     protected XPathExecuter createXPathExecuter() {
