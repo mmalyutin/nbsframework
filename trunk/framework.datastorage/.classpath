@@ -6,5 +6,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/framework.core"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="var" path="PLAZMA_LIB/xalan-2.4.0.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/jaxen-1.1.1.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/jackson-core-2.1.4.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/jackson-databind-2.1.4.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
