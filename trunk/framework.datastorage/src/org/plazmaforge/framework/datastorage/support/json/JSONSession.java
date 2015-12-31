@@ -25,20 +25,25 @@
  */
 package org.plazmaforge.framework.datastorage.support.json;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+import java.io.Reader;
+
+import org.plazmaforge.framework.core.datastorage.AbstractFileSession;
 
 /**
  * @author ohapon
  *
  */
-public class JSONDataProducerFactory implements DataProducerFactory {
+public class JSONSession extends AbstractFileSession {
 
+    public JSONSession(Reader reader) {
+	super(reader);
+    }
 
     @Override
-    public DataProducer getDataProducer() {
-	return new JSONDataProducer();
+    public String getType() {
+	return JSONDataConnector.TYPE;
     }
+
 
     
 }
