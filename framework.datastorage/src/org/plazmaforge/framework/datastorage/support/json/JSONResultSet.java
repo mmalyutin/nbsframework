@@ -82,14 +82,22 @@ public class JSONResultSet extends AbstractFileResultSet implements DSStructured
 	    mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
 
 	    this.jsonTree = mapper.readTree(reader);
-	    beforeFirst();
+	    //beforeFirst();
 	} catch (JsonProcessingException e) {
 	    throw new DSException(e);
 	} catch (IOException e) {
 	    throw new DSException(e);
 	}
     }
-    
+
+    public String getSelectExpression() {
+        return selectExpression;
+    }
+
+    public void setSelectExpression(String selectExpression) {
+        this.selectExpression = selectExpression;
+    }
+
     protected void initPosition() throws DSException {
 	if (init) {
 	    return;
@@ -129,6 +137,7 @@ public class JSONResultSet extends AbstractFileResultSet implements DSStructured
 	}
     }
 
+    @Override
     public boolean next() throws DSException {
 	initPosition();
 	if (jsonNodesIterator == null || !jsonNodesIterator.hasNext()) {
@@ -291,7 +300,7 @@ public class JSONResultSet extends AbstractFileResultSet implements DSStructured
 	
 ////
 	
-	public static boolean evaluateJsonExpression(JsonNode contextNode, String attributeExpression) throws DSException {
+    protected boolean evaluateJsonExpression(JsonNode contextNode, String attributeExpression) throws DSException {
 		
 		if (attributeExpression == null) {
 			return true;
@@ -395,9 +404,24 @@ public class JSONResultSet extends AbstractFileResultSet implements DSStructured
 	}
 
 
-	@Override
-	public Object getValue(String name) throws DSException {
-	    // TODO Auto-generated method stub
+    @Override
+    public Object getValue(String name) throws DSException {
+	return getStringValue(name);  // Name as path expression
+    }
+	
+    protected String getStringValue(String expression) throws DSException {
+	if (isEmpty(expression)) {
 	    return null;
-	}	
+	}
+	JsonNode selectedObject = getJsonData(currentJsonNode, expression);
+	return getStringValue(selectedObject);
+    }
+
+    protected String getStringValue(JsonNode nodeObject) throws DSException {
+	if (nodeObject == null || nodeObject.isNull() || nodeObject.isMissingNode()) {
+	    return null;
+	}
+	return nodeObject.asText();
+    }
+
 }
