@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.plazmaforge.framework.util.StringUtils;
+
 
 /**
  * @author ohapon
@@ -104,5 +106,7 @@ public abstract class AbstractResultSet implements DSResultSet {
 	}
     }
 
-    
+    protected boolean isEmpty(String str) {
+	return StringUtils.isEmpty(str);
+    }
 }
