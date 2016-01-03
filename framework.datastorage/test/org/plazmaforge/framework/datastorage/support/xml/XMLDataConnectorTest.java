@@ -42,7 +42,7 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class XMLDataConnectorTest extends AbstractDSTestCase {
 
-    public void testConnector() throws Exception {
+    public void testXMLResultSet() throws Exception {
 
 	// Data Producer
 	DataProducer producer = new XMLDataProducerFactory().getDataProducer();

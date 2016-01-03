@@ -42,7 +42,7 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class JSONDataConnectorTest extends AbstractDSTestCase {
 
-    public void testConnector() throws Exception {
+    public void testJSONResultSet() throws Exception {
 
 	// Data Producer
 	DataProducer producer = new JSONDataProducerFactory().getDataProducer();
@@ -65,10 +65,10 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	DSResultSet resultSet = producer.openResultSet(session, query);
 	assertNotNull(resultSet);
 	assertNotNull(resultSet instanceof JSONResultSet);
-	JSONResultSet xmlResultSet = (JSONResultSet) resultSet;
+	JSONResultSet jsonResultSet = (JSONResultSet) resultSet;
 	
 	System.out.println("\nOpen JSONResultSet by session: fileName=" + fileName);
-	printJSONResultSet(xmlResultSet);
+	printJSONResultSet(jsonResultSet);
 	
 	session.close();
 	
@@ -176,10 +176,10 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
     */
     
     
-    private int printJSONResultSet(JSONResultSet csvResultSet) throws DSException {
+    private int printJSONResultSet(JSONResultSet jsonResultSet) throws DSException {
 	int row = 0;
-	System.out.println("Load XML data:");
-	while (csvResultSet.next()) {
+	System.out.println("Load JSON data:");
+	while (jsonResultSet.next()) {
 	    //System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
 	    System.out.println(" Row[" + row + "] : ");
 	    row++;
