@@ -66,7 +66,7 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
     }
     
     public String getSelectExpression() {
-	if (StringUtils.isEmpty(selectExpression, true)) {
+	if (isEmpty(selectExpression)) {
 	    return DEFAULT_SELECT_EXPRESSION;
 	}
 	return selectExpression;
@@ -103,15 +103,11 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 
     @Override
     public Object getValue(String name) throws DSException {
-	String expression = name; // Name like path expression
-	return getStringValue(expression);
+	return getStringValue(name); // Name as path expression
     }
 
     protected String getStringValue(String expression) throws DSException {
-	if (currentNode == null)
-	    return null;
-
-	if (expression == null || expression.isEmpty()) {
+	if (currentNode == null || isEmpty(expression)) {
 	    return null;
 	}
 	Object selectedObject = xPathExecuter.selectObject(currentNode, expression);

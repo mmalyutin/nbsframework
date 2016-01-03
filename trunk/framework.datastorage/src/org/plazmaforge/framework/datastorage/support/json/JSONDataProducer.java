@@ -224,9 +224,9 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
-	// query is not supported
+	// query is select expression
 	JSONResultSet resultSet = new JSONResultSet(reader);
-	
+	resultSet.setSelectExpression(query);
 	return resultSet;
 
     }  

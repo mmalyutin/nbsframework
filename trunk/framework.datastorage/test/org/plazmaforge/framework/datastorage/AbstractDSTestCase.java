@@ -26,7 +26,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-public class AbstractDSTestCase extends TestCase {
+public abstract class AbstractDSTestCase extends TestCase {
 
     private static final String DEFAULT_RESOURCES_DIR = "test/resources";
     

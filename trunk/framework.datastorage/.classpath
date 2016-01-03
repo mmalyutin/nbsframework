@@ -9,5 +9,6 @@
 	<classpathentry kind="var" path="PLAZMA_LIB/jaxen-1.1.1.jar"/>
 	<classpathentry kind="var" path="PLAZMA_LIB/jackson-core-2.1.4.jar"/>
 	<classpathentry kind="var" path="PLAZMA_LIB/jackson-databind-2.1.4.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/jackson-annotations-2.1.4.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
