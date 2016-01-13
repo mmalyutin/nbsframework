@@ -22,17 +22,9 @@
 
 package org.plazmaforge.framework.core.datastorage;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
-import org.plazmaforge.framework.core.data.ValuePresenter;
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
-import org.plazmaforge.framework.core.data.presenter.DoublePresenter;
-import org.plazmaforge.framework.core.data.presenter.FloatPresenter;
-import org.plazmaforge.framework.core.data.presenter.IntegerPresenter;
-import org.plazmaforge.framework.core.data.presenter.StringPresenter;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -42,10 +34,6 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 
-
-    // We use presenters like converters to convert value form string to typed value
-    //private Map<String, ValuePresenter> converters;
-    
 
     private ConverterManager converterManager;
     
@@ -81,17 +69,6 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
     }
 
     /**
-     * Initialize data type converters
-     */
-//    protected void initConverts() {
-//	converters = new HashMap<String, ValuePresenter>();
-//	converters.put("String", new StringPresenter());
-//	converters.put("Integer", new IntegerPresenter());
-//	converters.put("Float", new FloatPresenter());
-//	converters.put("Double", new DoublePresenter());
-//    }
-    
-    /**
      * Convert string value by type and format
      * @param value
      * @param field
@@ -104,39 +81,10 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 	value = StringUtils.normalizeString(value);
 	String type = field.getDataType();
 	String format = getFormat(field);
-	
-	
-	//ValuePresenter converter = getConverter(type, format);
-	//Object result = converter == null ? null : converter.toValue(value);
-	
 	Converter converter = getConverter("String", type, format);
-	//converter.convert(value);
-	
 	Object result = converter == null ? null : converter.convert(value);
 	return result;
     }
-    
-    /**
-     * Return converter by type and format
-     * @param type
-     * @param format
-     * @return
-     */
-//    protected ValuePresenter getConverter(String type, String format) {
-//	if (type == null) {
-//	    return null;
-//	}
-//	String key = null;
-//	if (format == null) {
-//	    key = type;
-//	} else {
-//	    key = type + "::" + format;
-//	}
-//	if (converters == null) {
-//	    initConverts();
-//	}
-//	return converters.get(key);
-//    }
     
     protected Converter<?, ?> getConverter(String sourceType, String targetType, String format) {
 	if (sourceType == null || targetType == null) {
