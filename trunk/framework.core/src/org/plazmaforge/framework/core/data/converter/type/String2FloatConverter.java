@@ -32,6 +32,14 @@ import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConver
 public class String2FloatConverter extends AbstractString2NumberConverter<Float> {
 
     
+    public String2FloatConverter() {
+	super();
+    }
+
+    public String2FloatConverter(String format) {
+	super(format);
+    }
+
     @Override
     public Float convert(String source) {
 	return parseNumber(source, Float.class, getFormatter());

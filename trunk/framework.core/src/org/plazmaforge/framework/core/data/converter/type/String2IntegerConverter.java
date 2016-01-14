@@ -33,6 +33,14 @@ import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConver
 public class String2IntegerConverter extends AbstractString2NumberConverter<Integer> {
 
     
+    public String2IntegerConverter() {
+	super();
+    }
+
+    public String2IntegerConverter(String format) {
+	super(format);
+    }
+
     @Override
     public Integer convert(String source) {
 	return parseNumber(source, Integer.class, getFormatter());

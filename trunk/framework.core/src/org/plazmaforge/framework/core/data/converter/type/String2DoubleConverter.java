@@ -32,6 +32,14 @@ import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConver
 public class String2DoubleConverter extends AbstractString2NumberConverter<Double> {
 
     
+    public String2DoubleConverter() {
+	super();
+    }
+
+    public String2DoubleConverter(String format) {
+	super(format);
+    }
+
     @Override
     public Double convert(String source) {
 	return parseNumber(source, Double.class, getFormatter());
