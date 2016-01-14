@@ -75,6 +75,7 @@ public class DataManager {
     
     public static final String PROPERTY_PASSWORD = "password";
     
+    public static final String PROPERTY_QUERY = "query";
     
     
     private Map<String, DataProducerFactory> dataProducers;
