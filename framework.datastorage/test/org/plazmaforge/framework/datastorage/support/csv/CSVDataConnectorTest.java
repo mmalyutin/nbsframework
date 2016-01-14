@@ -52,7 +52,7 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	// Data Connector
 	CSVDataConnector dataConnector = new CSVDataConnector();
 	
-	String fileName = getResourcesFileName("test.csv");
+	String fileName = getResourcesFileName("csv/test.csv");
 	dataConnector.setFileName(fileName);
 	
 	System.out.println("Create CSVDataConnector: fileName=" + fileName);
@@ -94,7 +94,7 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	// Data Connector
 	CSVDataConnector dataConnector = new CSVDataConnector();
 	
-	String fileName = getResourcesFileName("test.csv");
+	String fileName = getResourcesFileName("csv/test.csv");
 	dataConnector.setFileName(fileName);
 	
 	System.out.println("\nCreate CSVDataConnector: fileName=" + fileName);
@@ -162,7 +162,7 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
     public void testCSVDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
 	
-	String fileName = getResourcesFileName("test.csv");
+	String fileName = getResourcesFileName("csv/test.csv");
 	String connectionString = "csv::" + fileName;
 	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");

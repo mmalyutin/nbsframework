@@ -51,7 +51,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	// Data Connector
 	XMLDataConnector dataConnector = new XMLDataConnector();
 	
-	String fileName = getResourcesFileName("test.xml");
+	String fileName = getResourcesFileName("xml/test.xml");
 	dataConnector.setFileName(fileName);
 	
 	System.out.println("Create XMLDataConnector: fileName=" + fileName);
@@ -94,7 +94,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	// Data Connector
 	XMLDataConnector dataConnector = new XMLDataConnector();
 	
-	String fileName = getResourcesFileName("test.xml");
+	String fileName = getResourcesFileName("xml/test.xml");
 	dataConnector.setFileName(fileName);
 	
 	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
@@ -163,7 +163,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
 	
-	String fileName = getResourcesFileName("test.xml");
+	String fileName = getResourcesFileName("xml/test.xml");
 	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
 	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
