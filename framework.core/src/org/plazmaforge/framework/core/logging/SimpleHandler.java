@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.core.logging;
 
+import java.io.PrintStream;
 import java.util.Date;
 
 public class SimpleHandler extends Handler {
@@ -37,14 +38,16 @@ public class SimpleHandler extends Handler {
 	String message = record.getMessage() == null ? "" : record.getMessage();
 	Throwable error = record.getError();
 	
-	System.out.println(
+	PrintStream out = System.out; //record.getLevel() == Level.ERROR ? System.err : System.out;   
+	
+	out.println(
 		"" + date
 		+ (level == null ? "" : (" " + level))
 		//+ (methodInfo == null ? "" : (" " + methodInfo))
-		+ (" - " + message));
+		+ (" - " + message ));
 	
-	if (error == null) {
-	    return;
+	if (error != null) {
+	    error.printStackTrace(out);
 	}
 	
     }
