@@ -73,34 +73,31 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	session.close();
 	
 	// 2.
-	/*
-	String connectionString = fileName + "->(query=data-set)";
+	String connectionString = fileName + "->(query=data-set.records)";
 	resultSet = producer.openResultSet(connectionString);
 	assertNotNull(resultSet);
 	assertNotNull(resultSet instanceof JSONResultSet);
-	xmlResultSet = (JSONResultSet) resultSet;
+	jsonResultSet = (JSONResultSet) resultSet;
 
 	
 	System.out.println("\nOpen JSOResultSet by internal connection string: '" + connectionString + "'");
-	printJSONResultSet(xmlResultSet);
-	*/
+	printJSONResultSet(jsonResultSet);
 	
     }
     
-    /*
     public void testJSONLDataSet() throws Exception {
 
 	// Data Producer
-	DataProducer producer = new XMLDataProducerFactory().getDataProducer();
+	DataProducer producer = new JSONDataProducerFactory().getDataProducer();
 	assertNotNull(producer);
 	
 	// Data Connector
-	XMLDataConnector dataConnector = new XMLDataConnector();
+	JSONDataConnector dataConnector = new JSONDataConnector();
 	
 	String fileName = getResourcesFileName("json/test.json");
 	dataConnector.setFileName(fileName);
 	
-	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate JSONDataConnector: fileName=" + fileName);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
@@ -110,10 +107,10 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	
-	String query = "/data-set/record";
+	String query = "data-set.records";
 	DSDataSource dataSource = new DSBaseDataSource();
 	dataSource.setQueryText(query);
-	dataSource.setType("xml");
+	dataSource.setType("json");
 	
 	DSField field = new DSField();
 	field.setName("A");
@@ -134,7 +131,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	DSDataSet dataSet = producer.openDataSet(session, dataSource);
 	
 	int row = 0;
-   	System.out.println("Load XML DataSet:");
+   	System.out.println("Load JSON DataSet:");
    	Integer valueA = null;
    	Integer valueB = null;
    	Integer valueC = null;
@@ -162,17 +159,17 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	assertEquals(row, 3);
     }
     
-    
+
+    /*
     public void testDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
+	DataManager.registerDataProducerFactory(JSONDataConnector.TYPE, new JSONDataProducerFactory());
 	
 	String fileName = getResourcesFileName("json/test.json");
 	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
-	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
+	JSONResultSet xmlResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
-	printXMLResultSet(xmlResultSet);
+	printJSONResultSet(xmlResultSet);
     }
-    
     */
     
     
@@ -180,7 +177,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	int row = 0;
 	System.out.println("Load JSON data:");
 	while (jsonResultSet.next()) {
-	    //System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
+	    //System.out.println(" Row[" + row + "] : " + jsonResultSet.getValue("A")); // + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
 	    System.out.println(" Row[" + row + "] : ");
 	    row++;
 	}

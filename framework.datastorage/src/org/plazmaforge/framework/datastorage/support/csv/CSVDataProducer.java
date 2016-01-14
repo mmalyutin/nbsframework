@@ -204,11 +204,16 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = url;
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String fileName = values[0];
+	String parametersString = values[1];
+	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	
 	try {
 	    Reader reader = new FileReader(fileName);
-	    return new CSVResultSet(reader);
+	    CSVResultSet resultSet = new CSVResultSet(reader);
+	    //resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
+	    return resultSet;
 	} catch (IOException ex) {
 	    throw new DSException(ex);
 	}

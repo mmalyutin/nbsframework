@@ -190,11 +190,15 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = url;
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String fileName = values[0];
+	String parametersString = values[1];
+	Map<String, Object>  parameterData = createParameterData(parametersString); 
 	try {
 	    Reader reader = new FileReader(fileName);
-	    return new JSONResultSet(reader);
+	    JSONResultSet resultSet = new JSONResultSet(reader);
+	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
+	    return resultSet;
 	} catch (IOException ex) {
 	    throw new DSException(ex);
 	}
@@ -254,13 +258,13 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	    field = dsField.clone();
 	    fields.add(field);
 	}
-	// TODO
-	return null;
 	
-	//JSONDataSet dataSet = new JSONDataSet(fields, reader);
-	//dataSet.setDateFormat(csvSession.getDateFormat());
-	//dataSet.setNumberFormat(csvSession.getNumberFormat());
-	//return dataSet;
+	JSONDataSet dataSet = new JSONDataSet(fields, reader);
+	dataSet.setSelectExpression(dataSource.getQueryText());
+	
+	dataSet.setDateFormat(csvSession.getDateFormat());
+	dataSet.setNumberFormat(csvSession.getNumberFormat());
+	return dataSet;
 
     }
 
