@@ -20,29 +20,38 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type;
+package org.plazmaforge.framework.core.data.object;
 
-import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConverter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * 
- * @author ohapon
- *
- */
-public class String2LongConverter extends AbstractString2NumberConverter<Long> {
+import org.plazmaforge.framework.util.CoreUtils;
 
+public class DynamicObject implements Accessor {
+
+    private Map<String, Object> propertyMap;
     
-    public String2LongConverter() {
-	super();
+    //@Override
+    public Object get(String property) {
+	return getPropertyMap().get(property);
     }
 
-    public String2LongConverter(String format) {
-	super(format);
+    //@Override
+    public void set(String property, Object value) {
+	getPropertyMap().put(property, value);
     }
 
-    @Override
-    public Long convert(String source) {
-	return parseNumber(source, Long.class, getFormatter());
+    //@Override
+    public List<String> getPropertyNames() {
+	return CoreUtils.toKeyList(getPropertyMap());
+    }
+
+    private Map<String, Object> getPropertyMap() {
+	if (propertyMap == null) {
+	    propertyMap = new HashMap<String, Object>();
+	}
+	return propertyMap;
     }
 
 }
