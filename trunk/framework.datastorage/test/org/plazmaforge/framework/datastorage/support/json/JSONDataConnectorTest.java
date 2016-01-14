@@ -51,7 +51,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	// Data Connector
 	JSONDataConnector dataConnector = new JSONDataConnector();
 	
-	String fileName = getResourcesFileName("test.json");
+	String fileName = getResourcesFileName("json/test.json");
 	dataConnector.setFileName(fileName);
 	
 	System.out.println("Create JSONDataConnector: fileName=" + fileName);
@@ -97,7 +97,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	// Data Connector
 	XMLDataConnector dataConnector = new XMLDataConnector();
 	
-	String fileName = getResourcesFileName("test.xml");
+	String fileName = getResourcesFileName("json/test.json");
 	dataConnector.setFileName(fileName);
 	
 	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
@@ -166,7 +166,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
 	
-	String fileName = getResourcesFileName("test.xml");
+	String fileName = getResourcesFileName("json/test.json");
 	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
 	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
