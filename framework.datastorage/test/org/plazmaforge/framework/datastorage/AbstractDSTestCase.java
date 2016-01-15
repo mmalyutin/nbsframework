@@ -23,6 +23,10 @@
 package org.plazmaforge.framework.datastorage;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
+
+import org.plazmaforge.framework.util.DateUtils;
 
 import junit.framework.TestCase;
 
@@ -59,5 +63,28 @@ public abstract class AbstractDSTestCase extends TestCase {
         return (fileName == null  || resourcesDir == null) ? null : (getResourcesDir() + "/" + fileName);
     }
 
+    protected Date getDate(int year, int month, int day) {
+	return DateUtils.getDate(year, month, day);
+    }
+    
+    protected Date getTime(int h, int m, int s) {
+	return DateUtils.getTime(h, m, s);
+    }
+    
+    protected Date getTime(int h, int m, int s, int ms) {
+	return DateUtils.getTime(h, m, s, ms);
+    }
+    
+    protected Date getDateTime(int year, int month, int day, int h, int m, int s) {
+	return DateUtils.getDateTime(year, month, day, h, m, s);
+    }
+    
+    protected Date getDateTime(int year, int month, int day, int h, int m, int s, int ms) {
+	return DateUtils.getDateTime(year, month, day, h, m, s, ms);
+    }
+
+    protected String formatDate(Date date, DateFormat format) {
+	return date == null ? null : format.format(date);
+    }
     
 }

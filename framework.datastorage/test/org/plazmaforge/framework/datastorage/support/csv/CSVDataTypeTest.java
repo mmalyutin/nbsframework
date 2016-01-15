@@ -25,9 +25,7 @@
  */
 package org.plazmaforge.framework.datastorage.support.csv;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
@@ -97,6 +95,11 @@ public class CSVDataTypeTest extends AbstractDSTestCase {
 	field.setName("F_TIME");
 	field.setDataType("Time");
 	dataSource.addField(field);
+
+	field = new DSField();
+	field.setName("F_DATE_TIME");
+	field.setDataType("DateTime");
+	dataSource.addField(field);
 	
 	DSDataSet dataSet = producer.openDataSet(session, dataSource);
 	
@@ -105,12 +108,14 @@ public class CSVDataTypeTest extends AbstractDSTestCase {
    	
    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
    	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+   	SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
    	
    	String valueString = null;
    	Integer valueInteger = null;
    	Float valueFloat = null;
    	Date valueDate = null;
    	Date valueTime = null;
+   	Date valueDateTime = null;
    	
    	while (dataSet.next()) {
    	    
@@ -119,6 +124,7 @@ public class CSVDataTypeTest extends AbstractDSTestCase {
    	    valueFloat = (Float) dataSet.getValue("F_FLOAT");
    	    valueDate = (Date) dataSet.getValue("F_DATE");
    	    valueTime = (Date) dataSet.getValue("F_TIME");
+   	    valueDateTime = (Date) dataSet.getValue("F_DATE_TIME");
    	    
    	    if (row == 0) {
    		assertEquals(valueString, "String 1");
@@ -126,18 +132,21 @@ public class CSVDataTypeTest extends AbstractDSTestCase {
    		assertEquals(valueFloat, new Float(123.45));
    		assertEquals(valueDate, getDate(2001, 1, 11));
    		assertEquals(valueTime, getTime(11, 1, 21));
+   		assertEquals(valueDateTime, getDateTime(2011, 1, 11, 21, 1, 11));
    	    } else if (row == 1) {
    		assertEquals(valueString, "String 2");
    		assertEquals(valueInteger, new Integer(200));
    		assertEquals(valueFloat, new Float(234.56));
    		assertEquals(valueDate, getDate(2002, 2, 12));
    		assertEquals(valueTime, getTime(12, 2, 22));
+   		assertEquals(valueDateTime, getDateTime(2012, 2, 12, 22, 2, 12));
    	    } else if (row == 2) {
    		assertEquals(valueString, "String 3");
    		assertEquals(valueInteger, new Integer(300));
    		assertEquals(valueFloat, new Float(345.67));
    		assertEquals(valueDate, getDate(2003, 3, 13));
    		assertEquals(valueTime, getTime(13, 3, 23));
+   		assertEquals(valueDateTime, getDateTime(2013, 3, 13, 23, 3, 13));
    	    }
 
    	    System.out.println(" Row[" + row + "] : " 
@@ -145,43 +154,15 @@ public class CSVDataTypeTest extends AbstractDSTestCase {
    	    + ", " + valueInteger 
    	    + ", " + valueFloat 
    	    + ", " + formatDate(valueDate, dateFormat) 
-   	    + ", " + formatDate(valueTime, timeFormat));
+   	    + ", " + formatDate(valueTime, timeFormat)
+   	    + ", " + formatDate(valueDateTime, dateTimeFormat)
+   	    );
    	    
    	    row++;
    	}
 	assertEquals(row, 3);
     }
     
-    private String formatDate(Date date, DateFormat format) {
-	return date == null ? null : format.format(date);
-    }
-    
-    private Date getDate(int year, int month, int day) {
-	Calendar calendar = Calendar.getInstance();
-	
-	calendar.set(Calendar.YEAR, year);
-	calendar.set(Calendar.MONTH, month - 1);
-	calendar.set(Calendar.DAY_OF_MONTH, day);
-	
-	calendar.set(Calendar.HOUR_OF_DAY, 0);
-	calendar.set(Calendar.MINUTE, 0);
-	calendar.set(Calendar.SECOND, 0);
-	calendar.set(Calendar.MILLISECOND, 0);
-	
-	return calendar.getTime();
-    }
 
-    private Date getTime(int h, int m, int s) {
-	Calendar calendar = Calendar.getInstance();
-	calendar.setTimeInMillis(0);
-	
-	calendar.set(Calendar.HOUR_OF_DAY, h);
-	calendar.set(Calendar.MINUTE, m);
-	calendar.set(Calendar.SECOND, s);
-	calendar.set(Calendar.MILLISECOND, 0);	
-	return calendar.getTime();
-    }
-
-   
     
 }
