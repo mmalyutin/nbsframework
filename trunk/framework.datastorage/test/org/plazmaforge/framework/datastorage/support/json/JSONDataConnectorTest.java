@@ -80,7 +80,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	jsonResultSet = (JSONResultSet) resultSet;
 
 	
-	System.out.println("\nOpen JSOResultSet by internal connection string: '" + connectionString + "'");
+	System.out.println("\nOpen JSONResultSet by internal connection string: '" + connectionString + "'");
 	printJSONResultSet(jsonResultSet);
 	
     }
@@ -160,17 +160,15 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
     }
     
 
-    /*
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(JSONDataConnector.TYPE, new JSONDataProducerFactory());
 	
 	String fileName = getResourcesFileName("json/test.json");
-	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
-	JSONResultSet xmlResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
-	printJSONResultSet(xmlResultSet);
+	String connectionString = "json::" + fileName + "->(query=data-set.records)";
+	JSONResultSet jsonResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen JSONResultSet by general connection string: '" + connectionString + "'");
+	printJSONResultSet(jsonResultSet);
     }
-    */
     
     
     private int printJSONResultSet(JSONResultSet jsonResultSet) throws DSException {
