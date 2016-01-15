@@ -22,9 +22,14 @@
 
 package org.plazmaforge.framework.core.data.converter;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.converter.type.String2DateTimeConverter;
+import org.plazmaforge.framework.core.data.converter.type.String2DateTimeConverterFactory;
+import org.plazmaforge.framework.core.data.converter.type.String2TimeConverter;
+import org.plazmaforge.framework.core.data.converter.type.String2TimeConverterFactory;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -196,5 +201,25 @@ public class ConverterManager {
 	}
 	ConverterFactory<R, R> converterFactory = new SelfConverterFactory<R>();
 	registerConveretrFactory(simpleName, converterFactory);
+    }
+    
+    public void registerBaseConveretrFactories() {
+	registerGenericConveretrFactory(String.class, Integer.class);
+	registerGenericConveretrFactory(String.class, Long.class);
+	registerGenericConveretrFactory(String.class, Float.class);
+	registerGenericConveretrFactory(String.class, Double.class);
+	
+	registerGenericConveretrFactory(String.class, Date.class);
+	registerConveretrFactory(String2TimeConverter.class.getSimpleName(), new String2TimeConverterFactory());
+	registerConveretrFactory(String2DateTimeConverter.class.getSimpleName(), new String2DateTimeConverterFactory());
+	
+	// Self
+	registerSelfConveretrFactory(String.class);
+	registerSelfConveretrFactory(Integer.class);
+	registerSelfConveretrFactory(Float.class);
+	registerSelfConveretrFactory(Double.class);
+	
+	registerSelfConveretrFactory(Date.class);
+	
     }
 }

@@ -22,13 +22,9 @@
 
 package org.plazmaforge.framework.core.datastorage;
 
-import java.util.Date;
-
 import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
-import org.plazmaforge.framework.core.data.converter.type.String2TimeConverter;
-import org.plazmaforge.framework.core.data.converter.type.String2TimeConverterFactory;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -147,22 +143,7 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
     }
   
     protected void initConverterManager() {
-	//TODO: Move to converterManager.registerBaseConverterFactories()
-	converterManager.registerGenericConveretrFactory(String.class, Integer.class);
-	converterManager.registerGenericConveretrFactory(String.class, Long.class);
-	converterManager.registerGenericConveretrFactory(String.class, Float.class);
-	converterManager.registerGenericConveretrFactory(String.class, Double.class);
-	
-	converterManager.registerGenericConveretrFactory(String.class, Date.class);
-	converterManager.registerConveretrFactory(String2TimeConverter.class.getSimpleName(), new String2TimeConverterFactory());
-	
-	// Self
-	converterManager.registerSelfConveretrFactory(String.class);
-	converterManager.registerSelfConveretrFactory(Integer.class);
-	converterManager.registerSelfConveretrFactory(Float.class);
-	converterManager.registerSelfConveretrFactory(Double.class);
-	
-	converterManager.registerSelfConveretrFactory(Date.class);
+	converterManager.registerBaseConveretrFactories();
     }
 
     public ConverterManager getConverterManager() {
