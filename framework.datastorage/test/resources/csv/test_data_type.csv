@@ -1,0 +1,4 @@
+F_STRING, F_INTEGER, F_FLOAT
+String 1, 100, 123.45
+String 2, 200, 234.56
+String 3, 300, 345.67
