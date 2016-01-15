@@ -56,7 +56,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openSession(DSDataConnector dataConnector) throws DSException {
 	if (dataConnector == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null");
 	}
 	if (!(dataConnector instanceof CSVDataConnector)) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be CSVDataConnector");
@@ -64,8 +64,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	CSVDataConnector csvDataConnector = (CSVDataConnector) dataConnector;
 	
 	String fileName = csvDataConnector.getFileName();
-	String username = csvDataConnector.getUsername();
-	String password = csvDataConnector.getPassword();
 	String columnDelimiter = csvDataConnector.getColumnDelimiter();
 	String rowDelimiter = csvDataConnector.getRowDelimiter();
 	Boolean firstRowHeader = csvDataConnector.isFirstRowHeader();
@@ -75,8 +73,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
-	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	data.put(CSVDataConnector.PROPERTY_COLUMN_DELIMITER, columnDelimiter);
 	data.put(CSVDataConnector.PROPERTY_ROW_DELIMITER, rowDelimiter);
 	data.put(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
@@ -103,17 +99,8 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	if (fileName == null || fileName.isEmpty()) {
 	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
 	}
-	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
-	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
-	
-	if (username == null) {
-	    username = properties.getProperty(DataManager.PROPERTY_USER);
-	}
-	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
-	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -124,8 +111,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
-	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -133,21 +118,13 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openSession(Properties properties) throws DSException {
 	if (properties == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
 	
 	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
-	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
-	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
-	
-	if (username == null) {
-	    username = properties.getProperty(DataManager.PROPERTY_USER);
-	}
 
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(CSVDataConnector.PROPERTY_USERNAME, username);
-	data.put(CSVDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -155,13 +132,13 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openWrapSession(Object data) throws DSException {
 	if (data == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "Data is null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "Data is null");
 	}
 	if (data instanceof Reader) {
 	    Reader reader = (Reader) data;
 	    return new CSVSession(reader);
 	}
-	handleContextException(DataManager.CONTEXT_SESSION, "Data is unknown.");
+	handleContextException(DataManager.CONTEXT_SESSION, "Data is unknown");
 	return null;
     }
 
@@ -232,7 +209,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     // General method
     protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
 	}
 	if (!(session instanceof CSVSession)) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be CSVSession");
@@ -258,7 +235,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     public DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException {
 	
 	if (session == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
 	}
 	if (!(session instanceof CSVSession)) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be CSVSession");
