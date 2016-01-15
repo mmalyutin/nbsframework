@@ -1,11 +1,11 @@
 <data-set>
 	<record>
-		<A>1</A><B>2</B><C>3</C>
+		<a>1</a><b>2</b><c>3</c>
 	</record>
 	<record>
-		<A>4</A><B>5</B><C>6</C>
+		<a>4</a><b>5</b><c>6</c>
 	</record>
 	<record>
-		<A>7</A><B>8</B><C>9</C>
+		<a>7</a><b>8</b><c>9</c>
 	</record>
 </data-set>
