@@ -23,10 +23,11 @@
 /**
  * 
  */
-package org.plazmaforge.framework.datastorage.support.csv;
+package org.plazmaforge.framework.datastorage.support.json;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
@@ -40,71 +41,71 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  * @author ohapon
  *
  */
-public class CSVDataTypeTest extends AbstractDSTestCase {
+public class JSONDataTypeTest extends AbstractDSTestCase {
 
     
    
     
-    public void testCSVDataSet() throws Exception {
+    public void testJSONDataSet() throws Exception {
 
 	// Data Producer
-	DataProducer producer = new CSVDataProducerFactory().getDataProducer();
+	DataProducer producer = new JSONDataProducerFactory().getDataProducer();
 	assertNotNull(producer);
 	
 	// Data Connector
-	CSVDataConnector dataConnector = new CSVDataConnector();
+	JSONDataConnector dataConnector = new JSONDataConnector();
 	
-	String fileName = getResourcesFileName("csv/test_data_type.csv");
+	String fileName = getResourcesFileName("json/test_data_type.json");
 	dataConnector.setFileName(fileName);
 	
-	System.out.println("\nCreate CSVDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate JSONDataConnector: fileName=" + fileName);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	
 	// 1. By Session
-	dataConnector.setFirstRowHeader(true);
 	session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	
 	DSDataSource dataSource = new DSBaseDataSource();
-	dataSource.setType("csv");
+	dataSource.setType("json");
+	dataSource.setQueryText("data-set.records");
 	
 	DSField field = new DSField();
-	field.setName("F_STRING");
+	field.setName("f_string");
 	field.setDataType("String");
 	dataSource.addField(field);
 
 	field = new DSField();
-	field.setName("F_INTEGER");
+	field.setName("f_integer");
 	field.setDataType("Integer");
 	dataSource.addField(field);
 
 	field = new DSField();
-	field.setName("F_FLOAT");
+	field.setName("f_float");
 	field.setDataType("Float");
 	dataSource.addField(field);
 	
 	field = new DSField();
-	field.setName("F_DATE");
+	field.setName("f_date");
 	field.setDataType("Date");
 	dataSource.addField(field);
 	
 	field = new DSField();
-	field.setName("F_TIME");
+	field.setName("f_time");
 	field.setDataType("Time");
 	dataSource.addField(field);
 
 	field = new DSField();
-	field.setName("F_DATE_TIME");
+	field.setName("f_date_time");
 	field.setDataType("DateTime");
 	dataSource.addField(field);
 	
 	DSDataSet dataSet = producer.openDataSet(session, dataSource);
 	
 	int row = 0;
-   	System.out.println("Load CSV DataSet:");
+   	System.out.println("Load JSON DataSet:");
    	
    	SimpleDateFormat dateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
    	SimpleDateFormat timeFormat = new SimpleDateFormat(DEFAULT_TIME_FORMAT);
@@ -119,12 +120,12 @@ public class CSVDataTypeTest extends AbstractDSTestCase {
    	
    	while (dataSet.next()) {
    	    
-   	    valueString = (String) dataSet.getValue(0);
-   	    valueInteger = (Integer) dataSet.getValue("F_INTEGER");
-   	    valueFloat = (Float) dataSet.getValue("F_FLOAT");
-   	    valueDate = (Date) dataSet.getValue("F_DATE");
-   	    valueTime = (Date) dataSet.getValue("F_TIME");
-   	    valueDateTime = (Date) dataSet.getValue("F_DATE_TIME");
+   	    valueString = (String) dataSet.getValue("f_string");
+   	    valueInteger = (Integer) dataSet.getValue("f_integer");
+   	    valueFloat = (Float) dataSet.getValue("f_float");
+   	    valueDate = (Date) dataSet.getValue("f_date");
+   	    valueTime = (Date) dataSet.getValue("f_time");
+   	    valueDateTime = (Date) dataSet.getValue("f_date_time");
    	    
    	    if (row == 0) {
    		assertEquals(valueString, "String 1");

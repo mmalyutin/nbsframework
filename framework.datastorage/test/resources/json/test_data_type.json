@@ -1,0 +1,29 @@
+{"data-set": { 
+  "records": [
+    {
+      f_string: "String 1",
+      f_integer: 100,
+      f_float: 123.45,
+      f_date: "2001-01-11",
+      f_time: "11:01:21",
+      f_date_time: "2011-01-11 21:01:11"
+    },
+    {
+      f_string: "String 2",
+      f_integer: 200,
+      f_float: 234.56,
+      f_date: "2002-02-12",
+      f_time: "12:02:22",
+      f_date_time: "2012-02-12 22:02:12"
+    },
+    {
+      f_string: "String 3",
+      f_integer: 300,
+      f_float: 345.67,
+      f_date: "2003-03-13",
+      f_time: "13:03:23",
+      f_date_time: "2013-03-13 23:03:13"
+   }
+  ]
+ }
+}

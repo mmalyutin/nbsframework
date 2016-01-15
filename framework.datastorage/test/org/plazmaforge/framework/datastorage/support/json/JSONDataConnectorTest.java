@@ -113,17 +113,17 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	dataSource.setType("json");
 	
 	DSField field = new DSField();
-	field.setName("A");
+	field.setName("a");
 	field.setDataType("Integer");
 	dataSource.addField(field);
 
 	field = new DSField();
-	field.setName("B");
+	field.setName("b");
 	field.setDataType("Integer");
 	dataSource.addField(field);
 
 	field = new DSField();
-	field.setName("C");
+	field.setName("c");
 	field.setDataType("Integer");
 	dataSource.addField(field);
 	
@@ -136,9 +136,9 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
    	Integer valueB = null;
    	Integer valueC = null;
    	while (dataSet.next()) {
-   	    valueA = (Integer) dataSet.getValue("A");
-   	    valueB = (Integer) dataSet.getValue("B");
-   	    valueC = (Integer) dataSet.getValue("C");
+   	    valueA = (Integer) dataSet.getValue("a");
+   	    valueB = (Integer) dataSet.getValue("b");
+   	    valueC = (Integer) dataSet.getValue("c");
    	    if (row == 0) {
    		assertEquals(valueA, new Integer(1));
    		assertEquals(valueB, new Integer(2));
