@@ -54,7 +54,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openSession(DSDataConnector dataConnector) throws DSException {
 	if (dataConnector == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null");
 	}
 	if (!(dataConnector instanceof XMLDataConnector)) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be XMLDataConnector");
@@ -62,16 +62,11 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	XMLDataConnector xmlDataConnector = (XMLDataConnector) dataConnector;
 	
 	String fileName = xmlDataConnector.getFileName();
-	String username = xmlDataConnector.getUsername();
-	String password = xmlDataConnector.getPassword();
 	String dateFormat = xmlDataConnector.getDateFormat();
 	String numberFormat = xmlDataConnector.getNumberFormat();
 	
-	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(XMLDataConnector.PROPERTY_USERNAME, username);
-	data.put(XMLDataConnector.PROPERTY_PASSWORD, password);
 	data.put(XMLDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XMLDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -95,17 +90,8 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	if (fileName == null || fileName.isEmpty()) {
 	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
 	}
-	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
-	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
-	
-	if (username == null) {
-	    username = properties.getProperty(DataManager.PROPERTY_USER);
-	}
-	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(XMLDataConnector.PROPERTY_USERNAME, username);
-	data.put(XMLDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -116,8 +102,6 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(XMLDataConnector.PROPERTY_USERNAME, username);
-	data.put(XMLDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -125,21 +109,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openSession(Properties properties) throws DSException {
 	if (properties == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
 	
 	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
-	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
-	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
-	
-	if (username == null) {
-	    username = properties.getProperty(DataManager.PROPERTY_USER);
-	}
 
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(XMLDataConnector.PROPERTY_USERNAME, username);
-	data.put(XMLDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -147,13 +123,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openWrapSession(Object data) throws DSException {
 	if (data == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "Data is null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "Data is null");
 	}
 	if (data instanceof Reader) {
 	    Reader reader = (Reader) data;
 	    return new XMLSession(reader);
 	}
-	handleContextException(DataManager.CONTEXT_SESSION, "Data is unknown.");
+	handleContextException(DataManager.CONTEXT_SESSION, "Data is unknown");
 	return null;
     }
 
@@ -215,7 +191,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     // General method
     protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
 	}
 	if (!(session instanceof XMLSession)) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be XMLSession");

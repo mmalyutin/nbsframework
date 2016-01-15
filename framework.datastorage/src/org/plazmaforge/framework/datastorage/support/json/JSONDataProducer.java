@@ -56,24 +56,20 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     @Override
     public DSSession openSession(DSDataConnector dataConnector) throws DSException {
 	if (dataConnector == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector is null");
 	}
 	if (!(dataConnector instanceof JSONDataConnector)) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be JSONDataConnector");
 	}	
-	JSONDataConnector csvDataConnector = (JSONDataConnector) dataConnector;
+	JSONDataConnector jsonDataConnector = (JSONDataConnector) dataConnector;
 	
-	String fileName = csvDataConnector.getFileName();
-	String username = csvDataConnector.getUsername();
-	String password = csvDataConnector.getPassword();
-	String dateFormat = csvDataConnector.getDateFormat();
-	String numberFormat = csvDataConnector.getNumberFormat();
+	String fileName = jsonDataConnector.getFileName();
+	String dateFormat = jsonDataConnector.getDateFormat();
+	String numberFormat = jsonDataConnector.getNumberFormat();
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(JSONDataConnector.PROPERTY_USERNAME, username);
-	data.put(JSONDataConnector.PROPERTY_PASSWORD, password);
 	data.put(JSONDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(JSONDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -97,17 +93,9 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	if (fileName == null || fileName.isEmpty()) {
 	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
 	}
-	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
-	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
-	
-	if (username == null) {
-	    username = properties.getProperty(DataManager.PROPERTY_USER);
-	}
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(JSONDataConnector.PROPERTY_USERNAME, username);
-	data.put(JSONDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -118,8 +106,6 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(JSONDataConnector.PROPERTY_USERNAME, username);
-	data.put(JSONDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -127,21 +113,13 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     @Override
     public DSSession openSession(Properties properties) throws DSException {
 	if (properties == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
 	
 	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
-	String username = properties.getProperty(DataManager.PROPERTY_USERNAME);
-	String password = properties.getProperty(DataManager.PROPERTY_PASSWORD);
 	
-	if (username == null) {
-	    username = properties.getProperty(DataManager.PROPERTY_USER);
-	}
-
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(JSONDataConnector.PROPERTY_USERNAME, username);
-	data.put(JSONDataConnector.PROPERTY_PASSWORD, password);
 	
 	return doOpenSession(data);
     }
@@ -149,13 +127,13 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     @Override
     public DSSession openWrapSession(Object data) throws DSException {
 	if (data == null) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "Data is null.");
+	    handleContextException(DataManager.CONTEXT_SESSION, "Data is null");
 	}
 	if (data instanceof Reader) {
 	    Reader reader = (Reader) data;
 	    return new JSONSession(reader);
 	}
-	handleContextException(DataManager.CONTEXT_SESSION, "Data is unknown.");
+	handleContextException(DataManager.CONTEXT_SESSION, "Data is unknown");
 	return null;
     }
 
@@ -217,14 +195,14 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     // General method
     protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
 	}
 	if (!(session instanceof JSONSession)) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be CSVSession");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be JSONSession");
 	}
 
-	JSONSession csvSession = (JSONSession) session;
-	Reader reader = csvSession.getReader();
+	JSONSession jsonSession = (JSONSession) session;
+	Reader reader = jsonSession.getReader();
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
@@ -239,14 +217,14 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     public DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException {
 	
 	if (session == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
 	}
 	if (!(session instanceof JSONSession)) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be CSVSession");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be JSONSession");
 	}
 
-	JSONSession csvSession = (JSONSession) session;
-	Reader reader = csvSession.getReader();
+	JSONSession jsonSession = (JSONSession) session;
+	Reader reader = jsonSession.getReader();
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
@@ -262,8 +240,8 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	JSONDataSet dataSet = new JSONDataSet(fields, reader);
 	dataSet.setSelectExpression(dataSource.getQueryText());
 	
-	dataSet.setDateFormat(csvSession.getDateFormat());
-	dataSet.setNumberFormat(csvSession.getNumberFormat());
+	dataSet.setDateFormat(jsonSession.getDateFormat());
+	dataSet.setNumberFormat(jsonSession.getNumberFormat());
 	return dataSet;
 
     }
