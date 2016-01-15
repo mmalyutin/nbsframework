@@ -143,10 +143,16 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
     }
   
     protected void initConverterManager() {
+	//TODO: Move to converterManager.registerBaseConverterFactories()
 	converterManager.registerGenericConveretrFactory(String.class, Integer.class);
 	converterManager.registerGenericConveretrFactory(String.class, Long.class);
 	converterManager.registerGenericConveretrFactory(String.class, Float.class);
 	converterManager.registerGenericConveretrFactory(String.class, Double.class);
+	
+	converterManager.registerSelfConveretrFactory(String.class);
+	converterManager.registerSelfConveretrFactory(Integer.class);
+	converterManager.registerSelfConveretrFactory(Float.class);
+	converterManager.registerSelfConveretrFactory(Double.class);
     }
 
     public ConverterManager getConverterManager() {
