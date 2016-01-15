@@ -174,17 +174,27 @@ public class ConverterManager {
     }
     
     
-    public void registerGenericConveretrFactory(Class<?> sourceType, Class<?> targetType) {
+    public <S, T> void registerGenericConveretrFactory(Class<S> sourceType, Class<T> targetType) {
 	String simpleName = getConverterSimpleName(sourceType, targetType);
 	if (simpleName == null) {
-	    //TDOO
+	    //TODO
 	    return;
 	}
-	ConverterFactory<?, ?> converterFactory = ConverterManager.createGenericConverterFactory(sourceType, targetType);
+	ConverterFactory<S, T> converterFactory = ConverterManager.createGenericConverterFactory(sourceType, targetType);
 	if (converterFactory == null) {
 	    //TODO
 	    return;
 	}
+	registerConveretrFactory(simpleName, converterFactory);
+    }
+    
+    public <R> void registerSelfConveretrFactory(Class<R> type) {
+	String simpleName = getConverterSimpleName(type, type);
+	if (simpleName == null) {
+	    //TODO
+	    return;
+	}
+	ConverterFactory<R, R> converterFactory = new SelfConverterFactory<R>();
 	registerConveretrFactory(simpleName, converterFactory);
     }
 }
