@@ -22,6 +22,9 @@
 
 package org.plazmaforge.framework.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -32,6 +35,16 @@ import java.util.Date;
  */
 public class DateUtils {
 
+    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+    
+    public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
+    
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    
+    
+    private static DateFormat defaultDateFormatter;
+    
     /**
      * Return <code>Date</code> by year, month, day
      * @param year
@@ -106,4 +119,59 @@ public class DateUtils {
 	return calendar.getTime();
     }
 
+    public static Date parseDate(String source) {
+	return parseDate(source, Date.class, null);
+    }
+    
+    public static Date parseDate(String source, DateFormat formatter) {
+	return parseDate(source, Date.class, formatter);
+    }
+	
+    public static <T extends Date> T parseDate(String source, Class<T> type, DateFormat formatter) {
+	String value = StringUtils.normalizeString(source);
+	if (value == null) {
+	    return null;
+	}
+	if (formatter == null) {
+	    formatter = getDefaultDateFormatter();
+	}
+	try {
+	    Date date = formatter.parse(source);
+	    return convertDate(date, type);
+	} catch (ParseException ex) {
+	    throw new IllegalArgumentException("Could not parse date: " + ex.getMessage());
+	}
+    }
+    
+    public static <T extends Date> T convertDate(Date date, Class<T> type) {
+	if (date == null) {
+	    return null;
+	}
+	if (type == null) {
+	    throw new IllegalArgumentException("Could not convert date [" + date + "] to unknown type");
+	}
+
+	if (type.isInstance(date) || Date.class == type) {
+	    return (T) date;
+	}
+	if (java.sql.Date.class == type) {
+	    return (T) new java.sql.Date(date.getTime());
+	}
+	if (java.sql.Time.class == type) {
+	    return (T) new java.sql.Time(date.getTime());
+	}
+	if (java.sql.Timestamp.class == type) {
+	    return (T) new java.sql.Timestamp(date.getTime());
+	}
+	// TODO: What about reflection? May be get constructor (long).
+	throw new IllegalArgumentException("Could not convert date [" + date + "] of type [" + date.getClass().getName() + "] to unknown type [" + type.getName() + "]");
+    }
+    
+    private static DateFormat getDefaultDateFormatter() {
+	if (defaultDateFormatter == null) {
+	    defaultDateFormatter = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+	}
+	return defaultDateFormatter;
+    }
+    
 }

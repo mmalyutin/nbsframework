@@ -23,10 +23,10 @@
 package org.plazmaforge.framework.core.data.converter;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.plazmaforge.framework.util.DateUtils;
 import org.plazmaforge.framework.util.StringUtils;
 
 
@@ -37,11 +37,11 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public abstract class AbstractString2DateConverter<T> extends AbstractStringConverter<String, T> {
 
-    public static final String DEFAULT_DATE_FROMAT = "yyyy-MM-dd";
+    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
     
-    public static final String DEFAULT_TIME_FROMAT = "HH:mm:ss";
+    public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
     
-    public static final String DEFAULT_DATE_TIME_FROMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     
 	    
     private DateFormat formatter;
@@ -58,7 +58,7 @@ public abstract class AbstractString2DateConverter<T> extends AbstractStringConv
     }
 
     protected DateFormat createFormatter(String format) {
-	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_DATE_FROMAT : format);
+	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_DATE_FORMAT : format);
     }
 
 
@@ -67,16 +67,7 @@ public abstract class AbstractString2DateConverter<T> extends AbstractStringConv
     }
     
     protected Date parseDate(String source, DateFormat formatter) {
-	//TODO
-	//return DateUtils.parseDate(source, type, formatter, false);
-	if (source == null) {
-	    return null;
-	}
-	try {
-	    return formatter.parse(source);
-	} catch (ParseException ex) {
-	    throw new IllegalArgumentException("Could not parse date: " + ex.getMessage());
-	}	
+	return DateUtils.parseDate(source, formatter);
     }
     
 }
