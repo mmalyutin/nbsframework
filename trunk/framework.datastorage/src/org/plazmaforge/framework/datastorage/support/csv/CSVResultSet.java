@@ -30,7 +30,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.core.datastorage.AbstractFileResultSet;
+import org.plazmaforge.framework.core.datastorage.AbstractTextFileResultSet;
 import org.plazmaforge.framework.core.datastorage.DSIndexableResultSet;
 import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
@@ -40,7 +40,7 @@ import org.plazmaforge.framework.util.StringUtils;
  * @author ohapon
  *
  */
-public class CSVResultSet extends AbstractFileResultSet implements DSIndexableResultSet, DSStructuredResultSet {
+public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexableResultSet, DSStructuredResultSet {
 
     
     private List<String> values;

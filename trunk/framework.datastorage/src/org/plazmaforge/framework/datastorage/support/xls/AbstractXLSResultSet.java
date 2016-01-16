@@ -20,28 +20,17 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
 package org.plazmaforge.framework.datastorage.support.xls;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
-import org.plazmaforge.framework.datastorage.support.xml.XMLDataProducer;
+import org.plazmaforge.framework.core.datastorage.AbstractTextFileResultSet;
+import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class XLSDataProducerFactory implements DataProducerFactory {
+public abstract class AbstractXLSResultSet extends AbstractTextFileResultSet implements DSStructuredResultSet  {
 
-
-    @Override
-    public DataProducer getDataProducer() {
-	//TODO
-	return null; // new XLSDataProducer();
-    }
-   
-
-  
+    protected String sheet;
 }

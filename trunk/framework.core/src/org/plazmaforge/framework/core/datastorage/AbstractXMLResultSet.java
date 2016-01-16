@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  * @author ohapon
  *
  */
-public abstract class AbstractXMLResultSet extends AbstractFileResultSet {
+public abstract class AbstractXMLResultSet extends AbstractTextFileResultSet {
 
 
     public static final String DEFAULT_SELECT_EXPRESSION = ".";
