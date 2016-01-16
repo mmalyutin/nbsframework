@@ -111,7 +111,7 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 	if (field == null) {
 	    return null;
 	}
-	String format = null; //field.getFormat() // TODO
+	String format = field.getFormat();
 	if (format == null) {
 	    format = getFormat(field.getDataType());
 	}

@@ -28,7 +28,6 @@
 package org.plazmaforge.framework.core.datastorage;
 
 import java.io.Serializable;
-import java.text.Format;
 
 import org.plazmaforge.framework.core.data.ComplexLocalizedIdentifier;
 import org.plazmaforge.framework.core.data.HasDataType;
@@ -81,7 +80,7 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
     
     private int scale;
     
-    private Format format;
+    private String format;
 
     ////
     
@@ -220,13 +219,14 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
         this.scale = scale;
     }
 
-    public Format getFormat() {
+    public String getFormat() {
         return format;
     }
 
-    public void setFormat(Format format) {
+    public void setFormat(String format) {
         this.format = format;
     }
+
 
     
     
