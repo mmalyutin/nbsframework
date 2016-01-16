@@ -1,11 +1,11 @@
 <data-set>
 	<record>
-		<f_string>String 1</f_string><f_integer>100</f_integer><f_float>123.45</f_float><f_date>2001-01-11</f_date><f_time>11:01:21</f_time><f_date_time>2011-01-11 21:01:11</f_date_time>
+		<f_string>String 1</f_string><f_integer>100</f_integer><f_float>123.45</f_float><f_date>2001-01-11</f_date><f_time>11:01:21</f_time><f_date_time>2011-01-11 21:01:11</f_date_time><f_date_fmt>21/Jan/1951</f_date_fmt><f_time_fmt>01:21 AM</f_time_fmt>
 	</record>
 	<record>
-		<f_string>String 2</f_string><f_integer>200</f_integer><f_float>234.56</f_float><f_date>2002-02-12</f_date><f_time>12:02:22</f_time><f_date_time>2012-02-12 22:02:12</f_date_time>
+		<f_string>String 2</f_string><f_integer>200</f_integer><f_float>234.56</f_float><f_date>2002-02-12</f_date><f_time>12:02:22</f_time><f_date_time>2012-02-12 22:02:12</f_date_time><f_date_fmt>22/Feb/1952</f_date_fmt><f_time_fmt>02:22 PM</f_time_fmt>
 	</record>
 	<record>
-		<f_string>String 3</f_string><f_integer>300</f_integer><f_float>345.67</f_float><f_date>2003-03-13</f_date><f_time>13:03:23</f_time><f_date_time>2013-03-13 23:03:13</f_date_time>
+		<f_string>String 3</f_string><f_integer>300</f_integer><f_float>345.67</f_float><f_date>2003-03-13</f_date><f_time>13:03:23</f_time><f_date_time>2013-03-13 23:03:13</f_date_time><f_date_fmt>23/Mar/1953</f_date_fmt><f_time_fmt>03:23 AM</f_time_fmt>
 	</record>
 </data-set>
