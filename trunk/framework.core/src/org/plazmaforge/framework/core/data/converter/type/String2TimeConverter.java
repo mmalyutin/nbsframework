@@ -51,7 +51,7 @@ public class String2TimeConverter extends AbstractString2DateConverter<Date> {
     }
     
     protected DateFormat createFormatter(String format) {
-  	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_TIME_FROMAT : format);
+  	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_TIME_FORMAT : format);
       }
     
 
