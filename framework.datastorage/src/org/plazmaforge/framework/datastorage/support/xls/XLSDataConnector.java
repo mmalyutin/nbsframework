@@ -33,13 +33,15 @@ import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
  */
 public class XLSDataConnector extends AbstractFileDataConnector {
 
+    public static final String TYPE = "XLS";
+    
     public XLSDataConnector() {
 	super();
     }
     
     @Override
     public String getType() {
-	return XLSDataProducerFactory.TYPE;
+	return TYPE;
     }
 
 

@@ -29,7 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.plazmaforge.framework.core.datastorage.AbstractFileResultSet;
+import org.plazmaforge.framework.core.datastorage.AbstractTextFileResultSet;
 import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
 
@@ -44,7 +44,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
  * @author ohapon
  *
  */
-public class JSONResultSet extends AbstractFileResultSet implements DSStructuredResultSet {
+public class JSONResultSet extends AbstractTextFileResultSet implements DSStructuredResultSet {
 
     // the JSON select expression that gives the nodes to iterate
     private String selectExpression;

@@ -22,11 +22,7 @@
 
 package org.plazmaforge.framework.core.datastorage;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.List;
-
-import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * 
@@ -35,8 +31,6 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public abstract class AbstractFileResultSet extends AbstractResultSet {
 
-    protected Reader reader;
-    
     protected boolean processing;
 
     public AbstractFileResultSet() {
@@ -45,42 +39,6 @@ public abstract class AbstractFileResultSet extends AbstractResultSet {
 
     public AbstractFileResultSet(List<String> fieldNames) {
 	super(fieldNames);
-    }
-
-    @Override
-    public boolean isEmpty() throws DSException {
-	// TODO
-	return reader == null;
-    }
-
-    @Override
-    public boolean isClosed() throws DSException {
-	return reader == null;
-    }
-
-    @Override
-    public void close() throws DSException {
-	if (reader == null) {
-	    return;
-	}
-	try {
-	    reader.close();
-	    reader = null;
-	} catch (IOException ex) {
-	    handleIOException(ex);
-	}
-    }
-    
-    protected void handleIOException(IOException ex) throws DSException {
-	if (ex == null) {
-	    return;
-	}
-	throw new DSException(ex);
-    }
-
-    protected void handlePropertyModifyException() {
-	String message = "Cannot modify '" + getClass().getSimpleName()	+ "' properties after data processing has started";
-	throw new RuntimeException(message);
     }
     
 }
