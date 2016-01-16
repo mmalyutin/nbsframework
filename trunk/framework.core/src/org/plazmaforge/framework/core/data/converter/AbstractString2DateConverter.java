@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.plazmaforge.framework.core.Platform;
 import org.plazmaforge.framework.util.DateUtils;
 import org.plazmaforge.framework.util.StringUtils;
 
@@ -37,11 +38,11 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public abstract class AbstractString2DateConverter<T> extends AbstractStringConverter<String, T> {
 
-    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DEFAULT_DATE_FORMAT = Platform.DEFAULT_DATE_FORMAT;
     
-    public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
+    public static final String DEFAULT_TIME_FORMAT = Platform.DEFAULT_TIME_FORMAT;
     
-    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DEFAULT_DATE_TIME_FORMAT = Platform.DEFAULT_DATE_TIME_FORMAT;
     
 	    
     private DateFormat formatter;

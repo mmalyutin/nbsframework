@@ -28,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.plazmaforge.framework.core.Platform;
+
 /**
  * 
  * @author ohapon
@@ -35,13 +37,6 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    
-    public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
-    
-    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-    
     
     private static DateFormat defaultDateFormatter;
     
@@ -169,7 +164,7 @@ public class DateUtils {
     
     private static DateFormat getDefaultDateFormatter() {
 	if (defaultDateFormatter == null) {
-	    defaultDateFormatter = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+	    defaultDateFormatter = new SimpleDateFormat(Platform.DEFAULT_DATE_FORMAT);
 	}
 	return defaultDateFormatter;
     }
