@@ -22,11 +22,12 @@
 
 package org.plazmaforge.framework.datastorage.support.xls;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.plazmaforge.framework.core.datastorage.AbstractStreamFileResultSet;
-import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.plazmaforge.framework.core.exception.DSException;
 
 /**
@@ -34,40 +35,22 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet implements DSStructuredResultSet  {
+public class XLSXResultSet extends AbstractPOIResultSet {
 
-    protected String sheetSelection;
-    
-    protected int sheetIndex = -1;
-    protected int recordIndex = -1;
-    
-    private boolean firstRowHeader;
-    
-    public AbstractXLSResultSet(InputStream is) throws DSException {
-	this.inputStream = is;
+    public XLSXResultSet(InputStream inputStream) throws DSException {
+	super(inputStream);
     }
-	
-    public AbstractXLSResultSet(List<String> fieldNames, InputStream inputStream) {
+
+    public XLSXResultSet(List<String> fieldNames, InputStream inputStream) throws DSException {
 	super(fieldNames, inputStream);
     }
 
-    public AbstractXLSResultSet(List<String> fieldNames) {
-	super(fieldNames);
+    @Override
+    protected Workbook loadWorkbook(InputStream inputStream) throws DSException {
+	try {
+	    return new XSSFWorkbook(inputStream);
+	} catch (IOException e) {
+	    throw new DSException(e);
+	}
     }
-
-    public boolean isFirstRowHeader() {
-        return firstRowHeader;
-    }
-
-    public void setFirstRowHeader(boolean firstRowHeader) {
-        this.firstRowHeader = firstRowHeader;
-    }
-
-    //@Override
-    public void beforeFirst() throws DSException {
-	this.recordIndex = -1;
-	this.sheetIndex = -1;
-    }
-    
-    
 }
