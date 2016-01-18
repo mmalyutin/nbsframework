@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.core.datastorage;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
 import java.util.List;
 
 import org.plazmaforge.framework.core.exception.DSException;
@@ -33,52 +33,51 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public abstract class AbstractTextFileResultSet extends AbstractFileResultSet {
+public abstract class AbstractStreamFileResultSet extends AbstractFileResultSet {
 
-    protected Reader reader;
+    
+    protected InputStream inputStream;
 
-    public AbstractTextFileResultSet() {
+    public AbstractStreamFileResultSet() {
 	super();
     }
 
-    public AbstractTextFileResultSet(List<String> fieldNames) {
+    public AbstractStreamFileResultSet(List<String> fieldNames) {
 	super(fieldNames);
     }
 
-    public AbstractTextFileResultSet(Reader reader) {
+    public AbstractStreamFileResultSet(InputStream inputStream) {
 	super();
-	this.reader = reader;
+	this.inputStream = inputStream;
     }
     
-    public AbstractTextFileResultSet(List<String> fieldNames, Reader reader) {
+    public AbstractStreamFileResultSet(List<String> fieldNames, InputStream inputStream) {
 	super(fieldNames);
-	this.reader = reader;
+	this.inputStream = inputStream;
     }
     
     
     @Override
     public boolean isEmpty() throws DSException {
 	// TODO
-	return reader == null;
+	return inputStream == null;
     }
 
     @Override
     public boolean isClosed() throws DSException {
-	return reader == null;
+	return inputStream == null;
     }
 
     @Override
     public void close() throws DSException {
-	if (reader == null) {
+	if (inputStream == null) {
 	    return;
 	}
 	try {
-	    reader.close();
-	    reader = null;
+	    inputStream.close();
+	    inputStream = null;
 	} catch (IOException ex) {
 	    handleIOException(ex);
 	}
     }
-    
-    
 }
