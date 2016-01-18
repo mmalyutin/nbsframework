@@ -67,6 +67,10 @@ public abstract class AbstractXMLResultSet extends AbstractTextFileResultSet {
     protected XPathExecuter xPathExecuter;
  
     
+    
+    private boolean init;
+    
+    
     protected DocumentBuilder createDocumentBuilder() throws DSException {
 	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	dbf.setValidating(false);
@@ -88,6 +92,51 @@ public abstract class AbstractXMLResultSet extends AbstractTextFileResultSet {
 	    throw new DSException("Failed to parse the xml document", e);
 	}
     }
+    
+    protected void initPosition() throws DSException {
+	if (init) {
+	    return;
+	}
+	init = true;
+	beforeFirst();
+    }
+    
+    public String getSelectExpression() {
+	if (isEmpty(selectExpression)) {
+	    return DEFAULT_SELECT_EXPRESSION;
+	}
+	return selectExpression;
+    }
+
+    public void setSelectExpression(String selectExpression) {
+	this.selectExpression = selectExpression;
+    }
+
+    public void beforeFirst() throws DSException {
+	if (document == null) {
+	    throw new DSException("Document cannot be null");
+	}
+	if (getSelectExpression() == null) {
+	    throw new DSException("SelectExpression cannot be null");
+	}
+	currentNode = null;
+	currentNodeIndex = -1;
+	nodeListLength = 0;
+	nodeList = xPathExecuter.selectNodeList(document, getSelectExpression());
+	nodeListLength = nodeList.getLength();
+    }
+
+  
+    @Override
+    public boolean next() throws DSException {
+	initPosition();
+	if (currentNodeIndex == nodeListLength - 1) {
+	    return false;
+	}
+	currentNode = nodeList.item(++currentNodeIndex);
+	return true;
+    }
+    
     
     /**
      * Return the text that a node contains. This routine:

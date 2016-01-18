@@ -22,7 +22,10 @@
 
 package org.plazmaforge.framework.core.datastorage;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * 
@@ -39,6 +42,18 @@ public abstract class AbstractFileResultSet extends AbstractResultSet {
 
     public AbstractFileResultSet(List<String> fieldNames) {
 	super(fieldNames);
+    }
+    
+    protected void handleIOException(IOException ex) throws DSException {
+	if (ex == null) {
+	    return;
+	}
+	throw new DSException(ex);
+    }
+
+    protected void handlePropertyModifyException() {
+	String message = "Cannot modify '" + getClass().getSimpleName()	+ "' properties after data processing has started";
+	throw new RuntimeException(message);
     }
     
 }
