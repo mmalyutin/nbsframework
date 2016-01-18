@@ -1,0 +1,190 @@
+/*
+ * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * Oleh Hapon
+ * Kyiv, UKRAINE
+ * ohapon@users.sourceforge.net
+ */
+
+package org.plazmaforge.framework.datastorage.support.xls;
+
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.plazmaforge.framework.core.exception.DSException;
+
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
+
+    
+    private Workbook workbook;
+
+    public AbstractPOIResultSet(InputStream inputStream) throws DSException {
+	super(inputStream);
+	this.workbook = loadWorkbook(inputStream);
+    }
+
+    public AbstractPOIResultSet(List<String> fieldNames, InputStream inputStream) throws DSException {
+	super(fieldNames, inputStream);
+	this.workbook = loadWorkbook(inputStream);
+    }
+
+    protected abstract Workbook loadWorkbook(InputStream inputStream) throws DSException;
+    
+    @Override
+    public boolean next() throws DSException {
+	if (workbook == null) {
+	    return false;
+	}
+
+	    // initialize sheetIndex before first record
+	    if (sheetIndex < 0) {
+		if (sheetSelection == null) {
+		    sheetIndex = 0;
+		} else {
+		    try {
+			sheetIndex = Integer.parseInt(sheetSelection);
+			if (sheetIndex < 0|| sheetIndex > workbook.getNumberOfSheets() - 1) {
+			    throw new DSException("Sheet index " + sheetIndex + " is out of range: [0.." + (workbook.getNumberOfSheets() - 1) + "]");
+			}
+		    } catch (NumberFormatException e) {
+		    }
+
+		    if (sheetIndex < 0) {
+			sheetIndex = workbook.getSheetIndex(workbook.getSheet(sheetSelection));
+
+			if (sheetIndex < 0) {
+			    throw new DSException("Sheet '" + sheetSelection  + "' not found in workbook.");
+			}
+		    }
+		}
+	    }
+
+	    recordIndex++;
+
+	    if (sheetSelection == null) {
+		if (recordIndex > workbook.getSheetAt(sheetIndex).getLastRowNum()) {
+		    if (sheetIndex + 1 < workbook.getNumberOfSheets()  && workbook.getSheetAt(sheetIndex + 1).getLastRowNum() > 0) {
+			sheetIndex++;
+			recordIndex = -1;
+			return next();
+		    }
+		}
+	    }
+
+	    if ((sheetSelection != null || sheetIndex == 0) && isFirstRowHeader() && recordIndex == 0) {
+		//readHeader(); // TODO: OHA
+		recordIndex++;
+	    }
+	    if (recordIndex <= workbook.getSheetAt(sheetIndex).getLastRowNum()) {
+		return true;
+	    } else {
+		//TODO: OHA
+		//if (closeWorkbook) {
+		    // FIXME: close workbook
+		    // workbook.close();
+		//}
+	    }
+
+	return false;
+    }
+
+    //@Override
+    public Object getValue(String name) throws DSException {
+	return getNativeValue(name);
+    }
+
+    //@Override
+    public Object getValue(int index) throws DSException {
+	return getNativeValue(index);
+    }
+ 
+    
+    //Native
+    public Object getNativeValue(String name) throws DSException {
+	int index = getFieldIndex(name);
+	return getNativeValue(index);
+    }
+
+    //Native
+    public Object getNativeValue(int index) throws DSException {
+	return getNativeValue(index, null);
+    }
+    
+    //Native
+    public Object getNativeValue(int index, Class type) throws DSException {
+	Sheet sheet = workbook.getSheetAt(sheetIndex);
+	if (sheet == null) {
+	    return null;
+	}
+	Cell cell = sheet.getRow(recordIndex).getCell(index);
+	if (cell == null) {
+	    return null;
+	}
+	Object value = getCellValue(cell, type);
+	return value;
+    }
+    
+    public Object getCellValue(Cell cell, Class type) throws DSException {
+	if (cell == null) {
+	    return null;
+	}
+	int cellType = cell.getCellType();
+	if (cellType == Cell.CELL_TYPE_FORMULA) {
+	    FormulaEvaluator evaluator = workbook.getCreationHelper() .createFormulaEvaluator();
+	    cellType = evaluator.evaluateFormulaCell(cell);
+	    return getCellValue(cell, cellType, type);
+	}
+	return getCellValue(cell, cellType, type);
+    }
+    
+    public Object getCellValue(Cell cell, int cellType, Class type) throws DSException {
+	Object value = null;
+	switch (cellType) {
+	case Cell.CELL_TYPE_BOOLEAN:
+	    value = cell.getBooleanCellValue();
+	    break;
+	case Cell.CELL_TYPE_NUMERIC:
+	    if (type != null && Date.class.isAssignableFrom(type)) {
+		value = cell.getDateCellValue();
+	    } else {
+		value = cell.getNumericCellValue();
+	    }
+	    break;
+	case Cell.CELL_TYPE_STRING:
+	    value = cell.getStringCellValue();
+	    // TODO: Must convert to type
+	    break;
+	case Cell.CELL_TYPE_BLANK:
+	case Cell.CELL_TYPE_ERROR:
+	case Cell.CELL_TYPE_FORMULA:
+	default:
+	    break;
+	}
+	return value;
+    }
+
+}

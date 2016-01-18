@@ -31,7 +31,6 @@ import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.core.xml.XPathExecuter;
 import org.plazmaforge.framework.datastorage.support.xml.support.JaxenXPathExecuter;
 import org.plazmaforge.framework.datastorage.support.xml.support.XalanXPathExecuter;
-import org.plazmaforge.framework.util.StringUtils;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
@@ -42,7 +41,7 @@ import org.xml.sax.InputSource;
  */
 public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredResultSet {
 
-    private boolean init;
+   
     
     public XMLResultSet(Reader reader) throws DSException {
 	super();
@@ -57,49 +56,8 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 	return executer;
     }
     
-    protected void initPosition() throws DSException {
-	if (init) {
-	    return;
-	}
-	init = true;
-	beforeFirst();
-    }
-    
-    public String getSelectExpression() {
-	if (isEmpty(selectExpression)) {
-	    return DEFAULT_SELECT_EXPRESSION;
-	}
-	return selectExpression;
-    }
-
-    public void setSelectExpression(String selectExpression) {
-	this.selectExpression = selectExpression;
-    }
-
-    public void beforeFirst() throws DSException {
-	if (document == null) {
-	    throw new DSException("Document cannot be null");
-	}
-	if (getSelectExpression() == null) {
-	    throw new DSException("SelectExpression cannot be null");
-	}
-	currentNode = null;
-	currentNodeIndex = -1;
-	nodeListLength = 0;
-	nodeList = xPathExecuter.selectNodeList(document, getSelectExpression());
-	nodeListLength = nodeList.getLength();
-    }
-
-  
-    @Override
-    public boolean next() throws DSException {
-	initPosition();
-	if (currentNodeIndex == nodeListLength - 1) {
-	    return false;
-	}
-	currentNode = nodeList.item(++currentNodeIndex);
-	return true;
-    }
+   
+   
 
     @Override
     public Object getValue(String name) throws DSException {
