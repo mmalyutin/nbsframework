@@ -23,23 +23,42 @@
 /**
  * 
  */
-package org.plazmaforge.framework.datastorage.support.xls;
+package org.plazmaforge.framework.core.datastorage;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+import java.io.Reader;
+
+import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * @author ohapon
  *
  */
-public class XLSDataProducerFactory implements DataProducerFactory {
+public abstract class AbstractTextFileSession extends AbstractFileSession {
 
+    private Reader reader;
+
+    public AbstractTextFileSession(Reader reader) {
+	super();
+	this.reader = reader;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+    
+    
+    @Override
+    public void close() throws DSException {
+	if (reader == null) {
+	    return;
+	}
+	// TODO: may be dispose data 
+	reader = null;
+    }
 
     @Override
-    public DataProducer getDataProducer() {
-	return new XLSDataProducer();
+    public boolean isClosed() throws DSException {
+	return reader == null;
     }
-   
 
-  
 }

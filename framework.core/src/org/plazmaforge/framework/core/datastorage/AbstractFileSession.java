@@ -25,9 +25,6 @@
  */
 package org.plazmaforge.framework.core.datastorage;
 
-import java.io.Reader;
-
-import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * @author ohapon
@@ -35,29 +32,8 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public abstract class AbstractFileSession extends AbstractSession {
 
-    private Reader reader;
-
-    public AbstractFileSession(Reader reader) {
-	this.reader = reader;
-    }
-
-    public Reader getReader() {
-        return reader;
-    }
-    
-    
-    @Override
-    public void close() throws DSException {
-	if (reader == null) {
-	    return;
-	}
-	// TODO: may be dispose data 
-	reader = null;
-    }
-
-    @Override
-    public boolean isClosed() throws DSException {
-	return reader == null;
+    public AbstractFileSession() {
+	super();
     }
     
 }

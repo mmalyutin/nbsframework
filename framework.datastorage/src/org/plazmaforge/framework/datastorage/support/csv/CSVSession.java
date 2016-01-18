@@ -27,13 +27,13 @@ package org.plazmaforge.framework.datastorage.support.csv;
 
 import java.io.Reader;
 
-import org.plazmaforge.framework.core.datastorage.AbstractFileSession;
+import org.plazmaforge.framework.core.datastorage.AbstractTextFileSession;
 
 /**
  * @author ohapon
  *
  */
-public class CSVSession extends AbstractFileSession {
+public class CSVSession extends AbstractTextFileSession {
 
     private String columnDelimiter = CSVDataConnector.DEFAULT_COLUMN_DELIMITER;
 

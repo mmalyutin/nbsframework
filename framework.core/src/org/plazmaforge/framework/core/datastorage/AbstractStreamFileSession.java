@@ -23,23 +23,40 @@
 /**
  * 
  */
-package org.plazmaforge.framework.datastorage.support.xls;
+package org.plazmaforge.framework.core.datastorage;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+import java.io.InputStream;
+
+import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * @author ohapon
  *
  */
-public class XLSDataProducerFactory implements DataProducerFactory {
+public abstract class AbstractStreamFileSession extends AbstractSession {
 
+    private InputStream  inputStream;
+
+    public AbstractStreamFileSession(InputStream  inputStream) {
+	this.inputStream  = inputStream;
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
 
     @Override
-    public DataProducer getDataProducer() {
-	return new XLSDataProducer();
+    public void close() throws DSException {
+	if (inputStream == null) {
+	    return;
+	}
+	// TODO: may be dispose data 
+	inputStream = null;
     }
-   
 
-  
+    @Override
+    public boolean isClosed() throws DSException {
+	return inputStream == null;
+    }
+    
 }
