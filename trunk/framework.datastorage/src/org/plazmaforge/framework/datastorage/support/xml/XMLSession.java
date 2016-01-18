@@ -23,15 +23,14 @@
 package org.plazmaforge.framework.datastorage.support.xml;
 
 import java.io.Reader;
-
-import org.plazmaforge.framework.core.datastorage.AbstractFileSession;
+import org.plazmaforge.framework.core.datastorage.AbstractTextFileSession;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XMLSession extends AbstractFileSession {
+public class XMLSession extends AbstractTextFileSession {
 
     public XMLSession(Reader reader) {
 	super(reader);

@@ -26,14 +26,13 @@
 package org.plazmaforge.framework.datastorage.support.json;
 
 import java.io.Reader;
-
-import org.plazmaforge.framework.core.datastorage.AbstractFileSession;
+import org.plazmaforge.framework.core.datastorage.AbstractTextFileSession;
 
 /**
  * @author ohapon
  *
  */
-public class JSONSession extends AbstractFileSession {
+public class JSONSession extends AbstractTextFileSession {
 
     public JSONSession(Reader reader) {
 	super(reader);

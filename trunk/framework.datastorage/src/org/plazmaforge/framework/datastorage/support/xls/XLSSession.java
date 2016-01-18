@@ -20,26 +20,27 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
 package org.plazmaforge.framework.datastorage.support.xls;
 
-import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
+import java.io.InputStream;
+import org.plazmaforge.framework.core.datastorage.AbstractStreamFileSession;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class XLSDataProducerFactory implements DataProducerFactory {
+public class XLSSession extends AbstractStreamFileSession {
 
+    public XLSSession(InputStream  inputStream) {
+	super(inputStream);
+    }
 
     @Override
-    public DataProducer getDataProducer() {
-	return new XLSDataProducer();
+    public String getType() {
+	return XLSDataConnector.TYPE;
     }
-   
 
-  
+
+
 }
