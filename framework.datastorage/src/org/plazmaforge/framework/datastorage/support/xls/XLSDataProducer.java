@@ -43,6 +43,7 @@ import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
 
+
 /**
  * 
  * @author ohapon
@@ -150,12 +151,16 @@ public class XLSDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(XLSDataConnector.PROPERTY_FILE_NAME);
+	Boolean firstRowHeader = (Boolean) data.get(XLSDataConnector.PROPERTY_FIRST_ROW_HEADER);
 	String dateFormat = (String) data.get(XLSDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XLSDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
 	    FileInputStream inputStream = new FileInputStream(fileName);
 	    XLSSession session = new XLSSession(inputStream);
+	    if (firstRowHeader != null) {
+		session.setFirstRowHeader(firstRowHeader);
+	    }
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
 	    return session;
@@ -207,6 +212,7 @@ public class XLSDataProducer extends AbstractDataProducer implements DataProduce
 	}
 	// query is select expression
 	XLSResultSet resultSet = new XLSResultSet(inputStream);
+	resultSet.setFirstRowHeader(xlsSession.isFirstRowHeader());
 	//TODO: Query is not support
 	//resultSet.setSelectExpression(query);
 	return resultSet;
