@@ -54,64 +54,77 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 
     protected abstract Workbook loadWorkbook(InputStream inputStream) throws DSException;
     
+
+    @Override
+    public void beforeFirst() throws DSException {
+	super.beforeFirst();
+	this.processing = false;
+    }
+    
     @Override
     public boolean next() throws DSException {
 	if (workbook == null) {
 	    return false;
 	}
+	processing = true;
 
-	    // initialize sheetIndex before first record
-	    if (sheetIndex < 0) {
-		if (sheetSelection == null) {
-		    sheetIndex = 0;
-		} else {
-		    try {
-			sheetIndex = Integer.parseInt(sheetSelection);
-			if (sheetIndex < 0|| sheetIndex > workbook.getNumberOfSheets() - 1) {
-			    throw new DSException("Sheet index " + sheetIndex + " is out of range: [0.." + (workbook.getNumberOfSheets() - 1) + "]");
-			}
-		    } catch (NumberFormatException e) {
-		    }
+	// initialize sheetIndex before first record
+	if (sheetIndex < 0) {
+	    sheetIndex = getSheetIndex(getSheetExpression());
+	}
 
-		    if (sheetIndex < 0) {
-			sheetIndex = workbook.getSheetIndex(workbook.getSheet(sheetSelection));
+	recordIndex++;
 
-			if (sheetIndex < 0) {
-			    throw new DSException("Sheet '" + sheetSelection  + "' not found in workbook.");
-			}
-		    }
+	if (getSheetExpression() == null) {
+	    // Moving by sheets
+	    // TODO: Maybe optional mode
+	    if (recordIndex > workbook.getSheetAt(sheetIndex).getLastRowNum()) {
+		if (sheetIndex + 1 < workbook.getNumberOfSheets() && workbook.getSheetAt(sheetIndex + 1).getLastRowNum() > 0) {
+		    sheetIndex++;
+		    recordIndex = -1;
+		    return next();
 		}
 	    }
+	}
 
+	if ((getSheetExpression() != null || sheetIndex == 0) && isFirstRowHeader() && recordIndex == 0) {
+	    // readHeader(); // TODO: OHA
 	    recordIndex++;
-
-	    if (sheetSelection == null) {
-		if (recordIndex > workbook.getSheetAt(sheetIndex).getLastRowNum()) {
-		    if (sheetIndex + 1 < workbook.getNumberOfSheets()  && workbook.getSheetAt(sheetIndex + 1).getLastRowNum() > 0) {
-			sheetIndex++;
-			recordIndex = -1;
-			return next();
-		    }
-		}
-	    }
-
-	    if ((sheetSelection != null || sheetIndex == 0) && isFirstRowHeader() && recordIndex == 0) {
-		//readHeader(); // TODO: OHA
-		recordIndex++;
-	    }
-	    if (recordIndex <= workbook.getSheetAt(sheetIndex).getLastRowNum()) {
-		return true;
-	    } else {
-		//TODO: OHA
-		//if (closeWorkbook) {
-		    // FIXME: close workbook
-		    // workbook.close();
-		//}
-	    }
+	}
+	if (recordIndex <= workbook.getSheetAt(sheetIndex).getLastRowNum()) {
+	    return true;
+	} else {
+	    // TODO: Auto close: May be optional
+	    // if (closeWorkbook) {
+	    // FIXME: close workbook
+	    // workbook.close();
+	    // }
+	}
 
 	return false;
     }
 
+    protected int getSheetIndex(String sheetExpression) throws  DSException {
+	if (sheetExpression == null) {
+	    return 0;
+	}
+	int sheetIndex = -1;
+	try {
+	    sheetIndex = Integer.parseInt(sheetExpression);
+	    if (sheetIndex < 0 || sheetIndex > workbook.getNumberOfSheets() - 1) {
+		throw new DSException("Sheet index " + sheetIndex + " is out of range: [0.." + (workbook.getNumberOfSheets() - 1) + "]");
+	    }
+	} catch (NumberFormatException e) {
+	}
+	if (sheetIndex < 0) {
+	    sheetIndex = workbook.getSheetIndex(workbook.getSheet(sheetExpression));
+	    if (sheetIndex < 0) {
+		throw new DSException("Sheet '" + sheetExpression + "' not found in workbook.");
+	    }
+	}
+	return sheetIndex;
+    }
+    
     //@Override
     public Object getValue(String name) throws DSException {
 	return getNativeValue(name);

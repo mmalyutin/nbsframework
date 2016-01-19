@@ -109,6 +109,7 @@ public abstract class AbstractXMLResultSet extends AbstractTextFileResultSet {
     }
 
     public void setSelectExpression(String selectExpression) {
+	checkProcessing();
 	this.selectExpression = selectExpression;
     }
 

@@ -43,6 +43,15 @@ public abstract class AbstractResultSet implements DSResultSet {
     
     private Map<String, Integer> fieldIndexes;
     
+    protected boolean processing;
+
+
+    
+    
+    private String dateFormat;
+
+    private String numberFormat;
+    
     public AbstractResultSet() {
     }
     
@@ -109,4 +118,34 @@ public abstract class AbstractResultSet implements DSResultSet {
     protected boolean isEmpty(String str) {
 	return StringUtils.isEmpty(str);
     }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+	checkProcessing();
+        this.dateFormat = dateFormat;
+    }
+
+    public String getNumberFormat() {
+        return numberFormat;
+    }
+
+    public void setNumberFormat(String numberFormat) {
+	checkProcessing();
+        this.numberFormat = numberFormat;
+    }
+    
+    protected void checkProcessing() {
+	if (processing) {
+	    handlePropertyModifyException();
+	}
+    }
+    
+    protected void handlePropertyModifyException() {
+	String message = "Cannot modify '" + getClass().getSimpleName()	+ "' properties after data processing has started";
+	throw new RuntimeException(message);
+    }
+
 }

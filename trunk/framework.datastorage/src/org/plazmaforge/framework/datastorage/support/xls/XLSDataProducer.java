@@ -62,11 +62,13 @@ public class XLSDataProducer extends AbstractDataProducer implements DataProduce
 	XLSDataConnector xlsDataConnector = (XLSDataConnector) dataConnector;
 	
 	String fileName = xlsDataConnector.getFileName();
+	Boolean firstRowHeader = xlsDataConnector.isFirstRowHeader();
 	String dateFormat = xlsDataConnector.getDateFormat();
 	String numberFormat = xlsDataConnector.getNumberFormat();
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XLSDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XLSDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
 	data.put(XLSDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XLSDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
