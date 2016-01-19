@@ -32,6 +32,9 @@ import org.plazmaforge.framework.core.datastorage.AbstractStreamFileSession;
  */
 public class XLSSession extends AbstractStreamFileSession {
 
+    private boolean firstRowHeader = XLSDataConnector.DEFAULT_FIRST_ROW_HEADER;
+    
+    
     public XLSSession(InputStream  inputStream) {
 	super(inputStream);
     }
@@ -39,6 +42,14 @@ public class XLSSession extends AbstractStreamFileSession {
     @Override
     public String getType() {
 	return XLSDataConnector.TYPE;
+    }
+
+    public boolean isFirstRowHeader() {
+        return firstRowHeader;
+    }
+
+    public void setFirstRowHeader(boolean firstRowHeader) {
+        this.firstRowHeader = firstRowHeader;
     }
 
 

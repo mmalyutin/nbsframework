@@ -34,8 +34,6 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public abstract class AbstractFileResultSet extends AbstractResultSet {
 
-    protected boolean processing;
-
     public AbstractFileResultSet() {
 	super();
     }
@@ -51,9 +49,5 @@ public abstract class AbstractFileResultSet extends AbstractResultSet {
 	throw new DSException(ex);
     }
 
-    protected void handlePropertyModifyException() {
-	String message = "Cannot modify '" + getClass().getSimpleName()	+ "' properties after data processing has started";
-	throw new RuntimeException(message);
-    }
     
 }

@@ -302,9 +302,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
     }
 
     public void setColumnDelimiter(String columnDelimiter) {
-	if (processing) {
-	    handlePropertyModifyException();
-	}
+	checkProcessing();
 	this.columnDelimiter = columnDelimiter;
     }
 
@@ -324,9 +322,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
     }
 
     public void setRowDelimiter(String rowDelimiter) {
-	if (processing) {
-	    handlePropertyModifyException();
-	}
+	checkProcessing();
 	this.rowDelimiter = rowDelimiter;
     }
 
@@ -335,9 +331,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
     }
 
     public void setFirstRowHeader(boolean firstRowHeader) {
-	if (processing) {
-	    handlePropertyModifyException();
-	}
+	checkProcessing();
 	this.firstRowHeader = firstRowHeader;
     }
 

@@ -35,6 +35,13 @@ public class XLSDataConnector extends AbstractFileDataConnector {
 
     public static final String TYPE = "XLS";
     
+    public static final String PROPERTY_FIRST_ROW_HEADER = "firstRowHeader";
+    
+    public static final boolean DEFAULT_FIRST_ROW_HEADER = false;
+    
+    
+    private boolean firstRowHeader = DEFAULT_FIRST_ROW_HEADER;
+    
     public XLSDataConnector() {
 	super();
     }
@@ -42,6 +49,14 @@ public class XLSDataConnector extends AbstractFileDataConnector {
     @Override
     public String getType() {
 	return TYPE;
+    }
+
+    public boolean isFirstRowHeader() {
+        return firstRowHeader;
+    }
+
+    public void setFirstRowHeader(boolean firstRowHeader) {
+        this.firstRowHeader = firstRowHeader;
     }
 
 

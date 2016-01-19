@@ -36,7 +36,7 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet implements DSStructuredResultSet  {
 
-    protected String sheetSelection;
+    private String sheetExpression;
     
     protected int sheetIndex = -1;
     protected int recordIndex = -1;
@@ -60,6 +60,7 @@ public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet i
     }
 
     public void setFirstRowHeader(boolean firstRowHeader) {
+	checkProcessing();
         this.firstRowHeader = firstRowHeader;
     }
 
@@ -67,6 +68,15 @@ public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet i
     public void beforeFirst() throws DSException {
 	this.recordIndex = -1;
 	this.sheetIndex = -1;
+    }
+
+    public String getSheetExpression() {
+        return sheetExpression;
+    }
+
+    public void setSheetExpression(String sheetExpression) {
+	checkProcessing();
+        this.sheetExpression = sheetExpression;
     }
     
     
