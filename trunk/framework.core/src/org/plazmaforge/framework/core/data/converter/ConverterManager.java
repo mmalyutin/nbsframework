@@ -204,14 +204,22 @@ public class ConverterManager {
     }
     
     public void registerBaseConveretrFactories() {
+	
+	// String -> <Number>
 	registerGenericConveretrFactory(String.class, Integer.class);
 	registerGenericConveretrFactory(String.class, Long.class);
 	registerGenericConveretrFactory(String.class, Float.class);
 	registerGenericConveretrFactory(String.class, Double.class);
 	
+	// String -> <Date representation> - real type class
 	registerGenericConveretrFactory(String.class, Date.class);
+
+	// String -> <Date representation> - virtual type class
 	registerConveretrFactory(String2TimeConverter.class.getSimpleName(), new String2TimeConverterFactory());
 	registerConveretrFactory(String2DateTimeConverter.class.getSimpleName(), new String2DateTimeConverterFactory());
+	
+	// <Number> -> <Number>
+	registerGenericConveretrFactory(Double.class, Integer.class);
 	
 	// Self
 	registerSelfConveretrFactory(String.class);

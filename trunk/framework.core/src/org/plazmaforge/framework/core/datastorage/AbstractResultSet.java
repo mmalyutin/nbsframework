@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.converter.Converter;
+import org.plazmaforge.framework.core.data.converter.ConverterManager;
 import org.plazmaforge.framework.util.StringUtils;
 
 
@@ -51,6 +53,10 @@ public abstract class AbstractResultSet implements DSResultSet {
     private String dateFormat;
 
     private String numberFormat;
+    
+    
+    private ConverterManager converterManager;
+    
     
     public AbstractResultSet() {
     }
@@ -148,4 +154,32 @@ public abstract class AbstractResultSet implements DSResultSet {
 	throw new RuntimeException(message);
     }
 
+    
+    protected Converter<?, ?> getConverter(String sourceType, String targetType, String format) {
+	if (sourceType == null || targetType == null) {
+	    return null;
+	}
+	String name = ConverterManager.getConverterSimpleName(sourceType, targetType);
+	if (name == null) {
+	    return null;
+	}
+	return getConverterByName(name, format);
+    }
+    
+    protected Converter<?, ?> getConverterByName(String name, String format) {
+	return getConverterManager().getConverter(name, format);
+    }
+    
+    protected void initConverterManager() {
+	converterManager.registerBaseConveretrFactories();
+    }
+
+    public ConverterManager getConverterManager() {
+	if (converterManager == null) {
+	    converterManager = new ConverterManager(true);
+	    initConverterManager();
+	}
+	return converterManager;
+    }
+           
 }
