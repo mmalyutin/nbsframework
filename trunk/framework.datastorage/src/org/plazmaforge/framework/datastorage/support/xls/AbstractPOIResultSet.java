@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.plazmaforge.framework.core.exception.DSException;
@@ -66,6 +67,8 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	if (workbook == null) {
 	    return false;
 	}
+	
+		    
 	processing = true;
 
 	// initialize sheetIndex before first record
@@ -151,6 +154,10 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
     public Object getNativeValue(int index, Class type) throws DSException {
 	Sheet sheet = workbook.getSheetAt(sheetIndex);
 	if (sheet == null) {
+	    return null;
+	}
+	Row row = sheet.getRow(recordIndex);
+	if (row == null) {
 	    return null;
 	}
 	Cell cell = sheet.getRow(recordIndex).getCell(index);
