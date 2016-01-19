@@ -85,7 +85,6 @@ public class XLSDataConnectorTest extends AbstractDSTestCase {
 	
     }
     
-    /*
     public void testXLSDataSet() throws Exception {
 
 	// Data Producer
@@ -158,7 +157,6 @@ public class XLSDataConnectorTest extends AbstractDSTestCase {
    	}
 	assertEquals(row, 3);
     }
-    */
     
     
     public void testXLSDataManager() throws Exception {
