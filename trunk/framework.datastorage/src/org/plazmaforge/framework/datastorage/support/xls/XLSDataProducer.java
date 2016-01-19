@@ -243,16 +243,14 @@ public class XLSDataProducer extends AbstractDataProducer implements DataProduce
 	    fields.add(field);
 	}
 	
-	//TODO: Must implement
-	return null;
-	
-	//XSSDataSet dataSet = new XLSDataSet(fields, reader);
+	XLSDataSet dataSet = new XLSDataSet(fields, inputStream);
 	//dataSet.setSelectExpression(dataSource.getQueryText());
 
-	//dataSet.setDateFormat(xlsSession.getDateFormat());
-	//dataSet.setNumberFormat(xlsSession.getNumberFormat());
+	dataSet.setFirstRowHeader(xlsSession.isFirstRowHeader());
+	dataSet.setDateFormat(xlsSession.getDateFormat());
+	dataSet.setNumberFormat(xlsSession.getNumberFormat());
 	
-	//return dataSet;
+	return dataSet;
 
     }
 

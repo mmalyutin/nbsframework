@@ -31,7 +31,10 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.core.type.TypeUtils;
+import org.plazmaforge.framework.core.type.Types;
 
 /**
  * 
@@ -43,6 +46,8 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
     
     private Workbook workbook;
 
+    private boolean initSheet;
+    
     public AbstractPOIResultSet(InputStream inputStream) throws DSException {
 	super(inputStream);
 	this.workbook = loadWorkbook(inputStream);
@@ -54,12 +59,20 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
     }
 
     protected abstract Workbook loadWorkbook(InputStream inputStream) throws DSException;
-    
+
+    protected void initSheet() throws DSException {
+	if (initSheet) {
+	    return;
+	}
+	initSheet = true;
+	sheetIndex = getSheetIndex(getSheetExpression());
+    }
 
     @Override
     public void beforeFirst() throws DSException {
 	super.beforeFirst();
 	this.processing = false;
+	this.initSheet = false;
     }
     
     @Override
@@ -68,13 +81,14 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	    return false;
 	}
 	
-		    
 	processing = true;
 
 	// initialize sheetIndex before first record
-	if (sheetIndex < 0) {
-	    sheetIndex = getSheetIndex(getSheetExpression());
-	}
+	initSheet();
+	
+	//if (sheetIndex < 0) {
+	//    sheetIndex = getSheetIndex(getSheetExpression());
+	//}
 
 	recordIndex++;
 
@@ -147,11 +161,11 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 
     //Native
     public Object getNativeValue(int index) throws DSException {
-	return getNativeValue(index, null);
+	return getNativeValue(index, null, null);
     }
     
     //Native
-    public Object getNativeValue(int index, Class type) throws DSException {
+    public Object getNativeValue(int index, String type, String format) throws DSException {
 	Sheet sheet = workbook.getSheetAt(sheetIndex);
 	if (sheet == null) {
 	    return null;
@@ -164,11 +178,11 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	if (cell == null) {
 	    return null;
 	}
-	Object value = getCellValue(cell, type);
+	Object value = getCellValue(cell, type, format);
 	return value;
     }
     
-    public Object getCellValue(Cell cell, Class type) throws DSException {
+    public Object getCellValue(Cell cell, String type, String format) throws DSException {
 	if (cell == null) {
 	    return null;
 	}
@@ -176,34 +190,51 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	if (cellType == Cell.CELL_TYPE_FORMULA) {
 	    FormulaEvaluator evaluator = workbook.getCreationHelper() .createFormulaEvaluator();
 	    cellType = evaluator.evaluateFormulaCell(cell);
-	    return getCellValue(cell, cellType, type);
+	    return getCellValue(cell, cellType, type, format);
 	}
-	return getCellValue(cell, cellType, type);
+	return getCellValue(cell, cellType, type, format);
     }
     
-    public Object getCellValue(Cell cell, int cellType, Class type) throws DSException {
+    public Object getCellValue(Cell cell, int cellType, String type, String format) throws DSException {
 	Object value = null;
+	String sourceType = null;
+	String targetType = type;
+	
 	switch (cellType) {
-	case Cell.CELL_TYPE_BOOLEAN:
+	case Cell.CELL_TYPE_BOOLEAN: {
 	    value = cell.getBooleanCellValue();
+	    sourceType = "Boolean";
 	    break;
-	case Cell.CELL_TYPE_NUMERIC:
-	    if (type != null && Date.class.isAssignableFrom(type)) {
+	}
+	case Cell.CELL_TYPE_NUMERIC: {
+	    if (type != null && TypeUtils.isLikeDateType(type)) {
+		sourceType = "Date";
 		value = cell.getDateCellValue();
 	    } else {
+		sourceType = "Double";
 		value = cell.getNumericCellValue();
 	    }
 	    break;
-	case Cell.CELL_TYPE_STRING:
+	}
+	case Cell.CELL_TYPE_STRING: {
 	    value = cell.getStringCellValue();
-	    // TODO: Must convert to type
+	    sourceType = "String";
 	    break;
+	}
 	case Cell.CELL_TYPE_BLANK:
 	case Cell.CELL_TYPE_ERROR:
 	case Cell.CELL_TYPE_FORMULA:
 	default:
 	    break;
 	}
+	if (targetType == null) {
+	    // No targetType - no converter
+	    return value;
+	}
+	
+	Converter converter = getConverter(sourceType, targetType, format);
+	value = converter == null ? null : converter.convert(value);
+
 	return value;
     }
 

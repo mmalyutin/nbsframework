@@ -24,7 +24,6 @@ package org.plazmaforge.framework.datastorage.support.xml;
 
 import java.io.Reader;
 
-import org.plazmaforge.framework.core.datastorage.AbstractXMLResultSet;
 import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
 
