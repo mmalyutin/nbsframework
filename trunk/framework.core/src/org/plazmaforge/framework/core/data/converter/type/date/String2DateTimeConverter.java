@@ -20,29 +20,39 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type;
+package org.plazmaforge.framework.core.data.converter.type.date;
 
-import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConverter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.plazmaforge.framework.core.data.converter.AbstractString2DateConverter;
+import org.plazmaforge.framework.util.StringUtils;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class String2LongConverter extends AbstractString2NumberConverter<Long> {
+public class String2DateTimeConverter extends AbstractString2DateConverter<Date> {
 
     
-    public String2LongConverter() {
+    public String2DateTimeConverter() {
 	super();
     }
 
-    public String2LongConverter(String format) {
+    public String2DateTimeConverter(String format) {
 	super(format);
     }
 
     @Override
-    public Long convert(String source) {
-	return parseNumber(source, Long.class, getFormatter());
+    public Date convert(String source) {
+	return parseDate(source, getFormatter());
     }
+    
+    protected DateFormat createFormatter(String format) {
+  	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_DATE_TIME_FORMAT : format);
+      }
+    
 
 }

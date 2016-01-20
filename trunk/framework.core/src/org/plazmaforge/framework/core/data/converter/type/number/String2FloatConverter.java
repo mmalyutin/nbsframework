@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type;
+package org.plazmaforge.framework.core.data.converter.type.number;
 
 import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConverter;
 

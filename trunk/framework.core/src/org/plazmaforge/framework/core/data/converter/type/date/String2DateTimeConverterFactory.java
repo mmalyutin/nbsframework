@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type;
+package org.plazmaforge.framework.core.data.converter.type.date;
 
 import java.util.Date;
 
@@ -32,24 +32,24 @@ import org.plazmaforge.framework.core.data.converter.ConverterFactory;
  * @author ohapon
  *
  */
-public class String2TimeConverterFactory implements ConverterFactory<String, Date> {
+public class String2DateTimeConverterFactory implements ConverterFactory<String, Date> {
    
-    public String2TimeConverterFactory() {
+    public String2DateTimeConverterFactory() {
     }
 
     @Override
     public Converter<String, Date> getConverter() {
-	return new String2TimeConverter();
+	return new String2DateTimeConverter();
     }
 
     @Override
     public Converter<String, Date> getConverter(String format) {
-	return new String2TimeConverter(format);
+	return new String2DateTimeConverter(format);
     }
 
     @Override
     public Converter<String, Date> getConverter(String sourceFormat, String targetFormat) {
-	return new String2TimeConverter();
+	return new String2DateTimeConverter();
     }
 
 }

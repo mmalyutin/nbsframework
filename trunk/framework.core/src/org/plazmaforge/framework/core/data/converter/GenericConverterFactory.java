@@ -39,6 +39,7 @@ public class GenericConverterFactory<S, T> implements ConverterFactory<S, T> {
     
     private static final Logger logger = Logger.getLogger(GenericConverterFactory.class.getName());
     
+    private String pkg;
     
     private Class<S> sourceType;
     
@@ -59,7 +60,8 @@ public class GenericConverterFactory<S, T> implements ConverterFactory<S, T> {
     private boolean invalidInstance2;
     
 
-    public GenericConverterFactory(Class<S> sourceType, Class<T> targetType) {
+    public GenericConverterFactory(String pkg, Class<S> sourceType, Class<T> targetType) {
+	this.pkg = pkg;
 	this.sourceType = sourceType;
 	this.targetType = targetType;
     }
@@ -191,7 +193,7 @@ public class GenericConverterFactory<S, T> implements ConverterFactory<S, T> {
     }
     
     protected String getConverterClassName() {
-	return ConverterManager.getConverterClassName(sourceType, targetType);
+	return ConverterManager.getConverterClassName(pkg, sourceType, targetType);
     }
     
 }
