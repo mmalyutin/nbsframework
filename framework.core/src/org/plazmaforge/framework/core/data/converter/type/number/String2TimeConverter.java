@@ -20,25 +20,28 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type;
+package org.plazmaforge.framework.core.data.converter.type.number;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.plazmaforge.framework.core.data.converter.AbstractString2DateConverter;
+import org.plazmaforge.framework.util.StringUtils;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class String2DateConverter extends AbstractString2DateConverter<Date> {
+public class String2TimeConverter extends AbstractString2DateConverter<Date> {
 
     
-    public String2DateConverter() {
+    public String2TimeConverter() {
 	super();
     }
 
-    public String2DateConverter(String format) {
+    public String2TimeConverter(String format) {
 	super(format);
     }
 
@@ -46,5 +49,10 @@ public class String2DateConverter extends AbstractString2DateConverter<Date> {
     public Date convert(String source) {
 	return parseDate(source, getFormatter());
     }
+    
+    protected DateFormat createFormatter(String format) {
+  	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_TIME_FORMAT : format);
+      }
+    
 
 }

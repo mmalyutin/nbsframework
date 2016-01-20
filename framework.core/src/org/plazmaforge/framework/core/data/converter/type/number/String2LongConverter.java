@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type;
+package org.plazmaforge.framework.core.data.converter.type.number;
 
 import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConverter;
 
@@ -29,20 +29,20 @@ import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConver
  * @author ohapon
  *
  */
-public class String2DoubleConverter extends AbstractString2NumberConverter<Double> {
+public class String2LongConverter extends AbstractString2NumberConverter<Long> {
 
     
-    public String2DoubleConverter() {
+    public String2LongConverter() {
 	super();
     }
 
-    public String2DoubleConverter(String format) {
+    public String2LongConverter(String format) {
 	super(format);
     }
 
     @Override
-    public Double convert(String source) {
-	return parseNumber(source, Double.class, getFormatter());
+    public Long convert(String source) {
+	return parseNumber(source, Long.class, getFormatter());
     }
 
 }
