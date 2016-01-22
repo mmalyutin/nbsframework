@@ -20,28 +20,36 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type.number;
+package org.plazmaforge.framework.core.data.converter.type.date;
 
-import org.plazmaforge.framework.core.data.converter.AbstractNumberConverter;
+import java.util.Date;
+
+import org.plazmaforge.framework.core.data.converter.Converter;
+import org.plazmaforge.framework.core.data.converter.ConverterFactory;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class Double2IntegerConverter extends AbstractNumberConverter<Double, Integer> {
+public class Date2TimeConverterFactory implements ConverterFactory<Date, Date> {
 
-    
-    public Double2IntegerConverter() {
-	super();
-    }
-    
-    public Double2IntegerConverter(String format) {
+    public Date2TimeConverterFactory() {
 	super();
     }
 
     @Override
-    public Integer convert(Double source) {
-	return convertNumber(source, Integer.class);
+    public Converter<Date, Date> getConverter() {
+	return new Date2TimeConverter();
     }
+
+    @Override
+    public Converter<Date, Date> getConverter(String format) {
+	return new Date2TimeConverter();
+    }
+
+    @Override
+    public Converter<Date, Date> getConverter(String sourceFormat, String targetFormat) {
+	return new Date2TimeConverter();
+    }    
 }
