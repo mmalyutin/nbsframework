@@ -207,7 +207,7 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	    break;
 	}
 	case Cell.CELL_TYPE_NUMERIC: {
-	    if (type != null && TypeUtils.isLikeDateType(type)) {
+	    if (type != null && (TypeUtils.isLikeDateType(type) || TypeUtils.isLikeTimeType(type))) {
 		sourceType = "Date";
 		value = cell.getDateCellValue();
 	    } else {
