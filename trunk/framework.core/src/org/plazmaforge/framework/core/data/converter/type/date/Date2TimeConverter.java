@@ -20,28 +20,35 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type.number;
+package org.plazmaforge.framework.core.data.converter.type.date;
 
-import org.plazmaforge.framework.core.data.converter.AbstractNumberConverter;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.plazmaforge.framework.core.data.converter.AbstractDateConverter;
+import org.plazmaforge.framework.util.DateUtils;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class Double2IntegerConverter extends AbstractNumberConverter<Double, Integer> {
-
-    
-    public Double2IntegerConverter() {
-	super();
-    }
-    
-    public Double2IntegerConverter(String format) {
-	super();
-    }
+public class Date2TimeConverter extends AbstractDateConverter<Date, Date> {
 
     @Override
-    public Integer convert(Double source) {
-	return convertNumber(source, Integer.class);
+    public Date convert(Date source) {
+	if (source == null) {
+	    return null;
+	}
+	
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime(source);
+	
+	int h = calendar.get(Calendar.HOUR_OF_DAY);
+	int m = calendar.get(Calendar.MINUTE);
+	int s = calendar.get(Calendar.SECOND);
+	
+	return DateUtils.getTime(h, m, s);
     }
+
 }

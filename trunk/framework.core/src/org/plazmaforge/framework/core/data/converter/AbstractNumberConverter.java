@@ -20,28 +20,41 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type.number;
+package org.plazmaforge.framework.core.data.converter;
 
-import org.plazmaforge.framework.core.data.converter.AbstractNumberConverter;
+import java.text.NumberFormat;
+import org.plazmaforge.framework.util.NumberUtils;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class Double2IntegerConverter extends AbstractNumberConverter<Double, Integer> {
+public abstract class AbstractNumberConverter<S, T> implements Converter<S, T> {
 
+   
     
-    public Double2IntegerConverter() {
-	super();
-    }
-    
-    public Double2IntegerConverter(String format) {
+    public AbstractNumberConverter() {
 	super();
     }
 
-    @Override
-    public Integer convert(Double source) {
-	return convertNumber(source, Integer.class);
+
+    //Parse
+    protected <T extends Number> T parseNumber(String source, Class<T> type, NumberFormat formatter) {
+	return parseNumber(source, type, formatter, false);
     }
+    
+    protected <T extends Number> T parseNumber(String source, Class<T> type, NumberFormat formatter, boolean checkOverflow) {
+	return NumberUtils.parseNumber(source, type, formatter, checkOverflow);
+    }
+    
+    //Convert
+    protected <T extends Number> T convertNumber(Number source, Class<T> type) {
+	return NumberUtils.convertNumber(source, type, false);
+    }
+
+    protected <T extends Number> T convertNumber(Number source,  Class<T> type, boolean checkOverflow) {
+	return NumberUtils.convertNumber(source, type, checkOverflow);
+    }
+    
 }

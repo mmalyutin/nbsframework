@@ -29,19 +29,19 @@ import org.plazmaforge.framework.core.data.converter.AbstractNumberConverter;
  * @author ohapon
  *
  */
-public class Double2IntegerConverter extends AbstractNumberConverter<Double, Integer> {
+public class Double2FloatConverter extends AbstractNumberConverter<Double, Float> {
 
     
-    public Double2IntegerConverter() {
+    public Double2FloatConverter() {
 	super();
     }
     
-    public Double2IntegerConverter(String format) {
+    public Double2FloatConverter(String format) {
 	super();
     }
 
     @Override
-    public Integer convert(Double source) {
-	return convertNumber(source, Integer.class);
+    public Float convert(Double source) {
+	return convertNumber(source, Float.class);
     }
 }

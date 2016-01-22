@@ -26,6 +26,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.converter.type.date.Date2DateTimeConverter;
+import org.plazmaforge.framework.core.data.converter.type.date.Date2DateTimeConverterFactory;
+import org.plazmaforge.framework.core.data.converter.type.date.Date2TimeConverter;
+import org.plazmaforge.framework.core.data.converter.type.date.Date2TimeConverterFactory;
 import org.plazmaforge.framework.core.data.converter.type.date.String2DateTimeConverter;
 import org.plazmaforge.framework.core.data.converter.type.date.String2DateTimeConverterFactory;
 import org.plazmaforge.framework.core.data.converter.type.number.String2TimeConverter;
@@ -236,6 +240,7 @@ public class ConverterManager {
 
 	// <Number> -> <Number>
 	registerGenericConveretrFactory(".number", Double.class, Integer.class);
+	registerGenericConveretrFactory(".number", Double.class, Float.class);
 
 	
 	
@@ -249,6 +254,9 @@ public class ConverterManager {
 	// String -> <Date representation> - virtual type class
 	registerConveretrFactory(String2TimeConverter.class.getSimpleName(), new String2TimeConverterFactory());
 	registerConveretrFactory(String2DateTimeConverter.class.getSimpleName(), new String2DateTimeConverterFactory());
+	
+	registerConveretrFactory(Date2DateTimeConverter.class.getSimpleName(), new Date2DateTimeConverterFactory());
+	registerConveretrFactory(Date2TimeConverter.class.getSimpleName(), new Date2TimeConverterFactory());
 	
 	
 	// Self
