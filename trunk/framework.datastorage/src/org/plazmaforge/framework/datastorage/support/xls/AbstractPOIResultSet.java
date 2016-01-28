@@ -23,7 +23,6 @@
 package org.plazmaforge.framework.datastorage.support.xls;
 
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,7 +33,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.core.type.TypeUtils;
-import org.plazmaforge.framework.core.type.Types;
 
 /**
  * 
@@ -121,25 +119,105 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	return false;
     }
 
-    protected int getSheetIndex(String sheetExpression) throws  DSException {
+    protected int getSheetIndex(String sheetExpression) throws DSException {
 	if (sheetExpression == null) {
 	    return 0;
 	}
 	int sheetIndex = -1;
-	try {
-	    sheetIndex = Integer.parseInt(sheetExpression);
-	    if (sheetIndex < 0 || sheetIndex > workbook.getNumberOfSheets() - 1) {
-		throw new DSException("Sheet index " + sheetIndex + " is out of range: [0.." + (workbook.getNumberOfSheets() - 1) + "]");
+	
+	// Step 1: Try parse string as sheet index
+	Integer parseIndex = parseIndex(sheetExpression);
+	if (parseIndex != null) {
+	    sheetIndex = parseIndex;
+	    int startIndex = 0;
+	    int endIndex = workbook.getNumberOfSheets() - 1;
+	    if (sheetIndex < startIndex || sheetIndex > endIndex) {
+		throw new DSException("Sheet index " + sheetIndex + " is out of range: [0.." + endIndex + "]");
 	    }
-	} catch (NumberFormatException e) {
 	}
+	
+	try {
+	    
+	    sheetIndex = Integer.parseInt(sheetExpression);
+	} catch (NumberFormatException e) {
+	    // Ignore
+	}
+	
+	// Step 2: Try use string as sheet name
 	if (sheetIndex < 0) {
-	    sheetIndex = workbook.getSheetIndex(workbook.getSheet(sheetExpression));
+	    sheetIndex = getSheetIndexByName(sheetExpression);
 	    if (sheetIndex < 0) {
 		throw new DSException("Sheet '" + sheetExpression + "' not found in workbook.");
 	    }
 	}
 	return sheetIndex;
+    }
+    
+    /**
+     * Return sheet index by name
+     * @param sheetName
+     * @return
+     */
+    protected int getSheetIndexByName(String sheetName) {
+	if (sheetName == null) {
+	    return -1;
+	}
+	Sheet sheet = workbook.getSheet(sheetName);
+	if (sheet == null) {
+	    return -1;
+	}
+	return workbook.getSheetIndex(sheet);
+    }
+    
+    protected Integer parseIndex(String str) {
+	return parseIndex(str, null);
+    }
+    
+    protected Integer parseIndex(String str, Integer def) {
+	if (str == null) {
+	    return def;
+	}
+	str = str.trim();
+	if (str.isEmpty()) {
+	    return def;
+	}
+	Integer result = parseInteger(str);
+	if (result == null) {
+	    if (str.startsWith("[") && str.endsWith("]")) {
+		if (str.length() > 2) {
+		    str = str.substring(1, str.length() - 1);
+		    result = parseInteger(str); // '[123]': index
+		}
+	    } else if (str.startsWith("(") && str.endsWith(")")) {
+		if (str.length() > 2) {
+		    str = str.substring(1, str.length() - 1);
+		    result = parseInteger(str); // '(123)': position
+		    if (result != null) {
+			// Decrement because position start with 1 but index start with 0;
+			result--;
+		    }
+		}
+	    }
+	} else {
+	    // Decrement because number start with 1 but index start with 0;
+	    result--;
+	}
+	if (result == null) {
+	    result = def;
+	}
+	return result;
+    }
+    
+    protected Integer parseInteger(String str) {
+	if (str == null) {
+	    return null;
+	}
+	try {
+	    return Integer.parseInt(str);
+	} catch (NumberFormatException e) {
+	    // Ignore
+	}
+	return null;
     }
     
     //@Override
