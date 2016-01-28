@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.datastorage.support.xls;
+package org.plazmaforge.framework.datastorage.support.xlsx;
 
 import java.io.InputStream;
 import java.util.List;
@@ -29,6 +29,10 @@ import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSDataProducer;
+import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSDataSet;
+import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSResultSet;
+import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSSession;
 
 
 /**
@@ -36,31 +40,31 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public class XLSDataProducer extends AbstractXLSDataProducer {
+public class XLSXDataProducer extends AbstractXLSDataProducer {
 
     protected AbstractXLSSession createXLSSession(InputStream inputStream) throws DSException {
-	return new XLSSession(inputStream);
+	return new XLSXSession(inputStream);
     }
     
     protected AbstractXLSResultSet createXLSResultSet(InputStream inputStream) throws DSException {
-	return new XLSResultSet(inputStream);
+	return new XLSXResultSet(inputStream);
     }
     
     protected AbstractXLSDataSet createXLSDataSet(List<DSField> fields, InputStream inputStream) throws DSException {
-	return new XLSDataSet(fields, inputStream);
+	return new XLSXDataSet(fields, inputStream);
     }
     
     protected void checkDataConnector(DSDataConnector dataConnector) throws DSException {
 	super.checkDataConnector(dataConnector);
-	if (!(dataConnector instanceof XLSDataConnector)) {
-	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be XLSDataConnector");
+	if (!(dataConnector instanceof XLSXDataConnector)) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be XLSXDataConnector");
 	}	
     }
     
     protected void checkSession(DSSession session) throws DSException {
 	super.checkSession(session);
-	if (!(session instanceof XLSSession)) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be XLSSession");
+	if (!(session instanceof XLSXSession)) {
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be XLSXSession");
 	}
     }
 

@@ -23,18 +23,19 @@
 /**
  * 
  */
-package org.plazmaforge.framework.datastorage.support.xls;
+package org.plazmaforge.framework.datastorage.support.xlsx;
 
+import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
 
 /**
  * @author ohapon
  *
  */
-public class XLSDataConnector extends AbstractXLSDataConnector {
+public class XLSXDataConnector extends AbstractFileDataConnector {
 
-    public static final String TYPE = "XLS";
+    public static final String TYPE = "XLSX";
     
-    public XLSDataConnector() {
+    public XLSXDataConnector() {
 	super();
     }
     
@@ -42,5 +43,6 @@ public class XLSDataConnector extends AbstractXLSDataConnector {
     public String getType() {
 	return TYPE;
     }
+
 
 }

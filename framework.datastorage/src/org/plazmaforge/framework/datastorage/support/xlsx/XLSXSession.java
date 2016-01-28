@@ -20,27 +20,26 @@
  * ohapon@users.sourceforge.net
  */
 
+package org.plazmaforge.framework.datastorage.support.xlsx;
+
+import java.io.InputStream;
+
+import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSSession;
+
 /**
  * 
- */
-package org.plazmaforge.framework.datastorage.support.xls;
-
-
-/**
  * @author ohapon
  *
  */
-public class XLSDataConnector extends AbstractXLSDataConnector {
+public class XLSXSession extends AbstractXLSSession {
 
-    public static final String TYPE = "XLS";
-    
-    public XLSDataConnector() {
-	super();
+    public XLSXSession(InputStream  inputStream) {
+	super(inputStream);
     }
-    
+
     @Override
     public String getType() {
-	return TYPE;
+	return XLSXDataConnector.TYPE;
     }
 
 }
