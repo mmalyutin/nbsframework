@@ -79,5 +79,79 @@ public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet i
         this.sheetExpression = sheetExpression;
     }
     
+    protected Integer parseIndex(String str) {
+	return parseIndex(str, null);
+    }
+    
+    protected Integer parseIndex(String str, Integer def) {
+	if (str == null) {
+	    return def;
+	}
+	str = str.trim();
+	if (str.isEmpty()) {
+	    return def;
+	}
+	Integer result = parseInteger(str);
+	if (result == null) {
+	    if (str.startsWith("[") && str.endsWith("]")) {
+		if (str.length() > 2) {
+		    str = str.substring(1, str.length() - 1);
+		    result = parseInteger(str); // '[123]': index
+		}
+	    } else if (str.startsWith("(") && str.endsWith(")")) {
+		if (str.length() > 2) {
+		    str = str.substring(1, str.length() - 1);
+		    result = parseInteger(str); // '(123)': position
+		    if (result != null) {
+			// Decrement because position start with 1 but index start with 0;
+			result--;
+		    }
+		}
+	    }
+	} else {
+	    // Decrement because number start with 1 but index start with 0;
+	    result--;
+	}
+	if (result == null) {
+	    result = def;
+	}
+	return result;
+    }
+    
+    protected Integer parseInteger(String str) {
+	if (str == null) {
+	    return null;
+	}
+	try {
+	    return Integer.parseInt(str);
+	} catch (NumberFormatException e) {
+	    // Ignore
+	}
+	return null;
+    }
+    
+    @Override
+    public Object getValue(String name) throws DSException {
+	return getNativeValue(name);
+    }
+
+    //@Override
+    public Object getValue(int index) throws DSException {
+	return getNativeValue(index);
+    }
+    
+    //Native
+    public Object getNativeValue(String name) throws DSException {
+	int index = getFieldIndex(name);
+	return getNativeValue(index);
+    }
+
+    //Native
+    public Object getNativeValue(int index) throws DSException {
+	return getNativeValue(index, null, null);
+    }
+    
+    //Native
+    public abstract Object getNativeValue(int index, String type, String format) throws DSException;
     
 }

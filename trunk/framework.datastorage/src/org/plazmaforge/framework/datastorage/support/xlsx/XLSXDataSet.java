@@ -20,37 +20,30 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.datastorage.support.xls;
+package org.plazmaforge.framework.datastorage.support.xlsx;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSDataSet;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XLSXResultSet extends AbstractPOIResultSet {
+public class XLSXDataSet extends AbstractXLSDataSet {
 
-    public XLSXResultSet(InputStream inputStream) throws DSException {
-	super(inputStream);
+    public XLSXDataSet(List<DSField> fields, InputStream inputStream) throws DSException {
+	assert(fields != null);
+	assert(inputStream != null);
+	
+	setFields(fields);
+	//List<String> fieldNames = getFieldNames();
+	//TODO
+	this.resultSet = new XLSXResultSet(inputStream);
     }
 
-    public XLSXResultSet(List<String> fieldNames, InputStream inputStream) throws DSException {
-	super(fieldNames, inputStream);
-    }
-
-    @Override
-    protected Workbook loadWorkbook(InputStream inputStream) throws DSException {
-	try {
-	    return new XSSFWorkbook(inputStream);
-	} catch (IOException e) {
-	    throw new DSException(e);
-	}
-    }
 }

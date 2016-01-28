@@ -25,8 +25,6 @@ package org.plazmaforge.framework.datastorage.support.xls;
 import java.io.InputStream;
 import java.util.List;
 
-import org.plazmaforge.framework.core.datastorage.AbstractWrappedDataSet;
-import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.exception.DSException;
 
@@ -35,10 +33,9 @@ import org.plazmaforge.framework.core.exception.DSException;
  * @author ohapon
  *
  */
-public class XLSDataSet extends AbstractWrappedDataSet implements DSDataSet {
+public class XLSDataSet extends AbstractXLSDataSet {
 
     public XLSDataSet(List<DSField> fields, InputStream inputStream) throws DSException {
-	
 	assert(fields != null);
 	assert(inputStream != null);
 	
@@ -46,41 +43,6 @@ public class XLSDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	//List<String> fieldNames = getFieldNames();
 	//TODO
 	this.resultSet = new XLSResultSet(inputStream);
-	
-    }
-
-    @Override
-    public Object getValue(String fieldName) throws DSException {
-	//TODO: Must optimize
-	int index = getFieldIndex(fieldName);
-	DSField field = getField(fieldName);
-	return getValue(field, index);
-    }
-    
-    @Override
-    public Object getValue(int index) throws DSException {
-	//TODO: Must optimize
-	DSField field = getField(index);
-	return getValue(field, index);
-    }
-    
-    protected Object getValue(DSField field, int index) throws DSException {
-	String type = field.getDataType();
-	String format = getFormat(field);
-	Object value = getXLSResultSet().getNativeValue(index, type, format);
-	return value;
-    }
-
-    protected XLSResultSet getXLSResultSet() {
-	return ((XLSResultSet) resultSet);
-    }
-    
-    public boolean isFirstRowHeader() {
-        return getXLSResultSet().isFirstRowHeader();
-    }
-
-    public void setFirstRowHeader(boolean firstRowHeader) {
-	getXLSResultSet().setFirstRowHeader(firstRowHeader);
     }
 
 }

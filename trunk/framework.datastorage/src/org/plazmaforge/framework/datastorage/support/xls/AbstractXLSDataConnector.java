@@ -20,27 +20,35 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
 package org.plazmaforge.framework.datastorage.support.xls;
 
+import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class XLSDataConnector extends AbstractXLSDataConnector {
+public abstract class AbstractXLSDataConnector extends AbstractFileDataConnector {
 
-    public static final String TYPE = "XLS";
+    public static final String PROPERTY_FIRST_ROW_HEADER = "firstRowHeader";
     
-    public XLSDataConnector() {
+    public static final boolean DEFAULT_FIRST_ROW_HEADER = false;
+    
+    
+    private boolean firstRowHeader = DEFAULT_FIRST_ROW_HEADER;
+    
+    public AbstractXLSDataConnector() {
 	super();
     }
     
-    @Override
-    public String getType() {
-	return TYPE;
+    public boolean isFirstRowHeader() {
+        return firstRowHeader;
     }
+
+    public void setFirstRowHeader(boolean firstRowHeader) {
+        this.firstRowHeader = firstRowHeader;
+    }
+
 
 }

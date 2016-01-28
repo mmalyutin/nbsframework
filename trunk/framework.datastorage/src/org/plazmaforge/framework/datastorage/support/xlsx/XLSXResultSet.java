@@ -20,27 +20,38 @@
  * ohapon@users.sourceforge.net
  */
 
+package org.plazmaforge.framework.datastorage.support.xlsx;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.xls.AbstractPOIResultSet;
+
 /**
  * 
- */
-package org.plazmaforge.framework.datastorage.support.xls;
-
-
-/**
  * @author ohapon
  *
  */
-public class XLSDataConnector extends AbstractXLSDataConnector {
+public class XLSXResultSet extends AbstractPOIResultSet {
 
-    public static final String TYPE = "XLS";
-    
-    public XLSDataConnector() {
-	super();
+    public XLSXResultSet(InputStream inputStream) throws DSException {
+	super(inputStream);
     }
-    
+
+    public XLSXResultSet(List<String> fieldNames, InputStream inputStream) throws DSException {
+	super(fieldNames, inputStream);
+    }
+
     @Override
-    public String getType() {
-	return TYPE;
+    protected Workbook loadWorkbook(InputStream inputStream) throws DSException {
+	try {
+	    return new XSSFWorkbook(inputStream);
+	} catch (IOException e) {
+	    throw new DSException(e);
+	}
     }
-
 }
