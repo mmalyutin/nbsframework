@@ -25,24 +25,21 @@
  */
 package org.plazmaforge.framework.datastorage.support.xlsx;
 
-import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSDataConnector;
+import org.plazmaforge.framework.core.datastorage.DataProducer;
+import org.plazmaforge.framework.core.datastorage.DataProducerFactory;
 
 /**
  * @author ohapon
  *
  */
-public class XLSXDataConnector extends AbstractXLSDataConnector {
+public class XLSXDataProducerFactory implements DataProducerFactory {
 
-    public static final String TYPE = "XLSX";
-    
-    public XLSXDataConnector() {
-	super();
-    }
-    
+
     @Override
-    public String getType() {
-	return TYPE;
+    public DataProducer getDataProducer() {
+	return new XLSXDataProducer();
     }
+   
 
-
+  
 }
