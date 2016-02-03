@@ -26,6 +26,12 @@
 package org.plazmaforge.framework.core.datastorage;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -225,5 +231,13 @@ public abstract class AbstractDataProducer implements DataProducer {
 	sql = queryInfo.getCompileQuery();
 	return sql;
 
+    }
+    
+    protected Reader createReader(String fileName, String charset) throws IOException {
+	return createReader(new FileInputStream(fileName), charset);
+    }
+    
+    protected Reader createReader(InputStream inputStream, String charset) throws IOException {
+	return charset == null ? new InputStreamReader(inputStream) : new InputStreamReader(inputStream, charset);
     }
 }
