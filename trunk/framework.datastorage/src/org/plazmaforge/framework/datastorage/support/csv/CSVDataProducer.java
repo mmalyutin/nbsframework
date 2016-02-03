@@ -25,7 +25,6 @@
  */
 package org.plazmaforge.framework.datastorage.support.csv;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -64,6 +63,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	CSVDataConnector csvDataConnector = (CSVDataConnector) dataConnector;
 	
 	String fileName = csvDataConnector.getFileName();
+	String charset = csvDataConnector.getCharset();
 	String columnDelimiter = csvDataConnector.getColumnDelimiter();
 	String rowDelimiter = csvDataConnector.getRowDelimiter();
 	Boolean firstRowHeader = csvDataConnector.isFirstRowHeader();
@@ -73,6 +73,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_CHARSET, charset);
 	data.put(CSVDataConnector.PROPERTY_COLUMN_DELIMITER, columnDelimiter);
 	data.put(CSVDataConnector.PROPERTY_ROW_DELIMITER, rowDelimiter);
 	data.put(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
@@ -146,7 +147,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(String url, String username, String password) throws DSException {
 	String fileName = url;
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, null);
 	    return new CSVSession(reader);
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -157,6 +158,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(CSVDataConnector.PROPERTY_FILE_NAME);
+	String charset = (String) data.get(CSVDataConnector.PROPERTY_CHARSET);
 	String columnDelimiter = (String) data.get(CSVDataConnector.PROPERTY_COLUMN_DELIMITER);
 	String rowDelimiter = (String) data.get(CSVDataConnector.PROPERTY_ROW_DELIMITER);
 	Boolean firstRowHeader = (Boolean) data.get(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER);
@@ -164,7 +166,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String numberFormat = (String) data.get(CSVDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, charset);
 	    CSVSession session = new CSVSession(reader);
 	    session.setColumnDelimiter(columnDelimiter);
 	    session.setRowDelimiter(rowDelimiter);
@@ -184,10 +186,12 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String fileName = values[0];
 	String parametersString = values[1];
+	
 	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	String charset = (String) parameterData.get(CSVDataConnector.PROPERTY_CHARSET);
 	
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, charset);
 	    CSVResultSet resultSet = new CSVResultSet(reader);
 	    //resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;

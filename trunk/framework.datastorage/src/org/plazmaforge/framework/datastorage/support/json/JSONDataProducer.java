@@ -25,7 +25,6 @@
  */
 package org.plazmaforge.framework.datastorage.support.json;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 
 /**
  * @author ohapon
@@ -64,12 +64,14 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	JSONDataConnector jsonDataConnector = (JSONDataConnector) dataConnector;
 	
 	String fileName = jsonDataConnector.getFileName();
+	String charset = jsonDataConnector.getCharset();	
 	String dateFormat = jsonDataConnector.getDateFormat();
 	String numberFormat = jsonDataConnector.getNumberFormat();
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_CHARSET, charset);
 	data.put(JSONDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(JSONDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -141,7 +143,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     protected DSSession doOpenSession(String url, String username, String password) throws DSException {
 	String fileName = url;
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, null);
 	    return new JSONSession(reader);
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -152,11 +154,12 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(JSONDataConnector.PROPERTY_FILE_NAME);
+	String charset = (String) data.get(CSVDataConnector.PROPERTY_CHARSET);	
 	String dateFormat = (String) data.get(JSONDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(JSONDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, charset);
 	    JSONSession session = new JSONSession(reader);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
@@ -172,8 +175,9 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String fileName = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	String charset = (String) parameterData.get(CSVDataConnector.PROPERTY_CHARSET);
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, charset);
 	    JSONResultSet resultSet = new JSONResultSet(reader);
 	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;

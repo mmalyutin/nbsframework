@@ -35,12 +35,14 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
     
     public static final String PROPERTY_FILE_NAME = "fileName";
 
-    
+    public static final String PROPERTY_CHARSET = "charset";
     
     private String folderName;
     
     private String fileName;
 
+    private String charset;
+    
     public String getFolderName() {
         return folderName;
     }
@@ -55,6 +57,14 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
     }
     
     
