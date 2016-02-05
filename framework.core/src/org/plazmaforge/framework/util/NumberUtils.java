@@ -129,4 +129,14 @@ public class NumberUtils {
 	throw new IllegalArgumentException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to unknown type [" + type.getName() + "]");
     }
     
+    
+    public static String formatNumber(Number value, NumberFormat formatter) {
+	if (value == null) {
+	    return null;
+	}
+	if (formatter == null) {
+	    return value.toString();
+	}
+	return formatter.format(value);
+    }
 }

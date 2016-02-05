@@ -56,5 +56,10 @@ public abstract class AbstractNumberConverter<S, T> implements Converter<S, T> {
     protected <T extends Number> T convertNumber(Number source,  Class<T> type, boolean checkOverflow) {
 	return NumberUtils.convertNumber(source, type, checkOverflow);
     }
-    
+
+    //Format
+    protected String formatNumber(Number value, NumberFormat formatter) {
+	return NumberUtils.formatNumber(value, formatter);
+    }
+
 }
