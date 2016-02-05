@@ -25,23 +25,25 @@ package org.plazmaforge.framework.core.data.converter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import org.plazmaforge.framework.util.NumberUtils;
+
 /**
  * 
  * @author ohapon
  *
  */
-public abstract class AbstractString2NumberConverter<T extends Number> extends AbstractNumberConverter<String, T> {
+public abstract class AbstractNumber2StringConverter<T extends Number> extends AbstractNumberConverter<T, String> {
 
     private String format;
 
     private NumberFormat formatter;
     
     
-    public AbstractString2NumberConverter() {
+    public AbstractNumber2StringConverter() {
 	super();
     }
 
-    public AbstractString2NumberConverter(String format) {
+    public AbstractNumber2StringConverter(String format) {
 	this.format = format;
 	formatter = createFormatter(format);
     }
@@ -53,5 +55,11 @@ public abstract class AbstractString2NumberConverter<T extends Number> extends A
     public NumberFormat getFormatter() {
         return formatter;
     }
+    
+    @Override
+    public String convert(T source) {
+	return NumberUtils.formatNumber(source, formatter);
+    }
+    
     
 }

@@ -20,38 +20,29 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter;
+package org.plazmaforge.framework.core.data.converter.type.number;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import org.plazmaforge.framework.core.data.converter.AbstractNumberConverter;
 
 /**
  * 
  * @author ohapon
  *
  */
-public abstract class AbstractString2NumberConverter<T extends Number> extends AbstractNumberConverter<String, T> {
+public class Byte2ShortConverter extends AbstractNumberConverter<Byte, Short> {
 
-    private String format;
-
-    private NumberFormat formatter;
     
+    public Byte2ShortConverter() {
+	super();
+    }
     
-    public AbstractString2NumberConverter() {
+    public Byte2ShortConverter(String format) {
 	super();
     }
 
-    public AbstractString2NumberConverter(String format) {
-	this.format = format;
-	formatter = createFormatter(format);
+    @Override
+    public Short convert(Byte source) {
+	return convertNumber(source, Short.class);
     }
 
-    protected NumberFormat createFormatter(String format) {
-	return format == null ? null : new DecimalFormat(format);
-    }
-
-    public NumberFormat getFormatter() {
-        return formatter;
-    }
-    
 }
