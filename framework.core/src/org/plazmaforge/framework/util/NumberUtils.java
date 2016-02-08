@@ -34,6 +34,12 @@ import java.text.ParseException;
  */
 public class NumberUtils {
 
+    private static final BigInteger LONG_MIN = BigInteger.valueOf(Long.MIN_VALUE);
+
+    private static final BigInteger LONG_MAX = BigInteger.valueOf(Long.MAX_VALUE);
+    
+    
+	
     public static <T extends Number> T parseNumber(String source, Class<T> type, NumberFormat formatter, boolean checkOverflow) {
 	String value = StringUtils.normalizeString(source);
 	if (value == null) {
@@ -103,28 +109,68 @@ public class NumberUtils {
 	    return (T) number;
 	}
 	if (Byte.class == type) {
-	    return (T) ConverterUtils.toByte(number);
+	    long value = number.longValue();
+	    if (value < Byte.MIN_VALUE || value > Byte.MAX_VALUE) {
+		handleOverflowException(number, type);
+	    }
+	    return (T) Byte.valueOf(number.byteValue());
+	    //return (T) ConverterUtils.toByte(number);
 	}
 	if (Short.class == type) {
-	    return (T) ConverterUtils.toShort(number);
+	    long value = number.longValue();
+	    if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
+		handleOverflowException(number, type);
+	    }
+	    return (T) Short.valueOf(number.shortValue());
+	    //return (T) ConverterUtils.toShort(number);
 	}   
 	if (Integer.class == type) {
-	    return (T) ConverterUtils.toInteger(number);
+	    long value = number.longValue();
+	    if (value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
+		handleOverflowException(number, type);
+	    }
+	    return (T) Integer.valueOf(number.intValue());
+	    //return (T) ConverterUtils.toInteger(number);
 	}   
 	if (Long.class == type) {
-	    return (T) ConverterUtils.toLong(number);
+	    BigInteger bigInt = null;
+	    if (number instanceof BigInteger) {
+		bigInt = (BigInteger) number;
+	    } else if (number instanceof BigDecimal) {
+		bigInt = ((BigDecimal) number).toBigInteger();
+	    }
+	    // Effectively analogous to JDK 8's BigInteger.longValueExact()
+	    if (bigInt != null && (bigInt.compareTo(LONG_MIN) < 0 || bigInt.compareTo(LONG_MAX) > 0)) {
+		handleOverflowException(number, type);
+	    }
+	    return (T) Long.valueOf(number.longValue());
+	    //return (T) ConverterUtils.toLong(number);
 	}   
 	if (Float.class == type) {
-	    return (T) ConverterUtils.toFloat(number);
+	    return (T) Float.valueOf(number.floatValue());
+	    //return (T) ConverterUtils.toFloat(number);
 	}   
 	if (Double.class == type) {
-	    return (T) ConverterUtils.toDouble(number);
+	    return (T) Double.valueOf(number.doubleValue());
+	    //return (T) ConverterUtils.toDouble(number);
 	}   
 	if (BigInteger.class == type) {
-	    return (T) ConverterUtils.toBigInteger(number);
+	    if (number instanceof BigDecimal) {
+		// do not lose precision - use BigDecimal's own conversion
+		return (T) ((BigDecimal) number).toBigInteger();
+	    } else {
+		// original value is not a Big* number - use standard long
+		// conversion
+		return (T) BigInteger.valueOf(number.longValue());
+	    }
+	    //return (T) ConverterUtils.toBigInteger(number);
 	}   
 	if (BigDecimal.class == type) {
-	    return (T) ConverterUtils.toBigDecimal(number);
+	    // always use BigDecimal(String) here to avoid unpredictability of
+	    // BigDecimal(double)
+	    // (see BigDecimal javadoc for details)
+	    return (T) new BigDecimal(number.toString());
+	    //return (T) ConverterUtils.toBigDecimal(number);
 	}   
 	throw new IllegalArgumentException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to unknown type [" + type.getName() + "]");
     }
@@ -139,4 +185,8 @@ public class NumberUtils {
 	}
 	return formatter.format(value);
     }
+    
+    private static void handleOverflowException(Number number, Class<?> type) {
+	throw new IllegalArgumentException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to target class [" + type.getName() + "]: overflow");
+    }    
 }
