@@ -22,24 +22,27 @@
 
 package org.plazmaforge.framework.core.data.converter.type.number;
 
-import org.plazmaforge.framework.core.data.converter.AbstractNumber2StringConverter;
-
+import org.plazmaforge.framework.core.data.converter.AbstractNumberConverter;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class Byte2StringConverter extends AbstractNumber2StringConverter<Byte> {
+public class Byte2LongConverter extends AbstractNumberConverter<Byte, Long> {
 
     
-    public Byte2StringConverter() {
+    public Byte2LongConverter() {
 	super();
     }
     
-    public Byte2StringConverter(String format) {
-	super(format);
+    public Byte2LongConverter(String format) {
+	super();
     }
 
-  
+    @Override
+    public Long convert(Byte source) {
+	return convertNumber(source, Long.class);
+    }
+
 }

@@ -125,7 +125,8 @@ public class ConverterUtils {
 	if (value instanceof BigDecimal) {
 	    return (BigDecimal) value;
 	} else if (value instanceof Number) {
-	    return BigDecimal.valueOf(((Number) value).doubleValue());
+	    //return BigDecimal.valueOf(((Number) value).doubleValue());
+	    return new BigDecimal(value.toString());
 	}
 	handleConvertError(value, "java.math.BigDecimal");
 	return null;
