@@ -27,6 +27,9 @@ import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
+import org.plazmaforge.framework.core.exception.ConvertException;
+import org.plazmaforge.framework.core.exception.OverflowException;
+
 /**
  * 
  * @author ohapon
@@ -101,7 +104,7 @@ public class NumberUtils {
 	    return null;
 	}
 	if (type == null) {
-	    throw new IllegalArgumentException("Could not convert number [" + number + "] to unknown type");
+	    throw new ConvertException("Could not convert number [" + number + "] to unknown type");
 	}
 	// TODO: Must checkOverflow
 	
@@ -172,7 +175,7 @@ public class NumberUtils {
 	    return (T) new BigDecimal(number.toString());
 	    //return (T) ConverterUtils.toBigDecimal(number);
 	}   
-	throw new IllegalArgumentException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to unknown type [" + type.getName() + "]");
+	throw new ConvertException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to unknown type [" + type.getName() + "]");
     }
     
     
@@ -187,6 +190,6 @@ public class NumberUtils {
     }
     
     private static void handleOverflowException(Number number, Class<?> type) {
-	throw new IllegalArgumentException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to target class [" + type.getName() + "]: overflow");
+	throw new OverflowException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to type [" + type.getName() + "]");
     }    
 }
