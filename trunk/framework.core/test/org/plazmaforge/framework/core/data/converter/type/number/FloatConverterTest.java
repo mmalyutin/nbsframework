@@ -35,25 +35,25 @@ import junit.framework.TestCase;
  * @author ohapon
  *
  */
-public class LongConverterTest extends TestCase {
+public class FloatConverterTest extends TestCase {
     
     
-    private static final Long MIN_VALUE = Long.MIN_VALUE;
+    private static final Float MIN_VALUE = -1 * Float.MAX_VALUE;
     
-    private static final Long MAX_VALUE = Long.MAX_VALUE;
+    private static final Float MAX_VALUE = Float.MAX_VALUE;
     
-    private static final Long ZERO_VALUE = 0L;
+    private static final Float ZERO_VALUE = 0F;
     
-    private static final Long NEGATIVE_VALUE = -100L;
+    private static final Float NEGATIVE_VALUE = -100F;
     
-    private static final Long POSITIVE_VALUE = 100L;
+    private static final Float POSITIVE_VALUE = 100F;
     
 
     // Byte
-    public void testLong2ByteConverter() throws Exception {
-	Long2ByteConverter converter = new Long2ByteConverter();
+    public void testFloat2ByteConverter() throws Exception {
+	Float2ByteConverter converter = new Float2ByteConverter();
 	
-	Long source = null;
+	Float source = null;
 	Byte target = converter.convert(source);
 	assertNull(target);
 	
@@ -72,7 +72,7 @@ public class LongConverterTest extends TestCase {
 	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Byte overflow is not implemented: Long.MIN_VALUE");
+	    fail("Byte overflow is not implemented: Float.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -80,7 +80,7 @@ public class LongConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Byte overflow is not implemented: Long.MAX_VALUE");
+	    fail("Byte overflow is not implemented: Float.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -88,10 +88,10 @@ public class LongConverterTest extends TestCase {
     }
 
     // Short
-    public void testLong2ShortConverter() throws Exception {
-	Long2ShortConverter converter = new Long2ShortConverter();
+    public void testFloat2ShortConverter() throws Exception {
+	Float2ShortConverter converter = new Float2ShortConverter();
 	
-	Long source = null;
+	Float source = null;
 	Short target = converter.convert(source);
 	assertNull(target);
 	
@@ -110,7 +110,7 @@ public class LongConverterTest extends TestCase {
 	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Short overflow is not implemented: Long.MIN_VALUE");
+	    fail("Short overflow is not implemented: Float.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -118,7 +118,7 @@ public class LongConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Short overflow is not implemented: Long.MAX_VALUE");
+	    fail("Short overflow is not implemented: Float.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -126,10 +126,10 @@ public class LongConverterTest extends TestCase {
     }
     
     // Integer
-    public void testLong2IntegerConverter() throws Exception {
-	Long2IntegerConverter converter = new Long2IntegerConverter();
+    public void testFloat2IntegerConverter() throws Exception {
+	Float2IntegerConverter converter = new Float2IntegerConverter();
 	
-	Long source = null;
+	Float source = null;
 	Integer target = converter.convert(source);
 	assertNull(target);
 	
@@ -148,7 +148,7 @@ public class LongConverterTest extends TestCase {
 	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Short overflow is not implemented: Long.MIN_VALUE");
+	    fail("Integer overflow is not implemented: Float.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -156,48 +156,56 @@ public class LongConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Short overflow is not implemented: Long.MAX_VALUE");
+	    fail("Integer overflow is not implemented: Float.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
 	
     }
 
-    // Float
-    public void testLong2FloatConverter() throws Exception {
-	Long2FloatConverter converter = new Long2FloatConverter();
+    // Long
+    public void testFloat2LongConverter() throws Exception {
+	Float2LongConverter converter = new Float2LongConverter();
    	
-	Long source = null;
-   	Float target = converter.convert(source);
+	Float source = null;
+   	Long target = converter.convert(source);
    	assertNull(target);
    	
    	source = ZERO_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Float(ZERO_VALUE));
+   	assertEquals(target, new Long(ZERO_VALUE.longValue()));
 
    	source = NEGATIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Float(NEGATIVE_VALUE));
+   	assertEquals(target, new Long(NEGATIVE_VALUE.longValue()));
 
    	source = POSITIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Float(POSITIVE_VALUE));
+   	assertEquals(target, new Long(POSITIVE_VALUE.longValue()));
 
    	source = MIN_VALUE;
-   	target = converter.convert(source);
-   	assertEquals(target, new Float(MIN_VALUE));
+	try {
+	    target = converter.convert(source);	    
+	    fail("Long overflow is not implemented: Float.MIN_VALUE");
+	} catch (OverflowException ex) {
+	    
+	}
 
-   	source = MAX_VALUE;
-   	target = converter.convert(source);
-   	assertEquals(target, new Float(MAX_VALUE));
+	source = MAX_VALUE;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Long overflow is not implemented: Float.MAX_VALUE");
+	} catch (OverflowException ex) {
+	    
+	}   	
    	
     }
 
     // Double
-    public void testLong2DoubleConverter() throws Exception {
-	Long2DoubleConverter converter = new Long2DoubleConverter();
+    public void testFloat2DoubleConverter() throws Exception {
+	Float2DoubleConverter converter = new Float2DoubleConverter();
    	
-	Long source = null;
+	Float source = null;
    	Double target = converter.convert(source);
    	assertNull(target);
    	
@@ -223,68 +231,67 @@ public class LongConverterTest extends TestCase {
    	
     }
     
-
     // BigInteger
-    public void testLong2BigIntegerConverter() throws Exception {
-	Long2BigIntegerConverter converter = new Long2BigIntegerConverter();
+    public void testFloat2BigIntegerConverter() throws Exception {
+	Float2BigIntegerConverter converter = new Float2BigIntegerConverter();
    	
-	Long source = null;
+	Float source = null;
    	BigInteger target = converter.convert(source);
    	assertNull(target);
    	
    	source = ZERO_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigInteger.valueOf(ZERO_VALUE));
+   	assertEquals(target, BigInteger.valueOf(ZERO_VALUE.longValue()));
 
    	source = NEGATIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigInteger.valueOf(NEGATIVE_VALUE));
+   	assertEquals(target, BigInteger.valueOf(NEGATIVE_VALUE.longValue()));
 
    	source = POSITIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigInteger.valueOf(POSITIVE_VALUE));
+   	assertEquals(target, BigInteger.valueOf(POSITIVE_VALUE.longValue()));
 
    	source = MIN_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigInteger.valueOf(MIN_VALUE));
+   	assertEquals(target, new BigDecimal(MIN_VALUE.toString()).toBigInteger());
 
    	source = MAX_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigInteger.valueOf(MAX_VALUE));
+   	assertEquals(target, new BigDecimal(MAX_VALUE.toString()).toBigInteger());
    	
     }
     
-
     // BigDecimal
-    public void testLong2BigDecimalConverter() throws Exception {
-	Long2BigDecimalConverter converter = new Long2BigDecimalConverter();
+    public void testFloat2BigDecimalConverter() throws Exception {
+	Float2BigDecimalConverter converter = new Float2BigDecimalConverter();
    	
-	Long source = null;
+	Float source = null;
    	BigDecimal target = converter.convert(source);
    	assertNull(target);
    	
    	source = ZERO_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigDecimal.valueOf(ZERO_VALUE));
+   	assertEquals(target, new BigDecimal(ZERO_VALUE.toString()));
 
    	source = NEGATIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigDecimal.valueOf(NEGATIVE_VALUE));
+   	assertEquals(target, new BigDecimal(NEGATIVE_VALUE.toString()));
 
    	source = POSITIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigDecimal.valueOf(POSITIVE_VALUE));
+   	assertEquals(target, new BigDecimal(POSITIVE_VALUE.toString()));
 
    	source = MIN_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigDecimal.valueOf(MIN_VALUE));
+   	assertEquals(target, new BigDecimal(MIN_VALUE.toString()));
 
    	source = MAX_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, BigDecimal.valueOf(MAX_VALUE));
+   	assertEquals(target, new BigDecimal(MAX_VALUE.toString()));
    	
     }    
     
+    /*
     // String
     public void testLong2StringConverter() throws Exception {
 	Long2StringConverter converter = new Long2StringConverter();
@@ -323,6 +330,7 @@ public class LongConverterTest extends TestCase {
    	assertEquals(target, "123.00");
    	
     }
+    */
        
     
 }
