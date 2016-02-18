@@ -37,9 +37,21 @@ import org.plazmaforge.framework.core.exception.OverflowException;
  */
 public class NumberUtils {
 
-    private static final BigInteger LONG_MIN = BigInteger.valueOf(Long.MIN_VALUE);
+    private static final BigInteger BIG_BYTE_MIN = BigInteger.valueOf(Byte.MIN_VALUE);
+    
+    private static final BigInteger BIG_BYTE_MAX = BigInteger.valueOf(Byte.MAX_VALUE);
 
-    private static final BigInteger LONG_MAX = BigInteger.valueOf(Long.MAX_VALUE);
+    private static final BigInteger BIG_SHORT_MIN = BigInteger.valueOf(Short.MIN_VALUE);
+
+    private static final BigInteger BIG_SHORT_MAX = BigInteger.valueOf(Short.MAX_VALUE);
+
+    private static final BigInteger BIG_INTEGER_MIN = BigInteger.valueOf(Integer.MIN_VALUE);
+
+    private static final BigInteger BIG_INTEGER_MAX = BigInteger.valueOf(Integer.MAX_VALUE);
+    
+    private static final BigInteger BIG_LONG_MIN = BigInteger.valueOf(Long.MIN_VALUE);
+
+    private static final BigInteger BIG_LONG_MAX = BigInteger.valueOf(Long.MAX_VALUE);
     
     
 	
@@ -111,31 +123,51 @@ public class NumberUtils {
 	if (type.isInstance(number)) {
 	    return (T) number;
 	}
+	
+	// Byte
 	if (Byte.class == type) {
+	    if (isOverflow(toBigNumber(number), BIG_BYTE_MIN , BIG_BYTE_MAX)) {
+		handleOverflowException(number, type);
+	    }
+	    
 	    long value = number.longValue();
 	    if (value < Byte.MIN_VALUE || value > Byte.MAX_VALUE) {
 		handleOverflowException(number, type);
 	    }
 	    return (T) Byte.valueOf(number.byteValue());
-	    //return (T) ConverterUtils.toByte(number);
 	}
+	
+	// Short
 	if (Short.class == type) {
+	    if (isOverflow(toBigNumber(number), BIG_SHORT_MIN , BIG_SHORT_MAX)) {
+		handleOverflowException(number, type);
+	    }
 	    long value = number.longValue();
 	    if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
 		handleOverflowException(number, type);
 	    }
 	    return (T) Short.valueOf(number.shortValue());
-	    //return (T) ConverterUtils.toShort(number);
-	}   
+	}
+	
+	// Integer
 	if (Integer.class == type) {
+	    if (isOverflow(toBigNumber(number), BIG_INTEGER_MIN , BIG_INTEGER_MAX)) {
+		handleOverflowException(number, type);
+	    }
 	    long value = number.longValue();
 	    if (value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
 		handleOverflowException(number, type);
 	    }
 	    return (T) Integer.valueOf(number.intValue());
-	    //return (T) ConverterUtils.toInteger(number);
 	}   
+
+	// Long
 	if (Long.class == type) {
+	    if (isOverflow(toBigNumber(number), BIG_LONG_MIN , BIG_LONG_MAX)) {
+		handleOverflowException(number, type);
+	    }
+	    
+	    /*
 	    BigInteger bigInt = null;
 	    if (number instanceof BigInteger) {
 		bigInt = (BigInteger) number;
@@ -143,22 +175,31 @@ public class NumberUtils {
 		bigInt = ((BigDecimal) number).toBigInteger();
 	    }
 	    // Effectively analogous to JDK 8's BigInteger.longValueExact()
-	    if (bigInt != null && (bigInt.compareTo(LONG_MIN) < 0 || bigInt.compareTo(LONG_MAX) > 0)) {
+	    if (bigInt != null && (bigInt.compareTo(BIG_LONG_MIN) < 0 || bigInt.compareTo(BIG_LONG_MAX) > 0)) {
 		handleOverflowException(number, type);
 	    }
+	    */
+	    
 	    return (T) Long.valueOf(number.longValue());
-	    //return (T) ConverterUtils.toLong(number);
-	}   
+	}
+	
 	if (Float.class == type) {
 	    return (T) Float.valueOf(number.floatValue());
 	    //return (T) ConverterUtils.toFloat(number);
 	}   
+	
 	if (Double.class == type) {
 	    return (T) Double.valueOf(number.doubleValue());
 	    //return (T) ConverterUtils.toDouble(number);
-	}   
+	}
+	
+	// BigInteger
 	if (BigInteger.class == type) {
-	    if (number instanceof BigDecimal) {
+	    if (number instanceof Float) {
+		 return (T) new BigDecimal(number.toString()).toBigInteger();
+	    } else if (number instanceof Double) {
+		 return (T) new BigDecimal((Double) number).toBigInteger();
+	    } else if (number instanceof BigDecimal) {
 		// do not lose precision - use BigDecimal's own conversion
 		return (T) ((BigDecimal) number).toBigInteger();
 	    } else {
@@ -166,8 +207,8 @@ public class NumberUtils {
 		// conversion
 		return (T) BigInteger.valueOf(number.longValue());
 	    }
-	    //return (T) ConverterUtils.toBigInteger(number);
-	}   
+	}
+	
 	if (BigDecimal.class == type) {
 	    // always use BigDecimal(String) here to avoid unpredictability of
 	    // BigDecimal(double)
@@ -191,5 +232,42 @@ public class NumberUtils {
     
     private static void handleOverflowException(Number number, Class<?> type) {
 	throw new OverflowException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to type [" + type.getName() + "]");
-    }    
+    }
+
+    private static Number toBigNumber(Number number) {
+	if (number == null) {
+	    return null;
+	}
+	if (number instanceof Float) {
+	    return new BigDecimal(number.toString());
+	}
+	if (number instanceof Double) {
+	    return new BigDecimal(number.toString());
+	}
+	if (number instanceof BigInteger) {
+	    return (BigInteger) number;
+	}
+	if (number instanceof BigDecimal) {
+	    return (BigDecimal) number;
+	}
+	return null;
+    }
+    
+    private static boolean isOverflow(Number value, BigInteger min, BigInteger max) {
+	if (value == null) {
+	    return false;
+	}
+	if (value instanceof BigInteger) {
+	    BigInteger v = (BigInteger) value;
+	    return v.compareTo(min) < 0 || v.compareTo(max) > 0;
+	}
+	if (value instanceof BigDecimal) {
+	    BigDecimal v = (BigDecimal) value;
+	    BigDecimal v1 = new BigDecimal(min);
+	    BigDecimal v2 = new BigDecimal(max);
+	    return v.compareTo(v1) < 0 || v.compareTo(v2) > 0;
+	}
+	return false;
+    }
+
 }
