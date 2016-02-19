@@ -35,31 +35,31 @@ import junit.framework.TestCase;
  * @author ohapon
  *
  */
-public class FloatConverterTest extends TestCase {
+public class DoubleConverterTest extends TestCase {
     
     
-    private static final Float MIN_VALUE = -1 * Float.MAX_VALUE;
+    private static final Double MIN_VALUE = -1 * Double.MAX_VALUE;
     
-    private static final Float MAX_VALUE = Float.MAX_VALUE;
+    private static final Double MAX_VALUE = Double.MAX_VALUE;
     
-    private static final Float SMALL_VALUE = Float.MIN_VALUE;
+    private static final Double SMALL_VALUE = Double.MIN_VALUE;
     
-    private static final Float ZERO_VALUE = 0.0F;
+    private static final Double ZERO_VALUE = 0.0D;
     
-    private static final Float NEGATIVE_VALUE = -123.45F;
+    private static final Double NEGATIVE_VALUE = -123.45D;
     
-    private static final Float NEGATIVE_VALUE_UP = -123.56F;
+    private static final Double NEGATIVE_VALUE_UP = -123.56D;
     
-    private static final Float POSITIVE_VALUE = 123.45F;
+    private static final Double POSITIVE_VALUE = 123.45D;
     
-    private static final Float POSITIVE_VALUE_UP = 123.56F;
+    private static final Double POSITIVE_VALUE_UP = 123.56D;
     
 
     // Byte
-    public void testFloat2ByteConverter() throws Exception {
-	Float2ByteConverter converter = new Float2ByteConverter();
+    public void testDouble2ByteConverter() throws Exception {
+	Double2ByteConverter converter = new Double2ByteConverter();
 	
-	Float source = null;
+	Double source = null;
 	Byte target = converter.convert(source);
 	assertNull(target);
 	
@@ -90,7 +90,7 @@ public class FloatConverterTest extends TestCase {
 	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Byte overflow is not implemented: Float.MIN_VALUE");
+	    fail("Byte overflow is not implemented: Double.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -98,7 +98,7 @@ public class FloatConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Byte overflow is not implemented: Float.MAX_VALUE");
+	    fail("Byte overflow is not implemented: Double.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -106,10 +106,10 @@ public class FloatConverterTest extends TestCase {
     }
 
     // Short
-    public void testFloat2ShortConverter() throws Exception {
-	Float2ShortConverter converter = new Float2ShortConverter();
+    public void testDouble2ShortConverter() throws Exception {
+	Double2ShortConverter converter = new Double2ShortConverter();
 	
-	Float source = null;
+	Double source = null;
 	Short target = converter.convert(source);
 	assertNull(target);
 	
@@ -140,7 +140,7 @@ public class FloatConverterTest extends TestCase {
 	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Short overflow is not implemented: Float.MIN_VALUE");
+	    fail("Short overflow is not implemented: Double.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -148,7 +148,7 @@ public class FloatConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Short overflow is not implemented: Float.MAX_VALUE");
+	    fail("Short overflow is not implemented: Double.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -156,10 +156,10 @@ public class FloatConverterTest extends TestCase {
     }
     
     // Integer
-    public void testFloat2IntegerConverter() throws Exception {
-	Float2IntegerConverter converter = new Float2IntegerConverter();
+    public void testDouble2IntegerConverter() throws Exception {
+	Double2IntegerConverter converter = new Double2IntegerConverter();
 	
-	Float source = null;
+	Double source = null;
 	Integer target = converter.convert(source);
 	assertNull(target);
 	
@@ -190,7 +190,7 @@ public class FloatConverterTest extends TestCase {
 	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Integer overflow is not implemented: Float.MIN_VALUE");
+	    fail("Integer overflow is not implemented: Double.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -198,7 +198,7 @@ public class FloatConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Integer overflow is not implemented: Float.MAX_VALUE");
+	    fail("Integer overflow is not implemented: Double.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -206,10 +206,10 @@ public class FloatConverterTest extends TestCase {
     }
 
     // Long
-    public void testFloat2LongConverter() throws Exception {
-	Float2LongConverter converter = new Float2LongConverter();
+    public void testDouble2LongConverter() throws Exception {
+	Double2LongConverter converter = new Double2LongConverter();
    	
-	Float source = null;
+	Double source = null;
    	Long target = converter.convert(source);
    	assertNull(target);
    	
@@ -240,7 +240,7 @@ public class FloatConverterTest extends TestCase {
    	source = MIN_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Long overflow is not implemented: Float.MIN_VALUE");
+	    fail("Long overflow is not implemented: Double.MIN_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -248,48 +248,48 @@ public class FloatConverterTest extends TestCase {
 	source = MAX_VALUE;
 	try {
 	    target = converter.convert(source);	    
-	    fail("Long overflow is not implemented: Float.MAX_VALUE");
+	    fail("Long overflow is not implemented: Double.MAX_VALUE");
 	} catch (OverflowException ex) {
 	    
 	}   	
    	
     }
-
-    // Double
-    public void testFloat2DoubleConverter() throws Exception {
-	Float2DoubleConverter converter = new Float2DoubleConverter();
+    
+    // Float
+    public void testDouble2FloatConverter() throws Exception {
+	Double2FloatConverter converter = new Double2FloatConverter();
    	
-	Float source = null;
-   	Double target = converter.convert(source);
+	Double source = null;
+   	Float target = converter.convert(source);
    	assertNull(target);
    	
    	source = ZERO_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Double(ZERO_VALUE));
+   	assertEquals(target, new Float(ZERO_VALUE));
 
    	source = NEGATIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Double(NEGATIVE_VALUE));
+   	assertEquals(target, new Float(NEGATIVE_VALUE));
 
    	source = POSITIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Double(POSITIVE_VALUE));
+   	assertEquals(target, new Float(POSITIVE_VALUE));
 
    	source = MIN_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Double(MIN_VALUE));
+   	assertEquals(target, new Float(MIN_VALUE));
 
    	source = MAX_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new Double(MAX_VALUE));
+   	assertEquals(target, new Float(MAX_VALUE));
    	
     }
     
     // BigInteger
-    public void testFloat2BigIntegerConverter() throws Exception {
-	Float2BigIntegerConverter converter = new Float2BigIntegerConverter();
+    public void testDouble2BigIntegerConverter() throws Exception {
+	Double2BigIntegerConverter converter = new Double2BigIntegerConverter();
    	
-	Float source = null;
+	Double source = null;
    	BigInteger target = converter.convert(source);
    	assertNull(target);
    	
@@ -316,10 +316,10 @@ public class FloatConverterTest extends TestCase {
     }
     
     // BigDecimal
-    public void testFloat2BigDecimalConverter() throws Exception {
-	Float2BigDecimalConverter converter = new Float2BigDecimalConverter();
+    public void testDouble2BigDecimalConverter() throws Exception {
+	Double2BigDecimalConverter converter = new Double2BigDecimalConverter();
    	
-	Float source = null;
+	Double source = null;
    	BigDecimal target = converter.convert(source);
    	assertNull(target);
    	
@@ -346,10 +346,10 @@ public class FloatConverterTest extends TestCase {
     }    
     
     // String
-    public void testFloatStringConverter() throws Exception {
-	Float2StringConverter converter = new Float2StringConverter();
+    public void testDoubleStringConverter() throws Exception {
+	Double2StringConverter converter = new Double2StringConverter();
    	
-	Float source = null;
+	Double source = null;
    	String target = converter.convert(source);
    	assertNull(target);
    	
@@ -376,8 +376,8 @@ public class FloatConverterTest extends TestCase {
 	// TODO: Temp solution: Use 'locale' attribute to configure locale in DataConnector/DataSet/DataResultSet 
 	Locale.setDefault(Locale.ENGLISH);
 
-   	source = 123.45F;
-   	converter = new Float2StringConverter("#.00");
+   	source = 123.45D;
+   	converter = new Double2StringConverter("#.00");
    	target = converter.convert(source);
    	
    	assertEquals(target, "123.45");

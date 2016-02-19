@@ -37,6 +37,7 @@ import org.plazmaforge.framework.core.exception.OverflowException;
  */
 public class NumberUtils {
 
+   
     private static final BigInteger BIG_BYTE_MIN = BigInteger.valueOf(Byte.MIN_VALUE);
     
     private static final BigInteger BIG_BYTE_MAX = BigInteger.valueOf(Byte.MAX_VALUE);
@@ -52,7 +53,17 @@ public class NumberUtils {
     private static final BigInteger BIG_LONG_MIN = BigInteger.valueOf(Long.MIN_VALUE);
 
     private static final BigInteger BIG_LONG_MAX = BigInteger.valueOf(Long.MAX_VALUE);
-    
+
+
+//    private static final Float FLOAT_MIN = -1 * Float.MAX_VALUE;
+//    
+//    private static final Float FLOAT_MAX = Float.MAX_VALUE;
+//    
+//
+//    private static final BigDecimal BIG_FLOAT_MIN = new BigDecimal(FLOAT_MIN.toString());
+//
+//    private static final BigDecimal BIG_FLOAT_MAX = new BigDecimal(FLOAT_MAX.toString());
+
     
 	
     public static <T extends Number> T parseNumber(String source, Class<T> type, NumberFormat formatter, boolean checkOverflow) {
@@ -198,7 +209,7 @@ public class NumberUtils {
 	    if (number instanceof Float) {
 		 return (T) new BigDecimal(number.toString()).toBigInteger();
 	    } else if (number instanceof Double) {
-		 return (T) new BigDecimal((Double) number).toBigInteger();
+		 return (T) new BigDecimal(number.toString()).toBigInteger();
 	    } else if (number instanceof BigDecimal) {
 		// do not lose precision - use BigDecimal's own conversion
 		return (T) ((BigDecimal) number).toBigInteger();
@@ -252,7 +263,26 @@ public class NumberUtils {
 	}
 	return null;
     }
-    
+
+    private static BigDecimal toBigDecimal(Number number) {
+	if (number == null) {
+	    return null;
+	}
+	if (number instanceof Float) {
+	    return new BigDecimal(number.toString());
+	}
+	if (number instanceof Double) {
+	    return new BigDecimal(number.toString());
+	}
+	if (number instanceof BigInteger) {
+	    return new BigDecimal((BigInteger) number);
+	}
+	if (number instanceof BigDecimal) {
+	    return (BigDecimal) number;
+	}
+	return null;
+    }
+
     private static boolean isOverflow(Number value, BigInteger min, BigInteger max) {
 	if (value == null) {
 	    return false;
@@ -268,6 +298,13 @@ public class NumberUtils {
 	    return v.compareTo(v1) < 0 || v.compareTo(v2) > 0;
 	}
 	return false;
+    }
+    
+    private static boolean isOverflow(BigDecimal value, BigDecimal min, BigDecimal max) {
+	if (value == null) {
+	    return false;
+	}
+	return value.compareTo(min) < 0 || value.compareTo(max) > 0;
     }
 
 }
