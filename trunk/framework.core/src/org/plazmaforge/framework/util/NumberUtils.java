@@ -55,16 +55,6 @@ public class NumberUtils {
     private static final BigInteger BIG_LONG_MAX = BigInteger.valueOf(Long.MAX_VALUE);
 
 
-//    private static final Float FLOAT_MIN = -1 * Float.MAX_VALUE;
-//    
-//    private static final Float FLOAT_MAX = Float.MAX_VALUE;
-//    
-//
-//    private static final BigDecimal BIG_FLOAT_MIN = new BigDecimal(FLOAT_MIN.toString());
-//
-//    private static final BigDecimal BIG_FLOAT_MAX = new BigDecimal(FLOAT_MAX.toString());
-
-    
 	
     public static <T extends Number> T parseNumber(String source, Class<T> type, NumberFormat formatter, boolean checkOverflow) {
 	String value = StringUtils.normalizeString(source);
@@ -137,7 +127,7 @@ public class NumberUtils {
 	
 	// Byte
 	if (Byte.class == type) {
-	    if (isOverflow(toBigNumber(number), BIG_BYTE_MIN , BIG_BYTE_MAX)) {
+	    if (isOverflow(number, BIG_BYTE_MIN , BIG_BYTE_MAX)) {
 		handleOverflowException(number, type);
 	    }
 	    
@@ -150,7 +140,7 @@ public class NumberUtils {
 	
 	// Short
 	if (Short.class == type) {
-	    if (isOverflow(toBigNumber(number), BIG_SHORT_MIN , BIG_SHORT_MAX)) {
+	    if (isOverflow(number, BIG_SHORT_MIN , BIG_SHORT_MAX)) {
 		handleOverflowException(number, type);
 	    }
 	    long value = number.longValue();
@@ -162,7 +152,7 @@ public class NumberUtils {
 	
 	// Integer
 	if (Integer.class == type) {
-	    if (isOverflow(toBigNumber(number), BIG_INTEGER_MIN , BIG_INTEGER_MAX)) {
+	    if (isOverflow(number, BIG_INTEGER_MIN , BIG_INTEGER_MAX)) {
 		handleOverflowException(number, type);
 	    }
 	    long value = number.longValue();
@@ -174,7 +164,7 @@ public class NumberUtils {
 
 	// Long
 	if (Long.class == type) {
-	    if (isOverflow(toBigNumber(number), BIG_LONG_MIN , BIG_LONG_MAX)) {
+	    if (isOverflow(number, BIG_LONG_MIN , BIG_LONG_MAX)) {
 		handleOverflowException(number, type);
 	    }
 	    
@@ -241,6 +231,33 @@ public class NumberUtils {
 	return formatter.format(value);
     }
     
+    public static boolean isUnknown(Number value) {
+	if (value == null) {
+	    return false;
+	}
+	if (value instanceof Float) {
+	    return isUnknown((Float) value);
+	}
+	if (value instanceof Double) {
+	    return isUnknown((Double) value);
+	}
+	return false;
+    }
+    
+    public static boolean isUnknown(Float value) {
+	if (value == null) {
+	    return false;
+	}
+	return Float.isInfinite(value) || Float.isNaN(value);
+    }
+    
+    public static boolean isUnknown(Double value) {
+	if (value == null) {
+	    return false;
+	}
+	return Double.isInfinite(value) || Double.isNaN(value);
+    }
+    
     private static void handleOverflowException(Number number, Class<?> type) {
 	throw new OverflowException("Could not convert number [" + number + "] of type [" + number.getClass().getName() + "] to type [" + type.getName() + "]");
     }
@@ -263,30 +280,41 @@ public class NumberUtils {
 	}
 	return null;
     }
-
-    private static BigDecimal toBigDecimal(Number number) {
-	if (number == null) {
-	    return null;
-	}
-	if (number instanceof Float) {
-	    return new BigDecimal(number.toString());
-	}
-	if (number instanceof Double) {
-	    return new BigDecimal(number.toString());
-	}
-	if (number instanceof BigInteger) {
-	    return new BigDecimal((BigInteger) number);
-	}
-	if (number instanceof BigDecimal) {
-	    return (BigDecimal) number;
-	}
-	return null;
-    }
+    
+//    private static BigDecimal toBigDecimal(Number number) {
+//	if (number == null) {
+//	    return null;
+//	}
+//	if (number instanceof Float) {
+//	    return new BigDecimal(number.toString());
+//	}
+//	if (number instanceof Double) {
+//	    return new BigDecimal(number.toString());
+//	}
+//	if (number instanceof BigInteger) {
+//	    return new BigDecimal((BigInteger) number);
+//	}
+//	if (number instanceof BigDecimal) {
+//	    return (BigDecimal) number;
+//	}
+//	return null;
+//    }
 
     private static boolean isOverflow(Number value, BigInteger min, BigInteger max) {
+	
+	// Null value is not overflow
 	if (value == null) {
 	    return false;
 	}
+	
+	// Unknown value is overflow
+	if (isUnknown(value)) {
+	    return true;
+	}
+	
+	// Convert value to big number
+	value = toBigNumber(value);
+	
 	if (value instanceof BigInteger) {
 	    BigInteger v = (BigInteger) value;
 	    return v.compareTo(min) < 0 || v.compareTo(max) > 0;
@@ -300,11 +328,12 @@ public class NumberUtils {
 	return false;
     }
     
-    private static boolean isOverflow(BigDecimal value, BigDecimal min, BigDecimal max) {
-	if (value == null) {
-	    return false;
-	}
-	return value.compareTo(min) < 0 || value.compareTo(max) > 0;
-    }
+//    private static boolean isOverflow(BigDecimal value, BigDecimal min, BigDecimal max) {
+//	if (value == null) {
+//	    return false;
+//	}
+//	return value.compareTo(min) < 0 || value.compareTo(max) > 0;
+//    }
 
+    
 }
