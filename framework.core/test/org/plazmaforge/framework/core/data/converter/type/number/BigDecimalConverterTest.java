@@ -35,26 +35,30 @@ import junit.framework.TestCase;
  * @author ohapon
  *
  */
-public class BigIntegerConverterTest extends TestCase {
+public class BigDecimalConverterTest extends TestCase {
     
     private static final String BIG_STR = (new Long(Long.MAX_VALUE)).toString() + "1234567890";
     
-    private static final BigInteger BIG_NEGATIVE_VALUE = new BigInteger("-" + BIG_STR);
+    private static final BigDecimal BIG_NEGATIVE_VALUE = new BigDecimal("-" + BIG_STR + "." + BIG_STR);
     
-    private static final BigInteger BIG_POSITIVE_VALUE = new BigInteger(BIG_STR);
+    private static final BigDecimal BIG_POSITIVE_VALUE = new BigDecimal(BIG_STR + "." + BIG_STR);
     
-    private static final BigInteger ZERO_VALUE = BigInteger.valueOf(0);
+    private static final BigDecimal ZERO_VALUE = BigDecimal.valueOf(0.0);
     
-    private static final BigInteger NEGATIVE_VALUE = BigInteger.valueOf(-123);
+    private static final BigDecimal NEGATIVE_VALUE = BigDecimal.valueOf(-123.45);
     
-    private static final BigInteger POSITIVE_VALUE = BigInteger.valueOf(123);
+    private static final BigDecimal NEGATIVE_VALUE_UP = BigDecimal.valueOf(-123.56);
+    
+    private static final BigDecimal POSITIVE_VALUE = BigDecimal.valueOf(123.45);
+    
+    private static final BigDecimal POSITIVE_VALUE_UP = BigDecimal.valueOf(123.56);
     
 
     // Byte
-    public void testBigInteger2ByteConverter() throws Exception {
-	BigInteger2ByteConverter converter = new BigInteger2ByteConverter();
+    public void testBigDecimal2ByteConverter() throws Exception {
+	BigDecimal2ByteConverter converter = new BigDecimal2ByteConverter();
 	
-	BigInteger source = null;
+	BigDecimal source = null;
 	Byte target = converter.convert(source);
 	assertNull(target);
 	
@@ -66,10 +70,18 @@ public class BigIntegerConverterTest extends TestCase {
 	target = converter.convert(source);
 	assertEquals(target, new Byte(NEGATIVE_VALUE.byteValue()));
 
+	source = NEGATIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Byte(NEGATIVE_VALUE_UP.byteValue()));
+	
 	source = POSITIVE_VALUE;
 	target = converter.convert(source);
 	assertEquals(target, new Byte(POSITIVE_VALUE.byteValue()));
 
+	source = POSITIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Byte(POSITIVE_VALUE_UP.byteValue()));
+	
 	source = BIG_NEGATIVE_VALUE;
 	try {
 	    target = converter.convert(source);	    
@@ -89,10 +101,10 @@ public class BigIntegerConverterTest extends TestCase {
     }
 
     // Short
-    public void testBigInteger2ShortConverter() throws Exception {
-	BigInteger2ShortConverter converter = new BigInteger2ShortConverter();
+    public void testBigDecimal2ShortConverter() throws Exception {
+	BigDecimal2ShortConverter converter = new BigDecimal2ShortConverter();
 	
-	BigInteger source = null;
+	BigDecimal source = null;
 	Short target = converter.convert(source);
 	assertNull(target);
 	
@@ -104,10 +116,18 @@ public class BigIntegerConverterTest extends TestCase {
 	target = converter.convert(source);
 	assertEquals(target, new Short(NEGATIVE_VALUE.shortValue()));
 
+	source = NEGATIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Short(NEGATIVE_VALUE_UP.shortValue()));
+	
 	source = POSITIVE_VALUE;
 	target = converter.convert(source);
 	assertEquals(target, new Short(POSITIVE_VALUE.shortValue()));
 
+	source = POSITIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Short(POSITIVE_VALUE_UP.shortValue()));
+	
 	source = BIG_NEGATIVE_VALUE;
 	try {
 	    target = converter.convert(source);	    
@@ -127,10 +147,10 @@ public class BigIntegerConverterTest extends TestCase {
     }
     
     // Integer
-    public void testBigInteger2IntegerConverter() throws Exception {
-	BigInteger2IntegerConverter converter = new BigInteger2IntegerConverter();
+    public void testBigDecimal2IntegerConverter() throws Exception {
+	BigDecimal2IntegerConverter converter = new BigDecimal2IntegerConverter();
 	
-	BigInteger source = null;
+	BigDecimal source = null;
 	Integer target = converter.convert(source);
 	assertNull(target);
 	
@@ -142,10 +162,18 @@ public class BigIntegerConverterTest extends TestCase {
 	target = converter.convert(source);
 	assertEquals(target, new Integer(NEGATIVE_VALUE.intValue()));
 
+	source = NEGATIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Integer(NEGATIVE_VALUE_UP.intValue()));
+	
 	source = POSITIVE_VALUE;
 	target = converter.convert(source);
 	assertEquals(target, new Integer(POSITIVE_VALUE.intValue()));
 
+	source = POSITIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Integer(POSITIVE_VALUE_UP.intValue()));
+	
 	source = BIG_NEGATIVE_VALUE;
 	try {
 	    target = converter.convert(source);	    
@@ -165,10 +193,10 @@ public class BigIntegerConverterTest extends TestCase {
     }  
     
     // Long
-    public void testBigInteger2LongConverter() throws Exception {
-	BigInteger2LongConverter converter = new BigInteger2LongConverter();
+    public void testBigDecimal2LongConverter() throws Exception {
+	BigDecimal2LongConverter converter = new BigDecimal2LongConverter();
 	
-	BigInteger source = null;
+	BigDecimal source = null;
 	Long target = converter.convert(source);
 	assertNull(target);
 	
@@ -180,10 +208,18 @@ public class BigIntegerConverterTest extends TestCase {
 	target = converter.convert(source);
 	assertEquals(target, new Long(NEGATIVE_VALUE.longValue()));
 
+	source = NEGATIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Long(NEGATIVE_VALUE_UP.longValue()));
+	
 	source = POSITIVE_VALUE;
 	target = converter.convert(source);
 	assertEquals(target, new Long(POSITIVE_VALUE.longValue()));
 
+	source = POSITIVE_VALUE_UP;
+	target = converter.convert(source);
+	assertEquals(target, new Long(POSITIVE_VALUE_UP.longValue()));
+	
 	source = BIG_NEGATIVE_VALUE;
 	try {
 	    target = converter.convert(source);	    
@@ -203,10 +239,10 @@ public class BigIntegerConverterTest extends TestCase {
     }
 
     // Float
-    public void testBigInteger2FloatConverter() throws Exception {
-	BigInteger2FloatConverter converter = new BigInteger2FloatConverter();
+    public void testBigDecimal2FloatConverter() throws Exception {
+	BigDecimal2FloatConverter converter = new BigDecimal2FloatConverter();
    	
-	BigInteger source = null;
+	BigDecimal source = null;
    	Float target = converter.convert(source);
    	assertNull(target);
    	
@@ -233,10 +269,10 @@ public class BigIntegerConverterTest extends TestCase {
     }
 
     // Double
-    public void testBigInteger2DoubleConverter() throws Exception {
-	BigInteger2DoubleConverter converter = new BigInteger2DoubleConverter();
+    public void testBigDecimal2DoubleConverter() throws Exception {
+	BigDecimal2DoubleConverter converter = new BigDecimal2DoubleConverter();
    	
-	BigInteger source = null;
+	BigDecimal source = null;
    	Double target = converter.convert(source);
    	assertNull(target);
    	
@@ -263,40 +299,40 @@ public class BigIntegerConverterTest extends TestCase {
     }
     
     // BigDecimal
-    public void testBigInteger2BigDecimalConverter() throws Exception {
-	BigInteger2BigDecimalConverter converter = new BigInteger2BigDecimalConverter();
+    public void testBigDecimal2BigIntegerConverter() throws Exception {
+	BigDecimal2BigIntegerConverter converter = new BigDecimal2BigIntegerConverter();
    	
-	BigInteger source = null;
-   	BigDecimal target = converter.convert(source);
+	BigDecimal source = null;
+   	BigInteger target = converter.convert(source);
    	assertNull(target);
    	
    	source = ZERO_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new BigDecimal(ZERO_VALUE.toString()));
+   	assertEquals(target, (new BigDecimal(ZERO_VALUE.toString())).toBigInteger());
 
    	source = NEGATIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new BigDecimal(NEGATIVE_VALUE.toString()));
+   	assertEquals(target, (new BigDecimal(NEGATIVE_VALUE.toString())).toBigInteger());
 
    	source = POSITIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new BigDecimal(POSITIVE_VALUE.toString()));
+   	assertEquals(target, (new BigDecimal(POSITIVE_VALUE.toString())).toBigInteger());
 
    	source = BIG_NEGATIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new BigDecimal(BIG_NEGATIVE_VALUE.toString()));
+   	assertEquals(target, (new BigDecimal(BIG_NEGATIVE_VALUE.toString())).toBigInteger());
 
    	source = BIG_POSITIVE_VALUE;
    	target = converter.convert(source);
-   	assertEquals(target, new BigDecimal(BIG_POSITIVE_VALUE.toString()));
+   	assertEquals(target, (new BigDecimal(BIG_POSITIVE_VALUE.toString())).toBigInteger());
    	
     }    
     
     // String
-    public void testBigInteger2StringConverter() throws Exception {
-	BigInteger2StringConverter converter = new BigInteger2StringConverter();
+    public void testBigDecimal2StringConverter() throws Exception {
+	BigDecimal2StringConverter converter = new BigDecimal2StringConverter();
    	
-	BigInteger source = null;
+	BigDecimal source = null;
    	String target = converter.convert(source);
    	assertNull(target);
    	
@@ -323,11 +359,11 @@ public class BigIntegerConverterTest extends TestCase {
 	// TODO: Temp solution: Use 'locale' attribute to configure locale in DataConnector/DataSet/DataResultSet 
 	Locale.setDefault(Locale.ENGLISH);
 
-   	source = BigInteger.valueOf(123);
-   	converter = new BigInteger2StringConverter("#.00");
+   	source = BigDecimal.valueOf(123.45);
+   	converter = new BigDecimal2StringConverter("#.00");
    	target = converter.convert(source);
    	
-   	assertEquals(target, "123.00");
+   	assertEquals(target, "123.45");
    	
     }
        
