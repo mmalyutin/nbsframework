@@ -20,24 +20,30 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter;
+package org.plazmaforge.framework.core.data.converter.type.number;
 
-import java.util.Map;
 
-import junit.framework.TestCase;
+import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConverter;
 
-public class ConverterManagerTest extends TestCase {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class String2ShortConverter extends AbstractString2NumberConverter<Short> {
 
-    public void testInit() {
-	ConverterManager manager = new ConverterManager();
-	manager.registerBaseConveretrFactories();
-	
-	Map<String, ConverterFactory<?, ?>> converterFactories = manager.getConverterFactories();
-	int i = 0;
-	for (Map.Entry<String, ConverterFactory<?, ?>> entry : converterFactories.entrySet()) {
-	    i++;
-	    //System.out.println(entry.getKey() + "=" + entry.getValue().getClass());
-	    System.out.println("" + i + ". " + entry.getKey());
-	}
+    
+    public String2ShortConverter() {
+	super();
     }
+
+    public String2ShortConverter(String format) {
+	super(format);
+    }
+
+    @Override
+    public Short convert(String source) {
+	return parseNumber(source, Short.class, getFormatter());
+    }
+
 }
