@@ -22,6 +22,8 @@
 
 package org.plazmaforge.framework.core.data.converter;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +34,8 @@ import org.plazmaforge.framework.core.data.converter.type.date.Date2TimeConverte
 import org.plazmaforge.framework.core.data.converter.type.date.Date2TimeConverterFactory;
 import org.plazmaforge.framework.core.data.converter.type.date.String2DateTimeConverter;
 import org.plazmaforge.framework.core.data.converter.type.date.String2DateTimeConverterFactory;
-import org.plazmaforge.framework.core.data.converter.type.number.String2TimeConverter;
-import org.plazmaforge.framework.core.data.converter.type.number.String2TimeConverterFactory;
+import org.plazmaforge.framework.core.data.converter.type.date.String2TimeConverter;
+import org.plazmaforge.framework.core.data.converter.type.date.String2TimeConverterFactory;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -233,15 +235,85 @@ public class ConverterManager {
 	//////////////////////////////////////////////////////////////////////////////////
 	
 	// String -> <Number>
+	registerGenericConveretrFactory(".number", String.class, Byte.class);
+	registerGenericConveretrFactory(".number", String.class, Short.class);
 	registerGenericConveretrFactory(".number", String.class, Integer.class);
 	registerGenericConveretrFactory(".number", String.class, Long.class);
 	registerGenericConveretrFactory(".number", String.class, Float.class);
 	registerGenericConveretrFactory(".number", String.class, Double.class);
 
+	
+	//////////////////////////////////////////////////////////////////////////////////
 	// <Number> -> <Number>
-	registerGenericConveretrFactory(".number", Double.class, Integer.class);
-	registerGenericConveretrFactory(".number", Double.class, Float.class);
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	// Byte
+	registerGenericConveretrFactory(".number", Byte.class, Short.class);
+	registerGenericConveretrFactory(".number", Byte.class, Integer.class);
+	registerGenericConveretrFactory(".number", Byte.class, Long.class);
+	registerGenericConveretrFactory(".number", Byte.class, Float.class);
+	registerGenericConveretrFactory(".number", Byte.class, Double.class);
+	registerGenericConveretrFactory(".number", Byte.class, BigInteger.class);
+	registerGenericConveretrFactory(".number", Byte.class, BigDecimal.class);
+	registerGenericConveretrFactory(".number", Byte.class, String.class);
 
+	// Short
+	registerGenericConveretrFactory(".number", Short.class, Byte.class);
+	registerGenericConveretrFactory(".number", Short.class, Integer.class);
+	registerGenericConveretrFactory(".number", Short.class, Long.class);
+	registerGenericConveretrFactory(".number", Short.class, Float.class);
+	registerGenericConveretrFactory(".number", Short.class, Double.class);
+	registerGenericConveretrFactory(".number", Short.class, BigInteger.class);
+	registerGenericConveretrFactory(".number", Short.class, BigDecimal.class);
+	registerGenericConveretrFactory(".number", Short.class, String.class);
+
+	// Integer
+	registerGenericConveretrFactory(".number", Integer.class, Byte.class);
+	registerGenericConveretrFactory(".number", Integer.class, Short.class);
+	registerGenericConveretrFactory(".number", Integer.class, Long.class);
+	registerGenericConveretrFactory(".number", Integer.class, Float.class);
+	registerGenericConveretrFactory(".number", Integer.class, Double.class);
+	registerGenericConveretrFactory(".number", Integer.class, BigInteger.class);
+	registerGenericConveretrFactory(".number", Integer.class, BigDecimal.class);
+	registerGenericConveretrFactory(".number", Integer.class, String.class);
+
+	// Float
+	registerGenericConveretrFactory(".number", Float.class, Byte.class);
+	registerGenericConveretrFactory(".number", Float.class, Short.class);
+	registerGenericConveretrFactory(".number", Float.class, Integer.class);
+	registerGenericConveretrFactory(".number", Float.class, Long.class);
+	registerGenericConveretrFactory(".number", Float.class, Double.class);
+	registerGenericConveretrFactory(".number", Float.class, BigInteger.class);
+	registerGenericConveretrFactory(".number", Float.class, BigDecimal.class);
+	registerGenericConveretrFactory(".number", Float.class, String.class);
+
+	// Double
+	registerGenericConveretrFactory(".number", Double.class, Byte.class);
+	registerGenericConveretrFactory(".number", Double.class, Short.class);
+	registerGenericConveretrFactory(".number", Double.class, Integer.class);
+	registerGenericConveretrFactory(".number", Double.class, Long.class);
+	registerGenericConveretrFactory(".number", Double.class, Float.class);
+	registerGenericConveretrFactory(".number", Double.class, BigInteger.class);
+	registerGenericConveretrFactory(".number", Double.class, BigDecimal.class);
+	registerGenericConveretrFactory(".number", Double.class, String.class);
+
+	// BigInteger
+	registerGenericConveretrFactory(".number", BigInteger.class, Byte.class);
+	registerGenericConveretrFactory(".number", BigInteger.class, Short.class);
+	registerGenericConveretrFactory(".number", BigInteger.class, Integer.class);
+	registerGenericConveretrFactory(".number", BigInteger.class, Long.class);
+	registerGenericConveretrFactory(".number", BigInteger.class, Float.class);
+	registerGenericConveretrFactory(".number", BigInteger.class, Double.class);
+	registerGenericConveretrFactory(".number", BigInteger.class, BigDecimal.class);
+
+	// BigDecimal
+	registerGenericConveretrFactory(".number", BigDecimal.class, Byte.class);
+	registerGenericConveretrFactory(".number", BigDecimal.class, Short.class);
+	registerGenericConveretrFactory(".number", BigDecimal.class, Integer.class);
+	registerGenericConveretrFactory(".number", BigDecimal.class, Long.class);
+	registerGenericConveretrFactory(".number", BigDecimal.class, Float.class);
+	registerGenericConveretrFactory(".number", BigDecimal.class, Double.class);
+	registerGenericConveretrFactory(".number", BigDecimal.class, BigInteger.class);
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////

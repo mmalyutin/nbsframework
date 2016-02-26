@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type.number;
+package org.plazmaforge.framework.core.data.converter.type.date;
 
 import java.util.Date;
 
