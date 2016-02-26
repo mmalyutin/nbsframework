@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Locale;
 
+import org.plazmaforge.framework.core.exception.OverflowException;
+
 import junit.framework.TestCase;
 
 /**
@@ -258,10 +260,9 @@ public class ByteConverterTest extends TestCase {
    	assertEquals(target, BigDecimal.valueOf(MAX_VALUE));
    	
     }    
-    
-    
 
-    // String
+    
+    // String -> Byte
     public void testByte2StringConverter() throws Exception {
    	Byte2StringConverter converter = new Byte2StringConverter();
    	
@@ -300,4 +301,80 @@ public class ByteConverterTest extends TestCase {
    	
     }        
     
+
+    // String -> Byte
+    public void testString2ByteConverter() throws Exception {
+   	String2ByteConverter converter = new String2ByteConverter();
+   	
+   	String source = null;
+   	Byte target = converter.convert(source);
+   	assertNull(target);
+   	
+   	source = ZERO_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, ZERO_VALUE);
+
+   	source = NEGATIVE_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, NEGATIVE_VALUE);
+
+   	source = POSITIVE_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, POSITIVE_VALUE);
+
+   	source = MIN_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, MIN_VALUE);
+
+   	source = MAX_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, MAX_VALUE);
+
+   	source = "123";
+   	target = converter.convert(source);
+   	assertEquals(target, new Byte((byte) 123));
+
+   	source = "123.45"; // down
+   	target = converter.convert(source);
+   	assertEquals(target, new Byte((byte) 123));
+
+   	source = "123.56"; // up
+   	target = converter.convert(source);
+   	assertEquals(target, new Byte((byte) 123));
+
+   	Integer value = Byte.MAX_VALUE + 1; // 127 + 1 = 128
+   	source = value.toString();
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+   	value = Byte.MIN_VALUE - 1; // -128 - 1 = -129 
+   	source = value.toString();
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+   	source = "1234567890";
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+
+   	source = "-1234567890";
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+    }            
 }
