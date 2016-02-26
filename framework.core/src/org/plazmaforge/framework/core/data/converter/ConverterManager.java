@@ -25,7 +25,7 @@ package org.plazmaforge.framework.core.data.converter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.converter.type.date.Date2DateTimeConverter;
@@ -47,7 +47,7 @@ public class ConverterManager {
 
     public static final String GENERAL_CONVERTER_PACKAGE = ConverterManager.class.getPackage().getName() + ".type";
     
-    private Map<String, ConverterFactory<?, ?>> converterFactories = new HashMap<String, ConverterFactory<?, ?>>();
+    private Map<String, ConverterFactory<?, ?>> converterFactories = new LinkedHashMap<String, ConverterFactory<?, ?>>();
     
     private ConverterRegistry converterRegistry = new ConverterRegistry(); 
 
@@ -76,6 +76,10 @@ public class ConverterManager {
     
     public ConverterFactory<?, ?> getConverterFactory(String name) {
 	return converterFactories.get(name);
+    }
+    
+    public Map<String, ConverterFactory<?, ?>> getConverterFactories() {
+	return new LinkedHashMap<String, ConverterFactory<?,?>>(converterFactories);
     }
     
     public Converter<?, ?> getConverter(String name) {
@@ -241,10 +245,12 @@ public class ConverterManager {
 	registerGenericConveretrFactory(".number", String.class, Long.class);
 	registerGenericConveretrFactory(".number", String.class, Float.class);
 	registerGenericConveretrFactory(".number", String.class, Double.class);
+	registerGenericConveretrFactory(".number", String.class, BigInteger.class);
+	registerGenericConveretrFactory(".number", String.class, BigDecimal.class);
 
 	
 	//////////////////////////////////////////////////////////////////////////////////
-	// <Number> -> <Number>
+	// <Number> -> <Number>, String
 	//////////////////////////////////////////////////////////////////////////////////
 	
 	// Byte
@@ -333,9 +339,15 @@ public class ConverterManager {
 	
 	// Self
 	registerSelfConveretrFactory(String.class);
+	
+	registerSelfConveretrFactory(Byte.class);
+	registerSelfConveretrFactory(Short.class);
 	registerSelfConveretrFactory(Integer.class);
+	registerSelfConveretrFactory(Long.class);
 	registerSelfConveretrFactory(Float.class);
 	registerSelfConveretrFactory(Double.class);
+	registerSelfConveretrFactory(BigInteger.class);
+	registerSelfConveretrFactory(BigDecimal.class);
 	
 	registerSelfConveretrFactory(Date.class);
 	

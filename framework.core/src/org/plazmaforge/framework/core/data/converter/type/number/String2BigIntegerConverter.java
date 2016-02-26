@@ -20,24 +20,32 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter;
+package org.plazmaforge.framework.core.data.converter.type.number;
 
-import java.util.Map;
 
-import junit.framework.TestCase;
+import java.math.BigInteger;
 
-public class ConverterManagerTest extends TestCase {
+import org.plazmaforge.framework.core.data.converter.AbstractString2NumberConverter;
 
-    public void testInit() {
-	ConverterManager manager = new ConverterManager();
-	manager.registerBaseConveretrFactories();
-	
-	Map<String, ConverterFactory<?, ?>> converterFactories = manager.getConverterFactories();
-	int i = 0;
-	for (Map.Entry<String, ConverterFactory<?, ?>> entry : converterFactories.entrySet()) {
-	    i++;
-	    //System.out.println(entry.getKey() + "=" + entry.getValue().getClass());
-	    System.out.println("" + i + ". " + entry.getKey());
-	}
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class String2BigIntegerConverter extends AbstractString2NumberConverter<BigInteger> {
+
+    
+    public String2BigIntegerConverter() {
+	super();
     }
+
+    public String2BigIntegerConverter(String format) {
+	super(format);
+    }
+
+    @Override
+    public BigInteger convert(String source) {
+	return parseNumber(source, BigInteger.class, getFormatter());
+    }
+
 }
