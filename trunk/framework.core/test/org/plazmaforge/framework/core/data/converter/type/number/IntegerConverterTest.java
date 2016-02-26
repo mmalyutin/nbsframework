@@ -277,7 +277,7 @@ public class IntegerConverterTest extends TestCase {
    	
     }    
     
-    // String
+    // String -> Integer
     public void testInteger2StringConverter() throws Exception {
 	Integer2StringConverter converter = new Integer2StringConverter();
    	
@@ -315,6 +315,81 @@ public class IntegerConverterTest extends TestCase {
    	assertEquals(target, "123.00");
    	
     }
-       
+
+    // String -> Integer
+    public void testString2IntegerConverter() throws Exception {
+   	String2IntegerConverter converter = new String2IntegerConverter();
+   	
+   	String source = null;
+   	Integer target = converter.convert(source);
+   	assertNull(target);
+   	
+   	source = ZERO_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, ZERO_VALUE);
+
+   	source = NEGATIVE_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, NEGATIVE_VALUE);
+
+   	source = POSITIVE_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, POSITIVE_VALUE);
+
+   	source = MIN_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, MIN_VALUE);
+
+   	source = MAX_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, MAX_VALUE);
+
+   	source = "123";
+   	target = converter.convert(source);
+   	assertEquals(target, new Integer(123));
+
+   	source = "123.45"; // down
+   	target = converter.convert(source);
+   	assertEquals(target, new Integer(123));
+
+   	source = "123.56"; // up
+   	target = converter.convert(source);
+   	assertEquals(target, new Integer(123));
+
+   	Long value = Integer.MAX_VALUE + 1L; // 2147483647 + 1 = 2147483648
+   	source = value.toString();
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Integer overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+   	value = Integer.MIN_VALUE - 1L; // -2147483648 - 1 = -2147483649 
+   	source = value.toString();
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Integer overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+   	source = "12345678901234567890";
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Integer overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+
+   	source = "-12345678901234567890";
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Integer overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+    }                    
     
 }

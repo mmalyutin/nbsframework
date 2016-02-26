@@ -268,10 +268,9 @@ public class ShortConverterTest extends TestCase {
    	assertEquals(target, BigDecimal.valueOf(MAX_VALUE));
    	
     }    
-    
-    
 
-    // String
+    
+    // String -> Short
     public void testShort2StringConverter() throws Exception {
 	Short2StringConverter converter = new Short2StringConverter();
    	
@@ -310,5 +309,80 @@ public class ShortConverterTest extends TestCase {
    	
     }
        
-    
+
+    // String -> Short
+    public void testString2ShortConverter() throws Exception {
+   	String2ShortConverter converter = new String2ShortConverter();
+   	
+   	String source = null;
+   	Short target = converter.convert(source);
+   	assertNull(target);
+   	
+   	source = ZERO_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, ZERO_VALUE);
+
+   	source = NEGATIVE_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, NEGATIVE_VALUE);
+
+   	source = POSITIVE_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, POSITIVE_VALUE);
+
+   	source = MIN_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, MIN_VALUE);
+
+   	source = MAX_VALUE.toString();
+   	target = converter.convert(source);
+   	assertEquals(target, MAX_VALUE);
+
+   	source = "123";
+   	target = converter.convert(source);
+   	assertEquals(target, new Short((short) 123));
+
+   	source = "123.45"; // down
+   	target = converter.convert(source);
+   	assertEquals(target, new Short((short) 123));
+
+   	source = "123.56"; // up
+   	target = converter.convert(source);
+   	assertEquals(target, new Short((short) 123));
+
+   	Integer value = Short.MAX_VALUE + 1; // 32767 + 1 = 32768
+   	source = value.toString();
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Short overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+   	value = Short.MIN_VALUE - 1; // -32768 - 1 = -32769 
+   	source = value.toString();
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Short overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+   	source = "1234567890";
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Short overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+
+   	source = "-1234567890";
+   	try {
+	    target = converter.convert(source);	    
+	    fail("Short overflow is not implemented: " + source);
+	} catch (OverflowException ex) {
+	    
+	}
+   	
+    }                
 }

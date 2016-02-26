@@ -61,42 +61,61 @@ public class NumberUtils {
 	if (value == null) {
 	    return null;
 	}
+	
 	if (formatter != null) {
 	    try {
 		Number number = formatter.parse(source);
 		return convertNumber(number, type, checkOverflow);
 	    } catch (ParseException ex) {
-		throw new IllegalArgumentException("Could not parse number: " + ex.getMessage());
+		throw new ConvertException("Could not parse number: " + ex.getMessage());
 	    }
 	}
 	
-	// TODO: Must checkOverflow
+	Number number = null;
+	try {
+	    if (isLikeInteger(type)) {
+		try {
+		    number = parseBigInteger(value);
+		} catch (NumberFormatException ex) {
+		    number = parseBigDecimal(value);
+		}
+		return convertNumber(number, type, checkOverflow);
+	    } else if (isLikeDecimal(type)) {
+		number = parseBigDecimal(value);
+		return convertNumber(number, type, checkOverflow);
+	    }
+	} catch (NumberFormatException ex) {
+	    throw new ConvertException("Could not parse number: " + ex.getMessage());
+	}	
 	
-	if (Byte.class == type) {
-	    return (T) Byte.valueOf(source);
-	}
-	if (Short.class == type) {
-	    return (T) Short.valueOf(source);
-	}   
-	if (Integer.class == type) {
-	    return (T) Integer.valueOf(source);
-	}   
-	if (Long.class == type) {
-	    return (T) Long.valueOf(source);
-	}   
-	if (Float.class == type) {
-	    return (T) Float.valueOf(source);
-	}   
-	if (Double.class == type) {
-	    return (T) Double.valueOf(source);
-	}   
-	if (BigInteger.class == type) {
-	    return (T) new BigInteger(source);
-	}   
-	if (BigDecimal.class == type) {
-	    return (T) new BigDecimal(source);
-	}   	
-	return null;
+	throw new ConvertException("Could not parse number [" + source + "]: "  + ( type == null ? "type is null" : ("unknown type [" + type.getName() + "]")));
+	
+//	
+//	if (Byte.class == type) {
+//	    return (T) Byte.valueOf(source);
+//	}
+//	if (Short.class == type) {
+//	    return (T) Short.valueOf(source);
+//	}   
+//	if (Integer.class == type) {
+//	    return (T) Integer.valueOf(source);
+//	}   
+//	if (Long.class == type) {
+//	    return (T) Long.valueOf(source);
+//	}   
+//	if (Float.class == type) {
+//	    return (T) Float.valueOf(source);
+//	}   
+//	if (Double.class == type) {
+//	    return (T) Double.valueOf(source);
+//	}   
+//	if (BigInteger.class == type) {
+//	    return (T) new BigInteger(source);
+//	}   
+//	if (BigDecimal.class == type) {
+//	    return (T) new BigDecimal(source);
+//	}   	
+//	return null;
     }
     
     public static <T extends Number> T parseNumber(String source, Class<T> type, NumberFormat formatter) {
@@ -117,7 +136,7 @@ public class NumberUtils {
 	    return null;
 	}
 	if (type == null) {
-	    throw new ConvertException("Could not convert number [" + number + "] to unknown type");
+	    throw new ConvertException("Could not convert number [" + number + "]: type is null");
 	}
 	// TODO: Must checkOverflow
 	
@@ -335,5 +354,128 @@ public class NumberUtils {
 //	return value.compareTo(min) < 0 || value.compareTo(max) > 0;
 //    }
 
+
+    private static BigInteger parseBigInteger(String value) {
+	return decodeBigInteger(value);
+    }
+
+    private static BigDecimal parseBigDecimal(String value) {
+	if (value == null) {
+	    return null;
+	}
+	return new BigDecimal(value);
+    }
+    
+    private static BigInteger decodeBigInteger(String value) {
+	if (value == null) {
+	    return null;
+	}
+	
+	int radix = 10;
+	int index = 0;
+	boolean negative = false;
+
+	// Handle minus sign, if present.
+	if (value.startsWith("-")) {
+	    negative = true;
+	    index++;
+	}
+
+	// Handle radix specifier, if present.
+	if (value.startsWith("0x", index) || value.startsWith("0X", index)) {
+	    index += 2;
+	    radix = 16;
+	} else if (value.startsWith("#", index)) {
+	    index++;
+	    radix = 16;
+	} else if (value.startsWith("0", index) && value.length() > 1 + index) {
+	    index++;
+	    radix = 8;
+	}
+
+	BigInteger result = new BigInteger(value.substring(index), radix);
+	return (negative ? result.negate() : result);
+    }
+
+    ////
+    
+    public static boolean isByte(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(Byte.class) || type.isAssignableFrom(Byte.TYPE);
+    }
+
+    public static boolean isShort(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(Short.class) || type.isAssignableFrom(Short.TYPE);
+    }
+
+    public static boolean isInteger(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(Integer.class) || type.isAssignableFrom(Integer.TYPE);
+    }
+
+    public static boolean isLong(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(Long.class) || type.isAssignableFrom(Long.TYPE);
+    }
+
+    public static boolean isFloat(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(Float.class) || type.isAssignableFrom(Float.TYPE);
+    }
+
+    public static boolean isDouble(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(Double.class) || type.isAssignableFrom(Double.TYPE);
+    }
+
+    public static boolean isBigInteger(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(BigInteger.class);
+    }
+
+    public static boolean isBigDecimal(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(BigDecimal.class);
+    }
+
+    public static boolean isLikeInteger(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return isByte(type) || isShort(type) || isInteger(type) || isLong(type);
+    }
+
+    public static boolean isLikeDecimal(Class<?> type) {
+	if (type == null) {
+	    return false;
+	}
+	return isFloat(type) || isDouble(type) || isBigDecimal(type);
+    }
+    
+    
+    public static boolean isLikeInteger(Number value) {
+	return (value instanceof Byte) 	|| (value instanceof Short) || (value instanceof Integer) || (value instanceof Long);
+    }
+    
+    public static boolean isLikeDecimal(Number value) {
+	return (value instanceof Float) || (value instanceof Double) || (value instanceof BigDecimal);
+    }
     
 }
