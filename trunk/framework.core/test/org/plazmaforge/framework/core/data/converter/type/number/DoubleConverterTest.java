@@ -54,7 +54,11 @@ public class DoubleConverterTest extends TestCase {
     
     private static final Double POSITIVE_VALUE_UP = 123.56D;
     
+    private static final Double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY;
+    
+    private static final Double POSITIVE_INFINITY = Double.POSITIVE_INFINITY;
 
+    
     // Byte
     public void testDouble2ByteConverter() throws Exception {
 	Double2ByteConverter converter = new Double2ByteConverter();
@@ -99,6 +103,22 @@ public class DoubleConverterTest extends TestCase {
 	try {
 	    target = converter.convert(source);	    
 	    fail("Byte overflow is not implemented: Double.MAX_VALUE");
+	} catch (OverflowException ex) {
+	    
+	}
+	
+	source = NEGATIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.NEGATIVE_INFINITY");
+	} catch (OverflowException ex) {
+	    
+	}
+
+	source = POSITIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.POSITIVE_INFINITY");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -153,6 +173,22 @@ public class DoubleConverterTest extends TestCase {
 	    
 	}
 	
+	source = NEGATIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.NEGATIVE_INFINITY");
+	} catch (OverflowException ex) {
+	    
+	}
+
+	source = POSITIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.POSITIVE_INFINITY");
+	} catch (OverflowException ex) {
+	    
+	}
+	
     }
     
     // Integer
@@ -199,6 +235,22 @@ public class DoubleConverterTest extends TestCase {
 	try {
 	    target = converter.convert(source);	    
 	    fail("Integer overflow is not implemented: Double.MAX_VALUE");
+	} catch (OverflowException ex) {
+	    
+	}
+	
+	source = NEGATIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.NEGATIVE_INFINITY");
+	} catch (OverflowException ex) {
+	    
+	}
+
+	source = POSITIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.POSITIVE_INFINITY");
 	} catch (OverflowException ex) {
 	    
 	}
@@ -253,6 +305,22 @@ public class DoubleConverterTest extends TestCase {
 	    
 	}   	
    	
+	source = NEGATIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.NEGATIVE_INFINITY");
+	} catch (OverflowException ex) {
+	    
+	}
+
+	source = POSITIVE_INFINITY;
+	try {
+	    target = converter.convert(source);	    
+	    fail("Byte overflow is not implemented: Double.POSITIVE_INFINITY");
+	} catch (OverflowException ex) {
+	    
+	}
+	
     }
     
     // Float

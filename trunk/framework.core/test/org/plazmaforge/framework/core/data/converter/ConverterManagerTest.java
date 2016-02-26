@@ -20,39 +20,14 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter.type.number;
+package org.plazmaforge.framework.core.data.converter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import junit.framework.TestCase;
 
-import org.plazmaforge.framework.core.data.converter.AbstractString2DateConverter;
-import org.plazmaforge.framework.util.StringUtils;
+public class ConverterManagerTest extends TestCase {
 
-/**
- * 
- * @author ohapon
- *
- */
-public class String2TimeConverter extends AbstractString2DateConverter<Date> {
-
-    
-    public String2TimeConverter() {
-	super();
+    public void testInit() {
+	ConverterManager manager = new ConverterManager();
+	manager.registerBaseConveretrFactories();
     }
-
-    public String2TimeConverter(String format) {
-	super(format);
-    }
-
-    @Override
-    public Date convert(String source) {
-	return parseDate(source, getFormatter());
-    }
-    
-    protected DateFormat createFormatter(String format) {
-  	return new SimpleDateFormat(StringUtils.isEmpty(format, true) ? DEFAULT_TIME_FORMAT : format);
-      }
-    
-
 }
