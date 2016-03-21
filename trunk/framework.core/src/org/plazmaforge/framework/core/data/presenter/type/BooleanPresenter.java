@@ -20,20 +20,18 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter;
+package org.plazmaforge.framework.core.data.presenter.type;
 
-public class FloatPresenter extends AbstractValuePresenter {
+import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+
+public class BooleanPresenter extends AbstractValuePresenter {
 
     @Override
     public Object toValue(String str) {
-	try {
-	    if (str == null) {
-		return null;
-	    }
-	    return Float.valueOf(str);
-	} catch (NumberFormatException ex) {
+	if (str == null) {
 	    return null;
 	}
+	return Boolean.valueOf(str);
     }
 
 }

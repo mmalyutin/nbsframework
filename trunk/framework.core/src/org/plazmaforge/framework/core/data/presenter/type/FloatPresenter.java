@@ -20,9 +20,11 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter;
+package org.plazmaforge.framework.core.data.presenter.type;
 
-public class BytePresenter extends AbstractValuePresenter {
+import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+
+public class FloatPresenter extends AbstractValuePresenter {
 
     @Override
     public Object toValue(String str) {
@@ -30,9 +32,10 @@ public class BytePresenter extends AbstractValuePresenter {
 	    if (str == null) {
 		return null;
 	    }
-	    return Byte.valueOf(str);
+	    return Float.valueOf(str);
 	} catch (NumberFormatException ex) {
 	    return null;
 	}
     }
+
 }

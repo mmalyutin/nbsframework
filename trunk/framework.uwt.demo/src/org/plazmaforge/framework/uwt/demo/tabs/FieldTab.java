@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.plazmaforge.framework.core.data.ValuePresenter;
-import org.plazmaforge.framework.core.data.presenter.DatePresenter;
-import org.plazmaforge.framework.core.data.presenter.DateTimePresenter;
-import org.plazmaforge.framework.core.data.presenter.TimePresenter;
+import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.DatePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.DateTimePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.TimePresenter;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.layout.GridLayout;

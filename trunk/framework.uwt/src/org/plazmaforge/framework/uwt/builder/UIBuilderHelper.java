@@ -29,9 +29,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.plazmaforge.framework.core.data.ValuePresenter;
 import org.plazmaforge.framework.core.data.object.Data;
 import org.plazmaforge.framework.core.data.object.IData;
+import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
 import org.plazmaforge.framework.core.resource.Resource;
 import org.plazmaforge.framework.core.resource.ResourceUtils;
 import org.plazmaforge.framework.uwt.UIObject;

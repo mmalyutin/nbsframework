@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.form;
 
-import org.plazmaforge.framework.core.data.ValuePresenter;
+import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
 
 /**
  * 

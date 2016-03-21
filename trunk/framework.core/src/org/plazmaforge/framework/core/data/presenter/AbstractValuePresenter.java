@@ -22,7 +22,6 @@
 
 package org.plazmaforge.framework.core.data.presenter;
 
-import org.plazmaforge.framework.core.data.ValuePresenter;
 
 public abstract class AbstractValuePresenter implements ValuePresenter {
 

@@ -22,18 +22,20 @@
 
 package org.plazmaforge.framework.core.data.presenter;
 
-public class DoublePresenter extends AbstractValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
 
-    @Override
-    public Object toValue(String str) {
-	try {
-	    if (str == null) {
-		return null;
-	    }
-	    return Double.valueOf(str);
-	} catch (NumberFormatException ex) {
-	    return null;
-	}
-    }
+public interface ValuePresenter {
 
+    String getFormat();
+    
+    void setFormat(String format);
+    
+    String toString(Object value);
+    
+    Object toValue(String str);
+    
 }
