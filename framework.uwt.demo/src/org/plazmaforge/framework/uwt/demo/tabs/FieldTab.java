@@ -237,7 +237,7 @@ public class FieldTab extends AbstractTab {
     }
     
     private void addValueInfo(StringBuffer buf, String type, Object value, Formatter formatter) {
-	String strValue = formatter != null ? formatter.toString(value) : ("" + value);
+	String strValue = formatter != null ? formatter.format(value) : ("" + value);
 	buf.append(type + " = '" + strValue + "'");
 	buf.append("\n");
     }

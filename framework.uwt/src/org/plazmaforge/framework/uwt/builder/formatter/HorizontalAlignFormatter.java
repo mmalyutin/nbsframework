@@ -35,7 +35,7 @@ public class HorizontalAlignFormatter extends AbstractStyleEnumFormatter {
     
     
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	if (str == null) {
 	    return null;
 	}

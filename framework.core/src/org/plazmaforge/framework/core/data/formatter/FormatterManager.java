@@ -38,7 +38,7 @@ public class FormatterManager extends FormatterFactory {
 	if (presenter == null) {
 	    return null;
 	}
-	return presenter.toString(value);
+	return presenter.format(value);
     }
     
     public Object toValue(String value, String type) {
@@ -49,7 +49,7 @@ public class FormatterManager extends FormatterFactory {
 	if (presenter == null) {
 	    return null;
 	}
-	return presenter.toValue(value);
+	return presenter.parse(value);
     }
     
     

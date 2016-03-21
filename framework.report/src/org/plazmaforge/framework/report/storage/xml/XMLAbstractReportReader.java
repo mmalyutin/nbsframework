@@ -86,7 +86,7 @@ public class XMLAbstractReportReader extends XMLAbstractReader implements XMLInf
 	if (value == null) {
 	    return null;
 	}
-	Color color = (Color) COLOR_FORMATTER.toValue(value);
+	Color color = (Color) COLOR_FORMATTER.parse(value);
 	return color;
     }
 

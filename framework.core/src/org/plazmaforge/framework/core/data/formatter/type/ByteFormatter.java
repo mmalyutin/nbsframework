@@ -32,7 +32,7 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 public class ByteFormatter extends AbstractFormatter {
 
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	try {
 	    if (str == null) {
 		return null;

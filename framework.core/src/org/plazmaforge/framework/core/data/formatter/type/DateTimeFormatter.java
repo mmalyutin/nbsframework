@@ -36,7 +36,7 @@ import org.plazmaforge.framework.util.StringUtils;
 public class DateTimeFormatter extends DateFormatter {
 
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	if (str == null) {
 	    return null;
 	}
@@ -77,7 +77,7 @@ public class DateTimeFormatter extends DateFormatter {
     
     
     @Override
-    public String toString(Object value) {
+    public String format(Object value) {
 	if (value == null) {
 	    return null;
 	}

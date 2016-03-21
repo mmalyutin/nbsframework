@@ -288,13 +288,13 @@ public class UIBuilderHelper {
 	    return value;
 	}
 	if (type == null || "Boolean".equals(type)) {
-	    return UIFormatterHelper.toBoolean(value);
+	    return UIFormatterHelper.parseBoolean(value);
 	}
 	if (type == null || "Integer".equals(type)) {
-	    return UIFormatterHelper.toInteger(value);
+	    return UIFormatterHelper.parseInteger(value);
 	}
 	if (type == null || "Float".equals(type)) {
-	    return UIFormatterHelper.toFloat(value);
+	    return UIFormatterHelper.parseFloat(value);
 	}
 	
 	//TODO
@@ -311,57 +311,57 @@ public class UIBuilderHelper {
 
     public static Boolean getBoolean(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toBoolean(value);
+	return UIFormatterHelper.parseBoolean(value);
     }
 
     public static Byte getByte(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toByte(value);
+	return UIFormatterHelper.parseByte(value);
     }
     
     public static Short getShort(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toShort(value);
+	return UIFormatterHelper.parseShort(value);
     }
 
     public static Integer getInteger(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toInteger(value);
+	return UIFormatterHelper.parseInteger(value);
     }
     
     public static Float getFloat(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toFloat(value);
+	return UIFormatterHelper.parseFloat(value);
     }
     
     public static Double getDouble(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toDouble(value);
+	return UIFormatterHelper.parseDouble(value);
     }
 
     public static Date getDate(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toDate(value);
+	return UIFormatterHelper.parseDate(value);
     }
 
     public static Date getTime(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toTime(value);
+	return UIFormatterHelper.parseTime(value);
     }
 
     public static Date getDateTime(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toDateTime(value);
+	return UIFormatterHelper.parseDateTime(value);
     }
 
     public static Color getColor(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toColor(value);
+	return UIFormatterHelper.parseColor(value);
     }
 
     public static Font getFont(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toFont(value);
+	return UIFormatterHelper.parseFont(value);
     }
 
     
@@ -449,27 +449,27 @@ public class UIBuilderHelper {
     
     public static HorizontalAlign getHorizontalAlign(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toHorizontalAlign(value);
+	return UIFormatterHelper.parseHorizontalAlign(value);
     }
 
     public static VerticalAlign getVerticalAlign(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toVerticalAlign(value);
+	return UIFormatterHelper.parseVerticalAlign(value);
     }
 
     public static Direction getDirection(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toDirection(value);
+	return UIFormatterHelper.parseDirection(value);
     }
 
     public static Orientation getOrientation(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toOrientation(value);
+	return UIFormatterHelper.parseOrientation(value);
     }
 
     public static LayoutRegion getLayoutRegion(IData data, String property) {
 	String value = getString(data, property);
-	return UIFormatterHelper.toLayoutRegion(value);
+	return UIFormatterHelper.parseLayoutRegion(value);
     }
 
     

@@ -117,130 +117,130 @@ public class UIFormatterHelper {
 
     ////
     
-    public static Boolean toBoolean(String value) {
-	return value == null ? null : (Boolean) getFormatter(BOOLEAN_TYPE).toValue(value);
+    public static Boolean parseBoolean(String value) {
+	return value == null ? null : (Boolean) getFormatter(BOOLEAN_TYPE).parse(value);
     }
 
-    public static String toString(Boolean value) {
-	return value == null ? null : getFormatter(BOOLEAN_TYPE).toString(value);
-    }
-
-    ////
-    
-    public static Byte toByte(String value) {
-	return value == null ? null : (Byte) getFormatter(BYTE_TYPE).toValue(value);
-    }
-
-    public static String toString(Byte value) {
-	return value == null ? null : getFormatter(BYTE_TYPE).toString(value);
+    public static String formatBoolean(Boolean value) {
+	return value == null ? null : getFormatter(BOOLEAN_TYPE).format(value);
     }
 
     ////
     
-    public static Short toShort(String value) {
-	return value == null ? null : (Short) getFormatter(SHORT_TYPE).toValue(value);
+    public static Byte parseByte(String value) {
+	return value == null ? null : (Byte) getFormatter(BYTE_TYPE).parse(value);
     }
 
-    public static String toString(Short value) {
-	return value == null ? null : getFormatter(SHORT_TYPE).toString(value);
-    }
-    
-    ////
-    
-    public static Integer toInteger(String value) {
-	return value == null ? null : (Integer) getFormatter(INTEGER_TYPE).toValue(value);
-    }
-
-    public static String toString(Integer value) {
-	return value == null ? null : getFormatter(INTEGER_TYPE).toString(value);
-    }
-    
-    ////
-    
-    public static Float toFloat(String value) {
-	return value == null ? null : (Float) getFormatter(FLOAT_TYPE).toValue(value);
-    }
-
-    public static String toString(Float value) {
-	return value == null ? null : getFormatter(FLOAT_TYPE).toString(value);
+    public static String formatByte(Byte value) {
+	return value == null ? null : getFormatter(BYTE_TYPE).format(value);
     }
 
     ////
     
-    public static Double toDouble(String value) {
-	return value == null ? null : (Double) getFormatter(DOUBLE_TYPE).toValue(value);
+    public static Short parseShort(String value) {
+	return value == null ? null : (Short) getFormatter(SHORT_TYPE).parse(value);
     }
 
-    public static String toString(Double value) {
-	return value == null ? null : getFormatter(DOUBLE_TYPE).toString(value);
+    public static String formatShort(Short value) {
+	return value == null ? null : getFormatter(SHORT_TYPE).format(value);
+    }
+    
+    ////
+    
+    public static Integer parseInteger(String value) {
+	return value == null ? null : (Integer) getFormatter(INTEGER_TYPE).parse(value);
+    }
+
+    public static String formatInteger(Integer value) {
+	return value == null ? null : getFormatter(INTEGER_TYPE).format(value);
+    }
+    
+    ////
+    
+    public static Float parseFloat(String value) {
+	return value == null ? null : (Float) getFormatter(FLOAT_TYPE).parse(value);
+    }
+
+    public static String formatFloat(Float value) {
+	return value == null ? null : getFormatter(FLOAT_TYPE).format(value);
     }
 
     ////
     
-    public static Date toDate(String value) {
-	return value == null ? null : (Date) getFormatter(DATE_TYPE).toValue(value);
+    public static Double parseDouble(String value) {
+	return value == null ? null : (Double) getFormatter(DOUBLE_TYPE).parse(value);
     }
 
-    public static String toStringDate(Date value) {
-	return value == null ? null : getFormatter(DATE_TYPE).toString(value);
-    }
-
-    public static Date toTime(String value) {
-	return value == null ? null : (Date) getFormatter(TIME_TYPE).toValue(value);
-    }
-
-    public static String toStringTime(Date value) {
-	return value == null ? null : getFormatter(TIME_TYPE).toString(value);
-    }
-
-    public static Date toDateTime(String value) {
-	return value == null ? null : (Date) getFormatter(DATE_TIME_TYPE).toValue(value);
-    }
-
-    public static String toStringDateTime(Date value) {
-	return value == null ? null : getFormatter(DATE_TIME_TYPE).toString(value);
+    public static String formatString(Double value) {
+	return value == null ? null : getFormatter(DOUBLE_TYPE).format(value);
     }
 
     ////
     
-    public static Color toColor(String value) {
-	return value == null ? null : (Color) getFormatter(COLOR_TYPE).toValue(value);
+    public static Date parseDate(String value) {
+	return value == null ? null : (Date) getFormatter(DATE_TYPE).parse(value);
     }
 
-    public static String toString(Color value) {
-	return value == null ? null : getFormatter(COLOR_TYPE).toString(value);
+    public static String formatDate(Date value) {
+	return value == null ? null : getFormatter(DATE_TYPE).format(value);
+    }
+
+    public static Date parseTime(String value) {
+	return value == null ? null : (Date) getFormatter(TIME_TYPE).parse(value);
+    }
+
+    public static String formatTime(Date value) {
+	return value == null ? null : getFormatter(TIME_TYPE).format(value);
+    }
+
+    public static Date parseDateTime(String value) {
+	return value == null ? null : (Date) getFormatter(DATE_TIME_TYPE).parse(value);
+    }
+
+    public static String formatDateTime(Date value) {
+	return value == null ? null : getFormatter(DATE_TIME_TYPE).format(value);
     }
 
     ////
     
-    public static Font toFont(String value) {
-	return value == null ? null : (Font) getFormatter(FONT_TYPE).toValue(value);
+    public static Color parseColor(String value) {
+	return value == null ? null : (Color) getFormatter(COLOR_TYPE).parse(value);
     }
 
-    public static String toString(Font value) {
-	return value == null ? null : getFormatter(FONT_TYPE).toString(value);
+    public static String formatColor(Color value) {
+	return value == null ? null : getFormatter(COLOR_TYPE).format(value);
     }
 
     ////
     
-    public static HorizontalAlign toHorizontalAlign(String value) {
-	return value == null ? null : (HorizontalAlign) getFormatter(HORIZONTAL_ALIGN_TYPE).toValue(value);
-    }
-    
-    public static VerticalAlign toVerticalAlign(String value) {
-	return value == null ? null : (VerticalAlign) getFormatter(VERTICAL_ALIGN_TYPE).toValue(value);
+    public static Font parseFont(String value) {
+	return value == null ? null : (Font) getFormatter(FONT_TYPE).parse(value);
     }
 
-    public static Direction toDirection(String value) {
-	return value == null ? null : (Direction) getFormatter(DIRECTION_TYPE).toValue(value);
-    }
-    
-    public static Orientation toOrientation(String value) {
-	return value == null ? null : (Orientation) getFormatter(ORIENTATION_TYPE).toValue(value);
+    public static String formatFont(Font value) {
+	return value == null ? null : getFormatter(FONT_TYPE).format(value);
     }
 
-    public static LayoutRegion toLayoutRegion(String value) {
-	return value == null ? null : (LayoutRegion) getFormatter(LAYOUT_REGION_TYPE).toValue(value);
+    ////
+    
+    public static HorizontalAlign parseHorizontalAlign(String value) {
+	return value == null ? null : (HorizontalAlign) getFormatter(HORIZONTAL_ALIGN_TYPE).parse(value);
+    }
+    
+    public static VerticalAlign parseVerticalAlign(String value) {
+	return value == null ? null : (VerticalAlign) getFormatter(VERTICAL_ALIGN_TYPE).parse(value);
+    }
+
+    public static Direction parseDirection(String value) {
+	return value == null ? null : (Direction) getFormatter(DIRECTION_TYPE).parse(value);
+    }
+    
+    public static Orientation parseOrientation(String value) {
+	return value == null ? null : (Orientation) getFormatter(ORIENTATION_TYPE).parse(value);
+    }
+
+    public static LayoutRegion parseLayoutRegion(String value) {
+	return value == null ? null : (LayoutRegion) getFormatter(LAYOUT_REGION_TYPE).parse(value);
     }
 
 

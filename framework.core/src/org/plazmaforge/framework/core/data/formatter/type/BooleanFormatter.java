@@ -32,7 +32,7 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 public class BooleanFormatter extends AbstractFormatter {
 
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	if (str == null) {
 	    return null;
 	}
