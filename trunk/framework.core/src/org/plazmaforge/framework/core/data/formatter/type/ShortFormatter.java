@@ -20,20 +20,25 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.core.data.formatter.type;
 
-import org.plazmaforge.framework.uwt.widget.Style.Orientation;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-public class OrientationPresenter extends AbstractStyleEnumPresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class ShortFormatter extends AbstractFormatter {
 
     @Override
     public Object toValue(String str) {
-	if (str == null) {
-	    return null;
-	}
 	try {
-	    return Orientation.valueOf(toEnumString(str));
-	} catch (IllegalArgumentException e) {
+	    if (str == null) {
+		return null;
+	    }
+	    return Short.valueOf(str);
+	} catch (NumberFormatException ex) {
 	    return null;
 	}
     }

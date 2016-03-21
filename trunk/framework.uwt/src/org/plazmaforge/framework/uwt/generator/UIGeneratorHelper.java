@@ -31,7 +31,7 @@ import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.builder.DataContainer;
 import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
-import org.plazmaforge.framework.uwt.builder.UIPresenter;
+import org.plazmaforge.framework.uwt.builder.UIFormatterHelper;
 import org.plazmaforge.framework.uwt.generator.AbstractGenerator.ImportMode;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
@@ -571,34 +571,34 @@ public class UIGeneratorHelper {
 	if (type == null) {
 	    return;
 	}
-	if (UIPresenter.STRING_TYPE.equals(type)) {
+	if (UIFormatterHelper.STRING_TYPE.equals(type)) {
 	    generateSetStringProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.BOOLEAN_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.BOOLEAN_TYPE.equals(type)) {
 	    generateSetBooleanProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.BYTE_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.BYTE_TYPE.equals(type)) {
 	    generateSetByteProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.SHORT_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.SHORT_TYPE.equals(type)) {
 	    generateSetShortProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.INTEGER_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.INTEGER_TYPE.equals(type)) {
 	    generateSetIntegerProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.FLOAT_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.FLOAT_TYPE.equals(type)) {
 	    generateSetFloatProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.DOUBLE_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.DOUBLE_TYPE.equals(type)) {
 	    generateSetDoubleProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.DATE_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.DATE_TYPE.equals(type)) {
 	    generateSetDateProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.TIME_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.TIME_TYPE.equals(type)) {
 	    generateSetTimeProperty(context, data, bean, property, method, sw);
 	    return;
-	} else if (UIPresenter.DATE_TIME_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.DATE_TIME_TYPE.equals(type)) {
 	    generateSetDateTimeProperty(context, data, bean, property, method, sw);
 	    return;
 	}
@@ -612,25 +612,25 @@ public class UIGeneratorHelper {
 	    return null;
 	}
 	
-	if (UIPresenter.STRING_TYPE.equals(type)) {
+	if (UIFormatterHelper.STRING_TYPE.equals(type)) {
 	    return generateInstanceString(context, (String) value);
-	} else if (UIPresenter.BOOLEAN_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.BOOLEAN_TYPE.equals(type)) {
 	    return generateInstanceBoolean(context, (Boolean) value);
-	} else if (UIPresenter.BYTE_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.BYTE_TYPE.equals(type)) {
 	    return generateInstanceByte(context, (Byte) value);
-	} else if (UIPresenter.SHORT_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.SHORT_TYPE.equals(type)) {
 	    return generateInstanceShort(context, (Short) value);
-	} else if (UIPresenter.INTEGER_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.INTEGER_TYPE.equals(type)) {
 	    return generateInstanceInteger(context, (Integer) value);
-	} else if (UIPresenter.FLOAT_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.FLOAT_TYPE.equals(type)) {
 	    return generateInstanceFloat(context, (Float) value);
-	} else if (UIPresenter.DOUBLE_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.DOUBLE_TYPE.equals(type)) {
 	    return generateInstanceDouble(context, (Double) value);
-	} else if (UIPresenter.DATE_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.DATE_TYPE.equals(type)) {
 	    return generateInstanceDate(context, (Date) value);
-	} else if (UIPresenter.TIME_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.TIME_TYPE.equals(type)) {
 	    return generateInstanceTime(context, (Date) value);
-	} else if (UIPresenter.DATE_TIME_TYPE.equals(type)) {
+	} else if (UIFormatterHelper.DATE_TIME_TYPE.equals(type)) {
 	    return generateInstanceDateTime(context, (Date) value);
 	}
 

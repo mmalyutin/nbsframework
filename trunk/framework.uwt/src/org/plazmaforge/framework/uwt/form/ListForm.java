@@ -33,8 +33,8 @@ import org.plazmaforge.framework.core.data.Customizer;
 import org.plazmaforge.framework.core.data.DataResult;
 import org.plazmaforge.framework.core.data.Pager;
 import org.plazmaforge.framework.core.data.PropertyProvider;
-import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
-import org.plazmaforge.framework.core.data.presenter.ValuePresenterFactory;
+import org.plazmaforge.framework.core.data.formatter.Formatter;
+import org.plazmaforge.framework.core.data.formatter.FormatterFactory;
 import org.plazmaforge.framework.core.data.provider.DataProvider;
 import org.plazmaforge.framework.core.data.provider.DataProviderAsync;
 import org.plazmaforge.framework.core.data.provider.ListProvider;
@@ -1112,25 +1112,25 @@ public abstract class ListForm<T> extends Form<T> implements IListForm<T> {
 	    // TODO: May be auto set format by type
 	}
 	
-	// AUTO VALUE PRESENTER
-	ValuePresenter valuePresenter = column.getValuePresenter();
-	if (valuePresenter != null) {
-	    // Value presenter is not empty
+	// AUTO FORMATTER
+	Formatter formatter = column.getFormatter();
+	if (formatter != null) {
+	    // Formatter is not empty
 	    return;
 	}
-	valuePresenter = getValuePresenterFactory().getValuePresenter(column.getDataType(), format);
-	column.setValuePresenter(valuePresenter);
+	formatter = getFormatterFactory().getFormatter(column.getDataType(), format);
+	column.setFormatter(formatter);
 	
     }
     
-    private ValuePresenterFactory valuePresenterFactory;
+    private FormatterFactory formatterFactory;
     
-    protected  ValuePresenterFactory getValuePresenterFactory() {
-	if (valuePresenterFactory == null) {
-	    valuePresenterFactory = new ValuePresenterFactory();
-	    valuePresenterFactory.registerDefaultValuePresenters();
+    protected  FormatterFactory getFormatterFactory() {
+	if (formatterFactory == null) {
+	    formatterFactory = new FormatterFactory();
+	    formatterFactory.registerDefaultFormatters();
 	}
-	return valuePresenterFactory;
+	return formatterFactory;
     }
 
     @Override

@@ -20,11 +20,16 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
-import org.plazmaforge.framework.uwt.widget.Style.LayoutRegion;
+import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
-public class LayoutRegionPresenter extends AbstractStyleEnumPresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class OrientationFormatter extends AbstractStyleEnumFormatter {
 
     @Override
     public Object toValue(String str) {
@@ -32,10 +37,9 @@ public class LayoutRegionPresenter extends AbstractStyleEnumPresenter {
 	    return null;
 	}
 	try {
-	    return LayoutRegion.valueOf(toEnumString(str));
+	    return Orientation.valueOf(toEnumString(str));
 	} catch (IllegalArgumentException e) {
 	    return null;
 	}
     }
-    
 }

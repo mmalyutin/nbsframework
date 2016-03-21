@@ -111,7 +111,7 @@ public abstract class ViewerBuilder extends CompositeBuilder {
 	//TODO:
 	// - CellRenderer
 	// - CellEditor
-	// - ValuePresenter
+	// - Formatter
 	// - ValueProvider
 	// - LabelProvider
 

@@ -20,19 +20,20 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
 import org.junit.Test;
+import org.plazmaforge.framework.uwt.builder.formatter.FontFormatter;
 import org.plazmaforge.framework.uwt.graphics.Font;
 
 import junit.framework.TestCase;
 
-public class FontPresenterTest extends TestCase {
+public class FontFormatterTest extends TestCase {
 
     @Test
     public void testParseFont() throws Exception {
 	
-	FontPresenter presenter = new FontPresenter();
+	FontFormatter presenter = new FontFormatter();
 	
 	// Test invalid name
 	String fontName = presenter.parseName(null);
@@ -108,7 +109,7 @@ public class FontPresenterTest extends TestCase {
     @Test
     public void testToValue() throws Exception {
 	
-	FontPresenter presenter = new FontPresenter();
+	FontFormatter presenter = new FontFormatter();
 	
 	// Test invalid
 	Font font = (Font) presenter.toValue(null);
@@ -194,7 +195,7 @@ public class FontPresenterTest extends TestCase {
     @Test
     public void testToString() throws Exception {
 	
-	FontPresenter presenter = new FontPresenter();
+	FontFormatter presenter = new FontFormatter();
 
 	// Test invalid
 	String fontString = presenter.toString(null);

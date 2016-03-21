@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.demo;
 
-import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -54,8 +54,8 @@ public class DemoUtils {
 	addValueInfo(buf, type, value, null);
     }
 
-    public static void addValueInfo(StringBuffer buf, String type, Object value, ValuePresenter presenter) {
-	String strValue = presenter != null ? presenter.toString(value) : ("" + value);
+    public static void addValueInfo(StringBuffer buf, String type, Object value, Formatter formatter) {
+	String strValue = formatter != null ? formatter.toString(value) : ("" + value);
 	buf.append(type + " = '" + strValue + "'");
 	buf.append("\n");
     }

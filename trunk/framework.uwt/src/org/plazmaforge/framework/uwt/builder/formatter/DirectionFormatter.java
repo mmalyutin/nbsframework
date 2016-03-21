@@ -20,20 +20,25 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.uwt.widget.Style.Direction;
 
-public class BytePresenter extends AbstractValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class DirectionFormatter extends AbstractStyleEnumFormatter {
 
     @Override
     public Object toValue(String str) {
+	if (str == null) {
+	    return null;
+	}
 	try {
-	    if (str == null) {
-		return null;
-	    }
-	    return Byte.valueOf(str);
-	} catch (NumberFormatException ex) {
+	    return Direction.valueOf(toEnumString(str));
+	} catch (IllegalArgumentException e) {
 	    return null;
 	}
     }
