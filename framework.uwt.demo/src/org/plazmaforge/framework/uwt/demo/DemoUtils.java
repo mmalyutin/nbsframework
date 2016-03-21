@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.demo;
 
-import org.plazmaforge.framework.core.data.ValuePresenter;
+import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.Control;

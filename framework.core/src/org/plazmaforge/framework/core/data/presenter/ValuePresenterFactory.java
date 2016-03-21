@@ -20,21 +20,21 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data;
+package org.plazmaforge.framework.core.data.presenter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.type.Types;
-import org.plazmaforge.framework.core.data.presenter.BytePresenter;
-import org.plazmaforge.framework.core.data.presenter.DatePresenter;
-import org.plazmaforge.framework.core.data.presenter.DateTimePresenter;
-import org.plazmaforge.framework.core.data.presenter.DoublePresenter;
-import org.plazmaforge.framework.core.data.presenter.FloatPresenter;
-import org.plazmaforge.framework.core.data.presenter.IntegerPresenter;
-import org.plazmaforge.framework.core.data.presenter.ShortPresenter;
-import org.plazmaforge.framework.core.data.presenter.StringPresenter;
-import org.plazmaforge.framework.core.data.presenter.TimePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.BytePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.DatePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.DateTimePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.DoublePresenter;
+import org.plazmaforge.framework.core.data.presenter.type.FloatPresenter;
+import org.plazmaforge.framework.core.data.presenter.type.IntegerPresenter;
+import org.plazmaforge.framework.core.data.presenter.type.ShortPresenter;
+import org.plazmaforge.framework.core.data.presenter.type.StringPresenter;
+import org.plazmaforge.framework.core.data.presenter.type.TimePresenter;
 
 /**
  * Value Presenter Factory

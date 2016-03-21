@@ -26,8 +26,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.plazmaforge.framework.core.data.ValuePresenter;
 import org.plazmaforge.framework.core.data.object.IData;
+import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.DataContainer;

@@ -24,8 +24,8 @@ package org.plazmaforge.framework.uwt.widget;
 
 import org.plazmaforge.framework.core.data.HasDataType;
 import org.plazmaforge.framework.core.data.HasProperty;
-import org.plazmaforge.framework.core.data.ValuePresenter;
 import org.plazmaforge.framework.core.data.ValueProvider;
+import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**

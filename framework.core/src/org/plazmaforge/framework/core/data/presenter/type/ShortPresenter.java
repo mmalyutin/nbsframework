@@ -20,16 +20,21 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter;
+package org.plazmaforge.framework.core.data.presenter.type;
 
+import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
 
-public class StringPresenter extends AbstractValuePresenter {
+public class ShortPresenter extends AbstractValuePresenter {
 
-    
     @Override
     public Object toValue(String str) {
-	return str;
+	try {
+	    if (str == null) {
+		return null;
+	    }
+	    return Short.valueOf(str);
+	} catch (NumberFormatException ex) {
+	    return null;
+	}
     }
-    
-    
 }
