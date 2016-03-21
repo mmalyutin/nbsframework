@@ -20,11 +20,16 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.core.data.formatter.type;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-public class ShortPresenter extends AbstractValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class FloatFormatter extends AbstractFormatter {
 
     @Override
     public Object toValue(String str) {
@@ -32,9 +37,10 @@ public class ShortPresenter extends AbstractValuePresenter {
 	    if (str == null) {
 		return null;
 	    }
-	    return Short.valueOf(str);
+	    return Float.valueOf(str);
 	} catch (NumberFormatException ex) {
 	    return null;
 	}
     }
+
 }

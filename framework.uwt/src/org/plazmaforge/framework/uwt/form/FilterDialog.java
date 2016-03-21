@@ -213,7 +213,7 @@ public class FilterDialog extends Dialog {
 	filterControl.filter.setProperty(displayField.getProperty());
 	filterControl.filter.setLabel(displayField.getLabel());
 	filterControl.filter.setType(displayField.getType());
-	filterControl.filter.setValuePresenter(displayField.getValuePresenter());
+	filterControl.filter.setFormatter(displayField.getFormatter());
 
 	filterControl.label = new Label(displayField.getLabel());
 	filterControl.operationField = new ComboBox<OperationItem>();

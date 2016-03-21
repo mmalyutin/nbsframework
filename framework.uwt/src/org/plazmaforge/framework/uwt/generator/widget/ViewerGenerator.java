@@ -62,7 +62,7 @@ public abstract class ViewerGenerator extends CompositeGenerator {
 	// TODO:
 	// - CellRenderer
 	// - CellEditor
-	// - ValuePresenter
+	// -Formatter
 	// - ValueProvider
 	// - LabelProvider	
 	

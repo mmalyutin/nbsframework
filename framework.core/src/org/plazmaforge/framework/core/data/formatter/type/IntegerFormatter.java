@@ -20,11 +20,16 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.core.data.formatter.type;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-public class DoublePresenter extends AbstractValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class IntegerFormatter extends AbstractFormatter  {
 
     @Override
     public Object toValue(String str) {
@@ -32,7 +37,7 @@ public class DoublePresenter extends AbstractValuePresenter {
 	    if (str == null) {
 		return null;
 	    }
-	    return Double.valueOf(str);
+	    return Integer.valueOf(str);
 	} catch (NumberFormatException ex) {
 	    return null;
 	}

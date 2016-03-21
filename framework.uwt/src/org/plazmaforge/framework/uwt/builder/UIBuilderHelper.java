@@ -29,9 +29,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.core.data.object.Data;
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
 import org.plazmaforge.framework.core.resource.Resource;
 import org.plazmaforge.framework.core.resource.ResourceUtils;
 import org.plazmaforge.framework.uwt.UIObject;
@@ -275,8 +275,8 @@ public class UIBuilderHelper {
 	return list;
     }
     
-    public static ValuePresenter getPresenter(String type) {
-	return UIPresenter.getPresenter(type);
+    public static Formatter getFormatter(String type) {
+	return UIFormatterHelper.getFormatter(type);
     }
     
     public static Object getValue(String type, IData data, String property) {
@@ -288,13 +288,13 @@ public class UIBuilderHelper {
 	    return value;
 	}
 	if (type == null || "Boolean".equals(type)) {
-	    return UIPresenter.toBoolean(value);
+	    return UIFormatterHelper.toBoolean(value);
 	}
 	if (type == null || "Integer".equals(type)) {
-	    return UIPresenter.toInteger(value);
+	    return UIFormatterHelper.toInteger(value);
 	}
 	if (type == null || "Float".equals(type)) {
-	    return UIPresenter.toFloat(value);
+	    return UIFormatterHelper.toFloat(value);
 	}
 	
 	//TODO
@@ -311,57 +311,57 @@ public class UIBuilderHelper {
 
     public static Boolean getBoolean(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toBoolean(value);
+	return UIFormatterHelper.toBoolean(value);
     }
 
     public static Byte getByte(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toByte(value);
+	return UIFormatterHelper.toByte(value);
     }
     
     public static Short getShort(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toShort(value);
+	return UIFormatterHelper.toShort(value);
     }
 
     public static Integer getInteger(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toInteger(value);
+	return UIFormatterHelper.toInteger(value);
     }
     
     public static Float getFloat(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toFloat(value);
+	return UIFormatterHelper.toFloat(value);
     }
     
     public static Double getDouble(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toDouble(value);
+	return UIFormatterHelper.toDouble(value);
     }
 
     public static Date getDate(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toDate(value);
+	return UIFormatterHelper.toDate(value);
     }
 
     public static Date getTime(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toTime(value);
+	return UIFormatterHelper.toTime(value);
     }
 
     public static Date getDateTime(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toDateTime(value);
+	return UIFormatterHelper.toDateTime(value);
     }
 
     public static Color getColor(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toColor(value);
+	return UIFormatterHelper.toColor(value);
     }
 
     public static Font getFont(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toFont(value);
+	return UIFormatterHelper.toFont(value);
     }
 
     
@@ -449,27 +449,27 @@ public class UIBuilderHelper {
     
     public static HorizontalAlign getHorizontalAlign(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toHorizontalAlign(value);
+	return UIFormatterHelper.toHorizontalAlign(value);
     }
 
     public static VerticalAlign getVerticalAlign(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toVerticalAlign(value);
+	return UIFormatterHelper.toVerticalAlign(value);
     }
 
     public static Direction getDirection(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toDirection(value);
+	return UIFormatterHelper.toDirection(value);
     }
 
     public static Orientation getOrientation(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toOrientation(value);
+	return UIFormatterHelper.toOrientation(value);
     }
 
     public static LayoutRegion getLayoutRegion(IData data, String property) {
 	String value = getString(data, property);
-	return UIPresenter.toLayoutRegion(value);
+	return UIFormatterHelper.toLayoutRegion(value);
     }
 
     

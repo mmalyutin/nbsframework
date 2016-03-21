@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.core.data.formatter.type;
 
 import java.util.Date;
 //import java.util.Calendar;
@@ -28,7 +28,12 @@ import java.util.Date;
 
 import org.plazmaforge.framework.util.StringUtils;
 
-public class DateTimePresenter extends DatePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class DateTimeFormatter extends DateFormatter {
 
     @Override
     public Object toValue(String str) {
@@ -55,7 +60,7 @@ public class DateTimePresenter extends DatePresenter {
 	
 	if (str.length() > 10 ) {
 	    String timeStr = str.substring(10).trim();
-	    array = StringUtils.split(timeStr, TimePresenter.DEFAULT_TIME_DELIM, true);
+	    array = StringUtils.split(timeStr, TimeFormatter.DEFAULT_TIME_DELIM, true);
 	    if (array != null && array.length >=4) {
 		hours = intValue(array[0]);
 		minutes = intValue(array[2]);
@@ -100,7 +105,7 @@ public class DateTimePresenter extends DatePresenter {
 	
 	// yyyy-MM-dd HH:mm:ss
 	return "" + year + DEFAULT_DATE_DELIM + toString2(month) + DEFAULT_DATE_DELIM + toString2(day) 
-		+ " " + toString2(hours) + TimePresenter.DEFAULT_TIME_DELIM + toString2(minutes)+ TimePresenter.DEFAULT_TIME_DELIM + toString2(seconds);
+		+ " " + toString2(hours) + TimeFormatter.DEFAULT_TIME_DELIM + toString2(minutes)+ TimeFormatter.DEFAULT_TIME_DELIM + toString2(seconds);
     }
 
 }

@@ -20,22 +20,23 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter;
+package org.plazmaforge.framework.core.data.formatter.type;
+
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
 /**
  * 
  * @author ohapon
  *
  */
+public class BooleanFormatter extends AbstractFormatter {
 
-public interface ValuePresenter {
+    @Override
+    public Object toValue(String str) {
+	if (str == null) {
+	    return null;
+	}
+	return Boolean.valueOf(str);
+    }
 
-    String getFormat();
-    
-    void setFormat(String format);
-    
-    String toString(Object value);
-    
-    Object toValue(String str);
-    
 }

@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
-import org.plazmaforge.framework.core.data.presenter.type.DatePresenter;
-import org.plazmaforge.framework.core.data.presenter.type.DateTimePresenter;
-import org.plazmaforge.framework.core.data.presenter.type.TimePresenter;
+import org.plazmaforge.framework.core.data.formatter.Formatter;
+import org.plazmaforge.framework.core.data.formatter.type.DateFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.DateTimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.TimeFormatter;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
@@ -184,9 +184,9 @@ public class FieldTab extends AbstractTab {
 	
 	add(spinnerField);
 
-	final DatePresenter datePresenter = new DatePresenter();
-	final DateTimePresenter dateTimePresenter = new DateTimePresenter();
-	final TimePresenter timePresenter = new TimePresenter();
+	final DateFormatter dateFormatter = new DateFormatter();
+	final DateTimeFormatter dateTimeFormatter = new DateTimeFormatter();
+	final TimeFormatter timeFormatter = new TimeFormatter();
 	
 	Button getButton = new Button("Get values");
 	getButton.addSelectionListener(new SelectionListener() {
@@ -197,9 +197,9 @@ public class FieldTab extends AbstractTab {
 		addValueInfo(buf, "Password", passwordField.getValue());
 		addValueInfo(buf, "Number", numberField.getValue());
 		addValueInfo(buf, "Integer", integerField.getValue());
-		addValueInfo(buf, "Date", dateField.getValue(), datePresenter);
-		addValueInfo(buf, "DateTime", dateTimeField.getValue(), dateTimePresenter);
-		addValueInfo(buf, "Time", timeField.getValue(), timePresenter);
+		addValueInfo(buf, "Date", dateField.getValue(), dateFormatter);
+		addValueInfo(buf, "DateTime", dateTimeField.getValue(), dateTimeFormatter);
+		addValueInfo(buf, "Time", timeField.getValue(), timeFormatter);
 		addValueInfo(buf, "Check", checkField.getValue());
 		addValueInfo(buf, "Combo", comboField.getValue());
 		addValueInfo(buf, "Spinner", spinnerField.getValue());
@@ -236,8 +236,8 @@ public class FieldTab extends AbstractTab {
 	addValueInfo(buf, type, value, null);
     }
     
-    private void addValueInfo(StringBuffer buf, String type, Object value, ValuePresenter presenter) {
-	String strValue = presenter != null ? presenter.toString(value) : ("" + value);
+    private void addValueInfo(StringBuffer buf, String type, Object value, Formatter formatter) {
+	String strValue = formatter != null ? formatter.toString(value) : ("" + value);
 	buf.append(type + " = '" + strValue + "'");
 	buf.append("\n");
     }

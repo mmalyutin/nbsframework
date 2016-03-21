@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,36 +20,30 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter;
+package org.plazmaforge.framework.uwt.builder.formatter;
+
+
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class ValuePresenterWorker extends ValuePresenterFactory {
+public class HorizontalAlignFormatter extends AbstractStyleEnumFormatter {
+	
+    
+    
+    @Override
+    public Object toValue(String str) {
+	if (str == null) {
+	    return null;
+	}
+	try {
+	    return HorizontalAlign.valueOf(toEnumString(str));
+	} catch (IllegalArgumentException e) {
+	    return null;
+	}
+    }
 
-    public String toString(Object value, String type) {
-	if (value == null) {
-	    return null;
-	}
-	ValuePresenter presenter = getValuePresenter(type);
-	if (presenter == null) {
-	    return null;
-	}
-	return presenter.toString(value);
-    }
-    
-    public Object toValue(String value, String type) {
-	if (value == null) {
-	    return null;
-	}
-	ValuePresenter presenter = getValuePresenter(type);
-	if (presenter == null) {
-	    return null;
-	}
-	return presenter.toValue(value);
-    }
-    
-    
 }

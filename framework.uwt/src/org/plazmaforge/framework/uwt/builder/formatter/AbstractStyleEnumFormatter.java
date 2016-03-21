@@ -20,18 +20,29 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-
-public class StringPresenter extends AbstractValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public abstract class AbstractStyleEnumFormatter extends AbstractFormatter {
 
     
     @Override
-    public Object toValue(String str) {
-	return str;
+    public String toString(Object value) {
+	return value == null ? null : toOutputString(value.toString());
     }
-    
-    
+
+    protected String toOutputString(String str) {
+	return str == null ? null : str.toLowerCase(); // LOWER
+    }
+
+    protected String toEnumString(String str) {
+	return str == null ? null : str.toUpperCase(); // UPPER
+    }
+
 }

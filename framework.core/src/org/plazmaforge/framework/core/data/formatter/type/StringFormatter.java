@@ -20,18 +20,18 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.core.data.formatter.type;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-public class BooleanPresenter extends AbstractValuePresenter {
 
+public class StringFormatter extends AbstractFormatter {
+
+    
     @Override
     public Object toValue(String str) {
-	if (str == null) {
-	    return null;
-	}
-	return Boolean.valueOf(str);
+	return str;
     }
-
+    
+    
 }

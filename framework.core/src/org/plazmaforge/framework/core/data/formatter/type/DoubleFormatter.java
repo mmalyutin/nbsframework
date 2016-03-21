@@ -20,23 +20,25 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.core.data.formatter.type;
 
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class DoubleFormatter extends AbstractFormatter {
 
-public class HorizontalAlignPresenter extends AbstractStyleEnumPresenter {
-	
-    
-    
     @Override
     public Object toValue(String str) {
-	if (str == null) {
-	    return null;
-	}
 	try {
-	    return HorizontalAlign.valueOf(toEnumString(str));
-	} catch (IllegalArgumentException e) {
+	    if (str == null) {
+		return null;
+	    }
+	    return Double.valueOf(str);
+	} catch (NumberFormatException ex) {
 	    return null;
 	}
     }

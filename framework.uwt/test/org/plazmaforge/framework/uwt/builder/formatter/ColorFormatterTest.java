@@ -1,11 +1,12 @@
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
 import org.junit.Test;
+import org.plazmaforge.framework.uwt.builder.formatter.ColorFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 import junit.framework.TestCase;
 
-public class ColorPresenterTest  extends TestCase {
+public class ColorFormatterTest  extends TestCase {
     
     private static final String[] COLORS = new String[] {
 	"white", 
@@ -45,7 +46,7 @@ public class ColorPresenterTest  extends TestCase {
 
     @Test
     public void testParseHex() throws Exception {
-	ColorPresenter presenter = new ColorPresenter();
+	ColorFormatter presenter = new ColorFormatter();
 	
 	// Test invalid
 	Color color = null;
@@ -69,7 +70,7 @@ public class ColorPresenterTest  extends TestCase {
     
     @Test
     public void testParseRGB() throws Exception {
-	ColorPresenter presenter = new ColorPresenter();
+	ColorFormatter presenter = new ColorFormatter();
 	
 	// Test invalid
 	Color color = null;
@@ -90,7 +91,7 @@ public class ColorPresenterTest  extends TestCase {
     
     @Test
     public void testParseNames() throws Exception {
-	ColorPresenter presenter = new ColorPresenter();
+	ColorFormatter presenter = new ColorFormatter();
 	
 	// Test invalid
 	Color color = presenter.parseName(null);
@@ -133,7 +134,7 @@ public class ColorPresenterTest  extends TestCase {
     
     @Test
     public void testToValue() throws Exception {
-	ColorPresenter presenter = new ColorPresenter();
+	ColorFormatter presenter = new ColorFormatter();
 	
 	// Test invalid
 	Color color = (Color) presenter.toValue(null);
@@ -202,7 +203,7 @@ public class ColorPresenterTest  extends TestCase {
     
     @Test
     public void testToString() throws Exception {
-	ColorPresenter presenter = new ColorPresenter();
+	ColorFormatter presenter = new ColorFormatter();
 	
 	// Test invalid
 	String colorString = presenter.toString(null);
@@ -228,7 +229,7 @@ public class ColorPresenterTest  extends TestCase {
     
     private Color findColor(String name) {
 	//TODO: Find color in other storage
-	return ColorPresenter.getColorByName(name);
+	return ColorFormatter.getColorByName(name);
     }
     
     private String toHexString(int value) {

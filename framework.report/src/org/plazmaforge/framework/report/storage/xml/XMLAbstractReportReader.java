@@ -26,13 +26,12 @@
 package org.plazmaforge.framework.report.storage.xml;
 
 import org.jdom.Element;
-import org.plazmaforge.framework.core.data.ValuePresenterFactory;
-import org.plazmaforge.framework.core.data.ValuePresenterWorker;
+import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
-import org.plazmaforge.framework.uwt.builder.presenter.ColorPresenter;
+import org.plazmaforge.framework.uwt.builder.formatter.ColorFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
@@ -41,9 +40,9 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  */
 public class XMLAbstractReportReader extends XMLAbstractReader implements XMLInfo {
 
-    protected static final ColorPresenter COLOR_PRESENTER = new ColorPresenter();
+    protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
     
-    private ValuePresenterWorker valuePresenterWorker;
+    private FormatterManager formatterManager;
     
     /**
      * Get Size by 'width, 'height' attributes
@@ -87,7 +86,7 @@ public class XMLAbstractReportReader extends XMLAbstractReader implements XMLInf
 	if (value == null) {
 	    return null;
 	}
-	Color color = (Color) COLOR_PRESENTER.toValue(value);
+	Color color = (Color) COLOR_FORMATTER.toValue(value);
 	return color;
     }
 
@@ -228,12 +227,12 @@ public class XMLAbstractReportReader extends XMLAbstractReader implements XMLInf
 	return expression;
     }
 
-    protected  ValuePresenterWorker getValuePresenterWorker() {
-	if (valuePresenterWorker == null) {
-	    valuePresenterWorker = new ValuePresenterWorker();
-	    valuePresenterWorker.registerDefaultValuePresenters();
+    protected  FormatterManager getFormatterManager() {
+	if (formatterManager == null) {
+	    formatterManager = new FormatterManager();
+	    formatterManager.registerDefaultFormatters();
 	}
-	return valuePresenterWorker;
+	return formatterManager;
     }
     
 }

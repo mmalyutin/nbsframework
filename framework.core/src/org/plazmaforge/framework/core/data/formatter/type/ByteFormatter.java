@@ -20,31 +20,26 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter;
+package org.plazmaforge.framework.core.data.formatter.type;
 
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-public abstract class AbstractValuePresenter implements ValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class ByteFormatter extends AbstractFormatter {
 
-    private String format;
-    
     @Override
-    public String getFormat() {
-	return this.format;
-    }
-
-    @Override
-    public void setFormat(String format) {
-	this.format = format;
-    }
-
-    
-    @Override
-    public String toString(Object value) {
-	// By default. Use format to present value in string
-	return value == null ? null : value.toString();
-    }
-
-    protected String normalizeString(String str) {
-	return str == null ? null : str.trim();
+    public Object toValue(String str) {
+	try {
+	    if (str == null) {
+		return null;
+	    }
+	    return Byte.valueOf(str);
+	} catch (NumberFormatException ex) {
+	    return null;
+	}
     }
 }

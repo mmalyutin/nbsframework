@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.form;
 
-import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.Formatter;
 
 /**
  * 
@@ -56,9 +56,9 @@ public class DisplayField {
     private int width;
     
     /**
-     * ValuePresenter (toString/toValue)
+     * Formatter
      */
-    private ValuePresenter valuePresenter;
+    private Formatter formatter;
     
     /**
      * True if field is sortable
@@ -124,12 +124,12 @@ public class DisplayField {
         this.width = width;
     }
 
-    public ValuePresenter getValuePresenter() {
-        return valuePresenter;
+    public Formatter getFormatter() {
+        return formatter;
     }
 
-    public void setValuePresenter(ValuePresenter valuePresenter) {
-        this.valuePresenter = valuePresenter;
+    public void setFormatter(Formatter formatter) {
+        this.formatter = formatter;
     }
     
     protected Object toValue(String str) {
@@ -137,7 +137,7 @@ public class DisplayField {
 	    return null;
 	}
 	str = str.trim();
-	return (valuePresenter == null) ? str: valuePresenter.toValue(str);
+	return (formatter == null) ? str: formatter.toValue(str);
     }
     
     

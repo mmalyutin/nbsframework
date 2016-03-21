@@ -20,18 +20,23 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
+package org.plazmaforge.framework.core.data.formatter.type;
 
 import java.util.Date;
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 import org.plazmaforge.framework.util.StringUtils;
 
-public class TimePresenter extends DatePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class DateFormatter extends AbstractFormatter {
 
-    public static String DEFAULT_TIME_DELIM = ":";
-    
+    public static String DEFAULT_DATE_DELIM = "-";
     
     @Override
     public Object toValue(String str) {
@@ -39,42 +44,58 @@ public class TimePresenter extends DatePresenter {
 	    return null;
 	}
 	// TODO: Simple parser
-	String[] array = StringUtils.split(str, DEFAULT_TIME_DELIM, true);
+	String[] array = StringUtils.split(str, DEFAULT_DATE_DELIM, true);
 	if (array == null || array.length < 5) {
 	    return null;
 	}
-	int hours = intValue(array[0]);
-	int minutes = intValue(array[2]);
-	int seconds = intValue(array[4]);
-	return new Date(0, 0, 0, hours, minutes, seconds);
+	int year = intValue(array[0]) - 1900;
+	int month = intValue(array[2]) - 1;
+	int day = intValue(array[4]);
 	
-	//return new GregorianCalendar(0, 0, 0, hours, minutes, seconds).getTime();
+	return new Date(year, month, day);
+	
+	//return new GregorianCalendar(year, month, day).getTime();
     }
-    
-    
+
     @Override
     public String toString(Object value) {
-	
 	if (value == null) {
 	    return null;
 	}
-	
 	//TODO: Simple formatter
 	Date date = toDate(value);
-
+	
+	int year = date.getYear() + 1900;
+	int month = date.getMonth() + 1;
+	int day = date.getDate(); // getDate() !!!
+	
+	
 	//Calendar calendar = Calendar.getInstance();
 	//calendar.setTime(date);
 	
-	//int hours = calendar.get(Calendar.HOUR_OF_DAY);
-	//int minutes = calendar.get(Calendar.MINUTE);
-	//int seconds = calendar.get(Calendar.SECOND);	
+	//int year = calendar.get(Calendar.YEAR);
+	//int month = calendar.get(Calendar.MONTH) + 1;
+	//int day = calendar.get(Calendar.DAY_OF_MONTH);
 	
-	int hours = date.getHours();
-	int minutes = date.getMinutes();
-	int seconds = date.getSeconds();	
-	
-	// HH:mm:ss
-	return "" + toString2(hours) + ":" + toString2(minutes)+ ":" + toString2(seconds);
+	// yyyy-MM-dd
+	return "" + year + DEFAULT_DATE_DELIM + toString2(month) + DEFAULT_DATE_DELIM + toString2(day);
     }
     
+    protected String toString2(int value) {
+	return "" + (value < 10 ? ("0" + value) : value);
+    }
+    
+    protected Date toDate(Object value) {
+	return (Date) value;
+    }
+    
+    protected int intValue (String str) {
+	try {
+	    return Integer.valueOf(str);
+	} catch (NumberFormatException e) {
+	    return 0;
+	}
+    }
+    
+   
 }

@@ -20,24 +20,27 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
-public abstract class AbstractStyleEnumPresenter extends AbstractValuePresenter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class VerticalAlignFormatter extends AbstractStyleEnumFormatter{
 
-    
     @Override
-    public String toString(Object value) {
-	return value == null ? null : toOutputString(value.toString());
-    }
-
-    protected String toOutputString(String str) {
-	return str == null ? null : str.toLowerCase(); // LOWER
-    }
-
-    protected String toEnumString(String str) {
-	return str == null ? null : str.toUpperCase(); // UPPER
+    public Object toValue(String str) {
+	if (str == null) {
+	    return null;
+	}
+	try {
+	    return VerticalAlign.valueOf(toEnumString(str));
+	} catch (IllegalArgumentException e) {
+	    return null;
+	}
     }
 
 }

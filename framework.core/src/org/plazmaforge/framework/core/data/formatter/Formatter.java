@@ -20,22 +20,22 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.core.data.formatter;
 
-import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
+/**
+ * 
+ * @author ohapon
+ *
+ */
 
-public class VerticalAlignPresenter extends AbstractStyleEnumPresenter{
+public interface Formatter {
 
-    @Override
-    public Object toValue(String str) {
-	if (str == null) {
-	    return null;
-	}
-	try {
-	    return VerticalAlign.valueOf(toEnumString(str));
-	} catch (IllegalArgumentException e) {
-	    return null;
-	}
-    }
-
+    //String getFormat();
+    
+    //void setFormat(String format);
+    
+    String toString(Object value);
+    
+    Object toValue(String str);
+    
 }

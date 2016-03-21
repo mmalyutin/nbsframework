@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.widget;
 import org.plazmaforge.framework.core.data.HasDataType;
 import org.plazmaforge.framework.core.data.HasProperty;
 import org.plazmaforge.framework.core.data.ValueProvider;
-import org.plazmaforge.framework.core.data.presenter.ValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**
@@ -107,10 +107,9 @@ public class Column extends Item implements HasProperty, HasDataType {
     
     
     /**
-     * Value presenter 
-     * toString, toValue
+     * Formatter 
      */
-    private ValuePresenter valuePresenter;
+    private Formatter formatter;
     
     
     /**
@@ -287,13 +286,13 @@ public class Column extends Item implements HasProperty, HasDataType {
 
     ////
 
-    public ValuePresenter getValuePresenter() {
-        return valuePresenter;
+    public Formatter getFormatter() {
+        return formatter;
     }
 
 
-    public void setValuePresenter(ValuePresenter valuePresenter) {
-        this.valuePresenter = valuePresenter;
+    public void setFormatter(Formatter formatter) {
+        this.formatter = formatter;
     }
 
 

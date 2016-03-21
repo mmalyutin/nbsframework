@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,23 +20,37 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.presenter.type;
-
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+package org.plazmaforge.framework.core.data.formatter;
 
 
-public class IntegerPresenter extends AbstractValuePresenter  {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class FormatterManager extends FormatterFactory {
 
-    @Override
-    public Object toValue(String str) {
-	try {
-	    if (str == null) {
-		return null;
-	    }
-	    return Integer.valueOf(str);
-	} catch (NumberFormatException ex) {
+    public String toString(Object value, String type) {
+	if (value == null) {
 	    return null;
 	}
+	Formatter presenter = getFormatter(type);
+	if (presenter == null) {
+	    return null;
+	}
+	return presenter.toString(value);
     }
-
+    
+    public Object toValue(String value, String type) {
+	if (value == null) {
+	    return null;
+	}
+	Formatter presenter = getFormatter(type);
+	if (presenter == null) {
+	    return null;
+	}
+	return presenter.toValue(value);
+    }
+    
+    
 }

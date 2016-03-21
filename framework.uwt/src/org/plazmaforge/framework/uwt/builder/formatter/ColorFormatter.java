@@ -20,15 +20,20 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.presenter;
+package org.plazmaforge.framework.uwt.builder.formatter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.plazmaforge.framework.core.data.presenter.AbstractValuePresenter;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
-public class ColorPresenter extends AbstractValuePresenter  {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class ColorFormatter extends AbstractFormatter  {
 
     // Hex
     // RGB

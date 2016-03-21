@@ -128,7 +128,7 @@ public class ToolUtils {
 	field.setSortable(column.isSortable());
 	field.setFilterable(column.isFilterable());
 	
-	field.setValuePresenter(column.getValuePresenter());
+	field.setFormatter(column.getFormatter());
 	return field;
     }
     

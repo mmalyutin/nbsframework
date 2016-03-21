@@ -156,7 +156,7 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 
 	sValue = getValue(element, XML_ATTR_DEFAULT_VALUE);
 	if (sValue != null) {
-	    Object defaultValue = getValuePresenterWorker().toValue(sValue, parameter.getDataType());
+	    Object defaultValue = getFormatterManager().toValue(sValue, parameter.getDataType());
 	    parameter.setDefaultValue(defaultValue);
 	}
 	
