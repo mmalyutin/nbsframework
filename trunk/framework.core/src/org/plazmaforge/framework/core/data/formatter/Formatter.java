@@ -34,8 +34,8 @@ public interface Formatter {
     
     //void setFormat(String format);
     
-    String toString(Object value);
+    String format(Object value);
     
-    Object toValue(String str);
+    Object parse(String str);
     
 }

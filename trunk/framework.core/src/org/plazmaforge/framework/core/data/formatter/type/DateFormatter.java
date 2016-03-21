@@ -39,7 +39,7 @@ public class DateFormatter extends AbstractFormatter {
     public static String DEFAULT_DATE_DELIM = "-";
     
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	if (str == null) {
 	    return null;
 	}
@@ -58,7 +58,7 @@ public class DateFormatter extends AbstractFormatter {
     }
 
     @Override
-    public String toString(Object value) {
+    public String format(Object value) {
 	if (value == null) {
 	    return null;
 	}

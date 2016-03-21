@@ -29,7 +29,7 @@ public class StringFormatter extends AbstractFormatter {
 
     
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	return str;
     }
     

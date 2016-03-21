@@ -112,10 +112,10 @@ public class FontFormatterTest extends TestCase {
 	FontFormatter presenter = new FontFormatter();
 	
 	// Test invalid
-	Font font = (Font) presenter.toValue(null);
+	Font font = (Font) presenter.parse(null);
 	assertNull(font);
 	
-	font = (Font) presenter.toValue("");
+	font = (Font) presenter.parse("");
 	assertNull(font);
 
 	
@@ -124,7 +124,7 @@ public class FontFormatterTest extends TestCase {
 	int fontSize = 0;
 	int fontStyle = 0;
 	
-	font = (Font) presenter.toValue("Arial");
+	font = (Font) presenter.parse("Arial");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -135,7 +135,7 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = 0;
 	
-	font = (Font) presenter.toValue("Arial, 10");
+	font = (Font) presenter.parse("Arial, 10");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -146,7 +146,7 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = Font.BOLD;
 
-	font = (Font) presenter.toValue("Arial, 10, bold");
+	font = (Font) presenter.parse("Arial, 10, bold");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -157,7 +157,7 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = Font.ITALIC;
 
-	font = (Font) presenter.toValue("Arial, 10, italic");
+	font = (Font) presenter.parse("Arial, 10, italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -168,14 +168,14 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = Font.BOLD | Font.ITALIC;
 
-	font = (Font) presenter.toValue("Arial, 10, bold|italic");
+	font = (Font) presenter.parse("Arial, 10, bold|italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
 	assertEquals(fontStyle, font.getStyle());
 
 	//
-	font = (Font) presenter.toValue("Arial, 10, bold | italic");
+	font = (Font) presenter.parse("Arial, 10, bold | italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -183,7 +183,7 @@ public class FontFormatterTest extends TestCase {
 
 
 	//
-	font = (Font) presenter.toValue("Arial,10,bold|italic");
+	font = (Font) presenter.parse("Arial,10,bold|italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -198,30 +198,30 @@ public class FontFormatterTest extends TestCase {
 	FontFormatter presenter = new FontFormatter();
 
 	// Test invalid
-	String fontString = presenter.toString(null);
+	String fontString = presenter.format(null);
 	assertNull(fontString);
 
 	// Test valid
 	Font font = new Font("Arial", 10);
-	fontString = presenter.toString(font);
+	fontString = presenter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10", fontString);
 
 	//
 	font = new Font("Arial", 10, Font.BOLD);
-	fontString = presenter.toString(font);
+	fontString = presenter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10, bold", fontString);
 
 	//
 	font = new Font("Arial", 10, Font.ITALIC);
-	fontString = presenter.toString(font);
+	fontString = presenter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10, italic", fontString);
 
 	//
 	font = new Font("Arial", 10, Font.BOLD | Font.ITALIC);
-	fontString = presenter.toString(font);
+	fontString = presenter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10, bold|italic", fontString);
 

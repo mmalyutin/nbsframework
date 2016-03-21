@@ -40,7 +40,7 @@ public abstract class AbstractFormatter implements Formatter {
 
     
     @Override
-    public String toString(Object value) {
+    public String format(Object value) {
 	// By default. Use format to present value in string
 	return value == null ? null : value.toString();
     }

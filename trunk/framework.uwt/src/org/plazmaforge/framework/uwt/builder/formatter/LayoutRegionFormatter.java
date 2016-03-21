@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Style.LayoutRegion;
 public class LayoutRegionFormatter extends AbstractStyleEnumFormatter {
 
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	if (str == null) {
 	    return null;
 	}

@@ -137,7 +137,7 @@ public class DisplayField {
 	    return null;
 	}
 	str = str.trim();
-	return (formatter == null) ? str: formatter.toValue(str);
+	return (formatter == null) ? str: formatter.parse(str);
     }
     
     

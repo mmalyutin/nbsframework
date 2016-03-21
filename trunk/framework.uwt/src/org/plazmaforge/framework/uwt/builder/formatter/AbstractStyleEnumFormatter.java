@@ -33,7 +33,7 @@ public abstract class AbstractStyleEnumFormatter extends AbstractFormatter {
 
     
     @Override
-    public String toString(Object value) {
+    public String format(Object value) {
 	return value == null ? null : toOutputString(value.toString());
     }
 

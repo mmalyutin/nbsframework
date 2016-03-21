@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Style.Direction;
 public class DirectionFormatter extends AbstractStyleEnumFormatter {
 
     @Override
-    public Object toValue(String str) {
+    public Object parse(String str) {
 	if (str == null) {
 	    return null;
 	}
