@@ -29,10 +29,10 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class ShortFormatter extends AbstractFormatter {
+public class ShortFormatter extends AbstractFormatter<Short> {
 
     @Override
-    public Object parse(String str) {
+    public Short parse(String str) {
 	try {
 	    if (str == null) {
 		return null;

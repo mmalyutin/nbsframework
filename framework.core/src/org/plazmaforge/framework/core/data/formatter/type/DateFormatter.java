@@ -34,12 +34,12 @@ import org.plazmaforge.framework.util.StringUtils;
  * @author ohapon
  *
  */
-public class DateFormatter extends AbstractFormatter {
+public class DateFormatter extends AbstractFormatter<Date> {
 
     public static String DEFAULT_DATE_DELIM = "-";
     
     @Override
-    public Object parse(String str) {
+    public Date parse(String str) {
 	if (str == null) {
 	    return null;
 	}
@@ -58,16 +58,15 @@ public class DateFormatter extends AbstractFormatter {
     }
 
     @Override
-    public String format(Object value) {
+    public String format(Date value) {
 	if (value == null) {
 	    return null;
 	}
 	//TODO: Simple formatter
-	Date date = toDate(value);
-	
-	int year = date.getYear() + 1900;
-	int month = date.getMonth() + 1;
-	int day = date.getDate(); // getDate() !!!
+		
+	int year = value.getYear() + 1900;
+	int month = value.getMonth() + 1;
+	int day = value.getDate(); // getDate() !!!
 	
 	
 	//Calendar calendar = Calendar.getInstance();
@@ -85,11 +84,7 @@ public class DateFormatter extends AbstractFormatter {
 	return "" + (value < 10 ? ("0" + value) : value);
     }
     
-    protected Date toDate(Object value) {
-	return (Date) value;
-    }
-    
-    protected int intValue (String str) {
+    protected int intValue(String str) {
 	try {
 	    return Integer.valueOf(str);
 	} catch (NumberFormatException e) {

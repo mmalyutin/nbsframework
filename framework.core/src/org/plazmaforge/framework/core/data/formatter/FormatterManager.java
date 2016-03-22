@@ -34,22 +34,22 @@ public class FormatterManager extends FormatterFactory {
 	if (value == null) {
 	    return null;
 	}
-	Formatter presenter = getFormatter(type);
-	if (presenter == null) {
+	Formatter formatter = getFormatter(type);
+	if (formatter == null) {
 	    return null;
 	}
-	return presenter.format(value);
+	return formatter.format(value);
     }
     
     public Object toValue(String value, String type) {
 	if (value == null) {
 	    return null;
 	}
-	Formatter presenter = getFormatter(type);
-	if (presenter == null) {
+	Formatter formatter = getFormatter(type);
+	if (formatter == null) {
 	    return null;
 	}
-	return presenter.parse(value);
+	return formatter.parse(value);
     }
     
     

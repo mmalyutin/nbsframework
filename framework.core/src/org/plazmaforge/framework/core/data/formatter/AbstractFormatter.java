@@ -24,7 +24,7 @@ package org.plazmaforge.framework.core.data.formatter;
 
 
 
-public abstract class AbstractFormatter implements Formatter {
+public abstract class AbstractFormatter<T> implements Formatter<T> {
 
     private String format;
     
@@ -40,7 +40,7 @@ public abstract class AbstractFormatter implements Formatter {
 
     
     @Override
-    public String format(Object value) {
+    public String format(T value) {
 	// By default. Use format to present value in string
 	return value == null ? null : value.toString();
     }

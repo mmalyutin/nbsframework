@@ -36,7 +36,7 @@ import org.plazmaforge.framework.util.StringUtils;
 public class DateTimeFormatter extends DateFormatter {
 
     @Override
-    public Object parse(String str) {
+    public Date parse(String str) {
 	if (str == null) {
 	    return null;
 	}
@@ -77,20 +77,19 @@ public class DateTimeFormatter extends DateFormatter {
     
     
     @Override
-    public String format(Object value) {
+    public String format(Date value) {
 	if (value == null) {
 	    return null;
 	}
 	//TODO: Simple formatter
-	Date date = toDate(value);
 	
-	int year = date.getYear() + 1900;
-	int month = date.getMonth() + 1;
-	int day = date.getDate(); // getDate() !!!
+	int year = value.getYear() + 1900;
+	int month = value.getMonth() + 1;
+	int day = value.getDate(); // getDate() !!!
 
-	int hours = date.getHours();
-	int minutes = date.getMinutes();
-	int seconds = date.getSeconds();	
+	int hours = value.getHours();
+	int minutes = value.getMinutes();
+	int seconds = value.getSeconds();	
 
 	//Calendar calendar = Calendar.getInstance();
 	//calendar.setTime(date);
