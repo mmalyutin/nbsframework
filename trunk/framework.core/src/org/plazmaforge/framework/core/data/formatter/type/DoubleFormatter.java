@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.core.data.formatter.type;
 
+
 import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
 /**
@@ -29,10 +30,10 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class DoubleFormatter extends AbstractFormatter {
+public class DoubleFormatter extends AbstractFormatter<Double> {
 
     @Override
-    public Object parse(String str) {
+    public Double parse(String str) {
 	try {
 	    if (str == null) {
 		return null;

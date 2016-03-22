@@ -45,13 +45,13 @@ import org.plazmaforge.framework.core.data.formatter.type.TimeFormatter;
 public class FormatterFactory {
 
 
-    private Map<String, Formatter> formatters = new HashMap<String, Formatter>();
+    private Map<String, Formatter<?>> formatters = new HashMap<String, Formatter<?>>();
     
     public FormatterFactory() {
 	super();
     }
 
-    public void registerFormatter(String type, Formatter formatter) {
+    public void registerFormatter(String type, Formatter<?> formatter) {
 	formatters.put(type, formatter);
     }
 
@@ -73,11 +73,11 @@ public class FormatterFactory {
     }
     
     
-    public Formatter getFormatter(String type) {
+    public Formatter<?> getFormatter(String type) {
 	return getFormatter(type, null);
     }
 
-    public Formatter getFormatter(String type, String format) {
+    public Formatter<?> getFormatter(String type, String format) {
 	
 	/*
 	if (type == null) {
@@ -99,7 +99,7 @@ public class FormatterFactory {
 	return doGetFormatter(type);
     }
     
-    protected Formatter doGetFormatter(String type) {
+    protected Formatter<?> doGetFormatter(String type) {
 	return formatters.get(type);
     }
     

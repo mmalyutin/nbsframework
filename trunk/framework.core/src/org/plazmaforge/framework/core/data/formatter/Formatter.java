@@ -28,14 +28,14 @@ package org.plazmaforge.framework.core.data.formatter;
  *
  */
 
-public interface Formatter {
+public interface Formatter<T> {
 
     //String getFormat();
     
     //void setFormat(String format);
     
-    String format(Object value);
+    String format(T value);
     
-    Object parse(String str);
+    T parse(String str);
     
 }

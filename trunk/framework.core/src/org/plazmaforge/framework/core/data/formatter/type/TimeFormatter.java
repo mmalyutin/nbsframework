@@ -28,13 +28,18 @@ import java.util.Date;
 
 import org.plazmaforge.framework.util.StringUtils;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class TimeFormatter extends DateFormatter {
 
     public static String DEFAULT_TIME_DELIM = ":";
     
     
     @Override
-    public Object parse(String str) {
+    public Date parse(String str) {
 	if (str == null) {
 	    return null;
 	}
@@ -53,14 +58,13 @@ public class TimeFormatter extends DateFormatter {
     
     
     @Override
-    public String format(Object value) {
+    public String format(Date value) {
 	
 	if (value == null) {
 	    return null;
 	}
 	
 	//TODO: Simple formatter
-	Date date = toDate(value);
 
 	//Calendar calendar = Calendar.getInstance();
 	//calendar.setTime(date);
@@ -69,9 +73,9 @@ public class TimeFormatter extends DateFormatter {
 	//int minutes = calendar.get(Calendar.MINUTE);
 	//int seconds = calendar.get(Calendar.SECOND);	
 	
-	int hours = date.getHours();
-	int minutes = date.getMinutes();
-	int seconds = date.getSeconds();	
+	int hours = value.getHours();
+	int minutes = value.getMinutes();
+	int seconds = value.getSeconds();	
 	
 	// HH:mm:ss
 	return "" + toString2(hours) + ":" + toString2(minutes)+ ":" + toString2(seconds);

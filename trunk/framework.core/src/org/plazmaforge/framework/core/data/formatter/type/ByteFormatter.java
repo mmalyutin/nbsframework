@@ -29,10 +29,10 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class ByteFormatter extends AbstractFormatter {
+public class ByteFormatter extends AbstractFormatter<Byte> {
 
     @Override
-    public Object parse(String str) {
+    public Byte parse(String str) {
 	try {
 	    if (str == null) {
 		return null;

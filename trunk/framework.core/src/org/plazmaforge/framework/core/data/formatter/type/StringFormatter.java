@@ -24,12 +24,16 @@ package org.plazmaforge.framework.core.data.formatter.type;
 
 import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-
-public class StringFormatter extends AbstractFormatter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class StringFormatter extends AbstractFormatter<String> {
 
     
     @Override
-    public Object parse(String str) {
+    public String parse(String str) {
 	return str;
     }
     

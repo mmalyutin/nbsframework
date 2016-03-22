@@ -29,10 +29,10 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class IntegerFormatter extends AbstractFormatter  {
+public class IntegerFormatter extends AbstractFormatter<Integer>  {
 
     @Override
-    public Object parse(String str) {
+    public Integer parse(String str) {
 	try {
 	    if (str == null) {
 		return null;

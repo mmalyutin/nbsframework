@@ -29,10 +29,10 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class BooleanFormatter extends AbstractFormatter {
+public class BooleanFormatter extends AbstractFormatter<Boolean> {
 
     @Override
-    public Object parse(String str) {
+    public Boolean parse(String str) {
 	if (str == null) {
 	    return null;
 	}
