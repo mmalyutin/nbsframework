@@ -20,10 +20,10 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.formatter;
+package org.plazmaforge.framework.uwt.builder.formatter.type;
 
 import org.junit.Test;
-import org.plazmaforge.framework.uwt.builder.formatter.FontFormatter;
+import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
 import org.plazmaforge.framework.uwt.graphics.Font;
 
 import junit.framework.TestCase;

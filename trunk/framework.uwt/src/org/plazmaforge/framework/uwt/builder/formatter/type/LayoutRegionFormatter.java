@@ -20,27 +20,28 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.formatter;
+package org.plazmaforge.framework.uwt.builder.formatter.type;
 
-import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
+import org.plazmaforge.framework.uwt.builder.formatter.AbstractStyleEnumFormatter;
+import org.plazmaforge.framework.uwt.widget.Style.LayoutRegion;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class VerticalAlignFormatter extends AbstractStyleEnumFormatter{
+public class LayoutRegionFormatter extends AbstractStyleEnumFormatter<LayoutRegion> {
 
     @Override
-    public Object parse(String str) {
+    public LayoutRegion parse(String str) {
 	if (str == null) {
 	    return null;
 	}
 	try {
-	    return VerticalAlign.valueOf(toEnumString(str));
+	    return LayoutRegion.valueOf(toEnumString(str));
 	} catch (IllegalArgumentException e) {
 	    return null;
 	}
     }
-
+    
 }

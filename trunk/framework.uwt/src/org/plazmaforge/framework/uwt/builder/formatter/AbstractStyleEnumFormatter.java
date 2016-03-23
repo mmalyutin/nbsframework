@@ -29,7 +29,7 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public abstract class AbstractStyleEnumFormatter extends AbstractFormatter {
+public abstract class AbstractStyleEnumFormatter<T> extends AbstractFormatter<T> {
 
     
     @Override

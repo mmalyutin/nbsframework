@@ -1,7 +1,7 @@
-package org.plazmaforge.framework.uwt.builder.formatter;
+package org.plazmaforge.framework.uwt.builder.formatter.type;
 
 import org.junit.Test;
-import org.plazmaforge.framework.uwt.builder.formatter.ColorFormatter;
+import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 import junit.framework.TestCase;
