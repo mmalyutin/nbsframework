@@ -31,7 +31,7 @@ import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
-import org.plazmaforge.framework.uwt.builder.formatter.ColorFormatter;
+import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
