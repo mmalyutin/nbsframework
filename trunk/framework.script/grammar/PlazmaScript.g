@@ -78,9 +78,10 @@ statement
   |  Continue ';' -> Continue
   ;
 
+  
 assignment
-  :  Identifier indexes? '=' expression -> ^(ASSIGNMENT Identifier indexes? expression)
-  |  anyIdentifier indexes? '=' expression -> ^(ASSIGNMENT {new CommonTree(new CommonToken(Identifier, $anyIdentifier.text))} indexes? expression)
+  :  Declare? Identifier indexes? '=' expression -> ^(ASSIGNMENT Declare? Identifier indexes? expression)
+  |  Declare? anyIdentifier indexes? '=' expression -> ^(ASSIGNMENT Declare? {new CommonTree(new CommonToken(Identifier, $anyIdentifier.text))} indexes? expression)
   ;
 
 functionCall
@@ -107,6 +108,22 @@ elseStat
   :  Else '{' block '}' -> ^(EXP block)
   ;
 
+
+
+//Declare
+//  : (Var | (Var ('int' | 'float')));
+   
+//Declare
+//  : (Var | ('int' | 'float'));
+
+Declare
+  : 'var';
+
+//Declare
+//  : (Var | Identifier);
+
+//Var      : 'var';
+  
 functionDecl
   :  Def Identifier '(' idList? ')' '{' block '}' 
      {defineFunction($Identifier.text, $idList.tree, $block.tree);}
@@ -225,10 +242,12 @@ indexes
   ;
 
 
+
 Println  : 'println';
 Print    : 'print';
 Assert   : 'assert';
 Size     : 'size';
+//Var      : 'var';
 Def      : 'def';
 If       : 'if';
 Else     : 'else';
@@ -310,6 +329,7 @@ Identifier
   :  ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | Digit)*
   ;
 
+
 //ContextIdentifier
 //  :  '$' Identifier 
 //  ;
@@ -317,6 +337,14 @@ Identifier
 ContextIdentifier
   :  ('$' Identifier) | ('$' Identifier? '{' Identifier '}') 
   ;
+
+//typeIdentifier
+//  :  Identifier (('.' Identifier)*)? 
+//  ;
+
+//TypeIdentifier2
+//  :  (('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | Digit)*) (('.' (('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | Digit)*))*)? 
+//  ;
 
 
 String

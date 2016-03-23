@@ -77,7 +77,7 @@ public class Scope {
     }
     
     
-    protected boolean exists(String var) {
+    public boolean exists(String var) {
 	return variables.containsKey(var);
     }
     
@@ -85,9 +85,14 @@ public class Scope {
 	return variables.get(var);
     }
 
-    protected void setVariableValue(String var, LValue value) {
+    public void setVariableValue(String var, LValue value) {
 	variables.put(var, value);
     }
+    
+    public void removeVariable(String var) {
+	variables.remove(var);
+    }
+    
 
     public void reset() {
 	// Clear all variables

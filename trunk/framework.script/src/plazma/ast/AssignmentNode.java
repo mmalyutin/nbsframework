@@ -9,13 +9,15 @@ import plazma.lang.LValue;
 
 public class AssignmentNode implements LNode {
 
+    protected String declare;
     protected String identifier;
     protected List<LNode> indexNodes;
     protected LNode rhs;
     protected Scope scope;
     private Scope globalScope;
 
-    public AssignmentNode(String identifier, List<LNode> indexNodes, LNode rhs, Scope scope, Scope globalScope) {
+    public AssignmentNode(String declare, String identifier, List<LNode> indexNodes, LNode rhs, Scope scope, Scope globalScope) {
+	this.declare = declare;
 	this.identifier = identifier;
         this.indexNodes = ScriptUtils.getSafeList(indexNodes);
         this.rhs = rhs;
@@ -26,13 +28,39 @@ public class AssignmentNode implements LNode {
     @Override
     public LValue evaluate() {
 
-        LValue value = rhs.evaluate();
+	Scope currentScope = getCurrentScope(identifier);
+	
+	boolean isDeclare = isDeclare();
+	
+	LValue value = null;
+	
+	if (isDeclare) {
+	    
+	    // Declare new variable
+	    
+	    if (indexNodes != null && !indexNodes.isEmpty()) {
+		throw new RuntimeException("Can't declare variable '" + identifier + "'. Index node doesn't support");
+	    }
+	    if (currentScope.exists(identifier)) {
+		throw new RuntimeException("Can't declare variable '" + identifier + "' already");
+	    }
+	    
+	    value = rhs == null ? LValue.NULL : rhs.evaluate(); 
+	    currentScope.setVariableValue(identifier, value);
+	    return LValue.VOID;
+	}	
+
+	if ((currentScope.resolve(identifier) == null)) {
+	    throw new RuntimeException("Variable '" + identifier + "' not found");
+	}
+        
+	value = rhs.evaluate();
 
         if (value == LValue.VOID) {
             throw new RuntimeException("can't assign VOID to " + identifier);
         }
 
-        Scope currentScope = getCurrentScope(identifier);
+        
         
         if (indexNodes.isEmpty()) { // a simple assignment
             currentScope.assign(identifier, value);
@@ -69,6 +97,9 @@ public class AssignmentNode implements LNode {
         return LValue.VOID;
     }
 
+    protected boolean isDeclare( ) {
+	return declare != null && declare.trim().equals("var"); 
+    }
     @Override
     public String toString() {
         return String.format("(%s[%s] = %s)", identifier, indexNodes, rhs);

@@ -39,10 +39,17 @@ walk returns [LNode node]
 
 block returns [LNode node]
 @init {
-  BlockNode bn = new BlockNode();
-  node = bn;
+  
+  //BlockNode bn = new BlockNode();
+  //node = bn;
+  //Scope local = new Scope(currentScope);
+  //currentScope = local;
+
   Scope local = new Scope(currentScope);
   currentScope = local;
+  BlockNode bn = new BlockNode(local);
+  node = bn;
+  
 }
 @after {
   currentScope = currentScope.parent();
@@ -62,8 +69,9 @@ statement returns [LNode node]
   
   ;
 
+
 assignment returns [LNode node]
-  :  ^(ASSIGNMENT Identifier indexes? expression) {node = new AssignmentNode($Identifier.text, $indexes.e, $expression.node, currentScope, globalScope);}
+  :  ^(ASSIGNMENT Declare? Identifier indexes? expression) {node = new AssignmentNode($Declare.text, $Identifier.text, $indexes.e, $expression.node, currentScope, globalScope);}
   ;
 
 functionCall returns [LNode node]
