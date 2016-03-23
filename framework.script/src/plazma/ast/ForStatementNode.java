@@ -28,12 +28,21 @@ public class ForStatementNode implements LNode {
     @Override
     public LValue evaluate() {
 
+	// Get block node
+	BlockNode blockNode  = (BlockNode) block;
+	
+	// Get block (local) scope
+	Scope blockScope = blockNode.getScope();
+	
         int start = startExpr.evaluate().asDouble().intValue();
         int stop = stopExpr.evaluate().asDouble().intValue();
 
         if ("..<".equals(rangeSeparator)) {
             for(int i = start; i < stop; i++) {
-                scope.assign(identifier, new LValue(i));
+                
+        	//scope.assign(identifier, new LValue(i)); // OLD CODE
+        	blockScope.setVariableValue(identifier, new LValue(i));
+        	
                 LValue returnValue = block.evaluate();
                 if (returnValue == LValue.BREAK) {
                     break;
@@ -50,7 +59,10 @@ public class ForStatementNode implements LNode {
         }
         
         for(int i = start; i <= stop; i++) {
-            scope.assign(identifier, new LValue(i));
+            
+            //scope.assign(identifier, new LValue(i)); OLD CODE
+            blockScope.setVariableValue(identifier, new LValue(i));
+            
             LValue returnValue = block.evaluate();
             if (returnValue == LValue.BREAK) {
                 break;

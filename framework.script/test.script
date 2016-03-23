@@ -40,10 +40,14 @@ assert(2 ^ 10 == 1024);
 assert(3 ^ 3 == 27);
 
 // for and while statements
-a = 0  ;
+var a = 0;
 
 println("for 1..10");
 println();
+
+var i = 999;
+println("+============================" + i);
+
 for (i in 1..10) {
   a = a + i;
   println("i = " + i);
@@ -55,6 +59,8 @@ a = 0;
 println("for 0..<10");
 println();
 
+println("-============================" + i);
+
 for (i in 0..<10) {
   a = a + i;
   println("i = " + i);
@@ -63,8 +69,8 @@ for (i in 0..<10) {
 assert(a == (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9));
 
 
-b = -10;
-c = 0;
+var b = -10;
+var c = 0;
 while (b < 0) { 
   c = c + b;
   b = b + 1;
@@ -96,7 +102,7 @@ if (false) {
 
 // functions
 def twice(n) {
-  temp = n + n; 
+  var temp = n + n; 
   return temp; 
 }
 
@@ -126,10 +132,10 @@ def sort(list) {
 }
 
 def sorted(list) {
-  n = size(list);
+  var n = size(list);
   for (i in 0 .. n-2) {
     if (list[i] > list[i+1]) {
-      temp = list[i+1];
+      var temp = list[i+1];
       list[i+1] = list[i];
       list[i] = temp;
       return false;
@@ -138,7 +144,7 @@ def sorted(list) {
   return true;
 }
 
-numbers = [3, 5, 1, 4, 2];
+var numbers = [3, 5, 1, 4, 2];
 
 sort(numbers);
 assert(numbers == [1, 2, 3, 4, 5]);
@@ -152,7 +158,7 @@ def fib(n) {
   }
 }
 
-sequence = [];
+var sequence = [];
 for (i in 0 .. 10) {
   sequence = sequence + fib(i);
 }
@@ -160,8 +166,12 @@ for (i in 0 .. 10) {
 assert(sequence == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
 
 // lists and lookups, `in` operator
-n = [[1,0,0], [0,1,0], [0,0,1]];
-p = [-1, 'abc', true];
+var n = [[1,0,0], [0,1,0], [0,0,1]];
+
+
+
+
+var p = [-1, 'abc', true];
 
 assert('abc' in p);
 assert([0,1,0] in n);
@@ -191,25 +201,25 @@ assert(2 + 4 * 5 == 22.0);
 
 println((1 + (2 + - 3 ^ 2)) * 4 ^ 5);
 
-z1 = 4 ^ 5;
-z2 = -3 ^ 2;
-z3 = 2 + z2;
+var z1 = 4 ^ 5;
+var z2 = -3 ^ 2;
+var z3 = 2 + z2;
 
 println((1 + z3) * z1);
 println( 1 < 2 ? 1: 2);
 
 
-list = ["key1", 100, 2, 200];
+var list = ["key1", 100, 2, 200];
 println(list);
 
-map = {"key1": 101, "key2": 202};
+var map = {"key1": 101, "key2": 202};
 println(map);
 
 println(map["key1"]);
 println(map["key2"]);
 
 println("map2:");
-map2 = {1:10, 2:20, 3: 30};
+var map2 = {1:10, 2:20, 3: 30};
 println(map2[1]);
 println(map2[3]);
 
@@ -240,12 +250,12 @@ for (i in 1..10  ) {
 
 println("Test range");
 
-derA = 5;
-derB = 7;
-//der = derA..derB;
-der = 1.0..< 7;
+var derA = 5;
+var derB = 7;
+//var der = derA..derB;
+var der = 1.0..< 7;
 
-zzz = [0, 5, 8];
+var zzz = [0, 5, 8];
 
 for (i in zzz) {
   println(i);
@@ -267,7 +277,7 @@ while (b) {
 }
 
 // Global variable
-$F{test} = 90;
+var $F{test} = 90;
 i = 0;
 while (i < 10) {
   $F{test} = 3;
@@ -283,7 +293,7 @@ println(cc());
 println($F{test});
 
 
-contact = {
+var contact = {
  "title": "Title-1",
  "address": "Adddress-1",
  "phone": ["555-111-111-1", "555-222-222-2"]
@@ -297,3 +307,4 @@ println("address: " + contact["address"]);
 println("phones:");
 println(" 1: " + contact["phone"][0]);
 println(" 2: " + contact["phone"][1]);
+

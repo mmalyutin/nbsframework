@@ -54,7 +54,7 @@ public class GlobalScope extends Scope {
     }
 
     
-    protected boolean exists(String var) {
+    public boolean exists(String var) {
 	if (!isGlobalVariableMode(var)) {
 	    return super.exists(var);
 	}
@@ -74,7 +74,7 @@ public class GlobalScope extends Scope {
 	return lValue;
     }
 
-    protected void setVariableValue(String var, LValue value) {
+    public void setVariableValue(String var, LValue value) {
 	if (!isGlobalVariableMode(var)) {
 	    super.setVariableValue(var, value);
 	    return;

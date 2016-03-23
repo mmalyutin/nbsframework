@@ -4,14 +4,18 @@ package plazma.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import plazma.Scope;
 import plazma.lang.LValue;
 
 public class BlockNode implements LNode {
 
+    protected Scope scope;
+    
     private List<LNode> statements;
     private LNode returnStatement;
 
-    public BlockNode() {
+    public BlockNode(Scope scope) {
+	this.scope = scope;
         statements = new ArrayList<LNode>();
         returnStatement = null;
     }
@@ -46,4 +50,10 @@ public class BlockNode implements LNode {
         }
         return b.toString();
     }
+
+    public Scope getScope() {
+        return scope;
+    }
+    
+    
 }

@@ -22,7 +22,8 @@ public class IdentifierNode implements LNode {
 	Scope currentScope = getCurrentScope(identifier);
         LValue value = currentScope.resolve(identifier);
         if (value == null) {
-            throw new RuntimeException("no such variable: " + this);
+            //throw new RuntimeException("no such variable: " + this);
+            throw new RuntimeException("Variable '" + identifier + "' not found");
         }
         return value;
     }

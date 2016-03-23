@@ -46,6 +46,12 @@ public class ForStatementNode2 implements LNode {
 
 	LValue startValue = startExpr.evaluate();
 	
+	// Get block node
+	BlockNode blockNode  = (BlockNode) block;
+	
+	// Get block (local) scope
+	Scope blockScope = blockNode.getScope();
+	
 	// Range
 	if (startValue.isList()) {
 	    List<LValue> values = startValue.asList();
@@ -53,7 +59,10 @@ public class ForStatementNode2 implements LNode {
 	    int count = values.size();
 	    for (int i = 0; i < count; i++) {
 		value = values.get(i);
-		scope.assign(identifier, value);
+		
+		//scope.assign(identifier, value); // OLD CODE
+		blockScope.setVariableValue(identifier, value);
+		
                 LValue returnValue = block.evaluate();
                 if (returnValue == LValue.BREAK) {
                     break;
