@@ -203,7 +203,7 @@ atom
   ;
 
 list
-  :  '{' exprList? '}' -> ^(LIST exprList?)
+  :  '[' exprList? ']' -> ^(LIST exprList?)
   ;
 
 map

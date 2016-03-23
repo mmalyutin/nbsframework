@@ -20,11 +20,11 @@ assert('sw' <= 'sw');
 
 // add
 assert(1 + 999 == 1000);
-assert({1} + 1 == {1,1});
+assert([1] + 1 == [1, 1]);
 assert(2 - -2 == 4);
 assert(-1 + 1 == 0);
 assert(1 - 50 == -49);
-assert({1,2,3,4,5} - 4 == {1,2,3,5});
+assert([1, 2, 3, 4, 5] - 4 == [1, 2, 3, 5]);
 
 // multiply
 assert(3 * 50 == 150);
@@ -32,14 +32,14 @@ assert(4 / 2 == 2);
 assert(1 / 4 == 0.25);
 assert(999999 % 3 == 0);
 assert(-5 * -5 == 25);
-assert({1,2,3} * 2 == {1,2,3,1,2,3});
-assert('ab'*3 == "ababab");
+assert([1, 2, 3] * 2 == [1, 2, 3, 1, 2, 3]);
+assert('ab' * 3 == "ababab");
 
 // power
-assert(2^10 == 1024);
-assert(3^3 == 27);
+assert(2 ^ 10 == 1024);
+assert(3 ^ 3 == 27);
 
-// for- and while statements
+// for and while statements
 a = 0  ;
 
 println("for 1..10");
@@ -49,7 +49,7 @@ for (i in 1..10) {
   println("i = " + i);
 }
 
-assert(a == (1+2+3+4+5+6+7+8+9+10));
+assert(a == (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10));
 
 a = 0;
 println("for 0..<10");
@@ -60,7 +60,7 @@ for (i in 0..<10) {
   println("i = " + i);
 }
 
-assert(a == (1+2+3+4+5+6+7+8+9));
+assert(a == (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9));
 
 
 b = -10;
@@ -70,7 +70,7 @@ while (b < 0) {
   b = b + 1;
 }
 
-assert(c == -(1+2+3+4+5+6+7+8+9+10));
+assert(c == -(1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10));
 
 // if
 a = 123;
@@ -109,14 +109,14 @@ def squaredAndTwice(n) {
 }
 
 def list() {
-  return {7,8,9};
+  return [7,8,9];
 }
 
-assert(squared(666) == 666^2);
+assert(squared(666) == 666 ^ 2);
 assert(twice(squared(5)) == 50);
 assert(squaredAndTwice(10) == 200);
-assert(squared(squared(squared(2))) == 2^2^2^2);
-assert(list() == {7,8,9});
+assert(squared(squared(squared(2))) == 2 ^ 2 ^ 2 ^ 2);
+assert(list() == [7, 8, 9]);
 assert(size(list()) == 3);
 assert(list()[1] == 8);
 
@@ -138,12 +138,12 @@ def sorted(list) {
   return true;
 }
 
-numbers = {3,5,1,4,2};
+numbers = [3, 5, 1, 4, 2];
 
 sort(numbers);
-assert(numbers == {1,2,3,4,5});
+assert(numbers == [1, 2, 3, 4, 5]);
 
-// resursive calls
+// recursive calls
 def fib(n) {
   if (n < 2) {
     return n;
@@ -152,19 +152,19 @@ def fib(n) {
   }
 }
 
-sequence = {};
+sequence = [];
 for (i in 0 .. 10) {
   sequence = sequence + fib(i);
 }
 
-assert(sequence == {0,1,1,2,3,5,8,13,21,34,55});
+assert(sequence == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
 
 // lists and lookups, `in` operator
-n = {{1,0,0},{0,1,0},{0,0,1}};
-p = {-1, 'abc', true};
+n = [[1,0,0], [0,1,0], [0,0,1]];
+p = [-1, 'abc', true];
 
 assert('abc' in p);
-assert({0,1,0} in n);
+assert([0,1,0] in n);
 assert(n[0][2] == 0);
 assert(n[1][1] == n[2][2]);
 assert(p[2]);
@@ -185,21 +185,21 @@ println(percent(100, 20));
 println(percent(200, 20));
 
 println("Test priority");
-println(2+4*5); // 22 40
+println(2 + 4 * 5); // 22 40
 
-assert(2+4*5 == 22.0);
+assert(2 + 4 * 5 == 22.0);
 
-println((1+(2+-3^2))*4^5);
+println((1 + (2 + - 3 ^ 2)) * 4 ^ 5);
 
-z1=4^5;
-z2=-3^2;
-z3=2 + z2;
+z1 = 4 ^ 5;
+z2 = -3 ^ 2;
+z3 = 2 + z2;
 
-println((1+z3)*z1);
+println((1 + z3) * z1);
 println( 1 < 2 ? 1: 2);
 
 
-list = {"key1", 100, 2, 200};
+list = ["key1", 100, 2, 200];
 println(list);
 
 map = {"key1": 101, "key2": 202};
@@ -245,7 +245,7 @@ derB = 7;
 //der = derA..derB;
 der = 1.0..< 7;
 
-zzz = {0,5,8};
+zzz = [0, 5, 8];
 
 for (i in zzz) {
   println(i);
@@ -266,6 +266,7 @@ while (b) {
   i = i + 1;
 }
 
+// Global variable
 $F{test} = 90;
 i = 0;
 while (i < 10) {
@@ -280,3 +281,19 @@ def cc() {
 }
 println(cc());
 println($F{test});
+
+
+contact = {
+ "title": "Title-1",
+ "address": "Adddress-1",
+ "phone": ["555-111-111-1", "555-222-222-2"]
+};
+
+println();
+println("Contact info");
+println("===========================");
+println("title: " + contact["title"]);
+println("address: " + contact["address"]);
+println("phones:");
+println(" 1: " + contact["phone"][0]);
+println(" 2: " + contact["phone"][1]);
