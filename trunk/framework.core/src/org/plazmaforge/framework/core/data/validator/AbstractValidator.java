@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.validation;
+package org.plazmaforge.framework.core.data.validator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,7 @@
-package org.plazmaforge.framework.core.validation;
+package org.plazmaforge.framework.core.data.validator.type;
+
+import org.plazmaforge.framework.core.data.validator.ExpressionValidator;
+import org.plazmaforge.framework.core.data.validator.Validator;
 
 public class Required extends NotEmpty {
 

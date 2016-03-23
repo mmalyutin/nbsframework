@@ -1,9 +1,13 @@
-package org.plazmaforge.framework.core.validation;
+package org.plazmaforge.framework.core.data.validator.type;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.validator.AbstractExpressionValidator;
+import org.plazmaforge.framework.core.data.validator.ExpressionValidator;
+import org.plazmaforge.framework.core.data.validator.ValidationResult;
+import org.plazmaforge.framework.core.data.validator.Validator;
 import org.plazmaforge.framework.util.StringUtils;
 
 public class Size extends AbstractExpressionValidator {

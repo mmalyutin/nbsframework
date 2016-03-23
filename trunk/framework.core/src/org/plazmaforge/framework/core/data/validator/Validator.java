@@ -1,4 +1,4 @@
-package org.plazmaforge.framework.core.validation;
+package org.plazmaforge.framework.core.data.validator;
 
 import java.util.List;
 

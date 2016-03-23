@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.validator.Validator;
 import org.plazmaforge.framework.core.sql.type.Type;
-import org.plazmaforge.framework.core.validation.Validator;
 import org.plazmaforge.framework.erm.Accessor;
 import org.plazmaforge.framework.erm.Configuration;
 import org.plazmaforge.framework.sql.generator.Generator;

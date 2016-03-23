@@ -20,40 +20,39 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.validation;
+package org.plazmaforge.framework.core.data.validator;
 
-public class ValidationResult {
+import java.util.List;
 
-    
-    private String errorMessage;
+public class ValidationUtils {
 
-    private String errorCode;
-    
-    private Object value;
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
+    private ValidationUtils() {
+	
     }
     
+    public static String getErrorMessage(List<ValidationResult> result) {
+	return getErrorMessage(result, null);
+    }
     
+    public static String getErrorMessage(List<ValidationResult> result, String delim) {
+	if (result == null || result.isEmpty()) {
+	    return null;
+	}
+	StringBuffer buf = new StringBuffer();
+	if (delim == null) {
+	    delim = " ";
+	}
+	boolean first = true;
+	for (ValidationResult r: result) {
+	    if (r.getErrorMessage() == null) {
+		continue;
+	    }
+	    if (!first) {
+		buf.append(delim);
+	    }
+	    buf.append(r.getErrorMessage());
+	    first = false;
+	}
+	return buf.toString();
+    }
 }
