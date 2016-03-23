@@ -20,27 +20,27 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.formatter;
+package org.plazmaforge.framework.uwt.builder.formatter.type;
 
-import org.plazmaforge.framework.uwt.widget.Style.LayoutRegion;
+import org.plazmaforge.framework.uwt.builder.formatter.AbstractStyleEnumFormatter;
+import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class LayoutRegionFormatter extends AbstractStyleEnumFormatter {
+public class OrientationFormatter extends AbstractStyleEnumFormatter<Orientation> {
 
     @Override
-    public Object parse(String str) {
+    public Orientation parse(String str) {
 	if (str == null) {
 	    return null;
 	}
 	try {
-	    return LayoutRegion.valueOf(toEnumString(str));
+	    return Orientation.valueOf(toEnumString(str));
 	} catch (IllegalArgumentException e) {
 	    return null;
 	}
     }
-    
 }

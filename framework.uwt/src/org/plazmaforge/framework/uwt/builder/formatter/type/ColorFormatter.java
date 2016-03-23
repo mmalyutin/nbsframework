@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.formatter;
+package org.plazmaforge.framework.uwt.builder.formatter.type;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  * @author ohapon
  *
  */
-public class ColorFormatter extends AbstractFormatter  {
+public class ColorFormatter extends AbstractFormatter<Color>  {
 
     // Hex
     // RGB
@@ -59,7 +59,7 @@ public class ColorFormatter extends AbstractFormatter  {
     }
     
     @Override
-    public String format(Object value) {
+    public String format(Color value) {
 	if (value == null) {
 	    return null;
 	}
@@ -68,7 +68,7 @@ public class ColorFormatter extends AbstractFormatter  {
     }
 
     @Override
-    public Object parse(String str) {
+    public Color parse(String str) {
 	if (str == null) {
 	    return null;
 	}

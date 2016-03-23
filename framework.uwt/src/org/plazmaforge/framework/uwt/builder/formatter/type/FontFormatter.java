@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.builder.formatter;
+package org.plazmaforge.framework.uwt.builder.formatter.type;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  * @author ohapon
  *
  */
-public class FontFormatter extends AbstractFormatter {
+public class FontFormatter extends AbstractFormatter<Font> {
 
     private static final String ATTR_NAME = "name";
     
@@ -49,7 +49,7 @@ public class FontFormatter extends AbstractFormatter {
     
     
     @Override
-    public String format(Object value) {
+    public String format(Font value) {
 	if (value == null) {
 	    return null;
 	}
@@ -97,7 +97,7 @@ public class FontFormatter extends AbstractFormatter {
     }
     
     @Override
-    public Object parse(String str) {
+    public Font parse(String str) {
 	if (str == null) {
 	    return null;
 	}
