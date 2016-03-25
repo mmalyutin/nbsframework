@@ -71,7 +71,7 @@ statement returns [LNode node]
 
 
 assignment returns [LNode node]
-  :  ^(ASSIGNMENT Declare? Identifier indexes? expression) {node = new AssignmentNode($Declare.text, $Identifier.text, $indexes.e, $expression.node, currentScope, globalScope);}
+  :  ^(ASSIGNMENT variableDef? Identifier indexes? expression) {node = new AssignmentNode($variableDef.node, $Identifier.text, $indexes.e, $expression.node, currentScope, globalScope);}
   ;
 
 functionCall returns [LNode node]
@@ -185,4 +185,7 @@ indexes returns [java.util.List<LNode> e]
 @init {e = new java.util.ArrayList<LNode>();}
   :  ^(INDEXES (expression {e.add($expression.node);})+)
   ;
-  
+
+variableDef returns [LNode node]  
+  : Var {node = new VariableDefNode($Var.text, null);}
+  ; 
