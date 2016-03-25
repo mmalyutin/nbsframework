@@ -9,15 +9,15 @@ import plazma.lang.LValue;
 
 public class AssignmentNode implements LNode {
 
-    protected String declare;
+    protected VariableDefNode def;
     protected String identifier;
     protected List<LNode> indexNodes;
     protected LNode rhs;
     protected Scope scope;
     private Scope globalScope;
 
-    public AssignmentNode(String declare, String identifier, List<LNode> indexNodes, LNode rhs, Scope scope, Scope globalScope) {
-	this.declare = declare;
+    public AssignmentNode(LNode def, String identifier, List<LNode> indexNodes, LNode rhs, Scope scope, Scope globalScope) {
+	this.def = (VariableDefNode) def;
 	this.identifier = identifier;
         this.indexNodes = ScriptUtils.getSafeList(indexNodes);
         this.rhs = rhs;
@@ -97,9 +97,10 @@ public class AssignmentNode implements LNode {
         return LValue.VOID;
     }
 
-    protected boolean isDeclare( ) {
-	return declare != null && declare.trim().equals("var"); 
+    protected boolean isDeclare() {
+	return def == null ? false : def.isDeclare(); 
     }
+    
     @Override
     public String toString() {
         return String.format("(%s[%s] = %s)", identifier, indexNodes, rhs);

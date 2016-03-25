@@ -80,8 +80,8 @@ statement
 
   
 assignment
-  :  Declare? Identifier indexes? '=' expression -> ^(ASSIGNMENT Declare? Identifier indexes? expression)
-  |  Declare? anyIdentifier indexes? '=' expression -> ^(ASSIGNMENT Declare? {new CommonTree(new CommonToken(Identifier, $anyIdentifier.text))} indexes? expression)
+  :  variableDef? Identifier indexes? '=' expression -> ^(ASSIGNMENT variableDef? Identifier indexes? expression)
+  |  variableDef? anyIdentifier indexes? '=' expression -> ^(ASSIGNMENT variableDef? {new CommonTree(new CommonToken(Identifier, $anyIdentifier.text))} indexes? expression)
   ;
 
 functionCall
@@ -108,7 +108,9 @@ elseStat
   :  Else '{' block '}' -> ^(EXP block)
   ;
 
-
+variableDef
+ : Var
+ ;
 
 //Declare
 //  : (Var | (Var ('int' | 'float')));
@@ -116,8 +118,8 @@ elseStat
 //Declare
 //  : (Var | ('int' | 'float'));
 
-Declare
-  : 'var';
+//Declare
+//  : 'var';
 
 //Declare
 //  : (Var | Identifier);
@@ -247,7 +249,7 @@ Println  : 'println';
 Print    : 'print';
 Assert   : 'assert';
 Size     : 'size';
-//Var      : 'var';
+Var      : 'var';
 Def      : 'def';
 If       : 'if';
 Else     : 'else';

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-03-23 17:50:02
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-03-25 15:07:21
 
   package plazma.parser;
   import plazma.*;
@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 public class PlazmaScriptWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "MAP", "LIST", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Declare", "Identifier", "Println", "Print", "Assert", "Size", "If", "Else", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Date", "Null", "String", "Or", "And", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Excl", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "Int", "Digit", "YYYY", "MM", "DD", "ContextIdentifier", "Comment", "Space"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "MAP", "LIST", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Size", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Date", "Null", "String", "Or", "And", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Excl", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "Int", "Digit", "YYYY", "MM", "DD", "ContextIdentifier", "Comment", "Space"
     };
     public static final int FUNCTION=18;
     public static final int OParen=67;
     public static final int LT=57;
     public static final int YYYY=76;
-    public static final int Assert=32;
+    public static final int Assert=31;
     public static final int TERNARY=15;
     public static final int EXP_LIST=12;
     public static final int While=38;
@@ -32,12 +32,12 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int DD=78;
     public static final int EOF=-1;
     public static final int BREAK=23;
-    public static final int Identifier=29;
+    public static final int Identifier=28;
     public static final int Int=74;
     public static final int IF=14;
     public static final int FUNC_CALL=8;
     public static final int Space=81;
-    public static final int Size=33;
+    public static final int Size=32;
     public static final int Assign=70;
     public static final int CParen=68;
     public static final int EXP_MAP=11;
@@ -47,18 +47,18 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int CONTINUE=24;
     public static final int MM=77;
     public static final int GTEquals=52;
-    public static final int Print=31;
+    public static final int Print=30;
     public static final int CBrace=64;
     public static final int RETURN=5;
     public static final int String=47;
     public static final int Or=48;
     public static final int Return=25;
-    public static final int If=34;
+    public static final int If=33;
     public static final int And=49;
     public static final int Null=46;
     public static final int ContextIdentifier=79;
     public static final int CBracket=66;
-    public static final int Println=30;
+    public static final int Println=29;
     public static final int In=39;
     public static final int Bool=44;
     public static final int NEquals=51;
@@ -68,7 +68,6 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int Modulus=62;
     public static final int Multiply=60;
     public static final int OBrace=63;
-    public static final int Declare=28;
     public static final int NEGATE=17;
     public static final int INDEXES=19;
     public static final int Colon=73;
@@ -90,10 +89,11 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int GT=56;
     public static final int UNARY_MIN=16;
     public static final int ASSIGNMENT=7;
-    public static final int Else=35;
+    public static final int Else=34;
     public static final int Equals=50;
     public static final int Comma=71;
     public static final int Integer=42;
+    public static final int Var=35;
     public static final int Pow=54;
     public static final int LTEquals=53;
 
@@ -437,36 +437,41 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "assignment"
-    // grammar/PlazmaScriptWalker.g:73:1: assignment returns [LNode node] : ^( ASSIGNMENT ( Declare )? Identifier ( indexes )? expression ) ;
+    // grammar/PlazmaScriptWalker.g:73:1: assignment returns [LNode node] : ^( ASSIGNMENT ( variableDef )? Identifier ( indexes )? expression ) ;
     public final LNode assignment() throws RecognitionException {
         LNode node = null;
 
-        CommonTree Declare9=null;
         CommonTree Identifier10=null;
+        LNode variableDef9 = null;
+
         java.util.List<LNode> indexes11 = null;
 
         LNode expression12 = null;
 
 
         try {
-            // grammar/PlazmaScriptWalker.g:74:3: ( ^( ASSIGNMENT ( Declare )? Identifier ( indexes )? expression ) )
-            // grammar/PlazmaScriptWalker.g:74:6: ^( ASSIGNMENT ( Declare )? Identifier ( indexes )? expression )
+            // grammar/PlazmaScriptWalker.g:74:3: ( ^( ASSIGNMENT ( variableDef )? Identifier ( indexes )? expression ) )
+            // grammar/PlazmaScriptWalker.g:74:6: ^( ASSIGNMENT ( variableDef )? Identifier ( indexes )? expression )
             {
             match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_assignment298); 
 
             match(input, Token.DOWN, null); 
-            // grammar/PlazmaScriptWalker.g:74:19: ( Declare )?
+            // grammar/PlazmaScriptWalker.g:74:19: ( variableDef )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==Declare) ) {
+            if ( (LA4_0==Var) ) {
                 alt4=1;
             }
             switch (alt4) {
                 case 1 :
-                    // grammar/PlazmaScriptWalker.g:74:19: Declare
+                    // grammar/PlazmaScriptWalker.g:74:19: variableDef
                     {
-                    Declare9=(CommonTree)match(input,Declare,FOLLOW_Declare_in_assignment300); 
+                    pushFollow(FOLLOW_variableDef_in_assignment300);
+                    variableDef9=variableDef();
+
+                    state._fsp--;
+
 
                     }
                     break;
@@ -474,7 +479,7 @@ public class PlazmaScriptWalker extends TreeParser {
             }
 
             Identifier10=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_assignment303); 
-            // grammar/PlazmaScriptWalker.g:74:39: ( indexes )?
+            // grammar/PlazmaScriptWalker.g:74:43: ( indexes )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -483,7 +488,7 @@ public class PlazmaScriptWalker extends TreeParser {
             }
             switch (alt5) {
                 case 1 :
-                    // grammar/PlazmaScriptWalker.g:74:39: indexes
+                    // grammar/PlazmaScriptWalker.g:74:43: indexes
                     {
                     pushFollow(FOLLOW_indexes_in_assignment305);
                     indexes11=indexes();
@@ -503,7 +508,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
             match(input, Token.UP, null); 
-            node = new AssignmentNode((Declare9!=null?Declare9.getText():null), (Identifier10!=null?Identifier10.getText():null), indexes11, expression12, currentScope, globalScope);
+            node = new AssignmentNode(variableDef9, (Identifier10!=null?Identifier10.getText():null), indexes11, expression12, currentScope, globalScope);
 
             }
 
@@ -2475,6 +2480,34 @@ public class PlazmaScriptWalker extends TreeParser {
     }
     // $ANTLR end "indexes"
 
+
+    // $ANTLR start "variableDef"
+    // grammar/PlazmaScriptWalker.g:189:1: variableDef returns [LNode node] : Var ;
+    public final LNode variableDef() throws RecognitionException {
+        LNode node = null;
+
+        CommonTree Var45=null;
+
+        try {
+            // grammar/PlazmaScriptWalker.g:190:3: ( Var )
+            // grammar/PlazmaScriptWalker.g:190:5: Var
+            {
+            Var45=(CommonTree)match(input,Var,FOLLOW_Var_in_variableDef2016); 
+            node = new VariableDefNode((Var45!=null?Var45.getText():null), null);
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return node;
+    }
+    // $ANTLR end "variableDef"
+
     // Delegated rules
 
 
@@ -2494,7 +2527,7 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_Break_in_statement179 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Continue_in_statement232 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ASSIGNMENT_in_assignment298 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Declare_in_assignment300 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_variableDef_in_assignment300 = new BitSet(new long[]{0x0000000010000000L});
     public static final BitSet FOLLOW_Identifier_in_assignment303 = new BitSet(new long[]{0x7F7F7F80004B8000L});
     public static final BitSet FOLLOW_indexes_in_assignment305 = new BitSet(new long[]{0x7F7F7F80004B8000L});
     public static final BitSet FOLLOW_expression_in_assignment308 = new BitSet(new long[]{0x0000000000000008L});
@@ -2533,7 +2566,7 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_expression_in_whileStatement588 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_block_in_whileStatement590 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_ID_LIST_in_idList617 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_idList620 = new BitSet(new long[]{0x0000000020000008L});
+    public static final BitSet FOLLOW_Identifier_in_idList620 = new BitSet(new long[]{0x0000000010000008L});
     public static final BitSet FOLLOW_EXP_LIST_in_exprList650 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_expression_in_exprList653 = new BitSet(new long[]{0x7F7F7F80004B8008L});
     public static final BitSet FOLLOW_EXP_PAIR_in_exprPair676 = new BitSet(new long[]{0x0000000000000004L});
@@ -2630,5 +2663,6 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_indexes_in_lookup1955 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_INDEXES_in_indexes1989 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_expression_in_indexes1992 = new BitSet(new long[]{0x7F7F7F80004B8008L});
+    public static final BitSet FOLLOW_Var_in_variableDef2016 = new BitSet(new long[]{0x0000000000000002L});
 
 }
