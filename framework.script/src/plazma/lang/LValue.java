@@ -156,4 +156,19 @@ public class LValue implements Comparable<LValue> {
     	
     	return String.valueOf(value);
     }
+    
+    // +
+    public LValue _add(LValue that) {
+	if (this.isString() || that.isString()) {
+	    return new LValue(this.toString() + "" + that.toString());
+	} else {
+	    throw new UnsupportedOperationException("Illegal operation: " + toString() + " + " + that.toString());
+	}
+    }
+    
+    // -
+    public LValue _sub(LValue that) {
+	throw new UnsupportedOperationException("Illegal operation: " + toString() + " + " + that.toString());
+    }
+    
 }
