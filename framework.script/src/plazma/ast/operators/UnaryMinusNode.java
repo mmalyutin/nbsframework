@@ -1,5 +1,6 @@
-package plazma.ast;
+package plazma.ast.operators;
 
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
 public class UnaryMinusNode implements LNode {

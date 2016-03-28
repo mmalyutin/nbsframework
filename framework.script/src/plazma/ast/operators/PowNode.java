@@ -1,13 +1,14 @@
-package plazma.ast;
+package plazma.ast.operators;
 
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
-public class ModNode implements LNode {
+public class PowNode implements LNode {
 
     private LNode lhs;
     private LNode rhs;
 
-    public ModNode(LNode lhs, LNode rhs) {
+    public PowNode(LNode lhs, LNode rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
@@ -18,9 +19,9 @@ public class ModNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        // number % number
+        // number ^ number
         if (a.isNumber() && b.isNumber()) {
-            return new LValue(a.asDouble() % b.asDouble());
+            return new LValue(Math.pow(a.asDouble(), b.asDouble()));
         }
 
         throw new RuntimeException("illegal expression: " + this);
@@ -28,6 +29,6 @@ public class ModNode implements LNode {
 
     @Override
     public String toString() {
-        return String.format("(%s % %s)", lhs, rhs);
+        return String.format("(%s^%s)", lhs, rhs);
     }
 }

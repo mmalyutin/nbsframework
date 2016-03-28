@@ -1,9 +1,11 @@
-package plazma.ast;
+package plazma.ast.operators;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import plazma.ast.LNode;
+import plazma.lang.LString;
 import plazma.lang.LValue;
 
 public class MulNode implements LNode {
@@ -34,7 +36,7 @@ public class MulNode implements LNode {
             for(int i = 0; i < stop; i++) {
                 str.append(a.asString());
             }
-            return new LValue(str.toString());
+            return new LString(str.toString());
         }
 
         // list * number

@@ -1,8 +1,9 @@
-package plazma.ast;
+package plazma.ast.operators;
 
 
 import java.util.List;
 
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
 public class InNode  implements LNode {

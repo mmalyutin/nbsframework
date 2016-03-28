@@ -10,6 +10,7 @@ options {
   import plazma.*;
   import plazma.ast.*;
   import plazma.ast.functions.*;
+  import plazma.ast.operators.*;
   import java.util.Map;
   import java.util.HashMap;
 }
@@ -178,7 +179,7 @@ lookup returns [LNode node]
   |  ^(LOOKUP map i=indexes?)          {node = $i.e != null ? new LookupNode($map.node, $indexes.e) : $map.node;}  
   |  ^(LOOKUP expression i=indexes?)   {node = $i.e != null ? new LookupNode($expression.node, $indexes.e) : $expression.node;}
   |  ^(LOOKUP Identifier i=indexes?)   {node = $i.e != null ? new LookupNode(new IdentifierNode($Identifier.text, currentScope, globalScope), $indexes.e) : new IdentifierNode($Identifier.text, currentScope, globalScope);}
-  |  ^(LOOKUP String i=indexes?)       {node = $i.e != null ? new LookupNode(new AtomNode($String.text), $indexes.e) : new AtomNode($String.text);}
+  |  ^(LOOKUP String i=indexes?)       {node = $i.e != null ? new LookupNode(new StringNode($String.text), $indexes.e) : new StringNode($String.text);}
   ;
 
 indexes returns [java.util.List<LNode> e]
