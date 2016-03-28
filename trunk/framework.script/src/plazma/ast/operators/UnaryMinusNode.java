@@ -1,6 +1,7 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
+import plazma.lang.LNumber;
 import plazma.lang.LValue;
 
 public class UnaryMinusNode implements LNode {
@@ -20,7 +21,7 @@ public class UnaryMinusNode implements LNode {
             throw new RuntimeException("illegal expression: " + this);
         }
 
-        return new LValue(-v.asDouble());
+        return new LNumber(-v.asDouble());
     }
 
     @Override

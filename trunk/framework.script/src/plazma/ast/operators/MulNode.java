@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import plazma.ast.LNode;
+import plazma.lang.LNumber;
 import plazma.lang.LString;
 import plazma.lang.LValue;
 
@@ -26,7 +27,7 @@ public class MulNode implements LNode {
 
         // number * number
         if (a.isNumber() && b.isNumber()) {
-            return new LValue(a.asDouble() * b.asDouble());
+            return new LNumber(a.asDouble() * b.asDouble());
         }
 
         // string * number

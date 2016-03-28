@@ -28,6 +28,8 @@ package plazma.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import plazma.lang.LNumber;
+import plazma.lang.LString;
 import plazma.lang.LValue;
 
 /**
@@ -65,6 +67,8 @@ public class RangeNode implements LNode {
         throw new RuntimeException("illegal expression: " + this);
     }
 
+    
+    // TODO: LInteger
     protected LValue generateIntegerRange(Integer start, Integer end) {
 	if (start == null){
 	    start = 0;
@@ -85,7 +89,7 @@ public class RangeNode implements LNode {
 	}
 	LValue value = null;
 	for (int i = start; i <= end; i++) {
-	    value = new LValue(i);
+	    value = new LNumber(i);
 	    list.add(value);
 	}
 	return range;
@@ -125,7 +129,7 @@ public class RangeNode implements LNode {
 	}
 	LValue value = null;
 	for (char c = a; c <= b; c++) {
-	    value = new LValue(String.valueOf(c));
+	    value = new LString(String.valueOf(c));
 	    list.add(value);
 	}
 	return range;

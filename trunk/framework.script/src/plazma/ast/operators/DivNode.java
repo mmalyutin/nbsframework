@@ -1,6 +1,7 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
+import plazma.lang.LNumber;
 import plazma.lang.LValue;
 
 public class DivNode implements LNode {
@@ -21,7 +22,7 @@ public class DivNode implements LNode {
 
         // number / number
         if(a.isNumber() && b.isNumber()) {
-            return new LValue(a.asDouble() / b.asDouble());
+            return new LNumber(a.asDouble() / b.asDouble());
         }
 
         throw new RuntimeException("illegal expression: " + this);

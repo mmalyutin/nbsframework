@@ -20,18 +20,18 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package plazma.lang;
+package plazma.ast;
 
-public class LNumber extends LValue {
+import plazma.lang.LNumber;
+import plazma.lang.LValue;
 
-    /**
-     * @param value
-     */
-    public LNumber(Number value) {
-	super(value);
+public class NumberNode extends ValueNode {
+
+    public NumberNode(String value) {
+	this.value = value == null ? LValue.NULL : new LNumber(parseNumber(value));
     }
-
+    
+    protected Number parseNumber(String value) {
+	return Double.parseDouble(value); 
+    }
 }
