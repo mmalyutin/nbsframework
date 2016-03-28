@@ -1,13 +1,14 @@
-package plazma.ast;
+package plazma.ast.operators;
 
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
-public class OrNode implements LNode {
+public class AndNode implements LNode {
 
     private LNode lhs;
     private LNode rhs;
 
-    public OrNode(LNode lhs, LNode rhs) {
+    public AndNode(LNode lhs, LNode rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
@@ -22,11 +23,11 @@ public class OrNode implements LNode {
             throw new RuntimeException("illegal expression: " + this);
         }
 
-        return new LValue(a.asBoolean() || b.asBoolean());
+        return new LValue(a.asBoolean() && b.asBoolean());
     }
 
     @Override
     public String toString() {
-        return String.format("(%s || %s)", lhs, rhs);
+        return String.format("(%s && %s)", lhs, rhs);
     }
 }

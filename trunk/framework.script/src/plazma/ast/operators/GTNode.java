@@ -1,13 +1,14 @@
-package plazma.ast;
+package plazma.ast.operators;
 
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
-public class LTEqualsNode implements LNode {
+public class GTNode implements LNode {
 
     private LNode lhs;
     private LNode rhs;
 
-    public LTEqualsNode(LNode lhs, LNode rhs) {
+    public GTNode(LNode lhs, LNode rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
@@ -19,11 +20,11 @@ public class LTEqualsNode implements LNode {
         LValue b = rhs.evaluate();
 
         if (a.isNumber() && b.isNumber()) {
-            return new LValue(a.asDouble() <= b.asDouble());
+            return new LValue(a.asDouble() > b.asDouble());
         }
 
         if (a.isString() && b.isString()) {
-            return new LValue(a.asString().compareTo(b.asString()) <= 0);
+            return new LValue(a.asString().compareTo(b.asString()) > 0);
         }
 
         throw new RuntimeException("illegal expression: " + this);
@@ -31,6 +32,6 @@ public class LTEqualsNode implements LNode {
 
     @Override
     public String toString() {
-        return String.format("(%s <= %s)", lhs, rhs);
+        return String.format("(%s > %s)", lhs, rhs);
     }
 }

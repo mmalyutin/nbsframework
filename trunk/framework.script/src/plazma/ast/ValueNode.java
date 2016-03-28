@@ -20,22 +20,24 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package plazma.lang;
+package plazma.ast;
 
-/**
- * @author ohapon
- *
- */
-public class LString extends LValue {
+import plazma.lang.LValue;
 
-    /**
-     * @param value
-     */
-    public LString(String value) {
-	super(Type.STRING, value);
-    } 
+public abstract class ValueNode implements LNode {
+
+    protected LValue value;
+
+  
+
+    @Override
+    public LValue evaluate() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 
 }

@@ -20,22 +20,20 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package plazma.lang;
+package plazma.ast;
+
+import plazma.lang.LString;
+import plazma.lang.LValue;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class LString extends LValue {
+public class StringNode extends ValueNode {
 
-    /**
-     * @param value
-     */
-    public LString(String value) {
-	super(Type.STRING, value);
-    } 
+    public StringNode(String value) {
+	this.value = value == null ? LValue.NULL : new LString(value);
+    }
 
 }

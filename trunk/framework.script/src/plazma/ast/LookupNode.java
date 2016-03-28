@@ -3,6 +3,7 @@ package plazma.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import plazma.lang.LString;
 import plazma.lang.LValue;
 
 public class LookupNode implements LNode {
@@ -56,7 +57,7 @@ public class LookupNode implements LNode {
 
     protected LValue getStringValue(LValue value, LValue index) {
         int idx = getIndexValue(index);
-        return new LValue(String.valueOf(value.asString().charAt(idx)));
+        return new LString(String.valueOf(value.asString().charAt(idx)));
     }
 
     protected int getIndexValue(LValue index) {

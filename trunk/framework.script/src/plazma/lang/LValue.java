@@ -7,11 +7,18 @@ import java.util.Map;
 
 public class LValue implements Comparable<LValue> {
 
+    public enum Type {NUMBER, STRING, BOOLEAN, LIST, MAP, DATE, OBJ }
+    
+    //public static final LValue NULL = new LValue();
+    
+    
     public static final LValue NULL = new LValue();
     public static final LValue VOID = new LValue();
     public static final LValue BREAK = new LValue();
     public static final LValue CONTINUE = new LValue();
 
+    private Type type;
+    
     private Object value;
 
     private LValue() {
@@ -20,15 +27,27 @@ public class LValue implements Comparable<LValue> {
     }
 
     public LValue(Object value) {
+	this(null, value);
+    }
+    
+    public LValue(Type type, Object value) {
         if (value == null) {
             throw new RuntimeException("v == null");
         }
+        this.type = type;
         this.value = value;
         // only accept boolean, list, map, number or string types
         if(!(isBoolean() || isList() || isMap() || isNumber() || isString() || isDate())) {
             throw new RuntimeException("invalid data type: " + value + " (" + value.getClass() + ")");
         }
     }
+
+    public Type getType() {
+        return type;
+    }
+    
+    
+    ////
 
     public String asString() {
         return (String) value;

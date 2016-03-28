@@ -1,7 +1,9 @@
-package plazma.ast;
+package plazma.ast.operators;
 
 import java.util.List;
 
+import plazma.ast.LNode;
+import plazma.lang.LString;
 import plazma.lang.LValue;
 
 public class AddNode implements LNode {
@@ -39,12 +41,12 @@ public class AddNode implements LNode {
 
         // string + any
         if (a.isString()) {
-            return new LValue(a.asString() + "" + b.toString());
+            return new LString(a.asString() + "" + b.toString());
         }
 
         // any + string
         if (b.isString()) {
-            return new LValue(a.toString() + "" + b.asString());
+            return new LString(a.toString() + "" + b.asString());
         }
 
         throw new RuntimeException("illegal expression: " + this);
