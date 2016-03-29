@@ -90,6 +90,7 @@ functionCall
   |  Print '(' expression ')'     -> ^(FUNC_CALL Print expression)
   |  Assert '(' expression ')'    -> ^(FUNC_CALL Assert expression)
   |  Size '(' expression ')'      -> ^(FUNC_CALL Size expression)
+  |  Date '(' exprList? ')'      -> ^(FUNC_CALL Date exprList?)
   ;
 
 ifStatement
@@ -216,7 +217,7 @@ atom
   :  Integer
   |  Number
   |  Bool
-  |  Date
+  //|  Date
   |  Null
   |  lookup
   ;
@@ -291,6 +292,7 @@ Colon    : ':';
 Range    : '..';
 RangeE   : '..<';
 
+Date     : 'Date';
 
 Bool
   :  'true' 
@@ -319,8 +321,8 @@ Number
 
 
 
-Date 
-  : '#Date{' YYYY '-' MM '-' DD '}';
+//Date 
+//  : 'Date(' YYYY ',' MM ',' DD ')';
   
 
 anyIdentifier
