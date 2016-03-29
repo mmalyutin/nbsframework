@@ -25,6 +25,8 @@
  */
 package plazma.lang;
 
+import java.util.Date;
+
 /**
  * @author ohapon
  *
@@ -34,9 +36,8 @@ public class LDate extends LValue {
     /**
      * @param value
      */
-    public LDate(Object value) {
-	super(value);
-	// TODO Auto-generated constructor stub
+    public LDate(Date value) {
+	super(Type.DATE, value);
     }
 
 }

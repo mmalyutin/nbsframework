@@ -1,8 +1,5 @@
 package plazma.ast.values;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import plazma.ast.LNode;
 import plazma.lang.LValue;
 
@@ -25,33 +22,5 @@ public class AtomNode implements LNode {
         return value.toString();
     }
     
-    //
     
-    public static Date parseDate(String str) {
-    	if (str == null) {
-    		return null;
-    	}
-    	int start = "#Date{".length();
-    	if (str.length() <= start + 1){
-    		return null;
-    	}
-    	
-    	String val = str.substring(start, str.length() - 1);
-    	String[] array = val.split("-");
-    	if (array == null || array.length < 3) {
-    		return null;
-    	}
-    	
-    	int year = Integer.parseInt(array[0]);
-    	int month = Integer.parseInt(array[1]) - 1;
-    	int day = Integer.parseInt(array[2]);
-    	
-    	Calendar calendar = Calendar.getInstance();
-    	calendar.set(Calendar.YEAR, year);
-    	calendar.set(Calendar.MONTH, month);
-    	calendar.set(Calendar.DAY_OF_MONTH, day);
-    	
-    	return calendar.getTime();
-    	
-    }
 }
