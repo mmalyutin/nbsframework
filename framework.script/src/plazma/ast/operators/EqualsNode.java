@@ -1,6 +1,7 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
+import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class EqualsNode implements LNode {
@@ -19,7 +20,7 @@ public class EqualsNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return new LValue(a.equals(b));
+        return new LBoolean(a.equals(b));
     }
 
     @Override

@@ -159,7 +159,7 @@ expression returns [LNode node]
  
   |  Integer                                           {node = new NumberNode($Integer.text);}                         // {node = new AtomNode(new Integer($Integer.text));}
   |  Number                                            {node = new NumberNode($Number.text);}                          // {node = new AtomNode(Double.parseDouble($Number.text));}
-  |  Bool                                              {node = new AtomNode(Boolean.parseBoolean($Bool.text));}
+  |  Bool                                              {node = new BooleanNode($Bool.text);}                           // {node = new AtomNode(Boolean.parseBoolean($Bool.text));}
   |  Date                                              {node = new AtomNode(AtomNode.parseDate($Date.text));}  
   |  Null                                              {node = new NullNode();}
   |  lookup                                            {node = $lookup.node;}

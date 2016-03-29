@@ -23,23 +23,23 @@
 /**
  * 
  */
-package plazma.lang;
+package plazma.ast;
+
+import plazma.lang.LBoolean;
+import plazma.lang.LValue;
 
 /**
  * @author ohapon
  *
  */
-public class LBoolean extends LValue {
+public class BooleanNode extends ValueNode {
 
-    public static final LBoolean TRUE = new LBoolean(true);
+    public BooleanNode(String value) {
+	this.value = value == null ? LValue.NULL : new LBoolean(parseBoolean(value));
+    }
     
-    public static final LBoolean FALSE = new LBoolean(false);
-    
-    /**
-     * @param value
-     */
-    public LBoolean(Boolean value) {
-	super(value);
+    protected Boolean parseBoolean(String value) {
+	return Boolean.parseBoolean(value); 
     }
 
 }
