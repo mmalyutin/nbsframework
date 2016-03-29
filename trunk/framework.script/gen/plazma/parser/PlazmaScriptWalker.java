@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-03-29 08:56:18
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-03-29 09:06:18
 
   package plazma.parser;
   import plazma.*;
@@ -1609,7 +1609,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                    node = new EqualsNode(a, b);
+                    node = new EQNode(a, b);
 
                     }
                     break;
@@ -1631,7 +1631,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                    node = new NotEqualsNode(a, b);
+                    node = new NENode(a, b);
 
                     }
                     break;
@@ -1653,7 +1653,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                    node = new GTEqualsNode(a, b);
+                    node = new GTENode(a, b);
 
                     }
                     break;
@@ -1675,7 +1675,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                    node = new LTEqualsNode(a, b);
+                    node = new LTENode(a, b);
 
                     }
                     break;

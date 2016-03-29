@@ -4,12 +4,12 @@ import plazma.ast.LNode;
 import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
-public class LTEqualsNode implements LNode {
+public class GTENode implements LNode {
 
     private LNode lhs;
     private LNode rhs;
 
-    public LTEqualsNode(LNode lhs, LNode rhs) {
+    public GTENode(LNode lhs, LNode rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
@@ -21,11 +21,11 @@ public class LTEqualsNode implements LNode {
         LValue b = rhs.evaluate();
 
         if (a.isNumber() && b.isNumber()) {
-            return new LBoolean(a.asDouble() <= b.asDouble());
+            return new LBoolean(a.asDouble() >= b.asDouble());
         }
 
         if (a.isString() && b.isString()) {
-            return new LBoolean(a.asString().compareTo(b.asString()) <= 0);
+            return new LBoolean(a.asString().compareTo(b.asString()) >= 0);
         }
 
         throw new RuntimeException("illegal expression: " + this);
@@ -33,6 +33,6 @@ public class LTEqualsNode implements LNode {
 
     @Override
     public String toString() {
-        return String.format("(%s <= %s)", lhs, rhs);
+        return String.format("(%s >= %s)", lhs, rhs);
     }
 }

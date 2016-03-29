@@ -142,10 +142,10 @@ expression returns [LNode node]
   
   |  ^('||' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}
   |  ^('&&' a=expression b=expression)                 {node = new AndNode($a.node, $b.node);}
-  |  ^('==' a=expression b=expression)                 {node = new EqualsNode($a.node, $b.node);}
-  |  ^('!=' a=expression b=expression)                 {node = new NotEqualsNode($a.node, $b.node);}
-  |  ^('>=' a=expression b=expression)                 {node = new GTEqualsNode($a.node, $b.node);}
-  |  ^('<=' a=expression b=expression)                 {node = new LTEqualsNode($a.node, $b.node);}
+  |  ^('==' a=expression b=expression)                 {node = new EQNode($a.node, $b.node);}
+  |  ^('!=' a=expression b=expression)                 {node = new NENode($a.node, $b.node);}
+  |  ^('>=' a=expression b=expression)                 {node = new GTENode($a.node, $b.node);}
+  |  ^('<=' a=expression b=expression)                 {node = new LTENode($a.node, $b.node);}
   |  ^('>' a=expression b=expression)                  {node = new GTNode($a.node, $b.node);}
   |  ^('<' a=expression b=expression)                  {node = new LTNode($a.node, $b.node);}
   |  ^('+' a=expression b=expression)                  {node = new AddNode($a.node, $b.node);}
