@@ -21,7 +21,7 @@ public class GTNode implements LNode {
         LValue b = rhs.evaluate();
 
         if (a.isNumber() && b.isNumber()) {
-            return new LValue(a.asDouble() > b.asDouble());
+            return new LBoolean(a.asDouble() > b.asDouble());
         }
 
         if (a.isString() && b.isString()) {
