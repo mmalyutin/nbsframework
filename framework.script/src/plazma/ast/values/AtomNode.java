@@ -1,8 +1,9 @@
-package plazma.ast;
+package plazma.ast.values;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
 

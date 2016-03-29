@@ -20,26 +20,20 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package plazma.ast;
+package plazma.ast.values;
 
-import plazma.lang.LBoolean;
+import plazma.lang.LString;
 import plazma.lang.LValue;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class BooleanNode extends ValueNode {
+public class StringNode extends ValueNode {
 
-    public BooleanNode(String value) {
-	this.value = value == null ? LValue.NULL : new LBoolean(parseBoolean(value));
-    }
-    
-    protected Boolean parseBoolean(String value) {
-	return Boolean.parseBoolean(value); 
+    public StringNode(String value) {
+	this.value = value == null ? LValue.NULL : new LString(value);
     }
 
 }

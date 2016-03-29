@@ -25,6 +25,8 @@
  */
 package plazma.lang;
 
+import java.util.Map;
+
 /**
  * @author ohapon
  *
@@ -34,8 +36,8 @@ public class LMap extends LValue {
     /**
      * @param value
      */
-    public LMap(Object value) {
-	super(value);
+    public LMap(Map<?, ?> value) {
+	super(Type.MAP, value);
     }
 
 }
