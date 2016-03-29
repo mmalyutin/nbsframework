@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import plazma.ast.LNode;
+import plazma.lang.LList;
 import plazma.lang.LNumber;
 import plazma.lang.LString;
 import plazma.lang.LValue;
@@ -47,7 +48,7 @@ public class MulNode implements LNode {
             for(int i = 0; i < stop; i++) {
                 total.addAll(a.asList());
             }
-            return new LValue(total);
+            return new LList(total);
         }
 
         throw new RuntimeException("illegal expression: " + this);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import plazma.ScriptUtils;
+import plazma.lang.LList;
 import plazma.lang.LValue;
 
 public class ListNode implements LNode {
@@ -21,7 +22,7 @@ public class ListNode implements LNode {
         for (LNode node : expressionNodes) {
             evaluated.add(node.evaluate());
         }
-        return new LValue(evaluated);
+        return new LList(evaluated);
     }
 
     @Override

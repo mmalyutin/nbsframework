@@ -25,6 +25,9 @@
  */
 package plazma.lang;
 
+import java.util.List;
+
+
 /**
  * @author ohapon
  *
@@ -34,8 +37,8 @@ public class LList extends LValue {
     /**
      * @param value
      */
-    public LList(Object value) {
-	super(value);
+    public LList(List<?> value) {
+	super(Type.LIST, value);
     }
 
 }

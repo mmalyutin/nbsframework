@@ -4,6 +4,7 @@ package plazma.ast.operators;
 import java.util.List;
 
 import plazma.ast.LNode;
+import plazma.lang.LList;
 import plazma.lang.LNumber;
 import plazma.lang.LValue;
 
@@ -32,7 +33,7 @@ public class SubNode implements LNode {
         if (a.isList()) {
             List<LValue> list = a.asList();
             list.remove(b);
-            return new LValue(list);
+            return new LList(list);
         }
 
         throw new RuntimeException("illegal expression: " + this);

@@ -3,6 +3,7 @@ package plazma.ast.operators;
 import java.util.List;
 
 import plazma.ast.LNode;
+import plazma.lang.LList;
 import plazma.lang.LNumber;
 import plazma.lang.LString;
 import plazma.lang.LValue;
@@ -27,7 +28,7 @@ public class AddNode implements LNode {
         /*
         // integer + integer
         if (a.isInteger() && b.isInteger()) {
-            return new LValue(a.asInteger() + b.asInteger());
+            return new LNumber(a.asInteger() + b.asInteger());
         }
         */
 
@@ -40,7 +41,7 @@ public class AddNode implements LNode {
         if (a.isList()) {
             List<LValue> list = a.asList();
             list.add(b);
-            return new LValue(list);
+            return new LList(list);
         }
 
         // string + any
