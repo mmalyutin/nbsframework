@@ -4,12 +4,12 @@ import plazma.ast.LNode;
 import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
-public class EqualsNode implements LNode {
+public class EQNode implements LNode {
 
     private LNode lhs;
     private LNode rhs;
 
-    public EqualsNode(LNode lhs, LNode rhs) {
+    public EQNode(LNode lhs, LNode rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
