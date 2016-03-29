@@ -25,6 +25,7 @@
  */
 package plazma.lang;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -40,4 +41,12 @@ public class LDate extends LValue {
 	super(Type.DATE, value);
     }
 
+    protected String toStringValue() {
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime((Date) getValue());
+	int year = calendar.get(Calendar.YEAR);
+	int month = calendar.get(Calendar.MONTH) + 1;
+	int day = calendar.get(Calendar.DAY_OF_MONTH);
+	return "" + year + "-" + (month < 9 ? ("0" + month) : month) + "-" + ((day < 9 ? ("0" + day) : day));
+    }
 }

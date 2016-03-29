@@ -1,6 +1,5 @@
 package plazma.lang;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -164,26 +163,13 @@ public class LValue implements Comparable<LValue> {
     }
     
     protected String toStringValue() {
-    	if (isDate()) {
-    		Calendar calendar = Calendar.getInstance();
-    		calendar.setTime((Date) value);
-    		int year = calendar.get(Calendar.YEAR);
-    		int month = calendar.get(Calendar.MONTH) + 1;
-    		int day = calendar.get(Calendar.DAY_OF_MONTH);
-    		return "" + year + "-" + (month < 9 ? ("0" + month) : month) + "-" + ((day < 9 ? ("0" + day) : day));
-    	}
-    	
     	return String.valueOf(value);
     }
     
     // +
     public LValue _add(LValue that) {
-	if (this.isString() || that.isString()) {
-	    return new LValue(this.toString() + "" + that.toString());
-	} else {
-	    raiseIllegalOperationException(that);
-	    return null;
-	}
+	raiseIllegalOperationException(that);
+	return null;
     }
     
     // -
@@ -191,6 +177,19 @@ public class LValue implements Comparable<LValue> {
 	raiseIllegalOperationException(that);
 	return null;
     }
+
+    // *
+    public LValue _mul(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+    
+    // /
+    public LValue _div(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+    
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

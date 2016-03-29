@@ -35,4 +35,37 @@ public class LNumber extends LValue {
 	super(Type.NUMBER, value);
     }
 
+    
+    // +
+    public LValue _add(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LNumber(asDouble() + that.asDouble());
+    }
+    
+    // -
+    public LValue _sub(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LNumber(asDouble() - that.asDouble());
+    }
+    
+    // *
+    public LValue _mul(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LNumber(asDouble() * that.asDouble());
+    }
+    
+    // /
+    public LValue _div(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LNumber(asDouble() / that.asDouble());
+    }
+    
 }

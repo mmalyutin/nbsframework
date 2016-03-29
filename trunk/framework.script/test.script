@@ -18,7 +18,7 @@ assert(0 >= -1);
 assert('a' < 's');
 assert('sw' <= 'sw');
 
-// add
+// add/sub
 assert(1 + 999 == 1000);
 assert([1] + 1 == [1, 1]);
 assert(2 - -2 == 4);
@@ -26,7 +26,7 @@ assert(-1 + 1 == 0);
 assert(1 - 50 == -49);
 assert([1, 2, 3, 4, 5] - 4 == [1, 2, 3, 5]);
 
-// multiply
+// mul/div
 assert(3 * 50 == 150);
 assert(4 / 2 == 2);
 assert(1 / 4 == 0.25);

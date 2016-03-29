@@ -1,11 +1,7 @@
 package plazma.ast.operators;
 
 
-import java.util.List;
-
 import plazma.ast.LNode;
-import plazma.lang.LList;
-import plazma.lang.LNumber;
 import plazma.lang.LValue;
 
 public class SubNode implements LNode {
@@ -24,6 +20,9 @@ public class SubNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
+        return a._sub(b);
+        
+        /*
         // number - number
         if (a.isNumber() && b.isNumber()) {
             return new LNumber(a.asDouble() - b.asDouble());
@@ -37,6 +36,7 @@ public class SubNode implements LNode {
         }
 
         throw new RuntimeException("illegal expression: " + this);
+        */
     }
 
     @Override
