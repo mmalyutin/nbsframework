@@ -38,4 +38,21 @@ public class LString extends LValue {
 	super(Type.STRING, value);
     } 
 
+    // +
+    public LValue _add(LValue that) {
+	 return new LString(asString() + "" + that.toString());
+    }
+    
+    // *
+    public LValue _mul(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	StringBuilder str = new StringBuilder();
+	int stop = that.asDouble().intValue();
+	for (int i = 0; i < stop; i++) {
+	    str.append(asString());
+	}
+	return new LString(str.toString());
+    }
 }

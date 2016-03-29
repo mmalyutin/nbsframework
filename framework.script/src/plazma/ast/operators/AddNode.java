@@ -1,11 +1,6 @@
 package plazma.ast.operators;
 
-import java.util.List;
-
 import plazma.ast.LNode;
-import plazma.lang.LList;
-import plazma.lang.LNumber;
-import plazma.lang.LString;
 import plazma.lang.LValue;
 
 public class AddNode implements LNode {
@@ -23,6 +18,8 @@ public class AddNode implements LNode {
 
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
+        
+        return a._add(b);
 
         // TODO: LInteger
         /*
@@ -32,6 +29,7 @@ public class AddNode implements LNode {
         }
         */
 
+        /*
         // number + number
         if (a.isNumber() && b.isNumber()) {
             return new LNumber(a.asDouble() + b.asDouble());
@@ -55,6 +53,7 @@ public class AddNode implements LNode {
         }
 
         throw new RuntimeException("illegal expression: " + this);
+        */
     }
 
     @Override

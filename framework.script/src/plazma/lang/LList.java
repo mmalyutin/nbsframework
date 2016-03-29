@@ -25,6 +25,7 @@
  */
 package plazma.lang;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +40,33 @@ public class LList extends LValue {
      */
     public LList(List<?> value) {
 	super(Type.LIST, value);
+	
     }
 
+    // +
+    public LValue _add(LValue that) {
+	List<LValue> list = asList();
+	list.add(that);
+	return new LList(list);
+    }
+    
+    // -
+    public LValue _sub(LValue that) {
+	 List<LValue> list = asList();
+         list.remove(that);
+         return new LList(list);
+    }
+    
+    // *
+    public LValue _mul(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	List<LValue> total = new ArrayList<LValue>();
+	int stop = that.asDouble().intValue();
+	for (int i = 0; i < stop; i++) {
+	    total.addAll(asList());
+	}
+	return new LList(total);
+    }
 }
