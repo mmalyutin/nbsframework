@@ -11,6 +11,7 @@ options {
   import plazma.ast.*;
   import plazma.ast.functions.*;
   import plazma.ast.operators.*;
+  import plazma.ast.values.*;  
   import java.util.Map;
   import java.util.HashMap;
 }

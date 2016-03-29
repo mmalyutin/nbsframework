@@ -1,10 +1,11 @@
-package plazma.ast;
+package plazma.ast.values;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 import plazma.ScriptUtils;
+import plazma.ast.LNode;
 import plazma.lang.LList;
 import plazma.lang.LValue;
 

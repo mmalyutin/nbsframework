@@ -20,18 +20,25 @@
  * ohapon@users.sourceforge.net
  */
 
-package plazma.ast;
+package plazma.ast.values;
 
-import plazma.lang.LNumber;
+import plazma.ast.LNode;
 import plazma.lang.LValue;
 
-public class NumberNode extends ValueNode {
+public abstract class ValueNode implements LNode {
 
-    public NumberNode(String value) {
-	this.value = value == null ? LValue.NULL : new LNumber(parseNumber(value));
+    protected LValue value;
+
+  
+
+    @Override
+    public LValue evaluate() {
+        return value;
     }
-    
-    protected Number parseNumber(String value) {
-	return Double.parseDouble(value); 
+
+    @Override
+    public String toString() {
+        return value.toString();
     }
+
 }

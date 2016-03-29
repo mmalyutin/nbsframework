@@ -1,10 +1,13 @@
-package plazma.ast;
+package plazma.ast.values;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import plazma.ScriptUtils;
+import plazma.ast.LNode;
+import plazma.ast.PairNode;
+import plazma.lang.LMap;
 import plazma.lang.LValue;
 
 
@@ -26,7 +29,7 @@ public class MapNode implements LNode {
 	    value = node.getValue() == null ? LValue.NULL : node.getValue().evaluate();
 	    evaluated.put(key, value);
 	}
-	return new LValue(evaluated);
+	return new LMap(evaluated);
     }
 
     @Override
