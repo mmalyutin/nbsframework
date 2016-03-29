@@ -25,13 +25,14 @@
  */
 package plazma.lang;
 
+
 public class LNumber extends LValue {
 
     /**
      * @param value
      */
     public LNumber(Number value) {
-	super(value);
+	super(Type.NUMBER, value);
     }
 
 }
