@@ -1,6 +1,7 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
+import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class OrNode implements LNode {
@@ -23,7 +24,7 @@ public class OrNode implements LNode {
             throw new RuntimeException("illegal expression: " + this);
         }
 
-        return new LValue(a.asBoolean() || b.asBoolean());
+        return new LBoolean(a.asBoolean() || b.asBoolean());
     }
 
     @Override

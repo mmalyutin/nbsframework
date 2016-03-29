@@ -4,6 +4,7 @@ package plazma.ast.operators;
 import java.util.List;
 
 import plazma.ast.LNode;
+import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class InNode  implements LNode {
@@ -30,11 +31,11 @@ public class InNode  implements LNode {
 
         for (LValue val : list) {
             if (val.equals(a)) {
-                return new LValue(true);
+                return LBoolean.TRUE;
             }
         }
 
-        return new LValue(false);
+        return LBoolean.FALSE;
     }
 
     @Override

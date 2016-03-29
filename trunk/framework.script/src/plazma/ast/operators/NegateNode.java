@@ -1,6 +1,7 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
+import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class NegateNode implements LNode {
@@ -20,7 +21,7 @@ public class NegateNode implements LNode {
             throw new RuntimeException("illegal expression: " + this);
         }
 
-        return new LValue(!v.asBoolean());
+        return new LBoolean(!v.asBoolean());
     }
 
     @Override
