@@ -181,13 +181,24 @@ public class LValue implements Comparable<LValue> {
 	if (this.isString() || that.isString()) {
 	    return new LValue(this.toString() + "" + that.toString());
 	} else {
-	    throw new UnsupportedOperationException("Illegal operation: " + toString() + " + " + that.toString());
+	    raiseIllegalOperationException(that);
+	    return null;
 	}
     }
     
     // -
     public LValue _sub(LValue that) {
-	throw new UnsupportedOperationException("Illegal operation: " + toString() + " + " + that.toString());
+	raiseIllegalOperationException(that);
+	return null;
     }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected void raiseIllegalOperationException(LValue that) {
+	throw new UnsupportedOperationException(toString() + " + " + that.toString());
+    }
+    
+    protected void raiseIllegalOperationException(String message) {
+	throw new UnsupportedOperationException("Illegal operation: " + message);
+    }
 }

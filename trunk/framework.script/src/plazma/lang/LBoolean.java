@@ -25,6 +25,7 @@
  */
 package plazma.lang;
 
+
 /**
  * @author ohapon
  *
@@ -39,7 +40,7 @@ public class LBoolean extends LValue {
      * @param value
      */
     public LBoolean(Boolean value) {
-	super(value);
+	super(Type.BOOLEAN, value);
     }
 
 }
