@@ -39,7 +39,7 @@ public class LNumber extends LValue {
     // <
     public LValue _lt(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._lt(that);
 	}
 	return new LBoolean(asDouble() < that.asDouble());
     }
@@ -47,7 +47,7 @@ public class LNumber extends LValue {
     // <=
     public LValue _lte(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._lte(that);
 	}
 	return new LBoolean(asDouble() <= that.asDouble());
     }
@@ -55,7 +55,7 @@ public class LNumber extends LValue {
     // >
     public LValue _gt(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._gt(that);
 	}
 	return new LBoolean(asDouble() > that.asDouble());
     }
@@ -63,7 +63,7 @@ public class LNumber extends LValue {
     // >=
     public LValue _gte(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._gte(that);
 	}
 	return new LBoolean(asDouble() >= that.asDouble());
     }
@@ -73,7 +73,7 @@ public class LNumber extends LValue {
     // +
     public LValue _add(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._add(that);
 	}
 	return new LNumber(asDouble() + that.asDouble());
     }
@@ -81,7 +81,7 @@ public class LNumber extends LValue {
     // -
     public LValue _sub(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._sub(that);
 	}
 	return new LNumber(asDouble() - that.asDouble());
     }
@@ -89,7 +89,7 @@ public class LNumber extends LValue {
     // *
     public LValue _mul(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._mul(that);
 	}
 	return new LNumber(asDouble() * that.asDouble());
     }
@@ -97,7 +97,7 @@ public class LNumber extends LValue {
     // /
     public LValue _div(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._div(that);
 	}
 	return new LNumber(asDouble() / that.asDouble());
     }
@@ -105,7 +105,7 @@ public class LNumber extends LValue {
     // ^
     public LValue _pow(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._pow(that);
 	}
 	return new LNumber(Math.pow(asDouble(), that.asDouble()));
     }
@@ -113,7 +113,7 @@ public class LNumber extends LValue {
     // %
     public LValue _mod(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._mod(that);
 	}
 	return new LNumber(asDouble() % that.asDouble());
     }

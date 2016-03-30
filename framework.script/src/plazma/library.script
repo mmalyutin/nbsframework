@@ -20,8 +20,8 @@ def percent(x, y) {
 }
 
 def substr(str, beginIndex, endIndex) {
-  count = size(str);
-  defStr = "";
+  var count = size(str);
+  var defStr = "";
   if (count <= 0) {
      return defStr;
   }
@@ -34,7 +34,7 @@ def substr(str, beginIndex, endIndex) {
   if (beginIndex > endIndex) {
      return defStr;
   }
-  result = "";
+  var result = "";
   for (i in beginIndex ..< endIndex) {
     result = result + str[i]; 
   }
@@ -42,12 +42,12 @@ def substr(str, beginIndex, endIndex) {
 }
 
 def ltrim(str) {
-  count = size(str);
+  var count = size(str);
   if (count <= 0) {
     return str;
   }
-  index = -1;
-  ch = null;
+  var index = -1;
+  var ch = null;
   for (i in 0 ..< count) {
     ch = str[i];
     if (ch == ' ') {

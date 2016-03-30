@@ -60,7 +60,7 @@ public class LList extends LValue {
     // *
     public LValue _mul(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._mul(that);
 	}
 	List<LValue> total = new ArrayList<LValue>();
 	int stop = that.asDouble().intValue();

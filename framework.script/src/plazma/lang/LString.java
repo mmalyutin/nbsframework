@@ -42,7 +42,7 @@ public class LString extends LValue {
  // <
     public LValue _lt(LValue that) {
 	if (!that.isString()) {
-	    raiseIllegalOperationException(that);
+	    return super._lt(that);
 	}
 	return new LBoolean(asString().compareTo(that.asString()) < 0);
     }
@@ -50,7 +50,7 @@ public class LString extends LValue {
     // <=
     public LValue _lte(LValue that) {
 	if (!that.isString()) {
-	    raiseIllegalOperationException(that);
+	    return super._lte(that);
 	}
 	return new LBoolean(asString().compareTo(that.asString()) <= 0);
     }
@@ -58,7 +58,7 @@ public class LString extends LValue {
     // >
     public LValue _gt(LValue that) {
 	if (!that.isString()) {
-	    raiseIllegalOperationException(that);
+	    return super._gt(that);
 	}
 	return new LBoolean(asString().compareTo(that.asString()) > 0);
     }
@@ -66,7 +66,7 @@ public class LString extends LValue {
     // >=
     public LValue _gte(LValue that) {
 	if (!that.isString()) {
-	    raiseIllegalOperationException(that);
+	    return super._gte(that);
 	}
 	return new LBoolean(asString().compareTo(that.asString()) > 0);
     }
@@ -81,7 +81,7 @@ public class LString extends LValue {
     // *
     public LValue _mul(LValue that) {
 	if (!that.isNumber()) {
-	    raiseIllegalOperationException(that);
+	    return super._mul(that);
 	}
 	StringBuilder str = new StringBuilder();
 	int stop = that.asDouble().intValue();
