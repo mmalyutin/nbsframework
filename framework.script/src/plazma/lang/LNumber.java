@@ -35,6 +35,40 @@ public class LNumber extends LValue {
 	super(Type.NUMBER, value);
     }
 
+
+    // <
+    public LValue _lt(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asDouble() < that.asDouble());
+    }
+    
+    // <=
+    public LValue _lte(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asDouble() <= that.asDouble());
+    }
+
+    // >
+    public LValue _gt(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asDouble() > that.asDouble());
+    }
+    
+    // >=
+    public LValue _gte(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asDouble() >= that.asDouble());
+    }
+    
+    //////
     
     // +
     public LValue _add(LValue that) {

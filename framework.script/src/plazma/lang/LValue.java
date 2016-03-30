@@ -166,6 +166,42 @@ public class LValue implements Comparable<LValue> {
     	return String.valueOf(value);
     }
     
+    // ==
+    public LValue _eq(LValue that) {
+	return new LBoolean(equals(that));
+    }
+
+    // !=
+    public LValue _ne(LValue that) {
+	return new LBoolean(!equals(that));
+    }
+
+    // <
+    public LValue _lt(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+    
+    // <=
+    public LValue _lte(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+
+    // >
+    public LValue _gt(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+    
+    // >=
+    public LValue _gte(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+
+    ////
+    
     // +
     public LValue _add(LValue that) {
 	raiseIllegalOperationException(that);

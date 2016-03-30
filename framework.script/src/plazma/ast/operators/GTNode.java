@@ -1,7 +1,6 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
-import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class GTNode implements LNode {
@@ -20,6 +19,9 @@ public class GTNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
+        return a._gt(b);
+        
+        /*
         if (a.isNumber() && b.isNumber()) {
             return new LBoolean(a.asDouble() > b.asDouble());
         }
@@ -29,6 +31,7 @@ public class GTNode implements LNode {
         }
 
         throw new RuntimeException("illegal expression: " + this);
+        */
     }
 
     @Override

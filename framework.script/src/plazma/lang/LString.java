@@ -37,6 +37,41 @@ public class LString extends LValue {
     public LString(String value) {
 	super(Type.STRING, value);
     } 
+    
+    
+ // <
+    public LValue _lt(LValue that) {
+	if (!that.isString()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asString().compareTo(that.asString()) < 0);
+    }
+    
+    // <=
+    public LValue _lte(LValue that) {
+	if (!that.isString()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asString().compareTo(that.asString()) <= 0);
+    }
+
+    // >
+    public LValue _gt(LValue that) {
+	if (!that.isString()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asString().compareTo(that.asString()) > 0);
+    }
+    
+    // >=
+    public LValue _gte(LValue that) {
+	if (!that.isString()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LBoolean(asString().compareTo(that.asString()) > 0);
+    }
+    
+    //////    
 
     // +
     public LValue _add(LValue that) {
