@@ -1,7 +1,6 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
-import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class AndNode implements LNode {
@@ -20,11 +19,15 @@ public class AndNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
+        return a._and(b);
+        
+        /*
         if (!a.isBoolean() || !b.isBoolean()) {
             throw new RuntimeException("illegal expression: " + this);
         }
 
         return new LBoolean(a.asBoolean() && b.asBoolean());
+        */
     }
 
     @Override

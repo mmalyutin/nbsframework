@@ -200,7 +200,21 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
 
-    ////
+    ////////
+
+    // &&, and
+    public LValue _and(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+
+    // ||, or
+    public LValue _or(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+    
+    ////////
     
     // +
     public LValue _add(LValue that) {
