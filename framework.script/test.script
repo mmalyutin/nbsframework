@@ -2,6 +2,8 @@
     A script for testing Plazma Script syntax.
 */
 
+var startDate = Date();
+var date1 = Date(2015, 12, 31);
 
 // boolean expressions
 assert(true || false);
@@ -311,3 +313,50 @@ println(" 1: " + contact["phone"][0]);
 println(" 2: " + contact["phone"][1]);
 
 println(1 == 1.0);
+
+// Date
+var date2 = Date(2015, 12, 31);
+var endDate = Date();
+
+println("" + date1 + " == " + date2 + ": " + (date1 == date2));
+assert(date1 == date2);
+
+date1 = Date(2015, 12, 30);
+date2 = Date(2015, 12, 31);
+println("" + date1 + " != " + date2 + ": " + (date1 != date2));
+assert(date1 != date2);
+
+date1 = Date(2015, 12, 30);
+date2 = Date(2015, 12, 31);
+println("" + date1 + " <  " + date2 + ": " + (date1 < date2));
+assert(date1 < date2);
+
+date1 = Date(2015, 12, 30);
+date2 = Date(2015, 12, 31);
+println("" + date1 + " <= " + date2 + ": " + (date1 <= date2));
+assert(date1 <= date2);
+
+date1 = Date(2015, 12, 31);
+date2 = Date(2015, 12, 31);
+println("" + date1 + " <= " + date2 + ": " + (date1 <= date2));
+assert(date1 <= date2);
+
+date1 = Date(2015, 12, 31);
+date2 = Date(2015, 12, 30);
+println("" + date1 + " >  " + date2 + ": " + (date1 > date2));
+assert(date1 > date2);
+
+date1 = Date(2015, 12, 31);
+date2 = Date(2015, 12, 30);
+println("" + date1 + " >= " + date2 + ": " + (date1 >= date2));
+assert(date1 >= date2);
+
+date1 = Date(2015, 12, 31);
+date2 = Date(2015, 12, 31);
+println("" + date1 + " >= " + date2 + ": " + (date1 >= date2));
+assert(date1 >= date2);
+
+println();
+println("StartDate: " + startDate);
+println("EndDate: " + endDate);
+println();

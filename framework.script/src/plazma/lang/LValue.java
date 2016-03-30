@@ -68,6 +68,10 @@ public class LValue implements Comparable<LValue> {
         return ((Number) value).doubleValue();
     }
 
+    public Date asDate() {
+        return (Date) value;
+    }
+    
     @SuppressWarnings("unchecked")
     public List<LValue> asList() {
         return (List<LValue>) value;
@@ -279,12 +283,12 @@ public class LValue implements Comparable<LValue> {
     
     
 
-    protected void raiseIllegalOperatorException(String opeartor, LValue that) {
-	throw new UnsupportedOperationException(toString() + " + " + that.toString());
+    protected void raiseIllegalOperatorException(String operator, LValue that) {
+	raiseIllegalOperatorException(toString(), operator, that.toString());
     }
 
     protected void raiseIllegalOperatorException(String a, String operator, String b) {
-	throw new UnsupportedOperationException(a + " " + operator + " " + b);
+	raiseIllegalOperatorException(a + " " + operator + " " + b);
     }
     
     protected void raiseIllegalOperatorException(String message) {

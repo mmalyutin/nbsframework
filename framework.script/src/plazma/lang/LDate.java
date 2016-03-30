@@ -49,4 +49,37 @@ public class LDate extends LValue {
 	int day = calendar.get(Calendar.DAY_OF_MONTH);
 	return "" + year + "-" + (month < 9 ? ("0" + month) : month) + "-" + ((day < 9 ? ("0" + day) : day));
     }
+    
+    // <
+    public LValue _lt(LValue that) {
+	if (!that.isDate()) {
+	    return super._lte(that);
+	}
+	return new LBoolean(asDate().getTime() < that.asDate().getTime()); 
+    }
+    
+    // <=
+    public LValue _lte(LValue that) {
+	if (!that.isDate()) {
+	    return super._lte(that);
+	}
+	return new LBoolean(asDate().getTime() <= that.asDate().getTime()); 
+    }
+
+    // >
+    public LValue _gt(LValue that) {
+	if (!that.isDate()) {
+	    return super._lte(that);
+	}
+	return new LBoolean(asDate().getTime() > that.asDate().getTime()); 
+    }
+    
+    // >=
+    public LValue _gte(LValue that) {
+	if (!that.isDate()) {
+	    return super._lte(that);
+	}
+	return new LBoolean(asDate().getTime() >= that.asDate().getTime()); 
+    }
+    
 }
