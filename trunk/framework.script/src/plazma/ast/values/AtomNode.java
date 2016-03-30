@@ -3,14 +3,14 @@ package plazma.ast.values;
 import plazma.ast.LNode;
 import plazma.lang.LValue;
 
-
+@Deprecated
 public class AtomNode implements LNode {
 
     private LValue value;
 
-    public AtomNode(Object v) {
-        value = v == null ? LValue.NULL : new LValue(v);
-    }
+//    public AtomNode(Object v) {
+//        value = v == null ? LValue.NULL : new LValue(v);
+//    }
 
     @Override
     public LValue evaluate() {

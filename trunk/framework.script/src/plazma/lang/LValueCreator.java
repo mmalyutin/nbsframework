@@ -23,31 +23,16 @@
 /**
  * 
  */
-package plazma.ast.values;
-
-import plazma.lang.LBoolean;
-import plazma.lang.LValue;
+package plazma.lang;
 
 /**
  * @author ohapon
  *
  */
-public class BooleanNode extends ValueNode {
+public class LValueCreator {
 
-    public BooleanNode(String value) {
-	this.value = createValue(parseBoolean(value));
+    public static LValue createValue(Object value) {
+	//TODO
+	return value == null ? LValue.NULL : new LValue(value);
     }
-
-    public BooleanNode(Boolean value) {
-	this.value = createValue(value);
-    }
-
-    public LValue createValue(Boolean value) {
-	return value == null ? LValue.NULL : new LBoolean(value);
-    }
-
-    protected Boolean parseBoolean(String value) {
-	return value == null ? null : Boolean.parseBoolean(value); 
-    }
-
 }

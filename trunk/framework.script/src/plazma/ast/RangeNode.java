@@ -28,6 +28,7 @@ package plazma.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import plazma.lang.LList;
 import plazma.lang.LNumber;
 import plazma.lang.LString;
 import plazma.lang.LValue;
@@ -80,7 +81,7 @@ public class RangeNode implements LNode {
 	    throw new RuntimeException("illegal expression: " + this + ". Integer range error: start > end.");
 	}
 	List<LValue> list = new ArrayList<LValue>();
-	LValue range = new LValue(list);
+	LValue range = new LList(list);
 	if (start == end) {
 	    return range;
 	}
@@ -120,7 +121,7 @@ public class RangeNode implements LNode {
 	    throw new RuntimeException("illegal expression: " + this + ". Char range error: start > end.");
 	}
 	List<LValue> list = new ArrayList<LValue>();
-	LValue range = new LValue(list);
+	LValue range = new LList(list);
 	if (start == end) {
 	    return range;
 	}

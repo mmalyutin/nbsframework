@@ -100,7 +100,7 @@ elseIfStat[IfNode parent]
   ;
 
 elseStat[IfNode parent]
-  :  ^(EXP block) {parent.addChoice(new AtomNode(true), $block.node);}
+  :  ^(EXP block) {parent.addChoice(new BooleanNode(true), $block.node);}
   ;
    
 //forStatement returns [LNode node]
