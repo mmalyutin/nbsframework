@@ -166,6 +166,13 @@ public class LValue implements Comparable<LValue> {
     	return String.valueOf(value);
     }
     
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // OPEATORS
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     // ==
     public LValue _eq(LValue that) {
 	return new LBoolean(equals(that));
@@ -176,6 +183,20 @@ public class LValue implements Comparable<LValue> {
 	return new LBoolean(!equals(that));
     }
 
+    // in
+    public LValue _in(LValue that) {
+	if (!that.isList()) {
+	    raiseIllegalOperationException(that);
+	}
+        List<LValue> list = that.asList();
+        for (LValue val : list) {
+            if (this.equals(val)) {
+                return LBoolean.TRUE;
+            }
+        }
+        return LBoolean.FALSE;
+    }
+    
     // <
     public LValue _lt(LValue that) {
 	raiseIllegalOperationException(that);
@@ -214,6 +235,7 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
     
+    
     ////////
     
     // +
@@ -246,7 +268,7 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
 
-    // ^
+    // %
     public LValue _mod(LValue that) {
 	raiseIllegalOperationException(that);
 	return null;

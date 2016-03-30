@@ -4,11 +4,11 @@ import plazma.ast.LNode;
 import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
-public class NegateNode implements LNode {
+public class NotNode implements LNode {
 
     private LNode exp;
 
-    public NegateNode(LNode e) {
+    public NotNode(LNode e) {
         exp = e;
     }
 

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-03-30 09:18:07
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-03-30 15:31:24
 
   package plazma.parser;
   import plazma.*; 
@@ -326,7 +326,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: statement, expression
+            // elements: expression, statement
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -872,7 +872,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Identifier, indexes, variableDef
+                    // elements: variableDef, Identifier, indexes, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -980,7 +980,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, expression, variableDef
+                    // elements: expression, variableDef, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1196,7 +1196,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Identifier, exprList
+                    // elements: exprList, Identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1268,7 +1268,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Println, expression
+                    // elements: expression, Println
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1323,7 +1323,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Print
+                    // elements: Print, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1423,7 +1423,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Size, expression
+                    // elements: expression, Size
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1490,7 +1490,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, Date
+                    // elements: Date, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1641,7 +1641,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ifStat, elseStat, elseIfStat
+            // elements: elseIfStat, ifStat, elseStat
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1770,7 +1770,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block
+            // elements: block, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1894,7 +1894,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, expression
+            // elements: expression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2293,7 +2293,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: For, Identifier, expression, block
+            // elements: Identifier, expression, block, For
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2412,7 +2412,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, While, expression
+            // elements: While, block, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3105,7 +3105,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: a, b, orExpr
+                    // elements: orExpr, a, b
                     // token labels: 
                     // rule labels: retval, b, a
                     // token list labels: 
@@ -3152,7 +3152,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: In, orExpr, expression
+                    // elements: orExpr, expression, In
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3240,7 +3240,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: orExpr, expression, Range
+                    // elements: Range, orExpr, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4722,7 +4722,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: functionCall, indexes
+                    // elements: indexes, functionCall
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4926,7 +4926,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, Identifier
+                    // elements: Identifier, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 

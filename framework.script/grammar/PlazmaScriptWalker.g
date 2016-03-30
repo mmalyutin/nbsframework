@@ -157,7 +157,7 @@ expression returns [LNode node]
   |  ^('%' a=expression b=expression)                  {node = new ModNode($a.node, $b.node);}
   |  ^('^' a=expression b=expression)                  {node = new PowNode($a.node, $b.node);}
   |  ^(UNARY_MIN a=expression)                         {node = new UnaryMinusNode($a.node);}
-  |  ^(NEGATE a=expression)                            {node = new NegateNode($a.node);}
+  |  ^(NEGATE a=expression)                            {node = new NotNode($a.node);}
  
   |  Integer                                           {node = new NumberNode($Integer.text);}                         // {node = new AtomNode(new Integer($Integer.text));}
   |  Number                                            {node = new NumberNode($Number.text);}                          // {node = new AtomNode(Double.parseDouble($Number.text));}
