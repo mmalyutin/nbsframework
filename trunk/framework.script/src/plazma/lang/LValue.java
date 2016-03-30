@@ -189,7 +189,19 @@ public class LValue implements Comparable<LValue> {
 	raiseIllegalOperationException(that);
 	return null;
     }
-    
+
+    // ^
+    public LValue _pow(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+
+    // ^
+    public LValue _mod(LValue that) {
+	raiseIllegalOperationException(that);
+	return null;
+    }
+
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

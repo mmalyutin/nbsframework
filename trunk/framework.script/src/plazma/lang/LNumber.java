@@ -68,4 +68,21 @@ public class LNumber extends LValue {
 	return new LNumber(asDouble() / that.asDouble());
     }
     
+    // ^
+    public LValue _pow(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LNumber(Math.pow(asDouble(), that.asDouble()));
+    }
+    
+    // %
+    public LValue _mod(LValue that) {
+	if (!that.isNumber()) {
+	    raiseIllegalOperationException(that);
+	}
+	return new LNumber(asDouble() % that.asDouble());
+    }
+    
+    
 }
