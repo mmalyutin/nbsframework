@@ -1,7 +1,6 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
-import plazma.lang.LNumber;
 import plazma.lang.LValue;
 
 public class ModNode implements LNode {
@@ -20,12 +19,16 @@ public class ModNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
+        return a._mod(b);
+        
+        /*
         // number % number
         if (a.isNumber() && b.isNumber()) {
             return new LNumber(a.asDouble() % b.asDouble());
         }
 
         throw new RuntimeException("illegal expression: " + this);
+        */
     }
 
     @Override
