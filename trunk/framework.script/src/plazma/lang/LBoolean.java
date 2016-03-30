@@ -46,7 +46,7 @@ public class LBoolean extends LValue {
     // &&, and
     public LValue _and(LValue that) {
 	if (!that.isBoolean()) {
-	    raiseIllegalOperationException(that);	    
+	    return super._and(that);	    
 	}
 	return new LBoolean(asBoolean() && that.asBoolean());
     }
@@ -54,7 +54,7 @@ public class LBoolean extends LValue {
     // ||, or
     public LValue _or(LValue that) {
 	if (!that.isBoolean()) {
-	    raiseIllegalOperationException(that);	    
+	    return super._or(that);	    
 	}
 	return new LBoolean(asBoolean() || that.asBoolean());
     }

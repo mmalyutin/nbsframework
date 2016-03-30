@@ -186,7 +186,7 @@ public class LValue implements Comparable<LValue> {
     // in
     public LValue _in(LValue that) {
 	if (!that.isList()) {
-	    raiseIllegalOperationException(that);
+	    raiseIllegalOperatorException("in", that);
 	}
         List<LValue> list = that.asList();
         for (LValue val : list) {
@@ -199,25 +199,25 @@ public class LValue implements Comparable<LValue> {
     
     // <
     public LValue _lt(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("<", that);
 	return null;
     }
     
     // <=
     public LValue _lte(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("<=", that);
 	return null;
     }
 
     // >
     public LValue _gt(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException(">", that);
 	return null;
     }
     
     // >=
     public LValue _gte(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException(">=", that);
 	return null;
     }
 
@@ -225,13 +225,13 @@ public class LValue implements Comparable<LValue> {
 
     // &&, and
     public LValue _and(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("&&", that);
 	return null;
     }
 
     // ||, or
     public LValue _or(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("||", that);
 	return null;
     }
     
@@ -240,48 +240,54 @@ public class LValue implements Comparable<LValue> {
     
     // +
     public LValue _add(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("+", that);
 	return null;
     }
     
     // -
     public LValue _sub(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("-", that);
 	return null;
     }
 
     // *
     public LValue _mul(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("*", that);
 	return null;
     }
     
     // /
     public LValue _div(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("/", that);
 	return null;
     }
 
     // ^
     public LValue _pow(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("^", that);
 	return null;
     }
 
     // %
     public LValue _mod(LValue that) {
-	raiseIllegalOperationException(that);
+	raiseIllegalOperatorException("%", that);
 	return null;
     }
 
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
 
-    protected void raiseIllegalOperationException(LValue that) {
+    protected void raiseIllegalOperatorException(String opeartor, LValue that) {
 	throw new UnsupportedOperationException(toString() + " + " + that.toString());
     }
+
+    protected void raiseIllegalOperatorException(String a, String operator, String b) {
+	throw new UnsupportedOperationException(a + " " + operator + " " + b);
+    }
     
-    protected void raiseIllegalOperationException(String message) {
-	throw new UnsupportedOperationException("Illegal operation: " + message);
+    protected void raiseIllegalOperatorException(String message) {
+	throw new UnsupportedOperationException("Illegal operator: " + message);
     }
 }
