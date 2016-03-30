@@ -1,6 +1,7 @@
 package plazma.ast;
 
 import plazma.Scope;
+import plazma.lang.LNumber;
 import plazma.lang.LValue;
 
 public class ForStatementNode implements LNode {
@@ -41,7 +42,7 @@ public class ForStatementNode implements LNode {
             for(int i = start; i < stop; i++) {
                 
         	//scope.assign(identifier, new LValue(i)); // OLD CODE
-        	blockScope.setVariableValue(identifier, new LValue(i));
+        	blockScope.setVariableValue(identifier, new LNumber(i));
         	
                 LValue returnValue = block.evaluate();
                 if (returnValue == LValue.BREAK) {
@@ -61,7 +62,7 @@ public class ForStatementNode implements LNode {
         for(int i = start; i <= stop; i++) {
             
             //scope.assign(identifier, new LValue(i)); OLD CODE
-            blockScope.setVariableValue(identifier, new LValue(i));
+            blockScope.setVariableValue(identifier, new LNumber(i));
             
             LValue returnValue = block.evaluate();
             if (returnValue == LValue.BREAK) {

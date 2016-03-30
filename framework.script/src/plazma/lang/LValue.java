@@ -25,11 +25,11 @@ public class LValue implements Comparable<LValue> {
         value = new Object();
     }
 
-    public LValue(Object value) {
+    protected LValue(Object value) {
 	this(null, value);
     }
     
-    public LValue(Type type, Object value) {
+    protected LValue(Type type, Object value) {
         if (value == null) {
             throw new RuntimeException("v == null");
         }
