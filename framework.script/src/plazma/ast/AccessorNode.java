@@ -32,29 +32,29 @@ import plazma.lang.LValue;
  */
 public abstract class AccessorNode implements LNode {
 
-    protected LValue getValue(LValue value, LValue index) {
-	if (value.isMap()) {
-	    return getMapValue(value, index);
-	} else if (value.isList()) {
-	    return getListValue(value, index);
-	} else if (value.isString()) {
-	    return getStringValue(value, index);
+    protected LValue getValue(LValue object, LValue attribute) {
+	if (object.isMap()) {
+	    return getMapValue(object, attribute);
+	} else if (object.isList()) {
+	    return getListValue(object, attribute);
+	} else if (object.isString()) {
+	    return getStringValue(object, attribute);
 	}
-	throw new RuntimeException("Can't get value: object=" + value +", attribute=" + index);
+	throw new RuntimeException("Can't get value: object=" + object + ", attribute=" + attribute);
     }
     
-    protected void setValue(LValue object, LValue index, LValue value) {
+    protected void setValue(LValue object, LValue attribute, LValue value) {
 	if (object.isMap()) {
-	    setMapValue(object, index, value);
+	    setMapValue(object, attribute, value);
 	    return;
 	} else if (object.isList()) {
-	    setListValue(object, index, value);
+	    setListValue(object, attribute, value);
 	    return;
 	}
 	//    else if (object.isString()) {
 	//    setStringValue(object, index, value);
 	//}
-	throw new RuntimeException("Can't set value: object=" + object +", attribute=" + index);
+	throw new RuntimeException("Can't set value: object=" + object + ", attribute=" + attribute);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
