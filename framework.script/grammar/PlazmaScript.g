@@ -23,6 +23,10 @@ tokens {
   NEGATE;
   FUNCTION;
   INDEXES;
+  INDEX;
+  ATTRIBUTE;
+  TAIL;
+  TAILS;
   MAP;
   LIST;  
   LOOKUP;
@@ -244,6 +248,36 @@ indexes
   :  ('[' expression ']')+ -> ^(INDEXES expression+)
   ;
 
+
+attribute 
+ : '.' Identifier               -> ^(ATTRIBUTE Identifier)
+ ;
+
+index 
+ : '[' expression ']'           -> ^(INDEX expression)
+ ;
+
+tail
+ : attribute
+ | index
+// | '.' any_id expr_params -> ^(CALL {new CommonTree(new CommonToken(Id, $any_id.text))} expr_params)
+ ;
+
+tails
+   :  (tail)+ -> ^(TAILS tail+)
+   ;
+   
+//tail
+// : '.' Identifier               -> ^(ATTRIBUTE Identifier)
+// | '[' expression ']'           -> ^(INDEX expression)
+// | '.' any_id expr_params -> ^(CALL {new CommonTree(new CommonToken(Id, $any_id.text))} expr_params)
+// ;
+
+//tail
+// : '.' Id                 -> ^(ATTRIBUTE Id)
+// | '[' expr ']'           -> ^(INDEX expr)
+// | '.' any_id expr_params -> ^(CALL {new CommonTree(new CommonToken(Id, $any_id.text))} expr_params)
+// ;
 
 
 Println  : 'println';
