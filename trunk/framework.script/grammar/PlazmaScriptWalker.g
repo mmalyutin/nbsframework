@@ -186,9 +186,16 @@ lookup returns [LNode node]
 
 indexes returns [java.util.List<LNode> e]
 @init {e = new java.util.ArrayList<LNode>();}
-  :  ^(INDEXES (expression {e.add($expression.node);})+)
+  //:  ^(INDEXES (expression {e.add($expression.node);})+)
+  :    ^(TAILS   (tail {e.add($tail.node);})+)
   ;
 
+  
+tail returns [LNode node]
+ : ^(ATTRIBUTE Identifier)  {node = new StringNode($Identifier.text);}
+ | ^(INDEX expression)      {node = $expression.node;}
+ ;
+ 
 variableDef returns [LNode node]  
   : Var {node = new VariableDefNode($Var.text, null);}
   ; 

@@ -360,3 +360,8 @@ println();
 println("StartDate: " + startDate);
 println("EndDate: " + endDate);
 println();
+
+
+println("phones: " + contact.phone);
+println("     1: " + contact.phone[0]);
+println("     2: " + contact.phone[1]);
