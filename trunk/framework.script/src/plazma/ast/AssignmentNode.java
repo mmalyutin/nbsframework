@@ -1,13 +1,14 @@
 package plazma.ast;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import plazma.Scope;
 import plazma.ScriptUtils;
 import plazma.lang.LValue;
 
-public class AssignmentNode implements LNode {
+public class AssignmentNode extends AccessorNode {
 
     protected VariableDefNode def;
     protected String identifier;
@@ -64,35 +65,64 @@ public class AssignmentNode implements LNode {
         
         if (indexNodes.isEmpty()) { // a simple assignment
             currentScope.assign(identifier, value);
-        }  else { // a possible list-lookup and reassignment
+            return LValue.VOID;
+        } 
+        
+        // a possible list-lookup and reassignment
 
 
-            LValue list = currentScope.resolve(identifier);
+        /*
+	LValue list = currentScope.resolve(identifier);
 
-            // iterate up to `foo[x][y]` in case of `foo[x][y][z] = 42;`
-            for (int i = 0; i < indexNodes.size() - 1 && list != null; i++) {
-                LValue index = indexNodes.get(i).evaluate();
+	// iterate up to `foo[x][y]` in case of `foo[x][y][z] = 42;`
+	for (int i = 0; i < indexNodes.size() - 1 && list != null; i++) {
+	    LValue index = indexNodes.get(i).evaluate();
 
-                if (!index.isNumber() || !list.isList()) { // sanity checks
-                    throw new RuntimeException("illegal statement: " + this);
-                }
+	    if (!index.isNumber() || !list.isList()) { // sanity checks
+		throw new RuntimeException("illegal statement: " + this);
+	    }
 
-                int idx = index.asLong().intValue();
-                list = list.asList().get(idx);
-            }
-            // list is now pointing to `foo[x][y]` in case of `foo[x][y][z] = 42;`
+	    int idx = index.asLong().intValue();
+	    list = list.asList().get(idx);
+	}
+	// list is now pointing to `foo[x][y]` in case of `foo[x][y][z] = 42;`
 
-            // get the value `z`: the last index, in `foo[x][y][z] = 42;`
-            LValue idx = indexNodes.get(indexNodes.size() - 1).evaluate();
+	// get the value `z`: the last index, in `foo[x][y][z] = 42;`
+	LValue idx = indexNodes.get(indexNodes.size() - 1).evaluate();
 
-            if (!idx.isNumber() || /*list == null ||*/ !list.isList()) { // sanity checks
-                throw new RuntimeException("illegal statement: " + this);
-            }
+	if (!idx.isNumber() || !list.isList()) { // sanity checks
+	    throw new RuntimeException("illegal statement: " + this);
+	}
 
-            // re-assign `foo[x][y][z]`
-            List<LValue> existing = list.asList();
-            existing.set(idx.asLong().intValue(), value);
+	// re-assign `foo[x][y][z]`
+	List<LValue> existing = list.asList();
+	existing.set(idx.asLong().intValue(), value);
+	*/
+        
+        List<LValue> indexValues = new ArrayList<LValue>();
+
+        for (LNode indexNode : indexNodes) {
+            indexValues.add(indexNode.evaluate());
         }
+
+        LValue curValue = currentScope.resolve(identifier);
+
+        LValue index = null;
+        
+        // map, list, string
+       	for (int i = 0; i < indexValues.size() - 1; i++) {
+
+       	    index = indexValues.get(i);
+       	
+       	    curValue = getValue(curValue, index);
+       	    
+       	    // Fixed null value (actual for Map)
+       	    if (curValue == null) {
+       		curValue = LValue.NULL;
+       	    }
+       	}
+       	index = indexValues.get(indexValues.size() - 1);
+       	setValue(curValue, index, value);
 
         return LValue.VOID;
     }
@@ -108,5 +138,9 @@ public class AssignmentNode implements LNode {
     
     protected Scope getCurrentScope(String identifier) {
 	return ScriptUtils.isGlobalVariable(identifier) ? globalScope : scope;
+    }
+    
+    protected void setValue( ) {
+	
     }
 }

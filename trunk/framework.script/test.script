@@ -365,3 +365,8 @@ println();
 println("phones: " + contact.phone);
 println("     1: " + contact.phone[0]);
 println("     2: " + contact.phone[1]);
+
+contact.phone[1] = "100123";
+//contact["phone"][1] = "123";
+
+println("     2: " + contact.phone[1]);
