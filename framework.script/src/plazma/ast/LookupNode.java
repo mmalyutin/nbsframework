@@ -41,6 +41,11 @@ public class LookupNode implements LNode {
 	    } else if (value.isString()) {
 		value = getStringValue(value, index);
 	    }
+	    
+	    // Fixed null value (actual for Map)
+	    if (value == null) {
+		value = LValue.NULL;
+	    }
 	}
 
         return value;
@@ -52,11 +57,13 @@ public class LookupNode implements LNode {
     
     protected LValue getListValue(LValue value, LValue index) {
         int idx = getIndexValue(index);
+        // TODO: Check index range
         return value.asList().get(idx);
     }
 
     protected LValue getStringValue(LValue value, LValue index) {
         int idx = getIndexValue(index);
+        // TODO: Check index range
         return new LString(String.valueOf(value.asString().charAt(idx)));
     }
 
