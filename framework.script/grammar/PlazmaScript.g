@@ -25,6 +25,7 @@ tokens {
   INDEXES;
   INDEX;
   ATTRIBUTE;
+  CALL;
   TAIL;
   TAILS;
   MAP;
@@ -252,6 +253,8 @@ indexes
 tail
  : '.' Identifier                -> ^(ATTRIBUTE Identifier)
  | '[' expression ']'            -> ^(INDEX expression)
+ | '.' functionCall              -> ^(CALL functionCall)
+ 
 // | '.' any_id expr_params -> ^(CALL {new CommonTree(new CommonToken(Id, $any_id.text))} expr_params)
  ;
 
