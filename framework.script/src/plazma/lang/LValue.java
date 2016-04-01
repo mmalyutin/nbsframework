@@ -316,6 +316,9 @@ public class LValue implements Comparable<LValue> {
 	if ("toString".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LString(_toString());
+	} else 	if ("hashCode".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(_hashCode());
 	}
 	raiseIllegalMethodException(method);
 	return null;
