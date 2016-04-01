@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-04-01 13:23:37
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-04-01 16:20:01
 
   package plazma.parser;
   import plazma.*; 
@@ -331,7 +331,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, statement
+            // elements: statement, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -876,7 +876,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, expression, variableDef, Identifier
+                    // elements: expression, variableDef, Identifier, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -984,7 +984,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, variableDef, expression
+                    // elements: expression, variableDef, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1186,7 +1186,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, Identifier
+                    // elements: Identifier, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1258,7 +1258,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Println
+                    // elements: Println, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1430,7 +1430,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Date, exprList
+                    // elements: exprList, Date
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1710,7 +1710,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block
+            // elements: block, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2233,7 +2233,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block, Identifier, For
+            // elements: block, For, expression, Identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2352,7 +2352,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block, While
+            // elements: block, While, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3045,7 +3045,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: a, b, orExpr
+                    // elements: b, a, orExpr
                     // token labels: 
                     // rule labels: retval, b, a
                     // token list labels: 
@@ -3092,7 +3092,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, orExpr, In
+                    // elements: In, expression, orExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3136,7 +3136,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, RangeE, orExpr
+                    // elements: orExpr, expression, RangeE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3180,7 +3180,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: orExpr, expression, Range
+                    // elements: expression, Range, orExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4659,7 +4659,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: functionCall, indexes
+                    // elements: indexes, functionCall
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4728,7 +4728,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, list
+                    // elements: list, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4863,7 +4863,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Identifier, indexes
+                    // elements: indexes, Identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4998,7 +4998,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: String, indexes
+                    // elements: indexes, String
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5073,7 +5073,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, expression
+                    // elements: expression, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5359,9 +5359,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 259:34: -> ^( INDEX expression )
+                    // 259:37: -> ^( INDEX expression )
                     {
-                        // grammar/PlazmaScript.g:259:37: ^( INDEX expression )
+                        // grammar/PlazmaScript.g:259:40: ^( INDEX expression )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(INDEX, "INDEX"), root_1);
@@ -5379,10 +5379,10 @@ public class PlazmaScriptParser extends Parser {
                 case 2 :
                     // grammar/PlazmaScript.g:260:4: '.' Identifier
                     {
-                    char_literal176=(Token)match(input,86,FOLLOW_86_in_tail1840); if (state.failed) return retval; 
+                    char_literal176=(Token)match(input,86,FOLLOW_86_in_tail1843); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_86.add(char_literal176);
 
-                    Identifier177=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail1842); if (state.failed) return retval; 
+                    Identifier177=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail1845); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Identifier.add(Identifier177);
 
 
@@ -5399,9 +5399,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 260:34: -> ^( ATTRIBUTE Identifier )
+                    // 260:37: -> ^( ATTRIBUTE Identifier )
                     {
-                        // grammar/PlazmaScript.g:260:37: ^( ATTRIBUTE Identifier )
+                        // grammar/PlazmaScript.g:260:40: ^( ATTRIBUTE Identifier )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ATTRIBUTE, "ATTRIBUTE"), root_1);
@@ -5417,7 +5417,7 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScript.g:264:4: '.' Identifier '(' ( exprList )? ')'
+                    // grammar/PlazmaScript.g:261:4: '.' Identifier '(' ( exprList )? ')'
                     {
                     char_literal178=(Token)match(input,86,FOLLOW_86_in_tail1876); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_86.add(char_literal178);
@@ -5428,7 +5428,7 @@ public class PlazmaScriptParser extends Parser {
                     char_literal180=(Token)match(input,OParen,FOLLOW_OParen_in_tail1880); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OParen.add(char_literal180);
 
-                    // grammar/PlazmaScript.g:264:23: ( exprList )?
+                    // grammar/PlazmaScript.g:261:23: ( exprList )?
                     int alt40=2;
                     int LA40_0 = input.LA(1);
 
@@ -5457,7 +5457,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, Identifier
+                    // elements: Identifier, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5468,15 +5468,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 264:37: -> ^( CALL Identifier ( exprList )? )
+                    // 261:37: -> ^( CALL Identifier ( exprList )? )
                     {
-                        // grammar/PlazmaScript.g:264:40: ^( CALL Identifier ( exprList )? )
+                        // grammar/PlazmaScript.g:261:40: ^( CALL Identifier ( exprList )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CALL, "CALL"), root_1);
 
                         adaptor.addChild(root_1, stream_Identifier.nextNode());
-                        // grammar/PlazmaScript.g:264:58: ( exprList )?
+                        // grammar/PlazmaScript.g:261:58: ( exprList )?
                         if ( stream_exprList.hasNext() ) {
                             adaptor.addChild(root_1, stream_exprList.nextTree());
 
@@ -5519,7 +5519,7 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "anyIdentifier"
-    // grammar/PlazmaScript.g:347:1: anyIdentifier : ( ContextIdentifier | Identifier );
+    // grammar/PlazmaScript.g:344:1: anyIdentifier : ( ContextIdentifier | Identifier );
     public final PlazmaScriptParser.anyIdentifier_return anyIdentifier() throws RecognitionException {
         PlazmaScriptParser.anyIdentifier_return retval = new PlazmaScriptParser.anyIdentifier_return();
         retval.start = input.LT(1);
@@ -5531,7 +5531,7 @@ public class PlazmaScriptParser extends Parser {
         Object set183_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:348:3: ( ContextIdentifier | Identifier )
+            // grammar/PlazmaScript.g:345:3: ( ContextIdentifier | Identifier )
             // grammar/PlazmaScript.g:
             {
             root_0 = (Object)adaptor.nil();
@@ -5927,8 +5927,8 @@ public class PlazmaScriptParser extends Parser {
     public static final BitSet FOLLOW_OBracket_in_tail1812 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
     public static final BitSet FOLLOW_expression_in_tail1814 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBracket_in_tail1816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_86_in_tail1840 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_tail1842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_86_in_tail1843 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Identifier_in_tail1845 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_86_in_tail1876 = new BitSet(new long[]{0x0000000200000000L});
     public static final BitSet FOLLOW_Identifier_in_tail1878 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
     public static final BitSet FOLLOW_OParen_in_tail1880 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000101A8L});

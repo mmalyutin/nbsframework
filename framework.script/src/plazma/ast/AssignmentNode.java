@@ -114,7 +114,7 @@ public class AssignmentNode extends AccessorNode {
 
        	    index = indexValues.get(i);
        	
-       	    curValue = getValue(curValue, index);
+       	    curValue = get(curValue, index);
        	    
        	    // Fixed null value (actual for Map)
        	    if (curValue == null) {
@@ -122,7 +122,7 @@ public class AssignmentNode extends AccessorNode {
        	    }
        	}
        	index = indexValues.get(indexValues.size() - 1);
-       	setValue(curValue, index, value);
+       	set(curValue, index, value);
 
         return LValue.VOID;
     }
@@ -140,7 +140,4 @@ public class AssignmentNode extends AccessorNode {
 	return ScriptUtils.isGlobalVariable(identifier) ? globalScope : scope;
     }
     
-    protected void setValue( ) {
-	
-    }
 }

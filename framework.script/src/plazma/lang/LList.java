@@ -71,13 +71,38 @@ public class LList extends LValue {
 	}
 	return new LList(total);
     }
-    
+
+    ////
 
     @Override
-    public LValue invoke(String method, List<LNode> parameters) {
+    public LValue _get(LValue index) {
+	return getListValue(index);
+    }
+
+    @Override
+    public void _set(LValue index, LValue value) {
+	setListValue(index, value);
+    }
+
+    @Override
+    public LValue _invoke(String method, List<LNode> parameters) {
 	if ("size".equals(method)) {
+	    checkMethod(method, parameters, 0);
 	    return new LNumber(asList().size());
 	}
-	return super.invoke(method, parameters);
+	return super._invoke(method, parameters);
     }
+    
+    protected LValue getListValue(LValue index) {
+        int idx = getIndexValue(index);
+        // TODO: Check index range
+        return asList().get(idx);
+    }
+    
+    protected void setListValue(LValue index, LValue value) {
+        int idx = getIndexValue(index);
+        // TODO: Check index range
+        asList().set(idx, value);
+    }    
+    
 }

@@ -194,10 +194,7 @@ indexes returns [java.util.List<LNode> e]
 tail returns [LNode node]
  : ^(INDEX expression)           {node = $expression.node;}
  | ^(ATTRIBUTE Identifier)       {node = new StringNode($Identifier.text);}
-
-// | ^(CALL functionCall)     {node = $functionCall.node;}
-
- | ^(CALL Identifier exprList?) {node = new FunctionCallNode($Identifier.text, $exprList.e, functions, globalScope);}
+ | ^(CALL Identifier exprList?)  {node = new MethodCallNode($Identifier.text, $exprList.e, functions, globalScope);}
  ;
  
 variableDef returns [LNode node]  
