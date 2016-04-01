@@ -125,7 +125,7 @@ assert(twice(squared(5)) == 50);
 assert(squaredAndTwice(10) == 200);
 assert(squared(squared(squared(2))) == 2 ^ 2 ^ 2 ^ 2);
 assert(list() == [7, 8, 9]);
-assert(size(list()) == 3);
+assert(list().size() == 3);
 assert(list()[1] == 8);
 
 // bubble sort
@@ -134,7 +134,7 @@ def sort(list) {
 }
 
 def sorted(list) {
-  var n = size(list);
+  var n = list.size();
   for (i in 0 .. n-2) {
     if (list[i] > list[i+1]) {
       var temp = list[i+1];
@@ -370,3 +370,5 @@ contact.phone[1] = "100123";
 //contact["phone"][1] = "123";
 
 println("     2: " + contact.phone[1]);
+
+println("method: toString(): " + contact.phone.toString());

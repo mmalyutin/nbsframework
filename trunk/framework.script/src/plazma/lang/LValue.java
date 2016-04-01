@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import plazma.ast.LNode;
+
 public class LValue implements Comparable<LValue> {
 
     public enum Type {NUMBER, STRING, BOOLEAN, LIST, MAP, DATE, OBJ }
@@ -281,7 +283,15 @@ public class LValue implements Comparable<LValue> {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    public LValue invoke(String method, List<LNode> parameters) {
+	if ("toString".equals(method)) {
+	    return new LString(toStringValue());
+	}
+	raiseIllegalMethodException(method);
+	return null;
+    }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected void raiseIllegalOperatorException(String operator, LValue that) {
 	raiseIllegalOperatorException(toString(), operator, that.toString());
@@ -294,4 +304,9 @@ public class LValue implements Comparable<LValue> {
     protected void raiseIllegalOperatorException(String message) {
 	throw new UnsupportedOperationException("Illegal operator: " + message);
     }
+    
+    protected void raiseIllegalMethodException(String message) {
+	throw new UnsupportedOperationException("Illegal method: " + message);
+    }
+    
 }

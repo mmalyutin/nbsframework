@@ -24,6 +24,8 @@ public class LookupNode extends AccessorNode {
             throw new RuntimeException("illegal expression: " + expression);
         }
 
+
+        /*
         List<LValue> indexValues = new ArrayList<LValue>();
 
         for (LNode indexNode : indexes) {
@@ -40,9 +42,30 @@ public class LookupNode extends AccessorNode {
 		value = LValue.NULL;
 	    }
 	}
+	*/
 
+        
+        // map, list, string
+	for (int i = 0; i < indexes.size(); i++) {
+	    LNode indexNode = indexes.get(i);
+	    if (indexNode instanceof FunctionCallNode) {
+		FunctionCallNode functionCallNode = (FunctionCallNode) indexNode;
+		value = invoke(value, functionCallNode.getIdentifier(), functionCallNode.getParams());
+	    } else {
+		LValue index = indexNode.evaluate();
+		value = getValue(value, index);
+	    }
+	    
+	    // Fixed null value (actual for Map)
+	    if (value == null) {
+		value = LValue.NULL;
+	    }
+	}
+	
         return value;
     }
     
-    
+    protected LValue invoke(LValue object, String method, List<LNode> parameters) {
+	return object.invoke(method, parameters);
+    }
 }

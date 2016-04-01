@@ -36,4 +36,15 @@ public class FunctionCallNode implements LNode {
 
         return function.invoke(params, functions);
     }
+
+    public List<LNode> getParams() {
+        return params;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+    
+    
+    
 }
