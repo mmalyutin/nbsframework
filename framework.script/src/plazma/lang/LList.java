@@ -28,6 +28,8 @@ package plazma.lang;
 import java.util.ArrayList;
 import java.util.List;
 
+import plazma.ast.LNode;
+
 
 /**
  * @author ohapon
@@ -68,5 +70,14 @@ public class LList extends LValue {
 	    total.addAll(asList());
 	}
 	return new LList(total);
+    }
+    
+
+    @Override
+    public LValue invoke(String method, List<LNode> parameters) {
+	if ("size".equals(method)) {
+	    return new LNumber(asList().size());
+	}
+	return super.invoke(method, parameters);
     }
 }

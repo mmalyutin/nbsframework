@@ -12,6 +12,7 @@ tokens {
   STATEMENTS;
   ASSIGNMENT;
   FUNC_CALL;
+  //METHOD_CALL;
   EXP;
   EXP_PAIR;
   EXP_MAP;
@@ -94,10 +95,14 @@ functionCall
   |  Println '(' expression? ')'  -> ^(FUNC_CALL Println expression?)
   |  Print '(' expression ')'     -> ^(FUNC_CALL Print expression)
   |  Assert '(' expression ')'    -> ^(FUNC_CALL Assert expression)
-  |  Size '(' expression ')'      -> ^(FUNC_CALL Size expression)
+//  |  Size '(' expression ')'      -> ^(FUNC_CALL Size expression)
   |  Date '(' exprList? ')'      -> ^(FUNC_CALL Date exprList?)
   ;
 
+//methodCall
+//  :  Identifier '(' exprList? ')' -> ^(METHOD_CALL Identifier exprList?)
+//  ;
+  
 ifStatement
   :  ifStat elseIfStat* elseStat? -> ^(IF ifStat elseIfStat* elseStat?)
   ;
@@ -251,18 +256,19 @@ indexes
   ;
 
 tail
- : '.' Identifier                -> ^(ATTRIBUTE Identifier)
- | '[' expression ']'            -> ^(INDEX expression)
- | '.' functionCall              -> ^(CALL functionCall)
+ : '[' expression ']'            -> ^(INDEX expression)
+ | '.' Identifier                -> ^(ATTRIBUTE Identifier)
  
-// | '.' any_id expr_params -> ^(CALL {new CommonTree(new CommonToken(Id, $any_id.text))} expr_params)
+ //| '.' methodCall                -> ^(CALL methodCall)
+ 
+ | '.' Identifier '(' exprList? ')' -> ^(CALL Identifier exprList?)
  ;
 
 
 Println  : 'println';
 Print    : 'print';
 Assert   : 'assert';
-Size     : 'size';
+//Size     : 'size';
 Var      : 'var';
 Def      : 'def';
 If       : 'if';

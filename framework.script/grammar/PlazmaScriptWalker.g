@@ -81,7 +81,7 @@ functionCall returns [LNode node]
   |  ^(FUNC_CALL Println expression?)  {node = new PrintlnNode($expression.node);}
   |  ^(FUNC_CALL Print expression)     {node = new PrintNode($expression.node);}
   |  ^(FUNC_CALL Assert expression)    {node = new AssertNode($expression.node);}
-  |  ^(FUNC_CALL Size expression)      {node = new SizeNode($expression.node);}
+//  |  ^(FUNC_CALL Size expression)      {node = new SizeNode($expression.node);}
   |  ^(FUNC_CALL Date exprList?)       {node = new DateNode($exprList.e);}
   ;
 
@@ -192,9 +192,12 @@ indexes returns [java.util.List<LNode> e]
 
   
 tail returns [LNode node]
- : ^(ATTRIBUTE Identifier)  {node = new StringNode($Identifier.text);}
- | ^(INDEX expression)      {node = $expression.node;}
- | ^(CALL functionCall)     {node = $functionCall.node;}
+ : ^(INDEX expression)           {node = $expression.node;}
+ | ^(ATTRIBUTE Identifier)       {node = new StringNode($Identifier.text);}
+
+// | ^(CALL functionCall)     {node = $functionCall.node;}
+
+ | ^(CALL Identifier exprList?) {node = new FunctionCallNode($Identifier.text, $exprList.e, functions, globalScope);}
  ;
  
 variableDef returns [LNode node]  
