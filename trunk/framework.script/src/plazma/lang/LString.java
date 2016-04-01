@@ -25,6 +25,10 @@
  */
 package plazma.lang;
 
+import java.util.List;
+
+import plazma.ast.LNode;
+
 /**
  * @author ohapon
  *
@@ -90,4 +94,32 @@ public class LString extends LValue {
 	}
 	return new LString(str.toString());
     }
+    
+    ////
+    
+    public LValue _get(LValue index) {
+	return getStringValue(index);
+    }
+
+    public void _set(LValue index, LValue value) {
+	raiseIllegalMethodException("set");
+    }
+    
+    @Override
+    public LValue _invoke(String method, List<LNode> parameters) {
+	if ("size".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asList().size());
+	}
+	return super._invoke(method, parameters);
+    }
+    
+    ////
+    
+    protected LValue getStringValue(LValue index) {
+        int idx = getIndexValue(index);
+        // TODO: Check index range
+        return new LString(String.valueOf(asString().charAt(idx)));
+    }
+    
 }

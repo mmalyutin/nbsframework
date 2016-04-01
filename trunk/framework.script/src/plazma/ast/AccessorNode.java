@@ -22,7 +22,8 @@
 
 package plazma.ast;
 
-import plazma.lang.LString;
+import java.util.List;
+
 import plazma.lang.LValue;
 
 /**
@@ -32,67 +33,17 @@ import plazma.lang.LValue;
  */
 public abstract class AccessorNode implements LNode {
 
-    protected LValue getValue(LValue object, LValue attribute) {
-	if (object.isMap()) {
-	    return getMapValue(object, attribute);
-	} else if (object.isList()) {
-	    return getListValue(object, attribute);
-	} else if (object.isString()) {
-	    return getStringValue(object, attribute);
-	}
-	throw new RuntimeException("Can't get value: object=" + object + ", attribute=" + attribute);
-    }
-    
-    protected void setValue(LValue object, LValue attribute, LValue value) {
-	if (object.isMap()) {
-	    setMapValue(object, attribute, value);
-	    return;
-	} else if (object.isList()) {
-	    setListValue(object, attribute, value);
-	    return;
-	}
-	//    else if (object.isString()) {
-	//    setStringValue(object, index, value);
-	//}
-	throw new RuntimeException("Can't set value: object=" + object + ", attribute=" + attribute);
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    protected LValue getMapValue(LValue object, LValue index) {
-    	return object.asMap().get(index);
+    protected LValue get(LValue object, LValue index) {
+	return object._get(index);
     }
 
-    protected void setMapValue(LValue object, LValue index, LValue value) {
-    	object.asMap().put(index, value);
+    protected void set(LValue object, LValue index, LValue value) {
+	object._set(index, value);
     }
     
-    
-    protected LValue getListValue(LValue object, LValue index) {
-        int idx = getIndexValue(index);
-        // TODO: Check index range
-        return object.asList().get(idx);
-    }
-    
-    protected void setListValue(LValue object, LValue index, LValue value) {
-        int idx = getIndexValue(index);
-        // TODO: Check index range
-        object.asList().set(idx, value);
-    }
-    
-
-    protected LValue getStringValue(LValue value, LValue index) {
-        int idx = getIndexValue(index);
-        // TODO: Check index range
-        return new LString(String.valueOf(value.asString().charAt(idx)));
+    protected LValue invoke(LValue object, String method, List<LNode> parameters) {
+	return object._invoke(method, parameters);
     }
 
-
-    protected int getIndexValue(LValue index) {
-        if (!index.isNumber()) {
-            throw new RuntimeException("Illegal expression: " + /*+ expression +*/ "[" + index + "]");
-        }
-        return index.asLong().intValue();
-    }
 
 }

@@ -372,3 +372,13 @@ contact.phone[1] = "100123";
 println("     2: " + contact.phone[1]);
 
 println("method: toString(): " + contact.phone.toString());
+
+
+var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+var size = month.size();
+
+for (i in 0 ..< size) {
+  println("" + month[i] + " " + (i + 1));
+}
+
+

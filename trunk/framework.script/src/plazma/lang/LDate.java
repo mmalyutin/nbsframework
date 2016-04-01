@@ -41,7 +41,8 @@ public class LDate extends LValue {
 	super(Type.DATE, value);
     }
 
-    protected String toStringValue() {
+    @Override
+    public String _toString() {
 	Calendar calendar = Calendar.getInstance();
 	calendar.setTime((Date) getValue());
 	int year = calendar.get(Calendar.YEAR);

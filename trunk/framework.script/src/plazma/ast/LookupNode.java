@@ -1,6 +1,5 @@
 package plazma.ast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import plazma.lang.LValue;
@@ -20,9 +19,9 @@ public class LookupNode extends AccessorNode {
 
         LValue value = expression.evaluate();
 
-        if ( !(value.isList() || value.isMap() || value.isString())) {
-            throw new RuntimeException("illegal expression: " + expression);
-        }
+        //if ( !(value.isList() || value.isMap() || value.isString())) {
+        //    throw new RuntimeException("illegal expression: " + expression);
+        //}
 
 
         /*
@@ -48,12 +47,12 @@ public class LookupNode extends AccessorNode {
         // map, list, string
 	for (int i = 0; i < indexes.size(); i++) {
 	    LNode indexNode = indexes.get(i);
-	    if (indexNode instanceof FunctionCallNode) {
-		FunctionCallNode functionCallNode = (FunctionCallNode) indexNode;
-		value = invoke(value, functionCallNode.getIdentifier(), functionCallNode.getParams());
+	    if (indexNode instanceof MethodCallNode) {
+		MethodCallNode callNode = (MethodCallNode) indexNode;
+		value = invoke(value, callNode.getIdentifier(), callNode.getParams());
 	    } else {
 		LValue index = indexNode.evaluate();
-		value = getValue(value, index);
+		value = get(value, index);
 	    }
 	    
 	    // Fixed null value (actual for Map)
@@ -65,7 +64,4 @@ public class LookupNode extends AccessorNode {
         return value;
     }
     
-    protected LValue invoke(LValue object, String method, List<LNode> parameters) {
-	return object.invoke(method, parameters);
-    }
 }

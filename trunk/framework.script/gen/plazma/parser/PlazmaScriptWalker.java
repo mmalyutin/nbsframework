@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-04-01 13:23:38
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-04-01 16:20:03
 
   package plazma.parser;
   import plazma.*;
@@ -2560,13 +2560,13 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScriptWalker.g:200:4: ^( CALL Identifier ( exprList )? )
+                    // grammar/PlazmaScriptWalker.g:197:4: ^( CALL Identifier ( exprList )? )
                     {
-                    match(input,CALL,FOLLOW_CALL_in_tail2093); 
+                    match(input,CALL,FOLLOW_CALL_in_tail2090); 
 
                     match(input, Token.DOWN, null); 
-                    Identifier46=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_tail2095); 
-                    // grammar/PlazmaScriptWalker.g:200:22: ( exprList )?
+                    Identifier46=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_tail2092); 
+                    // grammar/PlazmaScriptWalker.g:197:22: ( exprList )?
                     int alt26=2;
                     int LA26_0 = input.LA(1);
 
@@ -2575,9 +2575,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt26) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:200:22: exprList
+                            // grammar/PlazmaScriptWalker.g:197:22: exprList
                             {
-                            pushFollow(FOLLOW_exprList_in_tail2097);
+                            pushFollow(FOLLOW_exprList_in_tail2094);
                             exprList47=exprList();
 
                             state._fsp--;
@@ -2590,7 +2590,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                    node = new FunctionCallNode((Identifier46!=null?Identifier46.getText():null), exprList47, functions, globalScope);
+                    node = new MethodCallNode((Identifier46!=null?Identifier46.getText():null), exprList47, functions, globalScope);
 
                     }
                     break;
@@ -2609,17 +2609,17 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "variableDef"
-    // grammar/PlazmaScriptWalker.g:203:1: variableDef returns [LNode node] : Var ;
+    // grammar/PlazmaScriptWalker.g:200:1: variableDef returns [LNode node] : Var ;
     public final LNode variableDef() throws RecognitionException {
         LNode node = null;
 
         CommonTree Var48=null;
 
         try {
-            // grammar/PlazmaScriptWalker.g:204:3: ( Var )
-            // grammar/PlazmaScriptWalker.g:204:5: Var
+            // grammar/PlazmaScriptWalker.g:201:3: ( Var )
+            // grammar/PlazmaScriptWalker.g:201:5: Var
             {
-            Var48=(CommonTree)match(input,Var,FOLLOW_Var_in_variableDef2120); 
+            Var48=(CommonTree)match(input,Var,FOLLOW_Var_in_variableDef2118); 
             node = new VariableDefNode((Var48!=null?Var48.getText():null), null);
 
             }
@@ -2793,9 +2793,9 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_expression_in_tail2054 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_ATTRIBUTE_in_tail2073 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_Identifier_in_tail2075 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_CALL_in_tail2093 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_tail2095 = new BitSet(new long[]{0x0000000000001008L});
-    public static final BitSet FOLLOW_exprList_in_tail2097 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Var_in_variableDef2120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CALL_in_tail2090 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_tail2092 = new BitSet(new long[]{0x0000000000001008L});
+    public static final BitSet FOLLOW_exprList_in_tail2094 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_Var_in_variableDef2118 = new BitSet(new long[]{0x0000000000000002L});
 
 }

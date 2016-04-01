@@ -25,7 +25,10 @@
  */
 package plazma.lang;
 
+import java.util.List;
 import java.util.Map;
+
+import plazma.ast.LNode;
 
 /**
  * @author ohapon
@@ -40,4 +43,32 @@ public class LMap extends LValue {
 	super(Type.MAP, value);
     }
 
+    ////
+    
+    public LValue _get(LValue index) {
+	return getMapValue(index);
+    }
+
+    public void _set(LValue index, LValue value) {
+	setMapValue(index, value);
+    }
+
+    @Override
+    public LValue _invoke(String method, List<LNode> parameters) {
+	if ("size".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asList().size());
+	}
+	return super._invoke(method, parameters);
+    }
+    
+    ////
+    
+    protected LValue getMapValue(LValue index) {
+    	return asMap().get(index);
+    }
+
+    protected void setMapValue(LValue index, LValue value) {
+    	asMap().put(index, value);
+    }    
 }

@@ -165,13 +165,22 @@ public class LValue implements Comparable<LValue> {
 
     @Override
     public String toString() {
-        return isNull() ? "NULL" : isVoid() ? "VOID" : toStringValue();
+        return isNull() ? "NULL" : isVoid() ? "VOID" : _toString();
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // BASE
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected String toStringValue() {
+    public String _toString() {
     	return String.valueOf(value);
     }
     
+    public int _hashCode() {
+    	return value == null ? 0 : value.hashCode();
+    }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -283,16 +292,52 @@ public class LValue implements Comparable<LValue> {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    public LValue invoke(String method, List<LNode> parameters) {
+    public LValue _get(LValue index) {
+	raiseIllegalMethodException("get");
+	return null;
+    }
+
+    public void _set(LValue index, LValue value) {
+	raiseIllegalMethodException("set");
+    }
+
+    ////
+    
+    public LValue _get(String property) {
+	raiseIllegalMethodException("get");
+	return null;
+    }
+    
+    public void _set(String property) {
+	raiseIllegalMethodException("set");
+    }
+    
+    public LValue _invoke(String method, List<LNode> parameters) {
 	if ("toString".equals(method)) {
-	    return new LString(toStringValue());
+	    checkMethod(method, parameters, 0);
+	    return new LString(_toString());
 	}
 	raiseIllegalMethodException(method);
 	return null;
     }
+
+
+    protected int getIndexValue(LValue index) {
+        if (!index.isNumber()) {
+            throw new RuntimeException("Illegal expression: " + /*+ expression +*/ "[" + index + "]");
+        }
+        return index.asLong().intValue();
+    }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    protected void checkMethod(String method, List<LNode> parameters, int count) {
+	int parameterCount = parameters == null ? 0 : parameters.size(); 
+	if (count != parameterCount) {
+	    raiseIllegalMethodException(method, parameterCount);
+	}
+    }
+    
     protected void raiseIllegalOperatorException(String operator, LValue that) {
 	raiseIllegalOperatorException(toString(), operator, that.toString());
     }
@@ -308,5 +353,9 @@ public class LValue implements Comparable<LValue> {
     protected void raiseIllegalMethodException(String message) {
 	throw new UnsupportedOperationException("Illegal method: " + message);
     }
-    
+
+    protected void raiseIllegalMethodException(String method, int count) {
+	throw new UnsupportedOperationException("Illegal method: '" + method + "' with " + count + " parameter(s)");
+    }
+
 }

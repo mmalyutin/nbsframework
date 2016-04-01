@@ -256,11 +256,8 @@ indexes
   ;
 
 tail
- : '[' expression ']'            -> ^(INDEX expression)
- | '.' Identifier                -> ^(ATTRIBUTE Identifier)
- 
- //| '.' methodCall                -> ^(CALL methodCall)
- 
+ : '[' expression ']'               -> ^(INDEX expression)
+ | '.' Identifier                   -> ^(ATTRIBUTE Identifier)
  | '.' Identifier '(' exprList? ')' -> ^(CALL Identifier exprList?)
  ;
 
