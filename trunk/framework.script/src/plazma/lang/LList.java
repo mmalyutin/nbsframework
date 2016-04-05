@@ -46,6 +46,7 @@ public class LList extends LValue {
     }
 
     // +
+    @Override
     public LValue _add(LValue that) {
 	List<LValue> list = asList();
 	list.add(that);
@@ -53,6 +54,7 @@ public class LList extends LValue {
     }
     
     // -
+    @Override
     public LValue _sub(LValue that) {
 	 List<LValue> list = asList();
          list.remove(that);
@@ -60,6 +62,7 @@ public class LList extends LValue {
     }
     
     // *
+    @Override
     public LValue _mul(LValue that) {
 	if (!that.isNumber()) {
 	    return super._mul(that);
@@ -85,7 +88,7 @@ public class LList extends LValue {
     }
 
     @Override
-    public LValue _invoke(String method, List<LNode> parameters) {
+    public LValue _invoke(String method, List<LValue> parameters) {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asList().size());

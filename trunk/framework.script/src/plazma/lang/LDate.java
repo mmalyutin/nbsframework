@@ -52,6 +52,7 @@ public class LDate extends LValue {
     }
     
     // <
+    @Override
     public LValue _lt(LValue that) {
 	if (!that.isDate()) {
 	    return super._lte(that);
@@ -60,6 +61,7 @@ public class LDate extends LValue {
     }
     
     // <=
+    @Override
     public LValue _lte(LValue that) {
 	if (!that.isDate()) {
 	    return super._lte(that);
@@ -68,6 +70,7 @@ public class LDate extends LValue {
     }
 
     // >
+    @Override
     public LValue _gt(LValue that) {
 	if (!that.isDate()) {
 	    return super._lte(that);
@@ -76,6 +79,7 @@ public class LDate extends LValue {
     }
     
     // >=
+    @Override
     public LValue _gte(LValue that) {
 	if (!that.isDate()) {
 	    return super._lte(that);

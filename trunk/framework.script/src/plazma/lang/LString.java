@@ -43,7 +43,8 @@ public class LString extends LValue {
     } 
     
     
- // <
+    // <
+    @Override
     public LValue _lt(LValue that) {
 	if (!that.isString()) {
 	    return super._lt(that);
@@ -52,6 +53,7 @@ public class LString extends LValue {
     }
     
     // <=
+    @Override
     public LValue _lte(LValue that) {
 	if (!that.isString()) {
 	    return super._lte(that);
@@ -60,6 +62,7 @@ public class LString extends LValue {
     }
 
     // >
+    @Override
     public LValue _gt(LValue that) {
 	if (!that.isString()) {
 	    return super._gt(that);
@@ -68,6 +71,7 @@ public class LString extends LValue {
     }
     
     // >=
+    @Override
     public LValue _gte(LValue that) {
 	if (!that.isString()) {
 	    return super._gte(that);
@@ -78,11 +82,13 @@ public class LString extends LValue {
     //////    
 
     // +
+    @Override
     public LValue _add(LValue that) {
 	 return new LString(asString() + "" + that.toString());
     }
     
     // *
+    @Override
     public LValue _mul(LValue that) {
 	if (!that.isNumber()) {
 	    return super._mul(that);
@@ -97,16 +103,18 @@ public class LString extends LValue {
     
     ////
     
+    @Override
     public LValue _get(LValue index) {
 	return getStringValue(index);
     }
 
+    @Override
     public void _set(LValue index, LValue value) {
 	raiseIllegalMethodException("set");
     }
     
     @Override
-    public LValue _invoke(String method, List<LNode> parameters) {
+    public LValue _invoke(String method, List<LValue> parameters) {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asString().length());

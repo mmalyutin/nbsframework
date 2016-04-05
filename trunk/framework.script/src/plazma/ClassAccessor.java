@@ -20,44 +20,29 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package plazma.lang;
+package plazma;
 
+public class ClassAccessor {
 
-/**
- * @author ohapon
- *
- */
-public class LBoolean extends LValue {
-
-    public static final LBoolean TRUE = new LBoolean(true);
+    private Class klass; 
     
-    public static final LBoolean FALSE = new LBoolean(false);
     
-    /**
-     * @param value
-     */
-    public LBoolean(Boolean value) {
-	super(Type.BOOLEAN, value);
+    public ClassAccessor(Class klass) {
+	super();
+	this.klass = klass;
     }
 
-    // &&, and
-    @Override
-    public LValue _and(LValue that) {
-	if (!that.isBoolean()) {
-	    return super._and(that);	    
-	}
-	return new LBoolean(asBoolean() && that.asBoolean());
+    public Object get(String property) {
+	//TODO
+	return null;
     }
 
-    // ||, or
-    @Override
-    public LValue _or(LValue that) {
-	if (!that.isBoolean()) {
-	    return super._or(that);	    
-	}
-	return new LBoolean(asBoolean() || that.asBoolean());
+    public void get(String property, Object value) {
+	//TODO
     }
+
+    public void invoke(String method, Object[] parameters) {
+	//TODO
+    }
+
 }

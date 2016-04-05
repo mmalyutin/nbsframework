@@ -41,7 +41,7 @@ public abstract class AccessorNode implements LNode {
 	object._set(index, value);
     }
     
-    protected LValue invoke(LValue object, String method, List<LNode> parameters) {
+    protected LValue invoke(LValue object, String method, List<LValue> parameters) {
 	return object._invoke(method, parameters);
     }
 
