@@ -75,6 +75,10 @@ public class LNumber extends LValue {
 	if (!that.isNumber()) {
 	    return super._add(that);
 	}
+	// Integer
+	if (that.isInteger()) {
+	    return new LNumber(asInteger() + that.asInteger());
+	}
 	return new LNumber(asDouble() + that.asDouble());
     }
     
@@ -82,6 +86,10 @@ public class LNumber extends LValue {
     public LValue _sub(LValue that) {
 	if (!that.isNumber()) {
 	    return super._sub(that);
+	}
+	// Integer
+	if (that.isInteger()) {
+	    return new LNumber(asInteger() - that.asInteger());
 	}
 	return new LNumber(asDouble() - that.asDouble());
     }
@@ -91,6 +99,10 @@ public class LNumber extends LValue {
 	if (!that.isNumber()) {
 	    return super._mul(that);
 	}
+	// Integer
+	if (that.isInteger()) {
+	    return new LNumber(asInteger() * that.asInteger());
+	}
 	return new LNumber(asDouble() * that.asDouble());
     }
     
@@ -99,6 +111,7 @@ public class LNumber extends LValue {
 	if (!that.isNumber()) {
 	    return super._div(that);
 	}
+	// Integer ???
 	return new LNumber(asDouble() / that.asDouble());
     }
     
@@ -107,6 +120,7 @@ public class LNumber extends LValue {
 	if (!that.isNumber()) {
 	    return super._pow(that);
 	}
+	// Integer ???
 	return new LNumber(Math.pow(asDouble(), that.asDouble()));
     }
     

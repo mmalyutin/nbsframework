@@ -20,6 +20,10 @@ public class UnaryMinusNode implements LNode {
         if (!v.isNumber()) {
             throw new RuntimeException("illegal expression: " + this);
         }
+        
+        if (v.isInteger()) {
+            return new LNumber(-v.asInteger());
+        }
 
         return new LNumber(-v.asDouble());
     }

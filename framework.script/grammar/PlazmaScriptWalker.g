@@ -159,7 +159,7 @@ expression returns [LNode node]
   |  ^(UNARY_MIN a=expression)                         {node = new UnaryMinusNode($a.node);}
   |  ^(NEGATE a=expression)                            {node = new NotNode($a.node);}
  
-  |  Integer                                           {node = new NumberNode($Integer.text);}                         // {node = new AtomNode(new Integer($Integer.text));}
+  |  Integer                                           {node = new IntegerNode($Integer.text);}                         // {node = new AtomNode(new Integer($Integer.text));}
   |  Number                                            {node = new NumberNode($Number.text);}                          // {node = new AtomNode(Double.parseDouble($Number.text));}
   |  Bool                                              {node = new BooleanNode($Bool.text);}                           // {node = new AtomNode(Boolean.parseBoolean($Bool.text));}
   //|  Date                                              {node = new DateNode($Date.text);}                              // {node = new AtomNode(AtomNode.parseDate($Date.text));}
