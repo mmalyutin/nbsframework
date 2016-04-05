@@ -109,7 +109,7 @@ public class LString extends LValue {
     public LValue _invoke(String method, List<LNode> parameters) {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(asList().size());
+	    return new LNumber(asString().length());
 	}
 	return super._invoke(method, parameters);
     }

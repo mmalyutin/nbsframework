@@ -20,55 +20,18 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package plazma.lang;
+package plazma.ast.values;
 
-import java.util.List;
-import java.util.Map;
+import plazma.lang.LNumber;
+import plazma.lang.LValue;
 
-import plazma.ast.LNode;
+public class IntegerNode extends ValueNode {
 
-/**
- * @author ohapon
- *
- */
-public class LMap extends LValue {
-
-    /**
-     * @param value
-     */
-    public LMap(Map<?, ?> value) {
-	super(Type.MAP, value);
-    }
-
-    ////
-    
-    public LValue _get(LValue index) {
-	return getMapValue(index);
-    }
-
-    public void _set(LValue index, LValue value) {
-	setMapValue(index, value);
-    }
-
-    @Override
-    public LValue _invoke(String method, List<LNode> parameters) {
-	if ("size".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    return new LNumber(asMap().size());
-	}
-	return super._invoke(method, parameters);
+    public IntegerNode(String value) {
+	this.value = value == null ? LValue.NULL : new LNumber(parseInteger(value));
     }
     
-    ////
-    
-    protected LValue getMapValue(LValue index) {
-    	return asMap().get(index);
+    protected Integer parseInteger(String value) {
+	return Integer.parseInt(value); 
     }
-
-    protected void setMapValue(LValue index, LValue value) {
-    	asMap().put(index, value);
-    }    
 }

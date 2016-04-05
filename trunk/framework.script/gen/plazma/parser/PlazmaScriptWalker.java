@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-04-01 16:20:03
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-04-05 11:46:30
 
   package plazma.parser;
   import plazma.*;
@@ -1910,7 +1910,7 @@ public class PlazmaScriptWalker extends TreeParser {
                     // grammar/PlazmaScriptWalker.g:162:6: Integer
                     {
                     Integer31=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression1458); 
-                    node = new NumberNode((Integer31!=null?Integer31.getText():null));
+                    node = new IntegerNode((Integer31!=null?Integer31.getText():null));
 
                     }
                     break;
