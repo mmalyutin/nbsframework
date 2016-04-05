@@ -22,27 +22,47 @@
 
 package plazma;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClassAccessor {
 
-    private Class klass; 
+    private Class<?> klass; 
+    
+    private Map<String, PropertyAccessor> propertyAccessors = new HashMap<String, PropertyAccessor>();
     
     
-    public ClassAccessor(Class klass) {
-	super();
+    public ClassAccessor(Class<?> klass) {
 	this.klass = klass;
     }
 
-    public Object get(String property) {
+    public Object get(Object object, String property) {
+	return getAccessor(property).getValue(object);
+    }
+
+    public void set(Object object, String property, Object value) {
+	getAccessor(property).setValue(object, value);
+    }
+
+    public Object invoke(Object object, String method, Object[] parameters) {
 	//TODO
 	return null;
     }
 
-    public void get(String property, Object value) {
-	//TODO
+    ////
+    
+    protected PropertyAccessor getAccessor(String property) {
+	if (property == null) {
+	    throw new RuntimeException("Can not get accessor: property is null"); 
+	}
+	PropertyAccessor propertyAccessor = propertyAccessors.get(property);
+	if (propertyAccessor == null) {
+	    propertyAccessor = PropertyAccessor.getAccessor(klass, property);
+	    
+	}
+	if (propertyAccessor == null) {
+	    throw new RuntimeException("Can not get accessor: property is '" + property + "'");
+	}
+	return propertyAccessor;
     }
-
-    public void invoke(String method, Object[] parameters) {
-	//TODO
-    }
-
 }

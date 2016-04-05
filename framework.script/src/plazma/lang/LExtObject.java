@@ -29,7 +29,9 @@ public class LExtObject extends LValue {
 
     private LAccessor accessor;
     
-    protected LExtObject(Object value) {
+    public static LAccessorFactory accessorFactory = new LClassAccessorFactory();   
+    
+    public LExtObject(Object value) {
 	super(Type.EXT_OBJ, value);
     }
 
@@ -58,27 +60,34 @@ public class LExtObject extends LValue {
     
     @Override
     public LValue _get(String property) {
-	return getAccessor().get(property);
+	return getAccessor().get(getInstance(), property);
     }
     
     @Override
     public void _set(String property, LValue value) {
-	getAccessor().set(property, value);
+	getAccessor().set(getInstance(), property, value);
     }
     
     public LValue _invoke(String method, List<LValue> parameters) {
-	return getAccessor().invoke(method, parameters);
+	return getAccessor().invoke(getInstance(), method, parameters);
     }
 
-    
+    protected Object getInstance() {
+	return getValue();
+    }
+
+    protected Class<?> getInstanceClass() {
+	Object instance = getInstance();
+	return instance == null ? null : instance.getClass();
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     protected LAccessor getAccessor() {
-	//TODO
-	return null;
-	//if (accessor == null) {
-	//    
-	//}
+	if (accessor == null) {
+	    accessor = accessorFactory.getAccessor(getInstanceClass());
+	}
+	return accessor;
     }
 
 }

@@ -24,5 +24,5 @@ package plazma.lang;
 
 public interface LAccessorFactory {
 
-    LAccessor getAccessor(String name);
+    LAccessor getAccessor(Class<?> klass);
 }

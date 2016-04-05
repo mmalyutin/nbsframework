@@ -37,8 +37,9 @@ public class LValue implements Comparable<LValue> {
         }
         this.type = type;
         this.value = value;
+        
         // only accept boolean, list, map, number or string types
-        if(!(isBoolean() || isList() || isMap() || isNumber() || isString() || isDate())) {
+        if(!(isBoolean() || isList() || isMap() || isNumber() || isString() || isDate() || isExtObject())) {
             throw new RuntimeException("invalid data type: " + value + " (" + value.getClass() + ")");
         }
     }
@@ -158,6 +159,12 @@ public class LValue implements Comparable<LValue> {
     public boolean isDate() {
         return value instanceof Date;
     }
+
+    public boolean isExtObject() {
+        return type == Type.EXT_OBJ;
+    }
+    
+    ////
     
     public Object getValue() {
 	return value;
