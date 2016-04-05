@@ -381,4 +381,8 @@ for (i in 0 ..< size) {
   println("" + month[i] + " " + (i + 1));
 }
 
+println();
+println("Get name: " + $book.name);
 
+$book.name = "Name-19";
+println("Set name: " + $book.name);

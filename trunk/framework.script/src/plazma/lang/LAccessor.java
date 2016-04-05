@@ -27,10 +27,10 @@ import java.util.List;
 
 public interface LAccessor {
 
-    void set(String property, LValue value);
+    void set(Object object, String property, LValue value);
     
-    LValue get(String property);
+    LValue get(Object object, String property);
     
-    LValue invoke(String method, List<LValue> parameters);
+    LValue invoke(Object object, String method, List<LValue> parameters);
     
 }

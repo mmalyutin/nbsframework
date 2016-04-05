@@ -23,7 +23,6 @@
 package plazma;
 
 import plazma.lang.LValue;
-import plazma.lang.LValueCreator;
 
 /**
  * Global (External) scope
@@ -68,8 +67,8 @@ public class GlobalScope extends Scope {
 	}
 	LValue lValue = super.getVariableValue(var);
 	if (lValue == null) {
-	    Object value = variableProvider.getVariableValue(var); // get value form external environment
-	    lValue = LValueCreator.createValue(value);
+	    Object value = variableProvider.getVariableValue(var); // get NATIVE value form external environment
+	    lValue = ValueAdapter.fromNativeValue(value);
 	    super.setVariableValue(var, lValue); // WARNING!
 	}
 	return lValue;
@@ -81,7 +80,8 @@ public class GlobalScope extends Scope {
 	    return;
 	}
 	super.setVariableValue(var, value);
-	variableProvider.setVariableValue(var, value); // set value to external environment (if it is possible)
+	Object nativeValue = ValueAdapter.toNativeValue(value);
+	variableProvider.setVariableValue(var, nativeValue); // set NATIVE value to external environment (if it is possible)
     }
 
     protected boolean isGlobalVariable(String identifier) {
