@@ -1,5 +1,6 @@
 package plazma.ast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import plazma.lang.LValue;
@@ -49,7 +50,17 @@ public class LookupNode extends AccessorNode {
 	    LNode indexNode = indexes.get(i);
 	    if (indexNode instanceof MethodCallNode) {
 		MethodCallNode callNode = (MethodCallNode) indexNode;
-		value = invoke(value, callNode.getIdentifier(), callNode.getParams());
+		
+		List<LNode> parameters = callNode.getParams();
+		List<LValue> parameterValues = null; 
+		if (parameters != null) {
+		    parameterValues = new ArrayList<LValue>();
+		    for (LNode p: parameters) {
+			parameterValues.add(p.evaluate());
+		    }
+		}
+		 
+		value = invoke(value, callNode.getIdentifier(), parameterValues);
 	    } else {
 		LValue index = indexNode.evaluate();
 		value = get(value, index);

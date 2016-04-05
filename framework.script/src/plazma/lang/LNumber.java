@@ -37,6 +37,7 @@ public class LNumber extends LValue {
 
 
     // <
+    @Override
     public LValue _lt(LValue that) {
 	if (!that.isNumber()) {
 	    return super._lt(that);
@@ -45,6 +46,7 @@ public class LNumber extends LValue {
     }
     
     // <=
+    @Override
     public LValue _lte(LValue that) {
 	if (!that.isNumber()) {
 	    return super._lte(that);
@@ -53,6 +55,7 @@ public class LNumber extends LValue {
     }
 
     // >
+    @Override
     public LValue _gt(LValue that) {
 	if (!that.isNumber()) {
 	    return super._gt(that);
@@ -61,6 +64,7 @@ public class LNumber extends LValue {
     }
     
     // >=
+    @Override
     public LValue _gte(LValue that) {
 	if (!that.isNumber()) {
 	    return super._gte(that);
@@ -71,6 +75,7 @@ public class LNumber extends LValue {
     //////
     
     // +
+    @Override
     public LValue _add(LValue that) {
 	if (!that.isNumber()) {
 	    return super._add(that);
@@ -83,6 +88,7 @@ public class LNumber extends LValue {
     }
     
     // -
+    @Override
     public LValue _sub(LValue that) {
 	if (!that.isNumber()) {
 	    return super._sub(that);
@@ -95,6 +101,7 @@ public class LNumber extends LValue {
     }
     
     // *
+    @Override
     public LValue _mul(LValue that) {
 	if (!that.isNumber()) {
 	    return super._mul(that);
@@ -107,6 +114,7 @@ public class LNumber extends LValue {
     }
     
     // /
+    @Override
     public LValue _div(LValue that) {
 	if (!that.isNumber()) {
 	    return super._div(that);
@@ -116,6 +124,7 @@ public class LNumber extends LValue {
     }
     
     // ^
+    @Override
     public LValue _pow(LValue that) {
 	if (!that.isNumber()) {
 	    return super._pow(that);
@@ -125,6 +134,7 @@ public class LNumber extends LValue {
     }
     
     // %
+    @Override
     public LValue _mod(LValue that) {
 	if (!that.isNumber()) {
 	    return super._mod(that);

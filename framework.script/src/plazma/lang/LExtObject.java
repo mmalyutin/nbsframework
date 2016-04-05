@@ -20,57 +20,65 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
 package plazma.lang;
 
 import java.util.List;
-import java.util.Map;
 
-import plazma.ast.LNode;
 
-/**
- * @author ohapon
- *
- */
-public class LMap extends LValue {
+public class LExtObject extends LValue {
 
-    /**
-     * @param value
-     */
-    public LMap(Map<?, ?> value) {
-	super(Type.MAP, value);
+    private LAccessor accessor;
+    
+    protected LExtObject(Object value) {
+	super(Type.EXT_OBJ, value);
     }
 
-    ////
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     @Override
     public LValue _get(LValue index) {
-	return getMapValue(index);
+	if (index.isString() ){
+	    return _get(index.asString());
+	}
+	raiseIllegalMethodException("get");
+	return null;
     }
 
     @Override
     public void _set(LValue index, LValue value) {
-	setMapValue(index, value);
+	if (index.isString() ){
+	    _set(index.asString(), value);
+	    return;
+	}
+	raiseIllegalMethodException("set");
     }
 
-    @Override
-    public LValue _invoke(String method, List<LValue> parameters) {
-	if ("size".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    return new LNumber(asMap().size());
-	}
-	return super._invoke(method, parameters);
-    }
-    
     ////
     
-    protected LValue getMapValue(LValue index) {
-    	return asMap().get(index);
+    @Override
+    public LValue _get(String property) {
+	return getAccessor().get(property);
+    }
+    
+    @Override
+    public void _set(String property, LValue value) {
+	getAccessor().set(property, value);
+    }
+    
+    public LValue _invoke(String method, List<LValue> parameters) {
+	return getAccessor().invoke(method, parameters);
     }
 
-    protected void setMapValue(LValue index, LValue value) {
-    	asMap().put(index, value);
-    }    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    protected LAccessor getAccessor() {
+	//TODO
+	return null;
+	//if (accessor == null) {
+	//    
+	//}
+    }
+
 }

@@ -8,7 +8,7 @@ import plazma.ast.LNode;
 
 public class LValue implements Comparable<LValue> {
 
-    public enum Type {NUMBER, STRING, BOOLEAN, LIST, MAP, DATE, OBJ }
+    public enum Type {NUMBER, STRING, BOOLEAN, LIST, MAP, DATE, OBJ, EXT_OBJ}
     
     //public static final LValue NULL = new LValue();
     
@@ -308,11 +308,11 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
     
-    public void _set(String property) {
+    public void _set(String property, LValue value) {
 	raiseIllegalMethodException("set");
     }
     
-    public LValue _invoke(String method, List<LNode> parameters) {
+    public LValue _invoke(String method, List<LValue> parameters) {
 	if ("toString".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LString(_toString());
@@ -334,7 +334,7 @@ public class LValue implements Comparable<LValue> {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected void checkMethod(String method, List<LNode> parameters, int count) {
+    protected void checkMethod(String method, List<LValue> parameters, int count) {
 	int parameterCount = parameters == null ? 0 : parameters.size(); 
 	if (count != parameterCount) {
 	    raiseIllegalMethodException(method, parameterCount);

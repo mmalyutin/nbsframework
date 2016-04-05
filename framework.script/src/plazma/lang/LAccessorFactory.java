@@ -20,44 +20,9 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
 package plazma.lang;
 
+public interface LAccessorFactory {
 
-/**
- * @author ohapon
- *
- */
-public class LBoolean extends LValue {
-
-    public static final LBoolean TRUE = new LBoolean(true);
-    
-    public static final LBoolean FALSE = new LBoolean(false);
-    
-    /**
-     * @param value
-     */
-    public LBoolean(Boolean value) {
-	super(Type.BOOLEAN, value);
-    }
-
-    // &&, and
-    @Override
-    public LValue _and(LValue that) {
-	if (!that.isBoolean()) {
-	    return super._and(that);	    
-	}
-	return new LBoolean(asBoolean() && that.asBoolean());
-    }
-
-    // ||, or
-    @Override
-    public LValue _or(LValue that) {
-	if (!that.isBoolean()) {
-	    return super._or(that);	    
-	}
-	return new LBoolean(asBoolean() || that.asBoolean());
-    }
+    LAccessor getAccessor(String name);
 }
