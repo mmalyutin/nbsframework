@@ -359,6 +359,16 @@ public class LValue implements Comparable<LValue> {
     protected void raiseIllegalOperatorException(String message) {
 	throw new UnsupportedOperationException("Illegal operator: " + message);
     }
+
+    ////
+    
+    protected void raiseIllegalMethodParameterTypeException(String type) {
+	throw new UnsupportedOperationException("Illegal method parameter: Parameter must be '" + type + "'");
+    }
+
+    protected void raiseIllegalMethodParameterException(String message) {
+	throw new UnsupportedOperationException("Illegal method parameter: " + message);
+    }
     
     protected void raiseIllegalMethodException(String message) {
 	throw new UnsupportedOperationException("Illegal method: " + message);

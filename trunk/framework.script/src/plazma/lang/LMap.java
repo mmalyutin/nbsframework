@@ -60,6 +60,21 @@ public class LMap extends LValue {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asMap().size());
+	//} else if ("indexOf".equals(method)) {
+	//    checkMethod(method, parameters, 1);
+	//    return new LNumber(asList().indexOf(parameters.get(0)));
+	} else if ("add".equals(method)) {
+	    checkMethod(method, parameters, 2);
+	    return asMap().put(parameters.get(0), parameters.get(1));
+	} else if ("remove".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return asMap().remove(parameters.get(0));
+	} else if ("containsKey".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return new LBoolean(asMap().containsKey(parameters.get(0)));
+	} else if ("containsValue".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return new LBoolean(asMap().containsValue(parameters.get(0)));
 	}
 	return super._invoke(method, parameters);
     }

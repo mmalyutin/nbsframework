@@ -27,6 +27,7 @@ package plazma.lang;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ohapon
@@ -41,6 +42,11 @@ public class LDate extends LValue {
 	super(Type.DATE, value);
     }
 
+    public LDate(long time) {
+	//TODO: truncate time
+	super(Type.DATE, new Date(time));
+    }
+    
     @Override
     public String _toString() {
 	Calendar calendar = Calendar.getInstance();
@@ -86,5 +92,143 @@ public class LDate extends LValue {
 	}
 	return new LBoolean(asDate().getTime() >= that.asDate().getTime()); 
     }
+ 
+    ////
+    
+    // +
+    public LValue _add(LValue that) {
+	if (that.isNumber()) {
+	    // Date + Long (ms) = Date
+	    return new LDate(getTime() + that.asLong());
+	}
+	return super._add(that);
+    }
+    
+    // -
+    public LValue _sub(LValue that) {
+	if (that.isNumber()) {
+	    // Date - Long (ms) = Date
+	    return new LDate(getTime() - that.asLong());
+	}
+	if (that.isDate()) {
+	    // Date - Date = Long (ms)
+	    return new LNumber(getTime() - that.asDate().getTime());
+	}
+	return super._add(that);
+    }
+    
+    ////
+    
+    @Override
+    public LValue _invoke(String method, List<LValue> parameters) {
+	
+	// TIME
+	if ("getTime".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getTime());
+	    
+	} else if ("setTime".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setTime(parameter.asLong());
+	    return LValue.VOID;
+	    
+	// YEAR    
+	} else if ("getYear".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getYear());
+	    
+	}  else if ("setYear".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setYear(parameter.asInteger());
+	    return LValue.VOID;
+
+	// MONTH
+	} else if ("getMonth".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getMonth());
+
+	} else if ("setMonth".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setMonth(parameter.asInteger());
+	    return LValue.VOID;
+	    
+	// DAY
+	} else if ("getDay".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getDay());
+
+	} else if ("setDay".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setDay(parameter.asInteger());
+	    return LValue.VOID;
+	    
+	}
+	
+	return super._invoke(method, parameters);
+    }
+    
+    ////
+    
+    public Calendar getCalendar() {
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime((Date) getValue());
+	return calendar;
+    }
+
+    public long getTime() {
+	return asDate().getTime();
+    }
+
+    public void setTime(long time) {
+	// TODO: truncate time
+	asDate().setTime(time);
+    }
+    
+    public int getYear() {
+	return  getCalendar().get(Calendar.YEAR);
+    }
+    
+    public void setYear(int year) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.YEAR, year);
+	setTime(calendar.getTimeInMillis());
+    }
+    
+    public int getMonth() {
+	return getCalendar().get(Calendar.MONTH) + 1;
+    }
+    
+    public void setMonth(int month) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.MONTH, month - 1);
+	setTime(calendar.getTimeInMillis());
+    }
+    
+    public int getDay() {
+	return getCalendar().get(Calendar.DAY_OF_MONTH);
+    }
+
+    public void setDay(int day) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.DAY_OF_MONTH, day);
+	setTime(calendar.getTimeInMillis());
+    }
+    
     
 }
