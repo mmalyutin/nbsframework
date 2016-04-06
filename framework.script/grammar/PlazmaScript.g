@@ -77,6 +77,7 @@ block
 statement
   :  assignment ';'   -> assignment
   |  functionCall ';' -> functionCall
+  |  lookup ';' -> lookup                                 // ???
   |  ifStatement
   |  forStatement
   |  whileStatement

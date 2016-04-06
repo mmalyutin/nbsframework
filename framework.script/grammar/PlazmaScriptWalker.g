@@ -62,6 +62,7 @@ block returns [LNode node]
 statement returns [LNode node]
   :  assignment     {node = $assignment.node;}
   |  functionCall   {node = $functionCall.node;}
+  |  lookup         {node = $lookup.node;}  
   |  ifStatement    {node = $ifStatement.node;}
   |  forStatement   {node = $forStatement.node;}
 //  |  forStatement2  {node = $forStatement2.node;}  

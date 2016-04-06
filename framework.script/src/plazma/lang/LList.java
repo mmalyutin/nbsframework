@@ -92,7 +92,18 @@ public class LList extends LValue {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asList().size());
+	} else if ("indexOf".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return new LNumber(asList().indexOf(parameters.get(0)));
+	} else if ("add".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return new LBoolean(asList().add(parameters.get(0)));
+	} else if ("remove".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return new LBoolean(asList().remove(parameters.get(0)));
 	}
+
+
 	return super._invoke(method, parameters);
     }
     
