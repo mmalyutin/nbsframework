@@ -131,6 +131,7 @@ assert(list()[1] == 8);
 // bubble sort
 def sort(list) {
   while (!sorted(list)) {}
+  return 1;
 }
 
 def sorted(list) {
@@ -380,9 +381,17 @@ var size = month.size();
 for (i in 0 ..< size) {
   println("" + month[i] + " " + (i + 1));
 }
+println("month.size()      : "  + month.size());
+println("month.indexOf(MAR): "  + month.indexOf("MAR"));
+
+month.remove("MAR");
+println("month.size()      : "  + month.size());
+
 
 println();
 println("Get name: " + $book.name);
 
 $book.name = "Name-19";
 println("Set name: " + $book.name);
+
+

@@ -31,10 +31,23 @@ public class BlockNode implements LNode {
     @Override
     public LValue evaluate() {
         for(LNode stat : statements) {
+            boolean external = false;
+            
+            //TODO: STUB. Maybe check BREAK, CONTINUE, EXIT statements
+            if (stat instanceof FunctionCallNode || stat instanceof LookupNode) {
+        	external = true;
+            }
+            
             LValue value = stat.evaluate();
-            if(value != LValue.VOID) {
+            
+            if(value != LValue.VOID && !external) {
                 return value;
             }
+            
+            //if (value != null && (value == LValue.BREAK || value == LValue.CONTINUE)) {
+            //    return value;
+            //}
+
         }
         return returnStatement == null ? LValue.VOID : returnStatement.evaluate();
     }
