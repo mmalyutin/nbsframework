@@ -59,6 +59,10 @@ public class TestLibrary extends TestCase {
 	evaluate(evaluator, "ltrim(\"  hello\")");
 	evaluate(evaluator, "ltrim(\"  hello  \")");
 	
+	evaluate(evaluator, "Date(2000, 1, 1)");
+	evaluate(evaluator, "Date(2000, 1, 1) + DAY_MS()");
+	evaluate(evaluator, "Date(2000, 1, 1) + DAY_MS() * 2");
+	
     }
 
     private void evaluate(ExpressionEvaluator evaluator, String expression) throws EvaluateException {
