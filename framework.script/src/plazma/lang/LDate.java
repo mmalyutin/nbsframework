@@ -96,12 +96,15 @@ public class LDate extends LValue {
     ////
     
     // +
-    public LValue _add(LValue that) {
-	if (that.isNumber()) {
-	    // Date + Long (ms) = Date
-	    return new LDate(getTime() + that.asLong());
+    public LValue _add(LValue a, LValue b) {
+	if (!a.isDate()) {
+	    return super._add(a, b);
 	}
-	return super._add(that);
+	if (b.isNumber()) {
+	    // Date + Long (ms) = Date
+	    return new LDate(a.asDate().getTime() + b.asLong());
+	}
+	return super._add(a, b);
     }
     
     // -
@@ -114,7 +117,7 @@ public class LDate extends LValue {
 	    // Date - Date = Long (ms)
 	    return new LNumber(getTime() - that.asDate().getTime());
 	}
-	return super._add(that);
+	return super._sub(that);
     }
     
     ////
