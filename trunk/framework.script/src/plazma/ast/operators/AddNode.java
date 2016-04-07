@@ -19,7 +19,7 @@ public class AddNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
         
-        return a._add(b);
+        return a._add(a, b);
 
         // TODO: LInteger
         /*

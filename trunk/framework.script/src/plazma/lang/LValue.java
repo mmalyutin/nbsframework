@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import plazma.ast.LNode;
 
 public class LValue implements Comparable<LValue> {
 
@@ -13,7 +12,7 @@ public class LValue implements Comparable<LValue> {
     //public static final LValue NULL = new LValue();
     
     
-    public static final LValue NULL = new LValue();
+    public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
     public static final LValue BREAK = new LValue();
     public static final LValue CONTINUE = new LValue();
@@ -22,7 +21,7 @@ public class LValue implements Comparable<LValue> {
     
     private Object value;
 
-    private LValue() {
+    protected LValue() {
         // private constructor: only used for NULL and VOID
         value = new Object();
     }
@@ -261,8 +260,8 @@ public class LValue implements Comparable<LValue> {
     ////////
     
     // +
-    public LValue _add(LValue that) {
-	raiseIllegalOperatorException("+", that);
+    public LValue _add(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "+", b);
 	return null;
     }
     
@@ -352,6 +351,10 @@ public class LValue implements Comparable<LValue> {
 	raiseIllegalOperatorException(toString(), operator, that.toString());
     }
 
+    protected void raiseIllegalOperatorException(LValue a, String operator, LValue b) {
+	raiseIllegalOperatorException(a.toString() + " " + operator + " " + b.toString());
+    }
+    
     protected void raiseIllegalOperatorException(String a, String operator, String b) {
 	raiseIllegalOperatorException(a + " " + operator + " " + b);
     }

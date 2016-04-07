@@ -47,9 +47,12 @@ public class LList extends LValue {
 
     // +
     @Override
-    public LValue _add(LValue that) {
-	List<LValue> list = asList();
-	list.add(that);
+    public LValue _add(LValue a, LValue b) {
+	if (!a.isList()) {
+	    return super._add(a, b);
+	}
+	List<LValue> list = a.asList();
+	list.add(b);
 	return new LList(list);
     }
     

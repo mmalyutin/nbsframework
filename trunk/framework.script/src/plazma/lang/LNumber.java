@@ -76,15 +76,28 @@ public class LNumber extends LValue {
     
     // +
     @Override
-    public LValue _add(LValue that) {
-	if (!that.isNumber()) {
-	    return super._add(that);
+    public LValue _add(LValue a, LValue b) {
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+
+	if (a == LValue.NULL) {
+	    return b;
+	}
+
+	if (b == LValue.NULL) {
+	    return a;
+	}
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._add(a, b);
 	}
 	// Integer
-	if (that.isInteger()) {
-	    return new LNumber(asInteger() + that.asInteger());
+	if (a.isInteger() && b.isInteger()) {
+	    return new LNumber(a.asInteger() + b.asInteger());
 	}
-	return new LNumber(asDouble() + that.asDouble());
+	return new LNumber(a.asDouble() + b.asDouble());
     }
     
     // -

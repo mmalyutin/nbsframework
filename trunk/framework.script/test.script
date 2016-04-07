@@ -432,3 +432,10 @@ println("Date-3d: " + (date - dayTime * 3));
 println("Date+1d: " + (date + dayTime));
 println("Date+2d: " + (date + dayTime * 2));
 println("Date+3d: " + (date + dayTime * 3));
+
+println();
+
+println("NULL + NULL = "  + (null + null));
+println("NULL + 1 = " + (null + 1));
+println("1 + NULL = " + (1 + null));
+

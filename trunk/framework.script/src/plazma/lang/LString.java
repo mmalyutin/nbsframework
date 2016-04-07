@@ -83,8 +83,8 @@ public class LString extends LValue {
 
     // +
     @Override
-    public LValue _add(LValue that) {
-	 return new LString(asString() + "" + that.toString());
+    public LValue _add(LValue a, LValue b) {
+	 return new LString(a.asString() + "" + b.toString());
     }
     
     // *
