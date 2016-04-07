@@ -78,21 +78,27 @@ public class LNumber extends LValue {
     @Override
     public LValue _add(LValue a, LValue b) {
 	
+	LValue result = nullResult(a, "+", b);
+	if (result != null) {
+	    return result; 
+	}
+	
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
-
 	if (a == LValue.NULL) {
-	    return b;
+	    a = new LNumber(0);
+	    //return b;
 	}
-
 	if (b == LValue.NULL) {
-	    return a;
+	    b = new LNumber(0);
+	    //return a;
 	}
 	
 	if (!a.isNumber() || !b.isNumber()) {
 	    return super._add(a, b);
 	}
+	
 	// Integer
 	if (a.isInteger() && b.isInteger()) {
 	    return new LNumber(a.asInteger() + b.asInteger());
@@ -102,15 +108,34 @@ public class LNumber extends LValue {
     
     // -
     @Override
-    public LValue _sub(LValue that) {
-	if (!that.isNumber()) {
-	    return super._sub(that);
+    public LValue _sub(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "-", b);
+	if (result != null) {
+	    return result; 
 	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	if (a == LValue.NULL) {
+	    a = new LNumber(0);
+	    //return b;
+	}
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	    //return a;
+	}
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._sub(a, b);
+	}
+	
 	// Integer
-	if (that.isInteger()) {
-	    return new LNumber(asInteger() - that.asInteger());
+	if (a.isInteger() && b.isInteger()) {
+	    return new LNumber(a.asInteger() - b.asInteger());
 	}
-	return new LNumber(asDouble() - that.asDouble());
+	return new LNumber(a.asDouble() - b.asDouble());
     }
     
     // *

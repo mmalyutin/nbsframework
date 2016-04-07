@@ -20,7 +20,7 @@ public class SubNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._sub(b);
+        return a._sub(a, b);
         
         /*
         // number - number

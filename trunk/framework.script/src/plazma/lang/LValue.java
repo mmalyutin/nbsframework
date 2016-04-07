@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import plazma.EvaluateContext;
+
 
 public class LValue implements Comparable<LValue> {
 
@@ -14,6 +16,7 @@ public class LValue implements Comparable<LValue> {
     
     public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
+    public static final LValue INVALID = new LValue();    
     public static final LValue BREAK = new LValue();
     public static final LValue CONTINUE = new LValue();
 
@@ -155,6 +158,10 @@ public class LValue implements Comparable<LValue> {
         return this == VOID;
     }
 
+    public boolean isInvalid() {
+        return this == INVALID;
+    }
+    
     public boolean isDate() {
         return value instanceof Date;
     }
@@ -171,7 +178,16 @@ public class LValue implements Comparable<LValue> {
 
     @Override
     public String toString() {
-        return isNull() ? "NULL" : isVoid() ? "VOID" : _toString();
+	if (isNull()) {
+	    return "NULL";
+	}
+	if (isVoid()) {
+	    return "VOID";
+	}
+	if (isInvalid()) {
+	    return "INVALID";
+	}
+	return _toString();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -266,8 +282,8 @@ public class LValue implements Comparable<LValue> {
     }
     
     // -
-    public LValue _sub(LValue that) {
-	raiseIllegalOperatorException("-", that);
+    public LValue _sub(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "-", b);
 	return null;
     }
 
@@ -352,7 +368,7 @@ public class LValue implements Comparable<LValue> {
     }
 
     protected void raiseIllegalOperatorException(LValue a, String operator, LValue b) {
-	raiseIllegalOperatorException(a.toString() + " " + operator + " " + b.toString());
+	raiseIllegalOperatorException(a.toString(), operator, b.toString());
     }
     
     protected void raiseIllegalOperatorException(String a, String operator, String b) {
@@ -363,6 +379,16 @@ public class LValue implements Comparable<LValue> {
 	throw new UnsupportedOperationException("Illegal operator: " + message);
     }
 
+    ////
+    
+    protected void raiseNullPointerOperatorException(LValue a, String operator, LValue b) {
+	raiseNullPointerOperatorException(a.toString(), operator, b.toString());
+    }
+
+    protected void raiseNullPointerOperatorException(String a, String operator, String b) {
+	throw new NullPointerException("Illegal null expression: " + a + " " + operator + " " + b);
+    }
+    
     ////
     
     protected void raiseIllegalMethodParameterTypeException(String type) {
@@ -381,4 +407,26 @@ public class LValue implements Comparable<LValue> {
 	throw new UnsupportedOperationException("Illegal method: '" + method + "' with " + count + " parameter(s)");
     }
 
+    ////
+    
+
+    protected LValue nullResult(LValue a, String operator, LValue b) {
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    if (getEvaluateContext().isNullException()) {
+		raiseNullPointerOperatorException(a, operator, b);
+		return null;
+	    }
+	    if (getEvaluateContext().isNullUnknown()) {
+		return LValue.NULL;
+	    }
+	    if (getEvaluateContext().isNullInvalid()) {
+		return LValue.INVALID; // TOOD: Must return ERROR value
+	    }
+	}
+	return null;
+    }
+    
+    public EvaluateContext getEvaluateContext() {
+	return EvaluateContext.getDefaultContext();
+    }
 }

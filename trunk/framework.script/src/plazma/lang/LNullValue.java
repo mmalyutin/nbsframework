@@ -28,8 +28,16 @@ public class LNullValue extends LValue {
     }
 
     
+    
     // +
+    @Override
     public LValue _add(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "+", b);
+	if (result != null) {
+	    return result; 
+	}
+	
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
@@ -43,4 +51,26 @@ public class LNullValue extends LValue {
 	return null;
     }
 
+    // -
+    @Override
+    public LValue _sub(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "-", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	if (a == LValue.NULL) {
+	    return b._sub(a, b);
+	}
+	if (b == LValue.NULL) {
+	    return a._sub(a, b);
+	}
+	raiseIllegalOperatorException(a, "-", b);
+	return null;
+    }
+    
 }

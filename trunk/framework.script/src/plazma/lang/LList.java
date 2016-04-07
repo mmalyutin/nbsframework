@@ -48,6 +48,7 @@ public class LList extends LValue {
     // +
     @Override
     public LValue _add(LValue a, LValue b) {
+	//TODO: NULL
 	if (!a.isList()) {
 	    return super._add(a, b);
 	}
@@ -58,9 +59,10 @@ public class LList extends LValue {
     
     // -
     @Override
-    public LValue _sub(LValue that) {
-	 List<LValue> list = asList();
-         list.remove(that);
+    public LValue _sub(LValue a, LValue b) {
+	//TODO: NULL
+	 List<LValue> list = a.asList();
+         list.remove(b);
          return new LList(list);
     }
     
