@@ -443,6 +443,10 @@ println("null - 1 = " + (null - 1));
 println("1 - null = " + (1 - null));
 
 println();
+println("null * 1 = " + (null * 1));
+println("1 * null = " + (1 * null));
+
+println();
 println("Date() + null = " + (Date() + null));
 println("Date() - null = " + (Date() - null));
 
@@ -450,4 +454,5 @@ println();
 println("[1, 3, 5, 7] + null = " + ([1, 3, 5, 7] + null));
 println("[1, 3, 5, 7, null, null] - null = " + ([1, 3, 5, 7, null, null] - null));
 
+println("[1, 3, 5, 7] * null = " + ([1, 3, 5, 7] * null));
 

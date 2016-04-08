@@ -19,7 +19,7 @@ public class DivNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
         
-        return a._div(b);
+        return a._div(a, b);
 
         /*
         // number / number

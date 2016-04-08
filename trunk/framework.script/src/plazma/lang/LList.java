@@ -28,7 +28,6 @@ package plazma.lang;
 import java.util.ArrayList;
 import java.util.List;
 
-import plazma.ast.LNode;
 
 
 /**
@@ -93,14 +92,34 @@ public class LList extends LValue {
     
     // *
     @Override
-    public LValue _mul(LValue that) {
-	if (!that.isNumber()) {
-	    return super._mul(that);
+    public LValue _mul(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "*", b);
+	if (result != null) {
+	    return result; 
 	}
+
+	// Returns NULL because a=NULL (Date) is primary parameter
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+	if (b == LValue.NULL) {
+	    raiseIllegalMethodException("" + a + " * " + b + ". Right argument must be >= 1");
+	}
+	
+	if (!b.isNumber()) {
+	    return super._mul(a, b);
+	}
+	
+	int stop = b.asInteger();
+	if (stop < 1) {
+	    raiseIllegalMethodException("" + a + " * " + b + ". Right argument must be >= 1");
+	}
+	List<LValue> element = a.asList();
 	List<LValue> total = new ArrayList<LValue>();
-	int stop = that.asDouble().intValue();
-	for (int i = 0; i < stop; i++) {
-	    total.addAll(asList());
+	for (int i = 0; i < stop; i++) { 
+	    total.addAll(element);
 	}
 	return new LList(total);
     }

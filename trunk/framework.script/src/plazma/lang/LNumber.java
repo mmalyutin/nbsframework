@@ -136,25 +136,59 @@ public class LNumber extends LValue {
     
     // *
     @Override
-    public LValue _mul(LValue that) {
-	if (!that.isNumber()) {
-	    return super._mul(that);
+    public LValue _mul(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "*", b);
+	if (result != null) {
+	    return result; 
 	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	if (a == LValue.NULL) {
+	    a = new LNumber(0);
+	}
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	}
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._mul(a, b);
+	}
+	
 	// Integer
-	if (that.isInteger()) {
-	    return new LNumber(asInteger() * that.asInteger());
+	if (a.isInteger() && b.isInteger()) {
+	    return new LNumber(a.asInteger() * b.asInteger());
 	}
-	return new LNumber(asDouble() * that.asDouble());
+	return new LNumber(a.asDouble() * b.asDouble());
     }
     
     // /
     @Override
-    public LValue _div(LValue that) {
-	if (!that.isNumber()) {
-	    return super._div(that);
+    public LValue _div(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "/", b);
+	if (result != null) {
+	    return result; 
 	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	if (a == LValue.NULL) {
+	    a = new LNumber(0);
+	}
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	}
+
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._div(a, b);
+	}
+	
 	// Integer ???
-	return new LNumber(asDouble() / that.asDouble());
+	return new LNumber(a.asDouble() / b.asDouble());
     }
     
     // ^
