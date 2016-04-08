@@ -19,7 +19,7 @@ public class PowNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._pow(b);
+        return a._pow(a, b);
         
         /*
         // number ^ number

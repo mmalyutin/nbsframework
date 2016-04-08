@@ -19,7 +19,7 @@ public class NENode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._ne(b);
+        return a._ne(a, b);
         
         //return new LBoolean(!a.equals(b));
     }

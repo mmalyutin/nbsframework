@@ -20,7 +20,8 @@ public class InNode  implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._in(b);
+        // INPORTANT: USE 'b'
+        return b._in(a, b);
         
         /*
         if (!rhs.evaluate().isList()) {

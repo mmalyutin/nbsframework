@@ -71,6 +71,7 @@ public class LNullValue extends LValue {
     }
     
     // *
+    @Override
     public LValue _mul(LValue a, LValue b) {
 	
 	// Only for NULL 
@@ -89,6 +90,7 @@ public class LNullValue extends LValue {
     }
     
     // /
+    @Override
     public LValue _div(LValue a, LValue b) {
 	
 	// Only for NULL 
@@ -104,6 +106,45 @@ public class LNullValue extends LValue {
 	    return LValue.NULL;
 	}
 	return b._div(a, b);
+    }
+    
+    // ^
+    @Override
+    public LValue _pow(LValue a, LValue b) {
+	
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, "^", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	return b._pow(a, b);
     }    
+    
+
+    // %
+    @Override
+    public LValue _mod(LValue a, LValue b) {
+	
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, "%", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	return b._mod(a, b);
+    }
     
 }

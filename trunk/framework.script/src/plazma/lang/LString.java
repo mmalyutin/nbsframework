@@ -27,7 +27,6 @@ package plazma.lang;
 
 import java.util.List;
 
-import plazma.ast.LNode;
 
 /**
  * @author ohapon
@@ -93,11 +92,11 @@ public class LString extends LValue {
 	    return LValue.NULL;
 	}
 
-	if (!a.isString()) {
+	if (a != LValue.NULL && !a.isString()) {
 	    return super._add(a, b);
 	}
 	
-	return new LString(a.asString() + "" + b.toString());
+	return new LString(a.toString() + "" + b.toString());
     }
     
     // *

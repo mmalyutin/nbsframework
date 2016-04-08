@@ -43,6 +43,29 @@ public class LList extends LValue {
 	super(Type.LIST, value);
 	
     }
+    
+    // in
+    @Override
+    public LValue _in(LValue a, LValue b) {
+	LValue result = nullResult(a, "in", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (!b.isList()) {
+	    return super._in(a, b);
+	}
+	
+        List<LValue> list = b.asList();
+        for (LValue val : list) {
+            result = a._eq(a, val);
+            if (result.isBoolean() && result.asBoolean()) {
+                return LBoolean.TRUE;
+            }
+        }
+        return LBoolean.FALSE;
+    }
+    
 
     // +
     @Override

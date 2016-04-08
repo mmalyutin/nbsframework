@@ -193,21 +193,55 @@ public class LNumber extends LValue {
     
     // ^
     @Override
-    public LValue _pow(LValue that) {
-	if (!that.isNumber()) {
-	    return super._pow(that);
+    public LValue _pow(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "^", b);
+	if (result != null) {
+	    return result; 
 	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	if (a == LValue.NULL) {
+	    a = new LNumber(0);
+	}
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	}
+
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._pow(a, b);
+	}
+	
 	// Integer ???
-	return new LNumber(Math.pow(asDouble(), that.asDouble()));
+	return new LNumber(Math.pow(a.asDouble(), b.asDouble()));
     }
     
     // %
     @Override
-    public LValue _mod(LValue that) {
-	if (!that.isNumber()) {
-	    return super._mod(that);
+    public LValue _mod(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "%", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LNumber(asDouble() % that.asDouble());
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	if (a == LValue.NULL) {
+	    a = new LNumber(0);
+	}
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	}
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._mod(a, b);
+	}
+	
+	return new LNumber(a.asDouble() % b.asDouble());
     }
     
     
