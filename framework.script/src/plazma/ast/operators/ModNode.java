@@ -19,7 +19,7 @@ public class ModNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._mod(b);
+        return a._mod(a, b);
         
         /*
         // number % number

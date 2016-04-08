@@ -207,28 +207,38 @@ public class LValue implements Comparable<LValue> {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    protected boolean equalsValue(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return true;
+	}
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return false;
+	}
+	return a.equals(b);
+    }
+    
     // ==
-    public LValue _eq(LValue that) {
-	return new LBoolean(equals(that));
+    public LValue _eq(LValue a, LValue b) {
+	LValue result = nullResult(a, "==", b);
+	if (result != null) {
+	    return result; 
+	}
+	return new LBoolean(equalsValue(a, b));
     }
 
     // !=
-    public LValue _ne(LValue that) {
-	return new LBoolean(!equals(that));
+    public LValue _ne(LValue a, LValue b) {
+	LValue result = nullResult(a, "!=", b);
+	if (result != null) {
+	    return result; 
+	}
+	return new LBoolean(!equalsValue(a, b));
     }
 
     // in
-    public LValue _in(LValue that) {
-	if (!that.isList()) {
-	    raiseIllegalOperatorException("in", that);
-	}
-        List<LValue> list = that.asList();
-        for (LValue val : list) {
-            if (this.equals(val)) {
-                return LBoolean.TRUE;
-            }
-        }
-        return LBoolean.FALSE;
+    public LValue _in(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "in", b);
+	return null;
     }
     
     // <
@@ -297,14 +307,14 @@ public class LValue implements Comparable<LValue> {
     }
 
     // ^
-    public LValue _pow(LValue that) {
-	raiseIllegalOperatorException("^", that);
+    public LValue _pow(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "^", b);
 	return null;
     }
 
     // %
-    public LValue _mod(LValue that) {
-	raiseIllegalOperatorException("%", that);
+    public LValue _mod(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "%", b);
 	return null;
     }
 
