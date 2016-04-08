@@ -48,22 +48,47 @@ public class LList extends LValue {
     // +
     @Override
     public LValue _add(LValue a, LValue b) {
-	//TODO: NULL
+	
+	LValue result = nullResult(a, "+", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	// Returns NULL because a=NULL (Date) is primary parameter
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
 	if (!a.isList()) {
 	    return super._add(a, b);
 	}
 	List<LValue> list = a.asList();
-	list.add(b);
+	
+	//if (b != LValue.NULL) {
+	    list.add(b);
+	//}
 	return new LList(list);
     }
     
     // -
     @Override
     public LValue _sub(LValue a, LValue b) {
-	//TODO: NULL
-	 List<LValue> list = a.asList();
-         list.remove(b);
-         return new LList(list);
+	
+	LValue result = nullResult(a, "-", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	// Returns NULL because a=NULL (Date) is primary parameter
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+	List<LValue> list = a.asList();
+	//if (b != LValue.NULL) {
+	    list.remove(b);
+	//}
+        return new LList(list);
     }
     
     // *

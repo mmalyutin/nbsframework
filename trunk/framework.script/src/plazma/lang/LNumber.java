@@ -88,11 +88,9 @@ public class LNumber extends LValue {
 	}
 	if (a == LValue.NULL) {
 	    a = new LNumber(0);
-	    //return b;
 	}
 	if (b == LValue.NULL) {
 	    b = new LNumber(0);
-	    //return a;
 	}
 	
 	if (!a.isNumber() || !b.isNumber()) {
@@ -120,11 +118,9 @@ public class LNumber extends LValue {
 	}
 	if (a == LValue.NULL) {
 	    a = new LNumber(0);
-	    //return b;
 	}
 	if (b == LValue.NULL) {
 	    b = new LNumber(0);
-	    //return a;
 	}
 	
 	if (!a.isNumber() || !b.isNumber()) {

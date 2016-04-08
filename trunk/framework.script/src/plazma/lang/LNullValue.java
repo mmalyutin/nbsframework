@@ -48,15 +48,6 @@ public class LNullValue extends LValue {
 	
 	return b._add(a, b);
 	
-//	if (a == LValue.NULL) {
-//	    return b._add(a, b);
-//	}
-//	if (b == LValue.NULL) {
-//	    return a._add(a, b);
-//	}
-//	
-//	raiseIllegalOperatorException(a, "+", b);
-//	return null;
     }
 
     // -
@@ -77,14 +68,6 @@ public class LNullValue extends LValue {
 	}
 	return b._sub(a, b);
 	
-//	if (a == LValue.NULL) {
-//	    return b._sub(a, b);
-//	}
-//	if (b == LValue.NULL) {
-//	    return a._sub(a, b);
-//	}
-//	raiseIllegalOperatorException(a, "-", b);
-//	return null;
     }
     
 }
