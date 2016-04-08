@@ -28,7 +28,6 @@ package plazma.lang;
 import java.util.List;
 import java.util.Map;
 
-import plazma.ast.LNode;
 
 /**
  * @author ohapon

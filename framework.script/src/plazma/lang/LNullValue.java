@@ -70,4 +70,40 @@ public class LNullValue extends LValue {
 	
     }
     
+    // *
+    public LValue _mul(LValue a, LValue b) {
+	
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, "*", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	return b._mul(a, b);
+    }
+    
+    // /
+    public LValue _div(LValue a, LValue b) {
+	
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, "/", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	return b._div(a, b);
+    }    
+    
 }

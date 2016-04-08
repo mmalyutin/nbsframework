@@ -11,9 +11,6 @@ public class LValue implements Comparable<LValue> {
 
     public enum Type {NUMBER, STRING, BOOLEAN, LIST, MAP, DATE, OBJ, EXT_OBJ}
     
-    //public static final LValue NULL = new LValue();
-    
-    
     public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
     public static final LValue INVALID = new LValue();    
@@ -288,14 +285,14 @@ public class LValue implements Comparable<LValue> {
     }
 
     // *
-    public LValue _mul(LValue that) {
-	raiseIllegalOperatorException("*", that);
+    public LValue _mul(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "*", b);
 	return null;
     }
     
     // /
-    public LValue _div(LValue that) {
-	raiseIllegalOperatorException("/", that);
+    public LValue _div(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "/", b);
 	return null;
     }
 

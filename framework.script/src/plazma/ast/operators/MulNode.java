@@ -20,7 +20,7 @@ public class MulNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._mul(b);
+        return a._mul(a, b);
         
         /*
         // number * number

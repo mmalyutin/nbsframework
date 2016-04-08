@@ -84,19 +84,52 @@ public class LString extends LValue {
     // +
     @Override
     public LValue _add(LValue a, LValue b) {
-	 return new LString(a.asString() + "" + b.toString());
+	LValue result = nullResult(a, "+", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+
+	if (!a.isString()) {
+	    return super._add(a, b);
+	}
+	
+	return new LString(a.asString() + "" + b.toString());
     }
     
     // *
     @Override
-    public LValue _mul(LValue that) {
-	if (!that.isNumber()) {
-	    return super._mul(that);
+    public LValue _mul(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "*", b);
+	if (result != null) {
+	    return result; 
 	}
+
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+	if (b == LValue.NULL) {
+	    raiseIllegalMethodException("" + a + " * " + b + ". Right argument must be >= 1");
+	}
+
+	if (!b.isNumber()) {
+	    return super._mul(a, b);
+	}
+	
+	
+	int stop = b.asInteger();
+	if (stop < 1) {
+	    raiseIllegalMethodException("" + a + " * " + b + ". Right argument must be >= 1");
+	}
+	String element = a.asString();
 	StringBuilder str = new StringBuilder();
-	int stop = that.asDouble().intValue();
 	for (int i = 0; i < stop; i++) {
-	    str.append(asString());
+	    str.append(element);
 	}
 	return new LString(str.toString());
     }
