@@ -179,13 +179,13 @@ public class LValue implements Comparable<LValue> {
     @Override
     public String toString() {
 	if (isNull()) {
-	    return "NULL";
+	    return "null";
 	}
 	if (isVoid()) {
-	    return "VOID";
+	    return "void";
 	}
 	if (isInvalid()) {
-	    return "INVALID";
+	    return "invalid";
 	}
 	return _toString();
     }
