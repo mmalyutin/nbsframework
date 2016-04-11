@@ -28,6 +28,79 @@ public class LNullValue extends LValue {
     }
 
     
+    // <
+    public LValue _lt(LValue a, LValue b) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, "<", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+
+	return super._lt(a, b);
+    }
+    
+    // <=
+    public LValue _lte(LValue a, LValue b) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, "<=", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LBoolean.TRUE;
+	}
+
+	return super._lte(a, b);
+    }
+
+    // >
+    public LValue _gt(LValue a, LValue b) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, ">", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+
+	return super._gt(a, b);
+    }
+    
+    // >=
+    public LValue _gte(LValue a, LValue b) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	LValue result = nullResult(a, ">=", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LBoolean.TRUE;
+	}
+
+	return super._gte(a, b);
+    }
+    
+    ////
     
     // +
     @Override

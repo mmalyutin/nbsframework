@@ -19,7 +19,7 @@ public class GTNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._gt(b);
+        return a._gt(a, b);
         
         /*
         if (a.isNumber() && b.isNumber()) {

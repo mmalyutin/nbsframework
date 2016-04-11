@@ -19,7 +19,7 @@ public class LTENode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._lte(b);
+        return a._lte(a, b);
         
         /*
         if (a.isNumber() && b.isNumber()) {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import plazma.EvaluateContext;
+import sun.reflect.generics.visitor.Reifier;
 
 
 public class LValue implements Comparable<LValue> {
@@ -207,7 +208,7 @@ public class LValue implements Comparable<LValue> {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected boolean equalsValue(LValue a, LValue b) {
+    protected boolean eqValues(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return true;
 	}
@@ -216,6 +217,68 @@ public class LValue implements Comparable<LValue> {
 	}
 	return a.equals(b);
     }
+
+    // < values
+    protected boolean ltValues(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return false;
+	}
+	if (a == LValue.NULL) {
+	    return true;
+	}
+	if (b == LValue.NULL) {
+	    return false;
+	}
+	raiseIllegalOperatorException(a, "<", b);
+	return false;
+    }
+
+    // <= values
+    protected boolean lteValues(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return true;
+	}
+	if (a == LValue.NULL) {
+	    return true;
+	}
+	if (b == LValue.NULL) {
+	    return false;
+	}
+	raiseIllegalOperatorException(a, "<=", b);
+	return false;
+    }
+
+    // > values
+    protected boolean gtValues(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return false;
+	}
+	if (a == LValue.NULL) {
+	    return false;
+	}
+	if (b == LValue.NULL) {
+	    return true;
+	}
+	raiseIllegalOperatorException(a, ">", b);
+	return false;
+    }
+
+    // >= values
+    protected boolean gteValues(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return true;
+	}
+	if (a == LValue.NULL) {
+	    return false;
+	}
+	if (b == LValue.NULL) {
+	    return true;
+	}
+	raiseIllegalOperatorException(a, ">=", b);
+	return false;
+    }
+    
+    ////
     
     // ==
     public LValue _eq(LValue a, LValue b) {
@@ -223,7 +286,7 @@ public class LValue implements Comparable<LValue> {
 	if (result != null) {
 	    return result; 
 	}
-	return new LBoolean(equalsValue(a, b));
+	return new LBoolean(eqValues(a, b));
     }
 
     // !=
@@ -232,7 +295,7 @@ public class LValue implements Comparable<LValue> {
 	if (result != null) {
 	    return result; 
 	}
-	return new LBoolean(!equalsValue(a, b));
+	return new LBoolean(!eqValues(a, b));
     }
 
     // in
@@ -242,26 +305,26 @@ public class LValue implements Comparable<LValue> {
     }
     
     // <
-    public LValue _lt(LValue that) {
-	raiseIllegalOperatorException("<", that);
+    public LValue _lt(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "<", b);
 	return null;
     }
     
     // <=
-    public LValue _lte(LValue that) {
-	raiseIllegalOperatorException("<=", that);
+    public LValue _lte(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "<=", b);
 	return null;
     }
 
     // >
-    public LValue _gt(LValue that) {
-	raiseIllegalOperatorException(">", that);
+    public LValue _gt(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, ">", b);
 	return null;
     }
     
     // >=
-    public LValue _gte(LValue that) {
-	raiseIllegalOperatorException(">=", that);
+    public LValue _gte(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, ">=", b);
 	return null;
     }
 
