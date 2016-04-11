@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-04-06 09:39:28
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-04-11 18:09:33
 
   package plazma.parser;
   import plazma.*; 
@@ -17,12 +17,12 @@ import org.antlr.runtime.tree.*;
 
 public class PlazmaScriptParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "INDEX", "ATTRIBUTE", "CALL", "TAIL", "TAILS", "MAP", "LIST", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Date", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Null", "String", "Or", "And", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Excl", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "Int", "Digit", "ContextIdentifier", "Comment", "Space", "YYYY", "MM", "DD", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "INDEX", "ATTRIBUTE", "CALL", "TAIL", "TAILS", "MAP", "LIST", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Date", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Null", "String", "Or", "OrWord", "And", "AndWord", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Excl", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "Int", "Digit", "ContextIdentifier", "Comment", "Space", "YYYY", "MM", "DD", "'.'"
     };
     public static final int FUNCTION=18;
-    public static final int OParen=71;
-    public static final int LT=61;
-    public static final int YYYY=83;
+    public static final int OParen=73;
+    public static final int LT=63;
+    public static final int YYYY=85;
     public static final int Assert=36;
     public static final int TERNARY=15;
     public static final int ATTRIBUTE=21;
@@ -30,79 +30,81 @@ public class PlazmaScriptParser extends Parser {
     public static final int While=43;
     public static final int Date=37;
     public static final int ID_LIST=13;
-    public static final int DD=85;
-    public static final int QMark=76;
-    public static final int Add=62;
+    public static final int DD=87;
+    public static final int QMark=78;
+    public static final int Add=64;
     public static final int EOF=-1;
     public static final int BREAK=28;
-    public static final int Int=78;
+    public static final int Int=80;
     public static final int Identifier=33;
     public static final int IF=14;
     public static final int FUNC_CALL=8;
     public static final int TAIL=23;
-    public static final int Space=82;
+    public static final int Space=84;
     public static final int INDEX=20;
-    public static final int Assign=74;
-    public static final int CParen=72;
+    public static final int Assign=76;
+    public static final int CParen=74;
     public static final int EXP_MAP=11;
     public static final int Number=48;
-    public static final int Comment=81;
+    public static final int Comment=83;
     public static final int EXP=9;
     public static final int CONTINUE=29;
-    public static final int MM=84;
-    public static final int GTEquals=56;
+    public static final int MM=86;
+    public static final int GTEquals=58;
     public static final int Print=35;
-    public static final int CBrace=68;
+    public static final int CBrace=70;
     public static final int RETURN=5;
     public static final int String=51;
     public static final int Or=52;
     public static final int Return=30;
     public static final int If=38;
-    public static final int And=53;
+    public static final int And=54;
+    public static final int OrWord=53;
     public static final int Null=50;
-    public static final int ContextIdentifier=80;
-    public static final int CBracket=70;
+    public static final int ContextIdentifier=82;
+    public static final int CBracket=72;
     public static final int Println=34;
     public static final int Bool=49;
     public static final int In=44;
-    public static final int NEquals=55;
+    public static final int NEquals=57;
     public static final int Continue=32;
-    public static final int Subtract=63;
+    public static final int Subtract=65;
     public static final int EXP_PAIR=10;
-    public static final int Modulus=66;
-    public static final int Multiply=64;
-    public static final int OBrace=67;
+    public static final int Modulus=68;
+    public static final int Multiply=66;
+    public static final int OBrace=69;
     public static final int NEGATE=17;
     public static final int INDEXES=19;
-    public static final int Colon=77;
-    public static final int Excl=59;
-    public static final int Digit=79;
+    public static final int Colon=79;
+    public static final int AndWord=55;
+    public static final int Excl=61;
+    public static final int Digit=81;
     public static final int LIST=26;
     public static final int For=42;
-    public static final int Divide=65;
-    public static final int T__86=86;
+    public static final int Divide=67;
     public static final int TAILS=24;
+    public static final int T__88=88;
     public static final int Def=41;
-    public static final int SColon=73;
+    public static final int SColon=75;
     public static final int RangeE=45;
     public static final int LOOKUP=27;
     public static final int Range=46;
-    public static final int OBracket=69;
+    public static final int OBracket=71;
     public static final int Break=31;
     public static final int BLOCK=4;
     public static final int MAP=25;
-    public static final int GT=60;
+    public static final int GT=62;
     public static final int STATEMENTS=6;
     public static final int UNARY_MIN=16;
     public static final int ASSIGNMENT=7;
     public static final int CALL=22;
     public static final int Else=39;
-    public static final int Comma=75;
-    public static final int Equals=54;
+    public static final int Comma=77;
+    public static final int Equals=56;
     public static final int Integer=47;
     public static final int Var=40;
-    public static final int Pow=58;
-    public static final int LTEquals=57;
+    public static final int Pow=60;
+    public static final int LTEquals=59;
 
     // delegates
     // delegators
@@ -331,7 +333,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, statement
+            // elements: statement, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -819,7 +821,7 @@ public class PlazmaScriptParser extends Parser {
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
-                    if ( (LA5_0==OBracket||LA5_0==86) ) {
+                    if ( (LA5_0==OBracket||LA5_0==88) ) {
                         alt5=1;
                     }
                     switch (alt5) {
@@ -850,7 +852,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Identifier, indexes, expression, variableDef
+                    // elements: expression, variableDef, Identifier, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -927,7 +929,7 @@ public class PlazmaScriptParser extends Parser {
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
-                    if ( (LA7_0==OBracket||LA7_0==86) ) {
+                    if ( (LA7_0==OBracket||LA7_0==88) ) {
                         alt7=1;
                     }
                     switch (alt7) {
@@ -958,7 +960,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: variableDef, indexes, expression
+                    // elements: variableDef, expression, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1232,7 +1234,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Println
+                    // elements: Println, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1287,7 +1289,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Print, expression
+                    // elements: expression, Print
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1337,7 +1339,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Assert
+                    // elements: Assert, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1404,7 +1406,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Date, exprList
+                    // elements: exprList, Date
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2207,7 +2209,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, For, Identifier, expression
+            // elements: For, expression, Identifier, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2326,7 +2328,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expression, block, While
+            // elements: While, block, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3066,7 +3068,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: In, expression, orExpr
+                    // elements: orExpr, expression, In
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3110,7 +3112,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: RangeE, expression, orExpr
+                    // elements: expression, RangeE, orExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3215,24 +3217,24 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "orExpr"
-    // grammar/PlazmaScript.g:193:1: orExpr : andExpr ( '||' andExpr )* ;
+    // grammar/PlazmaScript.g:193:1: orExpr : andExpr ( ( '||' | 'or' ) andExpr )* ;
     public final PlazmaScriptParser.orExpr_return orExpr() throws RecognitionException {
         PlazmaScriptParser.orExpr_return retval = new PlazmaScriptParser.orExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token string_literal121=null;
+        Token set121=null;
         PlazmaScriptParser.andExpr_return andExpr120 = null;
 
         PlazmaScriptParser.andExpr_return andExpr122 = null;
 
 
-        Object string_literal121_tree=null;
+        Object set121_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:194:3: ( andExpr ( '||' andExpr )* )
-            // grammar/PlazmaScript.g:194:6: andExpr ( '||' andExpr )*
+            // grammar/PlazmaScript.g:194:3: ( andExpr ( ( '||' | 'or' ) andExpr )* )
+            // grammar/PlazmaScript.g:194:6: andExpr ( ( '||' | 'or' ) andExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
@@ -3242,27 +3244,35 @@ public class PlazmaScriptParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, andExpr120.getTree());
-            // grammar/PlazmaScript.g:194:14: ( '||' andExpr )*
+            // grammar/PlazmaScript.g:194:14: ( ( '||' | 'or' ) andExpr )*
             loop20:
             do {
                 int alt20=2;
                 int LA20_0 = input.LA(1);
 
-                if ( (LA20_0==Or) ) {
+                if ( ((LA20_0>=Or && LA20_0<=OrWord)) ) {
                     alt20=1;
                 }
 
 
                 switch (alt20) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:194:15: '||' andExpr
+            	    // grammar/PlazmaScript.g:194:15: ( '||' | 'or' ) andExpr
             	    {
-            	    string_literal121=(Token)match(input,Or,FOLLOW_Or_in_orExpr1266); if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) {
-            	    string_literal121_tree = (Object)adaptor.create(string_literal121);
-            	    root_0 = (Object)adaptor.becomeRoot(string_literal121_tree, root_0);
+            	    set121=(Token)input.LT(1);
+            	    set121=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=Or && input.LA(1)<=OrWord) ) {
+            	        input.consume();
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set121), root_0);
+            	        state.errorRecovery=false;state.failed=false;
             	    }
-            	    pushFollow(FOLLOW_andExpr_in_orExpr1269);
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return retval;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_andExpr_in_orExpr1275);
             	    andExpr122=andExpr();
 
             	    state._fsp--;
@@ -3306,54 +3316,62 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "andExpr"
-    // grammar/PlazmaScript.g:197:1: andExpr : equExpr ( '&&' equExpr )* ;
+    // grammar/PlazmaScript.g:197:1: andExpr : equExpr ( ( '&&' | 'and' ) equExpr )* ;
     public final PlazmaScriptParser.andExpr_return andExpr() throws RecognitionException {
         PlazmaScriptParser.andExpr_return retval = new PlazmaScriptParser.andExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token string_literal124=null;
+        Token set124=null;
         PlazmaScriptParser.equExpr_return equExpr123 = null;
 
         PlazmaScriptParser.equExpr_return equExpr125 = null;
 
 
-        Object string_literal124_tree=null;
+        Object set124_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:198:3: ( equExpr ( '&&' equExpr )* )
-            // grammar/PlazmaScript.g:198:6: equExpr ( '&&' equExpr )*
+            // grammar/PlazmaScript.g:198:3: ( equExpr ( ( '&&' | 'and' ) equExpr )* )
+            // grammar/PlazmaScript.g:198:6: equExpr ( ( '&&' | 'and' ) equExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_equExpr_in_andExpr1285);
+            pushFollow(FOLLOW_equExpr_in_andExpr1291);
             equExpr123=equExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, equExpr123.getTree());
-            // grammar/PlazmaScript.g:198:14: ( '&&' equExpr )*
+            // grammar/PlazmaScript.g:198:14: ( ( '&&' | 'and' ) equExpr )*
             loop21:
             do {
                 int alt21=2;
                 int LA21_0 = input.LA(1);
 
-                if ( (LA21_0==And) ) {
+                if ( ((LA21_0>=And && LA21_0<=AndWord)) ) {
                     alt21=1;
                 }
 
 
                 switch (alt21) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:198:15: '&&' equExpr
+            	    // grammar/PlazmaScript.g:198:15: ( '&&' | 'and' ) equExpr
             	    {
-            	    string_literal124=(Token)match(input,And,FOLLOW_And_in_andExpr1288); if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) {
-            	    string_literal124_tree = (Object)adaptor.create(string_literal124);
-            	    root_0 = (Object)adaptor.becomeRoot(string_literal124_tree, root_0);
+            	    set124=(Token)input.LT(1);
+            	    set124=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=And && input.LA(1)<=AndWord) ) {
+            	        input.consume();
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set124), root_0);
+            	        state.errorRecovery=false;state.failed=false;
             	    }
-            	    pushFollow(FOLLOW_equExpr_in_andExpr1291);
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return retval;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_equExpr_in_andExpr1303);
             	    equExpr125=equExpr();
 
             	    state._fsp--;
@@ -3418,7 +3436,7 @@ public class PlazmaScriptParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_relExpr_in_equExpr1307);
+            pushFollow(FOLLOW_relExpr_in_equExpr1319);
             relExpr126=relExpr();
 
             state._fsp--;
@@ -3452,7 +3470,7 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_relExpr_in_equExpr1319);
+            	    pushFollow(FOLLOW_relExpr_in_equExpr1331);
             	    relExpr128=relExpr();
 
             	    state._fsp--;
@@ -3517,7 +3535,7 @@ public class PlazmaScriptParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_addExpr_in_relExpr1335);
+            pushFollow(FOLLOW_addExpr_in_relExpr1347);
             addExpr129=addExpr();
 
             state._fsp--;
@@ -3551,7 +3569,7 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr1355);
+            	    pushFollow(FOLLOW_addExpr_in_relExpr1367);
             	    addExpr131=addExpr();
 
             	    state._fsp--;
@@ -3616,7 +3634,7 @@ public class PlazmaScriptParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_mulExpr_in_addExpr1371);
+            pushFollow(FOLLOW_mulExpr_in_addExpr1383);
             mulExpr132=mulExpr();
 
             state._fsp--;
@@ -3650,7 +3668,7 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr1383);
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr1395);
             	    mulExpr134=mulExpr();
 
             	    state._fsp--;
@@ -3715,7 +3733,7 @@ public class PlazmaScriptParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_powExpr_in_mulExpr1399);
+            pushFollow(FOLLOW_powExpr_in_mulExpr1411);
             powExpr135=powExpr();
 
             state._fsp--;
@@ -3749,7 +3767,7 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_powExpr_in_mulExpr1415);
+            	    pushFollow(FOLLOW_powExpr_in_mulExpr1427);
             	    powExpr137=powExpr();
 
             	    state._fsp--;
@@ -3814,7 +3832,7 @@ public class PlazmaScriptParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_unaryExpr_in_powExpr1431);
+            pushFollow(FOLLOW_unaryExpr_in_powExpr1443);
             unaryExpr138=unaryExpr();
 
             state._fsp--;
@@ -3835,12 +3853,12 @@ public class PlazmaScriptParser extends Parser {
             	case 1 :
             	    // grammar/PlazmaScript.g:218:17: '^' unaryExpr
             	    {
-            	    char_literal139=(Token)match(input,Pow,FOLLOW_Pow_in_powExpr1434); if (state.failed) return retval;
+            	    char_literal139=(Token)match(input,Pow,FOLLOW_Pow_in_powExpr1446); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    char_literal139_tree = (Object)adaptor.create(char_literal139);
             	    root_0 = (Object)adaptor.becomeRoot(char_literal139_tree, root_0);
             	    }
-            	    pushFollow(FOLLOW_unaryExpr_in_powExpr1437);
+            	    pushFollow(FOLLOW_unaryExpr_in_powExpr1449);
             	    unaryExpr140=unaryExpr();
 
             	    state._fsp--;
@@ -3949,10 +3967,10 @@ public class PlazmaScriptParser extends Parser {
                 case 1 :
                     // grammar/PlazmaScript.g:222:6: '-' atom
                     {
-                    char_literal141=(Token)match(input,Subtract,FOLLOW_Subtract_in_unaryExpr1455); if (state.failed) return retval; 
+                    char_literal141=(Token)match(input,Subtract,FOLLOW_Subtract_in_unaryExpr1467); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Subtract.add(char_literal141);
 
-                    pushFollow(FOLLOW_atom_in_unaryExpr1457);
+                    pushFollow(FOLLOW_atom_in_unaryExpr1469);
                     atom142=atom();
 
                     state._fsp--;
@@ -3992,10 +4010,10 @@ public class PlazmaScriptParser extends Parser {
                 case 2 :
                     // grammar/PlazmaScript.g:223:6: '!' atom
                     {
-                    char_literal143=(Token)match(input,Excl,FOLLOW_Excl_in_unaryExpr1472); if (state.failed) return retval; 
+                    char_literal143=(Token)match(input,Excl,FOLLOW_Excl_in_unaryExpr1484); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Excl.add(char_literal143);
 
-                    pushFollow(FOLLOW_atom_in_unaryExpr1474);
+                    pushFollow(FOLLOW_atom_in_unaryExpr1486);
                     atom144=atom();
 
                     state._fsp--;
@@ -4037,7 +4055,7 @@ public class PlazmaScriptParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_atom_in_unaryExpr1489);
+                    pushFollow(FOLLOW_atom_in_unaryExpr1501);
                     atom145=atom();
 
                     state._fsp--;
@@ -4145,7 +4163,7 @@ public class PlazmaScriptParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Integer146=(Token)match(input,Integer,FOLLOW_Integer_in_atom1503); if (state.failed) return retval;
+                    Integer146=(Token)match(input,Integer,FOLLOW_Integer_in_atom1515); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     Integer146_tree = (Object)adaptor.create(Integer146);
                     adaptor.addChild(root_0, Integer146_tree);
@@ -4158,7 +4176,7 @@ public class PlazmaScriptParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Number147=(Token)match(input,Number,FOLLOW_Number_in_atom1510); if (state.failed) return retval;
+                    Number147=(Token)match(input,Number,FOLLOW_Number_in_atom1522); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     Number147_tree = (Object)adaptor.create(Number147);
                     adaptor.addChild(root_0, Number147_tree);
@@ -4171,7 +4189,7 @@ public class PlazmaScriptParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Bool148=(Token)match(input,Bool,FOLLOW_Bool_in_atom1517); if (state.failed) return retval;
+                    Bool148=(Token)match(input,Bool,FOLLOW_Bool_in_atom1529); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     Bool148_tree = (Object)adaptor.create(Bool148);
                     adaptor.addChild(root_0, Bool148_tree);
@@ -4184,7 +4202,7 @@ public class PlazmaScriptParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Null149=(Token)match(input,Null,FOLLOW_Null_in_atom1527); if (state.failed) return retval;
+                    Null149=(Token)match(input,Null,FOLLOW_Null_in_atom1539); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     Null149_tree = (Object)adaptor.create(Null149);
                     adaptor.addChild(root_0, Null149_tree);
@@ -4197,7 +4215,7 @@ public class PlazmaScriptParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_lookup_in_atom1534);
+                    pushFollow(FOLLOW_lookup_in_atom1546);
                     lookup150=lookup();
 
                     state._fsp--;
@@ -4255,7 +4273,7 @@ public class PlazmaScriptParser extends Parser {
             // grammar/PlazmaScript.g:237:3: ( '[' ( exprList )? ']' -> ^( LIST ( exprList )? ) )
             // grammar/PlazmaScript.g:237:6: '[' ( exprList )? ']'
             {
-            char_literal151=(Token)match(input,OBracket,FOLLOW_OBracket_in_list1548); if (state.failed) return retval; 
+            char_literal151=(Token)match(input,OBracket,FOLLOW_OBracket_in_list1560); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_OBracket.add(char_literal151);
 
             // grammar/PlazmaScript.g:237:10: ( exprList )?
@@ -4269,7 +4287,7 @@ public class PlazmaScriptParser extends Parser {
                 case 1 :
                     // grammar/PlazmaScript.g:0:0: exprList
                     {
-                    pushFollow(FOLLOW_exprList_in_list1550);
+                    pushFollow(FOLLOW_exprList_in_list1562);
                     exprList152=exprList();
 
                     state._fsp--;
@@ -4281,7 +4299,7 @@ public class PlazmaScriptParser extends Parser {
 
             }
 
-            char_literal153=(Token)match(input,CBracket,FOLLOW_CBracket_in_list1553); if (state.failed) return retval; 
+            char_literal153=(Token)match(input,CBracket,FOLLOW_CBracket_in_list1565); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_CBracket.add(char_literal153);
 
 
@@ -4370,7 +4388,7 @@ public class PlazmaScriptParser extends Parser {
             // grammar/PlazmaScript.g:241:3: ( '{' ( ':' | exprMap ) '}' -> ^( MAP ( exprMap )? ) )
             // grammar/PlazmaScript.g:241:6: '{' ( ':' | exprMap ) '}'
             {
-            char_literal154=(Token)match(input,OBrace,FOLLOW_OBrace_in_map1576); if (state.failed) return retval; 
+            char_literal154=(Token)match(input,OBrace,FOLLOW_OBrace_in_map1588); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_OBrace.add(char_literal154);
 
             // grammar/PlazmaScript.g:241:10: ( ':' | exprMap )
@@ -4394,7 +4412,7 @@ public class PlazmaScriptParser extends Parser {
                 case 1 :
                     // grammar/PlazmaScript.g:241:11: ':'
                     {
-                    char_literal155=(Token)match(input,Colon,FOLLOW_Colon_in_map1579); if (state.failed) return retval; 
+                    char_literal155=(Token)match(input,Colon,FOLLOW_Colon_in_map1591); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Colon.add(char_literal155);
 
 
@@ -4403,7 +4421,7 @@ public class PlazmaScriptParser extends Parser {
                 case 2 :
                     // grammar/PlazmaScript.g:241:17: exprMap
                     {
-                    pushFollow(FOLLOW_exprMap_in_map1583);
+                    pushFollow(FOLLOW_exprMap_in_map1595);
                     exprMap156=exprMap();
 
                     state._fsp--;
@@ -4415,7 +4433,7 @@ public class PlazmaScriptParser extends Parser {
 
             }
 
-            char_literal157=(Token)match(input,CBrace,FOLLOW_CBrace_in_map1586); if (state.failed) return retval; 
+            char_literal157=(Token)match(input,CBrace,FOLLOW_CBrace_in_map1598); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_CBrace.add(char_literal157);
 
 
@@ -4541,10 +4559,10 @@ public class PlazmaScriptParser extends Parser {
                 if ( (LA38_1==OParen) ) {
                     alt38=1;
                 }
-                else if ( (synpred62_PlazmaScript()) ) {
+                else if ( (synpred64_PlazmaScript()) ) {
                     alt38=4;
                 }
-                else if ( (synpred64_PlazmaScript()) ) {
+                else if ( (synpred66_PlazmaScript()) ) {
                     alt38=5;
                 }
                 else {
@@ -4601,7 +4619,7 @@ public class PlazmaScriptParser extends Parser {
                 case 1 :
                     // grammar/PlazmaScript.g:245:6: functionCall ( indexes )?
                     {
-                    pushFollow(FOLLOW_functionCall_in_lookup1609);
+                    pushFollow(FOLLOW_functionCall_in_lookup1621);
                     functionCall158=functionCall();
 
                     state._fsp--;
@@ -4611,14 +4629,14 @@ public class PlazmaScriptParser extends Parser {
                     int alt31=2;
                     int LA31_0 = input.LA(1);
 
-                    if ( (LA31_0==OBracket||LA31_0==86) ) {
+                    if ( (LA31_0==OBracket||LA31_0==88) ) {
                         alt31=1;
                     }
                     switch (alt31) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1611);
+                            pushFollow(FOLLOW_indexes_in_lookup1623);
                             indexes159=indexes();
 
                             state._fsp--;
@@ -4633,7 +4651,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: functionCall, indexes
+                    // elements: indexes, functionCall
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4670,7 +4688,7 @@ public class PlazmaScriptParser extends Parser {
                 case 2 :
                     // grammar/PlazmaScript.g:246:6: list ( indexes )?
                     {
-                    pushFollow(FOLLOW_list_in_lookup1636);
+                    pushFollow(FOLLOW_list_in_lookup1648);
                     list160=list();
 
                     state._fsp--;
@@ -4680,14 +4698,14 @@ public class PlazmaScriptParser extends Parser {
                     int alt32=2;
                     int LA32_0 = input.LA(1);
 
-                    if ( (LA32_0==OBracket||LA32_0==86) ) {
+                    if ( (LA32_0==OBracket||LA32_0==88) ) {
                         alt32=1;
                     }
                     switch (alt32) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1638);
+                            pushFollow(FOLLOW_indexes_in_lookup1650);
                             indexes161=indexes();
 
                             state._fsp--;
@@ -4702,7 +4720,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, list
+                    // elements: list, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4739,7 +4757,7 @@ public class PlazmaScriptParser extends Parser {
                 case 3 :
                     // grammar/PlazmaScript.g:247:6: map ( indexes )?
                     {
-                    pushFollow(FOLLOW_map_in_lookup1671);
+                    pushFollow(FOLLOW_map_in_lookup1683);
                     map162=map();
 
                     state._fsp--;
@@ -4749,14 +4767,14 @@ public class PlazmaScriptParser extends Parser {
                     int alt33=2;
                     int LA33_0 = input.LA(1);
 
-                    if ( (LA33_0==OBracket||LA33_0==86) ) {
+                    if ( (LA33_0==OBracket||LA33_0==88) ) {
                         alt33=1;
                     }
                     switch (alt33) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1673);
+                            pushFollow(FOLLOW_indexes_in_lookup1685);
                             indexes163=indexes();
 
                             state._fsp--;
@@ -4771,7 +4789,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, map
+                    // elements: map, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4808,21 +4826,21 @@ public class PlazmaScriptParser extends Parser {
                 case 4 :
                     // grammar/PlazmaScript.g:248:6: Identifier ( indexes )?
                     {
-                    Identifier164=(Token)match(input,Identifier,FOLLOW_Identifier_in_lookup1709); if (state.failed) return retval; 
+                    Identifier164=(Token)match(input,Identifier,FOLLOW_Identifier_in_lookup1721); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Identifier.add(Identifier164);
 
                     // grammar/PlazmaScript.g:248:17: ( indexes )?
                     int alt34=2;
                     int LA34_0 = input.LA(1);
 
-                    if ( (LA34_0==OBracket||LA34_0==86) ) {
+                    if ( (LA34_0==OBracket||LA34_0==88) ) {
                         alt34=1;
                     }
                     switch (alt34) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1711);
+                            pushFollow(FOLLOW_indexes_in_lookup1723);
                             indexes165=indexes();
 
                             state._fsp--;
@@ -4837,7 +4855,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Identifier, indexes
+                    // elements: indexes, Identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4874,7 +4892,7 @@ public class PlazmaScriptParser extends Parser {
                 case 5 :
                     // grammar/PlazmaScript.g:249:6: anyIdentifier ( indexes )?
                     {
-                    pushFollow(FOLLOW_anyIdentifier_in_lookup1738);
+                    pushFollow(FOLLOW_anyIdentifier_in_lookup1750);
                     anyIdentifier166=anyIdentifier();
 
                     state._fsp--;
@@ -4884,14 +4902,14 @@ public class PlazmaScriptParser extends Parser {
                     int alt35=2;
                     int LA35_0 = input.LA(1);
 
-                    if ( (LA35_0==OBracket||LA35_0==86) ) {
+                    if ( (LA35_0==OBracket||LA35_0==88) ) {
                         alt35=1;
                     }
                     switch (alt35) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1740);
+                            pushFollow(FOLLOW_indexes_in_lookup1752);
                             indexes167=indexes();
 
                             state._fsp--;
@@ -4943,21 +4961,21 @@ public class PlazmaScriptParser extends Parser {
                 case 6 :
                     // grammar/PlazmaScript.g:250:6: String ( indexes )?
                     {
-                    String168=(Token)match(input,String,FOLLOW_String_in_lookup1766); if (state.failed) return retval; 
+                    String168=(Token)match(input,String,FOLLOW_String_in_lookup1778); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_String.add(String168);
 
                     // grammar/PlazmaScript.g:250:13: ( indexes )?
                     int alt36=2;
                     int LA36_0 = input.LA(1);
 
-                    if ( (LA36_0==OBracket||LA36_0==86) ) {
+                    if ( (LA36_0==OBracket||LA36_0==88) ) {
                         alt36=1;
                     }
                     switch (alt36) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1768);
+                            pushFollow(FOLLOW_indexes_in_lookup1780);
                             indexes169=indexes();
 
                             state._fsp--;
@@ -5009,30 +5027,30 @@ public class PlazmaScriptParser extends Parser {
                 case 7 :
                     // grammar/PlazmaScript.g:251:6: '(' expression ')' ( indexes )?
                     {
-                    char_literal170=(Token)match(input,OParen,FOLLOW_OParen_in_lookup1799); if (state.failed) return retval; 
+                    char_literal170=(Token)match(input,OParen,FOLLOW_OParen_in_lookup1811); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OParen.add(char_literal170);
 
-                    pushFollow(FOLLOW_expression_in_lookup1801);
+                    pushFollow(FOLLOW_expression_in_lookup1813);
                     expression171=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expression.add(expression171.getTree());
-                    char_literal172=(Token)match(input,CParen,FOLLOW_CParen_in_lookup1803); if (state.failed) return retval; 
+                    char_literal172=(Token)match(input,CParen,FOLLOW_CParen_in_lookup1815); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CParen.add(char_literal172);
 
                     // grammar/PlazmaScript.g:251:25: ( indexes )?
                     int alt37=2;
                     int LA37_0 = input.LA(1);
 
-                    if ( (LA37_0==OBracket||LA37_0==86) ) {
+                    if ( (LA37_0==OBracket||LA37_0==88) ) {
                         alt37=1;
                     }
                     switch (alt37) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1805);
+                            pushFollow(FOLLOW_indexes_in_lookup1817);
                             indexes173=indexes();
 
                             state._fsp--;
@@ -5131,7 +5149,7 @@ public class PlazmaScriptParser extends Parser {
                 int alt39=2;
                 int LA39_0 = input.LA(1);
 
-                if ( (LA39_0==OBracket||LA39_0==86) ) {
+                if ( (LA39_0==OBracket||LA39_0==88) ) {
                     alt39=1;
                 }
 
@@ -5140,7 +5158,7 @@ public class PlazmaScriptParser extends Parser {
             	case 1 :
             	    // grammar/PlazmaScript.g:256:7: tail
             	    {
-            	    pushFollow(FOLLOW_tail_in_indexes1835);
+            	    pushFollow(FOLLOW_tail_in_indexes1847);
             	    tail174=tail();
 
             	    state._fsp--;
@@ -5257,7 +5275,7 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
         RewriteRuleTokenStream stream_OBracket=new RewriteRuleTokenStream(adaptor,"token OBracket");
         RewriteRuleTokenStream stream_Identifier=new RewriteRuleTokenStream(adaptor,"token Identifier");
-        RewriteRuleTokenStream stream_86=new RewriteRuleTokenStream(adaptor,"token 86");
+        RewriteRuleTokenStream stream_88=new RewriteRuleTokenStream(adaptor,"token 88");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_exprList=new RewriteRuleSubtreeStream(adaptor,"rule exprList");
         try {
@@ -5268,7 +5286,7 @@ public class PlazmaScriptParser extends Parser {
             if ( (LA41_0==OBracket) ) {
                 alt41=1;
             }
-            else if ( (LA41_0==86) ) {
+            else if ( (LA41_0==88) ) {
                 int LA41_2 = input.LA(2);
 
                 if ( (LA41_2==Identifier) ) {
@@ -5277,7 +5295,7 @@ public class PlazmaScriptParser extends Parser {
                     if ( (LA41_3==OParen) ) {
                         alt41=3;
                     }
-                    else if ( (LA41_3==EOF||(LA41_3>=In && LA41_3<=Range)||(LA41_3>=Or && LA41_3<=Pow)||(LA41_3>=GT && LA41_3<=Modulus)||(LA41_3>=CBrace && LA41_3<=CBracket)||(LA41_3>=CParen && LA41_3<=Colon)||LA41_3==86) ) {
+                    else if ( (LA41_3==EOF||(LA41_3>=In && LA41_3<=Range)||(LA41_3>=Or && LA41_3<=Pow)||(LA41_3>=GT && LA41_3<=Modulus)||(LA41_3>=CBrace && LA41_3<=CBracket)||(LA41_3>=CParen && LA41_3<=Colon)||LA41_3==88) ) {
                         alt41=2;
                     }
                     else {
@@ -5307,16 +5325,16 @@ public class PlazmaScriptParser extends Parser {
                 case 1 :
                     // grammar/PlazmaScript.g:260:4: '[' expression ']'
                     {
-                    char_literal175=(Token)match(input,OBracket,FOLLOW_OBracket_in_tail1858); if (state.failed) return retval; 
+                    char_literal175=(Token)match(input,OBracket,FOLLOW_OBracket_in_tail1870); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OBracket.add(char_literal175);
 
-                    pushFollow(FOLLOW_expression_in_tail1860);
+                    pushFollow(FOLLOW_expression_in_tail1872);
                     expression176=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expression.add(expression176.getTree());
-                    char_literal177=(Token)match(input,CBracket,FOLLOW_CBracket_in_tail1862); if (state.failed) return retval; 
+                    char_literal177=(Token)match(input,CBracket,FOLLOW_CBracket_in_tail1874); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CBracket.add(char_literal177);
 
 
@@ -5353,10 +5371,10 @@ public class PlazmaScriptParser extends Parser {
                 case 2 :
                     // grammar/PlazmaScript.g:261:4: '.' Identifier
                     {
-                    char_literal178=(Token)match(input,86,FOLLOW_86_in_tail1889); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_86.add(char_literal178);
+                    char_literal178=(Token)match(input,88,FOLLOW_88_in_tail1901); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_88.add(char_literal178);
 
-                    Identifier179=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail1891); if (state.failed) return retval; 
+                    Identifier179=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail1903); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Identifier.add(Identifier179);
 
 
@@ -5393,13 +5411,13 @@ public class PlazmaScriptParser extends Parser {
                 case 3 :
                     // grammar/PlazmaScript.g:262:4: '.' Identifier '(' ( exprList )? ')'
                     {
-                    char_literal180=(Token)match(input,86,FOLLOW_86_in_tail1922); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_86.add(char_literal180);
+                    char_literal180=(Token)match(input,88,FOLLOW_88_in_tail1934); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_88.add(char_literal180);
 
-                    Identifier181=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail1924); if (state.failed) return retval; 
+                    Identifier181=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail1936); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Identifier.add(Identifier181);
 
-                    char_literal182=(Token)match(input,OParen,FOLLOW_OParen_in_tail1926); if (state.failed) return retval; 
+                    char_literal182=(Token)match(input,OParen,FOLLOW_OParen_in_tail1938); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OParen.add(char_literal182);
 
                     // grammar/PlazmaScript.g:262:23: ( exprList )?
@@ -5413,7 +5431,7 @@ public class PlazmaScriptParser extends Parser {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: exprList
                             {
-                            pushFollow(FOLLOW_exprList_in_tail1928);
+                            pushFollow(FOLLOW_exprList_in_tail1940);
                             exprList183=exprList();
 
                             state._fsp--;
@@ -5425,13 +5443,13 @@ public class PlazmaScriptParser extends Parser {
 
                     }
 
-                    char_literal184=(Token)match(input,CParen,FOLLOW_CParen_in_tail1931); if (state.failed) return retval; 
+                    char_literal184=(Token)match(input,CParen,FOLLOW_CParen_in_tail1943); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CParen.add(char_literal184);
 
 
 
                     // AST REWRITE
-                    // elements: Identifier, exprList
+                    // elements: exprList, Identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5493,7 +5511,7 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "anyIdentifier"
-    // grammar/PlazmaScript.g:345:1: anyIdentifier : ( ContextIdentifier | Identifier );
+    // grammar/PlazmaScript.g:347:1: anyIdentifier : ( ContextIdentifier | Identifier );
     public final PlazmaScriptParser.anyIdentifier_return anyIdentifier() throws RecognitionException {
         PlazmaScriptParser.anyIdentifier_return retval = new PlazmaScriptParser.anyIdentifier_return();
         retval.start = input.LT(1);
@@ -5505,7 +5523,7 @@ public class PlazmaScriptParser extends Parser {
         Object set185_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:346:3: ( ContextIdentifier | Identifier )
+            // grammar/PlazmaScript.g:348:3: ( ContextIdentifier | Identifier )
             // grammar/PlazmaScript.g:
             {
             root_0 = (Object)adaptor.nil();
@@ -5625,7 +5643,7 @@ public class PlazmaScriptParser extends Parser {
         int alt43=2;
         int LA43_0 = input.LA(1);
 
-        if ( (LA43_0==OBracket||LA43_0==86) ) {
+        if ( (LA43_0==OBracket||LA43_0==88) ) {
             alt43=1;
         }
         switch (alt43) {
@@ -5654,61 +5672,24 @@ public class PlazmaScriptParser extends Parser {
     }
     // $ANTLR end synpred13_PlazmaScript
 
-    // $ANTLR start synpred62_PlazmaScript
-    public final void synpred62_PlazmaScript_fragment() throws RecognitionException {   
+    // $ANTLR start synpred64_PlazmaScript
+    public final void synpred64_PlazmaScript_fragment() throws RecognitionException {   
         // grammar/PlazmaScript.g:248:6: ( Identifier ( indexes )? )
         // grammar/PlazmaScript.g:248:6: Identifier ( indexes )?
         {
-        match(input,Identifier,FOLLOW_Identifier_in_synpred62_PlazmaScript1709); if (state.failed) return ;
+        match(input,Identifier,FOLLOW_Identifier_in_synpred64_PlazmaScript1721); if (state.failed) return ;
         // grammar/PlazmaScript.g:248:17: ( indexes )?
         int alt49=2;
         int LA49_0 = input.LA(1);
 
-        if ( (LA49_0==OBracket||LA49_0==86) ) {
+        if ( (LA49_0==OBracket||LA49_0==88) ) {
             alt49=1;
         }
         switch (alt49) {
             case 1 :
                 // grammar/PlazmaScript.g:0:0: indexes
                 {
-                pushFollow(FOLLOW_indexes_in_synpred62_PlazmaScript1711);
-                indexes();
-
-                state._fsp--;
-                if (state.failed) return ;
-
-                }
-                break;
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred62_PlazmaScript
-
-    // $ANTLR start synpred64_PlazmaScript
-    public final void synpred64_PlazmaScript_fragment() throws RecognitionException {   
-        // grammar/PlazmaScript.g:249:6: ( anyIdentifier ( indexes )? )
-        // grammar/PlazmaScript.g:249:6: anyIdentifier ( indexes )?
-        {
-        pushFollow(FOLLOW_anyIdentifier_in_synpred64_PlazmaScript1738);
-        anyIdentifier();
-
-        state._fsp--;
-        if (state.failed) return ;
-        // grammar/PlazmaScript.g:249:20: ( indexes )?
-        int alt50=2;
-        int LA50_0 = input.LA(1);
-
-        if ( (LA50_0==OBracket||LA50_0==86) ) {
-            alt50=1;
-        }
-        switch (alt50) {
-            case 1 :
-                // grammar/PlazmaScript.g:0:0: indexes
-                {
-                pushFollow(FOLLOW_indexes_in_synpred64_PlazmaScript1740);
+                pushFollow(FOLLOW_indexes_in_synpred64_PlazmaScript1723);
                 indexes();
 
                 state._fsp--;
@@ -5724,8 +5705,59 @@ public class PlazmaScriptParser extends Parser {
     }
     // $ANTLR end synpred64_PlazmaScript
 
+    // $ANTLR start synpred66_PlazmaScript
+    public final void synpred66_PlazmaScript_fragment() throws RecognitionException {   
+        // grammar/PlazmaScript.g:249:6: ( anyIdentifier ( indexes )? )
+        // grammar/PlazmaScript.g:249:6: anyIdentifier ( indexes )?
+        {
+        pushFollow(FOLLOW_anyIdentifier_in_synpred66_PlazmaScript1750);
+        anyIdentifier();
+
+        state._fsp--;
+        if (state.failed) return ;
+        // grammar/PlazmaScript.g:249:20: ( indexes )?
+        int alt50=2;
+        int LA50_0 = input.LA(1);
+
+        if ( (LA50_0==OBracket||LA50_0==88) ) {
+            alt50=1;
+        }
+        switch (alt50) {
+            case 1 :
+                // grammar/PlazmaScript.g:0:0: indexes
+                {
+                pushFollow(FOLLOW_indexes_in_synpred66_PlazmaScript1752);
+                indexes();
+
+                state._fsp--;
+                if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
+
+        }
+    }
+    // $ANTLR end synpred66_PlazmaScript
+
     // Delegated rules
 
+    public final boolean synpred66_PlazmaScript() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred66_PlazmaScript_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred5_PlazmaScript() {
         state.backtracking++;
         int start = input.mark();
@@ -5782,20 +5814,6 @@ public class PlazmaScriptParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred62_PlazmaScript() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred62_PlazmaScript_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred64_PlazmaScript() {
         state.backtracking++;
         int start = input.mark();
@@ -5820,14 +5838,14 @@ public class PlazmaScriptParser extends Parser {
     static final String DFA3_minS =
         "\1\37\1\uffff\6\0\12\uffff";
     static final String DFA3_maxS =
-        "\1\120\1\uffff\6\0\12\uffff";
+        "\1\122\1\uffff\6\0\12\uffff";
     static final String DFA3_acceptS =
         "\1\uffff\1\1\6\uffff\1\3\3\uffff\1\4\1\5\1\6\1\7\1\10\1\2";
     static final String DFA3_specialS =
         "\2\uffff\1\0\1\1\1\2\1\3\1\4\1\5\12\uffff}>";
     static final String[] DFA3_transitionS = {
             "\1\17\1\20\1\2\1\4\1\5\1\6\1\7\1\14\1\uffff\1\1\1\uffff\1\15"+
-            "\1\16\7\uffff\1\10\17\uffff\1\10\1\uffff\1\10\1\uffff\1\10\10"+
+            "\1\16\7\uffff\1\10\21\uffff\1\10\1\uffff\1\10\1\uffff\1\10\10"+
             "\uffff\1\3",
             "",
             "\1\uffff",
@@ -5988,205 +6006,205 @@ public class PlazmaScriptParser extends Parser {
 
     public static final BitSet FOLLOW_block_in_parse203 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_parse205 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_statement_in_block224 = new BitSet(new long[]{0x00080F7FC0000002L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_functionDecl_in_block228 = new BitSet(new long[]{0x00080F7FC0000002L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_Return_in_block233 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_block235 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_statement_in_block224 = new BitSet(new long[]{0x00080F7FC0000002L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_functionDecl_in_block228 = new BitSet(new long[]{0x00080F7FC0000002L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_Return_in_block233 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_block235 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_block237 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_statement279 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_assignment_in_statement279 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_statement281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionCall_in_statement294 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_functionCall_in_statement294 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_statement296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_statement307 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_lookup_in_statement307 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_statement309 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifStatement_in_statement353 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_forStatement_in_statement360 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_whileStatement_in_statement367 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Break_in_statement374 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_Break_in_statement374 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_statement376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Continue_in_statement387 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_Continue_in_statement387 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_statement389 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variableDef_in_assignment410 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_assignment413 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400420L});
-    public static final BitSet FOLLOW_indexes_in_assignment415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_Assign_in_assignment418 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_Identifier_in_assignment413 = new BitSet(new long[]{0x0000000000000000L,0x0000000001001080L});
+    public static final BitSet FOLLOW_indexes_in_assignment415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_Assign_in_assignment418 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_assignment420 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableDef_in_assignment443 = new BitSet(new long[]{0x0000010200000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_anyIdentifier_in_assignment446 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400420L});
-    public static final BitSet FOLLOW_indexes_in_assignment448 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_Assign_in_assignment451 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_variableDef_in_assignment443 = new BitSet(new long[]{0x0000010200000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_anyIdentifier_in_assignment446 = new BitSet(new long[]{0x0000000000000000L,0x0000000001001080L});
+    public static final BitSet FOLLOW_indexes_in_assignment448 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_Assign_in_assignment451 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_assignment453 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_functionCall483 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_functionCall485 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000101A8L});
-    public static final BitSet FOLLOW_exprList_in_functionCall487 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_Identifier_in_functionCall483 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_functionCall485 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000406A2L});
+    public static final BitSet FOLLOW_exprList_in_functionCall487 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
     public static final BitSet FOLLOW_CParen_in_functionCall490 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Println_in_functionCall508 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_functionCall510 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000101A8L});
-    public static final BitSet FOLLOW_expression_in_functionCall512 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_Println_in_functionCall508 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_functionCall510 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000406A2L});
+    public static final BitSet FOLLOW_expression_in_functionCall512 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
     public static final BitSet FOLLOW_CParen_in_functionCall515 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Print_in_functionCall534 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_functionCall536 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_functionCall538 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_Print_in_functionCall534 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_functionCall536 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_functionCall538 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
     public static final BitSet FOLLOW_CParen_in_functionCall540 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Assert_in_functionCall561 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_functionCall563 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_functionCall565 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_Assert_in_functionCall561 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_functionCall563 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_functionCall565 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
     public static final BitSet FOLLOW_CParen_in_functionCall567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Date_in_functionCall588 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_functionCall590 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000101A8L});
-    public static final BitSet FOLLOW_exprList_in_functionCall592 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_Date_in_functionCall588 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_functionCall590 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000406A2L});
+    public static final BitSet FOLLOW_exprList_in_functionCall592 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
     public static final BitSet FOLLOW_CParen_in_functionCall595 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifStat_in_ifStatement631 = new BitSet(new long[]{0x0000008000000002L});
     public static final BitSet FOLLOW_elseIfStat_in_ifStatement633 = new BitSet(new long[]{0x0000008000000002L});
     public static final BitSet FOLLOW_elseStat_in_ifStatement636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_If_in_ifStat665 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_ifStat667 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_ifStat669 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_ifStat671 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_OBrace_in_ifStat673 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_block_in_ifStat675 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_If_in_ifStat665 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_ifStat667 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_ifStat669 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_ifStat671 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_OBrace_in_ifStat673 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_block_in_ifStat675 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBrace_in_ifStat677 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Else_in_elseIfStat701 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_If_in_elseIfStat703 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_elseIfStat705 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_elseIfStat707 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_elseIfStat709 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_OBrace_in_elseIfStat711 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_block_in_elseIfStat713 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_If_in_elseIfStat703 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_elseIfStat705 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_elseIfStat707 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_elseIfStat709 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_OBrace_in_elseIfStat711 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_block_in_elseIfStat713 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBrace_in_elseIfStat715 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Else_in_elseStat739 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_OBrace_in_elseStat741 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_block_in_elseStat743 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_Else_in_elseStat739 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_OBrace_in_elseStat741 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_block_in_elseStat743 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBrace_in_elseStat745 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Var_in_variableDef765 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Def_in_functionDecl797 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_functionDecl799 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_functionDecl801 = new BitSet(new long[]{0x0000000200000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_idList_in_functionDecl803 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_functionDecl806 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_OBrace_in_functionDecl808 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_block_in_functionDecl810 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_Identifier_in_functionDecl799 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_functionDecl801 = new BitSet(new long[]{0x0000000200000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_idList_in_functionDecl803 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_functionDecl806 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_OBrace_in_functionDecl808 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_block_in_functionDecl810 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBrace_in_functionDecl812 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_For_in_forStatement841 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_For_in_forStatement841 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
     public static final BitSet FOLLOW_OParen_in_forStatement843 = new BitSet(new long[]{0x0000000200000000L});
     public static final BitSet FOLLOW_Identifier_in_forStatement845 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_In_in_forStatement847 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_forStatement849 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_forStatement851 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_OBrace_in_forStatement853 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_block_in_forStatement855 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_In_in_forStatement847 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_forStatement849 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_forStatement851 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_OBrace_in_forStatement853 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_block_in_forStatement855 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBrace_in_forStatement857 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_While_in_whileStatement892 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_whileStatement894 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_whileStatement896 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_whileStatement898 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_OBrace_in_whileStatement900 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_block_in_whileStatement902 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_While_in_whileStatement892 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_whileStatement894 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_whileStatement896 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_whileStatement898 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_OBrace_in_whileStatement900 = new BitSet(new long[]{0x00080F7FC0000000L,0x00000000000402A0L});
+    public static final BitSet FOLLOW_block_in_whileStatement902 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
     public static final BitSet FOLLOW_CBrace_in_whileStatement904 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_idList928 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
+    public static final BitSet FOLLOW_Identifier_in_idList928 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
     public static final BitSet FOLLOW_Comma_in_idList931 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_idList933 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
-    public static final BitSet FOLLOW_expression_in_exprList958 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
-    public static final BitSet FOLLOW_Comma_in_exprList961 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_exprList963 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
-    public static final BitSet FOLLOW_expression_in_exprPair989 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
-    public static final BitSet FOLLOW_Colon_in_exprPair991 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_Identifier_in_idList933 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
+    public static final BitSet FOLLOW_expression_in_exprList958 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
+    public static final BitSet FOLLOW_Comma_in_exprList961 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_exprList963 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
+    public static final BitSet FOLLOW_expression_in_exprPair989 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_Colon_in_exprPair991 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_exprPair993 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_exprPair_in_exprMap1018 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
-    public static final BitSet FOLLOW_Comma_in_exprMap1021 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_exprPair_in_exprMap1023 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
+    public static final BitSet FOLLOW_exprPair_in_exprMap1018 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
+    public static final BitSet FOLLOW_Comma_in_exprMap1021 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_exprPair_in_exprMap1023 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
     public static final BitSet FOLLOW_condExpr_in_expression1049 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_orExpr_in_condExpr1064 = new BitSet(new long[]{0x0000700000000002L,0x0000000000001000L});
-    public static final BitSet FOLLOW_QMark_in_condExpr1079 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_condExpr1083 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
-    public static final BitSet FOLLOW_Colon_in_condExpr1085 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_orExpr_in_condExpr1064 = new BitSet(new long[]{0x0000700000000002L,0x0000000000004000L});
+    public static final BitSet FOLLOW_QMark_in_condExpr1079 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_condExpr1083 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_Colon_in_condExpr1085 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_condExpr1089 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_In_in_condExpr1112 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_In_in_condExpr1112 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_condExpr1114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RangeE_in_condExpr1159 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_RangeE_in_condExpr1159 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_condExpr1161 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Range_in_condExpr1196 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_Range_in_condExpr1196 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_condExpr1198 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr1263 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_Or_in_orExpr1266 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr1269 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_equExpr_in_andExpr1285 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_And_in_andExpr1288 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_equExpr_in_andExpr1291 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_relExpr_in_equExpr1307 = new BitSet(new long[]{0x00C0000000000002L});
-    public static final BitSet FOLLOW_set_in_equExpr1310 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_relExpr_in_equExpr1319 = new BitSet(new long[]{0x00C0000000000002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr1335 = new BitSet(new long[]{0x3300000000000002L});
-    public static final BitSet FOLLOW_set_in_relExpr1338 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr1355 = new BitSet(new long[]{0x3300000000000002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr1371 = new BitSet(new long[]{0xC000000000000002L});
-    public static final BitSet FOLLOW_set_in_addExpr1374 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr1383 = new BitSet(new long[]{0xC000000000000002L});
-    public static final BitSet FOLLOW_powExpr_in_mulExpr1399 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000007L});
-    public static final BitSet FOLLOW_set_in_mulExpr1402 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_powExpr_in_mulExpr1415 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000007L});
-    public static final BitSet FOLLOW_unaryExpr_in_powExpr1431 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_Pow_in_powExpr1434 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_unaryExpr_in_powExpr1437 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_Subtract_in_unaryExpr1455 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1457 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Excl_in_unaryExpr1472 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1489 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_atom1503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Number_in_atom1510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Bool_in_atom1517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Null_in_atom1527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_atom1534 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBracket_in_list1548 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100E8L});
-    public static final BitSet FOLLOW_exprList_in_list1550 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_CBracket_in_list1553 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBrace_in_map1576 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000120A8L});
-    public static final BitSet FOLLOW_Colon_in_map1579 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_exprMap_in_map1583 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_CBrace_in_map1586 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionCall_in_lookup1609 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_list_in_lookup1636 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_map_in_lookup1671 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1673 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_lookup1709 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_anyIdentifier_in_lookup1738 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1740 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_lookup1766 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OParen_in_lookup1799 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_lookup1801 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_lookup1803 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_lookup1805 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_tail_in_indexes1835 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_OBracket_in_tail1858 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
-    public static final BitSet FOLLOW_expression_in_tail1860 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_CBracket_in_tail1862 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_86_in_tail1889 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_tail1891 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_86_in_tail1922 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_tail1924 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_OParen_in_tail1926 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000101A8L});
-    public static final BitSet FOLLOW_exprList_in_tail1928 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_CParen_in_tail1931 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr1263 = new BitSet(new long[]{0x0030000000000002L});
+    public static final BitSet FOLLOW_set_in_orExpr1266 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr1275 = new BitSet(new long[]{0x0030000000000002L});
+    public static final BitSet FOLLOW_equExpr_in_andExpr1291 = new BitSet(new long[]{0x00C0000000000002L});
+    public static final BitSet FOLLOW_set_in_andExpr1294 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_equExpr_in_andExpr1303 = new BitSet(new long[]{0x00C0000000000002L});
+    public static final BitSet FOLLOW_relExpr_in_equExpr1319 = new BitSet(new long[]{0x0300000000000002L});
+    public static final BitSet FOLLOW_set_in_equExpr1322 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_relExpr_in_equExpr1331 = new BitSet(new long[]{0x0300000000000002L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr1347 = new BitSet(new long[]{0xCC00000000000002L});
+    public static final BitSet FOLLOW_set_in_relExpr1350 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr1367 = new BitSet(new long[]{0xCC00000000000002L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr1383 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000003L});
+    public static final BitSet FOLLOW_set_in_addExpr1386 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr1395 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000003L});
+    public static final BitSet FOLLOW_powExpr_in_mulExpr1411 = new BitSet(new long[]{0x0000000000000002L,0x000000000000001CL});
+    public static final BitSet FOLLOW_set_in_mulExpr1414 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_powExpr_in_mulExpr1427 = new BitSet(new long[]{0x0000000000000002L,0x000000000000001CL});
+    public static final BitSet FOLLOW_unaryExpr_in_powExpr1443 = new BitSet(new long[]{0x1000000000000002L});
+    public static final BitSet FOLLOW_Pow_in_powExpr1446 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_unaryExpr_in_powExpr1449 = new BitSet(new long[]{0x1000000000000002L});
+    public static final BitSet FOLLOW_Subtract_in_unaryExpr1467 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1469 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Excl_in_unaryExpr1484 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1501 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_atom1515 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Number_in_atom1522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Bool_in_atom1529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Null_in_atom1539 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_lookup_in_atom1546 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBracket_in_list1560 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000403A2L});
+    public static final BitSet FOLLOW_exprList_in_list1562 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_CBracket_in_list1565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBrace_in_map1588 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000482A2L});
+    public static final BitSet FOLLOW_Colon_in_map1591 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_exprMap_in_map1595 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_CBrace_in_map1598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_functionCall_in_lookup1621 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1623 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_list_in_lookup1648 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1650 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_map_in_lookup1683 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_lookup1721 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1723 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_anyIdentifier_in_lookup1750 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1752 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_lookup1778 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1780 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OParen_in_lookup1811 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_lookup1813 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_lookup1815 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_lookup1817 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_tail_in_indexes1847 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_OBracket_in_tail1870 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
+    public static final BitSet FOLLOW_expression_in_tail1872 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_CBracket_in_tail1874 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_88_in_tail1901 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Identifier_in_tail1903 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_88_in_tail1934 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Identifier_in_tail1936 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_OParen_in_tail1938 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000406A2L});
+    public static final BitSet FOLLOW_exprList_in_tail1940 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CParen_in_tail1943 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_anyIdentifier0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_synpred4_PlazmaScript279 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_assignment_in_synpred4_PlazmaScript279 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_synpred4_PlazmaScript281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionCall_in_synpred5_PlazmaScript294 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_functionCall_in_synpred5_PlazmaScript294 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_synpred5_PlazmaScript296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_synpred6_PlazmaScript307 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_lookup_in_synpred6_PlazmaScript307 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_SColon_in_synpred6_PlazmaScript309 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variableDef_in_synpred13_PlazmaScript410 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_Identifier_in_synpred13_PlazmaScript413 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400420L});
-    public static final BitSet FOLLOW_indexes_in_synpred13_PlazmaScript415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_Assign_in_synpred13_PlazmaScript418 = new BitSet(new long[]{0x880F813E00000000L,0x00000000000100A8L});
+    public static final BitSet FOLLOW_Identifier_in_synpred13_PlazmaScript413 = new BitSet(new long[]{0x0000000000000000L,0x0000000001001080L});
+    public static final BitSet FOLLOW_indexes_in_synpred13_PlazmaScript415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_Assign_in_synpred13_PlazmaScript418 = new BitSet(new long[]{0x200F813E00000000L,0x00000000000402A2L});
     public static final BitSet FOLLOW_expression_in_synpred13_PlazmaScript420 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_synpred62_PlazmaScript1709 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_synpred62_PlazmaScript1711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_anyIdentifier_in_synpred64_PlazmaScript1738 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400020L});
-    public static final BitSet FOLLOW_indexes_in_synpred64_PlazmaScript1740 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_synpred64_PlazmaScript1721 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_synpred64_PlazmaScript1723 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_anyIdentifier_in_synpred66_PlazmaScript1750 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000080L});
+    public static final BitSet FOLLOW_indexes_in_synpred66_PlazmaScript1752 = new BitSet(new long[]{0x0000000000000002L});
 
 }

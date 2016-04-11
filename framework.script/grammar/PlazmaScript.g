@@ -191,11 +191,11 @@ condExpr
   ;
 
 orExpr
-  :  andExpr ('||'^ andExpr)*
+  :  andExpr (('||' | 'or')^ andExpr)*
   ;
 
 andExpr
-  :  equExpr ('&&'^ equExpr)*
+  :  equExpr (('&&' | 'and')^ equExpr)*
   ;
 
 equExpr
@@ -280,7 +280,9 @@ Break    : 'break';
 Continue : 'continue';
 
 Or       : '||';
+OrWord   : 'or';
 And      : '&&';
+AndWord  : 'and';
 Equals   : '==';
 NEquals  : '!=';
 GTEquals : '>=';

@@ -6,6 +6,9 @@ var startDate = Date();
 var date1 = Date(2015, 12, 31);
 
 // boolean expressions
+assert(true or false);
+assert(true and true);
+
 assert(true || false);
 assert(!false);
 assert(true && true);
@@ -518,5 +521,10 @@ println("'abc' + null = " + ("abc" + null));
 
 
 println();
+println("true or false  = "  + (true or false));
+println("true and false = "  + (true and false));
+
+println();
+println("10 > 1 and 20 > 2 = "  + (10 > 1 and 20 > 2));
 
 

@@ -144,7 +144,9 @@ expression returns [LNode node]
   |  ^(Range a=expression b=expression)                 {node = new RangeNode($a.node, $b.node);}
   
   |  ^('||' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}
+  |  ^('or' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}  
   |  ^('&&' a=expression b=expression)                 {node = new AndNode($a.node, $b.node);}
+  |  ^('and' a=expression b=expression)                {node = new AndNode($a.node, $b.node);}  
   |  ^('==' a=expression b=expression)                 {node = new EQNode($a.node, $b.node);}
   |  ^('!=' a=expression b=expression)                 {node = new NENode($a.node, $b.node);}
   |  ^('>=' a=expression b=expression)                 {node = new GTENode($a.node, $b.node);}
