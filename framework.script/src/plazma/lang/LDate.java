@@ -140,9 +140,10 @@ public class LDate extends LValue {
 	    return result; 
 	}
 	
-	// Returns NULL because a=NULL (Date) is primary parameter
 	if (a == LValue.NULL) {
-	    return LValue.NULL;
+	    // Illegal operation
+	    super._add(a, b);
+	    //return LValue.NULL;
 	}
 	
 	if (!a.isDate()) {
@@ -170,13 +171,14 @@ public class LDate extends LValue {
 	    return result; 
 	}
 
-	// Returns NULL because a=NULL (Date) is primary parameter
 	if (a == LValue.NULL) {
-	    return LValue.NULL;
+	    // Illegal operation
+	    return super._sub(a, b);
+	    //return LValue.NULL;
 	}
 	
 	if (!a.isDate()) {
-	    return super._add(a, b);
+	    return super._sub(a, b);
 	}
 
 	// NULL

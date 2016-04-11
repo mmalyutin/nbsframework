@@ -19,7 +19,7 @@ public class OrNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._or(b);
+        return a._or(a, b);
         
         /*
         if (!a.isBoolean() || !b.isBoolean()) {

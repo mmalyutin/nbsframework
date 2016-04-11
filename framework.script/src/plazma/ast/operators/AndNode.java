@@ -19,7 +19,7 @@ public class AndNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._and(b);
+        return a._and(a, b);
         
         /*
         if (!a.isBoolean() || !b.isBoolean()) {

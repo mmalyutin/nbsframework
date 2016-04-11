@@ -27,6 +27,49 @@ public class LNullValue extends LValue {
     public LNullValue() {
     }
 
+
+    
+    // &&, and
+    @Override
+    public LValue _and(LValue a, LValue b) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	
+	LValue result = nullResult(a, "&&", b);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL && b  == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+	
+	//IMPORTANT! b
+	return b._and(a, b);	    
+    }
+
+    // ||, or
+    @Override
+    public LValue _or(LValue a, LValue b) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+
+	LValue result = nullResult(a, "||", b);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL && b  == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+	
+	//IMPORTANT! b
+	return b._or(a, b);	    
+    }    
     
     // <
     public LValue _lt(LValue a, LValue b) {
@@ -43,7 +86,8 @@ public class LNullValue extends LValue {
 	    return LBoolean.FALSE;
 	}
 
-	return super._lt(a, b);
+	//IMPORTANT! b
+	return b._lt(a, b);
     }
     
     // <=
@@ -61,7 +105,8 @@ public class LNullValue extends LValue {
 	    return LBoolean.TRUE;
 	}
 
-	return super._lte(a, b);
+	//IMPORTANT! b
+	return b._lte(a, b);
     }
 
     // >
@@ -79,7 +124,8 @@ public class LNullValue extends LValue {
 	    return LBoolean.FALSE;
 	}
 
-	return super._gt(a, b);
+	//IMPORTANT! b
+	return b._gt(a, b);
     }
     
     // >=
@@ -97,7 +143,8 @@ public class LNullValue extends LValue {
 	    return LBoolean.TRUE;
 	}
 
-	return super._gte(a, b);
+	//IMPORTANT! b
+	return b._gte(a, b);
     }
     
     ////
@@ -119,6 +166,7 @@ public class LNullValue extends LValue {
 	    return LValue.NULL;
 	}
 	
+	//IMPORTANT! b
 	return b._add(a, b);
 	
     }
@@ -139,6 +187,8 @@ public class LNullValue extends LValue {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
+	
+	//IMPORTANT! b
 	return b._sub(a, b);
 	
     }
@@ -159,6 +209,8 @@ public class LNullValue extends LValue {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
+	
+	//IMPORTANT! b
 	return b._mul(a, b);
     }
     
@@ -178,6 +230,8 @@ public class LNullValue extends LValue {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
+	
+	//IMPORTANT! b
 	return b._div(a, b);
     }
     
@@ -197,6 +251,8 @@ public class LNullValue extends LValue {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
+	
+	//IMPORTANT! b
 	return b._pow(a, b);
     }    
     
@@ -217,6 +273,8 @@ public class LNullValue extends LValue {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return LValue.NULL;
 	}
+	
+	//IMPORTANT! b
 	return b._mod(a, b);
     }
     

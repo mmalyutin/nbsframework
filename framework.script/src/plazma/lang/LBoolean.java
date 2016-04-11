@@ -45,19 +45,39 @@ public class LBoolean extends LValue {
 
     // &&, and
     @Override
-    public LValue _and(LValue that) {
-	if (!that.isBoolean()) {
-	    return super._and(that);	    
+    public LValue _and(LValue a, LValue b) {
+	LValue result = nullResult(a, "&&", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LBoolean(asBoolean() && that.asBoolean());
+
+	if (a == LValue.NULL || b  == LValue.NULL) {
+	    return new LBoolean(andValues(a, b));
+	}
+	
+	if (!a.isBoolean() || !b.isBoolean()) {
+	    return super._and(a, b);	    
+	}
+	
+	return new LBoolean(a.asBoolean() && b.asBoolean());
     }
 
     // ||, or
     @Override
-    public LValue _or(LValue that) {
-	if (!that.isBoolean()) {
-	    return super._or(that);	    
+    public LValue _or(LValue a, LValue b) {
+	LValue result = nullResult(a, "||", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LBoolean(asBoolean() || that.asBoolean());
+
+	if (a == LValue.NULL || b  == LValue.NULL) {
+	    return new LBoolean(orValues(a, b));
+	}
+	
+	if (!a.isBoolean() || !b.isBoolean()) {
+	    return super._or(a, b);	    
+	}
+	
+	return new LBoolean(a.asBoolean() || b.asBoolean());
     }
 }
