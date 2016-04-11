@@ -460,6 +460,7 @@ println("1 % null = " + (1 % null));
 
 println();
 println("Date() + null = " + (Date() + null));
+//println("null + Date() = " + (null + Date()));
 println("Date() - null = " + (Date() - null));
 
 println();
@@ -473,6 +474,40 @@ println("null < null = " + (null < null));
 println("null <= null = " + (null <= null));
 println("null > null = " + (null > null));
 println("null >= null = " + (null >= null));
+println("null && null = " + (null && null));
+println("null || null = " + (null || null));
+
+println();
+println("null == 1 = " + (null == 1));
+println("1 == null = " + (1 == null));
+println("null != 1 = " + (null != 1));
+println("1 != null = " + (1 != null));
+
+println();
+println("null == 'a' = " + (null == "a"));
+println("'a' == null = " + ("a" == null));
+println("null != 'a' = " + (null != "a"));
+println("'a' != null = " + ("a" != null));
+
+
+println();
+println("null < 1 = " + (null < 1));
+println("1 < null = " + (1 < null));
+println("null <= 1 = " + (null <= 1));
+println("1 <= null = " + (1 <= null));
+
+println();
+println("null > 1 = " + (null > 1));
+println("1 > null = " + (1 > null));
+println("null >= 1 = " + (null >= 1));
+println("1 >= null = " + (1 >= null));
+
+println();
+println("null && true = " + (null && true));
+println("null || true = " + (null || true));
+println("true && null = " + (true && null));
+println("true || null = " + (true || null));
+
 
 println();
 println("null in [1, 3, 5, 7] = " + (null in [1, 3, 5, 7]));

@@ -278,6 +278,27 @@ public class LValue implements Comparable<LValue> {
 	return false;
     }
     
+    // &&, and values
+    protected boolean andValues(LValue a, LValue b) {
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return false;
+	}
+	raiseIllegalOperatorException(a, ">=", b);
+	return false;
+    }
+    
+    // ||, or values
+    protected boolean orValues(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return false;
+	}
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return true;
+	}
+	raiseIllegalOperatorException(a, "||", b);
+	return false;
+    }    
+    
     ////
     
     // ==
@@ -331,14 +352,14 @@ public class LValue implements Comparable<LValue> {
     ////////
 
     // &&, and
-    public LValue _and(LValue that) {
-	raiseIllegalOperatorException("&&", that);
+    public LValue _and(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "&&", b);
 	return null;
     }
 
     // ||, or
-    public LValue _or(LValue that) {
-	raiseIllegalOperatorException("||", that);
+    public LValue _or(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "||", b);
 	return null;
     }
     
