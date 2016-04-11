@@ -19,7 +19,7 @@ public class GTENode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._gte(b);
+        return a._gte(a, b);
         
         /*
         if (a.isNumber() && b.isNumber()) {

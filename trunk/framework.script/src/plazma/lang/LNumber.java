@@ -38,38 +38,77 @@ public class LNumber extends LValue {
 
     // <
     @Override
-    public LValue _lt(LValue that) {
-	if (!that.isNumber()) {
-	    return super._lt(that);
+    public LValue _lt(LValue a, LValue b) {
+	LValue result = nullResult(a, "<", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LBoolean(asDouble() < that.asDouble());
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(ltValues(a, b));
+	}	
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._lt(a, b);
+	}
+	
+	return new LBoolean(a.asDouble() < b.asDouble());
     }
     
     // <=
     @Override
-    public LValue _lte(LValue that) {
-	if (!that.isNumber()) {
-	    return super._lte(that);
+    public LValue _lte(LValue a, LValue b) {
+	LValue result = nullResult(a, "<=", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LBoolean(asDouble() <= that.asDouble());
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(lteValues(a, b));
+	}	
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._lte(a, b);
+	}
+	
+	return new LBoolean(a.asDouble() <= b.asDouble());
     }
 
     // >
     @Override
-    public LValue _gt(LValue that) {
-	if (!that.isNumber()) {
-	    return super._gt(that);
+    public LValue _gt(LValue a, LValue b) {
+	LValue result = nullResult(a, ">", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LBoolean(asDouble() > that.asDouble());
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(gtValues(a, b));
+	}	
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._gt(a, b);
+	}
+	
+	return new LBoolean(a.asDouble() > b.asDouble());
     }
     
     // >=
     @Override
-    public LValue _gte(LValue that) {
-	if (!that.isNumber()) {
-	    return super._gte(that);
+    public LValue _gte(LValue a, LValue b) {
+	LValue result = nullResult(a, ">=", b);
+	if (result != null) {
+	    return result; 
 	}
-	return new LBoolean(asDouble() >= that.asDouble());
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(gteValues(a, b));
+	}	
+	
+	if (!a.isNumber() || !b.isNumber()) {
+	    return super._gt(a, b);
+	}
+	return new LBoolean(a.asDouble() >= b.asDouble());
     }
     
     //////
