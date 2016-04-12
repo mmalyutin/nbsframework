@@ -506,9 +506,17 @@ println("null >= 1 = " + (null >= 1));
 println("1 >= null = " + (1 >= null));
 
 println();
+println("null && null = " + (null && null));
+println("null && false = " + (null && false));
+println("false && null = " + (false && null));
 println("null && true = " + (null && true));
-println("null || true = " + (null || true));
 println("true && null = " + (true && null));
+
+println();
+println("null || null = " + (null || null));
+println("null || false = " + (null || false));
+println("false || null = " + (false || null));
+println("null || true = " + (null || true));
 println("true || null = " + (true || null));
 
 
@@ -526,5 +534,12 @@ println("true and false = "  + (true and false));
 
 println();
 println("10 > 1 and 20 > 2 = "  + (10 > 1 and 20 > 2));
+
+println();
+println("!null = "  + (!null));
+println("-null = "  + (-null));
+println("true ? 10 : 20 = "  + (true ? 10 : 20));
+println("null ? 10 : 20 = "  + (null ? 10 : 20));
+println("!null ? 10 : 20 = "  + (!null ? 10 : 20));
 
 

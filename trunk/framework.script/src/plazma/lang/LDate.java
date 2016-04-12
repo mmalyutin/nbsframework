@@ -66,7 +66,7 @@ public class LDate extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(ltValues(a, b));
+	    return new LBoolean(ltNull(a, b));
 	}	
 	
 	if (!a.isDate() || !b.isDate()) {
@@ -85,7 +85,7 @@ public class LDate extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(lteValues(a, b));
+	    return new LBoolean(lteNull(a, b));
 	}	
 	
 	if (!a.isDate() || !b.isDate()) {
@@ -103,7 +103,7 @@ public class LDate extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(gtValues(a, b));
+	    return new LBoolean(gtNull(a, b));
 	}	
 	
 	if (!a.isDate() || !b.isDate()) {
@@ -121,7 +121,7 @@ public class LDate extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(gteValues(a, b));
+	    return new LBoolean(gteNull(a, b));
 	}	
 	
 	if (!a.isDate() || !b.isDate()) {

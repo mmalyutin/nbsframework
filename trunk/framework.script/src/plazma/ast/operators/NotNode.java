@@ -1,7 +1,6 @@
 package plazma.ast.operators;
 
 import plazma.ast.LNode;
-import plazma.lang.LBoolean;
 import plazma.lang.LValue;
 
 public class NotNode implements LNode {
@@ -17,11 +16,13 @@ public class NotNode implements LNode {
 
         LValue v = exp.evaluate();
 
-        if (!v.isBoolean()) {
-            throw new RuntimeException("illegal expression: " + this);
-        }
-
-        return new LBoolean(!v.asBoolean());
+        return v._not(v);
+        
+//        if (!v.isBoolean()) {
+//            throw new RuntimeException("illegal expression: " + this);
+//        }
+//
+//        return new LBoolean(!v.asBoolean());
     }
 
     @Override
