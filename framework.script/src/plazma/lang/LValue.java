@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import plazma.EvaluateContext;
-import sun.reflect.generics.visitor.Reifier;
 
 
 public class LValue implements Comparable<LValue> {
@@ -208,7 +207,7 @@ public class LValue implements Comparable<LValue> {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected boolean eqValues(LValue a, LValue b) {
+    protected boolean eqNull(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return true;
 	}
@@ -219,7 +218,7 @@ public class LValue implements Comparable<LValue> {
     }
 
     // < values
-    protected boolean ltValues(LValue a, LValue b) {
+    protected boolean ltNull(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return false;
 	}
@@ -234,7 +233,7 @@ public class LValue implements Comparable<LValue> {
     }
 
     // <= values
-    protected boolean lteValues(LValue a, LValue b) {
+    protected boolean lteNull(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return true;
 	}
@@ -249,7 +248,7 @@ public class LValue implements Comparable<LValue> {
     }
 
     // > values
-    protected boolean gtValues(LValue a, LValue b) {
+    protected boolean gtNull(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return false;
 	}
@@ -264,7 +263,7 @@ public class LValue implements Comparable<LValue> {
     }
 
     // >= values
-    protected boolean gteValues(LValue a, LValue b) {
+    protected boolean gteNull(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
 	    return true;
 	}
@@ -279,25 +278,36 @@ public class LValue implements Comparable<LValue> {
     }
     
     // &&, and values
-    protected boolean andValues(LValue a, LValue b) {
+    protected LValue andNullResult(LValue a, LValue b) {
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return false;
+	    return LBoolean.FALSE;
 	}
-	raiseIllegalOperatorException(a, ">=", b);
-	return false;
+	raiseIllegalOperatorException(a, "&&", b);
+	return LBoolean.FALSE;
     }
     
     // ||, or values
-    protected boolean orValues(LValue a, LValue b) {
+    protected LValue orNullResult(LValue a, LValue b) {
 	if (a == LValue.NULL && b == LValue.NULL) {
-	    return false;
+	    return LBoolean.FALSE;
 	}
-	if (a == LValue.NULL || b == LValue.NULL) {
-	    return true;
+	if (a == LValue.NULL) {
+	    if (!b.isBoolean() ) {
+		raiseIllegalOperatorException(a, "||", b);
+	    }
+	    return b;
 	}
+	if (b == LValue.NULL) {
+	    if (!a.isBoolean() ) {
+		raiseIllegalOperatorException(a, "||", b);
+	    }
+	    return a;
+	}
+	
 	raiseIllegalOperatorException(a, "||", b);
-	return false;
+	return LBoolean.FALSE;
     }    
+
     
     ////
     
@@ -307,7 +317,7 @@ public class LValue implements Comparable<LValue> {
 	if (result != null) {
 	    return result; 
 	}
-	return new LBoolean(eqValues(a, b));
+	return new LBoolean(eqNull(a, b));
     }
 
     // !=
@@ -316,7 +326,7 @@ public class LValue implements Comparable<LValue> {
 	if (result != null) {
 	    return result; 
 	}
-	return new LBoolean(!eqValues(a, b));
+	return new LBoolean(!eqNull(a, b));
     }
 
     // in
@@ -363,6 +373,17 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
     
+    // !, not
+    public LValue _not(LValue a) {
+	raiseIllegalOperatorException("!", a);
+	return null;
+    }
+
+    // ?
+    public LValue _elvis(LValue exp, LValue a, LValue b) {
+	raiseIllegalOperatorException(exp, "?", a, b);
+	return null;
+    }
     
     ////////
     
@@ -402,6 +423,12 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
 
+    ////
+    
+    public LValue _unaryMinus(LValue a) {
+	raiseIllegalOperatorException("-", a);
+	return null;
+    }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -454,16 +481,27 @@ public class LValue implements Comparable<LValue> {
 	}
     }
     
-    protected void raiseIllegalOperatorException(String operator, LValue that) {
-	raiseIllegalOperatorException(toString(), operator, that.toString());
-    }
+//    protected void raiseIllegalOperatorException(String operator, LValue that) {
+//	raiseIllegalOperatorException(toString(), operator, that.toString());
+//    }
 
     protected void raiseIllegalOperatorException(LValue a, String operator, LValue b) {
 	raiseIllegalOperatorException(a.toString(), operator, b.toString());
     }
+
+    protected void raiseIllegalOperatorException(String operator, LValue a) {
+	raiseIllegalOperatorException("", operator, a.toString());
+    }
     
+
+    // Binary
     protected void raiseIllegalOperatorException(String a, String operator, String b) {
 	raiseIllegalOperatorException(a + " " + operator + " " + b);
+    }
+
+    // Ternary
+    protected void raiseIllegalOperatorException(LValue exp, String operator, LValue a, LValue b) {
+	raiseIllegalOperatorException(exp + " " + operator + " " + a + ", " + b);
     }
     
     protected void raiseIllegalOperatorException(String message) {
@@ -476,8 +514,20 @@ public class LValue implements Comparable<LValue> {
 	raiseNullPointerOperatorException(a.toString(), operator, b.toString());
     }
 
+
+    // Unary
+    protected void raiseNullPointerOperatorException(String operator, LValue a) {
+	throw new NullPointerException("Illegal null expression: " + operator + " " + a.toString());
+    }
+    
+    // Binary
     protected void raiseNullPointerOperatorException(String a, String operator, String b) {
 	throw new NullPointerException("Illegal null expression: " + a + " " + operator + " " + b);
+    }
+
+    // Ternary
+    protected void raiseNullPointerOperatorException(LValue exp, String operator, LValue a, LValue b) {
+	throw new NullPointerException("Illegal null expression: " + exp + " " + operator + " " + a + ", " + b);
     }
     
     ////
@@ -501,6 +551,7 @@ public class LValue implements Comparable<LValue> {
     ////
     
 
+    // Binary
     protected LValue nullResult(LValue a, String operator, LValue b) {
 	if (a == LValue.NULL || b == LValue.NULL) {
 	    if (getEvaluateContext().isNullException()) {
@@ -516,6 +567,41 @@ public class LValue implements Comparable<LValue> {
 	}
 	return null;
     }
+
+    // Ternary
+    protected LValue nullResult(LValue exp, String operator, LValue a, LValue b) {
+	if (exp == LValue.NULL || a == LValue.NULL || b == LValue.NULL) {
+	    if (getEvaluateContext().isNullException()) {
+		raiseNullPointerOperatorException(exp, operator, a, b);
+		return null;
+	    }
+	    if (getEvaluateContext().isNullUnknown()) {
+		return LValue.NULL;
+	    }
+	    if (getEvaluateContext().isNullInvalid()) {
+		return LValue.INVALID; // TOOD: Must return ERROR value
+	    }
+	}
+	return null;
+    }
+    
+    // Unary
+    protected LValue nullResult(String operator, LValue a) {
+	if (a == LValue.NULL) {
+	    if (getEvaluateContext().isNullException()) {
+		raiseNullPointerOperatorException(operator, a);
+		return null;
+	    }
+	    if (getEvaluateContext().isNullUnknown()) {
+		return LValue.NULL;
+	    }
+	    if (getEvaluateContext().isNullInvalid()) {
+		return LValue.INVALID; // TOOD: Must return ERROR value
+	    }
+	}
+	return null;
+    }
+    
     
     public EvaluateContext getEvaluateContext() {
 	return EvaluateContext.getDefaultContext();

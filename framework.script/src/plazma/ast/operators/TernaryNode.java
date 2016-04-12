@@ -18,13 +18,15 @@ public class TernaryNode implements LNode {
     @Override
     public LValue evaluate() {
 
-        LValue a = condition.evaluate();
+        LValue exp = condition.evaluate();
+        
+        return exp._elvis(exp, ifTrue.evaluate(), ifFalse.evaluate());
 
-        if (!a.isBoolean()) {
-            throw new RuntimeException("not a boolean expression: " + condition + ", in: " + this);
-        }
-
-        return a.asBoolean() ? ifTrue.evaluate() : ifFalse.evaluate();
+//        if (!exp.isBoolean()) {
+//            throw new RuntimeException("not a boolean expression: " + condition + ", in: " + this);
+//        }
+//
+//        return exp.asBoolean() ? ifTrue.evaluate() : ifFalse.evaluate();
     }
 
     @Override

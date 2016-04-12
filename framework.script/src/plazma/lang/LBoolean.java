@@ -52,7 +52,7 @@ public class LBoolean extends LValue {
 	}
 
 	if (a == LValue.NULL || b  == LValue.NULL) {
-	    return new LBoolean(andValues(a, b));
+	    return andNullResult(a, b);
 	}
 	
 	if (!a.isBoolean() || !b.isBoolean()) {
@@ -71,7 +71,7 @@ public class LBoolean extends LValue {
 	}
 
 	if (a == LValue.NULL || b  == LValue.NULL) {
-	    return new LBoolean(orValues(a, b));
+	    return orNullResult(a, b);
 	}
 	
 	if (!a.isBoolean() || !b.isBoolean()) {
@@ -80,4 +80,43 @@ public class LBoolean extends LValue {
 	
 	return new LBoolean(a.asBoolean() || b.asBoolean());
     }
+    
+    // !, not
+    @Override
+    public LValue _not(LValue a) {
+	LValue result = nullResult("!", a);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+	if (!a.isBoolean()) {
+	    raiseIllegalOperatorException("!", a);
+	}
+	return new LBoolean(!a.asBoolean());
+	
+    }    
+    
+    // ?
+    public LValue _elvis(LValue exp, LValue a, LValue b) {
+	LValue result = nullResult(exp, "?", a, b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	boolean flag;
+	if (exp == LValue.NULL) {
+	    flag = false;
+	} else {
+	    if (!exp.isBoolean()) {
+		raiseIllegalOperatorException(exp, "?", a, b);
+	    }
+	    flag = exp.asBoolean().booleanValue();
+	}
+	
+	return flag ? a: b;
+    }
+    
 }

@@ -71,6 +71,37 @@ public class LNullValue extends LValue {
 	return b._or(a, b);	    
     }    
     
+    // !, not
+    @Override
+    public LValue _not(LValue a) {
+	// Only for NULL 
+	if (!a.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+	
+	LValue result = nullResult("!", a);
+	if (result != null) {
+	    return result; 
+	}
+
+	// null     -> FALSE
+	// not null -> TRUE
+	return LBoolean.TRUE;
+    }    
+    
+    
+    // ?
+    public LValue _elvis(LValue exp, LValue a, LValue b) {
+	
+	// Only for NULL 
+	if (!exp.isNull()) {
+	    raiseIllegalOperatorException("Must be only NULL");
+	}
+
+	// null     -> FALSE
+	return b;
+    }    
+    
     // <
     public LValue _lt(LValue a, LValue b) {
 	// Only for NULL 
@@ -278,4 +309,18 @@ public class LNullValue extends LValue {
 	return b._mod(a, b);
     }
     
+    // unary -
+    @Override
+    public LValue _unaryMinus(LValue a) {
+	LValue result = nullResult("-", a);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+        return a._unaryMinus(a);
+    }    
 }

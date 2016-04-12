@@ -45,7 +45,7 @@ public class LNumber extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(ltValues(a, b));
+	    return new LBoolean(ltNull(a, b));
 	}	
 	
 	if (!a.isNumber() || !b.isNumber()) {
@@ -64,7 +64,7 @@ public class LNumber extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(lteValues(a, b));
+	    return new LBoolean(lteNull(a, b));
 	}	
 	
 	if (!a.isNumber() || !b.isNumber()) {
@@ -83,7 +83,7 @@ public class LNumber extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(gtValues(a, b));
+	    return new LBoolean(gtNull(a, b));
 	}	
 	
 	if (!a.isNumber() || !b.isNumber()) {
@@ -102,7 +102,7 @@ public class LNumber extends LValue {
 	}
 	
 	if (a == LValue.NULL || b == LValue.NULL) {
-	    return new LBoolean(gteValues(a, b));
+	    return new LBoolean(gteNull(a, b));
 	}	
 	
 	if (!a.isNumber() || !b.isNumber()) {
@@ -282,6 +282,28 @@ public class LNumber extends LValue {
 	
 	return new LNumber(a.asDouble() % b.asDouble());
     }
-    
-    
+
+    // unary -
+    @Override
+    public LValue _unaryMinus(LValue a) {
+	LValue result = nullResult("-", a);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+        if (!a.isNumber()) {
+            raiseIllegalOperatorException("-", a);
+        }
+        
+        // Integer
+        if (a.isInteger()) {
+            return new LNumber(-a.asInteger());
+        }
+
+        return new LNumber(-a.asDouble());
+    }
 }
