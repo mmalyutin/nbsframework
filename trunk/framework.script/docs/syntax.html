@@ -1,0 +1,109 @@
+<html>
+<head>
+	<title>Plazma Script</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+	<h2>Syntax</h2>
+	<ul>
+	 <li><a href="#comments">Comments</a></li>
+	 <li><a href="#keywords">Keywords</a></li>
+	 <li><a href="syntax.html">Base types</a></li>
+	</ul>
+	
+	<h3 id="comments">Comments</h3>
+	
+	<h4>Single line comment</h4>
+	Single line comments start with <b>//</b> and can be found at any position in the line.
+	<pre class="source-code">
+ // a standalone single line comment
+ println("hello"); // a comment till the end of the line
+ 	</pre>
+ 	
+ 	<h4>Multiline comment</h4>
+A multiline comment starts with <b>/*</b> and can be found at any position in the line. The characters following /* will be considered part of the comment, including new line characters, up to the first <b>*/</b> closing the comment. 	
+
+
+	<pre class="source-code">
+  /* a standalone multiline comment
+  spanning two lines */
+  println("hello"); /* a multiline comment starting
+                   at the end of a statement */
+  println(1 /* one */ + 2 /* two */);
+	</pre>
+
+	<h3 id="keywords">Keywords</h3>
+	The following list represents all the keywords of the Plazma Script:
+	<table>
+		<colgroup>
+			<col style="width: 25%;">
+			<col style="width: 25%;">
+			<col style="width: 25%;">
+			<col style="width: 25%;">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>as</td>
+				<td>assert</td>
+				<td>break</td>
+				<td>case</td>
+			</tr>
+			<tr>
+				<td>catch</td>
+				<td>class</td>
+				<td>const</td>
+				<td>continue</td>
+			</tr>
+			<tr>
+				<td>def</td>
+				<td>default</td>
+				<td>do</td>
+				<td>else</td>
+			</tr>
+			<tr>
+				<td>enum</td>
+				<td>extends</td>
+				<td>false</td>
+				<td>finally</td>
+			</tr>
+			<tr>
+				<td>for</td>
+				<td>goto</td>
+				<td>if</td>
+				<td>implements</td>
+			</tr>
+			<tr>
+				<td>import</td>
+				<td>in</td>
+				<td>instanceof</td>
+				<td>interface</td>
+			</tr>
+			<tr>
+				<td>new</td>
+				<td>null</td>
+				<td>package</td>
+				<td>return</td>
+			</tr>
+			<tr>
+				<td>super</td>
+				<td>switch</td>
+				<td>this</td>
+				<td>throw</td>
+			</tr>
+			<tr>
+				<td>throws</td>
+				<td>trait</td>
+				<td>true</td>
+				<td>try</td>
+			</tr>
+			<tr>
+				<td>while</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
