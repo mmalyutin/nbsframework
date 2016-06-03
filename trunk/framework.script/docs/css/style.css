@@ -39,3 +39,7 @@ pre .cmt {
 	color: #998;
 	font-style: italic;
 }
+
+.grid-th {
+	text-align: left;
+}
