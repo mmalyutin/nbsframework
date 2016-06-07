@@ -11,6 +11,8 @@
 	 <li><a href="#arithmetic">Arithmetic operators</a></li>
 	 <li><a href="#relational">Relational operators</a></li>
 	 <li><a href="#logical">Logical operators</a></li>
+	 <li><a href="#other">Other operators</a></li>
+	 
 	</ul>
 	
 	<h3 id="arithmetic">Arithmetic operators</h3>
@@ -18,40 +20,40 @@
 		<thead>
 			<tr>
 				<th class="grid-th">Operator</th>
-				<th class="grid-th">Purpose</th>
-				<th class="grid-th">Remarks</th>
+				<th class="grid-th">Description</th>
+				<th class="grid-th">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>+</td>
-				<td>addition</td>
-				<td></td>
+				<td>Addition</td>
+				<td>a + b</td>
 			</tr>
 			<tr>
 				<td>-</td>
-				<td>subtraction</td>
-				<td></td>
+				<td>Subtraction</td>
+				<td>a - b</td>
 			</tr>
  			<tr>
 				<td>*</td>
-				<td>multiplication</td>
-				<td></td>
+				<td>Multiplication</td>
+				<td>a * b</td>
 			</tr>
 			<tr>
 				<td>/</td>
-				<td>division</td>
-				<td></td>
+				<td>Division</td>
+				<td>a / b</td>
 			</tr>
 			<tr>
 				<td>%</td>
-				<td>remainder</td>
-				<td></td>
+				<td>Remainder</td>
+				<td>a % b</td>
 			</tr>
 			<tr>
 				<td>^</td>
-				<td>power</td>
-				<td></td>
+				<td>Power</td>
+				<td>a ^ b</td>
 			</tr>
 		</tbody>
 	</table>
@@ -62,33 +64,40 @@
 		<thead>
 			<tr>
 				<th class="grid-th">Operator</th>
-				<th class="grid-th">Purpose</th>
+				<th class="grid-th">Description</th>
+				<th class="grid-th">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>==</td>
-				<td>equal</td>
+				<td>Equal</td>
+				<td>a == b</td>
 			</tr>
 			<tr>
 				<td>!=</td>
-				<td>different</td>
+				<td>Different</td>
+				<td>a != b</td>
 			</tr>
  			<tr>
 				<td>&lt;</td>
-				<td>less than</td>
+				<td>Less than</td>
+				<td>a &lt; b</td>
 			</tr>
 			<tr>
 				<td>&lt;=</td>
-				<td>less than or equal</td>
+				<td>Less than or equal</td>
+				<td>a &lt;= b</td>
 			</tr>
 			<tr>
 				<td>&gt;</td>
-				<td>greater than</td>
+				<td>Greater than</td>
+				<td>a &gt; b</td>
 			</tr>
 			<tr>
 				<td>&gt;=</td>
-				<td>greater than or equal</td>
+				<td>Greater than or equal</td>
+				<td>a &gt;= b</td>
 			</tr>
 		</tbody>
 	</table>
@@ -99,24 +108,64 @@
 		<thead>
 			<tr>
 				<th class="grid-th">Operator</th>
-				<th class="grid-th">Purpose</th>
+				<th class="grid-th">Description</th>
+				<th class="grid-th">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>&&, and</td>
-				<td>logical <b>and</b></td>
+				<td>Logical <b>and</b></td>
+				<td>a && b, a and b</td>
 			</tr>
 			<tr>
 				<td>||, or</td>
-				<td>logical <b>or</b></td>
+				<td>Logical <b>or</b></td>
+				<td>a || b, a or b</td>
 			</tr>
  			<tr>
 				<td>!</td>
-				<td>logical <b>not</b></td>
+				<td>Logical <b>not</b></td>
+				<td>!a</td>
 			</tr>
 		</tbody>
 	</table>
+		
+
+	<h3 id="other">Other operators</h3>
+	<table>
+		<thead>
+			<tr>
+				<th class="grid-th">Operator</th>
+				<th class="grid-th">Description</th>
+				<th class="grid-th">Example</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>? :</td>
+				<td>Conditional expression</td>
+				<td>a >= 0 ? "positive" : "negative"</td>
+			</tr>
+			<tr>
+				<td>in</td>
+				<td>Membership operator</td>
+				<td>a in [1, 2, 3]</td>
+			</tr>
+ 			<tr>
+				<td>..</td>
+				<td>Range operator</td>
+				<td>a in (1..10)</td>
+			</tr>
+ 			<tr>
+				<td>..<</td>
+				<td>Range operator (exclude right value)</td>
+				<td>a in (1..<10)</td>
+			</tr>
+		</tbody>
+	</table>
+	
+
 		
 </body>
 </html>
