@@ -21,6 +21,7 @@
 			<tr>
 				<th class="grid-th" width="100px">Operator</th>
 				<th class="grid-th" width="300px">Description</th>
+				<th class="grid-th" width="300px">Types</th>
 				<th class="grid-th" width="300px">Example</th>
 			</tr>
 		</thead>
@@ -28,32 +29,59 @@
 			<tr>
 				<td>+</td>
 				<td>Addition</td>
-				<td>a + b</td>
+				<td>Number + Number -&gt; Number<br/>
+				    String + any -&gt; String<br/>
+				    Date + Number -&gt; Date<br/>
+				    List + any -&gt; List<br/>
+				</td>
+				<td>10 + 20 -&gt; 30<br/>
+				    "abc" + 10 -&gt; "abc10"<br/>
+				    Date(2001, 12, 31) + (24 * 60 * 60 * 1000) -&gt; Date(2002, 1, 1)<br/>
+				    [1, 2, 3] + 4 -&gt; [1, 2, 3, 4]
+				</td>
 			</tr>
 			<tr>
 				<td>-</td>
 				<td>Subtraction</td>
-				<td>a - b</td>
+				<td>Number - Number -&gt; Number<br/>
+				    Date - Number -&gt; Date<br/>
+				    List - any -&gt; List<br/>
+				</td>
+				<td>30 - 20 -&gt; 10<br/>
+				    Date(2001, 12, 31) - (24 * 60 * 60 * 1000) -&gt; Date(2001, 12, 30)<br/>
+				    [1, 2, 3] - 2 -&gt; [1, 3]
+				</td>
 			</tr>
  			<tr>
 				<td>*</td>
 				<td>Multiplication</td>
-				<td>a * b</td>
+				<td>Number * Number -&gt; Number<br/>
+				    String * Number -&gt; String<br/>
+				    List * Number -&gt; List<br/>
+				</td>
+				<td>10 * 20 -&gt; 200<br/>
+				    "ab" * 3 -&gt; "ababab"<br/>
+				    [1, 2] * 4 -&gt; [1, 2, 1, 2, 1, 2, 1, 2]
+				</td>
 			</tr>
 			<tr>
 				<td>/</td>
 				<td>Division</td>
-				<td>a / b</td>
+				<td>Number / Number -&gt; Number</td>
+				<td>7 / 5 -&gt; 1.4</td>
 			</tr>
 			<tr>
 				<td>%</td>
 				<td>Remainder</td>
-				<td>a % b</td>
+				<td>Number % Number -&gt; Number</td>
+				<td>7 % 5 -&gt; 2</td>
 			</tr>
 			<tr>
 				<td>^</td>
 				<td>Power</td>
-				<td>a ^ b</td>
+				<td>Number ^ Number -&gt; Number</td>
+				<td>2 ^ 10 -&gt; 1024</td>
+
 			</tr>
 		</tbody>
 	</table>
