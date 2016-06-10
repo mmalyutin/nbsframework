@@ -16,179 +16,221 @@
 	</ul>
 	
 	<h3 id="arithmetic">Arithmetic operators</h3>
-	<table>
+	<table cellspacing="0" cellpadding="5">
 		<thead>
 			<tr>
-				<th class="grid-th" width="100px">Operator</th>
-				<th class="grid-th" width="300px">Description</th>
-				<th class="grid-th" width="300px">Types</th>
-				<th class="grid-th" width="300px">Example</th>
+				<th class="grid-th grid-cell" width="100px">Operator</th>
+				<th class="grid-th grid-cell" width="300px">Description</th>
+				<th class="grid-th grid-cell" width="300px">Types</th>
+				<th class="grid-th grid-cell" width="450px">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>+</td>
-				<td>Addition</td>
-				<td>Number + Number -&gt; Number<br/>
+				<td class="grid-cell">+</td>
+				<td class="grid-cell">Addition</td>
+				<td class="grid-cell">Number + Number -&gt; Number<br/>
 				    String + any -&gt; String<br/>
 				    Date + Number -&gt; Date<br/>
 				    List + any -&gt; List<br/>
 				</td>
-				<td>10 + 20 -&gt; 30<br/>
+				<td class="grid-cell">10 + 20 -&gt; 30<br/>
 				    "abc" + 10 -&gt; "abc10"<br/>
 				    Date(2001, 12, 31) + (24 * 60 * 60 * 1000) -&gt; Date(2002, 1, 1)<br/>
 				    [1, 2, 3] + 4 -&gt; [1, 2, 3, 4]
 				</td>
 			</tr>
 			<tr>
-				<td>-</td>
-				<td>Subtraction</td>
-				<td>Number - Number -&gt; Number<br/>
+				<td class="grid-cell">-</td>
+				<td class="grid-cell">Subtraction</td>
+				<td class="grid-cell">Number - Number -&gt; Number<br/>
 				    Date - Number -&gt; Date<br/>
 				    List - any -&gt; List<br/>
 				</td>
-				<td>30 - 20 -&gt; 10<br/>
+				<td class="grid-cell">30 - 20 -&gt; 10<br/>
 				    Date(2001, 12, 31) - (24 * 60 * 60 * 1000) -&gt; Date(2001, 12, 30)<br/>
 				    [1, 2, 3] - 2 -&gt; [1, 3]
 				</td>
 			</tr>
  			<tr>
-				<td>*</td>
-				<td>Multiplication</td>
-				<td>Number * Number -&gt; Number<br/>
+				<td class="grid-cell">*</td>
+				<td class="grid-cell">Multiplication</td>
+				<td class="grid-cell">Number * Number -&gt; Number<br/>
 				    String * Number -&gt; String<br/>
 				    List * Number -&gt; List<br/>
 				</td>
-				<td>10 * 20 -&gt; 200<br/>
+				<td class="grid-cell">10 * 20 -&gt; 200<br/>
 				    "ab" * 3 -&gt; "ababab"<br/>
 				    [1, 2] * 4 -&gt; [1, 2, 1, 2, 1, 2, 1, 2]
 				</td>
 			</tr>
 			<tr>
-				<td>/</td>
-				<td>Division</td>
-				<td>Number / Number -&gt; Number</td>
-				<td>7 / 5 -&gt; 1.4</td>
+				<td class="grid-cell">/</td>
+				<td class="grid-cell">Division</td>
+				<td class="grid-cell">Number / Number -&gt; Number</td>
+				<td class="grid-cell">7 / 5 -&gt; 1.4</td>
 			</tr>
 			<tr>
-				<td>%</td>
-				<td>Remainder</td>
-				<td>Number % Number -&gt; Number</td>
-				<td>7 % 5 -&gt; 2</td>
+				<td class="grid-cell">%</td>
+				<td class="grid-cell">Remainder</td>
+				<td class="grid-cell">Number % Number -&gt; Number</td>
+				<td class="grid-cell">7 % 5 -&gt; 2</td>
 			</tr>
 			<tr>
-				<td>^</td>
-				<td>Power</td>
-				<td>Number ^ Number -&gt; Number</td>
-				<td>2 ^ 10 -&gt; 1024</td>
+				<td class="grid-cell">^</td>
+				<td class="grid-cell">Power</td>
+				<td class="grid-cell">Number ^ Number -&gt; Number</td>
+				<td class="grid-cell">2 ^ 10 -&gt; 1024</td>
 
 			</tr>
 		</tbody>
 	</table>
 	
+	<p>Arithmetic operators and data types map:
+	<ul>
+	 <li>+,- &nbsp;&nbsp; Number, String, Date, List</li>
+	 <li>*   &nbsp;&nbsp;&nbsp;&nbsp; Number, String, List</li>
+	 <li>/,*,^ Number</li>
+	</ul>
 	
 	<h3 id="relational">Relational operators</h3>
-	<table>
+	<table cellspacing="0" cellpadding="5">
 		<thead>
 			<tr>
-				<th class="grid-th" width="100px">Operator</th>
-				<th class="grid-th" width="300px">Description</th>
-				<th class="grid-th" width="300px">Example</th>
+				<th class="grid-th grid-cell" width="100px">Operator</th>
+				<th class="grid-th grid-cell" width="300px">Description</th>
+				<th class="grid-th grid-cell" width="300px">Types</th>
+				<th class="grid-th grid-cell" width="450px">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>==</td>
-				<td>Equal</td>
-				<td>a == b</td>
+				<td class="grid-cell">==</td>
+				<td class="grid-cell">Equal</td>
+				<td class="grid-cell">any == any -&gt; Boolean</td>
+				<td class="grid-cell">10 == 10 -&gt; true</td>
 			</tr>
 			<tr>
-				<td>!=</td>
-				<td>Different</td>
-				<td>a != b</td>
+				<td class="grid-cell">!=</td>
+				<td class="grid-cell">Different</td>
+				<td class="grid-cell">any != any -&gt; Boolean</td>
+				<td class="grid-cell">5 != 10 -&gt; true</td>
 			</tr>
  			<tr>
-				<td>&lt;</td>
-				<td>Less than</td>
-				<td>a &lt; b</td>
+				<td class="grid-cell">&lt;</td>
+				<td class="grid-cell">Less than</td>
+				<td class="grid-cell">Number &lt; Number -&gt; Number<br/>
+				    String &lt; String -&gt; String<br/>
+				    Date &lt; Date -&gt; Date<br/>
+				</td>
+				<td class="grid-cell">5 &lt; 10 -&gt; true<br/>
+				    "abc" &lt; "xyz" -&gt; true<br/>
+				    Date(2001, 1, 1) &lt; Date(2001, 12, 31) -&gt; Date<br/>
+				</td>
 			</tr>
 			<tr>
-				<td>&lt;=</td>
-				<td>Less than or equal</td>
-				<td>a &lt;= b</td>
+				<td class="grid-cell">&lt;=</td>
+				<td class="grid-cell">Less than or equal</td>
+				<td class="grid-cell">Number &lt;= Number -&gt; Number<br/>
+				    String &lt;= String -&gt; String<br/>
+				    Date &lt;= Date -&gt; Date<br/>
+				</td>
+				<td class="grid-cell">5 &lt;= 10 -&gt; true<br/>
+				    "abc" &lt;= "xyz" -&gt; true<br/>
+				    Date(2001, 1, 1) &lt;= Date(2001, 12, 31) -&gt; true<br/>
+				</td>
 			</tr>
 			<tr>
-				<td>&gt;</td>
-				<td>Greater than</td>
-				<td>a &gt; b</td>
+				<td class="grid-cell">&gt;</td>
+				<td class="grid-cell">Greater than</td>
+				<td class="grid-cell">Number &gt;= Number -&gt; Number<br/>
+				    String &gt;= String -&gt; String<br/>
+				    Date &gt;= Date -&gt; Date<br/>
+				</td>
+				<td class="grid-cell">5 &gt;= 10 -&gt; true<br/>
+				    "xyz" &gt;= "abc" -&gt; true<br/>
+				    Date(2001, 12, 31) &gt;= Date(2001, 1, 1) -&gt; true<br/>
+				</td>
 			</tr>
 			<tr>
-				<td>&gt;=</td>
-				<td>Greater than or equal</td>
-				<td>a &gt;= b</td>
+				<td class="grid-cell">&gt;=</td>
+				<td class="grid-cell">Greater than or equal</td>
+				<td class="grid-cell">Number &gt;= Number -&gt; Number<br/>
+				    String &gt;= String -&gt; String<br/>
+				    Date &gt;= Date -&gt; Date<br/>
+				</td>
+				<td class="grid-cell">5 &gt;= 10 -&gt; true<br/>
+				    "xyz" &gt;= "abc" -&gt; true<br/>
+				    Date(2001, 12, 31) &gt;= Date(2001, 1, 1) -&gt; true<br/>
+				</td>
 			</tr>
 		</tbody>
 	</table>
 	
+	<p>Relational operators and data types map:
+	<ul>
+	 <li>== &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; any</li>
+	 <li>&lt;, &lt;=, &gt;, &gt;= Number, String, Date</li>
+	</ul>
 	
 	<h3 id="logical">Logical operators</h3>
-	<table>
+	<table cellspacing="0" cellpadding="5">
 		<thead>
 			<tr>
-				<th class="grid-th" width="100px">Operator</th>
-				<th class="grid-th" width="300px">Description</th>
-				<th class="grid-th" width="300px">Example</th>
+				<th class="grid-th grid-cell" width="100px">Operator</th>
+				<th class="grid-th grid-cell" width="300px">Description</th>
+				<th class="grid-th grid-cell" width="300px">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>&&, and</td>
-				<td>Logical <b>and</b></td>
-				<td>a && b, a and b</td>
+				<td class="grid-cell">&&, and</td>
+				<td class="grid-cell">Logical <b>and</b></td>
+				<td class="grid-cell">a && b, a and b</td>
 			</tr>
 			<tr>
-				<td>||, or</td>
-				<td>Logical <b>or</b></td>
-				<td>a || b, a or b</td>
+				<td class="grid-cell">||, or</td>
+				<td class="grid-cell">Logical <b>or</b></td>
+				<td class="grid-cell">a || b, a or b</td>
 			</tr>
  			<tr>
-				<td>!</td>
-				<td>Logical <b>not</b></td>
-				<td>!a</td>
+				<td class="grid-cell">!</td>
+				<td class="grid-cell">Logical <b>not</b></td>
+				<td class="grid-cell">!a</td>
 			</tr>
 		</tbody>
 	</table>
 		
 
 	<h3 id="other">Other operators</h3>
-	<table>
+	<table cellspacing="0" cellpadding="5">
 		<thead>
 			<tr>
-				<th class="grid-th" width="100px">Operator</th>
-				<th class="grid-th" width="300px">Description</th>
-				<th class="grid-th" width="300px">Example</th>
+				<th class="grid-th grid-cell" width="100px">Operator</th>
+				<th class="grid-th grid-cell" width="300px">Description</th>
+				<th class="grid-th grid-cell" width="300px">Example</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>? :</td>
-				<td>Conditional expression</td>
-				<td>a >= 0 ? "positive" : "negative"</td>
+				<td class="grid-cell">? :</td>
+				<td class="grid-cell">Conditional expression</td>
+				<td class="grid-cell">a >= 0 ? "positive" : "negative"</td>
 			</tr>
 			<tr>
-				<td>in</td>
-				<td>Membership operator</td>
-				<td>a in [1, 2, 3]</td>
+				<td class="grid-cell">in</td>
+				<td class="grid-cell">Membership operator</td>
+				<td class="grid-cell">a in [1, 2, 3]</td>
 			</tr>
  			<tr>
-				<td>..</td>
-				<td>Range operator</td>
-				<td>a in (1..10)</td>
+				<td class="grid-cell">..</td>
+				<td class="grid-cell">Range operator</td>
+				<td class="grid-cell">a in (1..10)</td>
 			</tr>
  			<tr>
-				<td>..<</td>
-				<td>Range operator (exclude right value)</td>
-				<td>a in (1..<10)</td>
+				<td class="grid-cell">..<</td>
+				<td class="grid-cell">Range operator (exclude right value)</td>
+				<td class="grid-cell">a in (1..<10)</td>
 			</tr>
 		</tbody>
 	</table>

@@ -42,4 +42,9 @@ pre .cmt {
 
 .grid-th {
 	text-align: left;
+	border: 2px #e1e1e8;
+}
+
+.grid-cell {
+	border: 1px solid #e1e1e8;
 }
