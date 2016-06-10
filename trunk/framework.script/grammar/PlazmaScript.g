@@ -221,6 +221,7 @@ powExpr
 unaryExpr
   :  '-' atom -> ^(UNARY_MIN atom)
   |  '!' atom -> ^(NEGATE atom)
+  |  'not' atom -> ^(NEGATE atom)  
   |  atom
   ;
 
@@ -288,7 +289,8 @@ NEquals  : '!=';
 GTEquals : '>=';
 LTEquals : '<=';
 Pow      : '^';
-Excl     : '!';
+Not      : '!';
+NotWord  : 'not';
 GT       : '>';
 LT       : '<';
 Add      : '+';
