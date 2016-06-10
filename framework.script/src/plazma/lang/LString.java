@@ -136,7 +136,7 @@ public class LString extends LValue {
 	    return super._add(a, b);
 	}
 	
-	return new LString(a.toString() + "" + b.toString());
+	return new LString(a.toString() + b.toString());
     }
     
     // *

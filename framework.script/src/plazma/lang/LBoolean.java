@@ -46,7 +46,7 @@ public class LBoolean extends LValue {
     // &&, and
     @Override
     public LValue _and(LValue a, LValue b) {
-	LValue result = nullResult(a, "&&", b);
+	LValue result = nullResult(a, "and", b);
 	if (result != null) {
 	    return result; 
 	}
@@ -65,7 +65,7 @@ public class LBoolean extends LValue {
     // ||, or
     @Override
     public LValue _or(LValue a, LValue b) {
-	LValue result = nullResult(a, "||", b);
+	LValue result = nullResult(a, "or", b);
 	if (result != null) {
 	    return result; 
 	}
@@ -84,7 +84,7 @@ public class LBoolean extends LValue {
     // !, not
     @Override
     public LValue _not(LValue a) {
-	LValue result = nullResult("!", a);
+	LValue result = nullResult("not", a);
 	if (result != null) {
 	    return result; 
 	}
@@ -93,7 +93,7 @@ public class LBoolean extends LValue {
 	    return LBoolean.FALSE;
 	}
 	if (!a.isBoolean()) {
-	    raiseIllegalOperatorException("!", a);
+	    raiseIllegalOperatorException("not", a);
 	}
 	return new LBoolean(!a.asBoolean());
 	

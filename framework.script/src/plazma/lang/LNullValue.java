@@ -37,7 +37,7 @@ public class LNullValue extends LValue {
 	    raiseIllegalOperatorException("Must be only NULL");
 	}
 	
-	LValue result = nullResult(a, "&&", b);
+	LValue result = nullResult(a, "and", b);
 	if (result != null) {
 	    return result; 
 	}
@@ -58,7 +58,7 @@ public class LNullValue extends LValue {
 	    raiseIllegalOperatorException("Must be only NULL");
 	}
 
-	LValue result = nullResult(a, "||", b);
+	LValue result = nullResult(a, "or", b);
 	if (result != null) {
 	    return result; 
 	}
@@ -79,7 +79,7 @@ public class LNullValue extends LValue {
 	    raiseIllegalOperatorException("Must be only NULL");
 	}
 	
-	LValue result = nullResult("!", a);
+	LValue result = nullResult("not", a);
 	if (result != null) {
 	    return result; 
 	}

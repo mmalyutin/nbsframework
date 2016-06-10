@@ -282,7 +282,7 @@ public class LValue implements Comparable<LValue> {
 	if (a == LValue.NULL || b == LValue.NULL) {
 	    return LBoolean.FALSE;
 	}
-	raiseIllegalOperatorException(a, "&&", b);
+	raiseIllegalOperatorException(a, "and", b);
 	return LBoolean.FALSE;
     }
     
@@ -293,18 +293,18 @@ public class LValue implements Comparable<LValue> {
 	}
 	if (a == LValue.NULL) {
 	    if (!b.isBoolean() ) {
-		raiseIllegalOperatorException(a, "||", b);
+		raiseIllegalOperatorException(a, "or", b);
 	    }
 	    return b;
 	}
 	if (b == LValue.NULL) {
 	    if (!a.isBoolean() ) {
-		raiseIllegalOperatorException(a, "||", b);
+		raiseIllegalOperatorException(a, "or", b);
 	    }
 	    return a;
 	}
 	
-	raiseIllegalOperatorException(a, "||", b);
+	raiseIllegalOperatorException(a, "or", b);
 	return LBoolean.FALSE;
     }    
 
@@ -363,19 +363,19 @@ public class LValue implements Comparable<LValue> {
 
     // &&, and
     public LValue _and(LValue a, LValue b) {
-	raiseIllegalOperatorException(a, "&&", b);
+	raiseIllegalOperatorException(a, "and", b);
 	return null;
     }
 
     // ||, or
     public LValue _or(LValue a, LValue b) {
-	raiseIllegalOperatorException(a, "||", b);
+	raiseIllegalOperatorException(a, "or", b);
 	return null;
     }
     
     // !, not
     public LValue _not(LValue a) {
-	raiseIllegalOperatorException("!", a);
+	raiseIllegalOperatorException("not", a);
 	return null;
     }
 
@@ -389,6 +389,14 @@ public class LValue implements Comparable<LValue> {
     
     // +
     public LValue _add(LValue a, LValue b) {
+	if (a.isString() || b.isString()) {
+	    //TODO
+	    LValue result = nullResult(a, "+", b);
+	    if (result != null) {
+		return result; 
+	    }
+	    return new LString(a.toString() + b.toString());
+	}
 	raiseIllegalOperatorException(a, "+", b);
 	return null;
     }
