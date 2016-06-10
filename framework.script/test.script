@@ -171,6 +171,8 @@ for (i in 0 .. 10) {
 
 assert(sequence == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
 
+println("fib=" + sequence);
+
 // lists and lookups, `in` operator
 var n = [[1,0,0], [0,1,0], [0,0,1]];
 
@@ -542,4 +544,8 @@ println("true ? 10 : 20 = "  + (true ? 10 : 20));
 println("null ? 10 : 20 = "  + (null ? 10 : 20));
 println("!null ? 10 : 20 = "  + (!null ? 10 : 20));
 
+println("7 % 5");
+println(7 % 5);
+
+println("(not (10 > 5)) = " + (not (10 > 5)));
 
