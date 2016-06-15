@@ -3,12 +3,12 @@ package plazma.ast.operators;
 import plazma.ast.LNode;
 import plazma.lang.LValue;
 
-public class OrNode implements LNode {
+public class XorNode implements LNode {
 
     private LNode lhs;
     private LNode rhs;
 
-    public OrNode(LNode lhs, LNode rhs) {
+    public XorNode(LNode lhs, LNode rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
@@ -19,19 +19,19 @@ public class OrNode implements LNode {
         LValue a = lhs.evaluate();
         LValue b = rhs.evaluate();
 
-        return a._or(a, b);
+        return a._xor(a, b);
         
         /*
         if (!a.isBoolean() || !b.isBoolean()) {
             throw new RuntimeException("illegal expression: " + this);
         }
 
-        return new LBoolean(a.asBoolean() || b.asBoolean());
+        return new LBoolean(a.asBoolean() ^ b.asBoolean());
         */
     }
 
     @Override
     public String toString() {
-        return String.format("(%s or %s)", lhs, rhs);
+        return String.format("(%s xor %s)", lhs, rhs);
     }
 }

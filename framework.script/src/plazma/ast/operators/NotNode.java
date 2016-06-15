@@ -27,6 +27,6 @@ public class NotNode implements LNode {
 
     @Override
     public String toString() {
-        return String.format("(!%s)", exp);
+        return String.format("(not %s)", exp);
     }
 }

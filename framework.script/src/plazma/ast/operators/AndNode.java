@@ -32,6 +32,6 @@ public class AndNode implements LNode {
 
     @Override
     public String toString() {
-        return String.format("(%s && %s)", lhs, rhs);
+        return String.format("(%s and %s)", lhs, rhs);
     }
 }

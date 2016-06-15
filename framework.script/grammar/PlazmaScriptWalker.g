@@ -143,6 +143,7 @@ expression returns [LNode node]
   |  ^(RangeE a=expression b=expression)                {node = new RangeENode($a.node, $b.node);}
   |  ^(Range a=expression b=expression)                 {node = new RangeNode($a.node, $b.node);}
   
+  |  ^('xor' a=expression b=expression)                {node = new XorNode($a.node, $b.node);}
   |  ^('||' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}
   |  ^('or' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}  
   |  ^('&&' a=expression b=expression)                 {node = new AndNode($a.node, $b.node);}

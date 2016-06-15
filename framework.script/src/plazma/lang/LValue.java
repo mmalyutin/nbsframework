@@ -292,13 +292,13 @@ public class LValue implements Comparable<LValue> {
 	    return LBoolean.FALSE;
 	}
 	if (a == LValue.NULL) {
-	    if (!b.isBoolean() ) {
+	    if (!b.isBoolean()) {
 		raiseIllegalOperatorException(a, "or", b);
 	    }
 	    return b;
 	}
 	if (b == LValue.NULL) {
-	    if (!a.isBoolean() ) {
+	    if (!a.isBoolean()) {
 		raiseIllegalOperatorException(a, "or", b);
 	    }
 	    return a;
@@ -308,6 +308,28 @@ public class LValue implements Comparable<LValue> {
 	return LBoolean.FALSE;
     }    
 
+    // xor values
+    protected LValue xorNullResult(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+	if (a == LValue.NULL) {
+	    if (!b.isBoolean()) {
+		raiseIllegalOperatorException(a, "xor", b);
+	    }
+	    return b;
+	}
+	if (b == LValue.NULL) {
+	    if (!a.isBoolean()) {
+		raiseIllegalOperatorException(a, "xor", b);
+	    }
+	    return a;
+	}
+	
+	raiseIllegalOperatorException(a, "xor", b);
+	return LBoolean.FALSE;
+    }    
+    
     
     ////
     
@@ -370,6 +392,12 @@ public class LValue implements Comparable<LValue> {
     // ||, or
     public LValue _or(LValue a, LValue b) {
 	raiseIllegalOperatorException(a, "or", b);
+	return null;
+    }
+
+    // xor
+    public LValue _xor(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "xor", b);
 	return null;
     }
     
