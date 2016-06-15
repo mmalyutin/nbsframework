@@ -145,8 +145,10 @@ expression returns [LNode node]
   
   |  ^('xor' a=expression b=expression)                {node = new XorNode($a.node, $b.node);}
   |  ^('||' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}
+  |  ^('|' a=expression b=expression)                  {node = new BitOrNode($a.node, $b.node);}  
   |  ^('or' a=expression b=expression)                 {node = new OrNode($a.node, $b.node);}  
   |  ^('&&' a=expression b=expression)                 {node = new AndNode($a.node, $b.node);}
+  |  ^('&' a=expression b=expression)                  {node = new BitAndNode($a.node, $b.node);}  
   |  ^('and' a=expression b=expression)                {node = new AndNode($a.node, $b.node);}  
   |  ^('==' a=expression b=expression)                 {node = new EQNode($a.node, $b.node);}
   |  ^('!=' a=expression b=expression)                 {node = new NENode($a.node, $b.node);}
