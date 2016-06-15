@@ -25,11 +25,13 @@ assert('sw' <= 'sw');
 
 // add/sub
 assert(1 + 999 == 1000);
-assert([1] + 1 == [1, 1]);
+assert([1, 2] + [3] == [1, 2, 3]);
+assert([1, 2, 3] + [4, 5] == [1, 2, 3, 4, 5]);
 assert(2 - -2 == 4);
 assert(-1 + 1 == 0);
 assert(1 - 50 == -49);
-assert([1, 2, 3, 4, 5] - 4 == [1, 2, 3, 5]);
+assert([1, 2, 3, 4, 5] - [4] == [1, 2, 3, 5]);
+assert([1, 2, 3, 4, 5] - [4, 1] == [2, 3, 5]);
 
 // mul/div
 assert(3 * 50 == 150);
@@ -166,7 +168,7 @@ def fib(n) {
 
 var sequence = [];
 for (i in 0 .. 10) {
-  sequence = sequence + fib(i);
+  sequence.add(fib(i));
 }
 
 assert(sequence == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
