@@ -24,7 +24,7 @@ package plazma;
 
 import junit.framework.TestCase;
 
-public class TestLibrary extends TestCase {
+public class LibraryTest extends TestCase {
 
     public void testScript() throws Exception {
 	
