@@ -33,12 +33,16 @@ import plazma.parser.PlazmaScriptParser;
 import plazma.parser.PlazmaScriptWalker;
 import junit.framework.TestCase;
 
-public class TestScript extends TestCase {
+public abstract class AbstractScriptTest extends TestCase {
     
-    public void testScript() throws Exception {
+    protected LNode runScript(String fileName) throws Exception {
+	return runScript(fileName, null);
+    }
+    
+    protected LNode runScript(String fileName, Scope globalScope) throws Exception {
 
 	// create an instance of the lexer
-	PlazmaScriptLexer lexer = new PlazmaScriptLexer(new ANTLRFileStream("test.script"));
+	PlazmaScriptLexer lexer = new PlazmaScriptLexer(new ANTLRFileStream(fileName));
 
 	// wrap a token-stream around the lexer
 	CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -50,53 +54,14 @@ public class TestScript extends TestCase {
 	CommonTree tree = (CommonTree) parser.parse().getTree();
 	CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
 
-	Scope globalScope = new Scope();
-	
-	Book book = new Book();
-	book.setAuthor("Author-17");
-	book.setName("Name-18");
-	
-	globalScope.assign("$book", ValueAdapter.fromNativeValue(book));
-	
 	// pass the reference to the Map of functions to the tree walker
 	PlazmaScriptWalker walker = new PlazmaScriptWalker(nodes, parser.functions, null, globalScope);
 
 	// get the returned node
 	LNode returned = walker.walk();
-
-	System.out.println();
-
-	System.out.println(returned == null ? "null" : returned.evaluate());
+	return returned;
 
     }
     
-    public static class Book {
-
-	private String name;
-	private String author;
-	
-	
-	public Book() {
-	    super();
-	}
-
-	public String getName() {
-	    return name;
-	}
-
-	public void setName(String name) {
-	    this.name = name;
-	}
-
-	public String getAuthor() {
-	    return author;
-	}
-
-	public void setAuthor(String author) {
-	    this.author = author;
-	}
-	
-	
-    }
 
 }
