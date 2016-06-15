@@ -190,8 +190,10 @@ condExpr
      )?
   ;
 
+
+
 orExpr
-  :  andExpr (('||' | 'or')^ andExpr)*
+  :  andExpr (('xor' | '||' | 'or')^ andExpr)*
   ;
 
 andExpr
@@ -280,6 +282,7 @@ Null     : 'null';
 Break    : 'break';
 Continue : 'continue';
 
+XorWord  : 'xor';
 Or       : '||';
 OrWord   : 'or';
 And      : '&&';

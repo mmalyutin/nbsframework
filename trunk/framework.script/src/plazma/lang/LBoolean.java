@@ -81,6 +81,24 @@ public class LBoolean extends LValue {
 	return new LBoolean(a.asBoolean() || b.asBoolean());
     }
     
+    // xor
+    public LValue _xor(LValue a, LValue b) {
+	LValue result = nullResult(a, "xor", b);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL || b  == LValue.NULL) {
+	    return xorNullResult(a, b);
+	}
+	
+	if (!a.isBoolean() || !b.isBoolean()) {
+	    return super._xor(a, b);	    
+	}
+	
+	return new LBoolean(a.asBoolean() ^ b.asBoolean());
+    }
+    
     // !, not
     @Override
     public LValue _not(LValue a) {
