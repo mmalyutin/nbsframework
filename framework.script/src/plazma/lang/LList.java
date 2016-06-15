@@ -26,7 +26,9 @@
 package plazma.lang;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 
 
@@ -119,6 +121,67 @@ public class LList extends LValue {
         return new LList(list);
     }
     
+    // &
+    @Override
+    public LValue _bitAnd(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "&", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	// Returns NULL because a=NULL (List) is primary parameter
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
+	    return super._bitAnd(a, b);
+	}
+	
+	// List & List : intersection
+	if (b == LValue.NULL) {
+	    return new LList(a.asList());
+	}
+	
+	List<LValue> list1 = a.asList();
+	List<LValue> list2 = b.asList();
+	List<LValue> list = intersection(list1, list2);
+	
+	return new LList(list);
+    }
+    
+    
+    // |
+    @Override
+    public LValue _bitOr(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "|", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	// Returns NULL because a=NULL (List) is primary parameter
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
+	    return super._bitOr(a, b);
+	}
+	
+	// List | List : union
+	if (b == LValue.NULL) {
+	    return new LList(a.asList());
+	}
+	
+	List<LValue> list1 = a.asList();
+	List<LValue> list2 = b.asList();
+	List<LValue> list = union(list1, list2);
+	
+	return new LList(list);
+    }   
+    
     // *
     @Override
     public LValue _mul(LValue a, LValue b) {
@@ -195,6 +258,29 @@ public class LList extends LValue {
         int idx = getIndexValue(index);
         // TODO: Check index range
         asList().set(idx, value);
+    }    
+    
+    ////
+    
+    protected <T> List<T> union(List<T> list1, List<T> list2) {
+        Set<T> set = new LinkedHashSet<T>();
+
+        set.addAll(list1);
+        set.addAll(list2);
+
+        return new ArrayList<T>(set);
+    }
+    
+    protected <T> List<T> intersection(List<T> list1, List<T> list2) {
+        List<T> list = new ArrayList<T>();
+
+        for (T t : list1) {
+            if (list2.contains(t)) {
+                list.add(t);
+            }
+        }
+
+        return list;
     }    
     
 }
