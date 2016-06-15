@@ -76,19 +76,20 @@ public class LList extends LValue {
 	    return result; 
 	}
 	
-	// Returns NULL because a=NULL (Date) is primary parameter
+	// Returns NULL because a=NULL (List) is primary parameter
 	if (a == LValue.NULL) {
 	    return LValue.NULL;
 	}
 	
-	if (!a.isList()) {
+	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
 	    return super._add(a, b);
 	}
-	List<LValue> list = a.asList();
 	
-	//if (b != LValue.NULL) {
-	    list.add(b);
-	//}
+	// List + List
+	List<LValue> list = a.asList();
+	if (b != LValue.NULL) {
+	    list.addAll(b.asList());
+	}
 	return new LList(list);
     }
     
@@ -101,15 +102,20 @@ public class LList extends LValue {
 	    return result; 
 	}
 	
-	// Returns NULL because a=NULL (Date) is primary parameter
+	// Returns NULL because a=NULL (List) is primary parameter
 	if (a == LValue.NULL) {
 	    return LValue.NULL;
 	}
 	
+	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
+	    return super._sub(a, b);
+	}
+		
+	// List - List
 	List<LValue> list = a.asList();
-	//if (b != LValue.NULL) {
-	    list.remove(b);
-	//}
+	if (b != LValue.NULL) {
+	    list.removeAll(b.asList());
+	}
         return new LList(list);
     }
     
@@ -122,7 +128,7 @@ public class LList extends LValue {
 	    return result; 
 	}
 
-	// Returns NULL because a=NULL (Date) is primary parameter
+	// Returns NULL because a=NULL (List) is primary parameter
 	if (a == LValue.NULL) {
 	    return LValue.NULL;
 	}
