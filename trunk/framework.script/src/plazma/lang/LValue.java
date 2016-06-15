@@ -285,6 +285,15 @@ public class LValue implements Comparable<LValue> {
 	raiseIllegalOperatorException(a, "and", b);
 	return LBoolean.FALSE;
     }
+
+    // &
+    protected LValue bitAndNullResult(LValue a, LValue b) {
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+	raiseIllegalOperatorException(a, "&", b);
+	return LBoolean.FALSE;
+    }
     
     // ||, or values
     protected LValue orNullResult(LValue a, LValue b) {
@@ -307,6 +316,28 @@ public class LValue implements Comparable<LValue> {
 	raiseIllegalOperatorException(a, "or", b);
 	return LBoolean.FALSE;
     }    
+    
+    // |
+    protected LValue bitOrNullResult(LValue a, LValue b) {
+	if (a == LValue.NULL && b == LValue.NULL) {
+	    return LBoolean.FALSE;
+	}
+	if (a == LValue.NULL) {
+	    if (!b.isBoolean()) {
+		raiseIllegalOperatorException(a, "|", b);
+	    }
+	    return b;
+	}
+	if (b == LValue.NULL) {
+	    if (!a.isBoolean()) {
+		raiseIllegalOperatorException(a, "|", b);
+	    }
+	    return a;
+	}
+	
+	raiseIllegalOperatorException(a, "|", b);
+	return LBoolean.FALSE;
+    }        
 
     // xor values
     protected LValue xorNullResult(LValue a, LValue b) {
@@ -389,11 +420,23 @@ public class LValue implements Comparable<LValue> {
 	return null;
     }
 
+    // &
+    public LValue _bitAnd(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "&", b);
+	return null;
+    }
+    
     // ||, or
     public LValue _or(LValue a, LValue b) {
 	raiseIllegalOperatorException(a, "or", b);
 	return null;
     }
+    
+    // |
+    public LValue _bitOr(LValue a, LValue b) {
+	raiseIllegalOperatorException(a, "|", b);
+	return null;
+    }    
 
     // xor
     public LValue _xor(LValue a, LValue b) {
@@ -406,7 +449,7 @@ public class LValue implements Comparable<LValue> {
 	raiseIllegalOperatorException("not", a);
 	return null;
     }
-
+    
     // ?
     public LValue _elvis(LValue exp, LValue a, LValue b) {
 	raiseIllegalOperatorException(exp, "?", a, b);

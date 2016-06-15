@@ -193,11 +193,11 @@ condExpr
 
 
 orExpr
-  :  andExpr (('xor' | '||' | 'or')^ andExpr)*
+  :  andExpr (('xor' | '||' | '|' | 'or')^ andExpr)*
   ;
 
 andExpr
-  :  equExpr (('&&' | 'and')^ equExpr)*
+  :  equExpr (('&&' | '&' | 'and')^ equExpr)*
   ;
 
 equExpr
@@ -284,8 +284,10 @@ Continue : 'continue';
 
 XorWord  : 'xor';
 Or       : '||';
+BitOr    : '|';
 OrWord   : 'or';
 And      : '&&';
+BitAnd   : '&';
 AndWord  : 'and';
 Equals   : '==';
 NEquals  : '!=';

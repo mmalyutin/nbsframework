@@ -61,6 +61,26 @@ public class LBoolean extends LValue {
 	
 	return new LBoolean(a.asBoolean() && b.asBoolean());
     }
+    
+    // &
+    @Override
+    public LValue _bitAnd(LValue a, LValue b) {
+	LValue result = nullResult(a, "&", b);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL || b  == LValue.NULL) {
+	    return bitAndNullResult(a, b);
+	}
+	
+	if (!a.isBoolean() || !b.isBoolean()) {
+	    return super._bitAnd(a, b);	    
+	}
+	
+	return new LBoolean(a.asBoolean() & b.asBoolean());
+    }
+    
 
     // ||, or
     @Override
@@ -80,6 +100,26 @@ public class LBoolean extends LValue {
 	
 	return new LBoolean(a.asBoolean() || b.asBoolean());
     }
+    
+    // |
+    @Override
+    public LValue _bitOr(LValue a, LValue b) {
+	LValue result = nullResult(a, "|", b);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL || b  == LValue.NULL) {
+	    return bitOrNullResult(a, b);
+	}
+	
+	if (!a.isBoolean() || !b.isBoolean()) {
+	    return super._bitOr(a, b);	    
+	}
+	
+	return new LBoolean(a.asBoolean() | b.asBoolean());
+    }
+    
     
     // xor
     public LValue _xor(LValue a, LValue b) {

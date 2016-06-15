@@ -542,6 +542,9 @@ println("10 > 1 or 20 > 2 = "  + (10 > 1 or 20 > 2));
 println("10 > 1 xor 20 > 2 = "  + (10 > 1 xor 20 > 2));
 println("10 > 1 xor 2 > 20 = "  + (10 > 1 xor 2 > 20));
 println("1 > 10 xor 2 > 20 = "  + (1 > 10 xor 2 > 20));
+println("1 > 10 | 2 > 20 = "  + (1 > 10 | 2 > 20));
+println("10 > 1 | 2 > 20 = "  + (10 > 1 | 2 > 20));
+println("10 > 1 & 2 > 20 = "  + (10 > 1 & 2 > 20));
 
 println();
 println("!null = "  + (!null));
