@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="plazma-framework-script" default="run">
+<project name="plazma-framework-script" default="generate">
 
   <path id="classpath">
     <pathelement location="classes/" />
@@ -40,6 +40,7 @@
     <antcall target="compile" />
   </target>
 
+ <!--	
   <target name="run" depends="generate" description="Executes the main class.">
     <echo>Running the main class...</echo>
     <java classname="plazma.Main">
@@ -53,5 +54,6 @@
       <classpath refid="classpath" />
     </java>
   </target>
+  -->
   
 </project>

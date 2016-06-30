@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,62 +20,20 @@
  * ohapon@users.sourceforge.net
  */
 
-package plazma;
+package plazma.operators;
 
+import plazma.AbstractScriptTest;
 import plazma.ast.LNode;
 
-/**
- * General script test.
- * 
- * @author ohapon
- *
- */
-public class ScriptTest extends AbstractScriptTest {
+public class ArithmeticOperatorsTest extends AbstractScriptTest {
     
     public void testScript() throws Exception {
 
-	Scope globalScope = new Scope();
-	
-	Book book = new Book();
-	book.setAuthor("Author-17");
-	book.setName("Name-18");
-	
-	globalScope.assign("$book", ValueAdapter.fromNativeValue(book));
-	
-	LNode returned = runScript("test.script", globalScope);
+	LNode returned = runScript("operators/arithmetic-operators-test.script", null);
 
 	System.out.println();
 	System.out.println(returned == null ? "null" : returned.evaluate());
 
-    }
-    
-    public static class Book {
-
-	private String name;
-	private String author;
-	
-	
-	public Book() {
-	    super();
-	}
-
-	public String getName() {
-	    return name;
-	}
-
-	public void setName(String name) {
-	    this.name = name;
-	}
-
-	public String getAuthor() {
-	    return author;
-	}
-
-	public void setAuthor(String author) {
-	    this.author = author;
-	}
-	
-	
     }
 
 }
