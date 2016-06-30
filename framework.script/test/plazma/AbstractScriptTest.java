@@ -22,7 +22,10 @@
 
 package plazma;
 
+import java.io.InputStream;
+
 import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
@@ -33,7 +36,17 @@ import plazma.parser.PlazmaScriptParser;
 import plazma.parser.PlazmaScriptWalker;
 import junit.framework.TestCase;
 
+/**
+ * Base abstract script test. 
+ * Use to load and run the script from the file.
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class AbstractScriptTest extends TestCase {
+    
+    public static final String SCRIPTS_DIR = "scripts";
+    
     
     protected LNode runScript(String fileName) throws Exception {
 	return runScript(fileName, null);
@@ -42,7 +55,8 @@ public abstract class AbstractScriptTest extends TestCase {
     protected LNode runScript(String fileName, Scope globalScope) throws Exception {
 
 	// create an instance of the lexer
-	PlazmaScriptLexer lexer = new PlazmaScriptLexer(new ANTLRFileStream(fileName));
+	//PlazmaScriptLexer lexer = new PlazmaScriptLexer(new ANTLRFileStream(fileName));
+	PlazmaScriptLexer lexer = new PlazmaScriptLexer(new ANTLRInputStream(getInputStream(fileName)));
 
 	// wrap a token-stream around the lexer
 	CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -61,6 +75,10 @@ public abstract class AbstractScriptTest extends TestCase {
 	LNode returned = walker.walk();
 	return returned;
 
+    }
+    
+    protected InputStream getInputStream(String fileName) {
+	return getClass().getResourceAsStream("/" + SCRIPTS_DIR + "/" + fileName);
     }
     
 
