@@ -565,3 +565,5 @@ println("(not (10 > 5)) = " + (not (10 > 5)));
 println(5 + "-abc-" + Date(2000, 10, 5));
 println(null + "abc");
 println("abc" + null);
+
+//println("IntDiv: " + (7 \ 5));

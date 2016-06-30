@@ -160,6 +160,7 @@ expression returns [LNode node]
   |  ^('-' a=expression b=expression)                  {node = new SubNode($a.node, $b.node);}
   |  ^('*' a=expression b=expression)                  {node = new MulNode($a.node, $b.node);}
   |  ^('/' a=expression b=expression)                  {node = new DivNode($a.node, $b.node);}
+  //|  ^('\\' a=expression b=expression)                  {node = new DivNode($a.node, $b.node);}  
   |  ^('%' a=expression b=expression)                  {node = new ModNode($a.node, $b.node);}
   |  ^('^' a=expression b=expression)                  {node = new PowNode($a.node, $b.node);}
   |  ^(UNARY_MIN a=expression)                         {node = new UnaryMinusNode($a.node);}

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-06-15 18:34:41
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-06-17 18:39:31
 
   package plazma.parser;
   import plazma.*;
@@ -1989,17 +1989,17 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 22 :
-                    // grammar/PlazmaScriptWalker.g:163:6: ^( '%' a= expression b= expression )
+                    // grammar/PlazmaScriptWalker.g:164:6: ^( '%' a= expression b= expression )
                     {
-                    match(input,Modulus,FOLLOW_Modulus_in_expression1506); 
+                    match(input,Modulus,FOLLOW_Modulus_in_expression1509); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_expression1510);
+                    pushFollow(FOLLOW_expression_in_expression1513);
                     a=expression();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_expression_in_expression1514);
+                    pushFollow(FOLLOW_expression_in_expression1517);
                     b=expression();
 
                     state._fsp--;
@@ -2011,17 +2011,17 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 23 :
-                    // grammar/PlazmaScriptWalker.g:164:6: ^( '^' a= expression b= expression )
+                    // grammar/PlazmaScriptWalker.g:165:6: ^( '^' a= expression b= expression )
                     {
-                    match(input,Pow,FOLLOW_Pow_in_expression1542); 
+                    match(input,Pow,FOLLOW_Pow_in_expression1545); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_expression1546);
+                    pushFollow(FOLLOW_expression_in_expression1549);
                     a=expression();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_expression_in_expression1550);
+                    pushFollow(FOLLOW_expression_in_expression1553);
                     b=expression();
 
                     state._fsp--;
@@ -2033,12 +2033,12 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 24 :
-                    // grammar/PlazmaScriptWalker.g:165:6: ^( UNARY_MIN a= expression )
+                    // grammar/PlazmaScriptWalker.g:166:6: ^( UNARY_MIN a= expression )
                     {
-                    match(input,UNARY_MIN,FOLLOW_UNARY_MIN_in_expression1578); 
+                    match(input,UNARY_MIN,FOLLOW_UNARY_MIN_in_expression1581); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_expression1582);
+                    pushFollow(FOLLOW_expression_in_expression1585);
                     a=expression();
 
                     state._fsp--;
@@ -2050,12 +2050,12 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 25 :
-                    // grammar/PlazmaScriptWalker.g:166:6: ^( NEGATE a= expression )
+                    // grammar/PlazmaScriptWalker.g:167:6: ^( NEGATE a= expression )
                     {
-                    match(input,NEGATE,FOLLOW_NEGATE_in_expression1617); 
+                    match(input,NEGATE,FOLLOW_NEGATE_in_expression1620); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_expression1621);
+                    pushFollow(FOLLOW_expression_in_expression1624);
                     a=expression();
 
                     state._fsp--;
@@ -2067,41 +2067,41 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 26 :
-                    // grammar/PlazmaScriptWalker.g:168:6: Integer
+                    // grammar/PlazmaScriptWalker.g:169:6: Integer
                     {
-                    Integer32=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression1660); 
+                    Integer32=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression1663); 
                     node = new IntegerNode((Integer32!=null?Integer32.getText():null));
 
                     }
                     break;
                 case 27 :
-                    // grammar/PlazmaScriptWalker.g:169:6: Number
+                    // grammar/PlazmaScriptWalker.g:170:6: Number
                     {
-                    Number33=(CommonTree)match(input,Number,FOLLOW_Number_in_expression1736); 
+                    Number33=(CommonTree)match(input,Number,FOLLOW_Number_in_expression1739); 
                     node = new NumberNode((Number33!=null?Number33.getText():null));
 
                     }
                     break;
                 case 28 :
-                    // grammar/PlazmaScriptWalker.g:170:6: Bool
+                    // grammar/PlazmaScriptWalker.g:171:6: Bool
                     {
-                    Bool34=(CommonTree)match(input,Bool,FOLLOW_Bool_in_expression1814); 
+                    Bool34=(CommonTree)match(input,Bool,FOLLOW_Bool_in_expression1817); 
                     node = new BooleanNode((Bool34!=null?Bool34.getText():null));
 
                     }
                     break;
                 case 29 :
-                    // grammar/PlazmaScriptWalker.g:172:6: Null
+                    // grammar/PlazmaScriptWalker.g:173:6: Null
                     {
-                    match(input,Null,FOLLOW_Null_in_expression1898); 
+                    match(input,Null,FOLLOW_Null_in_expression1901); 
                     node = new NullNode();
 
                     }
                     break;
                 case 30 :
-                    // grammar/PlazmaScriptWalker.g:173:6: lookup
+                    // grammar/PlazmaScriptWalker.g:174:6: lookup
                     {
-                    pushFollow(FOLLOW_lookup_in_expression1952);
+                    pushFollow(FOLLOW_lookup_in_expression1955);
                     lookup35=lookup();
 
                     state._fsp--;
@@ -2125,7 +2125,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "list"
-    // grammar/PlazmaScriptWalker.g:176:1: list returns [LNode node] : ^( LIST ( exprList )? ) ;
+    // grammar/PlazmaScriptWalker.g:177:1: list returns [LNode node] : ^( LIST ( exprList )? ) ;
     public final LNode list() throws RecognitionException {
         LNode node = null;
 
@@ -2133,14 +2133,14 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
         try {
-            // grammar/PlazmaScriptWalker.g:177:3: ( ^( LIST ( exprList )? ) )
-            // grammar/PlazmaScriptWalker.g:177:6: ^( LIST ( exprList )? )
+            // grammar/PlazmaScriptWalker.g:178:3: ( ^( LIST ( exprList )? ) )
+            // grammar/PlazmaScriptWalker.g:178:6: ^( LIST ( exprList )? )
             {
-            match(input,LIST,FOLLOW_LIST_in_list2016); 
+            match(input,LIST,FOLLOW_LIST_in_list2019); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // grammar/PlazmaScriptWalker.g:177:13: ( exprList )?
+                // grammar/PlazmaScriptWalker.g:178:13: ( exprList )?
                 int alt16=2;
                 int LA16_0 = input.LA(1);
 
@@ -2149,9 +2149,9 @@ public class PlazmaScriptWalker extends TreeParser {
                 }
                 switch (alt16) {
                     case 1 :
-                        // grammar/PlazmaScriptWalker.g:177:13: exprList
+                        // grammar/PlazmaScriptWalker.g:178:13: exprList
                         {
-                        pushFollow(FOLLOW_exprList_in_list2018);
+                        pushFollow(FOLLOW_exprList_in_list2021);
                         exprList36=exprList();
 
                         state._fsp--;
@@ -2182,7 +2182,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "map"
-    // grammar/PlazmaScriptWalker.g:180:1: map returns [LNode node] : ^( MAP ( exprMap )? ) ;
+    // grammar/PlazmaScriptWalker.g:181:1: map returns [LNode node] : ^( MAP ( exprMap )? ) ;
     public final LNode map() throws RecognitionException {
         LNode node = null;
 
@@ -2190,14 +2190,14 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
         try {
-            // grammar/PlazmaScriptWalker.g:181:3: ( ^( MAP ( exprMap )? ) )
-            // grammar/PlazmaScriptWalker.g:181:6: ^( MAP ( exprMap )? )
+            // grammar/PlazmaScriptWalker.g:182:3: ( ^( MAP ( exprMap )? ) )
+            // grammar/PlazmaScriptWalker.g:182:6: ^( MAP ( exprMap )? )
             {
-            match(input,MAP,FOLLOW_MAP_in_map2041); 
+            match(input,MAP,FOLLOW_MAP_in_map2044); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // grammar/PlazmaScriptWalker.g:181:12: ( exprMap )?
+                // grammar/PlazmaScriptWalker.g:182:12: ( exprMap )?
                 int alt17=2;
                 int LA17_0 = input.LA(1);
 
@@ -2206,9 +2206,9 @@ public class PlazmaScriptWalker extends TreeParser {
                 }
                 switch (alt17) {
                     case 1 :
-                        // grammar/PlazmaScriptWalker.g:181:12: exprMap
+                        // grammar/PlazmaScriptWalker.g:182:12: exprMap
                         {
-                        pushFollow(FOLLOW_exprMap_in_map2043);
+                        pushFollow(FOLLOW_exprMap_in_map2046);
                         exprMap37=exprMap();
 
                         state._fsp--;
@@ -2239,7 +2239,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "lookup"
-    // grammar/PlazmaScriptWalker.g:184:1: lookup returns [LNode node] : ( ^( LOOKUP functionCall (i= indexes )? ) | ^( LOOKUP list (i= indexes )? ) | ^( LOOKUP map (i= indexes )? ) | ^( LOOKUP expression (i= indexes )? ) | ^( LOOKUP Identifier (i= indexes )? ) | ^( LOOKUP String (i= indexes )? ) );
+    // grammar/PlazmaScriptWalker.g:185:1: lookup returns [LNode node] : ( ^( LOOKUP functionCall (i= indexes )? ) | ^( LOOKUP list (i= indexes )? ) | ^( LOOKUP map (i= indexes )? ) | ^( LOOKUP expression (i= indexes )? ) | ^( LOOKUP Identifier (i= indexes )? ) | ^( LOOKUP String (i= indexes )? ) );
     public final LNode lookup() throws RecognitionException {
         LNode node = null;
 
@@ -2257,7 +2257,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
         try {
-            // grammar/PlazmaScriptWalker.g:185:3: ( ^( LOOKUP functionCall (i= indexes )? ) | ^( LOOKUP list (i= indexes )? ) | ^( LOOKUP map (i= indexes )? ) | ^( LOOKUP expression (i= indexes )? ) | ^( LOOKUP Identifier (i= indexes )? ) | ^( LOOKUP String (i= indexes )? ) )
+            // grammar/PlazmaScriptWalker.g:186:3: ( ^( LOOKUP functionCall (i= indexes )? ) | ^( LOOKUP list (i= indexes )? ) | ^( LOOKUP map (i= indexes )? ) | ^( LOOKUP expression (i= indexes )? ) | ^( LOOKUP Identifier (i= indexes )? ) | ^( LOOKUP String (i= indexes )? ) )
             int alt24=6;
             int LA24_0 = input.LA(1);
 
@@ -2348,17 +2348,17 @@ public class PlazmaScriptWalker extends TreeParser {
             }
             switch (alt24) {
                 case 1 :
-                    // grammar/PlazmaScriptWalker.g:185:6: ^( LOOKUP functionCall (i= indexes )? )
+                    // grammar/PlazmaScriptWalker.g:186:6: ^( LOOKUP functionCall (i= indexes )? )
                     {
-                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2066); 
+                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2069); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_functionCall_in_lookup2068);
+                    pushFollow(FOLLOW_functionCall_in_lookup2071);
                     functionCall38=functionCall();
 
                     state._fsp--;
 
-                    // grammar/PlazmaScriptWalker.g:185:29: (i= indexes )?
+                    // grammar/PlazmaScriptWalker.g:186:29: (i= indexes )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -2367,9 +2367,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt18) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:185:29: i= indexes
+                            // grammar/PlazmaScriptWalker.g:186:29: i= indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup2072);
+                            pushFollow(FOLLOW_indexes_in_lookup2075);
                             i=indexes();
 
                             state._fsp--;
@@ -2387,17 +2387,17 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScriptWalker.g:186:6: ^( LOOKUP list (i= indexes )? )
+                    // grammar/PlazmaScriptWalker.g:187:6: ^( LOOKUP list (i= indexes )? )
                     {
-                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2084); 
+                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2087); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_list_in_lookup2086);
+                    pushFollow(FOLLOW_list_in_lookup2089);
                     list39=list();
 
                     state._fsp--;
 
-                    // grammar/PlazmaScriptWalker.g:186:21: (i= indexes )?
+                    // grammar/PlazmaScriptWalker.g:187:21: (i= indexes )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2406,9 +2406,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt19) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:186:21: i= indexes
+                            // grammar/PlazmaScriptWalker.g:187:21: i= indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup2090);
+                            pushFollow(FOLLOW_indexes_in_lookup2093);
                             i=indexes();
 
                             state._fsp--;
@@ -2426,17 +2426,17 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScriptWalker.g:187:6: ^( LOOKUP map (i= indexes )? )
+                    // grammar/PlazmaScriptWalker.g:188:6: ^( LOOKUP map (i= indexes )? )
                     {
-                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2110); 
+                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2113); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_map_in_lookup2112);
+                    pushFollow(FOLLOW_map_in_lookup2115);
                     map40=map();
 
                     state._fsp--;
 
-                    // grammar/PlazmaScriptWalker.g:187:20: (i= indexes )?
+                    // grammar/PlazmaScriptWalker.g:188:20: (i= indexes )?
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
@@ -2445,9 +2445,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt20) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:187:20: i= indexes
+                            // grammar/PlazmaScriptWalker.g:188:20: i= indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup2116);
+                            pushFollow(FOLLOW_indexes_in_lookup2119);
                             i=indexes();
 
                             state._fsp--;
@@ -2465,17 +2465,17 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // grammar/PlazmaScriptWalker.g:188:6: ^( LOOKUP expression (i= indexes )? )
+                    // grammar/PlazmaScriptWalker.g:189:6: ^( LOOKUP expression (i= indexes )? )
                     {
-                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2139); 
+                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2142); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_lookup2141);
+                    pushFollow(FOLLOW_expression_in_lookup2144);
                     expression41=expression();
 
                     state._fsp--;
 
-                    // grammar/PlazmaScriptWalker.g:188:27: (i= indexes )?
+                    // grammar/PlazmaScriptWalker.g:189:27: (i= indexes )?
                     int alt21=2;
                     int LA21_0 = input.LA(1);
 
@@ -2484,9 +2484,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt21) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:188:27: i= indexes
+                            // grammar/PlazmaScriptWalker.g:189:27: i= indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup2145);
+                            pushFollow(FOLLOW_indexes_in_lookup2148);
                             i=indexes();
 
                             state._fsp--;
@@ -2504,13 +2504,13 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // grammar/PlazmaScriptWalker.g:189:6: ^( LOOKUP Identifier (i= indexes )? )
+                    // grammar/PlazmaScriptWalker.g:190:6: ^( LOOKUP Identifier (i= indexes )? )
                     {
-                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2159); 
+                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2162); 
 
                     match(input, Token.DOWN, null); 
-                    Identifier42=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_lookup2161); 
-                    // grammar/PlazmaScriptWalker.g:189:27: (i= indexes )?
+                    Identifier42=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_lookup2164); 
+                    // grammar/PlazmaScriptWalker.g:190:27: (i= indexes )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2519,9 +2519,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt22) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:189:27: i= indexes
+                            // grammar/PlazmaScriptWalker.g:190:27: i= indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup2165);
+                            pushFollow(FOLLOW_indexes_in_lookup2168);
                             i=indexes();
 
                             state._fsp--;
@@ -2539,13 +2539,13 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // grammar/PlazmaScriptWalker.g:190:6: ^( LOOKUP String (i= indexes )? )
+                    // grammar/PlazmaScriptWalker.g:191:6: ^( LOOKUP String (i= indexes )? )
                     {
-                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2179); 
+                    match(input,LOOKUP,FOLLOW_LOOKUP_in_lookup2182); 
 
                     match(input, Token.DOWN, null); 
-                    String43=(CommonTree)match(input,String,FOLLOW_String_in_lookup2181); 
-                    // grammar/PlazmaScriptWalker.g:190:23: (i= indexes )?
+                    String43=(CommonTree)match(input,String,FOLLOW_String_in_lookup2184); 
+                    // grammar/PlazmaScriptWalker.g:191:23: (i= indexes )?
                     int alt23=2;
                     int LA23_0 = input.LA(1);
 
@@ -2554,9 +2554,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt23) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:190:23: i= indexes
+                            // grammar/PlazmaScriptWalker.g:191:23: i= indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup2185);
+                            pushFollow(FOLLOW_indexes_in_lookup2188);
                             i=indexes();
 
                             state._fsp--;
@@ -2588,7 +2588,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "indexes"
-    // grammar/PlazmaScriptWalker.g:193:1: indexes returns [java.util.List<LNode> e] : ^( TAILS ( tail )+ ) ;
+    // grammar/PlazmaScriptWalker.g:194:1: indexes returns [java.util.List<LNode> e] : ^( TAILS ( tail )+ ) ;
     public final java.util.List<LNode> indexes() throws RecognitionException {
         java.util.List<LNode> e = null;
 
@@ -2597,13 +2597,13 @@ public class PlazmaScriptWalker extends TreeParser {
 
         e = new java.util.ArrayList<LNode>();
         try {
-            // grammar/PlazmaScriptWalker.g:196:3: ( ^( TAILS ( tail )+ ) )
-            // grammar/PlazmaScriptWalker.g:196:8: ^( TAILS ( tail )+ )
+            // grammar/PlazmaScriptWalker.g:197:3: ( ^( TAILS ( tail )+ ) )
+            // grammar/PlazmaScriptWalker.g:197:8: ^( TAILS ( tail )+ )
             {
-            match(input,TAILS,FOLLOW_TAILS_in_indexes2224); 
+            match(input,TAILS,FOLLOW_TAILS_in_indexes2227); 
 
             match(input, Token.DOWN, null); 
-            // grammar/PlazmaScriptWalker.g:196:18: ( tail )+
+            // grammar/PlazmaScriptWalker.g:197:18: ( tail )+
             int cnt25=0;
             loop25:
             do {
@@ -2617,9 +2617,9 @@ public class PlazmaScriptWalker extends TreeParser {
 
                 switch (alt25) {
             	case 1 :
-            	    // grammar/PlazmaScriptWalker.g:196:19: tail
+            	    // grammar/PlazmaScriptWalker.g:197:19: tail
             	    {
-            	    pushFollow(FOLLOW_tail_in_indexes2229);
+            	    pushFollow(FOLLOW_tail_in_indexes2232);
             	    tail44=tail();
 
             	    state._fsp--;
@@ -2656,7 +2656,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "tail"
-    // grammar/PlazmaScriptWalker.g:200:1: tail returns [LNode node] : ( ^( INDEX expression ) | ^( ATTRIBUTE Identifier ) | ^( CALL Identifier ( exprList )? ) );
+    // grammar/PlazmaScriptWalker.g:201:1: tail returns [LNode node] : ( ^( INDEX expression ) | ^( ATTRIBUTE Identifier ) | ^( CALL Identifier ( exprList )? ) );
     public final LNode tail() throws RecognitionException {
         LNode node = null;
 
@@ -2668,7 +2668,7 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
         try {
-            // grammar/PlazmaScriptWalker.g:201:2: ( ^( INDEX expression ) | ^( ATTRIBUTE Identifier ) | ^( CALL Identifier ( exprList )? ) )
+            // grammar/PlazmaScriptWalker.g:202:2: ( ^( INDEX expression ) | ^( ATTRIBUTE Identifier ) | ^( CALL Identifier ( exprList )? ) )
             int alt27=3;
             switch ( input.LA(1) ) {
             case INDEX:
@@ -2695,12 +2695,12 @@ public class PlazmaScriptWalker extends TreeParser {
 
             switch (alt27) {
                 case 1 :
-                    // grammar/PlazmaScriptWalker.g:201:4: ^( INDEX expression )
+                    // grammar/PlazmaScriptWalker.g:202:4: ^( INDEX expression )
                     {
-                    match(input,INDEX,FOLLOW_INDEX_in_tail2254); 
+                    match(input,INDEX,FOLLOW_INDEX_in_tail2257); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_tail2256);
+                    pushFollow(FOLLOW_expression_in_tail2259);
                     expression45=expression();
 
                     state._fsp--;
@@ -2712,12 +2712,12 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScriptWalker.g:202:4: ^( ATTRIBUTE Identifier )
+                    // grammar/PlazmaScriptWalker.g:203:4: ^( ATTRIBUTE Identifier )
                     {
-                    match(input,ATTRIBUTE,FOLLOW_ATTRIBUTE_in_tail2275); 
+                    match(input,ATTRIBUTE,FOLLOW_ATTRIBUTE_in_tail2278); 
 
                     match(input, Token.DOWN, null); 
-                    Identifier46=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_tail2277); 
+                    Identifier46=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_tail2280); 
 
                     match(input, Token.UP, null); 
                     node = new StringNode((Identifier46!=null?Identifier46.getText():null));
@@ -2725,13 +2725,13 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScriptWalker.g:203:4: ^( CALL Identifier ( exprList )? )
+                    // grammar/PlazmaScriptWalker.g:204:4: ^( CALL Identifier ( exprList )? )
                     {
-                    match(input,CALL,FOLLOW_CALL_in_tail2292); 
+                    match(input,CALL,FOLLOW_CALL_in_tail2295); 
 
                     match(input, Token.DOWN, null); 
-                    Identifier47=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_tail2294); 
-                    // grammar/PlazmaScriptWalker.g:203:22: ( exprList )?
+                    Identifier47=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_tail2297); 
+                    // grammar/PlazmaScriptWalker.g:204:22: ( exprList )?
                     int alt26=2;
                     int LA26_0 = input.LA(1);
 
@@ -2740,9 +2740,9 @@ public class PlazmaScriptWalker extends TreeParser {
                     }
                     switch (alt26) {
                         case 1 :
-                            // grammar/PlazmaScriptWalker.g:203:22: exprList
+                            // grammar/PlazmaScriptWalker.g:204:22: exprList
                             {
-                            pushFollow(FOLLOW_exprList_in_tail2296);
+                            pushFollow(FOLLOW_exprList_in_tail2299);
                             exprList48=exprList();
 
                             state._fsp--;
@@ -2774,17 +2774,17 @@ public class PlazmaScriptWalker extends TreeParser {
 
 
     // $ANTLR start "variableDef"
-    // grammar/PlazmaScriptWalker.g:206:1: variableDef returns [LNode node] : Var ;
+    // grammar/PlazmaScriptWalker.g:207:1: variableDef returns [LNode node] : Var ;
     public final LNode variableDef() throws RecognitionException {
         LNode node = null;
 
         CommonTree Var49=null;
 
         try {
-            // grammar/PlazmaScriptWalker.g:207:3: ( Var )
-            // grammar/PlazmaScriptWalker.g:207:5: Var
+            // grammar/PlazmaScriptWalker.g:208:3: ( Var )
+            // grammar/PlazmaScriptWalker.g:208:5: Var
             {
-            Var49=(CommonTree)match(input,Var,FOLLOW_Var_in_variableDef2320); 
+            Var49=(CommonTree)match(input,Var,FOLLOW_Var_in_variableDef2323); 
             node = new VariableDefNode((Var49!=null?Var49.getText():null), null);
 
             }
@@ -2931,52 +2931,52 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final BitSet FOLLOW_Divide_in_expression1470 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_expression_in_expression1474 = new BitSet(new long[]{0xFFF7F00009038000L,0x00000000000001FCL});
     public static final BitSet FOLLOW_expression_in_expression1478 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Modulus_in_expression1506 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression1510 = new BitSet(new long[]{0xFFF7F00009038000L,0x00000000000001FCL});
-    public static final BitSet FOLLOW_expression_in_expression1514 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Pow_in_expression1542 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression1546 = new BitSet(new long[]{0xFFF7F00009038000L,0x00000000000001FCL});
-    public static final BitSet FOLLOW_expression_in_expression1550 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_UNARY_MIN_in_expression1578 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression1582 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NEGATE_in_expression1617 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression1621 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Integer_in_expression1660 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Number_in_expression1736 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Bool_in_expression1814 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Null_in_expression1898 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_expression1952 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LIST_in_list2016 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_exprList_in_list2018 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_MAP_in_map2041 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_exprMap_in_map2043 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_LOOKUP_in_lookup2066 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_functionCall_in_lookup2068 = new BitSet(new long[]{0x0000000001000008L});
-    public static final BitSet FOLLOW_indexes_in_lookup2072 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_LOOKUP_in_lookup2084 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_list_in_lookup2086 = new BitSet(new long[]{0x0000000001000008L});
-    public static final BitSet FOLLOW_indexes_in_lookup2090 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_LOOKUP_in_lookup2110 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_map_in_lookup2112 = new BitSet(new long[]{0x0000000001000008L});
-    public static final BitSet FOLLOW_indexes_in_lookup2116 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_LOOKUP_in_lookup2139 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_lookup2141 = new BitSet(new long[]{0x0000000001000008L});
-    public static final BitSet FOLLOW_indexes_in_lookup2145 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_LOOKUP_in_lookup2159 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_lookup2161 = new BitSet(new long[]{0x0000000001000008L});
-    public static final BitSet FOLLOW_indexes_in_lookup2165 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_LOOKUP_in_lookup2179 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_String_in_lookup2181 = new BitSet(new long[]{0x0000000001000008L});
-    public static final BitSet FOLLOW_indexes_in_lookup2185 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_TAILS_in_indexes2224 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_tail_in_indexes2229 = new BitSet(new long[]{0x0000000000700008L});
-    public static final BitSet FOLLOW_INDEX_in_tail2254 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_tail2256 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ATTRIBUTE_in_tail2275 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_tail2277 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_CALL_in_tail2292 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_tail2294 = new BitSet(new long[]{0x0000000000001008L});
-    public static final BitSet FOLLOW_exprList_in_tail2296 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Var_in_variableDef2320 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Modulus_in_expression1509 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression1513 = new BitSet(new long[]{0xFFF7F00009038000L,0x00000000000001FCL});
+    public static final BitSet FOLLOW_expression_in_expression1517 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_Pow_in_expression1545 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression1549 = new BitSet(new long[]{0xFFF7F00009038000L,0x00000000000001FCL});
+    public static final BitSet FOLLOW_expression_in_expression1553 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_UNARY_MIN_in_expression1581 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression1585 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NEGATE_in_expression1620 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression1624 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_Integer_in_expression1663 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Number_in_expression1739 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Bool_in_expression1817 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Null_in_expression1901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_lookup_in_expression1955 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LIST_in_list2019 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_exprList_in_list2021 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_MAP_in_map2044 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_exprMap_in_map2046 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_LOOKUP_in_lookup2069 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_functionCall_in_lookup2071 = new BitSet(new long[]{0x0000000001000008L});
+    public static final BitSet FOLLOW_indexes_in_lookup2075 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_LOOKUP_in_lookup2087 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_list_in_lookup2089 = new BitSet(new long[]{0x0000000001000008L});
+    public static final BitSet FOLLOW_indexes_in_lookup2093 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_LOOKUP_in_lookup2113 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_map_in_lookup2115 = new BitSet(new long[]{0x0000000001000008L});
+    public static final BitSet FOLLOW_indexes_in_lookup2119 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_LOOKUP_in_lookup2142 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_lookup2144 = new BitSet(new long[]{0x0000000001000008L});
+    public static final BitSet FOLLOW_indexes_in_lookup2148 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_LOOKUP_in_lookup2162 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_lookup2164 = new BitSet(new long[]{0x0000000001000008L});
+    public static final BitSet FOLLOW_indexes_in_lookup2168 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_LOOKUP_in_lookup2182 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_String_in_lookup2184 = new BitSet(new long[]{0x0000000001000008L});
+    public static final BitSet FOLLOW_indexes_in_lookup2188 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_TAILS_in_indexes2227 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_tail_in_indexes2232 = new BitSet(new long[]{0x0000000000700008L});
+    public static final BitSet FOLLOW_INDEX_in_tail2257 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_tail2259 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ATTRIBUTE_in_tail2278 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_tail2280 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_CALL_in_tail2295 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_tail2297 = new BitSet(new long[]{0x0000000000001008L});
+    public static final BitSet FOLLOW_exprList_in_tail2299 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_Var_in_variableDef2323 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -180,21 +180,24 @@ expression
   ;
 
 condExpr
-  :  (orExpr -> orExpr) 
-     ( '?' a=expression ':' b=expression -> ^(TERNARY orExpr $a $b)
-     | In expression                     -> ^(In orExpr expression)
+  :  (startExpr -> startExpr) 
+     ( '?' a=expression ':' b=expression -> ^(TERNARY startExpr $a $b)
+     | In expression                     -> ^(In startExpr expression)
      
-     | RangeE expression                 -> ^(RangeE orExpr expression)
-     | Range expression                  -> ^(Range orExpr expression)
+     | RangeE expression                 -> ^(RangeE startExpr expression)
+     | Range expression                  -> ^(Range startExpr expression)
                
      )?
   ;
 
-
+startExpr
+ : orExpr
+ ;
 
 orExpr
   :  andExpr (('xor' | '||' | '|' | 'or')^ andExpr)*
   ;
+
 
 andExpr
   :  equExpr (('&&' | '&' | 'and')^ equExpr)*
@@ -302,6 +305,7 @@ Add      : '+';
 Subtract : '-';
 Multiply : '*';
 Divide   : '/';
+//IntDivide: '\\';
 Modulus  : '%';
 OBrace   : '{';
 CBrace   : '}';
