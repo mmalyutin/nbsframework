@@ -2,6 +2,8 @@
 // equal
 assert(1 == 1);
 assert(1.2 == 1.2);
+assert(-5 == -5);
+assert(-5.2 == -5.2);
 assert("abc" == "abc");
 assert(true == true);
 assert(false == false);
@@ -13,6 +15,8 @@ assert({"name": "Alex", "amount": 5000.00, "paid": true} == {"name": "Alex", "am
 // not equal
 assert(1 != 2);
 assert(1.2 != 1.3);
+assert(-5 != -6);
+assert(-7.2 != -7.3);
 assert("abc1" != "abc2");
 assert(true != false);
 assert(Date(2001, 12, 31) != Date(2002, 12, 31));
@@ -22,6 +26,8 @@ assert({"name": "Alex1", "amount": 5000.00, "paid": true} != {"name": "Alex2", "
 // <
 assert(1 < 2);
 assert(1.2 < 1.3);
+assert(-8 < -2);
+assert(-3.14 < -1.6);
 assert("a" < "s");
 assert("ab" < "cd");
 assert(Date(2001, 12, 31) < Date(2002, 12, 31));
@@ -29,12 +35,16 @@ assert(Date(2001, 12, 31) < Date(2002, 12, 31));
 // <=
 assert(1 <= 2);
 assert(1.2 <= 1.3);
+assert(-8 <= -2);
+assert(-3.14 <= -1.6);
 assert("a" <= "s");
 assert("ab" <= "cd");
 assert(Date(2001, 12, 31) <= Date(2002, 12, 31));
 
 assert(1 <= 1);
 assert(1.2 <= 1.2);
+assert(-8 <= -8);
+assert(-3.14 <= -3.14);
 assert("a" <= "a");
 assert("ab" <= "ab");
 assert(Date(2001, 12, 31) <= Date(2001, 12, 31));
@@ -42,19 +52,26 @@ assert(Date(2001, 12, 31) <= Date(2001, 12, 31));
 // >
 assert(2 > 1);
 assert(1.3 > 1.2);
+assert(-2 > -8);
+assert(-1.6 > -3.14);
 assert("s" > "a");
 assert("cd" > "ab");
 assert(Date(2002, 12, 31) > Date(2001, 12, 31));
 
+// >=
+assert(2 >= 1);
+assert(1.3 >= 1.2);
+assert(-2 >= -8);
+assert(-1.6 >= -3.14);
+assert("s" >= "a");
+assert("cd" >= "ab");
+assert(Date(2002, 12, 31) >= Date(2001, 12, 31));
+
 assert(2 >= 2);
 assert(1.3 >= 1.3);
+assert(-2 >= -2);
+assert(-3.14 >= -3.14);
 assert("s" >= "s");
 assert("cd" >= "cd");
 assert(Date(2001, 12, 31) >= Date(2001, 12, 31));
 
-
-//assert(666 >= 666);
-//assert(-5 > -6);
-//assert(0 >= -1);
-
-//assert('sw' <= 'sw');  
