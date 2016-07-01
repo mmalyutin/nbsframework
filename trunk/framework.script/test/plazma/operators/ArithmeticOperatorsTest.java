@@ -23,17 +23,11 @@
 package plazma.operators;
 
 import plazma.AbstractScriptTest;
-import plazma.ast.LNode;
 
 public class ArithmeticOperatorsTest extends AbstractScriptTest {
     
     public void testScript() throws Exception {
-
-	LNode returned = runScript("operators/arithmetic-operators-test.script", null);
-
-	System.out.println();
-	System.out.println(returned == null ? "null" : returned.evaluate());
-
+	runScript("operators/arithmetic-operators-test.script", null);
     }
 
 }

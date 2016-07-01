@@ -31,6 +31,7 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
 import plazma.ast.LNode;
+import plazma.lang.LValue;
 import plazma.parser.PlazmaScriptLexer;
 import plazma.parser.PlazmaScriptParser;
 import plazma.parser.PlazmaScriptWalker;
@@ -48,11 +49,11 @@ public abstract class AbstractScriptTest extends TestCase {
     public static final String SCRIPTS_DIR = "scripts";
     
     
-    protected LNode runScript(String fileName) throws Exception {
-	return runScript(fileName, null);
+    protected LNode parseScript(String fileName) throws Exception {
+	return parseScript(fileName, null);
     }
     
-    protected LNode runScript(String fileName, Scope globalScope) throws Exception {
+    protected LNode parseScript(String fileName, Scope globalScope) throws Exception {
 
 	// create an instance of the lexer
 	//PlazmaScriptLexer lexer = new PlazmaScriptLexer(new ANTLRFileStream(fileName));
@@ -75,6 +76,18 @@ public abstract class AbstractScriptTest extends TestCase {
 	LNode returned = walker.walk();
 	return returned;
 
+    }
+    
+    protected LValue runScript(String fileName) throws Exception {
+	return runScript(fileName, null);
+    }
+    
+    protected LValue runScript(String fileName, Scope globalScope) throws Exception {
+	// Parse
+	LNode returned = parseScript(fileName, globalScope);
+	
+	// Evaluate
+	return returned.evaluate();
     }
     
     protected InputStream getInputStream(String fileName) {
