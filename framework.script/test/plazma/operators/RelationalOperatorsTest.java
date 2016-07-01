@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,58 +20,14 @@
  * ohapon@users.sourceforge.net
  */
 
-package plazma;
+package plazma.operators;
 
-import plazma.ast.LNode;
+import plazma.AbstractScriptTest;
 
-/**
- * General script test.
- * 
- * @author ohapon
- *
- */
-public class ScriptTest extends AbstractScriptTest {
+public class RelationalOperatorsTest extends AbstractScriptTest {
     
     public void testScript() throws Exception {
-
-	Scope globalScope = new Scope();
-	
-	Book book = new Book();
-	book.setAuthor("Author-17");
-	book.setName("Name-18");
-	
-	globalScope.assign("$book", ValueAdapter.fromNativeValue(book));
-	
-	runScript("test.script", globalScope);
-    }
-    
-    public static class Book {
-
-	private String name;
-	private String author;
-	
-	
-	public Book() {
-	    super();
-	}
-
-	public String getName() {
-	    return name;
-	}
-
-	public void setName(String name) {
-	    this.name = name;
-	}
-
-	public String getAuthor() {
-	    return author;
-	}
-
-	public void setAuthor(String author) {
-	    this.author = author;
-	}
-	
-	
+	runScript("operators/relational-operators-test.script", null);
     }
 
 }
