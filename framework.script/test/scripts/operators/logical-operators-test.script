@@ -1,0 +1,23 @@
+
+//
+assert(true or false);
+assert(true and true);
+
+assert(true || false);
+assert(true && true);
+
+assert(!false);
+assert(not false);
+
+assert(!true || !false);
+assert(true && (true || false));
+
+assert(not true or not false);
+assert(true and (true or false));
+
+
+//
+assert(1 < 2 or 2 < 1);
+assert(1 < 2 and 10 < 20);
+assert(not (2 < 1));
+assert(not (1 < 2) or not (2 < 1));
