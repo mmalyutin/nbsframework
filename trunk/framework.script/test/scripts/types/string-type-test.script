@@ -1,0 +1,14 @@
+
+//
+println("Test String type");
+
+//
+assert("abcd".size() == 4);
+assert("abcd"[0] == "a");
+assert("abcd"[3] == "d");
+
+//
+var s = "abcd";
+assert(s.size() == 4);
+assert(s[0] == "a");
+assert(s[3] == "d");

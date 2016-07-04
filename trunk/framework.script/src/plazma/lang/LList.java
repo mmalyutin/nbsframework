@@ -26,6 +26,7 @@
 package plazma.lang;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -250,13 +251,48 @@ public class LList extends LValue {
     
     protected LValue getListValue(LValue index) {
         int idx = getIndexValue(index);
-        // TODO: Check index range
-        return asList().get(idx);
+        List<LValue> list = asList();
+        
+        // TODO: Check index range. Get safe value
+        if (idx < 0) {
+            throw new RuntimeException("Invalid index value: " + idx);
+        }
+        if (idx > list.size() - 1) {
+            return null;
+        }
+        
+        return list.get(idx);
     }
     
     protected void setListValue(LValue index, LValue value) {
         int idx = getIndexValue(index);
-        // TODO: Check index range
+        List<LValue> list = asList();
+
+        // TODO: Check index range. Get safe value
+        if (idx < 0) {
+            throw new RuntimeException("Invalid index value: " + idx);
+        }
+        
+        if (idx > list.size() - 1) {
+            
+            // Auto increase List
+            
+            // 1. Add only one element
+            if (idx == list.size()) {
+        	
+        	list.add(value);
+        	return;
+            }
+            
+            // 2. Add more element 
+            int addSize = idx - (list.size() - 1); 
+            LValue[] addArray = new LValue[addSize];
+            addArray[addSize - 1] = value;
+            
+            list.addAll(Arrays.asList(addArray));
+            return;
+        }
+        
         asList().set(idx, value);
     }    
     
