@@ -1,0 +1,22 @@
+
+// elvis
+assert(1 < 2 ? true : false);
+
+// in
+assert(1 in [1, 2, 3, 4, 5]);
+assert(not (10 in [1, 2, 3, 4, 5]));
+
+// in/../..<
+assert(1 in (1 .. 10));
+assert(5 in (1 .. 10));
+assert(10 in (1 .. 10));
+
+assert(not (0 in (1 .. 10)));
+assert(not (-1 in (1 .. 10)));
+
+assert(1 in (1 ..< 10));
+assert(5 in (1 ..< 10));
+assert(9 in (1 ..< 10));
+
+assert(not (10 in (1 ..< 10)));
+
