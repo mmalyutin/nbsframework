@@ -26,8 +26,12 @@ import plazma.AbstractScriptTest;
 
 public class DateTypeTest extends AbstractScriptTest {
     
+    public static long DAY_TIME = 24 * 60 * 60 * 1000; 
+    
     public void testScript() throws Exception {
 	runScript("types/date-type-test.script", null);
     }
 
+    
+          
 }

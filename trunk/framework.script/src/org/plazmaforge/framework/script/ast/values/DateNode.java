@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.script.ast.values;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.plazmaforge.framework.script.ast.LNode;
 import org.plazmaforge.framework.script.lang.LDate;
 import org.plazmaforge.framework.script.lang.LValue;
+import org.plazmaforge.framework.script.util.CommonUtils;
 
 
 
@@ -111,30 +111,11 @@ public class DateNode extends ValueNode {
     	int month = Integer.parseInt(array[1]) - 1;
     	int day = Integer.parseInt(array[2]);
     	
-    	return getDate(year, month, day);
+    	return CommonUtils.getDate(year, month, day);
     	
     }
     
-    public static Date getDate(int year, int month, int day) {
-	return getDate(year, month, day, 0, 0, 0, 0);
-    }
-    
-    public static Date getDate(int year, int month, int day, int h, int m, int s, int ms) {
-    	
-    	Calendar calendar = Calendar.getInstance();
-    	calendar.set(Calendar.YEAR, year);
-    	calendar.set(Calendar.MONTH, month);
-    	calendar.set(Calendar.DAY_OF_MONTH, day);
-    	
-    	calendar.set(Calendar.HOUR_OF_DAY, h);
-    	calendar.set(Calendar.MINUTE, m);
-    	calendar.set(Calendar.SECOND, s);
-    	calendar.set(Calendar.MILLISECOND, ms);
-    	
-    	return calendar.getTime();
-    	
-    }
-    
+  
     
 }
 
