@@ -82,8 +82,8 @@ functionCall returns [LNode node]
   |  ^(FUNC_CALL Println expression?)  {node = new PrintlnNode($expression.node);}
   |  ^(FUNC_CALL Print expression)     {node = new PrintNode($expression.node);}
   |  ^(FUNC_CALL Assert expression)    {node = new AssertNode($expression.node);}
-//  |  ^(FUNC_CALL Size expression)      {node = new SizeNode($expression.node);}
   |  ^(FUNC_CALL Date exprList?)       {node = new DateNode($exprList.e);}
+  |  ^(FUNC_CALL List exprList?)       {node = new ListNode($exprList.e);}  
   ;
 
 ifStatement returns [LNode node]
@@ -169,7 +169,6 @@ expression returns [LNode node]
   |  Integer                                           {node = new IntegerNode($Integer.text);}                         // {node = new AtomNode(new Integer($Integer.text));}
   |  Number                                            {node = new NumberNode($Number.text);}                          // {node = new AtomNode(Double.parseDouble($Number.text));}
   |  Bool                                              {node = new BooleanNode($Bool.text);}                           // {node = new AtomNode(Boolean.parseBoolean($Bool.text));}
-  //|  Date                                              {node = new DateNode($Date.text);}                              // {node = new AtomNode(AtomNode.parseDate($Date.text));}
   |  Null                                              {node = new NullNode();}
   |  lookup                                            {node = $lookup.node;}
   ;

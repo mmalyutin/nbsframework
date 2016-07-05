@@ -96,8 +96,8 @@ functionCall
   |  Println '(' expression? ')'  -> ^(FUNC_CALL Println expression?)
   |  Print '(' expression ')'     -> ^(FUNC_CALL Print expression)
   |  Assert '(' expression ')'    -> ^(FUNC_CALL Assert expression)
-//  |  Size '(' expression ')'      -> ^(FUNC_CALL Size expression)
   |  Date '(' exprList? ')'      -> ^(FUNC_CALL Date exprList?)
+  |  List '(' exprList? ')'      -> ^(FUNC_CALL List exprList?)  
   ;
 
 //methodCall
@@ -234,7 +234,6 @@ atom
   :  Integer
   |  Number
   |  Bool
-  //|  Date
   |  Null
   |  lookup
   ;
@@ -272,7 +271,6 @@ tail
 Println  : 'println';
 Print    : 'print';
 Assert   : 'assert';
-//Size     : 'size';
 Var      : 'var';
 Def      : 'def';
 If       : 'if';
@@ -323,6 +321,7 @@ Range    : '..';
 RangeE   : '..<';
 
 Date     : 'Date';
+List     : 'List';
 
 Bool
   :  'true' 
