@@ -46,3 +46,13 @@ assert(x.indexOf(123.456) == 4);
 assert(x.indexOf(1024) == 5);
 assert(x.indexOf(null) == 6);
 assert(x.indexOf(1200) == 7);
+
+//
+x = List("a", "b", "c");
+assert(x[0] == "a");
+assert(x[1] == "b");
+assert(x[2] == "c");
+
+for (e in x) {
+    println(e);
+}
