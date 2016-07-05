@@ -22,7 +22,10 @@
 
 package plazma;
 
-import plazma.ast.LNode;
+import org.plazmaforge.framework.script.Scope;
+import org.plazmaforge.framework.script.ValueAdapter;
+import org.plazmaforge.framework.script.ast.LNode;
+
 
 /**
  * General script test.

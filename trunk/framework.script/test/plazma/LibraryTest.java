@@ -22,6 +22,9 @@
 
 package plazma;
 
+import org.plazmaforge.framework.script.EvaluateException;
+import org.plazmaforge.framework.script.ExpressionEvaluator;
+
 import junit.framework.TestCase;
 
 public class LibraryTest extends TestCase {

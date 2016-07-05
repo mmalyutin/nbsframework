@@ -29,12 +29,13 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.plazmaforge.framework.script.Scope;
+import org.plazmaforge.framework.script.ast.LNode;
+import org.plazmaforge.framework.script.lang.LValue;
+import org.plazmaforge.framework.script.parser.PlazmaScriptLexer;
+import org.plazmaforge.framework.script.parser.PlazmaScriptParser;
+import org.plazmaforge.framework.script.parser.PlazmaScriptWalker;
 
-import plazma.ast.LNode;
-import plazma.lang.LValue;
-import plazma.parser.PlazmaScriptLexer;
-import plazma.parser.PlazmaScriptParser;
-import plazma.parser.PlazmaScriptWalker;
 import junit.framework.TestCase;
 
 /**
