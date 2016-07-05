@@ -287,6 +287,11 @@ public class LList extends LValue {
             // 2. Add more element 
             int addSize = idx - (list.size() - 1); 
             LValue[] addArray = new LValue[addSize];
+            
+            // Fill NULL value
+            Arrays.fill(addArray, LValue.NULL);
+            
+            // Set value (last element)
             addArray[addSize - 1] = value;
             
             list.addAll(Arrays.asList(addArray));

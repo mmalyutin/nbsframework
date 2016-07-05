@@ -38,15 +38,11 @@ assert(x.size() == 8);
 x[100] = 1;
 
 //
-//assert(x.indexOf(1) == 0);
-//assert(x.indexOf(3.14) == 1);
-//assert(x.indexOf("abcd") == 2);
-//assert(x.indexOf(Date(2001, 12, 31)) == 3);
-//assert(x.indexOf(123.456) == 4);
-//assert(x.indexOf(1024) == 5);
-
-println(x.indexOf(null));
-
-//assert(x.indexOf(null) == 6);
-
-//assert(x.indexOf(1200) == 7);
+assert(x.indexOf(1) == 0);
+assert(x.indexOf(3.14) == 1);
+assert(x.indexOf("abcd") == 2);
+assert(x.indexOf(Date(2001, 12, 31)) == 3);
+assert(x.indexOf(123.456) == 4);
+assert(x.indexOf(1024) == 5);
+assert(x.indexOf(null) == 6);
+assert(x.indexOf(1200) == 7);
