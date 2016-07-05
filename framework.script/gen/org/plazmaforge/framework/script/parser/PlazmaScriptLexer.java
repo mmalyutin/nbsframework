@@ -1,6 +1,6 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-07-05 11:24:21
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-07-05 11:51:55
 
-  package plazma.parser;
+  package org.plazmaforge.framework.script.parser;
 
 
 import org.antlr.runtime.*;

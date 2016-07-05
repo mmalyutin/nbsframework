@@ -1,7 +1,7 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-07-05 11:24:20
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-07-05 11:51:54
 
-  package plazma.parser;
-  import plazma.*; 
+  package org.plazmaforge.framework.script.parser;
+  import org.plazmaforge.framework.script.*; 
   import java.util.Map;
   import java.util.HashMap;
 
@@ -857,7 +857,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Identifier, indexes, variableDef
+                    // elements: expression, variableDef, Identifier, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -965,7 +965,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, indexes, variableDef
+                    // elements: variableDef, expression, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1648,7 +1648,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: elseStat, ifStat, elseIfStat
+            // elements: elseIfStat, ifStat, elseStat
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1777,7 +1777,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, expression
+            // elements: expression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1901,7 +1901,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, expression
+            // elements: expression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2300,7 +2300,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: Identifier, For, block, expression
+            // elements: For, block, expression, Identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2419,7 +2419,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, expression, While
+            // elements: expression, While, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3159,7 +3159,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: startExpr, expression, In
+                    // elements: startExpr, In, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3203,7 +3203,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, RangeE, startExpr
+                    // elements: startExpr, RangeE, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3247,7 +3247,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: startExpr, Range, expression
+                    // elements: Range, expression, startExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4850,7 +4850,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: functionCall, indexes
+                    // elements: indexes, functionCall
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4919,7 +4919,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: list, indexes
+                    // elements: indexes, list
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4988,7 +4988,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, map
+                    // elements: map, indexes
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5054,7 +5054,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Identifier, indexes
+                    // elements: indexes, Identifier
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 

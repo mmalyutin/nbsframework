@@ -1,11 +1,11 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-07-05 11:24:22
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-07-05 11:51:56
 
-  package plazma.parser;
-  import plazma.*;
-  import plazma.ast.*;
-  import plazma.ast.functions.*;
-  import plazma.ast.operators.*;
-  import plazma.ast.values.*;  
+  package org.plazmaforge.framework.script.parser;
+  import org.plazmaforge.framework.script.*;
+  import org.plazmaforge.framework.script.ast.*;
+  import org.plazmaforge.framework.script.ast.functions.*;
+  import org.plazmaforge.framework.script.ast.operators.*;
+  import org.plazmaforge.framework.script.ast.values.*;  
   import java.util.Map;
   import java.util.HashMap;
 
