@@ -1,31 +1,79 @@
 
 //
 println("Test Date type");
+println("=========================================================");
 
 //
-var dayTime = 24 * 60 * 60 * 1000;
+var DAY_TIME = 24 * 60 * 60 * 1000;
+println("DAY_TIME = " + DAY_TIME);
+
 var d = Date(2001, 12, 31);
 
 assert(d.getYear() == 2001);
 assert(d.getMonth() == 12);
 assert(d.getDay() == 31);
 
-d = d + dayTime; // +1 day
+d = d + DAY_TIME; // +1 day
 assert(d.getYear() == 2002);
 assert(d.getMonth() == 1);
 assert(d.getDay() == 1);
 
-d = d + dayTime; // +1 day
+d = d + DAY_TIME; // +1 day
 assert(d.getYear() == 2002);
 assert(d.getMonth() == 1);
 assert(d.getDay() == 2);
 
-d = d + (dayTime * 3); // +3 days
+d = d + (DAY_TIME * 3); // +3 days
 assert(d.getYear() == 2002);
 assert(d.getMonth() == 1);
 assert(d.getDay() == 5);
 
-d = d - (dayTime * 2); // -2 days
+d = d - (DAY_TIME * 2); // -2 days
 assert(d.getYear() == 2002);
 assert(d.getMonth() == 1);
 assert(d.getDay() == 3);
+
+//
+var d1 = Date(2001, 1, 1);
+var d2 = Date(2001, 1, 2);
+var t1 = d1.getTime();
+var t2 = d2.getTime();
+var t = t2 - t1;
+
+println("DateTime1 = " + t1);
+println("DateTime2 = " + t2);
+println("DateTime2 - DateTime1 = " + t);
+
+assert(t == DAY_TIME);
+assert(d2 > d1);
+
+
+d = Date(2015, 11, 20);
+println("Date = " + d);
+
+/*
+println("time = " + d.getTime());
+
+
+d.setYear(2016);
+println("time = " + d.getTime());
+assert(d.getYear() == 2016);
+
+d.setMonth(12);
+println("time = " + d.getTime());
+assert(d.getMonth() == 12);
+
+d.setDay(21);
+println("time = " + d.getTime());
+assert(d.getDay() == 21);
+*/
+
+t = d.getTime(); 
+println("DateTime = " + t);
+
+
+//d.setTime(t + 86400000);
+d.setTime(t);
+t = d.getTime(); 
+println("DateTime = " + d.getTime());
+println("Date = " + d);

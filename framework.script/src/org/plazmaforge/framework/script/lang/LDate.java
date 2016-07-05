@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.plazmaforge.framework.script.util.CommonUtils;
+
 /**
  * @author ohapon
  *
@@ -44,7 +46,8 @@ public class LDate extends LValue {
 
     public LDate(long time) {
 	//TODO: truncate time
-	super(Type.DATE, new Date(time));
+	//super(Type.DATE, new Date(time));
+	super(Type.DATE, CommonUtils.getDate(time));
     }
     
     @Override
@@ -279,9 +282,14 @@ public class LDate extends LValue {
     }
 
     public void setTime(long time) {
-	// TODO: truncate time
+	//long truncTime = CommonUtils.truncateTime(time);
+	doSetTime(time);
+    }
+    
+    protected void doSetTime(long time) {
 	asDate().setTime(time);
     }
+
     
     public int getYear() {
 	return  getCalendar().get(Calendar.YEAR);
@@ -290,7 +298,7 @@ public class LDate extends LValue {
     public void setYear(int year) {
 	Calendar calendar = getCalendar();
 	calendar.set(Calendar.YEAR, year);
-	setTime(calendar.getTimeInMillis());
+	doSetTime(calendar.getTimeInMillis());
     }
     
     public int getMonth() {
@@ -300,7 +308,7 @@ public class LDate extends LValue {
     public void setMonth(int month) {
 	Calendar calendar = getCalendar();
 	calendar.set(Calendar.MONTH, month - 1);
-	setTime(calendar.getTimeInMillis());
+	doSetTime(calendar.getTimeInMillis());
     }
     
     public int getDay() {
@@ -310,7 +318,7 @@ public class LDate extends LValue {
     public void setDay(int day) {
 	Calendar calendar = getCalendar();
 	calendar.set(Calendar.DAY_OF_MONTH, day);
-	setTime(calendar.getTimeInMillis());
+	doSetTime(calendar.getTimeInMillis());
     }
     
     
