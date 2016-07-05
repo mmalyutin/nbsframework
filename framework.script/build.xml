@@ -26,14 +26,14 @@
     <echo>Generating the lexer and parser...</echo>
     <java classname="org.antlr.Tool" fork="true" failonerror="true">
       <arg value="-fo" />
-      <arg value="gen/plazma/parser/" />
+      <arg value="gen/org/plazmaforge/framework/script/parser/" />
       <arg value="grammar/PlazmaScript.g" />
       <classpath refid="classpath" />
     </java>
     <echo>Generating the tree walker...</echo>
     <java classname="org.antlr.Tool" fork="true" failonerror="true">
       <arg value="-fo" />
-      <arg value="gen/plazma/parser/" />
+      <arg value="gen/org/plazmaforge/framework/script/parser/" />
       <arg value="grammar/PlazmaScriptWalker.g" />
       <classpath refid="classpath" />
     </java>

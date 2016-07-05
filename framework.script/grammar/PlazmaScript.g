@@ -37,14 +37,14 @@ tokens {
 }
 
 @parser::header {
-  package plazma.parser;
-  import plazma.*; 
+  package org.plazmaforge.framework.script.parser;
+  import org.plazmaforge.framework.script.*; 
   import java.util.Map;
   import java.util.HashMap;
 }
 
 @lexer::header {
-  package plazma.parser;
+  package org.plazmaforge.framework.script.parser;
 }
 
 @parser::members {
