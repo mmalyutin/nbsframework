@@ -92,3 +92,29 @@ assert(date.getYear() == 2016);
 assert(date.getMonth() == 12);
 assert(date.getDay() == 23);
 
+// get/set by [] 
+time = date.getTime();
+
+assert(date["year"] == 2016);
+assert(date["month"] == 12);
+assert(date["day"] == 23);
+assert(date["time"] == time);
+
+// set new attributes
+date["year"] = 2000;
+date["month"] = 10;
+date["day"] = 20;
+
+// check new attributes
+assert(date["year"] == 2000);
+assert(date["month"] == 10);
+assert(date["day"] == 20);
+
+// set new time
+date["time"] = time;
+
+// check new attributes and time
+assert(date["year"] == 2016);
+assert(date["month"] == 12);
+assert(date["day"] == 23);
+assert(date["time"] == time);
