@@ -1,10 +1,12 @@
 package org.plazmaforge.framework.script.lang;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.script.EvaluateContext;
+import org.plazmaforge.framework.script.PropertyAccessor;
 
 
 
@@ -523,13 +525,24 @@ public class LValue implements Comparable<LValue> {
 
     ////
     
-    public LValue _get(String property) {
-	raiseIllegalMethodException("get");
-	return null;
+    protected LValue _get(String property) {
+	if (property == null) {
+	    raiseIllegalMethodException("get");
+	    return LValue.NULL;
+	}
+	String method = "get" + PropertyAccessor.capitalize(property);
+	return _invoke(method, null);
     }
     
-    public void _set(String property, LValue value) {
-	raiseIllegalMethodException("set");
+    protected void _set(String property, LValue value) {
+	if (property == null) {
+	    raiseIllegalMethodException("get");
+	    return;
+	}
+	String method = "set" + PropertyAccessor.capitalize(property);
+	List<LValue> parameters = new ArrayList<LValue>();
+	parameters.add(value);
+	_invoke(method, parameters);
     }
     
     public LValue _invoke(String method, List<LValue> parameters) {

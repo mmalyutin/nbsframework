@@ -206,6 +206,27 @@ public class LDate extends LValue {
     ////
     
     @Override
+    public LValue _get(LValue index) {
+	if (index.isString() ){
+	    return _get(index.asString());
+	}
+	raiseIllegalMethodException("get");
+	return null;
+    }
+
+    @Override
+    public void _set(LValue index, LValue value) {
+	if (index.isString()) {
+	    _set(index.asString(), value);
+	    return;
+	}
+	raiseIllegalMethodException("set");
+    }
+
+    ////
+  
+    
+    @Override
     public LValue _invoke(String method, List<LValue> parameters) {
 	
 	// TIME
