@@ -3,77 +3,92 @@
 println("Test Date type");
 println("=========================================================");
 
-//
+
+// Day in milliseconds
 var DAY_TIME = 24 * 60 * 60 * 1000;
 println("DAY_TIME = " + DAY_TIME);
 
-var d = Date(2001, 12, 31);
 
-assert(d.getYear() == 2001);
-assert(d.getMonth() == 12);
-assert(d.getDay() == 31);
-
-d = d + DAY_TIME; // +1 day
-assert(d.getYear() == 2002);
-assert(d.getMonth() == 1);
-assert(d.getDay() == 1);
-
-d = d + DAY_TIME; // +1 day
-assert(d.getYear() == 2002);
-assert(d.getMonth() == 1);
-assert(d.getDay() == 2);
-
-d = d + (DAY_TIME * 3); // +3 days
-assert(d.getYear() == 2002);
-assert(d.getMonth() == 1);
-assert(d.getDay() == 5);
-
-d = d - (DAY_TIME * 2); // -2 days
-assert(d.getYear() == 2002);
-assert(d.getMonth() == 1);
-assert(d.getDay() == 3);
-
-//
-var d1 = Date(2001, 1, 1);
-var d2 = Date(2001, 1, 2);
-var t1 = d1.getTime();
-var t2 = d2.getTime();
-var t = t2 - t1;
-
-println("DateTime1 = " + t1);
-println("DateTime2 = " + t2);
-println("DateTime2 - DateTime1 = " + t);
-
-assert(t == DAY_TIME);
-assert(d2 > d1);
+// new date
+var date = Date(2001, 12, 31);
 
 
-d = Date(2015, 11, 20);
-println("Date = " + d);
-
-/*
-println("time = " + d.getTime());
-
-
-d.setYear(2016);
-println("time = " + d.getTime());
-assert(d.getYear() == 2016);
-
-d.setMonth(12);
-println("time = " + d.getTime());
-assert(d.getMonth() == 12);
-
-d.setDay(21);
-println("time = " + d.getTime());
-assert(d.getDay() == 21);
-*/
-
-t = d.getTime(); 
-println("DateTime = " + t);
+// get attributes (year, month, day)
+assert(date.getYear() == 2001);
+assert(date.getMonth() == 12);
+assert(date.getDay() == 31);
 
 
-//d.setTime(t + 86400000);
-d.setTime(t);
-t = d.getTime(); 
-println("DateTime = " + d.getTime());
-println("Date = " + d);
+// shift days (+/-)
+date = date + DAY_TIME; // +1 day
+assert(date.getYear() == 2002);
+assert(date.getMonth() == 1);
+assert(date.getDay() == 1);
+
+date = date + DAY_TIME; // +1 day
+assert(date.getYear() == 2002);
+assert(date.getMonth() == 1);
+assert(date.getDay() == 2);
+
+date = date + (DAY_TIME * 3); // +3 days
+assert(date.getYear() == 2002);
+assert(date.getMonth() == 1);
+assert(date.getDay() == 5);
+
+date = date - (DAY_TIME * 2); // -2 days
+assert(date.getYear() == 2002);
+assert(date.getMonth() == 1);
+assert(date.getDay() == 3);
+
+
+// delta time (1 day = DAY_TIME)
+var date1 = Date(2001, 1, 1);
+var date2 = Date(2001, 1, 4);
+var time1 = date1.getTime();
+var time2 = date2.getTime();
+var time = time2 - time1; // delta time
+
+assert(time == (DAY_TIME * 3)); // 3 days
+assert(date2 > date1);
+
+
+// set/get attributes (year, month, day)
+date = Date(2015, 11, 20);
+
+date.setYear(2016);
+assert(date.getYear() == 2016);
+
+date.setMonth(12);
+assert(date.getMonth() == 12);
+
+date.setDay(21);
+assert(date.getDay() == 21);
+
+
+// check time
+var oldTime = date.getTime(); 
+date.setTime(oldTime);
+
+var newTime = date.getTime();
+assert(oldTime == newTime);
+assert(date.getYear() == 2016);
+assert(date.getMonth() == 12);
+assert(date.getDay() == 21);
+
+
+// change time (+days)
+time = date.getTime();
+date.setTime(time + (DAY_TIME * 7)); // +7 days
+
+assert(date.getYear() == 2016);
+assert(date.getMonth() == 12);
+assert(date.getDay() == 28);
+
+// change time (-days)
+time = date.getTime();
+date.setTime(time - (DAY_TIME * 5)); // -5 days
+
+assert(date.getYear() == 2016);
+assert(date.getMonth() == 12);
+assert(date.getDay() == 23);
+
