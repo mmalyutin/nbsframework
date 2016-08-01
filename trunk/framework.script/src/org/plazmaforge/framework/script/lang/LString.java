@@ -190,7 +190,17 @@ public class LString extends LValue {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asString().length());
-	}
+	} else if ("isEmpty".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LBoolean(asString().isEmpty());
+	} else if ("indexOf".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isString()) {
+		raiseIllegalMethodParameterTypeException("String");
+	    }
+	    return new LNumber(asString().indexOf(parameter.asString()));
+	}    
 	return super._invoke(method, parameters);
     }
     

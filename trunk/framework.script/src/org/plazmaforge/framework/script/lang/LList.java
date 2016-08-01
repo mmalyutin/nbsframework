@@ -234,6 +234,9 @@ public class LList extends LValue {
 	if ("size".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asList().size());
+	} else if ("isEmpty".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LBoolean(asList().isEmpty());
 	} else if ("indexOf".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    return new LNumber(asList().indexOf(parameters.get(0)));
