@@ -5,10 +5,26 @@ println("Test String type");
 //
 assert("abcd".size() == 4);
 assert("abcd"[0] == "a");
+assert("abcd"[1] == "b");
+assert("abcd"[2] == "c");
 assert("abcd"[3] == "d");
 
 //
 var s = "abcd";
 assert(s.size() == 4);
-assert(s[0] == "a");
-assert(s[3] == "d");
+assert("abcd"[0] == "a");
+assert("abcd"[1] == "b");
+assert("abcd"[2] == "c");
+assert("abcd"[3] == "d");
+
+// methods
+s = "0123456789ABCDEF";
+assert(s.size() == 16);
+assert(s.indexOf("A") == 10);
+assert(s[10] == "A");
+assert(!s.isEmpty());
+println("string='" + s + "', empty=" + s.isEmpty());
+
+s = "";
+assert(s.isEmpty());
+println("string='" + s + "', empty=" + s.isEmpty());

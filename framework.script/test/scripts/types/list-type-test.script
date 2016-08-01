@@ -53,6 +53,91 @@ assert(x[0] == "a");
 assert(x[1] == "b");
 assert(x[2] == "c");
 
+println();
+println("Print list:");
+println("====================");
 for (e in x) {
     println(e);
 }
+
+// present range as list
+var range = 1..10;
+assert(range.size() == 10);
+println();
+println("Print number range(" + range.size() + ")");
+println("====================");
+for (e in range) {
+    println(e);
+}
+
+range = "a".."z";
+assert(range.size() == 26);
+println();
+println("Print character range(" + range.size() + ")");
+println("====================");
+for (e in range) {
+    println(e);
+}
+
+// exclude range
+range = 1..<10;
+assert(range.size() == 9);
+
+range = "a"..<"z";
+assert(range.size() == 25);
+
+// compare list and range
+var list1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var list2 = 1..10; 
+assert(list1 == list2);
+
+
+// methods: size, isEmpty, indexOf, add, remove
+var list = [];
+assert(list.size() == 0);
+assert(list.isEmpty());
+
+list = [2, 4, 6, 8, 10];
+assert(list.size() == 5);
+assert(list.indexOf(6) == 2);
+
+list.add(12);
+assert(list.size() == 6);
+assert(!list.isEmpty());
+
+assert(list[0] == 2);
+assert(list[1] == 4);
+assert(list[2] == 6);
+assert(list[3] == 8);
+assert(list[4] == 10);
+assert(list[5] == 12);
+
+list.remove(4);
+assert(list.size() == 5);
+
+assert(list[0] == 2);
+assert(list[1] == 6);
+assert(list[2] == 8);
+assert(list[3] == 10);
+assert(list[4] == 12);
+
+//
+list = ["JAN", "FEB", "MAR"];
+assert(list.size() == 3);
+assert(list.indexOf("FEB") == 1);
+
+list.add("APR");
+assert(list.size() == 4);
+
+assert(list[0] == "JAN");
+assert(list[1] == "FEB");
+assert(list[2] == "MAR");
+assert(list[3] == "APR");
+
+list.remove("MAR");
+assert(list.size() == 3);
+
+assert(list[0] == "JAN");
+assert(list[1] == "FEB");
+assert(list[2] == "APR");
+
