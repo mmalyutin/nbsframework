@@ -27,9 +27,13 @@ package org.plazmaforge.framework.script.lang;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.plazmaforge.framework.script.ValueComparator;
 
 
 
@@ -246,9 +250,68 @@ public class LList extends LValue {
 	} else if ("remove".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    return new LBoolean(asList().remove(parameters.get(0)));
+	} else if ("clear".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    asList().clear();
+	    return LValue.VOID;
+	} else if ("addAll".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isList()) {
+		raiseIllegalMethodParameterTypeException("List");
+	    }	    
+	    return new LBoolean(asList().addAll(parameter.asList()));
+	} else if ("removeAll".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isList()) {
+		raiseIllegalMethodParameterTypeException("List");
+	    }	    
+	    return new LBoolean(asList().removeAll(parameter.asList()));
+	} else if ("contains".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    return new LBoolean(asList().contains(parameters.get(0)));
+	} else if ("sort".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    Comparator<LValue> comparator = createValueComparator();
+	    Collections.sort(asList(), comparator);		// COMPARATOR
+	    return LValue.VOID;
+	} else if ("min".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    Comparator<LValue> comparator = createValueComparator();
+	    return Collections.min(asList(), comparator);	// COMPARATOR
+	} else if ("max".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    Comparator<LValue> comparator = createValueComparator();
+	    return Collections.max(asList(), comparator);	// COMPARATOR
+	} else if ("fill".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    Collections.fill(asList(), parameter);
+	    return LValue.VOID;
+	} else if ("reverse".equals(method)) {
+	    // [1, -2, 3, 100] -> [100, 3, -2, 1]
+	    checkMethod(method, parameters, 0);
+	    Collections.reverse(asList());
+	    return LValue.VOID;
+	} else if ("shuffle".equals(method)) {
+	    // random filling
+	    checkMethod(method, parameters, 0);
+	    Collections.shuffle(asList());
+	    return LValue.VOID;
+	} else if ("shift".equals(method)) {
+	    // shift([3, 7, 1, 9], 1)  -> [9, 3, 7, 1]
+	    // shift([3, 7, 1, 9], -1) -> [7, 1, 9, 3]
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    Integer distance = parameter.asInteger();
+	    Collections.rotate(asList(), distance);
+	    return LValue.VOID;
 	}
-
-
+	
 	return super._invoke(method, parameters);
     }
     
@@ -327,4 +390,7 @@ public class LList extends LValue {
         return list;
     }    
     
+    protected Comparator<LValue> createValueComparator() {
+	return new ValueComparator();
+    }
 }

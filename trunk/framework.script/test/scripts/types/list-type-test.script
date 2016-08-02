@@ -92,7 +92,7 @@ var list2 = 1..10;
 assert(list1 == list2);
 
 
-// methods: size, isEmpty, indexOf, add, remove
+// methods: size, isEmpty, indexOf, add, remove, clear, addAll, removeAll, contains
 var list = [];
 assert(list.size() == 0);
 assert(list.isEmpty());
@@ -120,6 +120,96 @@ assert(list[1] == 6);
 assert(list[2] == 8);
 assert(list[3] == 10);
 assert(list[4] == 12);
+
+list.addAll([14, 16, 18]);
+assert(list.size() == 8);
+
+assert(list[0] == 2);
+assert(list[1] == 6);
+assert(list[2] == 8);
+assert(list[3] == 10);
+assert(list[4] == 12);
+assert(list[5] == 14);
+assert(list[6] == 16);
+assert(list[7] == 18);
+
+assert(list.removeAll([10, 2, 14, 18]));
+assert(list.size() == 4);
+
+assert(list[0] == 6);
+assert(list[1] == 8);
+assert(list[2] == 12);
+assert(list[3] == 16);
+
+
+list.clear();
+assert(list.size() == 0);
+
+list = [1, 1, 1, 2, 3, 2, null, 2, 3, 4, 5, 6, 7, 7, 8, 8, 1, 2, 9];
+assert(list.removeAll([8, 2, 100, 200])); // remove only 8, 2
+
+assert(list == [1, 1, 1, 3, null, 3, 4, 5, 6, 7, 7, 1, 9]);
+assert(list.contains(7));
+assert(list.contains(1));
+assert(list.contains(3));
+assert(!list.contains(17));
+
+assert(!list.removeAll([500, 600, 700, 800, 900])); // no remove all
+
+println(list);
+
+list = [100, -4, 6, 20, 7.8, -5];
+println("list            : " +  list);
+list.sort();
+println("list->sort()    : " +  list);
+
+list = [100, -4, 6, "a", 7.8, "b", Date(2001, 10, 1), -5];
+println("list            : " +  list);
+println("min=" + list.min());
+println("max=" + list.max());
+
+list.sort();
+println("list->sort()    : " +  list);
+
+list = [100, -4, 6, 20, 7.8, -5];
+list.fill(7);
+println("list->fill(5)   : " +  list);
+
+list = [100, -4, 6, 20, 7.8, -5];
+list.fill(null);
+println("list->fill(null): " +  list);
+
+
+list = [100, -4, 6, 20, 7.8, -5];
+list.shift(1);
+println("list->shift(1)  : " +  list);
+
+list = [100, -4, 6, 20, 7.8, -5];
+list.shift(2);
+println("list->shift(2)  : " +  list);
+
+list = [100, -4, 6, 20, 7.8, -5];
+println("list            : " +  list);
+println("min=" + list.min());
+println("max=" + list.max());
+
+//
+
+list = [100, -4, 6, 20, 7.8, -5];
+list.shift(-1);
+println("list->shift(-1) : " +  list);
+
+list = [100, -4, 6, 20, 7.8, -5];
+list.shift(-2);
+println("list->shift(-2) : " +  list);
+
+//
+list = [100, -4, 6, 20, 7.8, -5];
+println("list            : " +  list);
+list.reverse();
+println("list->reverse() : " +  list);
+list.shuffle();
+println("list->shuffle() : " +  list);
 
 //
 list = ["JAN", "FEB", "MAR"];
