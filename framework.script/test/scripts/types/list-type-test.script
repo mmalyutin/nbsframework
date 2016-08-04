@@ -107,9 +107,17 @@ assert(list1 == list2);
 
 
 // methods: size, isEmpty, indexOf, add, remove, clear, addAll, removeAll, contains
+
+// empty list
 var list = [];
 assert(list.size() == 0);
 assert(list.isEmpty());
+
+// empty list
+list = List();
+assert(list.size() == 0);
+assert(list.isEmpty());
+
 
 list = [2, 4, 6, 8, 10];
 assert(list.size() == 5);
