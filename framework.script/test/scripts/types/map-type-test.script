@@ -1,0 +1,54 @@
+
+//
+println("Test Map type");
+
+//
+var map = {"name": "Alex", "salary": 3000};
+assert(map.size() == 2);
+assert(!map.isEmpty());
+
+assert(map["name"] == "Alex");
+assert(map["salary"] == 3000);
+
+assert(map.get("name") == "Alex");
+assert(map.get("salary") == 3000);
+
+println("name="+ map["name"] + ", salary" + map["salary"]);
+map["salary"] = 4000;
+println("name="+ map["name"] + ", salary=" + map["salary"]);
+
+// empty map
+map = {:};
+assert(map.size() == 0);
+assert(map.isEmpty());
+
+// set
+map.set("width", 100);
+map.set("height", 200);
+
+// get
+assert(map.get("width") == 100);
+assert(map.get("height") == 200);
+assert(map.get("x") == null);
+
+// containsKey
+assert(map.containsKey("width"));
+assert(map.containsKey("height"));
+assert(!map.containsKey("x"));
+assert(!map.containsKey("y"));
+
+// containsValue
+assert(map.containsValue(100));
+assert(map.containsValue(200));
+assert(!map.containsValue(300));
+
+map.remove("height");
+map.remove("x");
+assert(!map.containsKey("height"));		// no key
+assert(!map.containsValue(200));		// no value
+assert(map.get("height") == null);		// no value by key
+assert(map["height"] == null);			// no value by key
+
+map.clear();
+assert(map.size() == 0);
+assert(map.isEmpty());
