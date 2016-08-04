@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.script.ast;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.plazmaforge.framework.script.Scope;
@@ -54,12 +55,14 @@ public class ForStatementNode2 implements LNode {
 	Scope blockScope = blockNode.getScope();
 	
 	// Range
-	if (startValue.isList()) {
-	    List<LValue> values = startValue.asList();
+	if (startValue.isCollection()) {
+	    //List<LValue> values = startValue.asList();
+	    Iterator<LValue> itr = startValue.asCollection().iterator();
 	    LValue value = null;
-	    int count = values.size();
-	    for (int i = 0; i < count; i++) {
-		value = values.get(i);
+	    //int count = values.size();
+	    
+	    while (itr.hasNext()) {
+		value = itr.next();
 		
 		//scope.assign(identifier, value); // OLD CODE
 		blockScope.setVariableValue(identifier, value);

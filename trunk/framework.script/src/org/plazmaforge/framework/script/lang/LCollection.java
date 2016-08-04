@@ -118,7 +118,7 @@ public abstract class LCollection extends LValue {
 	// Collection - any Collection
 	Collection<LValue> list = a.asCollection();
 	if (b != LValue.NULL) {
-	    list.removeAll(b.asList());
+	    list.removeAll(b.asCollection());
 	}
 	return newInstance(list);
     }
@@ -211,14 +211,14 @@ public abstract class LCollection extends LValue {
 	    if (!parameter.isCollection()) {
 		raiseIllegalMethodParameterTypeException("Collection");
 	    }	    
-	    return new LBoolean(asCollection().addAll(parameter.asList()));
+	    return new LBoolean(asCollection().addAll(parameter.asCollection()));
 	} else if ("removeAll".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    LValue parameter = parameters.get(0);
 	    if (!parameter.isCollection()) {
 		raiseIllegalMethodParameterTypeException("Collection");
 	    }	    
-	    return new LBoolean(asList().removeAll(parameter.asList()));
+	    return new LBoolean(asCollection().removeAll(parameter.asCollection()));
 	} else if ("contains".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    return new LBoolean(asCollection().contains(parameters.get(0)));

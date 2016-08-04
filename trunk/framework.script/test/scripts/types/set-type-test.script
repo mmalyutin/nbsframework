@@ -8,204 +8,71 @@ println("set=" + x);
 
 assert(x.size() == 5);
 
-/*
 println();
 println("Print set:");
 println("====================");
-for (e in set) {
+for (e in x) {
     println(e);
 }
 
-// present range as list
-var range = 1..10;
-assert(range.size() == 10);
-println();
-println("Print number range(" + range.size() + ")");
-println("====================");
-for (e in range) {
-    println(e);
-}
 
-range = "a".."z";
-assert(range.size() == 26);
-println();
-println("Print character range(" + range.size() + ")");
-println("====================");
-for (e in range) {
-    println(e);
-}
+// methods: size, isEmpty, add, remove, clear, addAll, removeAll, contains
 
-// exclude range
-range = 1..<10;
-assert(range.size() == 9);
-
-range = "a"..<"z";
-assert(range.size() == 25);
-
-// compare list and range
-var list1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-var list2 = 1..10; 
-assert(list1 == list2);
+// empty set
+x = Set();
+assert(x.size() == 0);
+assert(x.isEmpty());
 
 
-// methods: size, isEmpty, indexOf, add, remove, clear, addAll, removeAll, contains
-var list = [];
-assert(list.size() == 0);
-assert(list.isEmpty());
+x = Set(2, 4, 4, 6, 8, 10, 10, 2);
+assert(x.size() == 5);
 
-list = [2, 4, 6, 8, 10];
-assert(list.size() == 5);
-assert(list.indexOf(6) == 2);
+x.add(4);
+assert(x.size() == 5);
 
-list.add(12);
-assert(list.size() == 6);
-assert(!list.isEmpty());
+x.add(12);
+assert(x.size() == 6);
 
-assert(list[0] == 2);
-assert(list[1] == 4);
-assert(list[2] == 6);
-assert(list[3] == 8);
-assert(list[4] == 10);
-assert(list[5] == 12);
+x.remove(4);
+assert(x.size() == 5);
+assert(x == Set(2, 6, 8, 10, 12));
 
-list.remove(4);
-assert(list.size() == 5);
+x.addAll([14, 16, 16, 16, 14, 18]);
+assert(x.size() == 8);
+assert(x == Set(2, 6, 8, 10, 12, 14, 16, 18));
 
-assert(list[0] == 2);
-assert(list[1] == 6);
-assert(list[2] == 8);
-assert(list[3] == 10);
-assert(list[4] == 12);
+x.addAll(Set(20, 20, 22, 23, 24, 24));
+assert(x.size() == 12);
+assert(x == Set(2, 6, 8, 10, 12, 14, 16, 18, 20, 22, 23, 24));
 
-list.addAll([14, 16, 18]);
-assert(list.size() == 8);
+assert(x.removeAll([10, 2]));
+assert(x.size() == 10);
+assert(x == Set(6, 8, 12, 14, 16, 18, 20, 22, 23, 24));
 
-assert(list[0] == 2);
-assert(list[1] == 6);
-assert(list[2] == 8);
-assert(list[3] == 10);
-assert(list[4] == 12);
-assert(list[5] == 14);
-assert(list[6] == 16);
-assert(list[7] == 18);
+assert(x.removeAll([10, 2, 6, 8])); // remove only 6, 8
+assert(x.size() == 8);
+assert(x == Set(12, 14, 16, 18, 20, 22, 23, 24));
 
-assert(list.removeAll([10, 2, 14, 18]));
-assert(list.size() == 4);
+x.clear();
+assert(x.size() == 0);
 
-assert(list[0] == 6);
-assert(list[1] == 8);
-assert(list[2] == 12);
-assert(list[3] == 16);
+x = Set(100, null, -200, 300, 100, null);
+assert(x.size() == 4);
 
+assert(x.contains(-200));
+assert(x.contains(null));
+assert(!x.contains(1.3));
 
-list.clear();
-assert(list.size() == 0);
-
-list = [1, 1, 1, 2, 3, 2, null, 2, 3, 4, 5, 6, 7, 7, 8, 8, 1, 2, 9];
-assert(list.removeAll([8, 2, 100, 200])); // remove only 8, 2
-
-assert(list == [1, 1, 1, 3, null, 3, 4, 5, 6, 7, 7, 1, 9]);
-assert(list.contains(7));
-assert(list.contains(1));
-assert(list.contains(3));
-assert(!list.contains(17));
-
-assert(!list.removeAll([500, 600, 700, 800, 900])); // no remove all
-
-println(list);
-
-var original = [100, -4, 6, 20, 7.8, -5];
-list = original.clone();
-
-println("list            : " +  list);
-list.sort();
-
-println("list->sort()    : " +  list);
-assert(list == [-5, -4, 6, 7.8, 20, 100]);
-
-list = [100, -4, 6, "a", 7.8, "b", Date(2001, 10, 1), -5];
-println("list            : " +  list);
-println("min=" + list.min());
-println("max=" + list.max());
-
-list.sort();
-println("list->sort()    : " +  list);
-
-list = original.clone();
-list.fill(7);
-println("list->fill(7)   : " +  list);
-assert(list == [7, 7, 7, 7, 7, 7]);
-
-list = original.clone();
-list.fill(null);
-println("list->fill(null): " +  list);
-assert(list == [null, null, null, null, null, null]);
-
-list = original.clone();
-list.shift(1);
-println("list->shift(1)  : " +  list);
-
-list = original.clone();
-list.shift(2);
-println("list->shift(2)  : " +  list);
-
-list = original.clone();
-println("list            : " +  list);
-println("min=" + list.min());
-println("max=" + list.max());
-
-//
-
-list = original.clone();
-list.shift(-1);
-println("list->shift(-1) : " +  list);
-
-list = original.clone();
-list.shift(-2);
-println("list->shift(-2) : " +  list);
-
-//
-list = original.clone();
-println("list            : " +  list);
-list.reverse();
-println("list->reverse() : " +  list);
-list.shuffle();
-println("list->shuffle() : " +  list);
-
-//
-list = ["JAN", "FEB", "MAR"];
-assert(list.size() == 3);
-assert(list.indexOf("FEB") == 1);
-
-list.add("APR");
-assert(list.size() == 4);
-
-assert(list[0] == "JAN");
-assert(list[1] == "FEB");
-assert(list[2] == "MAR");
-assert(list[3] == "APR");
-
-list.remove("MAR");
-assert(list.size() == 3);
-
-assert(list[0] == "JAN");
-assert(list[1] == "FEB");
-assert(list[2] == "APR");
 
 // add
-assert([1, 2] + [3] == [1, 2, 3]);
-assert([1, 2, 3] + [4, 5] == [1, 2, 3, 4, 5]);
-assert([1, 2, 3, 4, 5] - [4] == [1, 2, 3, 5]);
-assert([1, 2, 3, 4, 5] - [4, 1] == [2, 3, 5]);
+assert([1, 2] + Set(3, 1) == [1, 2, 3, 1]);
+assert(Set(1, 2, 3) + [4, 5, 2, 3] == Set(1, 2, 3, 4, 5));
+
+assert(Set(1, 2, 3, 4, 5) - Set(4) == Set(1, 2, 3, 5));
+assert(Set(1, 2, 3, 4, 5) - Set(4, 1) == Set(2, 3, 5));
 
 // union/intersection
-assert(([1, 2, 3, 7] | [3, 1, 4, 5]) == [1, 2, 3, 7, 4, 5]);
-assert(([1, 2, 3, 7] & [3, 1, 4, 5]) == [1, 3]);
+assert((Set(1, 2, 3, 7) | Set(3, 1, 4, 5)) == Set(1, 2, 3, 7, 4, 5));
+assert((Set(1, 2, 3, 7) & Set(3, 1, 4, 5)) == Set(1, 3));
 
-// mul
-assert([1, 2, 3] * 2 == [1, 2, 3, 1, 2, 3]);
-assert([1] * 4 == [1, 1, 1, 1]);
-assert([0] * 3 == [0, 0, 0]);
-assert([-1] * 2 == [-1, -1]);
 
-*/
