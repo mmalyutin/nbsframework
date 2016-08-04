@@ -25,14 +25,13 @@
  */
 package org.plazmaforge.framework.script.lang;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.plazmaforge.framework.script.ScriptUtils;
 import org.plazmaforge.framework.script.ValueComparator;
 
 
@@ -214,7 +213,7 @@ public class LList extends LValue {
 	    raiseIllegalMethodException("" + a + " * " + b + ". Right argument must be >= 1");
 	}
 	List<LValue> element = a.asList();
-	List<LValue> total = new ArrayList<LValue>();
+	List<LValue> total = ScriptUtils.newList();
 	for (int i = 0; i < stop; i++) { 
 	    total.addAll(element);
 	}
@@ -244,6 +243,22 @@ public class LList extends LValue {
 	} else if ("indexOf".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    return new LNumber(asList().indexOf(parameters.get(0)));
+	} else if ("set".equals(method)) {
+	    checkMethod(method, parameters, 2);
+	    LValue indexParameter = parameters.get(0);
+	    if (!indexParameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    LValue valueParameter = parameters.get(1);
+	    setListValue(indexParameter, valueParameter);
+	    return LValue.VOID;
+	} else if ("get".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue indexParameter = parameters.get(0);
+	    if (!indexParameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    return getListValue(indexParameter);
 	} else if ("add".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    return new LBoolean(asList().add(parameters.get(0)));
@@ -310,6 +325,11 @@ public class LList extends LValue {
 	    Integer distance = parameter.asInteger();
 	    Collections.rotate(asList(), distance);
 	    return LValue.VOID;
+	} else if ("clone".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    List<LValue> list = ScriptUtils.cloneList(asList());
+	    LList result = new LList(list);
+	    return result;
 	}
 	
 	return super._invoke(method, parameters);
@@ -370,16 +390,19 @@ public class LList extends LValue {
     ////
     
     protected <T> List<T> union(List<T> list1, List<T> list2) {
-        Set<T> set = new LinkedHashSet<T>();
+        Set<T> set = ScriptUtils.newSet();
 
         set.addAll(list1);
         set.addAll(list2);
 
-        return new ArrayList<T>(set);
+        //return new ArrayList<T>(set);
+        List<T> list = ScriptUtils.newList();
+        list.addAll(set);
+        return list;
     }
     
     protected <T> List<T> intersection(List<T> list1, List<T> list2) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = ScriptUtils.newList();
 
         for (T t : list1) {
             if (list2.contains(t)) {

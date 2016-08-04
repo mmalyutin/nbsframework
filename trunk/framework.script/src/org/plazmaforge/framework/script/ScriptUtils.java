@@ -24,8 +24,11 @@ package org.plazmaforge.framework.script;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ScriptUtils {
     
@@ -46,6 +49,36 @@ public class ScriptUtils {
     
     public static Map<String, Function> getSafeFunctions(Map<String, Function> functions) {
 	return functions == null ? new HashMap<String, Function>() : functions; 
+    }
+
+    public static <V> List<V> newList() {
+	return new ArrayList<V>(); // by default ArrayList
+    }
+
+    public static <V> Set<V> newSet() {
+	return new LinkedHashSet<V>(); // by default LinkedHashSet (physic order)
+    }
+
+    public static <K, V> Map<K, V> newMap() {
+	return new LinkedHashMap<K, V>(); // by default LinkedHashMap (physic order)
+    }
+
+    public static <V> List<V> cloneList(List<V> original) {
+	List<V> list = newList();
+	list.addAll(original);
+	return list;
+    }
+    
+    public static <V> Set<V> cloneSet(Set<V> original) {
+	Set<V> set = newSet();
+	set.addAll(original);
+	return set;
+    }
+    
+    public static <K, V> Map<K, V> cloneMap(Map<K, V> original) {
+	Map<K, V> map = newMap();
+	map.putAll(original);
+	return map;
     }
 
 }

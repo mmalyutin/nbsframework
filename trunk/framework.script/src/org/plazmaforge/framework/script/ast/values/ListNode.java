@@ -1,7 +1,6 @@
 package org.plazmaforge.framework.script.ast.values;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.script.ScriptUtils;
@@ -20,7 +19,7 @@ public class ListNode implements LNode {
 
     @Override
     public LValue evaluate() {
-        List<LValue> evaluated = new ArrayList<LValue>();
+        List<LValue> evaluated = ScriptUtils.newList();
         for (LNode node : expressionNodes) {
             evaluated.add(node.evaluate());
         }

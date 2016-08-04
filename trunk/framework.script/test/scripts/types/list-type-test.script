@@ -18,6 +18,7 @@ assert(x[1] == 3.14);
 assert(x[2] == "abcd");
 assert(x[3] == Date(2001, 12, 31));
 
+
 // auto increase List (one element)
 x[4] = 123.456;
 assert(x[4] == 123.456);
@@ -46,6 +47,19 @@ assert(x.indexOf(123.456) == 4);
 assert(x.indexOf(1024) == 5);
 assert(x.indexOf(null) == 6);
 assert(x.indexOf(1200) == 7);
+
+// get/set
+x = [1, 3.14, "abcd", Date(2001, 12, 31)];
+assert(x.get(0) == 1);
+assert(x.get(1) == 3.14);
+assert(x.get(2) == "abcd");
+assert(x.get(3) == Date(2001, 12, 31));
+
+x.set(1, 2.8);
+x.set(3, 56);
+
+assert(x.get(1) == 2.8);
+assert(x.get(3) == 56);
 
 //
 x = List("a", "b", "c");
@@ -158,10 +172,14 @@ assert(!list.removeAll([500, 600, 700, 800, 900])); // no remove all
 
 println(list);
 
-list = [100, -4, 6, 20, 7.8, -5];
+var original = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
+
 println("list            : " +  list);
 list.sort();
+
 println("list->sort()    : " +  list);
+assert(list == [-5, -4, 6, 7.8, 20, 100]);
 
 list = [100, -4, 6, "a", 7.8, "b", Date(2001, 10, 1), -5];
 println("list            : " +  list);
@@ -171,40 +189,41 @@ println("max=" + list.max());
 list.sort();
 println("list->sort()    : " +  list);
 
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 list.fill(7);
-println("list->fill(5)   : " +  list);
+println("list->fill(7)   : " +  list);
+assert(list == [7, 7, 7, 7, 7, 7]);
 
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 list.fill(null);
 println("list->fill(null): " +  list);
+assert(list == [null, null, null, null, null, null]);
 
-
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 list.shift(1);
 println("list->shift(1)  : " +  list);
 
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 list.shift(2);
 println("list->shift(2)  : " +  list);
 
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 println("list            : " +  list);
 println("min=" + list.min());
 println("max=" + list.max());
 
 //
 
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 list.shift(-1);
 println("list->shift(-1) : " +  list);
 
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 list.shift(-2);
 println("list->shift(-2) : " +  list);
 
 //
-list = [100, -4, 6, 20, 7.8, -5];
+list = original.clone();
 println("list            : " +  list);
 list.reverse();
 println("list->reverse() : " +  list);
