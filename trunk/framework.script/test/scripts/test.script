@@ -567,3 +567,6 @@ println(null + "abc");
 println("abc" + null);
 
 //println("IntDiv: " + (7 \ 5));
+
+var set = Set(1, 2, 2, 3, 4, 4, 4, 5);
+println("set=" + set);

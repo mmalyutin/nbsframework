@@ -30,7 +30,8 @@ tokens {
   TAIL;
   TAILS;
   MAP;
-  LIST;  
+  LIST;
+  SET;  
   LOOKUP;
   BREAK;
   CONTINUE;
@@ -97,7 +98,8 @@ functionCall
   |  Print '(' expression ')'     -> ^(FUNC_CALL Print expression)
   |  Assert '(' expression ')'    -> ^(FUNC_CALL Assert expression)
   |  Date '(' exprList? ')'      -> ^(FUNC_CALL Date exprList?)
-  |  List '(' exprList? ')'      -> ^(FUNC_CALL List exprList?)  
+  |  List '(' exprList? ')'      -> ^(FUNC_CALL List exprList?)
+  |  Set '(' exprList? ')'      -> ^(FUNC_CALL Set exprList?)  
   ;
 
 //methodCall
@@ -322,6 +324,7 @@ RangeE   : '..<';
 
 Date     : 'Date';
 List     : 'List';
+Set      : 'Set';
 
 Bool
   :  'true' 

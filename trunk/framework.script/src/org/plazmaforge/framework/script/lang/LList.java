@@ -26,21 +26,19 @@
 package org.plazmaforge.framework.script.lang;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 import org.plazmaforge.framework.script.ScriptUtils;
-import org.plazmaforge.framework.script.ValueComparator;
-
 
 
 /**
  * @author ohapon
  *
  */
-public class LList extends LValue {
+public class LList extends LCollection {
 
     /**
      * @param value
@@ -49,143 +47,17 @@ public class LList extends LValue {
 	super(Type.LIST, value);
 	
     }
-    
-    // in
-    @Override
-    public LValue _in(LValue a, LValue b) {
-	LValue result = nullResult(a, "in", b);
-	if (result != null) {
-	    return result; 
-	}
-	
-	if (!b.isList()) {
-	    return super._in(a, b);
-	}
-	
-        List<LValue> list = b.asList();
-        for (LValue val : list) {
-            result = a._eq(a, val);
-            if (result.isBoolean() && result.asBoolean()) {
-                return LBoolean.TRUE;
-            }
-        }
-        return LBoolean.FALSE;
-    }
-    
 
-    // +
-    @Override
-    public LValue _add(LValue a, LValue b) {
-	
-	LValue result = nullResult(a, "+", b);
-	if (result != null) {
-	    return result; 
-	}
-	
-	// Returns NULL because a=NULL (List) is primary parameter
-	if (a == LValue.NULL) {
-	    return LValue.NULL;
-	}
-	
-	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
-	    return super._add(a, b);
-	}
-	
-	// List + List
-	List<LValue> list = a.asList();
-	if (b != LValue.NULL) {
-	    list.addAll(b.asList());
-	}
-	return new LList(list);
+    
+    protected LCollection newInstance(Collection<LValue> values) {
+	return new LList((List<LValue>) values);
+    }
+
+    protected <T> Collection<T> newCollection() {
+	return ScriptUtils.newList();
     }
     
-    // -
-    @Override
-    public LValue _sub(LValue a, LValue b) {
-	
-	LValue result = nullResult(a, "-", b);
-	if (result != null) {
-	    return result; 
-	}
-	
-	// Returns NULL because a=NULL (List) is primary parameter
-	if (a == LValue.NULL) {
-	    return LValue.NULL;
-	}
-	
-	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
-	    return super._sub(a, b);
-	}
-		
-	// List - List
-	List<LValue> list = a.asList();
-	if (b != LValue.NULL) {
-	    list.removeAll(b.asList());
-	}
-        return new LList(list);
-    }
-    
-    // &
-    @Override
-    public LValue _bitAnd(LValue a, LValue b) {
-	
-	LValue result = nullResult(a, "&", b);
-	if (result != null) {
-	    return result; 
-	}
-	
-	// Returns NULL because a=NULL (List) is primary parameter
-	if (a == LValue.NULL) {
-	    return LValue.NULL;
-	}
-	
-	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
-	    return super._bitAnd(a, b);
-	}
-	
-	// List & List : intersection
-	if (b == LValue.NULL) {
-	    return new LList(a.asList());
-	}
-	
-	List<LValue> list1 = a.asList();
-	List<LValue> list2 = b.asList();
-	List<LValue> list = intersection(list1, list2);
-	
-	return new LList(list);
-    }
-    
-    
-    // |
-    @Override
-    public LValue _bitOr(LValue a, LValue b) {
-	
-	LValue result = nullResult(a, "|", b);
-	if (result != null) {
-	    return result; 
-	}
-	
-	// Returns NULL because a=NULL (List) is primary parameter
-	if (a == LValue.NULL) {
-	    return LValue.NULL;
-	}
-	
-	if (!a.isList() || (!b.isList()) && b != LValue.NULL) {
-	    return super._bitOr(a, b);
-	}
-	
-	// List | List : union
-	if (b == LValue.NULL) {
-	    return new LList(a.asList());
-	}
-	
-	List<LValue> list1 = a.asList();
-	List<LValue> list2 = b.asList();
-	List<LValue> list = union(list1, list2);
-	
-	return new LList(list);
-    }   
-    
+     
     // *
     @Override
     public LValue _mul(LValue a, LValue b) {
@@ -234,13 +106,7 @@ public class LList extends LValue {
 
     @Override
     public LValue _invoke(String method, List<LValue> parameters) {
-	if ("size".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    return new LNumber(asList().size());
-	} else if ("isEmpty".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    return new LBoolean(asList().isEmpty());
-	} else if ("indexOf".equals(method)) {
+	if ("indexOf".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    return new LNumber(asList().indexOf(parameters.get(0)));
 	} else if ("set".equals(method)) {
@@ -259,46 +125,12 @@ public class LList extends LValue {
 		raiseIllegalMethodParameterTypeException("Number");
 	    }
 	    return getListValue(indexParameter);
-	} else if ("add".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    return new LBoolean(asList().add(parameters.get(0)));
-	} else if ("remove".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    return new LBoolean(asList().remove(parameters.get(0)));
-	} else if ("clear".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    asList().clear();
-	    return LValue.VOID;
-	} else if ("addAll".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    LValue parameter = parameters.get(0);
-	    if (!parameter.isList()) {
-		raiseIllegalMethodParameterTypeException("List");
-	    }	    
-	    return new LBoolean(asList().addAll(parameter.asList()));
-	} else if ("removeAll".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    LValue parameter = parameters.get(0);
-	    if (!parameter.isList()) {
-		raiseIllegalMethodParameterTypeException("List");
-	    }	    
-	    return new LBoolean(asList().removeAll(parameter.asList()));
-	} else if ("contains".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    return new LBoolean(asList().contains(parameters.get(0)));
-	} else if ("sort".equals(method)) {
+	    
+	} if ("sort".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    Comparator<LValue> comparator = createValueComparator();
 	    Collections.sort(asList(), comparator);		// COMPARATOR
 	    return LValue.VOID;
-	} else if ("min".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    Comparator<LValue> comparator = createValueComparator();
-	    return Collections.min(asList(), comparator);	// COMPARATOR
-	} else if ("max".equals(method)) {
-	    checkMethod(method, parameters, 0);
-	    Comparator<LValue> comparator = createValueComparator();
-	    return Collections.max(asList(), comparator);	// COMPARATOR
 	} else if ("fill".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    LValue parameter = parameters.get(0);
@@ -387,33 +219,4 @@ public class LList extends LValue {
         asList().set(idx, value);
     }    
     
-    ////
-    
-    protected <T> List<T> union(List<T> list1, List<T> list2) {
-        Set<T> set = ScriptUtils.newSet();
-
-        set.addAll(list1);
-        set.addAll(list2);
-
-        //return new ArrayList<T>(set);
-        List<T> list = ScriptUtils.newList();
-        list.addAll(set);
-        return list;
-    }
-    
-    protected <T> List<T> intersection(List<T> list1, List<T> list2) {
-        List<T> list = ScriptUtils.newList();
-
-        for (T t : list1) {
-            if (list2.contains(t)) {
-                list.add(t);
-            }
-        }
-
-        return list;
-    }    
-    
-    protected Comparator<LValue> createValueComparator() {
-	return new ValueComparator();
-    }
 }

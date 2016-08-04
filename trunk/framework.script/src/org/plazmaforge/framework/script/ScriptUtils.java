@@ -47,6 +47,11 @@ public class ScriptUtils {
 	return list == null ? new ArrayList<T>() : list; 
     }
     
+    public static <T> Set<T> getSafeSet(Set<T> list) {
+	return list == null ? new LinkedHashSet<T>() : list; 
+    }
+    
+    
     public static Map<String, Function> getSafeFunctions(Map<String, Function> functions) {
 	return functions == null ? new HashMap<String, Function>() : functions; 
     }

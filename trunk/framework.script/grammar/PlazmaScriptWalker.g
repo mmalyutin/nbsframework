@@ -83,7 +83,8 @@ functionCall returns [LNode node]
   |  ^(FUNC_CALL Print expression)     {node = new PrintNode($expression.node);}
   |  ^(FUNC_CALL Assert expression)    {node = new AssertNode($expression.node);}
   |  ^(FUNC_CALL Date exprList?)       {node = new DateNode($exprList.e);}
-  |  ^(FUNC_CALL List exprList?)       {node = new ListNode($exprList.e);}  
+  |  ^(FUNC_CALL List exprList?)       {node = new ListNode($exprList.e);}
+  |  ^(FUNC_CALL Set exprList?)       {node = new SetNode($exprList.e);}    
   ;
 
 ifStatement returns [LNode node]

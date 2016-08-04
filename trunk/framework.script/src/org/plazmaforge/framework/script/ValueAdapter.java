@@ -28,6 +28,7 @@ package org.plazmaforge.framework.script;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.plazmaforge.framework.script.lang.LBoolean;
 import org.plazmaforge.framework.script.lang.LDate;
@@ -35,6 +36,7 @@ import org.plazmaforge.framework.script.lang.LExtObject;
 import org.plazmaforge.framework.script.lang.LList;
 import org.plazmaforge.framework.script.lang.LMap;
 import org.plazmaforge.framework.script.lang.LNumber;
+import org.plazmaforge.framework.script.lang.LSet;
 import org.plazmaforge.framework.script.lang.LString;
 import org.plazmaforge.framework.script.lang.LValue;
 
@@ -65,11 +67,15 @@ public class ValueAdapter {
 
 	//TODO
 	if (value instanceof List) {
-	    return new LList((List) value);
+	    return new LList((List<?>) value);
+	}
+	//TODO
+	if (value instanceof Set) {
+	    return new LSet((Set<?>) value);
 	}
 	//TODO
 	if (value instanceof Map) {
-	    return new LMap((Map) value);
+	    return new LMap((Map<?, ?>) value);
 	}
 	
 	return new LExtObject(value); 
