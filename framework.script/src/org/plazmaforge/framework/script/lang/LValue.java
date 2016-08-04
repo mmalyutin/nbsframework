@@ -1,9 +1,11 @@
 package org.plazmaforge.framework.script.lang;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.plazmaforge.framework.script.EvaluateContext;
 import org.plazmaforge.framework.script.PropertyAccessor;
@@ -12,7 +14,7 @@ import org.plazmaforge.framework.script.PropertyAccessor;
 
 public class LValue implements Comparable<LValue> {
 
-    public enum Type {NUMBER, STRING, BOOLEAN, LIST, MAP, DATE, OBJ, EXT_OBJ}
+    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE, OBJ, EXT_OBJ}
     
     public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
@@ -41,7 +43,7 @@ public class LValue implements Comparable<LValue> {
         this.value = value;
         
         // only accept boolean, list, map, number or string types
-        if(!(isBoolean() || isList() || isMap() || isNumber() || isString() || isDate() || isExtObject())) {
+        if(!(isBoolean() || isList() || isSet() || isMap() || isNumber() || isString() || isDate() || isExtObject())) {
             throw new RuntimeException("invalid data type: " + value + " (" + value.getClass() + ")");
         }
     }
@@ -50,6 +52,12 @@ public class LValue implements Comparable<LValue> {
         return type;
     }
     
+    public boolean equalsType(LValue value) {
+	if (value == null) {
+	    return false;
+	}
+	return value.getType() == getType();
+    }
     
     ////
 
@@ -76,10 +84,20 @@ public class LValue implements Comparable<LValue> {
     public Date asDate() {
         return (Date) value;
     }
+
+    @SuppressWarnings("unchecked")
+    public Collection<LValue> asCollection() {
+        return (Collection<LValue>) value;
+    }
     
     @SuppressWarnings("unchecked")
     public List<LValue> asList() {
         return (List<LValue>) value;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Set<LValue> asSet() {
+        return (Set<LValue>) value;
     }
     
     @SuppressWarnings("unchecked")
@@ -142,10 +160,18 @@ public class LValue implements Comparable<LValue> {
         return value instanceof Integer;
     }
 
+    public boolean isCollection() {
+        return value instanceof Collection<?>;
+    }
+    
     public boolean isList() {
         return value instanceof List<?>;
     }
 
+    public boolean isSet() {
+        return value instanceof Set<?>;
+    }
+    
     public boolean isMap() {
         return value instanceof Map<?, ?>;
     }
