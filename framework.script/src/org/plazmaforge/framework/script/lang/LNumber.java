@@ -309,6 +309,31 @@ public class LNumber extends LValue {
 	return new LNumber(a.asDouble() % b.asDouble());
     }
 
+    // unary +
+    @Override
+    public LValue _unaryPlus(LValue a) {
+	LValue result = nullResult("+", a);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL) {
+	    return LValue.NULL;
+	}
+	
+        if (!a.isNumber()) {
+            raiseIllegalOperatorException("+", a);
+        }
+        
+        // Integer: returns same value
+        if (a.isInteger()) {
+            return new LNumber(a.asInteger());
+        }
+
+        // Double: returns same value
+        return new LNumber(a.asDouble());
+    }
+    
     // unary -
     @Override
     public LValue _unaryMinus(LValue a) {

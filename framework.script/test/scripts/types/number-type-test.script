@@ -59,3 +59,20 @@ assert(x.isInfinity());
 x = -Infinity;
 println("-Infinity: " + x);
 assert(x.isInfinity());
+
+x = +1;
+println("+1: " + x);
+assert(x == 1);
+
+x = 1 + +1;
+println("1 + +1: " + x);
+assert(x == 2);
+
+x = 1 + (+1);
+println("1 + (+1): " + x);
+assert(x == 2);
+
+
+x = 1 + (-1);
+println("1 + (-1): " + x);
+assert(x == 0);

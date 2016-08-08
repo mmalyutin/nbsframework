@@ -164,6 +164,7 @@ expression returns [LNode node]
   //|  ^('\\' a=expression b=expression)                  {node = new DivNode($a.node, $b.node);}  
   |  ^('%' a=expression b=expression)                  {node = new ModNode($a.node, $b.node);}
   |  ^('^' a=expression b=expression)                  {node = new PowNode($a.node, $b.node);}
+  |  ^(UNARY_PLUS a=expression)                         {node = new UnaryPlusNode($a.node);}  
   |  ^(UNARY_MIN a=expression)                         {node = new UnaryMinusNode($a.node);}
   |  ^(NEGATE a=expression)                            {node = new NotNode($a.node);}
  

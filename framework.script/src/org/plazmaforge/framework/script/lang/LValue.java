@@ -532,6 +532,11 @@ public class LValue implements Comparable<LValue> {
     }
 
     ////
+
+    public LValue _unaryPlus(LValue a) {
+	raiseIllegalOperatorException("+", a);
+	return null;
+    }
     
     public LValue _unaryMinus(LValue a) {
 	raiseIllegalOperatorException("-", a);
