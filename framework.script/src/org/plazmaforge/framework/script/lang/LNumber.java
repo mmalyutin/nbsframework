@@ -25,9 +25,35 @@
  */
 package org.plazmaforge.framework.script.lang;
 
+import java.util.List;
+
 
 public class LNumber extends LValue {
 
+    
+    public static final LValue NaN = new LNaN();
+    public static final LValue Infinity = new LInfinity();
+    
+    
+    // NaN
+    public static class LNaN extends LNumber {
+
+	public LNaN() {
+	    super(Double.NaN);
+	}
+	
+    }
+    
+    // Infinity
+    public static class LInfinity extends LNumber {
+
+	public LInfinity() {
+	    super(Double.POSITIVE_INFINITY);
+	}
+	
+    }
+    
+    
     /**
      * @param value
      */
@@ -306,4 +332,16 @@ public class LNumber extends LValue {
 
         return new LNumber(-a.asDouble());
     }
+    
+    public LValue _invoke(String method, List<LValue> parameters) {
+   	if ("isNaN".equals(method)) {
+   	    checkMethod(method, parameters, 0);
+   	    return new LBoolean(asDouble().isNaN());
+   	} if ("isInfinity".equals(method)) {
+   	    checkMethod(method, parameters, 0);
+   	    return new LBoolean(asDouble().isInfinite()); // isInfinitE - > isInfinitY
+   	}
+   	raiseIllegalMethodException(method);
+   	return null;
+       }    
 }
