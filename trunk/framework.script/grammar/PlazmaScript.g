@@ -20,6 +20,7 @@ tokens {
   ID_LIST;
   IF;
   TERNARY;
+  UNARY_PLUS;  
   UNARY_MIN;
   NEGATE;
   FUNCTION;
@@ -226,7 +227,8 @@ powExpr
   ;
   
 unaryExpr
-  :  '-' atom -> ^(UNARY_MIN atom)
+  :  '+' atom -> ^(UNARY_PLUS atom)
+  |  '-' atom -> ^(UNARY_MIN atom)
   |  '!' atom -> ^(NEGATE atom)
   |  'not' atom -> ^(NEGATE atom)  
   |  atom
