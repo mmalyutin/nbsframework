@@ -237,6 +237,8 @@ atom
   |  Number
   |  Bool
   |  Null
+  |  NaN
+  |  Infinity 
   |  lookup
   ;
 
@@ -282,6 +284,8 @@ For      : 'for';
 While    : 'while';
 In       : 'in';
 Null     : 'null';
+NaN      : 'NaN';
+Infinity : 'Infinity';
 Break    : 'break';
 Continue : 'continue';
 

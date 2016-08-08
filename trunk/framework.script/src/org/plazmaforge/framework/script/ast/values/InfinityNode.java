@@ -20,23 +20,25 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.script.ast;
+package org.plazmaforge.framework.script.ast.values;
 
+import org.plazmaforge.framework.script.ast.LNode;
+import org.plazmaforge.framework.script.lang.LNumber;
 import org.plazmaforge.framework.script.lang.LValue;
 
-public class NullNode implements LNode {
+public class InfinityNode implements LNode {
 
-    public NullNode() {
+    public InfinityNode() {
     }
 
     @Override
     public LValue evaluate() {
-        return LValue.NULL;
+        return LNumber.Infinity;
     }
 
     @Override
     public String toString() {
-        return LValue.NULL.toString();
+        return LNumber.Infinity.toString();
     }
     
 

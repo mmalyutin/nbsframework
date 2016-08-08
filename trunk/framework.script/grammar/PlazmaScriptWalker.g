@@ -171,6 +171,8 @@ expression returns [LNode node]
   |  Number                                            {node = new NumberNode($Number.text);}                          // {node = new AtomNode(Double.parseDouble($Number.text));}
   |  Bool                                              {node = new BooleanNode($Bool.text);}                           // {node = new AtomNode(Boolean.parseBoolean($Bool.text));}
   |  Null                                              {node = new NullNode();}
+  |  NaN                                               {node = new NaNNode();}  
+  |  Infinity                                          {node = new InfinityNode();}  
   |  lookup                                            {node = $lookup.node;}
   ;
 
