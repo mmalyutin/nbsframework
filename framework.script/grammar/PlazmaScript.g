@@ -349,19 +349,21 @@ Bool
 //  ;
 
 Integer
-  :  Int;
+  :  DecimalNumeral;
 
 
 Number
-  : (Int '..') => Integer {$type=Integer;}  
-    | Int ('.' Digit*)?
+  : (DecimalNumeral '..') => Integer {$type=Integer;}  
+  | DecimalFloatingPoint
   ;
 
-
-
-//Date 
-//  : 'Date(' YYYY ',' MM ',' DD ')';
+fragment DecimalFloatingPoint
+  //: Digits '.' // unsupported because conflict with '..' (in range)  
+  : Digits ('.' Digits)? ExponentPart? 
+  | '.' Digits ExponentPart?
+  ;
   
+   
 
 anyIdentifier
   : ContextIdentifier | Identifier
@@ -405,24 +407,41 @@ Comment
 Space
   :  (' ' | '\t' | '\r' | '\n' | '\u000C') {skip();}
   ;
-
-fragment Int
-  :  '1'..'9' Digit* | '0';
   
+  
+  
+fragment ExponentPart
+    :   ExponentIndicator SignedInteger
+    ;
+
+fragment ExponentIndicator
+    :   ('e' | 'E')
+    ;
+
+fragment SignedInteger
+    :   Sign? Digits
+    ;
+
+fragment Sign
+    :   ('+' | '-')
+    ;
+
+fragment DecimalNumeral
+  :  '0'
+  |  NonZeroDigit Digits?;
+
+fragment Digits
+    :   Digit Digit*
+    ;  
+    
 fragment Digit 
-  :  '0'..'9'
+  :  '0'
+  |  NonZeroDigit
   ;
   
-fragment YYYY
-  //:  Int;
-  :  '1'..'9' Digit*;  
-
-fragment MM
-  :  ('1'..'9') | ('0' '1'..'9') | ('1' '0'..'2');
-
-fragment DD
-//:  ('1'..'9') | ('0'..'2' '0'..'9') | ('3' '0'..'1') | ~('00');
-  :  ('1'..'9') | ('0' '1'..'9') | ('1'..'2' '0'..'9') | ('3' '0'..'1');
+fragment NonZeroDigit 
+  :  '1'..'9'
+  ;
 
 
  

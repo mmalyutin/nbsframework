@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-08-08 15:42:55
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScriptWalker.g 2016-08-08 18:39:35
 
   package org.plazmaforge.framework.script.parser;
   import org.plazmaforge.framework.script.*;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class PlazmaScriptWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_PLUS", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "INDEX", "ATTRIBUTE", "CALL", "TAIL", "TAILS", "MAP", "LIST", "SET", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Date", "List", "Set", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Null", "NaN", "Infinity", "String", "XorWord", "Or", "BitOr", "OrWord", "And", "BitAnd", "AndWord", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Not", "NotWord", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "Int", "Digit", "ContextIdentifier", "Comment", "Space", "YYYY", "MM", "DD", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_PLUS", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "INDEX", "ATTRIBUTE", "CALL", "TAIL", "TAILS", "MAP", "LIST", "SET", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Date", "List", "Set", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Null", "NaN", "Infinity", "String", "XorWord", "Or", "BitOr", "OrWord", "And", "BitAnd", "AndWord", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Not", "NotWord", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "DecimalNumeral", "DecimalFloatingPoint", "Digits", "ExponentPart", "ContextIdentifier", "Digit", "Comment", "Space", "ExponentIndicator", "SignedInteger", "Sign", "NonZeroDigit", "'.'"
     };
     public static final int FUNCTION=19;
     public static final int LT=73;
@@ -25,25 +25,26 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int EXP_LIST=12;
     public static final int Date=39;
     public static final int EOF=-1;
-    public static final int DD=97;
     public static final int QMark=88;
     public static final int NotWord=71;
     public static final int BREAK=30;
     public static final int Identifier=35;
-    public static final int Int=90;
     public static final int UNARY_PLUS=16;
     public static final int FUNC_CALL=8;
     public static final int CParen=84;
-    public static final int Comment=93;
+    public static final int Comment=96;
     public static final int EXP=9;
-    public static final int MM=96;
+    public static final int Digits=92;
     public static final int CBrace=80;
     public static final int RETURN=5;
-    public static final int T__98=98;
+    public static final int ExponentPart=93;
+    public static final int ExponentIndicator=98;
+    public static final int Sign=100;
+    public static final int DecimalNumeral=90;
     public static final int OrWord=61;
     public static final int Null=54;
     public static final int CBracket=82;
-    public static final int ContextIdentifier=92;
+    public static final int ContextIdentifier=94;
     public static final int Println=36;
     public static final int Bool=53;
     public static final int Modulus=78;
@@ -55,16 +56,17 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int LOOKUP=29;
     public static final int Range=50;
     public static final int Break=33;
+    public static final int SignedInteger=99;
     public static final int BitOr=60;
     public static final int GT=72;
     public static final int STATEMENTS=6;
     public static final int CALL=23;
+    public static final int DecimalFloatingPoint=91;
     public static final int Else=43;
     public static final int Equals=65;
     public static final int Var=44;
     public static final int XorWord=58;
     public static final int OParen=83;
-    public static final int YYYY=95;
     public static final int Assert=38;
     public static final int ATTRIBUTE=22;
     public static final int While=47;
@@ -73,7 +75,7 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int Set=41;
     public static final int TAIL=24;
     public static final int IF=14;
-    public static final int Space=94;
+    public static final int Space=97;
     public static final int INDEX=21;
     public static final int Assign=86;
     public static final int EXP_MAP=11;
@@ -98,13 +100,15 @@ public class PlazmaScriptWalker extends TreeParser {
     public static final int INDEXES=20;
     public static final int NEGATE=18;
     public static final int SET=28;
-    public static final int Digit=91;
+    public static final int T__102=102;
+    public static final int Digit=95;
     public static final int For=46;
     public static final int Divide=77;
     public static final int List=40;
     public static final int TAILS=25;
     public static final int SColon=85;
     public static final int OBracket=81;
+    public static final int NonZeroDigit=101;
     public static final int BLOCK=4;
     public static final int MAP=26;
     public static final int Not=70;
