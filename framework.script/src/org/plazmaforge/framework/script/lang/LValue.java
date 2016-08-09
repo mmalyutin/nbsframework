@@ -1,5 +1,7 @@
 package org.plazmaforge.framework.script.lang;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -9,6 +11,8 @@ import java.util.Set;
 
 import org.plazmaforge.framework.script.EvaluateContext;
 import org.plazmaforge.framework.script.PropertyAccessor;
+
+import sun.security.krb5.Asn1Exception;
 
 
 
@@ -69,6 +73,10 @@ public class LValue implements Comparable<LValue> {
         return (Boolean) value;
     }
 
+    public Number asNumber() {
+        return (Number) value;
+    }
+    
     public Integer asInteger() {
         return ((Number) value).intValue();
     }
@@ -76,11 +84,23 @@ public class LValue implements Comparable<LValue> {
     public Long asLong() {
         return ((Number) value).longValue();
     }
+
+    public Float asFloat() {
+        return ((Number) value).floatValue();
+    }
     
     public Double asDouble() {
         return ((Number) value).doubleValue();
     }
 
+    public BigDecimal asBigDecimal() {
+        return ((BigDecimal) value);
+    }
+
+    public BigInteger asBigInteger() {
+        return ((BigInteger) value);
+    }
+    
     public Date asDate() {
         return (Date) value;
     }
@@ -132,12 +152,26 @@ public class LValue implements Comparable<LValue> {
             return false;
         }
         LValue that = (LValue) o;
-        if (this.isNumber() && that.isNumber()) {
-            double diff = Math.abs(this.asDouble() - that.asDouble());
-            return diff < 0.00000000001;
+        
+        /*
+        if (this.isNumber() && that.isNumber() && this.getValue() instanceof Comparable && that.getValue() instanceof Comparable) {
+            return ((Comparable) this.getValue()).compareTo(that.getValue()) == 0;
         } else {
             return this.value.equals(that.value);
         }
+        */
+        
+        if (this.isNumber() && that.isNumber()) {
+            //int result = this.asDouble().compareTo(that.asDouble());
+            //return result == 0;
+            
+            double diff = Math.abs(this.asDouble() - that.asDouble());
+            double e = 0.00000000001;
+            return diff < e;
+        } else {
+            return this.value.equals(that.value);
+        }
+        
     }
 
     @Override
@@ -160,6 +194,22 @@ public class LValue implements Comparable<LValue> {
         return value instanceof Integer;
     }
 
+    public boolean isFloat() {
+        return value instanceof Float;
+    }
+
+    public boolean isDouble() {
+        return value instanceof Double;
+    }
+    
+    public boolean isBigDecimal() {
+        return value instanceof BigDecimal;
+    }
+    
+    public boolean isBigInteger() {
+        return value instanceof BigInteger;
+    }
+    
     public boolean isCollection() {
         return value instanceof Collection<?>;
     }
@@ -194,6 +244,12 @@ public class LValue implements Comparable<LValue> {
 
     public boolean isExtObject() {
         return type == Type.EXT_OBJ;
+    }
+    
+    //// SOFT TYPE
+    
+    public boolean isSoftFloat() {
+	return isFloat() || isInteger();
     }
     
     ////

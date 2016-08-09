@@ -22,6 +22,8 @@
 
 package org.plazmaforge.framework.script.ast.values;
 
+import java.math.BigDecimal;
+
 import org.plazmaforge.framework.script.lang.LNumber;
 import org.plazmaforge.framework.script.lang.LValue;
 
@@ -32,6 +34,14 @@ public class NumberNode extends ValueNode {
     }
     
     protected Number parseNumber(String value) {
-	return Double.parseDouble(value); 
+	
+	
+	return new BigDecimal(value);
+	
+	//return Float.parseFloat(value);
+	
+	
+	// Disable doble
+	//return Double.parseDouble(value); 
     }
 }
