@@ -1,6 +1,9 @@
 //
 println("Test Number type");
 
+assert(7 / 5 == 1.4);
+
+/*
 // +
 assert(10 + 20 == 30);
 assert(20  + 10 == 30);
@@ -82,3 +85,15 @@ assert(.33 == 0.33);
 assert(1.2345E+4 == 12345);
 assert(12345E-4 == 1.2345);
 assert(.12345E+4 == 1234.5);
+
+var DELTA = 0.00000000001;
+var a = 0.000000000002;
+var b = 0.000000000003;
+
+println(b - a);
+println(b == a);
+
+println(0.1 + 0.2);
+println(0.3);
+
+*/

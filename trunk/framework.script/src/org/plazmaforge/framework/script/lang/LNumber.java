@@ -166,8 +166,22 @@ public class LNumber extends LValue {
 	if (a.isInteger() && b.isInteger()) {
 	    return new LNumber(a.asInteger() + b.asInteger());
 	}
+	
+	// Float
+	if (a.isSoftFloat() && b.isSoftFloat()) {
+	    return new LNumber(a.asFloat() + b.asFloat());
+	}
+
+	// BigDecimal
+	if (a.isBigDecimal() && b.isBigDecimal()) {
+	    return new LNumber(a.asBigDecimal().add(b.asBigDecimal()));
+	}
+	
 	return new LNumber(a.asDouble() + b.asDouble());
     }
+    
+    
+    
     
     // -
     @Override
@@ -196,6 +210,17 @@ public class LNumber extends LValue {
 	if (a.isInteger() && b.isInteger()) {
 	    return new LNumber(a.asInteger() - b.asInteger());
 	}
+	
+	// Float
+	if (a.isSoftFloat() && b.isSoftFloat()) {
+	    return new LNumber(a.asFloat() - b.asFloat());
+	}
+	
+	// BigDecimal
+	if (a.isBigDecimal() && b.isBigDecimal()) {
+	    return new LNumber(a.asBigDecimal().subtract(b.asBigDecimal()));
+	}
+	
 	return new LNumber(a.asDouble() - b.asDouble());
     }
     
@@ -226,6 +251,18 @@ public class LNumber extends LValue {
 	if (a.isInteger() && b.isInteger()) {
 	    return new LNumber(a.asInteger() * b.asInteger());
 	}
+	
+	// Float
+	if (a.isSoftFloat() && b.isSoftFloat()) {
+	    return new LNumber(a.asFloat() * b.asFloat());
+	}	
+	
+	// BigDecimal
+	if (a.isBigDecimal() && b.isBigDecimal()) {
+	    return new LNumber(a.asBigDecimal().multiply(b.asBigDecimal()));
+	}
+	
+	
 	return new LNumber(a.asDouble() * b.asDouble());
     }
     
@@ -250,6 +287,16 @@ public class LNumber extends LValue {
 
 	if (!a.isNumber() || !b.isNumber()) {
 	    return super._div(a, b);
+	}
+	
+	// Float
+	//if (a.isSoftFloat() && b.isSoftFloat()) {
+	//    return new LNumber(a.asFloat() / b.asFloat());
+	//}	
+	
+	// BigDecimal
+	if (a.isBigDecimal() && b.isBigDecimal()) {
+	    return new LNumber(a.asBigDecimal().divide(b.asBigDecimal()));
 	}
 	
 	// Integer ???
