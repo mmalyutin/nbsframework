@@ -12,9 +12,6 @@ import java.util.Set;
 import org.plazmaforge.framework.script.EvaluateContext;
 import org.plazmaforge.framework.script.PropertyAccessor;
 
-import sun.security.krb5.Asn1Exception;
-
-
 
 public class LValue implements Comparable<LValue> {
 
@@ -61,6 +58,18 @@ public class LValue implements Comparable<LValue> {
 	    return false;
 	}
 	return value.getType() == getType();
+    }
+
+    public boolean isEqualsValueType(LValue value) {
+	if (value == null) {
+	    return false;
+	}
+	Object v1 = this.getValue();
+	Object v2 = value.getValue();
+	if (v1 == null || v2 == null) {
+	    return false;
+	}
+	return v1.getClass().equals(v2.getClass());
     }
     
     ////
@@ -153,14 +162,27 @@ public class LValue implements Comparable<LValue> {
         }
         LValue that = (LValue) o;
         
-        /*
-        if (this.isNumber() && that.isNumber() && this.getValue() instanceof Comparable && that.getValue() instanceof Comparable) {
-            return ((Comparable) this.getValue()).compareTo(that.getValue()) == 0;
+        // Number
+        if (this.isNumber() && that.isNumber()) {
+            
+            // Same type
+            if (isEqualsValueType(that)) {
+        	return  ((Comparable) this.getValue()).compareTo(that.getValue()) == 0;
+            }
+            
+            // Double
+            Double d1 = this.asDouble();
+            Double d2 = that.asDouble();
+	    if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
+		return true;
+	    }
+            return d1.compareTo(d2) == 0;
         } else {
             return this.value.equals(that.value);
         }
-        */
         
+        
+        /*
         if (this.isNumber() && that.isNumber()) {
             //int result = this.asDouble().compareTo(that.asDouble());
             //return result == 0;
@@ -171,9 +193,14 @@ public class LValue implements Comparable<LValue> {
         } else {
             return this.value.equals(that.value);
         }
+        */
         
     }
 
+    protected boolean isZero(Double value) {
+	return value == null ? false : (value == 0.0 || value == -0.0); 
+    }
+    
     @Override
     public int hashCode() {
         return value.hashCode();
