@@ -61,7 +61,54 @@ public class LNumber extends LValue {
 	super(Type.NUMBER, value);
     }
 
+    @Override
+    protected boolean isEqualsValue(LValue that) {
+	if (that == null || getValue() == null) {
+	    return false;
+	}
+	if (that.isNumber()) {
 
+	    // Same type
+	    if (isEqualsValueType(that)) {
+		return ((Comparable) this.getValue()).compareTo(that.getValue()) == 0;
+	    }
+
+	    // Double
+	    Double d1 = this.asDouble();
+	    Double d2 = that.asDouble();
+	    if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
+		return true;
+	    }
+	    return d1.compareTo(d2) == 0;
+	}
+	
+        /*
+        if (that.isNumber()) {
+            double diff = Math.abs(this.asDouble() - that.asDouble());
+            return diff < 0.00000000001;
+        }
+        */
+	
+	return super.isEqualsValue(that);
+    }
+    
+    @Override
+    protected int compareValueTo(LValue that) {
+        if (that.isNumber()) {
+            if(this.equals(that)) { // TODO: ???
+                return 0;
+            } else {
+                return this.asDouble().compareTo(that.asDouble());
+            }
+        }
+        return super.compareValueTo(that);
+    }
+
+    protected boolean isZero(Double value) {
+	return value == null ? false : (value == 0.0 || value == -0.0); 
+    }
+    
+    
     // <
     @Override
     public LValue _lt(LValue a, LValue b) {

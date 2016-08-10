@@ -42,6 +42,14 @@ public class LString extends LValue {
     } 
     
     
+    @Override
+    protected int compareValueTo(LValue that) {
+	if (that.isString()) {
+	    return this.asString().compareTo(that.asString());
+	}
+	return super.compareValueTo(that);
+    }
+    
     // <
     @Override
     public LValue _lt(LValue a, LValue b) {
