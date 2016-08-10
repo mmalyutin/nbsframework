@@ -168,9 +168,9 @@ public class LNumber extends LValue {
 	}
 	
 	// Float
-	if (a.isSoftFloat() && b.isSoftFloat()) {
-	    return new LNumber(a.asFloat() + b.asFloat());
-	}
+	//if (a.isSoftFloat() && b.isSoftFloat()) {
+	//    return new LNumber(a.asFloat() + b.asFloat());
+	//}
 
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {
@@ -212,9 +212,9 @@ public class LNumber extends LValue {
 	}
 	
 	// Float
-	if (a.isSoftFloat() && b.isSoftFloat()) {
-	    return new LNumber(a.asFloat() - b.asFloat());
-	}
+	//if (a.isSoftFloat() && b.isSoftFloat()) {
+	//    return new LNumber(a.asFloat() - b.asFloat());
+	//}
 	
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {
@@ -253,9 +253,9 @@ public class LNumber extends LValue {
 	}
 	
 	// Float
-	if (a.isSoftFloat() && b.isSoftFloat()) {
-	    return new LNumber(a.asFloat() * b.asFloat());
-	}	
+	//if (a.isSoftFloat() && b.isSoftFloat()) {
+	//    return new LNumber(a.asFloat() * b.asFloat());
+	//}	
 	
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {

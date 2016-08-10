@@ -1,9 +1,23 @@
 //
 println("Test Number type");
 
+assert(0 == 0);
+assert(0.0 == 0.0);
+assert(0.0 == 0);
+assert(0 == 0.0);
+//assert(0.0 == -0.0);
+
+var w = 1234567890123456789.1234567890123456789; 
+assert(w == 1234567890123456789.1234567890123456789);
+assert(("" + 1234567890123456789.1234567890123456789) == "1234567890123456789.1234567890123456789");
+
+assert((NaN).isNaN());
+assert((Infinity).isInfinity());
+assert((-Infinity).isInfinity());
+
 assert(7 / 5 == 1.4);
 
-/*
+
 // +
 assert(10 + 20 == 30);
 assert(20  + 10 == 30);
@@ -96,4 +110,3 @@ println(b == a);
 println(0.1 + 0.2);
 println(0.3);
 
-*/
