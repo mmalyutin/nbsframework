@@ -60,12 +60,16 @@ public class LValue implements Comparable<LValue> {
 	return value.getType() == getType();
     }
 
-    public boolean isEqualsValueType(LValue value) {
-	if (value == null) {
+    protected boolean isEqualsValueType(LValue that) {
+	if (that == null) {
 	    return false;
 	}
 	Object v1 = this.getValue();
-	Object v2 = value.getValue();
+	Object v2 = that.getValue();
+	return isEqualsValueType(v1, v2);
+    }
+
+    protected boolean isEqualsValueType(Object v1, Object v2) {
 	if (v1 == null || v2 == null) {
 	    return false;
 	}
@@ -137,22 +141,13 @@ public class LValue implements Comparable<LValue> {
 
     @Override
     public int compareTo(LValue that) {
-        if (this.isNumber() && that.isNumber()) {
-            if(this.equals(that)) {
-                return 0;
-            } else {
-                return this.asDouble().compareTo(that.asDouble());
-            }
-        }  else if (this.isString() && that.isString()) {
-            return this.asString().compareTo(that.asString());
-        }
-        throw new RuntimeException("illegal expression: can't compare `" + this + "` to `" + that + "`");
+	return compareValueTo(that);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == VOID || o == VOID) {
-            throw new RuntimeException("can't use VOID: " + this + " ==/!= " + o);
+            throw new RuntimeException("Can't use VOID: " + this + " ==/!= " + o);
         }
         if (this == o) {
             return true;
@@ -161,44 +156,20 @@ public class LValue implements Comparable<LValue> {
             return false;
         }
         LValue that = (LValue) o;
-        
-        // Number
-        if (this.isNumber() && that.isNumber()) {
-            
-            // Same type
-            if (isEqualsValueType(that)) {
-        	return  ((Comparable) this.getValue()).compareTo(that.getValue()) == 0;
-            }
-            
-            // Double
-            Double d1 = this.asDouble();
-            Double d2 = that.asDouble();
-	    if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
-		return true;
-	    }
-            return d1.compareTo(d2) == 0;
-        } else {
-            return this.value.equals(that.value);
-        }
-        
-        
-        /*
-        if (this.isNumber() && that.isNumber()) {
-            //int result = this.asDouble().compareTo(that.asDouble());
-            //return result == 0;
-            
-            double diff = Math.abs(this.asDouble() - that.asDouble());
-            double e = 0.00000000001;
-            return diff < e;
-        } else {
-            return this.value.equals(that.value);
-        }
-        */
-        
+        return isEqualsValue(that);
+    }
+    
+    protected boolean isEqualsValue(LValue that) {
+	if (that == null || value == null) {
+	    return false;
+	}
+	// Default implementation
+	return this.value.equals(that.value);
     }
 
-    protected boolean isZero(Double value) {
-	return value == null ? false : (value == 0.0 || value == -0.0); 
+    protected int compareValueTo(LValue that) {
+	// Default implementation
+	throw new RuntimeException("Illegal expression: can't compare `" + this + "` to `" + that + "`");
     }
     
     @Override
