@@ -34,12 +34,12 @@ import org.plazmaforge.framework.report.fill.script.AbstractExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ScriptInfo;
 
-import plazma.EvaluateException;
-import plazma.Function;
-import plazma.GlobalScope;
-import plazma.VariableProvider;
-import plazma.ast.LNode;
-import plazma.lang.LValue;
+import org.plazmaforge.framework.script.EvaluateException;
+import org.plazmaforge.framework.script.Function;
+import org.plazmaforge.framework.script.GlobalScope;
+import org.plazmaforge.framework.script.VariableProvider;
+import org.plazmaforge.framework.script.ast.LNode;
+import org.plazmaforge.framework.script.lang.LValue;
 
 /**
  * Plazma Script ExpressionEvaluator
@@ -57,7 +57,7 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
     
     private ReportVariableProvider variableProvider;
     
-    private plazma.ExpressionEvaluator nativeEvaluator;
+    private org.plazmaforge.framework.script.ExpressionEvaluator nativeEvaluator;
     
     
     @Override
@@ -68,10 +68,10 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
 	    globalScope = new GlobalScope(variableProvider);
 
 	    // Load Global/Library functions
-	    globalFunctions = plazma.ExpressionEvaluator.loadLibraryFunctions();
+	    globalFunctions = org.plazmaforge.framework.script.ExpressionEvaluator.loadLibraryFunctions();
 	    
 	    // Load Script functions
-	    scriptFunctions = plazma.ExpressionEvaluator.loadFunctions(scriptInfo.getSourceCode());
+	    scriptFunctions = org.plazmaforge.framework.script.ExpressionEvaluator.loadFunctions(scriptInfo.getSourceCode());
 
 	} catch (EvaluateException e) {
 	    throw new RTException(e);
@@ -128,7 +128,7 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
 	}
 
 	if (nativeEvaluator == null) {
-	    nativeEvaluator = new plazma.ExpressionEvaluator(globalFunctions, globalScope);
+	    nativeEvaluator = new org.plazmaforge.framework.script.ExpressionEvaluator(globalFunctions, globalScope);
 	}
 
 	try {
