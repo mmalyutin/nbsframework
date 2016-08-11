@@ -61,14 +61,18 @@ public class LValue implements Comparable<LValue> {
     }
 
     protected boolean isEqualsValueType(LValue that) {
-	if (that == null) {
-	    return false;
-	}
-	Object v1 = this.getValue();
-	Object v2 = that.getValue();
-	return isEqualsValueType(v1, v2);
+	return isEqualsValueType(this.getValue(), that.getValue());
     }
 
+    protected boolean isEqualsValueType(LValue value1 , LValue value2) {
+	if (value1 == null || value2 == null) {
+	    return false;
+	}
+	Object v1 = value1.getValue();
+	Object v2 = value2.getValue();
+	return isEqualsValueType(v1, v2);
+    }
+    
     protected boolean isEqualsValueType(Object v1, Object v2) {
 	if (v1 == null || v2 == null) {
 	    return false;

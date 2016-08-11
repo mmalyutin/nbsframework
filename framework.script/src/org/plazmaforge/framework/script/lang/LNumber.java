@@ -67,19 +67,7 @@ public class LNumber extends LValue {
 	    return false;
 	}
 	if (that.isNumber()) {
-
-	    // Same type
-	    if (isEqualsValueType(that)) {
-		return ((Comparable) this.getValue()).compareTo(that.getValue()) == 0;
-	    }
-
-	    // Double
-	    Double d1 = this.asDouble();
-	    Double d2 = that.asDouble();
-	    if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
-		return true;
-	    }
-	    return d1.compareTo(d2) == 0;
+	    return compareNumberValue(this, that) == 0;
 	}
 	
         /*
@@ -90,6 +78,45 @@ public class LNumber extends LValue {
         */
 	
 	return super.isEqualsValue(that);
+    }
+    
+    protected int compareNumberValue(LValue v1, LValue v2) {
+	if (v1 == null && v2 == null) {
+	    return 0;
+	}
+	if (v1 == null) {
+	    return -1;
+	}
+	if (v2 == null) {
+	    return 1;
+	}
+	
+	Number n1 = v1.asNumber();
+	Number n2 = v2.asNumber();
+
+	if (n1 == null && n2 == null) {
+	    return 0;
+	}
+	if (n1 == null) {
+	    return -1;
+	}
+	if (n2 == null) {
+	    return 1;
+	}
+
+	// Same type
+	if (isEqualsValueType(n1, n2)) {
+	    return ((Comparable) n1).compareTo(n2);
+	}
+
+	// Double
+	Double d1 = v1.asDouble();
+	Double d2 = v2.asDouble();
+	if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
+	    return 0;
+	}
+	return d1.compareTo(d2);
+
     }
     
     @Override
@@ -214,11 +241,6 @@ public class LNumber extends LValue {
 	    return new LNumber(a.asInteger() + b.asInteger());
 	}
 	
-	// Float
-	//if (a.isSoftFloat() && b.isSoftFloat()) {
-	//    return new LNumber(a.asFloat() + b.asFloat());
-	//}
-
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {
 	    return new LNumber(a.asBigDecimal().add(b.asBigDecimal()));
@@ -258,11 +280,6 @@ public class LNumber extends LValue {
 	    return new LNumber(a.asInteger() - b.asInteger());
 	}
 	
-	// Float
-	//if (a.isSoftFloat() && b.isSoftFloat()) {
-	//    return new LNumber(a.asFloat() - b.asFloat());
-	//}
-	
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {
 	    return new LNumber(a.asBigDecimal().subtract(b.asBigDecimal()));
@@ -299,11 +316,6 @@ public class LNumber extends LValue {
 	    return new LNumber(a.asInteger() * b.asInteger());
 	}
 	
-	// Float
-	//if (a.isSoftFloat() && b.isSoftFloat()) {
-	//    return new LNumber(a.asFloat() * b.asFloat());
-	//}	
-	
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {
 	    return new LNumber(a.asBigDecimal().multiply(b.asBigDecimal()));
@@ -335,11 +347,6 @@ public class LNumber extends LValue {
 	if (!a.isNumber() || !b.isNumber()) {
 	    return super._div(a, b);
 	}
-	
-	// Float
-	//if (a.isSoftFloat() && b.isSoftFloat()) {
-	//    return new LNumber(a.asFloat() / b.asFloat());
-	//}	
 	
 	// BigDecimal
 	if (a.isBigDecimal() && b.isBigDecimal()) {
@@ -422,8 +429,14 @@ public class LNumber extends LValue {
         // Integer: returns same value
         if (a.isInteger()) {
             return new LNumber(a.asInteger());
+
         }
 
+        // BigDecimal
+	if (a.isBigDecimal()) {
+	    return new LNumber(a.asBigDecimal());
+	}
+        
         // Double: returns same value
         return new LNumber(a.asDouble());
     }
@@ -448,19 +461,26 @@ public class LNumber extends LValue {
         if (a.isInteger()) {
             return new LNumber(-a.asInteger());
         }
+        
+	// BigDecimal
+	if (a.isBigDecimal()) {
+	    return new LNumber(a.asBigDecimal().negate());
+	}
+        
 
         return new LNumber(-a.asDouble());
     }
     
     public LValue _invoke(String method, List<LValue> parameters) {
-   	if ("isNaN".equals(method)) {
-   	    checkMethod(method, parameters, 0);
-   	    return new LBoolean(asDouble().isNaN());
-   	} if ("isInfinity".equals(method)) {
-   	    checkMethod(method, parameters, 0);
-   	    return new LBoolean(asDouble().isInfinite()); // isInfinitE - > isInfinitY
-   	}
-   	raiseIllegalMethodException(method);
-   	return null;
-       }    
+	if ("isNaN".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LBoolean(asDouble().isNaN());
+	}
+	if ("isInfinity".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LBoolean(asDouble().isInfinite()); // isInfinitE - > isInfinitY
+	}
+	raiseIllegalMethodException(method);
+	return null;
+    }
 }
