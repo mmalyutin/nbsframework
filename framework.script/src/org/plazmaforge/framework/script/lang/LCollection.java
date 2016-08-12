@@ -231,9 +231,19 @@ public abstract class LCollection extends LValue {
 	    checkMethod(method, parameters, 0);
 	    Comparator<LValue> comparator = createValueComparator();
 	    return Collections.max(asCollection(), comparator);	// COMPARATOR
+	} else if ("toList".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    List<LValue> list = ScriptUtils.newList();
+	    list.addAll(asCollection()); // add all elements
+	    LList result = new LList(list);
+	    return result;
+	} else if ("toSet".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    Set<LValue> set = ScriptUtils.newSet();
+	    set.addAll(asCollection()); // add all elements
+	    LSet result = new LSet(set);
+	    return result;
 	}
-	
-	
 	
 	return super._invoke(method, parameters);
     }

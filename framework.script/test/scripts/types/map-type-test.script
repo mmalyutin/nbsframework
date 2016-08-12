@@ -52,3 +52,9 @@ assert(map["height"] == null);			// no value by key
 map.clear();
 assert(map.size() == 0);
 assert(map.isEmpty());
+
+assert({:}.size() == 0);
+assert({:}.isEmpty());
+
+assert({"name": "Alex", "phone": "123-45-67"}.size() == 2);
+assert(!{"name": "Alex", "phone": "123-45-67"}.isEmpty());
