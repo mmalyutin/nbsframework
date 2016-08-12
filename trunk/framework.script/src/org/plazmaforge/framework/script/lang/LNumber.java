@@ -488,10 +488,15 @@ public class LNumber extends LValue {
 	if ("isNaN".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LBoolean(asDouble().isNaN());
-	}
-	if ("isInfinity".equals(method)) {
+	} else if ("isInfinity".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LBoolean(asDouble().isInfinite()); // isInfinitE - > isInfinitY
+	} else if ("toInteger".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asInteger());
+	} else if ("toDouble".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asDouble());
 	}
 	raiseIllegalMethodException(method);
 	return null;
