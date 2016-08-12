@@ -37,6 +37,46 @@ assert((-Infinity).isInfinity());
 
 assert(7 / 5 == 1.4);
 
+//
+// <
+assert(1 < 2);
+assert(1.2345 < 2.345);
+
+assert(-10 < 2);
+assert(-10.2345 < 2.345);
+
+// <=
+assert(1 <= 2);
+assert(1.2345 <= 2.345);
+
+assert(-10 <= 2);
+assert(-10.2345 <= 2.345);
+ 
+assert(2 <= 2);
+assert(1.2345 <= 1.2345);
+
+assert(-20 <= -20);
+assert(-10.2345 <= -10.2345);
+
+// >
+assert(2 > 1);
+assert(2.345 > 1.2345);
+ 
+assert(2 > -10);
+assert(2.345 > -10.2345);
+
+// >=
+assert(2 >= 1);
+assert(2.345 >= 1.2345);
+
+assert(2 >= -10);
+assert(2.345 >= -10.2345);
+
+assert(2 >= 2);
+assert(2.345 >= 2.345);
+
+assert(-20 >= -20);
+assert(-20.345 >= -20.345);
 
 // +
 assert(10 + 20 == 30);
