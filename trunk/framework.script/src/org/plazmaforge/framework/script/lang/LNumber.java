@@ -152,7 +152,10 @@ public class LNumber extends LValue {
 	    return super._lt(a, b);
 	}
 	
-	return new LBoolean(a.asDouble() < b.asDouble());
+	//return new LBoolean(a.asDouble() < b.asDouble());
+	
+	int compare = compareNumberValue(a, b);
+	return new LBoolean(compare == -1);
     }
     
     // <=
@@ -171,7 +174,10 @@ public class LNumber extends LValue {
 	    return super._lte(a, b);
 	}
 	
-	return new LBoolean(a.asDouble() <= b.asDouble());
+	//return new LBoolean(a.asDouble() <= b.asDouble());
+	
+	int compare = compareNumberValue(a, b);
+	return new LBoolean(compare == -1 || compare == 0);
     }
 
     // >
@@ -190,7 +196,10 @@ public class LNumber extends LValue {
 	    return super._gt(a, b);
 	}
 	
-	return new LBoolean(a.asDouble() > b.asDouble());
+	//return new LBoolean(a.asDouble() > b.asDouble());
+	
+	int compare = compareNumberValue(a, b);
+	return new LBoolean(compare == 1);
     }
     
     // >=
@@ -208,7 +217,11 @@ public class LNumber extends LValue {
 	if (!a.isNumber() || !b.isNumber()) {
 	    return super._gt(a, b);
 	}
-	return new LBoolean(a.asDouble() >= b.asDouble());
+	
+	//return new LBoolean(a.asDouble() >= b.asDouble());
+	
+	int compare = compareNumberValue(a, b);
+	return new LBoolean(compare == 1 || compare == 0);
     }
     
     //////
