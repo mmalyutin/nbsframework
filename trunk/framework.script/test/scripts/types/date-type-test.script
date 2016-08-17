@@ -118,3 +118,10 @@ assert(date["year"] == 2016);
 assert(date["month"] == 12);
 assert(date["day"] == 23);
 assert(date["time"] == time);
+
+
+// now Date
+date1 = Date();
+date2 = Date(date1.getYear(), date1.getMonth(), date1.getDay());
+
+assert(date1.getTime() - date2.getTime() == 0);

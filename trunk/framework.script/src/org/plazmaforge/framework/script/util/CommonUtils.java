@@ -86,7 +86,24 @@ public class CommonUtils {
 	return (time / DAY_TIME) * (DAY_TIME);
     }
     
-   
+    public static Date newDate() {
+	// WARNING: All date in GMT time zone
+	Calendar calendar = getGMTCalendar();
+	
+	calendar.clear(Calendar.HOUR_OF_DAY);
+	calendar.clear(Calendar.MINUTE);
+	calendar.clear(Calendar.SECOND);
+	calendar.clear(Calendar.MILLISECOND);
+	
+	return calendar.getTime();
+    }
+
+    public static Date newDateTime() {
+	// WARNING: All date in GMT time zone
+	Calendar calendar = getGMTCalendar();
+	
+	return calendar.getTime();
+    }
     
     
 }
