@@ -33,30 +33,26 @@ import org.plazmaforge.framework.script.util.CommonUtils;
  * @author ohapon
  *
  */
-public class LDate extends LInstant {
+public class LTime extends LInstant {
 
-    /**
-     * @param value
-     */
-    public LDate(Date value) {
-	super(Type.DATE, value);
+
+    public LTime(Date value) {
+	super(Type.TIME, value);
     }
 
-    public LDate(long time) {
-	//TODO: truncate time
-	//super(Type.DATE, new Date(time));
-	super(Type.DATE, CommonUtils.getDate(time));
+    public LTime(long time) {
+	super(Type.TIME, CommonUtils.getDate(time));
     }
-
-    @Override
-    protected LInstant newInstance(long time) {
-	return new LDate(time);
+   
+    protected LTime newInstance(long time) {
+	return new LTime(time);
     }
-
+    
     @Override
     public String _toString() {
 	return toDateString();
     }
+    
     
     
 }
