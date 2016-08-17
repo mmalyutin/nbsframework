@@ -25,6 +25,7 @@ package org.plazmaforge.framework.script.ast.values;
 import java.util.Date;
 import java.util.List;
 
+import org.plazmaforge.framework.script.ScriptUtils;
 import org.plazmaforge.framework.script.ast.LNode;
 import org.plazmaforge.framework.script.lang.LDate;
 import org.plazmaforge.framework.script.lang.LValue;
@@ -34,13 +35,19 @@ import org.plazmaforge.framework.script.util.CommonUtils;
 
 public class DateNode extends ValueNode {
 
-    public DateNode(String value) {
-	this.value = value == null ? LValue.NULL : new LDate(splitDate(value));
+    private List<LNode> expressionNodes;
+    
+    public DateNode(List<LNode> nodes) {
+	expressionNodes = ScriptUtils.getSafeList(nodes);
     }
-
-    public DateNode(List<LNode> params) {
-	this.value = new LDate(createDate(params));
-    }
+    
+    @Override
+    public LValue evaluate() {
+	if (value == null) {
+	    this.value = new LDate(createDate(expressionNodes));
+	}
+        return value;
+    }    
     
     // TODO: temp solution
     protected Date splitDate(String value) {
@@ -56,7 +63,7 @@ public class DateNode extends ValueNode {
     
     protected Date createDate(List<LNode> params) {
 	if (params == null || params.isEmpty()) {
-	    return new Date();
+	    return CommonUtils.newDate();
 	}
 	if (params.size() < 3) {
 	    throw new RuntimeException("Can't parse date: invalid parameter count");
