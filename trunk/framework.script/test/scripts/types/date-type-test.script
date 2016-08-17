@@ -124,4 +124,14 @@ assert(date["time"] == time);
 date1 = Date();
 date2 = Date(date1.getYear(), date1.getMonth(), date1.getDay());
 
+println(date1.getTime());
+println(date2.getTime());
+
+// truncate time
+assert((Date(date1.getTime() + 10)).getTime() == date1.getTime());
+
 assert(date1.getTime() - date2.getTime() == 0);
+assert(Date(1970, 1, 1).getTime() == 0);
+
+
+println(DateTime(2016, 12, 1, 17, 20));

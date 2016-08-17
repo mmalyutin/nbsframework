@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-08-08 18:39:34
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-08-17 18:31:05
 
   package org.plazmaforge.framework.script.parser;
   import org.plazmaforge.framework.script.*; 
@@ -17,108 +17,109 @@ import org.antlr.runtime.tree.*;
 
 public class PlazmaScriptParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_PLUS", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "INDEX", "ATTRIBUTE", "CALL", "TAIL", "TAILS", "MAP", "LIST", "SET", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Date", "List", "Set", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Null", "NaN", "Infinity", "String", "XorWord", "Or", "BitOr", "OrWord", "And", "BitAnd", "AndWord", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Not", "NotWord", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "DecimalNumeral", "DecimalFloatingPoint", "Digits", "ExponentPart", "ContextIdentifier", "Digit", "Comment", "Space", "ExponentIndicator", "SignedInteger", "Sign", "NonZeroDigit", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BLOCK", "RETURN", "STATEMENTS", "ASSIGNMENT", "FUNC_CALL", "EXP", "EXP_PAIR", "EXP_MAP", "EXP_LIST", "ID_LIST", "IF", "TERNARY", "UNARY_PLUS", "UNARY_MIN", "NEGATE", "FUNCTION", "INDEXES", "INDEX", "ATTRIBUTE", "CALL", "TAIL", "TAILS", "MAP", "LIST", "SET", "LOOKUP", "BREAK", "CONTINUE", "Return", "Break", "Continue", "Identifier", "Println", "Print", "Assert", "Date", "DateTime", "List", "Set", "If", "Else", "Var", "Def", "For", "While", "In", "RangeE", "Range", "Integer", "Number", "Bool", "Null", "NaN", "Infinity", "String", "XorWord", "Or", "BitOr", "OrWord", "And", "BitAnd", "AndWord", "Equals", "NEquals", "GTEquals", "LTEquals", "Pow", "Not", "NotWord", "GT", "LT", "Add", "Subtract", "Multiply", "Divide", "Modulus", "OBrace", "CBrace", "OBracket", "CBracket", "OParen", "CParen", "SColon", "Assign", "Comma", "QMark", "Colon", "DecimalNumeral", "DecimalFloatingPoint", "Digits", "ExponentPart", "ContextIdentifier", "Digit", "Comment", "Space", "ExponentIndicator", "SignedInteger", "Sign", "NonZeroDigit", "'.'"
     };
     public static final int FUNCTION=19;
-    public static final int LT=73;
+    public static final int LT=74;
     public static final int TERNARY=15;
     public static final int EXP_LIST=12;
+    public static final int DateTime=40;
     public static final int Date=39;
     public static final int EOF=-1;
-    public static final int QMark=88;
-    public static final int NotWord=71;
+    public static final int QMark=89;
+    public static final int NotWord=72;
     public static final int BREAK=30;
     public static final int Identifier=35;
     public static final int UNARY_PLUS=16;
     public static final int FUNC_CALL=8;
-    public static final int CParen=84;
-    public static final int Comment=96;
+    public static final int CParen=85;
+    public static final int Comment=97;
     public static final int EXP=9;
-    public static final int Digits=92;
+    public static final int Digits=93;
     public static final int RETURN=5;
-    public static final int CBrace=80;
-    public static final int ExponentPart=93;
-    public static final int ExponentIndicator=98;
-    public static final int Sign=100;
-    public static final int Null=54;
-    public static final int OrWord=61;
-    public static final int DecimalNumeral=90;
-    public static final int ContextIdentifier=94;
-    public static final int CBracket=82;
+    public static final int CBrace=81;
+    public static final int ExponentPart=94;
+    public static final int ExponentIndicator=99;
+    public static final int Sign=101;
+    public static final int DecimalNumeral=91;
+    public static final int Null=55;
+    public static final int OrWord=62;
+    public static final int ContextIdentifier=95;
+    public static final int CBracket=83;
     public static final int Println=36;
-    public static final int Bool=53;
-    public static final int Modulus=78;
-    public static final int AndWord=64;
-    public static final int Colon=89;
+    public static final int Bool=54;
+    public static final int Modulus=79;
+    public static final int AndWord=65;
+    public static final int Colon=90;
     public static final int LIST=27;
-    public static final int Def=45;
+    public static final int Def=46;
     public static final int LOOKUP=29;
-    public static final int RangeE=49;
-    public static final int Range=50;
+    public static final int RangeE=50;
+    public static final int Range=51;
     public static final int Break=33;
-    public static final int SignedInteger=99;
-    public static final int BitOr=60;
+    public static final int SignedInteger=100;
+    public static final int BitOr=61;
     public static final int STATEMENTS=6;
-    public static final int GT=72;
+    public static final int GT=73;
     public static final int CALL=23;
-    public static final int DecimalFloatingPoint=91;
-    public static final int Else=43;
-    public static final int Equals=65;
-    public static final int Var=44;
-    public static final int XorWord=58;
-    public static final int OParen=83;
+    public static final int DecimalFloatingPoint=92;
+    public static final int Else=44;
+    public static final int Equals=66;
+    public static final int Var=45;
+    public static final int XorWord=59;
+    public static final int OParen=84;
     public static final int Assert=38;
     public static final int ATTRIBUTE=22;
-    public static final int While=47;
+    public static final int While=48;
     public static final int ID_LIST=13;
-    public static final int Add=74;
-    public static final int Set=41;
+    public static final int Add=75;
+    public static final int Set=42;
     public static final int TAIL=24;
     public static final int IF=14;
-    public static final int Space=97;
+    public static final int Space=98;
     public static final int INDEX=21;
-    public static final int Assign=86;
+    public static final int Assign=87;
     public static final int EXP_MAP=11;
-    public static final int NaN=55;
-    public static final int Number=52;
+    public static final int NaN=56;
+    public static final int Number=53;
     public static final int CONTINUE=31;
+    public static final int T__103=103;
     public static final int Print=37;
-    public static final int GTEquals=67;
-    public static final int String=57;
-    public static final int Or=59;
+    public static final int GTEquals=68;
+    public static final int String=58;
+    public static final int Or=60;
     public static final int Return=32;
-    public static final int If=42;
-    public static final int And=62;
-    public static final int In=48;
-    public static final int NEquals=66;
+    public static final int If=43;
+    public static final int And=63;
+    public static final int In=49;
+    public static final int NEquals=67;
     public static final int Continue=34;
-    public static final int Subtract=75;
+    public static final int Subtract=76;
     public static final int EXP_PAIR=10;
-    public static final int BitAnd=63;
-    public static final int Multiply=76;
-    public static final int OBrace=79;
+    public static final int BitAnd=64;
+    public static final int Multiply=77;
+    public static final int OBrace=80;
     public static final int INDEXES=20;
     public static final int NEGATE=18;
     public static final int SET=28;
-    public static final int T__102=102;
-    public static final int Digit=95;
-    public static final int For=46;
-    public static final int Divide=77;
-    public static final int List=40;
+    public static final int Digit=96;
+    public static final int For=47;
+    public static final int Divide=78;
+    public static final int List=41;
     public static final int TAILS=25;
-    public static final int SColon=85;
-    public static final int OBracket=81;
-    public static final int NonZeroDigit=101;
+    public static final int SColon=86;
+    public static final int OBracket=82;
+    public static final int NonZeroDigit=102;
     public static final int BLOCK=4;
     public static final int MAP=26;
-    public static final int Not=70;
+    public static final int Not=71;
     public static final int UNARY_MIN=17;
     public static final int ASSIGNMENT=7;
-    public static final int Infinity=56;
-    public static final int Comma=87;
-    public static final int Integer=51;
-    public static final int Pow=69;
-    public static final int LTEquals=68;
+    public static final int Infinity=57;
+    public static final int Comma=88;
+    public static final int Integer=52;
+    public static final int Pow=70;
+    public static final int LTEquals=69;
 
     // delegates
     // delegators
@@ -347,7 +348,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: statement, expression
+            // elements: expression, statement
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -835,7 +836,7 @@ public class PlazmaScriptParser extends Parser {
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
-                    if ( (LA5_0==OBracket||LA5_0==102) ) {
+                    if ( (LA5_0==OBracket||LA5_0==103) ) {
                         alt5=1;
                     }
                     switch (alt5) {
@@ -866,7 +867,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, variableDef, indexes, Identifier
+                    // elements: indexes, variableDef, Identifier, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -943,7 +944,7 @@ public class PlazmaScriptParser extends Parser {
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
-                    if ( (LA7_0==OBracket||LA7_0==102) ) {
+                    if ( (LA7_0==OBracket||LA7_0==103) ) {
                         alt7=1;
                     }
                     switch (alt7) {
@@ -974,7 +975,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: indexes, expression, variableDef
+                    // elements: indexes, variableDef, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1043,7 +1044,7 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "functionCall"
-    // grammar/PlazmaScript.g:96:1: functionCall : ( Identifier '(' ( exprList )? ')' -> ^( FUNC_CALL Identifier ( exprList )? ) | Println '(' ( expression )? ')' -> ^( FUNC_CALL Println ( expression )? ) | Print '(' expression ')' -> ^( FUNC_CALL Print expression ) | Assert '(' expression ')' -> ^( FUNC_CALL Assert expression ) | Date '(' ( exprList )? ')' -> ^( FUNC_CALL Date ( exprList )? ) | List '(' ( exprList )? ')' -> ^( FUNC_CALL List ( exprList )? ) | Set '(' ( exprList )? ')' -> ^( FUNC_CALL Set ( exprList )? ) );
+    // grammar/PlazmaScript.g:96:1: functionCall : ( Identifier '(' ( exprList )? ')' -> ^( FUNC_CALL Identifier ( exprList )? ) | Println '(' ( expression )? ')' -> ^( FUNC_CALL Println ( expression )? ) | Print '(' expression ')' -> ^( FUNC_CALL Print expression ) | Assert '(' expression ')' -> ^( FUNC_CALL Assert expression ) | Date '(' ( exprList )? ')' -> ^( FUNC_CALL Date ( exprList )? ) | DateTime '(' ( exprList )? ')' -> ^( FUNC_CALL DateTime ( exprList )? ) | List '(' ( exprList )? ')' -> ^( FUNC_CALL List ( exprList )? ) | Set '(' ( exprList )? ')' -> ^( FUNC_CALL Set ( exprList )? ) );
     public final PlazmaScriptParser.functionCall_return functionCall() throws RecognitionException {
         PlazmaScriptParser.functionCall_return retval = new PlazmaScriptParser.functionCall_return();
         retval.start = input.LT(1);
@@ -1065,12 +1066,15 @@ public class PlazmaScriptParser extends Parser {
         Token Date47=null;
         Token char_literal48=null;
         Token char_literal50=null;
-        Token List51=null;
+        Token DateTime51=null;
         Token char_literal52=null;
         Token char_literal54=null;
-        Token Set55=null;
+        Token List55=null;
         Token char_literal56=null;
         Token char_literal58=null;
+        Token Set59=null;
+        Token char_literal60=null;
+        Token char_literal62=null;
         PlazmaScriptParser.exprList_return exprList33 = null;
 
         PlazmaScriptParser.expression_return expression37 = null;
@@ -1084,6 +1088,8 @@ public class PlazmaScriptParser extends Parser {
         PlazmaScriptParser.exprList_return exprList53 = null;
 
         PlazmaScriptParser.exprList_return exprList57 = null;
+
+        PlazmaScriptParser.exprList_return exprList61 = null;
 
 
         Object Identifier31_tree=null;
@@ -1101,14 +1107,18 @@ public class PlazmaScriptParser extends Parser {
         Object Date47_tree=null;
         Object char_literal48_tree=null;
         Object char_literal50_tree=null;
-        Object List51_tree=null;
+        Object DateTime51_tree=null;
         Object char_literal52_tree=null;
         Object char_literal54_tree=null;
-        Object Set55_tree=null;
+        Object List55_tree=null;
         Object char_literal56_tree=null;
         Object char_literal58_tree=null;
+        Object Set59_tree=null;
+        Object char_literal60_tree=null;
+        Object char_literal62_tree=null;
         RewriteRuleTokenStream stream_Println=new RewriteRuleTokenStream(adaptor,"token Println");
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
+        RewriteRuleTokenStream stream_DateTime=new RewriteRuleTokenStream(adaptor,"token DateTime");
         RewriteRuleTokenStream stream_Date=new RewriteRuleTokenStream(adaptor,"token Date");
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
         RewriteRuleTokenStream stream_Set=new RewriteRuleTokenStream(adaptor,"token Set");
@@ -1119,53 +1129,58 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_exprList=new RewriteRuleSubtreeStream(adaptor,"rule exprList");
         try {
-            // grammar/PlazmaScript.g:97:3: ( Identifier '(' ( exprList )? ')' -> ^( FUNC_CALL Identifier ( exprList )? ) | Println '(' ( expression )? ')' -> ^( FUNC_CALL Println ( expression )? ) | Print '(' expression ')' -> ^( FUNC_CALL Print expression ) | Assert '(' expression ')' -> ^( FUNC_CALL Assert expression ) | Date '(' ( exprList )? ')' -> ^( FUNC_CALL Date ( exprList )? ) | List '(' ( exprList )? ')' -> ^( FUNC_CALL List ( exprList )? ) | Set '(' ( exprList )? ')' -> ^( FUNC_CALL Set ( exprList )? ) )
-            int alt14=7;
+            // grammar/PlazmaScript.g:97:3: ( Identifier '(' ( exprList )? ')' -> ^( FUNC_CALL Identifier ( exprList )? ) | Println '(' ( expression )? ')' -> ^( FUNC_CALL Println ( expression )? ) | Print '(' expression ')' -> ^( FUNC_CALL Print expression ) | Assert '(' expression ')' -> ^( FUNC_CALL Assert expression ) | Date '(' ( exprList )? ')' -> ^( FUNC_CALL Date ( exprList )? ) | DateTime '(' ( exprList )? ')' -> ^( FUNC_CALL DateTime ( exprList )? ) | List '(' ( exprList )? ')' -> ^( FUNC_CALL List ( exprList )? ) | Set '(' ( exprList )? ')' -> ^( FUNC_CALL Set ( exprList )? ) )
+            int alt15=8;
             switch ( input.LA(1) ) {
             case Identifier:
                 {
-                alt14=1;
+                alt15=1;
                 }
                 break;
             case Println:
                 {
-                alt14=2;
+                alt15=2;
                 }
                 break;
             case Print:
                 {
-                alt14=3;
+                alt15=3;
                 }
                 break;
             case Assert:
                 {
-                alt14=4;
+                alt15=4;
                 }
                 break;
             case Date:
                 {
-                alt14=5;
+                alt15=5;
+                }
+                break;
+            case DateTime:
+                {
+                alt15=6;
                 }
                 break;
             case List:
                 {
-                alt14=6;
+                alt15=7;
                 }
                 break;
             case Set:
                 {
-                alt14=7;
+                alt15=8;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 15, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt14) {
+            switch (alt15) {
                 case 1 :
                     // grammar/PlazmaScript.g:97:6: Identifier '(' ( exprList )? ')'
                     {
@@ -1204,7 +1219,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, Identifier
+                    // elements: Identifier, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1331,7 +1346,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Print, expression
+                    // elements: expression, Print
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1381,7 +1396,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, Assert
+                    // elements: Assert, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1448,7 +1463,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, Date
+                    // elements: Date, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1483,15 +1498,15 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // grammar/PlazmaScript.g:102:6: List '(' ( exprList )? ')'
+                    // grammar/PlazmaScript.g:102:6: DateTime '(' ( exprList )? ')'
                     {
-                    List51=(Token)match(input,List,FOLLOW_List_in_functionCall629); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_List.add(List51);
+                    DateTime51=(Token)match(input,DateTime,FOLLOW_DateTime_in_functionCall629); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_DateTime.add(DateTime51);
 
                     char_literal52=(Token)match(input,OParen,FOLLOW_OParen_in_functionCall631); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OParen.add(char_literal52);
 
-                    // grammar/PlazmaScript.g:102:15: ( exprList )?
+                    // grammar/PlazmaScript.g:102:19: ( exprList )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1520,7 +1535,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, List
+                    // elements: DateTime, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1531,15 +1546,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 102:34: -> ^( FUNC_CALL List ( exprList )? )
+                    // 102:38: -> ^( FUNC_CALL DateTime ( exprList )? )
                     {
-                        // grammar/PlazmaScript.g:102:37: ^( FUNC_CALL List ( exprList )? )
+                        // grammar/PlazmaScript.g:102:41: ^( FUNC_CALL DateTime ( exprList )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FUNC_CALL, "FUNC_CALL"), root_1);
 
-                        adaptor.addChild(root_1, stream_List.nextNode());
-                        // grammar/PlazmaScript.g:102:54: ( exprList )?
+                        adaptor.addChild(root_1, stream_DateTime.nextNode());
+                        // grammar/PlazmaScript.g:102:62: ( exprList )?
                         if ( stream_exprList.hasNext() ) {
                             adaptor.addChild(root_1, stream_exprList.nextTree());
 
@@ -1555,15 +1570,15 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // grammar/PlazmaScript.g:103:6: Set '(' ( exprList )? ')'
+                    // grammar/PlazmaScript.g:103:6: List '(' ( exprList )? ')'
                     {
-                    Set55=(Token)match(input,Set,FOLLOW_Set_in_functionCall659); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Set.add(Set55);
+                    List55=(Token)match(input,List,FOLLOW_List_in_functionCall661); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_List.add(List55);
 
-                    char_literal56=(Token)match(input,OParen,FOLLOW_OParen_in_functionCall661); if (state.failed) return retval; 
+                    char_literal56=(Token)match(input,OParen,FOLLOW_OParen_in_functionCall663); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_OParen.add(char_literal56);
 
-                    // grammar/PlazmaScript.g:103:14: ( exprList )?
+                    // grammar/PlazmaScript.g:103:15: ( exprList )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -1574,7 +1589,7 @@ public class PlazmaScriptParser extends Parser {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: exprList
                             {
-                            pushFollow(FOLLOW_exprList_in_functionCall663);
+                            pushFollow(FOLLOW_exprList_in_functionCall665);
                             exprList57=exprList();
 
                             state._fsp--;
@@ -1586,13 +1601,13 @@ public class PlazmaScriptParser extends Parser {
 
                     }
 
-                    char_literal58=(Token)match(input,CParen,FOLLOW_CParen_in_functionCall666); if (state.failed) return retval; 
+                    char_literal58=(Token)match(input,CParen,FOLLOW_CParen_in_functionCall668); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CParen.add(char_literal58);
 
 
 
                     // AST REWRITE
-                    // elements: exprList, Set
+                    // elements: List, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1603,15 +1618,87 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 103:33: -> ^( FUNC_CALL Set ( exprList )? )
+                    // 103:34: -> ^( FUNC_CALL List ( exprList )? )
                     {
-                        // grammar/PlazmaScript.g:103:36: ^( FUNC_CALL Set ( exprList )? )
+                        // grammar/PlazmaScript.g:103:37: ^( FUNC_CALL List ( exprList )? )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FUNC_CALL, "FUNC_CALL"), root_1);
+
+                        adaptor.addChild(root_1, stream_List.nextNode());
+                        // grammar/PlazmaScript.g:103:54: ( exprList )?
+                        if ( stream_exprList.hasNext() ) {
+                            adaptor.addChild(root_1, stream_exprList.nextTree());
+
+                        }
+                        stream_exprList.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 8 :
+                    // grammar/PlazmaScript.g:104:6: Set '(' ( exprList )? ')'
+                    {
+                    Set59=(Token)match(input,Set,FOLLOW_Set_in_functionCall691); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Set.add(Set59);
+
+                    char_literal60=(Token)match(input,OParen,FOLLOW_OParen_in_functionCall693); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_OParen.add(char_literal60);
+
+                    // grammar/PlazmaScript.g:104:14: ( exprList )?
+                    int alt14=2;
+                    int LA14_0 = input.LA(1);
+
+                    if ( ((LA14_0>=Identifier && LA14_0<=Set)||(LA14_0>=Integer && LA14_0<=String)||(LA14_0>=Not && LA14_0<=NotWord)||(LA14_0>=Add && LA14_0<=Subtract)||LA14_0==OBrace||LA14_0==OBracket||LA14_0==OParen||LA14_0==ContextIdentifier) ) {
+                        alt14=1;
+                    }
+                    switch (alt14) {
+                        case 1 :
+                            // grammar/PlazmaScript.g:0:0: exprList
+                            {
+                            pushFollow(FOLLOW_exprList_in_functionCall695);
+                            exprList61=exprList();
+
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_exprList.add(exprList61.getTree());
+
+                            }
+                            break;
+
+                    }
+
+                    char_literal62=(Token)match(input,CParen,FOLLOW_CParen_in_functionCall698); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_CParen.add(char_literal62);
+
+
+
+                    // AST REWRITE
+                    // elements: Set, exprList
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 104:33: -> ^( FUNC_CALL Set ( exprList )? )
+                    {
+                        // grammar/PlazmaScript.g:104:36: ^( FUNC_CALL Set ( exprList )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FUNC_CALL, "FUNC_CALL"), root_1);
 
                         adaptor.addChild(root_1, stream_Set.nextNode());
-                        // grammar/PlazmaScript.g:103:52: ( exprList )?
+                        // grammar/PlazmaScript.g:104:52: ( exprList )?
                         if ( stream_exprList.hasNext() ) {
                             adaptor.addChild(root_1, stream_exprList.nextTree());
 
@@ -1654,86 +1741,86 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "ifStatement"
-    // grammar/PlazmaScript.g:110:1: ifStatement : ifStat ( elseIfStat )* ( elseStat )? -> ^( IF ifStat ( elseIfStat )* ( elseStat )? ) ;
+    // grammar/PlazmaScript.g:111:1: ifStatement : ifStat ( elseIfStat )* ( elseStat )? -> ^( IF ifStat ( elseIfStat )* ( elseStat )? ) ;
     public final PlazmaScriptParser.ifStatement_return ifStatement() throws RecognitionException {
         PlazmaScriptParser.ifStatement_return retval = new PlazmaScriptParser.ifStatement_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        PlazmaScriptParser.ifStat_return ifStat59 = null;
+        PlazmaScriptParser.ifStat_return ifStat63 = null;
 
-        PlazmaScriptParser.elseIfStat_return elseIfStat60 = null;
+        PlazmaScriptParser.elseIfStat_return elseIfStat64 = null;
 
-        PlazmaScriptParser.elseStat_return elseStat61 = null;
+        PlazmaScriptParser.elseStat_return elseStat65 = null;
 
 
         RewriteRuleSubtreeStream stream_elseIfStat=new RewriteRuleSubtreeStream(adaptor,"rule elseIfStat");
         RewriteRuleSubtreeStream stream_ifStat=new RewriteRuleSubtreeStream(adaptor,"rule ifStat");
         RewriteRuleSubtreeStream stream_elseStat=new RewriteRuleSubtreeStream(adaptor,"rule elseStat");
         try {
-            // grammar/PlazmaScript.g:111:3: ( ifStat ( elseIfStat )* ( elseStat )? -> ^( IF ifStat ( elseIfStat )* ( elseStat )? ) )
-            // grammar/PlazmaScript.g:111:6: ifStat ( elseIfStat )* ( elseStat )?
+            // grammar/PlazmaScript.g:112:3: ( ifStat ( elseIfStat )* ( elseStat )? -> ^( IF ifStat ( elseIfStat )* ( elseStat )? ) )
+            // grammar/PlazmaScript.g:112:6: ifStat ( elseIfStat )* ( elseStat )?
             {
-            pushFollow(FOLLOW_ifStat_in_ifStatement704);
-            ifStat59=ifStat();
+            pushFollow(FOLLOW_ifStat_in_ifStatement736);
+            ifStat63=ifStat();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_ifStat.add(ifStat59.getTree());
-            // grammar/PlazmaScript.g:111:13: ( elseIfStat )*
-            loop15:
+            if ( state.backtracking==0 ) stream_ifStat.add(ifStat63.getTree());
+            // grammar/PlazmaScript.g:112:13: ( elseIfStat )*
+            loop16:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-                if ( (LA15_0==Else) ) {
-                    int LA15_1 = input.LA(2);
+                if ( (LA16_0==Else) ) {
+                    int LA16_1 = input.LA(2);
 
-                    if ( (LA15_1==If) ) {
-                        alt15=1;
+                    if ( (LA16_1==If) ) {
+                        alt16=1;
                     }
 
 
                 }
 
 
-                switch (alt15) {
+                switch (alt16) {
             	case 1 :
             	    // grammar/PlazmaScript.g:0:0: elseIfStat
             	    {
-            	    pushFollow(FOLLOW_elseIfStat_in_ifStatement706);
-            	    elseIfStat60=elseIfStat();
+            	    pushFollow(FOLLOW_elseIfStat_in_ifStatement738);
+            	    elseIfStat64=elseIfStat();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) stream_elseIfStat.add(elseIfStat60.getTree());
+            	    if ( state.backtracking==0 ) stream_elseIfStat.add(elseIfStat64.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop15;
+            	    break loop16;
                 }
             } while (true);
 
-            // grammar/PlazmaScript.g:111:25: ( elseStat )?
-            int alt16=2;
-            int LA16_0 = input.LA(1);
+            // grammar/PlazmaScript.g:112:25: ( elseStat )?
+            int alt17=2;
+            int LA17_0 = input.LA(1);
 
-            if ( (LA16_0==Else) ) {
-                alt16=1;
+            if ( (LA17_0==Else) ) {
+                alt17=1;
             }
-            switch (alt16) {
+            switch (alt17) {
                 case 1 :
                     // grammar/PlazmaScript.g:0:0: elseStat
                     {
-                    pushFollow(FOLLOW_elseStat_in_ifStatement709);
-                    elseStat61=elseStat();
+                    pushFollow(FOLLOW_elseStat_in_ifStatement741);
+                    elseStat65=elseStat();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_elseStat.add(elseStat61.getTree());
+                    if ( state.backtracking==0 ) stream_elseStat.add(elseStat65.getTree());
 
                     }
                     break;
@@ -1743,7 +1830,7 @@ public class PlazmaScriptParser extends Parser {
 
 
             // AST REWRITE
-            // elements: elseStat, ifStat, elseIfStat
+            // elements: ifStat, elseIfStat, elseStat
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1754,21 +1841,21 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 111:35: -> ^( IF ifStat ( elseIfStat )* ( elseStat )? )
+            // 112:35: -> ^( IF ifStat ( elseIfStat )* ( elseStat )? )
             {
-                // grammar/PlazmaScript.g:111:38: ^( IF ifStat ( elseIfStat )* ( elseStat )? )
+                // grammar/PlazmaScript.g:112:38: ^( IF ifStat ( elseIfStat )* ( elseStat )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF, "IF"), root_1);
 
                 adaptor.addChild(root_1, stream_ifStat.nextTree());
-                // grammar/PlazmaScript.g:111:50: ( elseIfStat )*
+                // grammar/PlazmaScript.g:112:50: ( elseIfStat )*
                 while ( stream_elseIfStat.hasNext() ) {
                     adaptor.addChild(root_1, stream_elseIfStat.nextTree());
 
                 }
                 stream_elseIfStat.reset();
-                // grammar/PlazmaScript.g:111:62: ( elseStat )?
+                // grammar/PlazmaScript.g:112:62: ( elseStat )?
                 if ( stream_elseStat.hasNext() ) {
                     adaptor.addChild(root_1, stream_elseStat.nextTree());
 
@@ -1809,28 +1896,28 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "ifStat"
-    // grammar/PlazmaScript.g:114:1: ifStat : If '(' expression ')' '{' block '}' -> ^( EXP expression block ) ;
+    // grammar/PlazmaScript.g:115:1: ifStat : If '(' expression ')' '{' block '}' -> ^( EXP expression block ) ;
     public final PlazmaScriptParser.ifStat_return ifStat() throws RecognitionException {
         PlazmaScriptParser.ifStat_return retval = new PlazmaScriptParser.ifStat_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token If62=null;
-        Token char_literal63=null;
-        Token char_literal65=null;
-        Token char_literal66=null;
-        Token char_literal68=null;
-        PlazmaScriptParser.expression_return expression64 = null;
+        Token If66=null;
+        Token char_literal67=null;
+        Token char_literal69=null;
+        Token char_literal70=null;
+        Token char_literal72=null;
+        PlazmaScriptParser.expression_return expression68 = null;
 
-        PlazmaScriptParser.block_return block67 = null;
+        PlazmaScriptParser.block_return block71 = null;
 
 
-        Object If62_tree=null;
-        Object char_literal63_tree=null;
-        Object char_literal65_tree=null;
-        Object char_literal66_tree=null;
-        Object char_literal68_tree=null;
+        Object If66_tree=null;
+        Object char_literal67_tree=null;
+        Object char_literal69_tree=null;
+        Object char_literal70_tree=null;
+        Object char_literal72_tree=null;
         RewriteRuleTokenStream stream_OBrace=new RewriteRuleTokenStream(adaptor,"token OBrace");
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
@@ -1839,40 +1926,40 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // grammar/PlazmaScript.g:115:3: ( If '(' expression ')' '{' block '}' -> ^( EXP expression block ) )
-            // grammar/PlazmaScript.g:115:6: If '(' expression ')' '{' block '}'
+            // grammar/PlazmaScript.g:116:3: ( If '(' expression ')' '{' block '}' -> ^( EXP expression block ) )
+            // grammar/PlazmaScript.g:116:6: If '(' expression ')' '{' block '}'
             {
-            If62=(Token)match(input,If,FOLLOW_If_in_ifStat738); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_If.add(If62);
+            If66=(Token)match(input,If,FOLLOW_If_in_ifStat770); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_If.add(If66);
 
-            char_literal63=(Token)match(input,OParen,FOLLOW_OParen_in_ifStat740); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OParen.add(char_literal63);
+            char_literal67=(Token)match(input,OParen,FOLLOW_OParen_in_ifStat772); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OParen.add(char_literal67);
 
-            pushFollow(FOLLOW_expression_in_ifStat742);
-            expression64=expression();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression64.getTree());
-            char_literal65=(Token)match(input,CParen,FOLLOW_CParen_in_ifStat744); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CParen.add(char_literal65);
-
-            char_literal66=(Token)match(input,OBrace,FOLLOW_OBrace_in_ifStat746); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBrace.add(char_literal66);
-
-            pushFollow(FOLLOW_block_in_ifStat748);
-            block67=block();
+            pushFollow(FOLLOW_expression_in_ifStat774);
+            expression68=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_block.add(block67.getTree());
-            char_literal68=(Token)match(input,CBrace,FOLLOW_CBrace_in_ifStat750); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBrace.add(char_literal68);
+            if ( state.backtracking==0 ) stream_expression.add(expression68.getTree());
+            char_literal69=(Token)match(input,CParen,FOLLOW_CParen_in_ifStat776); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CParen.add(char_literal69);
+
+            char_literal70=(Token)match(input,OBrace,FOLLOW_OBrace_in_ifStat778); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBrace.add(char_literal70);
+
+            pushFollow(FOLLOW_block_in_ifStat780);
+            block71=block();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) stream_block.add(block71.getTree());
+            char_literal72=(Token)match(input,CBrace,FOLLOW_CBrace_in_ifStat782); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBrace.add(char_literal72);
 
 
 
             // AST REWRITE
-            // elements: block, expression
+            // elements: expression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1883,9 +1970,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 115:42: -> ^( EXP expression block )
+            // 116:42: -> ^( EXP expression block )
             {
-                // grammar/PlazmaScript.g:115:45: ^( EXP expression block )
+                // grammar/PlazmaScript.g:116:45: ^( EXP expression block )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXP, "EXP"), root_1);
@@ -1927,30 +2014,30 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "elseIfStat"
-    // grammar/PlazmaScript.g:118:1: elseIfStat : Else If '(' expression ')' '{' block '}' -> ^( EXP expression block ) ;
+    // grammar/PlazmaScript.g:119:1: elseIfStat : Else If '(' expression ')' '{' block '}' -> ^( EXP expression block ) ;
     public final PlazmaScriptParser.elseIfStat_return elseIfStat() throws RecognitionException {
         PlazmaScriptParser.elseIfStat_return retval = new PlazmaScriptParser.elseIfStat_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Else69=null;
-        Token If70=null;
-        Token char_literal71=null;
-        Token char_literal73=null;
-        Token char_literal74=null;
-        Token char_literal76=null;
-        PlazmaScriptParser.expression_return expression72 = null;
+        Token Else73=null;
+        Token If74=null;
+        Token char_literal75=null;
+        Token char_literal77=null;
+        Token char_literal78=null;
+        Token char_literal80=null;
+        PlazmaScriptParser.expression_return expression76 = null;
 
-        PlazmaScriptParser.block_return block75 = null;
+        PlazmaScriptParser.block_return block79 = null;
 
 
-        Object Else69_tree=null;
-        Object If70_tree=null;
-        Object char_literal71_tree=null;
-        Object char_literal73_tree=null;
-        Object char_literal74_tree=null;
-        Object char_literal76_tree=null;
+        Object Else73_tree=null;
+        Object If74_tree=null;
+        Object char_literal75_tree=null;
+        Object char_literal77_tree=null;
+        Object char_literal78_tree=null;
+        Object char_literal80_tree=null;
         RewriteRuleTokenStream stream_OBrace=new RewriteRuleTokenStream(adaptor,"token OBrace");
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
@@ -1960,43 +2047,43 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // grammar/PlazmaScript.g:119:3: ( Else If '(' expression ')' '{' block '}' -> ^( EXP expression block ) )
-            // grammar/PlazmaScript.g:119:6: Else If '(' expression ')' '{' block '}'
+            // grammar/PlazmaScript.g:120:3: ( Else If '(' expression ')' '{' block '}' -> ^( EXP expression block ) )
+            // grammar/PlazmaScript.g:120:6: Else If '(' expression ')' '{' block '}'
             {
-            Else69=(Token)match(input,Else,FOLLOW_Else_in_elseIfStat774); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_Else.add(Else69);
+            Else73=(Token)match(input,Else,FOLLOW_Else_in_elseIfStat806); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Else.add(Else73);
 
-            If70=(Token)match(input,If,FOLLOW_If_in_elseIfStat776); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_If.add(If70);
+            If74=(Token)match(input,If,FOLLOW_If_in_elseIfStat808); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_If.add(If74);
 
-            char_literal71=(Token)match(input,OParen,FOLLOW_OParen_in_elseIfStat778); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OParen.add(char_literal71);
+            char_literal75=(Token)match(input,OParen,FOLLOW_OParen_in_elseIfStat810); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OParen.add(char_literal75);
 
-            pushFollow(FOLLOW_expression_in_elseIfStat780);
-            expression72=expression();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression72.getTree());
-            char_literal73=(Token)match(input,CParen,FOLLOW_CParen_in_elseIfStat782); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CParen.add(char_literal73);
-
-            char_literal74=(Token)match(input,OBrace,FOLLOW_OBrace_in_elseIfStat784); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBrace.add(char_literal74);
-
-            pushFollow(FOLLOW_block_in_elseIfStat786);
-            block75=block();
+            pushFollow(FOLLOW_expression_in_elseIfStat812);
+            expression76=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_block.add(block75.getTree());
-            char_literal76=(Token)match(input,CBrace,FOLLOW_CBrace_in_elseIfStat788); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBrace.add(char_literal76);
+            if ( state.backtracking==0 ) stream_expression.add(expression76.getTree());
+            char_literal77=(Token)match(input,CParen,FOLLOW_CParen_in_elseIfStat814); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CParen.add(char_literal77);
+
+            char_literal78=(Token)match(input,OBrace,FOLLOW_OBrace_in_elseIfStat816); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBrace.add(char_literal78);
+
+            pushFollow(FOLLOW_block_in_elseIfStat818);
+            block79=block();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) stream_block.add(block79.getTree());
+            char_literal80=(Token)match(input,CBrace,FOLLOW_CBrace_in_elseIfStat820); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBrace.add(char_literal80);
 
 
 
             // AST REWRITE
-            // elements: expression, block
+            // elements: block, expression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2007,9 +2094,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 119:47: -> ^( EXP expression block )
+            // 120:47: -> ^( EXP expression block )
             {
-                // grammar/PlazmaScript.g:119:50: ^( EXP expression block )
+                // grammar/PlazmaScript.g:120:50: ^( EXP expression block )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXP, "EXP"), root_1);
@@ -2051,44 +2138,44 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "elseStat"
-    // grammar/PlazmaScript.g:122:1: elseStat : Else '{' block '}' -> ^( EXP block ) ;
+    // grammar/PlazmaScript.g:123:1: elseStat : Else '{' block '}' -> ^( EXP block ) ;
     public final PlazmaScriptParser.elseStat_return elseStat() throws RecognitionException {
         PlazmaScriptParser.elseStat_return retval = new PlazmaScriptParser.elseStat_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Else77=null;
-        Token char_literal78=null;
-        Token char_literal80=null;
-        PlazmaScriptParser.block_return block79 = null;
+        Token Else81=null;
+        Token char_literal82=null;
+        Token char_literal84=null;
+        PlazmaScriptParser.block_return block83 = null;
 
 
-        Object Else77_tree=null;
-        Object char_literal78_tree=null;
-        Object char_literal80_tree=null;
+        Object Else81_tree=null;
+        Object char_literal82_tree=null;
+        Object char_literal84_tree=null;
         RewriteRuleTokenStream stream_OBrace=new RewriteRuleTokenStream(adaptor,"token OBrace");
         RewriteRuleTokenStream stream_Else=new RewriteRuleTokenStream(adaptor,"token Else");
         RewriteRuleTokenStream stream_CBrace=new RewriteRuleTokenStream(adaptor,"token CBrace");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // grammar/PlazmaScript.g:123:3: ( Else '{' block '}' -> ^( EXP block ) )
-            // grammar/PlazmaScript.g:123:6: Else '{' block '}'
+            // grammar/PlazmaScript.g:124:3: ( Else '{' block '}' -> ^( EXP block ) )
+            // grammar/PlazmaScript.g:124:6: Else '{' block '}'
             {
-            Else77=(Token)match(input,Else,FOLLOW_Else_in_elseStat812); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_Else.add(Else77);
+            Else81=(Token)match(input,Else,FOLLOW_Else_in_elseStat844); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Else.add(Else81);
 
-            char_literal78=(Token)match(input,OBrace,FOLLOW_OBrace_in_elseStat814); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBrace.add(char_literal78);
+            char_literal82=(Token)match(input,OBrace,FOLLOW_OBrace_in_elseStat846); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBrace.add(char_literal82);
 
-            pushFollow(FOLLOW_block_in_elseStat816);
-            block79=block();
+            pushFollow(FOLLOW_block_in_elseStat848);
+            block83=block();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_block.add(block79.getTree());
-            char_literal80=(Token)match(input,CBrace,FOLLOW_CBrace_in_elseStat818); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBrace.add(char_literal80);
+            if ( state.backtracking==0 ) stream_block.add(block83.getTree());
+            char_literal84=(Token)match(input,CBrace,FOLLOW_CBrace_in_elseStat850); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBrace.add(char_literal84);
 
 
 
@@ -2104,9 +2191,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 123:25: -> ^( EXP block )
+            // 124:25: -> ^( EXP block )
             {
-                // grammar/PlazmaScript.g:123:28: ^( EXP block )
+                // grammar/PlazmaScript.g:124:28: ^( EXP block )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXP, "EXP"), root_1);
@@ -2147,27 +2234,27 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "variableDef"
-    // grammar/PlazmaScript.g:126:1: variableDef : Var ;
+    // grammar/PlazmaScript.g:127:1: variableDef : Var ;
     public final PlazmaScriptParser.variableDef_return variableDef() throws RecognitionException {
         PlazmaScriptParser.variableDef_return retval = new PlazmaScriptParser.variableDef_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Var81=null;
+        Token Var85=null;
 
-        Object Var81_tree=null;
+        Object Var85_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:127:2: ( Var )
-            // grammar/PlazmaScript.g:127:4: Var
+            // grammar/PlazmaScript.g:128:2: ( Var )
+            // grammar/PlazmaScript.g:128:4: Var
             {
             root_0 = (Object)adaptor.nil();
 
-            Var81=(Token)match(input,Var,FOLLOW_Var_in_variableDef838); if (state.failed) return retval;
+            Var85=(Token)match(input,Var,FOLLOW_Var_in_variableDef870); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            Var81_tree = (Object)adaptor.create(Var81);
-            adaptor.addChild(root_0, Var81_tree);
+            Var85_tree = (Object)adaptor.create(Var85);
+            adaptor.addChild(root_0, Var85_tree);
             }
 
             }
@@ -2198,98 +2285,98 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "functionDecl"
-    // grammar/PlazmaScript.g:144:1: functionDecl : Def Identifier '(' ( idList )? ')' '{' block '}' ;
+    // grammar/PlazmaScript.g:145:1: functionDecl : Def Identifier '(' ( idList )? ')' '{' block '}' ;
     public final PlazmaScriptParser.functionDecl_return functionDecl() throws RecognitionException {
         PlazmaScriptParser.functionDecl_return retval = new PlazmaScriptParser.functionDecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Def82=null;
-        Token Identifier83=null;
-        Token char_literal84=null;
-        Token char_literal86=null;
-        Token char_literal87=null;
-        Token char_literal89=null;
-        PlazmaScriptParser.idList_return idList85 = null;
+        Token Def86=null;
+        Token Identifier87=null;
+        Token char_literal88=null;
+        Token char_literal90=null;
+        Token char_literal91=null;
+        Token char_literal93=null;
+        PlazmaScriptParser.idList_return idList89 = null;
 
-        PlazmaScriptParser.block_return block88 = null;
+        PlazmaScriptParser.block_return block92 = null;
 
 
-        Object Def82_tree=null;
-        Object Identifier83_tree=null;
-        Object char_literal84_tree=null;
-        Object char_literal86_tree=null;
-        Object char_literal87_tree=null;
-        Object char_literal89_tree=null;
+        Object Def86_tree=null;
+        Object Identifier87_tree=null;
+        Object char_literal88_tree=null;
+        Object char_literal90_tree=null;
+        Object char_literal91_tree=null;
+        Object char_literal93_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:145:3: ( Def Identifier '(' ( idList )? ')' '{' block '}' )
-            // grammar/PlazmaScript.g:145:6: Def Identifier '(' ( idList )? ')' '{' block '}'
+            // grammar/PlazmaScript.g:146:3: ( Def Identifier '(' ( idList )? ')' '{' block '}' )
+            // grammar/PlazmaScript.g:146:6: Def Identifier '(' ( idList )? ')' '{' block '}'
             {
             root_0 = (Object)adaptor.nil();
 
-            Def82=(Token)match(input,Def,FOLLOW_Def_in_functionDecl870); if (state.failed) return retval;
+            Def86=(Token)match(input,Def,FOLLOW_Def_in_functionDecl902); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            Def82_tree = (Object)adaptor.create(Def82);
-            adaptor.addChild(root_0, Def82_tree);
+            Def86_tree = (Object)adaptor.create(Def86);
+            adaptor.addChild(root_0, Def86_tree);
             }
-            Identifier83=(Token)match(input,Identifier,FOLLOW_Identifier_in_functionDecl872); if (state.failed) return retval;
+            Identifier87=(Token)match(input,Identifier,FOLLOW_Identifier_in_functionDecl904); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            Identifier83_tree = (Object)adaptor.create(Identifier83);
-            adaptor.addChild(root_0, Identifier83_tree);
+            Identifier87_tree = (Object)adaptor.create(Identifier87);
+            adaptor.addChild(root_0, Identifier87_tree);
             }
-            char_literal84=(Token)match(input,OParen,FOLLOW_OParen_in_functionDecl874); if (state.failed) return retval;
+            char_literal88=(Token)match(input,OParen,FOLLOW_OParen_in_functionDecl906); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            char_literal84_tree = (Object)adaptor.create(char_literal84);
-            adaptor.addChild(root_0, char_literal84_tree);
+            char_literal88_tree = (Object)adaptor.create(char_literal88);
+            adaptor.addChild(root_0, char_literal88_tree);
             }
-            // grammar/PlazmaScript.g:145:25: ( idList )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // grammar/PlazmaScript.g:146:25: ( idList )?
+            int alt18=2;
+            int LA18_0 = input.LA(1);
 
-            if ( (LA17_0==Identifier) ) {
-                alt17=1;
+            if ( (LA18_0==Identifier) ) {
+                alt18=1;
             }
-            switch (alt17) {
+            switch (alt18) {
                 case 1 :
                     // grammar/PlazmaScript.g:0:0: idList
                     {
-                    pushFollow(FOLLOW_idList_in_functionDecl876);
-                    idList85=idList();
+                    pushFollow(FOLLOW_idList_in_functionDecl908);
+                    idList89=idList();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, idList85.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, idList89.getTree());
 
                     }
                     break;
 
             }
 
-            char_literal86=(Token)match(input,CParen,FOLLOW_CParen_in_functionDecl879); if (state.failed) return retval;
+            char_literal90=(Token)match(input,CParen,FOLLOW_CParen_in_functionDecl911); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            char_literal86_tree = (Object)adaptor.create(char_literal86);
-            adaptor.addChild(root_0, char_literal86_tree);
+            char_literal90_tree = (Object)adaptor.create(char_literal90);
+            adaptor.addChild(root_0, char_literal90_tree);
             }
-            char_literal87=(Token)match(input,OBrace,FOLLOW_OBrace_in_functionDecl881); if (state.failed) return retval;
+            char_literal91=(Token)match(input,OBrace,FOLLOW_OBrace_in_functionDecl913); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            char_literal87_tree = (Object)adaptor.create(char_literal87);
-            adaptor.addChild(root_0, char_literal87_tree);
+            char_literal91_tree = (Object)adaptor.create(char_literal91);
+            adaptor.addChild(root_0, char_literal91_tree);
             }
-            pushFollow(FOLLOW_block_in_functionDecl883);
-            block88=block();
+            pushFollow(FOLLOW_block_in_functionDecl915);
+            block92=block();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, block88.getTree());
-            char_literal89=(Token)match(input,CBrace,FOLLOW_CBrace_in_functionDecl885); if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, block92.getTree());
+            char_literal93=(Token)match(input,CBrace,FOLLOW_CBrace_in_functionDecl917); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            char_literal89_tree = (Object)adaptor.create(char_literal89);
-            adaptor.addChild(root_0, char_literal89_tree);
+            char_literal93_tree = (Object)adaptor.create(char_literal93);
+            adaptor.addChild(root_0, char_literal93_tree);
             }
             if ( state.backtracking==0 ) {
-              defineFunction((Identifier83!=null?Identifier83.getText():null), (idList85!=null?((Object)idList85.tree):null), (block88!=null?((Object)block88.tree):null));
+              defineFunction((Identifier87!=null?Identifier87.getText():null), (idList89!=null?((Object)idList89.tree):null), (block92!=null?((Object)block92.tree):null));
             }
 
             }
@@ -2320,32 +2407,32 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "forStatement"
-    // grammar/PlazmaScript.g:154:1: forStatement : For '(' Identifier 'in' expression ')' '{' block '}' -> ^( For Identifier expression block ) ;
+    // grammar/PlazmaScript.g:155:1: forStatement : For '(' Identifier 'in' expression ')' '{' block '}' -> ^( For Identifier expression block ) ;
     public final PlazmaScriptParser.forStatement_return forStatement() throws RecognitionException {
         PlazmaScriptParser.forStatement_return retval = new PlazmaScriptParser.forStatement_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token For90=null;
-        Token char_literal91=null;
-        Token Identifier92=null;
-        Token string_literal93=null;
+        Token For94=null;
         Token char_literal95=null;
-        Token char_literal96=null;
-        Token char_literal98=null;
-        PlazmaScriptParser.expression_return expression94 = null;
+        Token Identifier96=null;
+        Token string_literal97=null;
+        Token char_literal99=null;
+        Token char_literal100=null;
+        Token char_literal102=null;
+        PlazmaScriptParser.expression_return expression98 = null;
 
-        PlazmaScriptParser.block_return block97 = null;
+        PlazmaScriptParser.block_return block101 = null;
 
 
-        Object For90_tree=null;
-        Object char_literal91_tree=null;
-        Object Identifier92_tree=null;
-        Object string_literal93_tree=null;
+        Object For94_tree=null;
         Object char_literal95_tree=null;
-        Object char_literal96_tree=null;
-        Object char_literal98_tree=null;
+        Object Identifier96_tree=null;
+        Object string_literal97_tree=null;
+        Object char_literal99_tree=null;
+        Object char_literal100_tree=null;
+        Object char_literal102_tree=null;
         RewriteRuleTokenStream stream_OBrace=new RewriteRuleTokenStream(adaptor,"token OBrace");
         RewriteRuleTokenStream stream_In=new RewriteRuleTokenStream(adaptor,"token In");
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
@@ -2356,46 +2443,46 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // grammar/PlazmaScript.g:155:3: ( For '(' Identifier 'in' expression ')' '{' block '}' -> ^( For Identifier expression block ) )
-            // grammar/PlazmaScript.g:155:6: For '(' Identifier 'in' expression ')' '{' block '}'
+            // grammar/PlazmaScript.g:156:3: ( For '(' Identifier 'in' expression ')' '{' block '}' -> ^( For Identifier expression block ) )
+            // grammar/PlazmaScript.g:156:6: For '(' Identifier 'in' expression ')' '{' block '}'
             {
-            For90=(Token)match(input,For,FOLLOW_For_in_forStatement914); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_For.add(For90);
+            For94=(Token)match(input,For,FOLLOW_For_in_forStatement946); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_For.add(For94);
 
-            char_literal91=(Token)match(input,OParen,FOLLOW_OParen_in_forStatement916); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OParen.add(char_literal91);
+            char_literal95=(Token)match(input,OParen,FOLLOW_OParen_in_forStatement948); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OParen.add(char_literal95);
 
-            Identifier92=(Token)match(input,Identifier,FOLLOW_Identifier_in_forStatement918); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_Identifier.add(Identifier92);
+            Identifier96=(Token)match(input,Identifier,FOLLOW_Identifier_in_forStatement950); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Identifier.add(Identifier96);
 
-            string_literal93=(Token)match(input,In,FOLLOW_In_in_forStatement920); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_In.add(string_literal93);
+            string_literal97=(Token)match(input,In,FOLLOW_In_in_forStatement952); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_In.add(string_literal97);
 
-            pushFollow(FOLLOW_expression_in_forStatement922);
-            expression94=expression();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression94.getTree());
-            char_literal95=(Token)match(input,CParen,FOLLOW_CParen_in_forStatement924); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CParen.add(char_literal95);
-
-            char_literal96=(Token)match(input,OBrace,FOLLOW_OBrace_in_forStatement926); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBrace.add(char_literal96);
-
-            pushFollow(FOLLOW_block_in_forStatement928);
-            block97=block();
+            pushFollow(FOLLOW_expression_in_forStatement954);
+            expression98=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_block.add(block97.getTree());
-            char_literal98=(Token)match(input,CBrace,FOLLOW_CBrace_in_forStatement930); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBrace.add(char_literal98);
+            if ( state.backtracking==0 ) stream_expression.add(expression98.getTree());
+            char_literal99=(Token)match(input,CParen,FOLLOW_CParen_in_forStatement956); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CParen.add(char_literal99);
+
+            char_literal100=(Token)match(input,OBrace,FOLLOW_OBrace_in_forStatement958); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBrace.add(char_literal100);
+
+            pushFollow(FOLLOW_block_in_forStatement960);
+            block101=block();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) stream_block.add(block101.getTree());
+            char_literal102=(Token)match(input,CBrace,FOLLOW_CBrace_in_forStatement962); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBrace.add(char_literal102);
 
 
 
             // AST REWRITE
-            // elements: expression, Identifier, block, For
+            // elements: block, For, expression, Identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2406,9 +2493,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 156:6: -> ^( For Identifier expression block )
+            // 157:6: -> ^( For Identifier expression block )
             {
-                // grammar/PlazmaScript.g:156:9: ^( For Identifier expression block )
+                // grammar/PlazmaScript.g:157:9: ^( For Identifier expression block )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(stream_For.nextNode(), root_1);
@@ -2451,28 +2538,28 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "whileStatement"
-    // grammar/PlazmaScript.g:160:1: whileStatement : While '(' expression ')' '{' block '}' -> ^( While expression block ) ;
+    // grammar/PlazmaScript.g:161:1: whileStatement : While '(' expression ')' '{' block '}' -> ^( While expression block ) ;
     public final PlazmaScriptParser.whileStatement_return whileStatement() throws RecognitionException {
         PlazmaScriptParser.whileStatement_return retval = new PlazmaScriptParser.whileStatement_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token While99=null;
-        Token char_literal100=null;
-        Token char_literal102=null;
-        Token char_literal103=null;
-        Token char_literal105=null;
-        PlazmaScriptParser.expression_return expression101 = null;
+        Token While103=null;
+        Token char_literal104=null;
+        Token char_literal106=null;
+        Token char_literal107=null;
+        Token char_literal109=null;
+        PlazmaScriptParser.expression_return expression105 = null;
 
-        PlazmaScriptParser.block_return block104 = null;
+        PlazmaScriptParser.block_return block108 = null;
 
 
-        Object While99_tree=null;
-        Object char_literal100_tree=null;
-        Object char_literal102_tree=null;
-        Object char_literal103_tree=null;
-        Object char_literal105_tree=null;
+        Object While103_tree=null;
+        Object char_literal104_tree=null;
+        Object char_literal106_tree=null;
+        Object char_literal107_tree=null;
+        Object char_literal109_tree=null;
         RewriteRuleTokenStream stream_OBrace=new RewriteRuleTokenStream(adaptor,"token OBrace");
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
@@ -2481,40 +2568,40 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // grammar/PlazmaScript.g:161:3: ( While '(' expression ')' '{' block '}' -> ^( While expression block ) )
-            // grammar/PlazmaScript.g:161:6: While '(' expression ')' '{' block '}'
+            // grammar/PlazmaScript.g:162:3: ( While '(' expression ')' '{' block '}' -> ^( While expression block ) )
+            // grammar/PlazmaScript.g:162:6: While '(' expression ')' '{' block '}'
             {
-            While99=(Token)match(input,While,FOLLOW_While_in_whileStatement965); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_While.add(While99);
+            While103=(Token)match(input,While,FOLLOW_While_in_whileStatement997); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_While.add(While103);
 
-            char_literal100=(Token)match(input,OParen,FOLLOW_OParen_in_whileStatement967); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OParen.add(char_literal100);
+            char_literal104=(Token)match(input,OParen,FOLLOW_OParen_in_whileStatement999); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OParen.add(char_literal104);
 
-            pushFollow(FOLLOW_expression_in_whileStatement969);
-            expression101=expression();
-
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression101.getTree());
-            char_literal102=(Token)match(input,CParen,FOLLOW_CParen_in_whileStatement971); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CParen.add(char_literal102);
-
-            char_literal103=(Token)match(input,OBrace,FOLLOW_OBrace_in_whileStatement973); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBrace.add(char_literal103);
-
-            pushFollow(FOLLOW_block_in_whileStatement975);
-            block104=block();
+            pushFollow(FOLLOW_expression_in_whileStatement1001);
+            expression105=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_block.add(block104.getTree());
-            char_literal105=(Token)match(input,CBrace,FOLLOW_CBrace_in_whileStatement977); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBrace.add(char_literal105);
+            if ( state.backtracking==0 ) stream_expression.add(expression105.getTree());
+            char_literal106=(Token)match(input,CParen,FOLLOW_CParen_in_whileStatement1003); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CParen.add(char_literal106);
+
+            char_literal107=(Token)match(input,OBrace,FOLLOW_OBrace_in_whileStatement1005); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBrace.add(char_literal107);
+
+            pushFollow(FOLLOW_block_in_whileStatement1007);
+            block108=block();
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) stream_block.add(block108.getTree());
+            char_literal109=(Token)match(input,CBrace,FOLLOW_CBrace_in_whileStatement1009); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBrace.add(char_literal109);
 
 
 
             // AST REWRITE
-            // elements: block, expression, While
+            // elements: While, expression, block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2525,9 +2612,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 161:45: -> ^( While expression block )
+            // 162:45: -> ^( While expression block )
             {
-                // grammar/PlazmaScript.g:161:48: ^( While expression block )
+                // grammar/PlazmaScript.g:162:48: ^( While expression block )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(stream_While.nextNode(), root_1);
@@ -2569,57 +2656,57 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "idList"
-    // grammar/PlazmaScript.g:164:1: idList : Identifier ( ',' Identifier )* -> ^( ID_LIST ( Identifier )+ ) ;
+    // grammar/PlazmaScript.g:165:1: idList : Identifier ( ',' Identifier )* -> ^( ID_LIST ( Identifier )+ ) ;
     public final PlazmaScriptParser.idList_return idList() throws RecognitionException {
         PlazmaScriptParser.idList_return retval = new PlazmaScriptParser.idList_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Identifier106=null;
-        Token char_literal107=null;
-        Token Identifier108=null;
+        Token Identifier110=null;
+        Token char_literal111=null;
+        Token Identifier112=null;
 
-        Object Identifier106_tree=null;
-        Object char_literal107_tree=null;
-        Object Identifier108_tree=null;
+        Object Identifier110_tree=null;
+        Object char_literal111_tree=null;
+        Object Identifier112_tree=null;
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_Identifier=new RewriteRuleTokenStream(adaptor,"token Identifier");
 
         try {
-            // grammar/PlazmaScript.g:165:3: ( Identifier ( ',' Identifier )* -> ^( ID_LIST ( Identifier )+ ) )
-            // grammar/PlazmaScript.g:165:6: Identifier ( ',' Identifier )*
+            // grammar/PlazmaScript.g:166:3: ( Identifier ( ',' Identifier )* -> ^( ID_LIST ( Identifier )+ ) )
+            // grammar/PlazmaScript.g:166:6: Identifier ( ',' Identifier )*
             {
-            Identifier106=(Token)match(input,Identifier,FOLLOW_Identifier_in_idList1001); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_Identifier.add(Identifier106);
+            Identifier110=(Token)match(input,Identifier,FOLLOW_Identifier_in_idList1033); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Identifier.add(Identifier110);
 
-            // grammar/PlazmaScript.g:165:17: ( ',' Identifier )*
-            loop18:
+            // grammar/PlazmaScript.g:166:17: ( ',' Identifier )*
+            loop19:
             do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
+                int alt19=2;
+                int LA19_0 = input.LA(1);
 
-                if ( (LA18_0==Comma) ) {
-                    alt18=1;
+                if ( (LA19_0==Comma) ) {
+                    alt19=1;
                 }
 
 
-                switch (alt18) {
+                switch (alt19) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:165:18: ',' Identifier
+            	    // grammar/PlazmaScript.g:166:18: ',' Identifier
             	    {
-            	    char_literal107=(Token)match(input,Comma,FOLLOW_Comma_in_idList1004); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_Comma.add(char_literal107);
+            	    char_literal111=(Token)match(input,Comma,FOLLOW_Comma_in_idList1036); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_Comma.add(char_literal111);
 
-            	    Identifier108=(Token)match(input,Identifier,FOLLOW_Identifier_in_idList1006); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_Identifier.add(Identifier108);
+            	    Identifier112=(Token)match(input,Identifier,FOLLOW_Identifier_in_idList1038); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_Identifier.add(Identifier112);
 
 
             	    }
             	    break;
 
             	default :
-            	    break loop18;
+            	    break loop19;
                 }
             } while (true);
 
@@ -2637,9 +2724,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 165:35: -> ^( ID_LIST ( Identifier )+ )
+            // 166:35: -> ^( ID_LIST ( Identifier )+ )
             {
-                // grammar/PlazmaScript.g:165:38: ^( ID_LIST ( Identifier )+ )
+                // grammar/PlazmaScript.g:166:38: ^( ID_LIST ( Identifier )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ID_LIST, "ID_LIST"), root_1);
@@ -2687,62 +2774,62 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "exprList"
-    // grammar/PlazmaScript.g:168:1: exprList : expression ( ',' expression )* -> ^( EXP_LIST ( expression )+ ) ;
+    // grammar/PlazmaScript.g:169:1: exprList : expression ( ',' expression )* -> ^( EXP_LIST ( expression )+ ) ;
     public final PlazmaScriptParser.exprList_return exprList() throws RecognitionException {
         PlazmaScriptParser.exprList_return retval = new PlazmaScriptParser.exprList_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal110=null;
-        PlazmaScriptParser.expression_return expression109 = null;
+        Token char_literal114=null;
+        PlazmaScriptParser.expression_return expression113 = null;
 
-        PlazmaScriptParser.expression_return expression111 = null;
+        PlazmaScriptParser.expression_return expression115 = null;
 
 
-        Object char_literal110_tree=null;
+        Object char_literal114_tree=null;
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         try {
-            // grammar/PlazmaScript.g:169:3: ( expression ( ',' expression )* -> ^( EXP_LIST ( expression )+ ) )
-            // grammar/PlazmaScript.g:169:6: expression ( ',' expression )*
+            // grammar/PlazmaScript.g:170:3: ( expression ( ',' expression )* -> ^( EXP_LIST ( expression )+ ) )
+            // grammar/PlazmaScript.g:170:6: expression ( ',' expression )*
             {
-            pushFollow(FOLLOW_expression_in_exprList1031);
-            expression109=expression();
+            pushFollow(FOLLOW_expression_in_exprList1063);
+            expression113=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression109.getTree());
-            // grammar/PlazmaScript.g:169:17: ( ',' expression )*
-            loop19:
+            if ( state.backtracking==0 ) stream_expression.add(expression113.getTree());
+            // grammar/PlazmaScript.g:170:17: ( ',' expression )*
+            loop20:
             do {
-                int alt19=2;
-                int LA19_0 = input.LA(1);
+                int alt20=2;
+                int LA20_0 = input.LA(1);
 
-                if ( (LA19_0==Comma) ) {
-                    alt19=1;
+                if ( (LA20_0==Comma) ) {
+                    alt20=1;
                 }
 
 
-                switch (alt19) {
+                switch (alt20) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:169:18: ',' expression
+            	    // grammar/PlazmaScript.g:170:18: ',' expression
             	    {
-            	    char_literal110=(Token)match(input,Comma,FOLLOW_Comma_in_exprList1034); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_Comma.add(char_literal110);
+            	    char_literal114=(Token)match(input,Comma,FOLLOW_Comma_in_exprList1066); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_Comma.add(char_literal114);
 
-            	    pushFollow(FOLLOW_expression_in_exprList1036);
-            	    expression111=expression();
+            	    pushFollow(FOLLOW_expression_in_exprList1068);
+            	    expression115=expression();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) stream_expression.add(expression111.getTree());
+            	    if ( state.backtracking==0 ) stream_expression.add(expression115.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop19;
+            	    break loop20;
                 }
             } while (true);
 
@@ -2760,9 +2847,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 169:35: -> ^( EXP_LIST ( expression )+ )
+            // 170:35: -> ^( EXP_LIST ( expression )+ )
             {
-                // grammar/PlazmaScript.g:169:38: ^( EXP_LIST ( expression )+ )
+                // grammar/PlazmaScript.g:170:38: ^( EXP_LIST ( expression )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXP_LIST, "EXP_LIST"), root_1);
@@ -2810,44 +2897,44 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "exprPair"
-    // grammar/PlazmaScript.g:172:1: exprPair : ( expression ':' expression ) -> ^( EXP_PAIR expression expression ) ;
+    // grammar/PlazmaScript.g:173:1: exprPair : ( expression ':' expression ) -> ^( EXP_PAIR expression expression ) ;
     public final PlazmaScriptParser.exprPair_return exprPair() throws RecognitionException {
         PlazmaScriptParser.exprPair_return retval = new PlazmaScriptParser.exprPair_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal113=null;
-        PlazmaScriptParser.expression_return expression112 = null;
+        Token char_literal117=null;
+        PlazmaScriptParser.expression_return expression116 = null;
 
-        PlazmaScriptParser.expression_return expression114 = null;
+        PlazmaScriptParser.expression_return expression118 = null;
 
 
-        Object char_literal113_tree=null;
+        Object char_literal117_tree=null;
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         try {
-            // grammar/PlazmaScript.g:173:3: ( ( expression ':' expression ) -> ^( EXP_PAIR expression expression ) )
-            // grammar/PlazmaScript.g:173:6: ( expression ':' expression )
+            // grammar/PlazmaScript.g:174:3: ( ( expression ':' expression ) -> ^( EXP_PAIR expression expression ) )
+            // grammar/PlazmaScript.g:174:6: ( expression ':' expression )
             {
-            // grammar/PlazmaScript.g:173:6: ( expression ':' expression )
-            // grammar/PlazmaScript.g:173:7: expression ':' expression
+            // grammar/PlazmaScript.g:174:6: ( expression ':' expression )
+            // grammar/PlazmaScript.g:174:7: expression ':' expression
             {
-            pushFollow(FOLLOW_expression_in_exprPair1062);
-            expression112=expression();
+            pushFollow(FOLLOW_expression_in_exprPair1094);
+            expression116=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression112.getTree());
-            char_literal113=(Token)match(input,Colon,FOLLOW_Colon_in_exprPair1064); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_Colon.add(char_literal113);
+            if ( state.backtracking==0 ) stream_expression.add(expression116.getTree());
+            char_literal117=(Token)match(input,Colon,FOLLOW_Colon_in_exprPair1096); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Colon.add(char_literal117);
 
-            pushFollow(FOLLOW_expression_in_exprPair1066);
-            expression114=expression();
+            pushFollow(FOLLOW_expression_in_exprPair1098);
+            expression118=expression();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_expression.add(expression114.getTree());
+            if ( state.backtracking==0 ) stream_expression.add(expression118.getTree());
 
             }
 
@@ -2865,9 +2952,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 173:34: -> ^( EXP_PAIR expression expression )
+            // 174:34: -> ^( EXP_PAIR expression expression )
             {
-                // grammar/PlazmaScript.g:173:37: ^( EXP_PAIR expression expression )
+                // grammar/PlazmaScript.g:174:37: ^( EXP_PAIR expression expression )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXP_PAIR, "EXP_PAIR"), root_1);
@@ -2909,62 +2996,62 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "exprMap"
-    // grammar/PlazmaScript.g:176:1: exprMap : exprPair ( ',' exprPair )* -> ^( EXP_MAP ( exprPair )+ ) ;
+    // grammar/PlazmaScript.g:177:1: exprMap : exprPair ( ',' exprPair )* -> ^( EXP_MAP ( exprPair )+ ) ;
     public final PlazmaScriptParser.exprMap_return exprMap() throws RecognitionException {
         PlazmaScriptParser.exprMap_return retval = new PlazmaScriptParser.exprMap_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal116=null;
-        PlazmaScriptParser.exprPair_return exprPair115 = null;
+        Token char_literal120=null;
+        PlazmaScriptParser.exprPair_return exprPair119 = null;
 
-        PlazmaScriptParser.exprPair_return exprPair117 = null;
+        PlazmaScriptParser.exprPair_return exprPair121 = null;
 
 
-        Object char_literal116_tree=null;
+        Object char_literal120_tree=null;
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_exprPair=new RewriteRuleSubtreeStream(adaptor,"rule exprPair");
         try {
-            // grammar/PlazmaScript.g:177:3: ( exprPair ( ',' exprPair )* -> ^( EXP_MAP ( exprPair )+ ) )
-            // grammar/PlazmaScript.g:177:6: exprPair ( ',' exprPair )*
+            // grammar/PlazmaScript.g:178:3: ( exprPair ( ',' exprPair )* -> ^( EXP_MAP ( exprPair )+ ) )
+            // grammar/PlazmaScript.g:178:6: exprPair ( ',' exprPair )*
             {
-            pushFollow(FOLLOW_exprPair_in_exprMap1091);
-            exprPair115=exprPair();
+            pushFollow(FOLLOW_exprPair_in_exprMap1123);
+            exprPair119=exprPair();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_exprPair.add(exprPair115.getTree());
-            // grammar/PlazmaScript.g:177:15: ( ',' exprPair )*
-            loop20:
+            if ( state.backtracking==0 ) stream_exprPair.add(exprPair119.getTree());
+            // grammar/PlazmaScript.g:178:15: ( ',' exprPair )*
+            loop21:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( (LA20_0==Comma) ) {
-                    alt20=1;
+                if ( (LA21_0==Comma) ) {
+                    alt21=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt21) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:177:16: ',' exprPair
+            	    // grammar/PlazmaScript.g:178:16: ',' exprPair
             	    {
-            	    char_literal116=(Token)match(input,Comma,FOLLOW_Comma_in_exprMap1094); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_Comma.add(char_literal116);
+            	    char_literal120=(Token)match(input,Comma,FOLLOW_Comma_in_exprMap1126); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_Comma.add(char_literal120);
 
-            	    pushFollow(FOLLOW_exprPair_in_exprMap1096);
-            	    exprPair117=exprPair();
+            	    pushFollow(FOLLOW_exprPair_in_exprMap1128);
+            	    exprPair121=exprPair();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) stream_exprPair.add(exprPair117.getTree());
+            	    if ( state.backtracking==0 ) stream_exprPair.add(exprPair121.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop20;
+            	    break loop21;
                 }
             } while (true);
 
@@ -2982,9 +3069,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 177:31: -> ^( EXP_MAP ( exprPair )+ )
+            // 178:31: -> ^( EXP_MAP ( exprPair )+ )
             {
-                // grammar/PlazmaScript.g:177:34: ^( EXP_MAP ( exprPair )+ )
+                // grammar/PlazmaScript.g:178:34: ^( EXP_MAP ( exprPair )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXP_MAP, "EXP_MAP"), root_1);
@@ -3032,29 +3119,29 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "expression"
-    // grammar/PlazmaScript.g:181:1: expression : condExpr ;
+    // grammar/PlazmaScript.g:182:1: expression : condExpr ;
     public final PlazmaScriptParser.expression_return expression() throws RecognitionException {
         PlazmaScriptParser.expression_return retval = new PlazmaScriptParser.expression_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        PlazmaScriptParser.condExpr_return condExpr118 = null;
+        PlazmaScriptParser.condExpr_return condExpr122 = null;
 
 
 
         try {
-            // grammar/PlazmaScript.g:182:3: ( condExpr )
-            // grammar/PlazmaScript.g:182:6: condExpr
+            // grammar/PlazmaScript.g:183:3: ( condExpr )
+            // grammar/PlazmaScript.g:183:6: condExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_condExpr_in_expression1122);
-            condExpr118=condExpr();
+            pushFollow(FOLLOW_condExpr_in_expression1154);
+            condExpr122=condExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, condExpr118.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, condExpr122.getTree());
 
             }
 
@@ -3084,36 +3171,36 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "condExpr"
-    // grammar/PlazmaScript.g:185:1: condExpr : ( startExpr -> startExpr ) ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )? ;
+    // grammar/PlazmaScript.g:186:1: condExpr : ( startExpr -> startExpr ) ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )? ;
     public final PlazmaScriptParser.condExpr_return condExpr() throws RecognitionException {
         PlazmaScriptParser.condExpr_return retval = new PlazmaScriptParser.condExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal120=null;
-        Token char_literal121=null;
-        Token In122=null;
-        Token RangeE124=null;
-        Token Range126=null;
+        Token char_literal124=null;
+        Token char_literal125=null;
+        Token In126=null;
+        Token RangeE128=null;
+        Token Range130=null;
         PlazmaScriptParser.expression_return a = null;
 
         PlazmaScriptParser.expression_return b = null;
 
-        PlazmaScriptParser.startExpr_return startExpr119 = null;
-
-        PlazmaScriptParser.expression_return expression123 = null;
-
-        PlazmaScriptParser.expression_return expression125 = null;
+        PlazmaScriptParser.startExpr_return startExpr123 = null;
 
         PlazmaScriptParser.expression_return expression127 = null;
 
+        PlazmaScriptParser.expression_return expression129 = null;
 
-        Object char_literal120_tree=null;
-        Object char_literal121_tree=null;
-        Object In122_tree=null;
-        Object RangeE124_tree=null;
-        Object Range126_tree=null;
+        PlazmaScriptParser.expression_return expression131 = null;
+
+
+        Object char_literal124_tree=null;
+        Object char_literal125_tree=null;
+        Object In126_tree=null;
+        Object RangeE128_tree=null;
+        Object Range130_tree=null;
         RewriteRuleTokenStream stream_RangeE=new RewriteRuleTokenStream(adaptor,"token RangeE");
         RewriteRuleTokenStream stream_Range=new RewriteRuleTokenStream(adaptor,"token Range");
         RewriteRuleTokenStream stream_In=new RewriteRuleTokenStream(adaptor,"token In");
@@ -3122,18 +3209,18 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_startExpr=new RewriteRuleSubtreeStream(adaptor,"rule startExpr");
         try {
-            // grammar/PlazmaScript.g:186:3: ( ( startExpr -> startExpr ) ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )? )
-            // grammar/PlazmaScript.g:186:6: ( startExpr -> startExpr ) ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )?
+            // grammar/PlazmaScript.g:187:3: ( ( startExpr -> startExpr ) ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )? )
+            // grammar/PlazmaScript.g:187:6: ( startExpr -> startExpr ) ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )?
             {
-            // grammar/PlazmaScript.g:186:6: ( startExpr -> startExpr )
-            // grammar/PlazmaScript.g:186:7: startExpr
+            // grammar/PlazmaScript.g:187:6: ( startExpr -> startExpr )
+            // grammar/PlazmaScript.g:187:7: startExpr
             {
-            pushFollow(FOLLOW_startExpr_in_condExpr1137);
-            startExpr119=startExpr();
+            pushFollow(FOLLOW_startExpr_in_condExpr1169);
+            startExpr123=startExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_startExpr.add(startExpr119.getTree());
+            if ( state.backtracking==0 ) stream_startExpr.add(startExpr123.getTree());
 
 
             // AST REWRITE
@@ -3148,7 +3235,7 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 186:17: -> startExpr
+            // 187:17: -> startExpr
             {
                 adaptor.addChild(root_0, stream_startExpr.nextTree());
 
@@ -3157,48 +3244,48 @@ public class PlazmaScriptParser extends Parser {
             retval.tree = root_0;}
             }
 
-            // grammar/PlazmaScript.g:187:6: ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )?
-            int alt21=5;
+            // grammar/PlazmaScript.g:188:6: ( '?' a= expression ':' b= expression -> ^( TERNARY startExpr $a $b) | In expression -> ^( In startExpr expression ) | RangeE expression -> ^( RangeE startExpr expression ) | Range expression -> ^( Range startExpr expression ) )?
+            int alt22=5;
             switch ( input.LA(1) ) {
                 case QMark:
                     {
-                    alt21=1;
+                    alt22=1;
                     }
                     break;
                 case In:
                     {
-                    alt21=2;
+                    alt22=2;
                     }
                     break;
                 case RangeE:
                     {
-                    alt21=3;
+                    alt22=3;
                     }
                     break;
                 case Range:
                     {
-                    alt21=4;
+                    alt22=4;
                     }
                     break;
             }
 
-            switch (alt21) {
+            switch (alt22) {
                 case 1 :
-                    // grammar/PlazmaScript.g:187:8: '?' a= expression ':' b= expression
+                    // grammar/PlazmaScript.g:188:8: '?' a= expression ':' b= expression
                     {
-                    char_literal120=(Token)match(input,QMark,FOLLOW_QMark_in_condExpr1152); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_QMark.add(char_literal120);
+                    char_literal124=(Token)match(input,QMark,FOLLOW_QMark_in_condExpr1184); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_QMark.add(char_literal124);
 
-                    pushFollow(FOLLOW_expression_in_condExpr1156);
+                    pushFollow(FOLLOW_expression_in_condExpr1188);
                     a=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expression.add(a.getTree());
-                    char_literal121=(Token)match(input,Colon,FOLLOW_Colon_in_condExpr1158); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Colon.add(char_literal121);
+                    char_literal125=(Token)match(input,Colon,FOLLOW_Colon_in_condExpr1190); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Colon.add(char_literal125);
 
-                    pushFollow(FOLLOW_expression_in_condExpr1162);
+                    pushFollow(FOLLOW_expression_in_condExpr1194);
                     b=expression();
 
                     state._fsp--;
@@ -3207,7 +3294,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: b, startExpr, a
+                    // elements: startExpr, a, b
                     // token labels: 
                     // rule labels: retval, b, a
                     // token list labels: 
@@ -3220,9 +3307,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_a=new RewriteRuleSubtreeStream(adaptor,"rule a",a!=null?a.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 187:42: -> ^( TERNARY startExpr $a $b)
+                    // 188:42: -> ^( TERNARY startExpr $a $b)
                     {
-                        // grammar/PlazmaScript.g:187:45: ^( TERNARY startExpr $a $b)
+                        // grammar/PlazmaScript.g:188:45: ^( TERNARY startExpr $a $b)
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TERNARY, "TERNARY"), root_1);
@@ -3240,21 +3327,21 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:188:8: In expression
+                    // grammar/PlazmaScript.g:189:8: In expression
                     {
-                    In122=(Token)match(input,In,FOLLOW_In_in_condExpr1185); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_In.add(In122);
+                    In126=(Token)match(input,In,FOLLOW_In_in_condExpr1217); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_In.add(In126);
 
-                    pushFollow(FOLLOW_expression_in_condExpr1187);
-                    expression123=expression();
+                    pushFollow(FOLLOW_expression_in_condExpr1219);
+                    expression127=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expression.add(expression123.getTree());
+                    if ( state.backtracking==0 ) stream_expression.add(expression127.getTree());
 
 
                     // AST REWRITE
-                    // elements: startExpr, expression, In
+                    // elements: expression, startExpr, In
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3265,9 +3352,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 188:42: -> ^( In startExpr expression )
+                    // 189:42: -> ^( In startExpr expression )
                     {
-                        // grammar/PlazmaScript.g:188:45: ^( In startExpr expression )
+                        // grammar/PlazmaScript.g:189:45: ^( In startExpr expression )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_In.nextNode(), root_1);
@@ -3284,21 +3371,21 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScript.g:190:8: RangeE expression
+                    // grammar/PlazmaScript.g:191:8: RangeE expression
                     {
-                    RangeE124=(Token)match(input,RangeE,FOLLOW_RangeE_in_condExpr1232); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RangeE.add(RangeE124);
+                    RangeE128=(Token)match(input,RangeE,FOLLOW_RangeE_in_condExpr1264); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RangeE.add(RangeE128);
 
-                    pushFollow(FOLLOW_expression_in_condExpr1234);
-                    expression125=expression();
+                    pushFollow(FOLLOW_expression_in_condExpr1266);
+                    expression129=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expression.add(expression125.getTree());
+                    if ( state.backtracking==0 ) stream_expression.add(expression129.getTree());
 
 
                     // AST REWRITE
-                    // elements: startExpr, RangeE, expression
+                    // elements: startExpr, expression, RangeE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3309,9 +3396,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 190:42: -> ^( RangeE startExpr expression )
+                    // 191:42: -> ^( RangeE startExpr expression )
                     {
-                        // grammar/PlazmaScript.g:190:45: ^( RangeE startExpr expression )
+                        // grammar/PlazmaScript.g:191:45: ^( RangeE startExpr expression )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_RangeE.nextNode(), root_1);
@@ -3328,21 +3415,21 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // grammar/PlazmaScript.g:191:8: Range expression
+                    // grammar/PlazmaScript.g:192:8: Range expression
                     {
-                    Range126=(Token)match(input,Range,FOLLOW_Range_in_condExpr1269); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Range.add(Range126);
+                    Range130=(Token)match(input,Range,FOLLOW_Range_in_condExpr1301); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Range.add(Range130);
 
-                    pushFollow(FOLLOW_expression_in_condExpr1271);
-                    expression127=expression();
+                    pushFollow(FOLLOW_expression_in_condExpr1303);
+                    expression131=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expression.add(expression127.getTree());
+                    if ( state.backtracking==0 ) stream_expression.add(expression131.getTree());
 
 
                     // AST REWRITE
-                    // elements: Range, expression, startExpr
+                    // elements: startExpr, Range, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3353,9 +3440,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 191:42: -> ^( Range startExpr expression )
+                    // 192:42: -> ^( Range startExpr expression )
                     {
-                        // grammar/PlazmaScript.g:191:45: ^( Range startExpr expression )
+                        // grammar/PlazmaScript.g:192:45: ^( Range startExpr expression )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_Range.nextNode(), root_1);
@@ -3403,29 +3490,29 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "startExpr"
-    // grammar/PlazmaScript.g:196:1: startExpr : orExpr ;
+    // grammar/PlazmaScript.g:197:1: startExpr : orExpr ;
     public final PlazmaScriptParser.startExpr_return startExpr() throws RecognitionException {
         PlazmaScriptParser.startExpr_return retval = new PlazmaScriptParser.startExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        PlazmaScriptParser.orExpr_return orExpr128 = null;
+        PlazmaScriptParser.orExpr_return orExpr132 = null;
 
 
 
         try {
-            // grammar/PlazmaScript.g:197:2: ( orExpr )
-            // grammar/PlazmaScript.g:197:4: orExpr
+            // grammar/PlazmaScript.g:198:2: ( orExpr )
+            // grammar/PlazmaScript.g:198:4: orExpr
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_orExpr_in_startExpr1334);
-            orExpr128=orExpr();
+            pushFollow(FOLLOW_orExpr_in_startExpr1366);
+            orExpr132=orExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, orExpr128.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, orExpr132.getTree());
 
             }
 
@@ -3455,53 +3542,53 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "orExpr"
-    // grammar/PlazmaScript.g:200:1: orExpr : andExpr ( ( 'xor' | '||' | '|' | 'or' ) andExpr )* ;
+    // grammar/PlazmaScript.g:201:1: orExpr : andExpr ( ( 'xor' | '||' | '|' | 'or' ) andExpr )* ;
     public final PlazmaScriptParser.orExpr_return orExpr() throws RecognitionException {
         PlazmaScriptParser.orExpr_return retval = new PlazmaScriptParser.orExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set130=null;
-        PlazmaScriptParser.andExpr_return andExpr129 = null;
+        Token set134=null;
+        PlazmaScriptParser.andExpr_return andExpr133 = null;
 
-        PlazmaScriptParser.andExpr_return andExpr131 = null;
+        PlazmaScriptParser.andExpr_return andExpr135 = null;
 
 
-        Object set130_tree=null;
+        Object set134_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:201:3: ( andExpr ( ( 'xor' | '||' | '|' | 'or' ) andExpr )* )
-            // grammar/PlazmaScript.g:201:6: andExpr ( ( 'xor' | '||' | '|' | 'or' ) andExpr )*
+            // grammar/PlazmaScript.g:202:3: ( andExpr ( ( 'xor' | '||' | '|' | 'or' ) andExpr )* )
+            // grammar/PlazmaScript.g:202:6: andExpr ( ( 'xor' | '||' | '|' | 'or' ) andExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_andExpr_in_orExpr1347);
-            andExpr129=andExpr();
+            pushFollow(FOLLOW_andExpr_in_orExpr1379);
+            andExpr133=andExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, andExpr129.getTree());
-            // grammar/PlazmaScript.g:201:14: ( ( 'xor' | '||' | '|' | 'or' ) andExpr )*
-            loop22:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, andExpr133.getTree());
+            // grammar/PlazmaScript.g:202:14: ( ( 'xor' | '||' | '|' | 'or' ) andExpr )*
+            loop23:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( ((LA22_0>=XorWord && LA22_0<=OrWord)) ) {
-                    alt22=1;
+                if ( ((LA23_0>=XorWord && LA23_0<=OrWord)) ) {
+                    alt23=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt23) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:201:15: ( 'xor' | '||' | '|' | 'or' ) andExpr
+            	    // grammar/PlazmaScript.g:202:15: ( 'xor' | '||' | '|' | 'or' ) andExpr
             	    {
-            	    set130=(Token)input.LT(1);
-            	    set130=(Token)input.LT(1);
+            	    set134=(Token)input.LT(1);
+            	    set134=(Token)input.LT(1);
             	    if ( (input.LA(1)>=XorWord && input.LA(1)<=OrWord) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set130), root_0);
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set134), root_0);
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -3510,18 +3597,18 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_andExpr_in_orExpr1367);
-            	    andExpr131=andExpr();
+            	    pushFollow(FOLLOW_andExpr_in_orExpr1399);
+            	    andExpr135=andExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, andExpr131.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, andExpr135.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop23;
                 }
             } while (true);
 
@@ -3554,53 +3641,53 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "andExpr"
-    // grammar/PlazmaScript.g:205:1: andExpr : equExpr ( ( '&&' | '&' | 'and' ) equExpr )* ;
+    // grammar/PlazmaScript.g:206:1: andExpr : equExpr ( ( '&&' | '&' | 'and' ) equExpr )* ;
     public final PlazmaScriptParser.andExpr_return andExpr() throws RecognitionException {
         PlazmaScriptParser.andExpr_return retval = new PlazmaScriptParser.andExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set133=null;
-        PlazmaScriptParser.equExpr_return equExpr132 = null;
+        Token set137=null;
+        PlazmaScriptParser.equExpr_return equExpr136 = null;
 
-        PlazmaScriptParser.equExpr_return equExpr134 = null;
+        PlazmaScriptParser.equExpr_return equExpr138 = null;
 
 
-        Object set133_tree=null;
+        Object set137_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:206:3: ( equExpr ( ( '&&' | '&' | 'and' ) equExpr )* )
-            // grammar/PlazmaScript.g:206:6: equExpr ( ( '&&' | '&' | 'and' ) equExpr )*
+            // grammar/PlazmaScript.g:207:3: ( equExpr ( ( '&&' | '&' | 'and' ) equExpr )* )
+            // grammar/PlazmaScript.g:207:6: equExpr ( ( '&&' | '&' | 'and' ) equExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_equExpr_in_andExpr1384);
-            equExpr132=equExpr();
+            pushFollow(FOLLOW_equExpr_in_andExpr1416);
+            equExpr136=equExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, equExpr132.getTree());
-            // grammar/PlazmaScript.g:206:14: ( ( '&&' | '&' | 'and' ) equExpr )*
-            loop23:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, equExpr136.getTree());
+            // grammar/PlazmaScript.g:207:14: ( ( '&&' | '&' | 'and' ) equExpr )*
+            loop24:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt24=2;
+                int LA24_0 = input.LA(1);
 
-                if ( ((LA23_0>=And && LA23_0<=AndWord)) ) {
-                    alt23=1;
+                if ( ((LA24_0>=And && LA24_0<=AndWord)) ) {
+                    alt24=1;
                 }
 
 
-                switch (alt23) {
+                switch (alt24) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:206:15: ( '&&' | '&' | 'and' ) equExpr
+            	    // grammar/PlazmaScript.g:207:15: ( '&&' | '&' | 'and' ) equExpr
             	    {
-            	    set133=(Token)input.LT(1);
-            	    set133=(Token)input.LT(1);
+            	    set137=(Token)input.LT(1);
+            	    set137=(Token)input.LT(1);
             	    if ( (input.LA(1)>=And && input.LA(1)<=AndWord) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set133), root_0);
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set137), root_0);
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -3609,18 +3696,18 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_equExpr_in_andExpr1400);
-            	    equExpr134=equExpr();
+            	    pushFollow(FOLLOW_equExpr_in_andExpr1432);
+            	    equExpr138=equExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, equExpr134.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, equExpr138.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop23;
+            	    break loop24;
                 }
             } while (true);
 
@@ -3653,53 +3740,53 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "equExpr"
-    // grammar/PlazmaScript.g:209:1: equExpr : relExpr ( ( '==' | '!=' ) relExpr )* ;
+    // grammar/PlazmaScript.g:210:1: equExpr : relExpr ( ( '==' | '!=' ) relExpr )* ;
     public final PlazmaScriptParser.equExpr_return equExpr() throws RecognitionException {
         PlazmaScriptParser.equExpr_return retval = new PlazmaScriptParser.equExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set136=null;
-        PlazmaScriptParser.relExpr_return relExpr135 = null;
+        Token set140=null;
+        PlazmaScriptParser.relExpr_return relExpr139 = null;
 
-        PlazmaScriptParser.relExpr_return relExpr137 = null;
+        PlazmaScriptParser.relExpr_return relExpr141 = null;
 
 
-        Object set136_tree=null;
+        Object set140_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:210:3: ( relExpr ( ( '==' | '!=' ) relExpr )* )
-            // grammar/PlazmaScript.g:210:6: relExpr ( ( '==' | '!=' ) relExpr )*
+            // grammar/PlazmaScript.g:211:3: ( relExpr ( ( '==' | '!=' ) relExpr )* )
+            // grammar/PlazmaScript.g:211:6: relExpr ( ( '==' | '!=' ) relExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_relExpr_in_equExpr1416);
-            relExpr135=relExpr();
+            pushFollow(FOLLOW_relExpr_in_equExpr1448);
+            relExpr139=relExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, relExpr135.getTree());
-            // grammar/PlazmaScript.g:210:14: ( ( '==' | '!=' ) relExpr )*
-            loop24:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, relExpr139.getTree());
+            // grammar/PlazmaScript.g:211:14: ( ( '==' | '!=' ) relExpr )*
+            loop25:
             do {
-                int alt24=2;
-                int LA24_0 = input.LA(1);
+                int alt25=2;
+                int LA25_0 = input.LA(1);
 
-                if ( ((LA24_0>=Equals && LA24_0<=NEquals)) ) {
-                    alt24=1;
+                if ( ((LA25_0>=Equals && LA25_0<=NEquals)) ) {
+                    alt25=1;
                 }
 
 
-                switch (alt24) {
+                switch (alt25) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:210:15: ( '==' | '!=' ) relExpr
+            	    // grammar/PlazmaScript.g:211:15: ( '==' | '!=' ) relExpr
             	    {
-            	    set136=(Token)input.LT(1);
-            	    set136=(Token)input.LT(1);
+            	    set140=(Token)input.LT(1);
+            	    set140=(Token)input.LT(1);
             	    if ( (input.LA(1)>=Equals && input.LA(1)<=NEquals) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set136), root_0);
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set140), root_0);
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -3708,18 +3795,18 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_relExpr_in_equExpr1428);
-            	    relExpr137=relExpr();
+            	    pushFollow(FOLLOW_relExpr_in_equExpr1460);
+            	    relExpr141=relExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, relExpr137.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, relExpr141.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop24;
+            	    break loop25;
                 }
             } while (true);
 
@@ -3752,53 +3839,53 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "relExpr"
-    // grammar/PlazmaScript.g:213:1: relExpr : addExpr ( ( '>=' | '<=' | '>' | '<' ) addExpr )* ;
+    // grammar/PlazmaScript.g:214:1: relExpr : addExpr ( ( '>=' | '<=' | '>' | '<' ) addExpr )* ;
     public final PlazmaScriptParser.relExpr_return relExpr() throws RecognitionException {
         PlazmaScriptParser.relExpr_return retval = new PlazmaScriptParser.relExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set139=null;
-        PlazmaScriptParser.addExpr_return addExpr138 = null;
+        Token set143=null;
+        PlazmaScriptParser.addExpr_return addExpr142 = null;
 
-        PlazmaScriptParser.addExpr_return addExpr140 = null;
+        PlazmaScriptParser.addExpr_return addExpr144 = null;
 
 
-        Object set139_tree=null;
+        Object set143_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:214:3: ( addExpr ( ( '>=' | '<=' | '>' | '<' ) addExpr )* )
-            // grammar/PlazmaScript.g:214:6: addExpr ( ( '>=' | '<=' | '>' | '<' ) addExpr )*
+            // grammar/PlazmaScript.g:215:3: ( addExpr ( ( '>=' | '<=' | '>' | '<' ) addExpr )* )
+            // grammar/PlazmaScript.g:215:6: addExpr ( ( '>=' | '<=' | '>' | '<' ) addExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_addExpr_in_relExpr1444);
-            addExpr138=addExpr();
+            pushFollow(FOLLOW_addExpr_in_relExpr1476);
+            addExpr142=addExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, addExpr138.getTree());
-            // grammar/PlazmaScript.g:214:14: ( ( '>=' | '<=' | '>' | '<' ) addExpr )*
-            loop25:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, addExpr142.getTree());
+            // grammar/PlazmaScript.g:215:14: ( ( '>=' | '<=' | '>' | '<' ) addExpr )*
+            loop26:
             do {
-                int alt25=2;
-                int LA25_0 = input.LA(1);
+                int alt26=2;
+                int LA26_0 = input.LA(1);
 
-                if ( ((LA25_0>=GTEquals && LA25_0<=LTEquals)||(LA25_0>=GT && LA25_0<=LT)) ) {
-                    alt25=1;
+                if ( ((LA26_0>=GTEquals && LA26_0<=LTEquals)||(LA26_0>=GT && LA26_0<=LT)) ) {
+                    alt26=1;
                 }
 
 
-                switch (alt25) {
+                switch (alt26) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:214:15: ( '>=' | '<=' | '>' | '<' ) addExpr
+            	    // grammar/PlazmaScript.g:215:15: ( '>=' | '<=' | '>' | '<' ) addExpr
             	    {
-            	    set139=(Token)input.LT(1);
-            	    set139=(Token)input.LT(1);
+            	    set143=(Token)input.LT(1);
+            	    set143=(Token)input.LT(1);
             	    if ( (input.LA(1)>=GTEquals && input.LA(1)<=LTEquals)||(input.LA(1)>=GT && input.LA(1)<=LT) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set139), root_0);
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set143), root_0);
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -3807,18 +3894,18 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr1464);
-            	    addExpr140=addExpr();
+            	    pushFollow(FOLLOW_addExpr_in_relExpr1496);
+            	    addExpr144=addExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, addExpr140.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, addExpr144.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop25;
+            	    break loop26;
                 }
             } while (true);
 
@@ -3851,53 +3938,53 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "addExpr"
-    // grammar/PlazmaScript.g:217:1: addExpr : mulExpr ( ( '+' | '-' ) mulExpr )* ;
+    // grammar/PlazmaScript.g:218:1: addExpr : mulExpr ( ( '+' | '-' ) mulExpr )* ;
     public final PlazmaScriptParser.addExpr_return addExpr() throws RecognitionException {
         PlazmaScriptParser.addExpr_return retval = new PlazmaScriptParser.addExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set142=null;
-        PlazmaScriptParser.mulExpr_return mulExpr141 = null;
+        Token set146=null;
+        PlazmaScriptParser.mulExpr_return mulExpr145 = null;
 
-        PlazmaScriptParser.mulExpr_return mulExpr143 = null;
+        PlazmaScriptParser.mulExpr_return mulExpr147 = null;
 
 
-        Object set142_tree=null;
+        Object set146_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:218:3: ( mulExpr ( ( '+' | '-' ) mulExpr )* )
-            // grammar/PlazmaScript.g:218:6: mulExpr ( ( '+' | '-' ) mulExpr )*
+            // grammar/PlazmaScript.g:219:3: ( mulExpr ( ( '+' | '-' ) mulExpr )* )
+            // grammar/PlazmaScript.g:219:6: mulExpr ( ( '+' | '-' ) mulExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_mulExpr_in_addExpr1480);
-            mulExpr141=mulExpr();
+            pushFollow(FOLLOW_mulExpr_in_addExpr1512);
+            mulExpr145=mulExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, mulExpr141.getTree());
-            // grammar/PlazmaScript.g:218:14: ( ( '+' | '-' ) mulExpr )*
-            loop26:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, mulExpr145.getTree());
+            // grammar/PlazmaScript.g:219:14: ( ( '+' | '-' ) mulExpr )*
+            loop27:
             do {
-                int alt26=2;
-                int LA26_0 = input.LA(1);
+                int alt27=2;
+                int LA27_0 = input.LA(1);
 
-                if ( ((LA26_0>=Add && LA26_0<=Subtract)) ) {
-                    alt26=1;
+                if ( ((LA27_0>=Add && LA27_0<=Subtract)) ) {
+                    alt27=1;
                 }
 
 
-                switch (alt26) {
+                switch (alt27) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:218:15: ( '+' | '-' ) mulExpr
+            	    // grammar/PlazmaScript.g:219:15: ( '+' | '-' ) mulExpr
             	    {
-            	    set142=(Token)input.LT(1);
-            	    set142=(Token)input.LT(1);
+            	    set146=(Token)input.LT(1);
+            	    set146=(Token)input.LT(1);
             	    if ( (input.LA(1)>=Add && input.LA(1)<=Subtract) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set142), root_0);
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set146), root_0);
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -3906,18 +3993,18 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr1492);
-            	    mulExpr143=mulExpr();
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr1524);
+            	    mulExpr147=mulExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, mulExpr143.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, mulExpr147.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop26;
+            	    break loop27;
                 }
             } while (true);
 
@@ -3950,53 +4037,53 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "mulExpr"
-    // grammar/PlazmaScript.g:221:1: mulExpr : powExpr ( ( '*' | '/' | '%' ) powExpr )* ;
+    // grammar/PlazmaScript.g:222:1: mulExpr : powExpr ( ( '*' | '/' | '%' ) powExpr )* ;
     public final PlazmaScriptParser.mulExpr_return mulExpr() throws RecognitionException {
         PlazmaScriptParser.mulExpr_return retval = new PlazmaScriptParser.mulExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set145=null;
-        PlazmaScriptParser.powExpr_return powExpr144 = null;
+        Token set149=null;
+        PlazmaScriptParser.powExpr_return powExpr148 = null;
 
-        PlazmaScriptParser.powExpr_return powExpr146 = null;
+        PlazmaScriptParser.powExpr_return powExpr150 = null;
 
 
-        Object set145_tree=null;
+        Object set149_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:222:3: ( powExpr ( ( '*' | '/' | '%' ) powExpr )* )
-            // grammar/PlazmaScript.g:222:6: powExpr ( ( '*' | '/' | '%' ) powExpr )*
+            // grammar/PlazmaScript.g:223:3: ( powExpr ( ( '*' | '/' | '%' ) powExpr )* )
+            // grammar/PlazmaScript.g:223:6: powExpr ( ( '*' | '/' | '%' ) powExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_powExpr_in_mulExpr1508);
-            powExpr144=powExpr();
+            pushFollow(FOLLOW_powExpr_in_mulExpr1540);
+            powExpr148=powExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, powExpr144.getTree());
-            // grammar/PlazmaScript.g:222:14: ( ( '*' | '/' | '%' ) powExpr )*
-            loop27:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, powExpr148.getTree());
+            // grammar/PlazmaScript.g:223:14: ( ( '*' | '/' | '%' ) powExpr )*
+            loop28:
             do {
-                int alt27=2;
-                int LA27_0 = input.LA(1);
+                int alt28=2;
+                int LA28_0 = input.LA(1);
 
-                if ( ((LA27_0>=Multiply && LA27_0<=Modulus)) ) {
-                    alt27=1;
+                if ( ((LA28_0>=Multiply && LA28_0<=Modulus)) ) {
+                    alt28=1;
                 }
 
 
-                switch (alt27) {
+                switch (alt28) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:222:15: ( '*' | '/' | '%' ) powExpr
+            	    // grammar/PlazmaScript.g:223:15: ( '*' | '/' | '%' ) powExpr
             	    {
-            	    set145=(Token)input.LT(1);
-            	    set145=(Token)input.LT(1);
+            	    set149=(Token)input.LT(1);
+            	    set149=(Token)input.LT(1);
             	    if ( (input.LA(1)>=Multiply && input.LA(1)<=Modulus) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set145), root_0);
+            	        if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot((Object)adaptor.create(set149), root_0);
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -4005,18 +4092,18 @@ public class PlazmaScriptParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_powExpr_in_mulExpr1524);
-            	    powExpr146=powExpr();
+            	    pushFollow(FOLLOW_powExpr_in_mulExpr1556);
+            	    powExpr150=powExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, powExpr146.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, powExpr150.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop27;
+            	    break loop28;
                 }
             } while (true);
 
@@ -4049,65 +4136,65 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "powExpr"
-    // grammar/PlazmaScript.g:225:1: powExpr : unaryExpr ( '^' unaryExpr )* ;
+    // grammar/PlazmaScript.g:226:1: powExpr : unaryExpr ( '^' unaryExpr )* ;
     public final PlazmaScriptParser.powExpr_return powExpr() throws RecognitionException {
         PlazmaScriptParser.powExpr_return retval = new PlazmaScriptParser.powExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal148=null;
-        PlazmaScriptParser.unaryExpr_return unaryExpr147 = null;
+        Token char_literal152=null;
+        PlazmaScriptParser.unaryExpr_return unaryExpr151 = null;
 
-        PlazmaScriptParser.unaryExpr_return unaryExpr149 = null;
+        PlazmaScriptParser.unaryExpr_return unaryExpr153 = null;
 
 
-        Object char_literal148_tree=null;
+        Object char_literal152_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:226:3: ( unaryExpr ( '^' unaryExpr )* )
-            // grammar/PlazmaScript.g:226:6: unaryExpr ( '^' unaryExpr )*
+            // grammar/PlazmaScript.g:227:3: ( unaryExpr ( '^' unaryExpr )* )
+            // grammar/PlazmaScript.g:227:6: unaryExpr ( '^' unaryExpr )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_unaryExpr_in_powExpr1540);
-            unaryExpr147=unaryExpr();
+            pushFollow(FOLLOW_unaryExpr_in_powExpr1572);
+            unaryExpr151=unaryExpr();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, unaryExpr147.getTree());
-            // grammar/PlazmaScript.g:226:16: ( '^' unaryExpr )*
-            loop28:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, unaryExpr151.getTree());
+            // grammar/PlazmaScript.g:227:16: ( '^' unaryExpr )*
+            loop29:
             do {
-                int alt28=2;
-                int LA28_0 = input.LA(1);
+                int alt29=2;
+                int LA29_0 = input.LA(1);
 
-                if ( (LA28_0==Pow) ) {
-                    alt28=1;
+                if ( (LA29_0==Pow) ) {
+                    alt29=1;
                 }
 
 
-                switch (alt28) {
+                switch (alt29) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:226:17: '^' unaryExpr
+            	    // grammar/PlazmaScript.g:227:17: '^' unaryExpr
             	    {
-            	    char_literal148=(Token)match(input,Pow,FOLLOW_Pow_in_powExpr1543); if (state.failed) return retval;
+            	    char_literal152=(Token)match(input,Pow,FOLLOW_Pow_in_powExpr1575); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    char_literal148_tree = (Object)adaptor.create(char_literal148);
-            	    root_0 = (Object)adaptor.becomeRoot(char_literal148_tree, root_0);
+            	    char_literal152_tree = (Object)adaptor.create(char_literal152);
+            	    root_0 = (Object)adaptor.becomeRoot(char_literal152_tree, root_0);
             	    }
-            	    pushFollow(FOLLOW_unaryExpr_in_powExpr1546);
-            	    unaryExpr149=unaryExpr();
+            	    pushFollow(FOLLOW_unaryExpr_in_powExpr1578);
+            	    unaryExpr153=unaryExpr();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, unaryExpr149.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, unaryExpr153.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop28;
+            	    break loop29;
                 }
             } while (true);
 
@@ -4140,59 +4227,59 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "unaryExpr"
-    // grammar/PlazmaScript.g:229:1: unaryExpr : ( '+' atom -> ^( UNARY_PLUS atom ) | '-' atom -> ^( UNARY_MIN atom ) | '!' atom -> ^( NEGATE atom ) | 'not' atom -> ^( NEGATE atom ) | atom );
+    // grammar/PlazmaScript.g:230:1: unaryExpr : ( '+' atom -> ^( UNARY_PLUS atom ) | '-' atom -> ^( UNARY_MIN atom ) | '!' atom -> ^( NEGATE atom ) | 'not' atom -> ^( NEGATE atom ) | atom );
     public final PlazmaScriptParser.unaryExpr_return unaryExpr() throws RecognitionException {
         PlazmaScriptParser.unaryExpr_return retval = new PlazmaScriptParser.unaryExpr_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal150=null;
-        Token char_literal152=null;
         Token char_literal154=null;
-        Token string_literal156=null;
-        PlazmaScriptParser.atom_return atom151 = null;
-
-        PlazmaScriptParser.atom_return atom153 = null;
-
+        Token char_literal156=null;
+        Token char_literal158=null;
+        Token string_literal160=null;
         PlazmaScriptParser.atom_return atom155 = null;
 
         PlazmaScriptParser.atom_return atom157 = null;
 
-        PlazmaScriptParser.atom_return atom158 = null;
+        PlazmaScriptParser.atom_return atom159 = null;
+
+        PlazmaScriptParser.atom_return atom161 = null;
+
+        PlazmaScriptParser.atom_return atom162 = null;
 
 
-        Object char_literal150_tree=null;
-        Object char_literal152_tree=null;
         Object char_literal154_tree=null;
-        Object string_literal156_tree=null;
+        Object char_literal156_tree=null;
+        Object char_literal158_tree=null;
+        Object string_literal160_tree=null;
         RewriteRuleTokenStream stream_Add=new RewriteRuleTokenStream(adaptor,"token Add");
         RewriteRuleTokenStream stream_NotWord=new RewriteRuleTokenStream(adaptor,"token NotWord");
         RewriteRuleTokenStream stream_Subtract=new RewriteRuleTokenStream(adaptor,"token Subtract");
         RewriteRuleTokenStream stream_Not=new RewriteRuleTokenStream(adaptor,"token Not");
         RewriteRuleSubtreeStream stream_atom=new RewriteRuleSubtreeStream(adaptor,"rule atom");
         try {
-            // grammar/PlazmaScript.g:230:3: ( '+' atom -> ^( UNARY_PLUS atom ) | '-' atom -> ^( UNARY_MIN atom ) | '!' atom -> ^( NEGATE atom ) | 'not' atom -> ^( NEGATE atom ) | atom )
-            int alt29=5;
+            // grammar/PlazmaScript.g:231:3: ( '+' atom -> ^( UNARY_PLUS atom ) | '-' atom -> ^( UNARY_MIN atom ) | '!' atom -> ^( NEGATE atom ) | 'not' atom -> ^( NEGATE atom ) | atom )
+            int alt30=5;
             switch ( input.LA(1) ) {
             case Add:
                 {
-                alt29=1;
+                alt30=1;
                 }
                 break;
             case Subtract:
                 {
-                alt29=2;
+                alt30=2;
                 }
                 break;
             case Not:
                 {
-                alt29=3;
+                alt30=3;
                 }
                 break;
             case NotWord:
                 {
-                alt29=4;
+                alt30=4;
                 }
                 break;
             case Identifier:
@@ -4200,6 +4287,7 @@ public class PlazmaScriptParser extends Parser {
             case Print:
             case Assert:
             case Date:
+            case DateTime:
             case List:
             case Set:
             case Integer:
@@ -4214,111 +4302,25 @@ public class PlazmaScriptParser extends Parser {
             case OParen:
             case ContextIdentifier:
                 {
-                alt29=5;
+                alt30=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 29, 0, input);
+                    new NoViableAltException("", 30, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt29) {
+            switch (alt30) {
                 case 1 :
-                    // grammar/PlazmaScript.g:230:6: '+' atom
+                    // grammar/PlazmaScript.g:231:6: '+' atom
                     {
-                    char_literal150=(Token)match(input,Add,FOLLOW_Add_in_unaryExpr1564); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Add.add(char_literal150);
+                    char_literal154=(Token)match(input,Add,FOLLOW_Add_in_unaryExpr1596); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Add.add(char_literal154);
 
-                    pushFollow(FOLLOW_atom_in_unaryExpr1566);
-                    atom151=atom();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_atom.add(atom151.getTree());
-
-
-                    // AST REWRITE
-                    // elements: atom
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    if ( state.backtracking==0 ) {
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
-
-                    root_0 = (Object)adaptor.nil();
-                    // 230:15: -> ^( UNARY_PLUS atom )
-                    {
-                        // grammar/PlazmaScript.g:230:18: ^( UNARY_PLUS atom )
-                        {
-                        Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(UNARY_PLUS, "UNARY_PLUS"), root_1);
-
-                        adaptor.addChild(root_1, stream_atom.nextTree());
-
-                        adaptor.addChild(root_0, root_1);
-                        }
-
-                    }
-
-                    retval.tree = root_0;}
-                    }
-                    break;
-                case 2 :
-                    // grammar/PlazmaScript.g:231:6: '-' atom
-                    {
-                    char_literal152=(Token)match(input,Subtract,FOLLOW_Subtract_in_unaryExpr1581); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Subtract.add(char_literal152);
-
-                    pushFollow(FOLLOW_atom_in_unaryExpr1583);
-                    atom153=atom();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_atom.add(atom153.getTree());
-
-
-                    // AST REWRITE
-                    // elements: atom
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    if ( state.backtracking==0 ) {
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
-
-                    root_0 = (Object)adaptor.nil();
-                    // 231:15: -> ^( UNARY_MIN atom )
-                    {
-                        // grammar/PlazmaScript.g:231:18: ^( UNARY_MIN atom )
-                        {
-                        Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(UNARY_MIN, "UNARY_MIN"), root_1);
-
-                        adaptor.addChild(root_1, stream_atom.nextTree());
-
-                        adaptor.addChild(root_0, root_1);
-                        }
-
-                    }
-
-                    retval.tree = root_0;}
-                    }
-                    break;
-                case 3 :
-                    // grammar/PlazmaScript.g:232:6: '!' atom
-                    {
-                    char_literal154=(Token)match(input,Not,FOLLOW_Not_in_unaryExpr1598); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Not.add(char_literal154);
-
-                    pushFollow(FOLLOW_atom_in_unaryExpr1600);
+                    pushFollow(FOLLOW_atom_in_unaryExpr1598);
                     atom155=atom();
 
                     state._fsp--;
@@ -4338,12 +4340,12 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 232:15: -> ^( NEGATE atom )
+                    // 231:15: -> ^( UNARY_PLUS atom )
                     {
-                        // grammar/PlazmaScript.g:232:18: ^( NEGATE atom )
+                        // grammar/PlazmaScript.g:231:18: ^( UNARY_PLUS atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NEGATE, "NEGATE"), root_1);
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(UNARY_PLUS, "UNARY_PLUS"), root_1);
 
                         adaptor.addChild(root_1, stream_atom.nextTree());
 
@@ -4355,13 +4357,13 @@ public class PlazmaScriptParser extends Parser {
                     retval.tree = root_0;}
                     }
                     break;
-                case 4 :
-                    // grammar/PlazmaScript.g:233:6: 'not' atom
+                case 2 :
+                    // grammar/PlazmaScript.g:232:6: '-' atom
                     {
-                    string_literal156=(Token)match(input,NotWord,FOLLOW_NotWord_in_unaryExpr1615); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_NotWord.add(string_literal156);
+                    char_literal156=(Token)match(input,Subtract,FOLLOW_Subtract_in_unaryExpr1613); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Subtract.add(char_literal156);
 
-                    pushFollow(FOLLOW_atom_in_unaryExpr1617);
+                    pushFollow(FOLLOW_atom_in_unaryExpr1615);
                     atom157=atom();
 
                     state._fsp--;
@@ -4381,9 +4383,95 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 233:17: -> ^( NEGATE atom )
+                    // 232:15: -> ^( UNARY_MIN atom )
                     {
-                        // grammar/PlazmaScript.g:233:20: ^( NEGATE atom )
+                        // grammar/PlazmaScript.g:232:18: ^( UNARY_MIN atom )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(UNARY_MIN, "UNARY_MIN"), root_1);
+
+                        adaptor.addChild(root_1, stream_atom.nextTree());
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 3 :
+                    // grammar/PlazmaScript.g:233:6: '!' atom
+                    {
+                    char_literal158=(Token)match(input,Not,FOLLOW_Not_in_unaryExpr1630); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Not.add(char_literal158);
+
+                    pushFollow(FOLLOW_atom_in_unaryExpr1632);
+                    atom159=atom();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_atom.add(atom159.getTree());
+
+
+                    // AST REWRITE
+                    // elements: atom
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 233:15: -> ^( NEGATE atom )
+                    {
+                        // grammar/PlazmaScript.g:233:18: ^( NEGATE atom )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NEGATE, "NEGATE"), root_1);
+
+                        adaptor.addChild(root_1, stream_atom.nextTree());
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 4 :
+                    // grammar/PlazmaScript.g:234:6: 'not' atom
+                    {
+                    string_literal160=(Token)match(input,NotWord,FOLLOW_NotWord_in_unaryExpr1647); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_NotWord.add(string_literal160);
+
+                    pushFollow(FOLLOW_atom_in_unaryExpr1649);
+                    atom161=atom();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_atom.add(atom161.getTree());
+
+
+                    // AST REWRITE
+                    // elements: atom
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 234:17: -> ^( NEGATE atom )
+                    {
+                        // grammar/PlazmaScript.g:234:20: ^( NEGATE atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NEGATE, "NEGATE"), root_1);
@@ -4399,16 +4487,16 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // grammar/PlazmaScript.g:234:6: atom
+                    // grammar/PlazmaScript.g:235:6: atom
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_atom_in_unaryExpr1634);
-                    atom158=atom();
+                    pushFollow(FOLLOW_atom_in_unaryExpr1666);
+                    atom162=atom();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, atom158.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, atom162.getTree());
 
                     }
                     break;
@@ -4440,61 +4528,61 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "atom"
-    // grammar/PlazmaScript.g:237:1: atom : ( Integer | Number | Bool | Null | NaN | Infinity | lookup );
+    // grammar/PlazmaScript.g:238:1: atom : ( Integer | Number | Bool | Null | NaN | Infinity | lookup );
     public final PlazmaScriptParser.atom_return atom() throws RecognitionException {
         PlazmaScriptParser.atom_return retval = new PlazmaScriptParser.atom_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Integer159=null;
-        Token Number160=null;
-        Token Bool161=null;
-        Token Null162=null;
-        Token NaN163=null;
-        Token Infinity164=null;
-        PlazmaScriptParser.lookup_return lookup165 = null;
+        Token Integer163=null;
+        Token Number164=null;
+        Token Bool165=null;
+        Token Null166=null;
+        Token NaN167=null;
+        Token Infinity168=null;
+        PlazmaScriptParser.lookup_return lookup169 = null;
 
 
-        Object Integer159_tree=null;
-        Object Number160_tree=null;
-        Object Bool161_tree=null;
-        Object Null162_tree=null;
-        Object NaN163_tree=null;
-        Object Infinity164_tree=null;
+        Object Integer163_tree=null;
+        Object Number164_tree=null;
+        Object Bool165_tree=null;
+        Object Null166_tree=null;
+        Object NaN167_tree=null;
+        Object Infinity168_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:238:3: ( Integer | Number | Bool | Null | NaN | Infinity | lookup )
-            int alt30=7;
+            // grammar/PlazmaScript.g:239:3: ( Integer | Number | Bool | Null | NaN | Infinity | lookup )
+            int alt31=7;
             switch ( input.LA(1) ) {
             case Integer:
                 {
-                alt30=1;
+                alt31=1;
                 }
                 break;
             case Number:
                 {
-                alt30=2;
+                alt31=2;
                 }
                 break;
             case Bool:
                 {
-                alt30=3;
+                alt31=3;
                 }
                 break;
             case Null:
                 {
-                alt30=4;
+                alt31=4;
                 }
                 break;
             case NaN:
                 {
-                alt30=5;
+                alt31=5;
                 }
                 break;
             case Infinity:
                 {
-                alt30=6;
+                alt31=6;
                 }
                 break;
             case Identifier:
@@ -4502,6 +4590,7 @@ public class PlazmaScriptParser extends Parser {
             case Print:
             case Assert:
             case Date:
+            case DateTime:
             case List:
             case Set:
             case String:
@@ -4510,107 +4599,107 @@ public class PlazmaScriptParser extends Parser {
             case OParen:
             case ContextIdentifier:
                 {
-                alt30=7;
+                alt31=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 30, 0, input);
+                    new NoViableAltException("", 31, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt30) {
+            switch (alt31) {
                 case 1 :
-                    // grammar/PlazmaScript.g:238:6: Integer
+                    // grammar/PlazmaScript.g:239:6: Integer
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Integer159=(Token)match(input,Integer,FOLLOW_Integer_in_atom1648); if (state.failed) return retval;
+                    Integer163=(Token)match(input,Integer,FOLLOW_Integer_in_atom1680); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    Integer159_tree = (Object)adaptor.create(Integer159);
-                    adaptor.addChild(root_0, Integer159_tree);
+                    Integer163_tree = (Object)adaptor.create(Integer163);
+                    adaptor.addChild(root_0, Integer163_tree);
                     }
 
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:239:6: Number
+                    // grammar/PlazmaScript.g:240:6: Number
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Number160=(Token)match(input,Number,FOLLOW_Number_in_atom1655); if (state.failed) return retval;
+                    Number164=(Token)match(input,Number,FOLLOW_Number_in_atom1687); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    Number160_tree = (Object)adaptor.create(Number160);
-                    adaptor.addChild(root_0, Number160_tree);
+                    Number164_tree = (Object)adaptor.create(Number164);
+                    adaptor.addChild(root_0, Number164_tree);
                     }
 
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScript.g:240:6: Bool
+                    // grammar/PlazmaScript.g:241:6: Bool
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Bool161=(Token)match(input,Bool,FOLLOW_Bool_in_atom1662); if (state.failed) return retval;
+                    Bool165=(Token)match(input,Bool,FOLLOW_Bool_in_atom1694); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    Bool161_tree = (Object)adaptor.create(Bool161);
-                    adaptor.addChild(root_0, Bool161_tree);
+                    Bool165_tree = (Object)adaptor.create(Bool165);
+                    adaptor.addChild(root_0, Bool165_tree);
                     }
 
                     }
                     break;
                 case 4 :
-                    // grammar/PlazmaScript.g:241:6: Null
+                    // grammar/PlazmaScript.g:242:6: Null
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Null162=(Token)match(input,Null,FOLLOW_Null_in_atom1669); if (state.failed) return retval;
+                    Null166=(Token)match(input,Null,FOLLOW_Null_in_atom1701); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    Null162_tree = (Object)adaptor.create(Null162);
-                    adaptor.addChild(root_0, Null162_tree);
+                    Null166_tree = (Object)adaptor.create(Null166);
+                    adaptor.addChild(root_0, Null166_tree);
                     }
 
                     }
                     break;
                 case 5 :
-                    // grammar/PlazmaScript.g:242:6: NaN
+                    // grammar/PlazmaScript.g:243:6: NaN
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NaN163=(Token)match(input,NaN,FOLLOW_NaN_in_atom1676); if (state.failed) return retval;
+                    NaN167=(Token)match(input,NaN,FOLLOW_NaN_in_atom1708); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    NaN163_tree = (Object)adaptor.create(NaN163);
-                    adaptor.addChild(root_0, NaN163_tree);
+                    NaN167_tree = (Object)adaptor.create(NaN167);
+                    adaptor.addChild(root_0, NaN167_tree);
                     }
 
                     }
                     break;
                 case 6 :
-                    // grammar/PlazmaScript.g:243:6: Infinity
+                    // grammar/PlazmaScript.g:244:6: Infinity
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Infinity164=(Token)match(input,Infinity,FOLLOW_Infinity_in_atom1683); if (state.failed) return retval;
+                    Infinity168=(Token)match(input,Infinity,FOLLOW_Infinity_in_atom1715); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    Infinity164_tree = (Object)adaptor.create(Infinity164);
-                    adaptor.addChild(root_0, Infinity164_tree);
+                    Infinity168_tree = (Object)adaptor.create(Infinity168);
+                    adaptor.addChild(root_0, Infinity168_tree);
                     }
 
                     }
                     break;
                 case 7 :
-                    // grammar/PlazmaScript.g:244:6: lookup
+                    // grammar/PlazmaScript.g:245:6: lookup
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_lookup_in_atom1691);
-                    lookup165=lookup();
+                    pushFollow(FOLLOW_lookup_in_atom1723);
+                    lookup169=lookup();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, lookup165.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, lookup169.getTree());
 
                     }
                     break;
@@ -4642,55 +4731,55 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "list"
-    // grammar/PlazmaScript.g:247:1: list : '[' ( exprList )? ']' -> ^( LIST ( exprList )? ) ;
+    // grammar/PlazmaScript.g:248:1: list : '[' ( exprList )? ']' -> ^( LIST ( exprList )? ) ;
     public final PlazmaScriptParser.list_return list() throws RecognitionException {
         PlazmaScriptParser.list_return retval = new PlazmaScriptParser.list_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal166=null;
-        Token char_literal168=null;
-        PlazmaScriptParser.exprList_return exprList167 = null;
+        Token char_literal170=null;
+        Token char_literal172=null;
+        PlazmaScriptParser.exprList_return exprList171 = null;
 
 
-        Object char_literal166_tree=null;
-        Object char_literal168_tree=null;
+        Object char_literal170_tree=null;
+        Object char_literal172_tree=null;
         RewriteRuleTokenStream stream_CBracket=new RewriteRuleTokenStream(adaptor,"token CBracket");
         RewriteRuleTokenStream stream_OBracket=new RewriteRuleTokenStream(adaptor,"token OBracket");
         RewriteRuleSubtreeStream stream_exprList=new RewriteRuleSubtreeStream(adaptor,"rule exprList");
         try {
-            // grammar/PlazmaScript.g:248:3: ( '[' ( exprList )? ']' -> ^( LIST ( exprList )? ) )
-            // grammar/PlazmaScript.g:248:6: '[' ( exprList )? ']'
+            // grammar/PlazmaScript.g:249:3: ( '[' ( exprList )? ']' -> ^( LIST ( exprList )? ) )
+            // grammar/PlazmaScript.g:249:6: '[' ( exprList )? ']'
             {
-            char_literal166=(Token)match(input,OBracket,FOLLOW_OBracket_in_list1705); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBracket.add(char_literal166);
+            char_literal170=(Token)match(input,OBracket,FOLLOW_OBracket_in_list1737); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBracket.add(char_literal170);
 
-            // grammar/PlazmaScript.g:248:10: ( exprList )?
-            int alt31=2;
-            int LA31_0 = input.LA(1);
+            // grammar/PlazmaScript.g:249:10: ( exprList )?
+            int alt32=2;
+            int LA32_0 = input.LA(1);
 
-            if ( ((LA31_0>=Identifier && LA31_0<=Set)||(LA31_0>=Integer && LA31_0<=String)||(LA31_0>=Not && LA31_0<=NotWord)||(LA31_0>=Add && LA31_0<=Subtract)||LA31_0==OBrace||LA31_0==OBracket||LA31_0==OParen||LA31_0==ContextIdentifier) ) {
-                alt31=1;
+            if ( ((LA32_0>=Identifier && LA32_0<=Set)||(LA32_0>=Integer && LA32_0<=String)||(LA32_0>=Not && LA32_0<=NotWord)||(LA32_0>=Add && LA32_0<=Subtract)||LA32_0==OBrace||LA32_0==OBracket||LA32_0==OParen||LA32_0==ContextIdentifier) ) {
+                alt32=1;
             }
-            switch (alt31) {
+            switch (alt32) {
                 case 1 :
                     // grammar/PlazmaScript.g:0:0: exprList
                     {
-                    pushFollow(FOLLOW_exprList_in_list1707);
-                    exprList167=exprList();
+                    pushFollow(FOLLOW_exprList_in_list1739);
+                    exprList171=exprList();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_exprList.add(exprList167.getTree());
+                    if ( state.backtracking==0 ) stream_exprList.add(exprList171.getTree());
 
                     }
                     break;
 
             }
 
-            char_literal168=(Token)match(input,CBracket,FOLLOW_CBracket_in_list1710); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBracket.add(char_literal168);
+            char_literal172=(Token)match(input,CBracket,FOLLOW_CBracket_in_list1742); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBracket.add(char_literal172);
 
 
 
@@ -4706,14 +4795,14 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 248:24: -> ^( LIST ( exprList )? )
+            // 249:24: -> ^( LIST ( exprList )? )
             {
-                // grammar/PlazmaScript.g:248:27: ^( LIST ( exprList )? )
+                // grammar/PlazmaScript.g:249:27: ^( LIST ( exprList )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LIST, "LIST"), root_1);
 
-                // grammar/PlazmaScript.g:248:34: ( exprList )?
+                // grammar/PlazmaScript.g:249:34: ( exprList )?
                 if ( stream_exprList.hasNext() ) {
                     adaptor.addChild(root_1, stream_exprList.nextTree());
 
@@ -4754,77 +4843,77 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "map"
-    // grammar/PlazmaScript.g:251:1: map : '{' ( ':' | exprMap ) '}' -> ^( MAP ( exprMap )? ) ;
+    // grammar/PlazmaScript.g:252:1: map : '{' ( ':' | exprMap ) '}' -> ^( MAP ( exprMap )? ) ;
     public final PlazmaScriptParser.map_return map() throws RecognitionException {
         PlazmaScriptParser.map_return retval = new PlazmaScriptParser.map_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal169=null;
-        Token char_literal170=null;
-        Token char_literal172=null;
-        PlazmaScriptParser.exprMap_return exprMap171 = null;
+        Token char_literal173=null;
+        Token char_literal174=null;
+        Token char_literal176=null;
+        PlazmaScriptParser.exprMap_return exprMap175 = null;
 
 
-        Object char_literal169_tree=null;
-        Object char_literal170_tree=null;
-        Object char_literal172_tree=null;
+        Object char_literal173_tree=null;
+        Object char_literal174_tree=null;
+        Object char_literal176_tree=null;
         RewriteRuleTokenStream stream_OBrace=new RewriteRuleTokenStream(adaptor,"token OBrace");
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleTokenStream stream_CBrace=new RewriteRuleTokenStream(adaptor,"token CBrace");
         RewriteRuleSubtreeStream stream_exprMap=new RewriteRuleSubtreeStream(adaptor,"rule exprMap");
         try {
-            // grammar/PlazmaScript.g:252:3: ( '{' ( ':' | exprMap ) '}' -> ^( MAP ( exprMap )? ) )
-            // grammar/PlazmaScript.g:252:6: '{' ( ':' | exprMap ) '}'
+            // grammar/PlazmaScript.g:253:3: ( '{' ( ':' | exprMap ) '}' -> ^( MAP ( exprMap )? ) )
+            // grammar/PlazmaScript.g:253:6: '{' ( ':' | exprMap ) '}'
             {
-            char_literal169=(Token)match(input,OBrace,FOLLOW_OBrace_in_map1733); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_OBrace.add(char_literal169);
+            char_literal173=(Token)match(input,OBrace,FOLLOW_OBrace_in_map1765); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_OBrace.add(char_literal173);
 
-            // grammar/PlazmaScript.g:252:10: ( ':' | exprMap )
-            int alt32=2;
-            int LA32_0 = input.LA(1);
+            // grammar/PlazmaScript.g:253:10: ( ':' | exprMap )
+            int alt33=2;
+            int LA33_0 = input.LA(1);
 
-            if ( (LA32_0==Colon) ) {
-                alt32=1;
+            if ( (LA33_0==Colon) ) {
+                alt33=1;
             }
-            else if ( ((LA32_0>=Identifier && LA32_0<=Set)||(LA32_0>=Integer && LA32_0<=String)||(LA32_0>=Not && LA32_0<=NotWord)||(LA32_0>=Add && LA32_0<=Subtract)||LA32_0==OBrace||LA32_0==OBracket||LA32_0==OParen||LA32_0==ContextIdentifier) ) {
-                alt32=2;
+            else if ( ((LA33_0>=Identifier && LA33_0<=Set)||(LA33_0>=Integer && LA33_0<=String)||(LA33_0>=Not && LA33_0<=NotWord)||(LA33_0>=Add && LA33_0<=Subtract)||LA33_0==OBrace||LA33_0==OBracket||LA33_0==OParen||LA33_0==ContextIdentifier) ) {
+                alt33=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 32, 0, input);
+                    new NoViableAltException("", 33, 0, input);
 
                 throw nvae;
             }
-            switch (alt32) {
+            switch (alt33) {
                 case 1 :
-                    // grammar/PlazmaScript.g:252:11: ':'
+                    // grammar/PlazmaScript.g:253:11: ':'
                     {
-                    char_literal170=(Token)match(input,Colon,FOLLOW_Colon_in_map1736); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Colon.add(char_literal170);
+                    char_literal174=(Token)match(input,Colon,FOLLOW_Colon_in_map1768); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Colon.add(char_literal174);
 
 
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:252:17: exprMap
+                    // grammar/PlazmaScript.g:253:17: exprMap
                     {
-                    pushFollow(FOLLOW_exprMap_in_map1740);
-                    exprMap171=exprMap();
+                    pushFollow(FOLLOW_exprMap_in_map1772);
+                    exprMap175=exprMap();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_exprMap.add(exprMap171.getTree());
+                    if ( state.backtracking==0 ) stream_exprMap.add(exprMap175.getTree());
 
                     }
                     break;
 
             }
 
-            char_literal172=(Token)match(input,CBrace,FOLLOW_CBrace_in_map1743); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CBrace.add(char_literal172);
+            char_literal176=(Token)match(input,CBrace,FOLLOW_CBrace_in_map1775); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CBrace.add(char_literal176);
 
 
 
@@ -4840,14 +4929,14 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 252:30: -> ^( MAP ( exprMap )? )
+            // 253:30: -> ^( MAP ( exprMap )? )
             {
-                // grammar/PlazmaScript.g:252:33: ^( MAP ( exprMap )? )
+                // grammar/PlazmaScript.g:253:33: ^( MAP ( exprMap )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(MAP, "MAP"), root_1);
 
-                // grammar/PlazmaScript.g:252:39: ( exprMap )?
+                // grammar/PlazmaScript.g:253:39: ( exprMap )?
                 if ( stream_exprMap.hasNext() ) {
                     adaptor.addChild(root_1, stream_exprMap.nextTree());
 
@@ -4888,46 +4977,46 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "lookup"
-    // grammar/PlazmaScript.g:255:1: lookup : ( functionCall ( indexes )? -> ^( LOOKUP functionCall ( indexes )? ) | list ( indexes )? -> ^( LOOKUP list ( indexes )? ) | map ( indexes )? -> ^( LOOKUP map ( indexes )? ) | Identifier ( indexes )? -> ^( LOOKUP Identifier ( indexes )? ) | anyIdentifier ( indexes )? -> ^( LOOKUP ( indexes )? ) | String ( indexes )? -> ^( LOOKUP String ( indexes )? ) | '(' expression ')' ( indexes )? -> ^( LOOKUP expression ( indexes )? ) );
+    // grammar/PlazmaScript.g:256:1: lookup : ( functionCall ( indexes )? -> ^( LOOKUP functionCall ( indexes )? ) | list ( indexes )? -> ^( LOOKUP list ( indexes )? ) | map ( indexes )? -> ^( LOOKUP map ( indexes )? ) | Identifier ( indexes )? -> ^( LOOKUP Identifier ( indexes )? ) | anyIdentifier ( indexes )? -> ^( LOOKUP ( indexes )? ) | String ( indexes )? -> ^( LOOKUP String ( indexes )? ) | '(' expression ')' ( indexes )? -> ^( LOOKUP expression ( indexes )? ) );
     public final PlazmaScriptParser.lookup_return lookup() throws RecognitionException {
         PlazmaScriptParser.lookup_return retval = new PlazmaScriptParser.lookup_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Identifier179=null;
-        Token String183=null;
-        Token char_literal185=null;
-        Token char_literal187=null;
-        PlazmaScriptParser.functionCall_return functionCall173 = null;
-
-        PlazmaScriptParser.indexes_return indexes174 = null;
-
-        PlazmaScriptParser.list_return list175 = null;
-
-        PlazmaScriptParser.indexes_return indexes176 = null;
-
-        PlazmaScriptParser.map_return map177 = null;
+        Token Identifier183=null;
+        Token String187=null;
+        Token char_literal189=null;
+        Token char_literal191=null;
+        PlazmaScriptParser.functionCall_return functionCall177 = null;
 
         PlazmaScriptParser.indexes_return indexes178 = null;
 
+        PlazmaScriptParser.list_return list179 = null;
+
         PlazmaScriptParser.indexes_return indexes180 = null;
 
-        PlazmaScriptParser.anyIdentifier_return anyIdentifier181 = null;
+        PlazmaScriptParser.map_return map181 = null;
 
         PlazmaScriptParser.indexes_return indexes182 = null;
 
         PlazmaScriptParser.indexes_return indexes184 = null;
 
-        PlazmaScriptParser.expression_return expression186 = null;
+        PlazmaScriptParser.anyIdentifier_return anyIdentifier185 = null;
+
+        PlazmaScriptParser.indexes_return indexes186 = null;
 
         PlazmaScriptParser.indexes_return indexes188 = null;
 
+        PlazmaScriptParser.expression_return expression190 = null;
 
-        Object Identifier179_tree=null;
-        Object String183_tree=null;
-        Object char_literal185_tree=null;
-        Object char_literal187_tree=null;
+        PlazmaScriptParser.indexes_return indexes192 = null;
+
+
+        Object Identifier183_tree=null;
+        Object String187_tree=null;
+        Object char_literal189_tree=null;
+        Object char_literal191_tree=null;
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
         RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
@@ -4939,26 +5028,26 @@ public class PlazmaScriptParser extends Parser {
         RewriteRuleSubtreeStream stream_indexes=new RewriteRuleSubtreeStream(adaptor,"rule indexes");
         RewriteRuleSubtreeStream stream_list=new RewriteRuleSubtreeStream(adaptor,"rule list");
         try {
-            // grammar/PlazmaScript.g:256:3: ( functionCall ( indexes )? -> ^( LOOKUP functionCall ( indexes )? ) | list ( indexes )? -> ^( LOOKUP list ( indexes )? ) | map ( indexes )? -> ^( LOOKUP map ( indexes )? ) | Identifier ( indexes )? -> ^( LOOKUP Identifier ( indexes )? ) | anyIdentifier ( indexes )? -> ^( LOOKUP ( indexes )? ) | String ( indexes )? -> ^( LOOKUP String ( indexes )? ) | '(' expression ')' ( indexes )? -> ^( LOOKUP expression ( indexes )? ) )
-            int alt40=7;
+            // grammar/PlazmaScript.g:257:3: ( functionCall ( indexes )? -> ^( LOOKUP functionCall ( indexes )? ) | list ( indexes )? -> ^( LOOKUP list ( indexes )? ) | map ( indexes )? -> ^( LOOKUP map ( indexes )? ) | Identifier ( indexes )? -> ^( LOOKUP Identifier ( indexes )? ) | anyIdentifier ( indexes )? -> ^( LOOKUP ( indexes )? ) | String ( indexes )? -> ^( LOOKUP String ( indexes )? ) | '(' expression ')' ( indexes )? -> ^( LOOKUP expression ( indexes )? ) )
+            int alt41=7;
             switch ( input.LA(1) ) {
             case Identifier:
                 {
-                int LA40_1 = input.LA(2);
+                int LA41_1 = input.LA(2);
 
-                if ( (LA40_1==OParen) ) {
-                    alt40=1;
-                }
-                else if ( (synpred75_PlazmaScript()) ) {
-                    alt40=4;
+                if ( (LA41_1==OParen) ) {
+                    alt41=1;
                 }
                 else if ( (synpred77_PlazmaScript()) ) {
-                    alt40=5;
+                    alt41=4;
+                }
+                else if ( (synpred79_PlazmaScript()) ) {
+                    alt41=5;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 40, 1, input);
+                        new NoViableAltException("", 41, 1, input);
 
                     throw nvae;
                 }
@@ -4968,72 +5057,73 @@ public class PlazmaScriptParser extends Parser {
             case Print:
             case Assert:
             case Date:
+            case DateTime:
             case List:
             case Set:
                 {
-                alt40=1;
+                alt41=1;
                 }
                 break;
             case OBracket:
                 {
-                alt40=2;
+                alt41=2;
                 }
                 break;
             case OBrace:
                 {
-                alt40=3;
+                alt41=3;
                 }
                 break;
             case ContextIdentifier:
                 {
-                alt40=5;
+                alt41=5;
                 }
                 break;
             case String:
                 {
-                alt40=6;
+                alt41=6;
                 }
                 break;
             case OParen:
                 {
-                alt40=7;
+                alt41=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 40, 0, input);
+                    new NoViableAltException("", 41, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt40) {
+            switch (alt41) {
                 case 1 :
-                    // grammar/PlazmaScript.g:256:6: functionCall ( indexes )?
+                    // grammar/PlazmaScript.g:257:6: functionCall ( indexes )?
                     {
-                    pushFollow(FOLLOW_functionCall_in_lookup1766);
-                    functionCall173=functionCall();
+                    pushFollow(FOLLOW_functionCall_in_lookup1798);
+                    functionCall177=functionCall();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_functionCall.add(functionCall173.getTree());
-                    // grammar/PlazmaScript.g:256:19: ( indexes )?
-                    int alt33=2;
-                    int LA33_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_functionCall.add(functionCall177.getTree());
+                    // grammar/PlazmaScript.g:257:19: ( indexes )?
+                    int alt34=2;
+                    int LA34_0 = input.LA(1);
 
-                    if ( (LA33_0==OBracket||LA33_0==102) ) {
-                        alt33=1;
+                    if ( (LA34_0==OBracket||LA34_0==103) ) {
+                        alt34=1;
                     }
-                    switch (alt33) {
+                    switch (alt34) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1768);
-                            indexes174=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1800);
+                            indexes178=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes174.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes178.getTree());
 
                             }
                             break;
@@ -5054,15 +5144,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 256:34: -> ^( LOOKUP functionCall ( indexes )? )
+                    // 257:34: -> ^( LOOKUP functionCall ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:256:37: ^( LOOKUP functionCall ( indexes )? )
+                        // grammar/PlazmaScript.g:257:37: ^( LOOKUP functionCall ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
                         adaptor.addChild(root_1, stream_functionCall.nextTree());
-                        // grammar/PlazmaScript.g:256:59: ( indexes )?
+                        // grammar/PlazmaScript.g:257:59: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5078,31 +5168,31 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:257:6: list ( indexes )?
+                    // grammar/PlazmaScript.g:258:6: list ( indexes )?
                     {
-                    pushFollow(FOLLOW_list_in_lookup1793);
-                    list175=list();
+                    pushFollow(FOLLOW_list_in_lookup1825);
+                    list179=list();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_list.add(list175.getTree());
-                    // grammar/PlazmaScript.g:257:11: ( indexes )?
-                    int alt34=2;
-                    int LA34_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_list.add(list179.getTree());
+                    // grammar/PlazmaScript.g:258:11: ( indexes )?
+                    int alt35=2;
+                    int LA35_0 = input.LA(1);
 
-                    if ( (LA34_0==OBracket||LA34_0==102) ) {
-                        alt34=1;
+                    if ( (LA35_0==OBracket||LA35_0==103) ) {
+                        alt35=1;
                     }
-                    switch (alt34) {
+                    switch (alt35) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1795);
-                            indexes176=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1827);
+                            indexes180=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes176.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes180.getTree());
 
                             }
                             break;
@@ -5123,15 +5213,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 257:34: -> ^( LOOKUP list ( indexes )? )
+                    // 258:34: -> ^( LOOKUP list ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:257:37: ^( LOOKUP list ( indexes )? )
+                        // grammar/PlazmaScript.g:258:37: ^( LOOKUP list ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
                         adaptor.addChild(root_1, stream_list.nextTree());
-                        // grammar/PlazmaScript.g:257:51: ( indexes )?
+                        // grammar/PlazmaScript.g:258:51: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5147,31 +5237,31 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScript.g:258:6: map ( indexes )?
+                    // grammar/PlazmaScript.g:259:6: map ( indexes )?
                     {
-                    pushFollow(FOLLOW_map_in_lookup1828);
-                    map177=map();
+                    pushFollow(FOLLOW_map_in_lookup1860);
+                    map181=map();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_map.add(map177.getTree());
-                    // grammar/PlazmaScript.g:258:10: ( indexes )?
-                    int alt35=2;
-                    int LA35_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_map.add(map181.getTree());
+                    // grammar/PlazmaScript.g:259:10: ( indexes )?
+                    int alt36=2;
+                    int LA36_0 = input.LA(1);
 
-                    if ( (LA35_0==OBracket||LA35_0==102) ) {
-                        alt35=1;
+                    if ( (LA36_0==OBracket||LA36_0==103) ) {
+                        alt36=1;
                     }
-                    switch (alt35) {
+                    switch (alt36) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1830);
-                            indexes178=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1862);
+                            indexes182=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes178.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes182.getTree());
 
                             }
                             break;
@@ -5192,15 +5282,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 258:34: -> ^( LOOKUP map ( indexes )? )
+                    // 259:34: -> ^( LOOKUP map ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:258:37: ^( LOOKUP map ( indexes )? )
+                        // grammar/PlazmaScript.g:259:37: ^( LOOKUP map ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
                         adaptor.addChild(root_1, stream_map.nextTree());
-                        // grammar/PlazmaScript.g:258:50: ( indexes )?
+                        // grammar/PlazmaScript.g:259:50: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5216,28 +5306,28 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // grammar/PlazmaScript.g:259:6: Identifier ( indexes )?
+                    // grammar/PlazmaScript.g:260:6: Identifier ( indexes )?
                     {
-                    Identifier179=(Token)match(input,Identifier,FOLLOW_Identifier_in_lookup1866); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Identifier.add(Identifier179);
+                    Identifier183=(Token)match(input,Identifier,FOLLOW_Identifier_in_lookup1898); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Identifier.add(Identifier183);
 
-                    // grammar/PlazmaScript.g:259:17: ( indexes )?
-                    int alt36=2;
-                    int LA36_0 = input.LA(1);
+                    // grammar/PlazmaScript.g:260:17: ( indexes )?
+                    int alt37=2;
+                    int LA37_0 = input.LA(1);
 
-                    if ( (LA36_0==OBracket||LA36_0==102) ) {
-                        alt36=1;
+                    if ( (LA37_0==OBracket||LA37_0==103) ) {
+                        alt37=1;
                     }
-                    switch (alt36) {
+                    switch (alt37) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1868);
-                            indexes180=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1900);
+                            indexes184=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes180.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes184.getTree());
 
                             }
                             break;
@@ -5258,15 +5348,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 259:34: -> ^( LOOKUP Identifier ( indexes )? )
+                    // 260:34: -> ^( LOOKUP Identifier ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:259:37: ^( LOOKUP Identifier ( indexes )? )
+                        // grammar/PlazmaScript.g:260:37: ^( LOOKUP Identifier ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
                         adaptor.addChild(root_1, stream_Identifier.nextNode());
-                        // grammar/PlazmaScript.g:259:57: ( indexes )?
+                        // grammar/PlazmaScript.g:260:57: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5282,31 +5372,31 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // grammar/PlazmaScript.g:260:6: anyIdentifier ( indexes )?
+                    // grammar/PlazmaScript.g:261:6: anyIdentifier ( indexes )?
                     {
-                    pushFollow(FOLLOW_anyIdentifier_in_lookup1895);
-                    anyIdentifier181=anyIdentifier();
+                    pushFollow(FOLLOW_anyIdentifier_in_lookup1927);
+                    anyIdentifier185=anyIdentifier();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_anyIdentifier.add(anyIdentifier181.getTree());
-                    // grammar/PlazmaScript.g:260:20: ( indexes )?
-                    int alt37=2;
-                    int LA37_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_anyIdentifier.add(anyIdentifier185.getTree());
+                    // grammar/PlazmaScript.g:261:20: ( indexes )?
+                    int alt38=2;
+                    int LA38_0 = input.LA(1);
 
-                    if ( (LA37_0==OBracket||LA37_0==102) ) {
-                        alt37=1;
+                    if ( (LA38_0==OBracket||LA38_0==103) ) {
+                        alt38=1;
                     }
-                    switch (alt37) {
+                    switch (alt38) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1897);
-                            indexes182=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1929);
+                            indexes186=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes182.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes186.getTree());
 
                             }
                             break;
@@ -5327,15 +5417,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 260:34: -> ^( LOOKUP ( indexes )? )
+                    // 261:34: -> ^( LOOKUP ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:260:37: ^( LOOKUP ( indexes )? )
+                        // grammar/PlazmaScript.g:261:37: ^( LOOKUP ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
-                        adaptor.addChild(root_1, new CommonTree(new CommonToken(Identifier, (anyIdentifier181!=null?input.toString(anyIdentifier181.start,anyIdentifier181.stop):null))));
-                        // grammar/PlazmaScript.g:260:113: ( indexes )?
+                        adaptor.addChild(root_1, new CommonTree(new CommonToken(Identifier, (anyIdentifier185!=null?input.toString(anyIdentifier185.start,anyIdentifier185.stop):null))));
+                        // grammar/PlazmaScript.g:261:113: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5351,28 +5441,28 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // grammar/PlazmaScript.g:261:6: String ( indexes )?
+                    // grammar/PlazmaScript.g:262:6: String ( indexes )?
                     {
-                    String183=(Token)match(input,String,FOLLOW_String_in_lookup1923); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_String.add(String183);
+                    String187=(Token)match(input,String,FOLLOW_String_in_lookup1955); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_String.add(String187);
 
-                    // grammar/PlazmaScript.g:261:13: ( indexes )?
-                    int alt38=2;
-                    int LA38_0 = input.LA(1);
+                    // grammar/PlazmaScript.g:262:13: ( indexes )?
+                    int alt39=2;
+                    int LA39_0 = input.LA(1);
 
-                    if ( (LA38_0==OBracket||LA38_0==102) ) {
-                        alt38=1;
+                    if ( (LA39_0==OBracket||LA39_0==103) ) {
+                        alt39=1;
                     }
-                    switch (alt38) {
+                    switch (alt39) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1925);
-                            indexes184=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1957);
+                            indexes188=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes184.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes188.getTree());
 
                             }
                             break;
@@ -5382,7 +5472,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: String, indexes
+                    // elements: indexes, String
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5393,15 +5483,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 261:34: -> ^( LOOKUP String ( indexes )? )
+                    // 262:34: -> ^( LOOKUP String ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:261:37: ^( LOOKUP String ( indexes )? )
+                        // grammar/PlazmaScript.g:262:37: ^( LOOKUP String ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
                         adaptor.addChild(root_1, stream_String.nextNode());
-                        // grammar/PlazmaScript.g:261:53: ( indexes )?
+                        // grammar/PlazmaScript.g:262:53: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5417,37 +5507,37 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // grammar/PlazmaScript.g:262:6: '(' expression ')' ( indexes )?
+                    // grammar/PlazmaScript.g:263:6: '(' expression ')' ( indexes )?
                     {
-                    char_literal185=(Token)match(input,OParen,FOLLOW_OParen_in_lookup1956); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_OParen.add(char_literal185);
+                    char_literal189=(Token)match(input,OParen,FOLLOW_OParen_in_lookup1988); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_OParen.add(char_literal189);
 
-                    pushFollow(FOLLOW_expression_in_lookup1958);
-                    expression186=expression();
+                    pushFollow(FOLLOW_expression_in_lookup1990);
+                    expression190=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expression.add(expression186.getTree());
-                    char_literal187=(Token)match(input,CParen,FOLLOW_CParen_in_lookup1960); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_CParen.add(char_literal187);
+                    if ( state.backtracking==0 ) stream_expression.add(expression190.getTree());
+                    char_literal191=(Token)match(input,CParen,FOLLOW_CParen_in_lookup1992); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_CParen.add(char_literal191);
 
-                    // grammar/PlazmaScript.g:262:25: ( indexes )?
-                    int alt39=2;
-                    int LA39_0 = input.LA(1);
+                    // grammar/PlazmaScript.g:263:25: ( indexes )?
+                    int alt40=2;
+                    int LA40_0 = input.LA(1);
 
-                    if ( (LA39_0==OBracket||LA39_0==102) ) {
-                        alt39=1;
+                    if ( (LA40_0==OBracket||LA40_0==103) ) {
+                        alt40=1;
                     }
-                    switch (alt39) {
+                    switch (alt40) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: indexes
                             {
-                            pushFollow(FOLLOW_indexes_in_lookup1962);
-                            indexes188=indexes();
+                            pushFollow(FOLLOW_indexes_in_lookup1994);
+                            indexes192=indexes();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_indexes.add(indexes188.getTree());
+                            if ( state.backtracking==0 ) stream_indexes.add(indexes192.getTree());
 
                             }
                             break;
@@ -5457,7 +5547,7 @@ public class PlazmaScriptParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expression, indexes
+                    // elements: indexes, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5468,15 +5558,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 262:34: -> ^( LOOKUP expression ( indexes )? )
+                    // 263:34: -> ^( LOOKUP expression ( indexes )? )
                     {
-                        // grammar/PlazmaScript.g:262:37: ^( LOOKUP expression ( indexes )? )
+                        // grammar/PlazmaScript.g:263:37: ^( LOOKUP expression ( indexes )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LOOKUP, "LOOKUP"), root_1);
 
                         adaptor.addChild(root_1, stream_expression.nextTree());
-                        // grammar/PlazmaScript.g:262:57: ( indexes )?
+                        // grammar/PlazmaScript.g:263:57: ( indexes )?
                         if ( stream_indexes.hasNext() ) {
                             adaptor.addChild(root_1, stream_indexes.nextTree());
 
@@ -5519,55 +5609,55 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "indexes"
-    // grammar/PlazmaScript.g:265:1: indexes : ( tail )+ -> ^( TAILS ( tail )+ ) ;
+    // grammar/PlazmaScript.g:266:1: indexes : ( tail )+ -> ^( TAILS ( tail )+ ) ;
     public final PlazmaScriptParser.indexes_return indexes() throws RecognitionException {
         PlazmaScriptParser.indexes_return retval = new PlazmaScriptParser.indexes_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        PlazmaScriptParser.tail_return tail189 = null;
+        PlazmaScriptParser.tail_return tail193 = null;
 
 
         RewriteRuleSubtreeStream stream_tail=new RewriteRuleSubtreeStream(adaptor,"rule tail");
         try {
-            // grammar/PlazmaScript.g:267:3: ( ( tail )+ -> ^( TAILS ( tail )+ ) )
-            // grammar/PlazmaScript.g:267:6: ( tail )+
+            // grammar/PlazmaScript.g:268:3: ( ( tail )+ -> ^( TAILS ( tail )+ ) )
+            // grammar/PlazmaScript.g:268:6: ( tail )+
             {
-            // grammar/PlazmaScript.g:267:6: ( tail )+
-            int cnt41=0;
-            loop41:
+            // grammar/PlazmaScript.g:268:6: ( tail )+
+            int cnt42=0;
+            loop42:
             do {
-                int alt41=2;
-                int LA41_0 = input.LA(1);
+                int alt42=2;
+                int LA42_0 = input.LA(1);
 
-                if ( (LA41_0==OBracket||LA41_0==102) ) {
-                    alt41=1;
+                if ( (LA42_0==OBracket||LA42_0==103) ) {
+                    alt42=1;
                 }
 
 
-                switch (alt41) {
+                switch (alt42) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:267:7: tail
+            	    // grammar/PlazmaScript.g:268:7: tail
             	    {
-            	    pushFollow(FOLLOW_tail_in_indexes1992);
-            	    tail189=tail();
+            	    pushFollow(FOLLOW_tail_in_indexes2024);
+            	    tail193=tail();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) stream_tail.add(tail189.getTree());
+            	    if ( state.backtracking==0 ) stream_tail.add(tail193.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt41 >= 1 ) break loop41;
+            	    if ( cnt42 >= 1 ) break loop42;
             	    if (state.backtracking>0) {state.failed=true; return retval;}
                         EarlyExitException eee =
-                            new EarlyExitException(41, input);
+                            new EarlyExitException(42, input);
                         throw eee;
                 }
-                cnt41++;
+                cnt42++;
             } while (true);
 
 
@@ -5584,9 +5674,9 @@ public class PlazmaScriptParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 267:14: -> ^( TAILS ( tail )+ )
+            // 268:14: -> ^( TAILS ( tail )+ )
             {
-                // grammar/PlazmaScript.g:267:17: ^( TAILS ( tail )+ )
+                // grammar/PlazmaScript.g:268:17: ^( TAILS ( tail )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TAILS, "TAILS"), root_1);
@@ -5634,66 +5724,66 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "tail"
-    // grammar/PlazmaScript.g:270:1: tail : ( '[' expression ']' -> ^( INDEX expression ) | '.' Identifier -> ^( ATTRIBUTE Identifier ) | '.' Identifier '(' ( exprList )? ')' -> ^( CALL Identifier ( exprList )? ) );
+    // grammar/PlazmaScript.g:271:1: tail : ( '[' expression ']' -> ^( INDEX expression ) | '.' Identifier -> ^( ATTRIBUTE Identifier ) | '.' Identifier '(' ( exprList )? ')' -> ^( CALL Identifier ( exprList )? ) );
     public final PlazmaScriptParser.tail_return tail() throws RecognitionException {
         PlazmaScriptParser.tail_return retval = new PlazmaScriptParser.tail_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token char_literal190=null;
-        Token char_literal192=null;
-        Token char_literal193=null;
-        Token Identifier194=null;
-        Token char_literal195=null;
-        Token Identifier196=null;
+        Token char_literal194=null;
+        Token char_literal196=null;
         Token char_literal197=null;
+        Token Identifier198=null;
         Token char_literal199=null;
-        PlazmaScriptParser.expression_return expression191 = null;
+        Token Identifier200=null;
+        Token char_literal201=null;
+        Token char_literal203=null;
+        PlazmaScriptParser.expression_return expression195 = null;
 
-        PlazmaScriptParser.exprList_return exprList198 = null;
+        PlazmaScriptParser.exprList_return exprList202 = null;
 
 
-        Object char_literal190_tree=null;
-        Object char_literal192_tree=null;
-        Object char_literal193_tree=null;
-        Object Identifier194_tree=null;
-        Object char_literal195_tree=null;
-        Object Identifier196_tree=null;
+        Object char_literal194_tree=null;
+        Object char_literal196_tree=null;
         Object char_literal197_tree=null;
+        Object Identifier198_tree=null;
         Object char_literal199_tree=null;
+        Object Identifier200_tree=null;
+        Object char_literal201_tree=null;
+        Object char_literal203_tree=null;
         RewriteRuleTokenStream stream_CBracket=new RewriteRuleTokenStream(adaptor,"token CBracket");
         RewriteRuleTokenStream stream_OParen=new RewriteRuleTokenStream(adaptor,"token OParen");
         RewriteRuleTokenStream stream_CParen=new RewriteRuleTokenStream(adaptor,"token CParen");
         RewriteRuleTokenStream stream_OBracket=new RewriteRuleTokenStream(adaptor,"token OBracket");
+        RewriteRuleTokenStream stream_103=new RewriteRuleTokenStream(adaptor,"token 103");
         RewriteRuleTokenStream stream_Identifier=new RewriteRuleTokenStream(adaptor,"token Identifier");
-        RewriteRuleTokenStream stream_102=new RewriteRuleTokenStream(adaptor,"token 102");
         RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
         RewriteRuleSubtreeStream stream_exprList=new RewriteRuleSubtreeStream(adaptor,"rule exprList");
         try {
-            // grammar/PlazmaScript.g:271:2: ( '[' expression ']' -> ^( INDEX expression ) | '.' Identifier -> ^( ATTRIBUTE Identifier ) | '.' Identifier '(' ( exprList )? ')' -> ^( CALL Identifier ( exprList )? ) )
-            int alt43=3;
-            int LA43_0 = input.LA(1);
+            // grammar/PlazmaScript.g:272:2: ( '[' expression ']' -> ^( INDEX expression ) | '.' Identifier -> ^( ATTRIBUTE Identifier ) | '.' Identifier '(' ( exprList )? ')' -> ^( CALL Identifier ( exprList )? ) )
+            int alt44=3;
+            int LA44_0 = input.LA(1);
 
-            if ( (LA43_0==OBracket) ) {
-                alt43=1;
+            if ( (LA44_0==OBracket) ) {
+                alt44=1;
             }
-            else if ( (LA43_0==102) ) {
-                int LA43_2 = input.LA(2);
+            else if ( (LA44_0==103) ) {
+                int LA44_2 = input.LA(2);
 
-                if ( (LA43_2==Identifier) ) {
-                    int LA43_3 = input.LA(3);
+                if ( (LA44_2==Identifier) ) {
+                    int LA44_3 = input.LA(3);
 
-                    if ( (LA43_3==OParen) ) {
-                        alt43=3;
+                    if ( (LA44_3==OParen) ) {
+                        alt44=3;
                     }
-                    else if ( (LA43_3==EOF||(LA43_3>=In && LA43_3<=Range)||(LA43_3>=XorWord && LA43_3<=Pow)||(LA43_3>=GT && LA43_3<=Modulus)||(LA43_3>=CBrace && LA43_3<=CBracket)||(LA43_3>=CParen && LA43_3<=Colon)||LA43_3==102) ) {
-                        alt43=2;
+                    else if ( (LA44_3==EOF||(LA44_3>=In && LA44_3<=Range)||(LA44_3>=XorWord && LA44_3<=Pow)||(LA44_3>=GT && LA44_3<=Modulus)||(LA44_3>=CBrace && LA44_3<=CBracket)||(LA44_3>=CParen && LA44_3<=Colon)||LA44_3==103) ) {
+                        alt44=2;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 43, 3, input);
+                            new NoViableAltException("", 44, 3, input);
 
                         throw nvae;
                     }
@@ -5701,7 +5791,7 @@ public class PlazmaScriptParser extends Parser {
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 43, 2, input);
+                        new NoViableAltException("", 44, 2, input);
 
                     throw nvae;
                 }
@@ -5709,25 +5799,25 @@ public class PlazmaScriptParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 43, 0, input);
+                    new NoViableAltException("", 44, 0, input);
 
                 throw nvae;
             }
-            switch (alt43) {
+            switch (alt44) {
                 case 1 :
-                    // grammar/PlazmaScript.g:271:4: '[' expression ']'
+                    // grammar/PlazmaScript.g:272:4: '[' expression ']'
                     {
-                    char_literal190=(Token)match(input,OBracket,FOLLOW_OBracket_in_tail2015); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_OBracket.add(char_literal190);
+                    char_literal194=(Token)match(input,OBracket,FOLLOW_OBracket_in_tail2047); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_OBracket.add(char_literal194);
 
-                    pushFollow(FOLLOW_expression_in_tail2017);
-                    expression191=expression();
+                    pushFollow(FOLLOW_expression_in_tail2049);
+                    expression195=expression();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expression.add(expression191.getTree());
-                    char_literal192=(Token)match(input,CBracket,FOLLOW_CBracket_in_tail2019); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_CBracket.add(char_literal192);
+                    if ( state.backtracking==0 ) stream_expression.add(expression195.getTree());
+                    char_literal196=(Token)match(input,CBracket,FOLLOW_CBracket_in_tail2051); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_CBracket.add(char_literal196);
 
 
 
@@ -5743,9 +5833,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 271:37: -> ^( INDEX expression )
+                    // 272:37: -> ^( INDEX expression )
                     {
-                        // grammar/PlazmaScript.g:271:40: ^( INDEX expression )
+                        // grammar/PlazmaScript.g:272:40: ^( INDEX expression )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(INDEX, "INDEX"), root_1);
@@ -5761,13 +5851,13 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:272:4: '.' Identifier
+                    // grammar/PlazmaScript.g:273:4: '.' Identifier
                     {
-                    char_literal193=(Token)match(input,102,FOLLOW_102_in_tail2046); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_102.add(char_literal193);
+                    char_literal197=(Token)match(input,103,FOLLOW_103_in_tail2078); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_103.add(char_literal197);
 
-                    Identifier194=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail2048); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Identifier.add(Identifier194);
+                    Identifier198=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail2080); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Identifier.add(Identifier198);
 
 
 
@@ -5783,9 +5873,9 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 272:37: -> ^( ATTRIBUTE Identifier )
+                    // 273:37: -> ^( ATTRIBUTE Identifier )
                     {
-                        // grammar/PlazmaScript.g:272:40: ^( ATTRIBUTE Identifier )
+                        // grammar/PlazmaScript.g:273:40: ^( ATTRIBUTE Identifier )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ATTRIBUTE, "ATTRIBUTE"), root_1);
@@ -5801,42 +5891,42 @@ public class PlazmaScriptParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // grammar/PlazmaScript.g:273:4: '.' Identifier '(' ( exprList )? ')'
+                    // grammar/PlazmaScript.g:274:4: '.' Identifier '(' ( exprList )? ')'
                     {
-                    char_literal195=(Token)match(input,102,FOLLOW_102_in_tail2079); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_102.add(char_literal195);
+                    char_literal199=(Token)match(input,103,FOLLOW_103_in_tail2111); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_103.add(char_literal199);
 
-                    Identifier196=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail2081); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_Identifier.add(Identifier196);
+                    Identifier200=(Token)match(input,Identifier,FOLLOW_Identifier_in_tail2113); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Identifier.add(Identifier200);
 
-                    char_literal197=(Token)match(input,OParen,FOLLOW_OParen_in_tail2083); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_OParen.add(char_literal197);
+                    char_literal201=(Token)match(input,OParen,FOLLOW_OParen_in_tail2115); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_OParen.add(char_literal201);
 
-                    // grammar/PlazmaScript.g:273:23: ( exprList )?
-                    int alt42=2;
-                    int LA42_0 = input.LA(1);
+                    // grammar/PlazmaScript.g:274:23: ( exprList )?
+                    int alt43=2;
+                    int LA43_0 = input.LA(1);
 
-                    if ( ((LA42_0>=Identifier && LA42_0<=Set)||(LA42_0>=Integer && LA42_0<=String)||(LA42_0>=Not && LA42_0<=NotWord)||(LA42_0>=Add && LA42_0<=Subtract)||LA42_0==OBrace||LA42_0==OBracket||LA42_0==OParen||LA42_0==ContextIdentifier) ) {
-                        alt42=1;
+                    if ( ((LA43_0>=Identifier && LA43_0<=Set)||(LA43_0>=Integer && LA43_0<=String)||(LA43_0>=Not && LA43_0<=NotWord)||(LA43_0>=Add && LA43_0<=Subtract)||LA43_0==OBrace||LA43_0==OBracket||LA43_0==OParen||LA43_0==ContextIdentifier) ) {
+                        alt43=1;
                     }
-                    switch (alt42) {
+                    switch (alt43) {
                         case 1 :
                             // grammar/PlazmaScript.g:0:0: exprList
                             {
-                            pushFollow(FOLLOW_exprList_in_tail2085);
-                            exprList198=exprList();
+                            pushFollow(FOLLOW_exprList_in_tail2117);
+                            exprList202=exprList();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_exprList.add(exprList198.getTree());
+                            if ( state.backtracking==0 ) stream_exprList.add(exprList202.getTree());
 
                             }
                             break;
 
                     }
 
-                    char_literal199=(Token)match(input,CParen,FOLLOW_CParen_in_tail2088); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_CParen.add(char_literal199);
+                    char_literal203=(Token)match(input,CParen,FOLLOW_CParen_in_tail2120); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_CParen.add(char_literal203);
 
 
 
@@ -5852,15 +5942,15 @@ public class PlazmaScriptParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 273:37: -> ^( CALL Identifier ( exprList )? )
+                    // 274:37: -> ^( CALL Identifier ( exprList )? )
                     {
-                        // grammar/PlazmaScript.g:273:40: ^( CALL Identifier ( exprList )? )
+                        // grammar/PlazmaScript.g:274:40: ^( CALL Identifier ( exprList )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CALL, "CALL"), root_1);
 
                         adaptor.addChild(root_1, stream_Identifier.nextNode());
-                        // grammar/PlazmaScript.g:273:58: ( exprList )?
+                        // grammar/PlazmaScript.g:274:58: ( exprList )?
                         if ( stream_exprList.hasNext() ) {
                             adaptor.addChild(root_1, stream_exprList.nextTree());
 
@@ -5903,27 +5993,27 @@ public class PlazmaScriptParser extends Parser {
     };
 
     // $ANTLR start "anyIdentifier"
-    // grammar/PlazmaScript.g:368:1: anyIdentifier : ( ContextIdentifier | Identifier );
+    // grammar/PlazmaScript.g:370:1: anyIdentifier : ( ContextIdentifier | Identifier );
     public final PlazmaScriptParser.anyIdentifier_return anyIdentifier() throws RecognitionException {
         PlazmaScriptParser.anyIdentifier_return retval = new PlazmaScriptParser.anyIdentifier_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set200=null;
+        Token set204=null;
 
-        Object set200_tree=null;
+        Object set204_tree=null;
 
         try {
-            // grammar/PlazmaScript.g:369:3: ( ContextIdentifier | Identifier )
+            // grammar/PlazmaScript.g:371:3: ( ContextIdentifier | Identifier )
             // grammar/PlazmaScript.g:
             {
             root_0 = (Object)adaptor.nil();
 
-            set200=(Token)input.LT(1);
+            set204=(Token)input.LT(1);
             if ( input.LA(1)==Identifier||input.LA(1)==ContextIdentifier ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set200));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set204));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -6009,13 +6099,13 @@ public class PlazmaScriptParser extends Parser {
         // grammar/PlazmaScript.g:92:6: ( variableDef )? Identifier ( indexes )? '=' expression
         {
         // grammar/PlazmaScript.g:92:6: ( variableDef )?
-        int alt44=2;
-        int LA44_0 = input.LA(1);
+        int alt45=2;
+        int LA45_0 = input.LA(1);
 
-        if ( (LA44_0==Var) ) {
-            alt44=1;
+        if ( (LA45_0==Var) ) {
+            alt45=1;
         }
-        switch (alt44) {
+        switch (alt45) {
             case 1 :
                 // grammar/PlazmaScript.g:0:0: variableDef
                 {
@@ -6032,13 +6122,13 @@ public class PlazmaScriptParser extends Parser {
 
         match(input,Identifier,FOLLOW_Identifier_in_synpred13_PlazmaScript425); if (state.failed) return ;
         // grammar/PlazmaScript.g:92:30: ( indexes )?
-        int alt45=2;
-        int LA45_0 = input.LA(1);
+        int alt46=2;
+        int LA46_0 = input.LA(1);
 
-        if ( (LA45_0==OBracket||LA45_0==102) ) {
-            alt45=1;
+        if ( (LA46_0==OBracket||LA46_0==103) ) {
+            alt46=1;
         }
-        switch (alt45) {
+        switch (alt46) {
             case 1 :
                 // grammar/PlazmaScript.g:0:0: indexes
                 {
@@ -6064,61 +6154,24 @@ public class PlazmaScriptParser extends Parser {
     }
     // $ANTLR end synpred13_PlazmaScript
 
-    // $ANTLR start synpred75_PlazmaScript
-    public final void synpred75_PlazmaScript_fragment() throws RecognitionException {   
-        // grammar/PlazmaScript.g:259:6: ( Identifier ( indexes )? )
-        // grammar/PlazmaScript.g:259:6: Identifier ( indexes )?
-        {
-        match(input,Identifier,FOLLOW_Identifier_in_synpred75_PlazmaScript1866); if (state.failed) return ;
-        // grammar/PlazmaScript.g:259:17: ( indexes )?
-        int alt53=2;
-        int LA53_0 = input.LA(1);
-
-        if ( (LA53_0==OBracket||LA53_0==102) ) {
-            alt53=1;
-        }
-        switch (alt53) {
-            case 1 :
-                // grammar/PlazmaScript.g:0:0: indexes
-                {
-                pushFollow(FOLLOW_indexes_in_synpred75_PlazmaScript1868);
-                indexes();
-
-                state._fsp--;
-                if (state.failed) return ;
-
-                }
-                break;
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred75_PlazmaScript
-
     // $ANTLR start synpred77_PlazmaScript
     public final void synpred77_PlazmaScript_fragment() throws RecognitionException {   
-        // grammar/PlazmaScript.g:260:6: ( anyIdentifier ( indexes )? )
-        // grammar/PlazmaScript.g:260:6: anyIdentifier ( indexes )?
+        // grammar/PlazmaScript.g:260:6: ( Identifier ( indexes )? )
+        // grammar/PlazmaScript.g:260:6: Identifier ( indexes )?
         {
-        pushFollow(FOLLOW_anyIdentifier_in_synpred77_PlazmaScript1895);
-        anyIdentifier();
+        match(input,Identifier,FOLLOW_Identifier_in_synpred77_PlazmaScript1898); if (state.failed) return ;
+        // grammar/PlazmaScript.g:260:17: ( indexes )?
+        int alt55=2;
+        int LA55_0 = input.LA(1);
 
-        state._fsp--;
-        if (state.failed) return ;
-        // grammar/PlazmaScript.g:260:20: ( indexes )?
-        int alt54=2;
-        int LA54_0 = input.LA(1);
-
-        if ( (LA54_0==OBracket||LA54_0==102) ) {
-            alt54=1;
+        if ( (LA55_0==OBracket||LA55_0==103) ) {
+            alt55=1;
         }
-        switch (alt54) {
+        switch (alt55) {
             case 1 :
                 // grammar/PlazmaScript.g:0:0: indexes
                 {
-                pushFollow(FOLLOW_indexes_in_synpred77_PlazmaScript1897);
+                pushFollow(FOLLOW_indexes_in_synpred77_PlazmaScript1900);
                 indexes();
 
                 state._fsp--;
@@ -6134,22 +6187,45 @@ public class PlazmaScriptParser extends Parser {
     }
     // $ANTLR end synpred77_PlazmaScript
 
+    // $ANTLR start synpred79_PlazmaScript
+    public final void synpred79_PlazmaScript_fragment() throws RecognitionException {   
+        // grammar/PlazmaScript.g:261:6: ( anyIdentifier ( indexes )? )
+        // grammar/PlazmaScript.g:261:6: anyIdentifier ( indexes )?
+        {
+        pushFollow(FOLLOW_anyIdentifier_in_synpred79_PlazmaScript1927);
+        anyIdentifier();
+
+        state._fsp--;
+        if (state.failed) return ;
+        // grammar/PlazmaScript.g:261:20: ( indexes )?
+        int alt56=2;
+        int LA56_0 = input.LA(1);
+
+        if ( (LA56_0==OBracket||LA56_0==103) ) {
+            alt56=1;
+        }
+        switch (alt56) {
+            case 1 :
+                // grammar/PlazmaScript.g:0:0: indexes
+                {
+                pushFollow(FOLLOW_indexes_in_synpred79_PlazmaScript1929);
+                indexes();
+
+                state._fsp--;
+                if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
+
+        }
+    }
+    // $ANTLR end synpred79_PlazmaScript
+
     // Delegated rules
 
-    public final boolean synpred75_PlazmaScript() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred75_PlazmaScript_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred5_PlazmaScript() {
         state.backtracking++;
         int start = input.mark();
@@ -6220,26 +6296,41 @@ public class PlazmaScriptParser extends Parser {
         state.failed=false;
         return success;
     }
+    public final boolean synpred79_PlazmaScript() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred79_PlazmaScript_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
 
 
     protected DFA3 dfa3 = new DFA3(this);
     static final String DFA3_eotS =
-        "\24\uffff";
+        "\25\uffff";
     static final String DFA3_eofS =
-        "\24\uffff";
+        "\25\uffff";
     static final String DFA3_minS =
-        "\1\41\1\uffff\10\0\12\uffff";
+        "\1\41\1\uffff\11\0\12\uffff";
     static final String DFA3_maxS =
-        "\1\136\1\uffff\10\0\12\uffff";
+        "\1\137\1\uffff\11\0\12\uffff";
     static final String DFA3_acceptS =
-        "\1\uffff\1\1\10\uffff\1\3\3\uffff\1\4\1\5\1\6\1\7\1\10\1\2";
+        "\1\uffff\1\1\11\uffff\1\3\3\uffff\1\4\1\5\1\6\1\7\1\10\1\2";
     static final String DFA3_specialS =
-        "\2\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\12\uffff}>";
+        "\2\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\12\uffff}>";
     static final String[] DFA3_transitionS = {
-            "\1\21\1\22\1\2\1\4\1\5\1\6\1\7\1\10\1\11\1\16\1\uffff\1\1\1"+
-            "\uffff\1\17\1\20\11\uffff\1\12\25\uffff\1\12\1\uffff\1\12\1"+
-            "\uffff\1\12\12\uffff\1\3",
+            "\1\22\1\23\1\2\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\17\1\uffff"+
+            "\1\1\1\uffff\1\20\1\21\11\uffff\1\13\25\uffff\1\13\1\uffff\1"+
+            "\13\1\uffff\1\13\12\uffff\1\3",
             "",
+            "\1\uffff",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -6305,9 +6396,9 @@ public class PlazmaScriptParser extends Parser {
                         s = -1;
                         if ( (synpred4_PlazmaScript()) ) {s = 1;}
 
-                        else if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        else if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_2);
@@ -6322,7 +6413,7 @@ public class PlazmaScriptParser extends Parser {
                         s = -1;
                         if ( (synpred4_PlazmaScript()) ) {s = 1;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_3);
@@ -6335,9 +6426,9 @@ public class PlazmaScriptParser extends Parser {
                         int index3_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_4);
@@ -6350,9 +6441,9 @@ public class PlazmaScriptParser extends Parser {
                         int index3_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_5);
@@ -6365,9 +6456,9 @@ public class PlazmaScriptParser extends Parser {
                         int index3_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_6);
@@ -6380,9 +6471,9 @@ public class PlazmaScriptParser extends Parser {
                         int index3_7 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_7);
@@ -6395,9 +6486,9 @@ public class PlazmaScriptParser extends Parser {
                         int index3_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_8);
@@ -6410,12 +6501,27 @@ public class PlazmaScriptParser extends Parser {
                         int index3_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred5_PlazmaScript()) ) {s = 19;}
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
 
-                        else if ( (synpred6_PlazmaScript()) ) {s = 10;}
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
 
                          
                         input.seek(index3_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA3_10 = input.LA(1);
+
+                         
+                        int index3_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred5_PlazmaScript()) ) {s = 20;}
+
+                        else if ( (synpred6_PlazmaScript()) ) {s = 11;}
+
+                         
+                        input.seek(index3_10);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -6430,220 +6536,224 @@ public class PlazmaScriptParser extends Parser {
 
     public static final BitSet FOLLOW_block_in_parse215 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_parse217 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_statement_in_block236 = new BitSet(new long[]{0x0200F7FF00000002L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_functionDecl_in_block240 = new BitSet(new long[]{0x0200F7FF00000002L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_Return_in_block245 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_block247 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_statement_in_block236 = new BitSet(new long[]{0x0401EFFF00000002L,0x0000000080150000L});
+    public static final BitSet FOLLOW_functionDecl_in_block240 = new BitSet(new long[]{0x0401EFFF00000002L,0x0000000080150000L});
+    public static final BitSet FOLLOW_Return_in_block245 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_block247 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_block249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_statement291 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_assignment_in_statement291 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_statement293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionCall_in_statement306 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_functionCall_in_statement306 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_statement308 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_statement319 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_lookup_in_statement319 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_statement321 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifStatement_in_statement365 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_forStatement_in_statement372 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_whileStatement_in_statement379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Break_in_statement386 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_Break_in_statement386 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_statement388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Continue_in_statement399 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_Continue_in_statement399 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_statement401 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variableDef_in_assignment422 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_assignment425 = new BitSet(new long[]{0x0000000000000000L,0x0000004000420000L});
-    public static final BitSet FOLLOW_indexes_in_assignment427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_Assign_in_assignment430 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
+    public static final BitSet FOLLOW_Identifier_in_assignment425 = new BitSet(new long[]{0x0000000000000000L,0x0000008000840000L});
+    public static final BitSet FOLLOW_indexes_in_assignment427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_Assign_in_assignment430 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
     public static final BitSet FOLLOW_expression_in_assignment432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableDef_in_assignment455 = new BitSet(new long[]{0x0000100800000000L,0x0000000040000000L});
-    public static final BitSet FOLLOW_anyIdentifier_in_assignment458 = new BitSet(new long[]{0x0000000000000000L,0x0000004000420000L});
-    public static final BitSet FOLLOW_indexes_in_assignment460 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_Assign_in_assignment463 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
+    public static final BitSet FOLLOW_variableDef_in_assignment455 = new BitSet(new long[]{0x0000200800000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_anyIdentifier_in_assignment458 = new BitSet(new long[]{0x0000000000000000L,0x0000008000840000L});
+    public static final BitSet FOLLOW_indexes_in_assignment460 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_Assign_in_assignment463 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
     public static final BitSet FOLLOW_expression_in_assignment465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_functionCall495 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall497 = new BitSet(new long[]{0x03F813F800000000L,0x00000000401A8CC0L});
-    public static final BitSet FOLLOW_exprList_in_functionCall499 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_Identifier_in_functionCall495 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall497 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_exprList_in_functionCall499 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_CParen_in_functionCall502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Println_in_functionCall520 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall522 = new BitSet(new long[]{0x03F813F800000000L,0x00000000401A8CC0L});
-    public static final BitSet FOLLOW_expression_in_functionCall524 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_Println_in_functionCall520 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall522 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_expression_in_functionCall524 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_CParen_in_functionCall527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Print_in_functionCall546 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall548 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_functionCall550 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_Print_in_functionCall546 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall548 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_functionCall550 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_CParen_in_functionCall552 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Assert_in_functionCall573 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall575 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_functionCall577 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_Assert_in_functionCall573 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall575 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_functionCall577 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_CParen_in_functionCall579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Date_in_functionCall599 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall601 = new BitSet(new long[]{0x03F813F800000000L,0x00000000401A8CC0L});
-    public static final BitSet FOLLOW_exprList_in_functionCall603 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_Date_in_functionCall599 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall601 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_exprList_in_functionCall603 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_CParen_in_functionCall606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_List_in_functionCall629 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall631 = new BitSet(new long[]{0x03F813F800000000L,0x00000000401A8CC0L});
-    public static final BitSet FOLLOW_exprList_in_functionCall633 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_DateTime_in_functionCall629 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall631 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_exprList_in_functionCall633 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_CParen_in_functionCall636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Set_in_functionCall659 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionCall661 = new BitSet(new long[]{0x03F813F800000000L,0x00000000401A8CC0L});
-    public static final BitSet FOLLOW_exprList_in_functionCall663 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_functionCall666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ifStat_in_ifStatement704 = new BitSet(new long[]{0x0000080000000002L});
-    public static final BitSet FOLLOW_elseIfStat_in_ifStatement706 = new BitSet(new long[]{0x0000080000000002L});
-    public static final BitSet FOLLOW_elseStat_in_ifStatement709 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_If_in_ifStat738 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_ifStat740 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_ifStat742 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_ifStat744 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OBrace_in_ifStat746 = new BitSet(new long[]{0x0200F7FF00000000L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_block_in_ifStat748 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_ifStat750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Else_in_elseIfStat774 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_If_in_elseIfStat776 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_elseIfStat778 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_elseIfStat780 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_elseIfStat782 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OBrace_in_elseIfStat784 = new BitSet(new long[]{0x0200F7FF00000000L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_block_in_elseIfStat786 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_elseIfStat788 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Else_in_elseStat812 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OBrace_in_elseStat814 = new BitSet(new long[]{0x0200F7FF00000000L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_block_in_elseStat816 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_elseStat818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Var_in_variableDef838 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Def_in_functionDecl870 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_functionDecl872 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_functionDecl874 = new BitSet(new long[]{0x0000000800000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_idList_in_functionDecl876 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_functionDecl879 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OBrace_in_functionDecl881 = new BitSet(new long[]{0x0200F7FF00000000L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_block_in_functionDecl883 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_functionDecl885 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_For_in_forStatement914 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_forStatement916 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_forStatement918 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_In_in_forStatement920 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_forStatement922 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_forStatement924 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OBrace_in_forStatement926 = new BitSet(new long[]{0x0200F7FF00000000L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_block_in_forStatement928 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_forStatement930 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_While_in_whileStatement965 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_whileStatement967 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_whileStatement969 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_whileStatement971 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OBrace_in_whileStatement973 = new BitSet(new long[]{0x0200F7FF00000000L,0x00000000400A8000L});
-    public static final BitSet FOLLOW_block_in_whileStatement975 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_whileStatement977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_idList1001 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800000L});
-    public static final BitSet FOLLOW_Comma_in_idList1004 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_idList1006 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800000L});
-    public static final BitSet FOLLOW_expression_in_exprList1031 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800000L});
-    public static final BitSet FOLLOW_Comma_in_exprList1034 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_exprList1036 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800000L});
-    public static final BitSet FOLLOW_expression_in_exprPair1062 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_Colon_in_exprPair1064 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_exprPair1066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_exprPair_in_exprMap1091 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800000L});
-    public static final BitSet FOLLOW_Comma_in_exprMap1094 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_exprPair_in_exprMap1096 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800000L});
-    public static final BitSet FOLLOW_condExpr_in_expression1122 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_startExpr_in_condExpr1137 = new BitSet(new long[]{0x0007000000000002L,0x0000000001000000L});
-    public static final BitSet FOLLOW_QMark_in_condExpr1152 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_condExpr1156 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_Colon_in_condExpr1158 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_condExpr1162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_In_in_condExpr1185 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_condExpr1187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RangeE_in_condExpr1232 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_condExpr1234 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Range_in_condExpr1269 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_condExpr1271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_orExpr_in_startExpr1334 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr1347 = new BitSet(new long[]{0x3C00000000000002L});
-    public static final BitSet FOLLOW_set_in_orExpr1350 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr1367 = new BitSet(new long[]{0x3C00000000000002L});
-    public static final BitSet FOLLOW_equExpr_in_andExpr1384 = new BitSet(new long[]{0xC000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_set_in_andExpr1387 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_equExpr_in_andExpr1400 = new BitSet(new long[]{0xC000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_relExpr_in_equExpr1416 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
-    public static final BitSet FOLLOW_set_in_equExpr1419 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_relExpr_in_equExpr1428 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr1444 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000318L});
-    public static final BitSet FOLLOW_set_in_relExpr1447 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr1464 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000318L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr1480 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000C00L});
-    public static final BitSet FOLLOW_set_in_addExpr1483 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr1492 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000C00L});
-    public static final BitSet FOLLOW_powExpr_in_mulExpr1508 = new BitSet(new long[]{0x0000000000000002L,0x0000000000007000L});
-    public static final BitSet FOLLOW_set_in_mulExpr1511 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_powExpr_in_mulExpr1524 = new BitSet(new long[]{0x0000000000000002L,0x0000000000007000L});
-    public static final BitSet FOLLOW_unaryExpr_in_powExpr1540 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000020L});
-    public static final BitSet FOLLOW_Pow_in_powExpr1543 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_unaryExpr_in_powExpr1546 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000020L});
-    public static final BitSet FOLLOW_Add_in_unaryExpr1564 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1566 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Subtract_in_unaryExpr1581 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1583 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Not_in_unaryExpr1598 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1600 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NotWord_in_unaryExpr1615 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1617 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_atom_in_unaryExpr1634 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_atom1648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Number_in_atom1655 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Bool_in_atom1662 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Null_in_atom1669 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NaN_in_atom1676 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Infinity_in_atom1683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_atom1691 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBracket_in_list1705 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400E8CC0L});
-    public static final BitSet FOLLOW_exprList_in_list1707 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_CBracket_in_list1710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBrace_in_map1733 = new BitSet(new long[]{0x03F813F800000000L,0x00000000420A8CC0L});
-    public static final BitSet FOLLOW_Colon_in_map1736 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_exprMap_in_map1740 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_CBrace_in_map1743 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionCall_in_lookup1766 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_list_in_lookup1793 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_map_in_lookup1828 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1830 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_lookup1866 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_anyIdentifier_in_lookup1895 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1897 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_lookup1923 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OParen_in_lookup1956 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_lookup1958 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_lookup1960 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_lookup1962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_tail_in_indexes1992 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_OBracket_in_tail2015 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
-    public static final BitSet FOLLOW_expression_in_tail2017 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_CBracket_in_tail2019 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_102_in_tail2046 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_tail2048 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_102_in_tail2079 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_tail2081 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_OParen_in_tail2083 = new BitSet(new long[]{0x03F813F800000000L,0x00000000401A8CC0L});
-    public static final BitSet FOLLOW_exprList_in_tail2085 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_CParen_in_tail2088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_List_in_functionCall661 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall663 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_exprList_in_functionCall665 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_functionCall668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Set_in_functionCall691 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionCall693 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_exprList_in_functionCall695 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_functionCall698 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ifStat_in_ifStatement736 = new BitSet(new long[]{0x0000100000000002L});
+    public static final BitSet FOLLOW_elseIfStat_in_ifStatement738 = new BitSet(new long[]{0x0000100000000002L});
+    public static final BitSet FOLLOW_elseStat_in_ifStatement741 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_If_in_ifStat770 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_ifStat772 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_ifStat774 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_ifStat776 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_OBrace_in_ifStat778 = new BitSet(new long[]{0x0401EFFF00000000L,0x0000000080150000L});
+    public static final BitSet FOLLOW_block_in_ifStat780 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_ifStat782 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Else_in_elseIfStat806 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_If_in_elseIfStat808 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_elseIfStat810 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_elseIfStat812 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_elseIfStat814 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_OBrace_in_elseIfStat816 = new BitSet(new long[]{0x0401EFFF00000000L,0x0000000080150000L});
+    public static final BitSet FOLLOW_block_in_elseIfStat818 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_elseIfStat820 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Else_in_elseStat844 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_OBrace_in_elseStat846 = new BitSet(new long[]{0x0401EFFF00000000L,0x0000000080150000L});
+    public static final BitSet FOLLOW_block_in_elseStat848 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_elseStat850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Var_in_variableDef870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Def_in_functionDecl902 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_Identifier_in_functionDecl904 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_functionDecl906 = new BitSet(new long[]{0x0000000800000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_idList_in_functionDecl908 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_functionDecl911 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_OBrace_in_functionDecl913 = new BitSet(new long[]{0x0401EFFF00000000L,0x0000000080150000L});
+    public static final BitSet FOLLOW_block_in_functionDecl915 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_functionDecl917 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_For_in_forStatement946 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_forStatement948 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_Identifier_in_forStatement950 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_In_in_forStatement952 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_forStatement954 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_forStatement956 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_OBrace_in_forStatement958 = new BitSet(new long[]{0x0401EFFF00000000L,0x0000000080150000L});
+    public static final BitSet FOLLOW_block_in_forStatement960 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_forStatement962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_While_in_whileStatement997 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_whileStatement999 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_whileStatement1001 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_whileStatement1003 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_OBrace_in_whileStatement1005 = new BitSet(new long[]{0x0401EFFF00000000L,0x0000000080150000L});
+    public static final BitSet FOLLOW_block_in_whileStatement1007 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_whileStatement1009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_idList1033 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_Comma_in_idList1036 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_Identifier_in_idList1038 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_expression_in_exprList1063 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_Comma_in_exprList1066 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_exprList1068 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_expression_in_exprPair1094 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_Colon_in_exprPair1096 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_exprPair1098 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_exprPair_in_exprMap1123 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_Comma_in_exprMap1126 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_exprPair_in_exprMap1128 = new BitSet(new long[]{0x0000000000000002L,0x0000000001000000L});
+    public static final BitSet FOLLOW_condExpr_in_expression1154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_startExpr_in_condExpr1169 = new BitSet(new long[]{0x000E000000000002L,0x0000000002000000L});
+    public static final BitSet FOLLOW_QMark_in_condExpr1184 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_condExpr1188 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_Colon_in_condExpr1190 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_condExpr1194 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_In_in_condExpr1217 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_condExpr1219 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RangeE_in_condExpr1264 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_condExpr1266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Range_in_condExpr1301 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_condExpr1303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_orExpr_in_startExpr1366 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr1379 = new BitSet(new long[]{0x7800000000000002L});
+    public static final BitSet FOLLOW_set_in_orExpr1382 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr1399 = new BitSet(new long[]{0x7800000000000002L});
+    public static final BitSet FOLLOW_equExpr_in_andExpr1416 = new BitSet(new long[]{0x8000000000000002L,0x0000000000000003L});
+    public static final BitSet FOLLOW_set_in_andExpr1419 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_equExpr_in_andExpr1432 = new BitSet(new long[]{0x8000000000000002L,0x0000000000000003L});
+    public static final BitSet FOLLOW_relExpr_in_equExpr1448 = new BitSet(new long[]{0x0000000000000002L,0x000000000000000CL});
+    public static final BitSet FOLLOW_set_in_equExpr1451 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_relExpr_in_equExpr1460 = new BitSet(new long[]{0x0000000000000002L,0x000000000000000CL});
+    public static final BitSet FOLLOW_addExpr_in_relExpr1476 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000630L});
+    public static final BitSet FOLLOW_set_in_relExpr1479 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr1496 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000630L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr1512 = new BitSet(new long[]{0x0000000000000002L,0x0000000000001800L});
+    public static final BitSet FOLLOW_set_in_addExpr1515 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr1524 = new BitSet(new long[]{0x0000000000000002L,0x0000000000001800L});
+    public static final BitSet FOLLOW_powExpr_in_mulExpr1540 = new BitSet(new long[]{0x0000000000000002L,0x000000000000E000L});
+    public static final BitSet FOLLOW_set_in_mulExpr1543 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_powExpr_in_mulExpr1556 = new BitSet(new long[]{0x0000000000000002L,0x000000000000E000L});
+    public static final BitSet FOLLOW_unaryExpr_in_powExpr1572 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000040L});
+    public static final BitSet FOLLOW_Pow_in_powExpr1575 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_unaryExpr_in_powExpr1578 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000040L});
+    public static final BitSet FOLLOW_Add_in_unaryExpr1596 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Subtract_in_unaryExpr1613 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1615 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Not_in_unaryExpr1630 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1632 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NotWord_in_unaryExpr1647 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1649 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atom_in_unaryExpr1666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_atom1680 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Number_in_atom1687 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Bool_in_atom1694 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Null_in_atom1701 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NaN_in_atom1708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Infinity_in_atom1715 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_lookup_in_atom1723 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBracket_in_list1737 = new BitSet(new long[]{0x07F027F800000000L,0x00000000801D1980L});
+    public static final BitSet FOLLOW_exprList_in_list1739 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_CBracket_in_list1742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBrace_in_map1765 = new BitSet(new long[]{0x07F027F800000000L,0x0000000084151980L});
+    public static final BitSet FOLLOW_Colon_in_map1768 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_exprMap_in_map1772 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_CBrace_in_map1775 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_functionCall_in_lookup1798 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_list_in_lookup1825 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1827 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_map_in_lookup1860 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_lookup1898 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_anyIdentifier_in_lookup1927 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1929 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_lookup1955 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1957 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OParen_in_lookup1988 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_lookup1990 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_lookup1992 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_lookup1994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_tail_in_indexes2024 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_OBracket_in_tail2047 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
+    public static final BitSet FOLLOW_expression_in_tail2049 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_CBracket_in_tail2051 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_103_in_tail2078 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_Identifier_in_tail2080 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_103_in_tail2111 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_Identifier_in_tail2113 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_OParen_in_tail2115 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080351980L});
+    public static final BitSet FOLLOW_exprList_in_tail2117 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_CParen_in_tail2120 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_anyIdentifier0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_synpred4_PlazmaScript291 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_assignment_in_synpred4_PlazmaScript291 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_synpred4_PlazmaScript293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionCall_in_synpred5_PlazmaScript306 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_functionCall_in_synpred5_PlazmaScript306 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_synpred5_PlazmaScript308 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lookup_in_synpred6_PlazmaScript319 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_lookup_in_synpred6_PlazmaScript319 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
     public static final BitSet FOLLOW_SColon_in_synpred6_PlazmaScript321 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variableDef_in_synpred13_PlazmaScript422 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_Identifier_in_synpred13_PlazmaScript425 = new BitSet(new long[]{0x0000000000000000L,0x0000004000420000L});
-    public static final BitSet FOLLOW_indexes_in_synpred13_PlazmaScript427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_Assign_in_synpred13_PlazmaScript430 = new BitSet(new long[]{0x03F813F800000000L,0x00000000400A8CC0L});
+    public static final BitSet FOLLOW_Identifier_in_synpred13_PlazmaScript425 = new BitSet(new long[]{0x0000000000000000L,0x0000008000840000L});
+    public static final BitSet FOLLOW_indexes_in_synpred13_PlazmaScript427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_Assign_in_synpred13_PlazmaScript430 = new BitSet(new long[]{0x07F027F800000000L,0x0000000080151980L});
     public static final BitSet FOLLOW_expression_in_synpred13_PlazmaScript432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_synpred75_PlazmaScript1866 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_synpred75_PlazmaScript1868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_anyIdentifier_in_synpred77_PlazmaScript1895 = new BitSet(new long[]{0x0000000000000002L,0x0000004000020000L});
-    public static final BitSet FOLLOW_indexes_in_synpred77_PlazmaScript1897 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_synpred77_PlazmaScript1898 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_synpred77_PlazmaScript1900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_anyIdentifier_in_synpred79_PlazmaScript1927 = new BitSet(new long[]{0x0000000000000002L,0x0000008000040000L});
+    public static final BitSet FOLLOW_indexes_in_synpred79_PlazmaScript1929 = new BitSet(new long[]{0x0000000000000002L});
 
 }

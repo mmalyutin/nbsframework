@@ -50,11 +50,37 @@ public abstract class LInstant extends LValue {
     public String toDateString() {
 	Calendar calendar = Calendar.getInstance();
 	calendar.setTime((Date) getValue());
+	
 	int year = calendar.get(Calendar.YEAR);
 	int month = calendar.get(Calendar.MONTH) + 1;
 	int day = calendar.get(Calendar.DAY_OF_MONTH);
-	return "" + year + "-" + (month < 9 ? ("0" + month) : month) + "-" + ((day < 9 ? ("0" + day) : day));
+	return "" + year + "-" + formatDigit2(month) + "-" + formatDigit2(day);
     }
+    
+    public String toTimeString() {
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime((Date) getValue());
+	
+	int h = calendar.get(Calendar.HOUR_OF_DAY);
+	int m = calendar.get(Calendar.MINUTE);
+	int s = calendar.get(Calendar.SECOND);
+	int ms = calendar.get(Calendar.MILLISECOND);
+	
+	return "" + formatDigit2(h) + ":" + formatDigit2(m) + ":" + formatDigit2(s) + "." + formatDigit3(ms);
+    }
+    
+    public String toDateTimeString() {
+	return toDateString() + " " + toTimeString();
+    }
+    
+    protected String formatDigit2(int value) {
+	return "" + (value < 10 ? ("0" + value) : value);
+    }
+
+    protected String formatDigit3(int value) {
+	return "" + (value < 10 ? ("00" + value) : (value < 100 ? ("0" + value) : value));
+    }
+
     
     // <
     @Override

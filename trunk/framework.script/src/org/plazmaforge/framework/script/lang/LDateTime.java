@@ -41,7 +41,7 @@ public class LDateTime extends LInstant {
     }
 
     public LDateTime(long time) {
-	super(Type.DATE_TIME, CommonUtils.getDate(time));
+	super(Type.DATE_TIME, CommonUtils.getDateTime(time));
     }
    
     protected LDateTime newInstance(long time) {
@@ -50,7 +50,7 @@ public class LDateTime extends LInstant {
     
     @Override
     public String _toString() {
-	return toDateString();
+	return toDateTimeString();
     }
     
     
