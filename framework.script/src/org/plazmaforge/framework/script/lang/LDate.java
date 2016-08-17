@@ -43,8 +43,6 @@ public class LDate extends LInstant {
     }
 
     public LDate(long time) {
-	//TODO: truncate time
-	//super(Type.DATE, new Date(time));
 	super(Type.DATE, CommonUtils.getDate(time));
     }
 

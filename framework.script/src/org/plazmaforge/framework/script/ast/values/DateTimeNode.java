@@ -24,55 +24,24 @@ package org.plazmaforge.framework.script.ast.values;
 
 import java.util.List;
 import org.plazmaforge.framework.script.ast.LNode;
-import org.plazmaforge.framework.script.lang.LDate;
+import org.plazmaforge.framework.script.lang.LDateTime;
 import org.plazmaforge.framework.script.lang.LValue;
 
 
-public class DateNode extends InstantNode {
+public class DateTimeNode extends InstantNode {
 
     
-    public DateNode(List<LNode> nodes) {
+    public DateTimeNode(List<LNode> nodes) {
 	super(nodes);
     }
 
     @Override
     public LValue evaluate() {
 	if (value == null) {
-	    this.value = new LDate(createDate(expressionNodes));
+	    this.value = new LDateTime(createDateTime(expressionNodes));
 	}
         return value;
     }    
-    
-    // TODO: temp solution
-    /*
-    protected Date splitDate(String value) {
-	if (value == null) {
-	    return null;
-	}
-	
-	// TODO
-	String[] values = value.split(",");
-	return parseDate(values); 
-	
-    }
-    
-    public static Date parseDate(String str) {
-    	if (str == null) {
-    		return null;
-    	}
-    	int start = "#Date{".length();
-    	if (str.length() <= start + 1){
-    		return null;
-    	}
-    	
-    	String val = str.substring(start, str.length() - 1);
-    	String[] array = val.split("-");
-    	return parseDate(array);
-    }
-    */
-    
-    
-  
     
 }
 
