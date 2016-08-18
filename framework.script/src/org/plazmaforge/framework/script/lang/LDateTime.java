@@ -26,7 +26,6 @@
 package org.plazmaforge.framework.script.lang;
 
 import java.util.Date;
-
 import org.plazmaforge.framework.script.util.CommonUtils;
 
 /**
@@ -52,7 +51,6 @@ public class LDateTime extends LInstant {
     public String _toString() {
 	return toDateTimeString();
     }
-    
-    
+  
     
 }

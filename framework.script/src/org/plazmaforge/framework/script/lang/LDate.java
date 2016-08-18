@@ -26,6 +26,7 @@
 package org.plazmaforge.framework.script.lang;
 
 import java.util.Date;
+import java.util.List;
 
 import org.plazmaforge.framework.script.util.CommonUtils;
 
@@ -56,5 +57,26 @@ public class LDate extends LInstant {
 	return toDateString();
     }
     
+    @Override
+    public LValue _invoke(String method, List<LValue> parameters) {
+	if (isUnsupportedMethod(method)) {
+	    raiseIllegalMethodException(method);
+	    return null;
+	}
+	return super._invoke(method, parameters);
+    }
     
+    protected boolean isUnsupportedMethod(String method) {
+	if (method == null) {
+	    return false;
+	}
+	return "getHour".equals(method)
+		|| "setHour".equals(method)
+		|| "getMinute".equals(method)
+		|| "setMinute".equals(method)
+		|| "getSecond".equals(method)
+		|| "setSecond".equals(method)
+		|| "getMillisecond".equals(method)
+		|| "setMillisecond".equals(method);
+    }
 }
