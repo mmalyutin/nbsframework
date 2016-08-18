@@ -48,6 +48,12 @@ public class CommonUtils {
 	Calendar calendar = getCalendar(year, month, day, h, m, s, ms);
 	return calendar.getTime();
     }
+    
+    public static Date getTime(int h, int m, int s, int ms) {
+	Calendar calendar = getCalendar(0, 0, 0, h, m, s, ms);
+	return calendar.getTime();
+    }
+    
 
     public static Date getDate(long time) {
 	time = truncateTime(time);
@@ -59,6 +65,13 @@ public class CommonUtils {
 	Calendar calendar = getCalendar(time);
 	return calendar.getTime();
     }
+    
+    public static Date getTime(long time) {
+	time = shiftTime(time);
+	Calendar calendar = getCalendar(time);
+	return calendar.getTime();
+    }
+    
     
     public static Calendar getCalendar(int year, int month, int day, int h, int m, int s, int ms) {
 
@@ -108,6 +121,10 @@ public class CommonUtils {
     public static long truncateTime(long time) {
 	return (time / DAY_TIME) * (DAY_TIME);
     }
+
+    public static long shiftTime(long time) {
+	return time <= DAY_TIME ? time: (time - truncateTime(time));
+    }
     
     public static Date newDate() {
 	// WARNING: All date in GMT time zone
@@ -122,6 +139,16 @@ public class CommonUtils {
     public static Date newDateTime() {
 	// WARNING: All date in GMT time zone
 	Calendar calendar = getGMTCalendar();
+	
+	return calendar.getTime();
+    }
+
+    public static Date newTime() {
+	// WARNING: All date in GMT time zone
+	Calendar calendar = getGMTCalendar();
+
+	// Reset (truncate) time
+	setDate(calendar, 0, 0, 0);
 	
 	return calendar.getTime();
     }

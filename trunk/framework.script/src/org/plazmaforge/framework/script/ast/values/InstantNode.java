@@ -106,6 +106,43 @@ public abstract class InstantNode extends ValueNode {
 	return createDateTime(values);
     }
     
+    protected Date createTime(List<LNode> params) {
+	
+	// no parameters
+	if (params == null || params.isEmpty()) {
+	    return CommonUtils.newTime();
+	}
+	
+	// one parameter
+	int size = params.size(); 
+	if (size == 1) {
+	    Long value = getLongParameter(params, 0);
+	    return CommonUtils.getTime(value);
+	}
+
+	Integer value1 = null;
+	Integer value2 = null;
+	Integer value3 = null;
+	Integer value4 = null;
+	
+	if (size > 0) {
+	    value1 = getIntegerParameter(params, 0);
+	}
+	if (size > 1) {
+	    value2 = getIntegerParameter(params, 1);
+	}
+	if (size > 2) {
+	    value3 = getIntegerParameter(params, 2);
+	}
+	if (size > 3) {
+	    value4 = getIntegerParameter(params, 3);
+	}
+	
+	Integer[] values = new Integer[] {value1, value2, value3, value4};
+	return createTime(values);
+    }
+    
+    
     protected int toInt(Integer value) {
 	return value == null ? 0: value.intValue();
     }
@@ -159,6 +196,22 @@ public abstract class InstantNode extends ValueNode {
     	int ms = toInt(array[6]);
     	
     	return CommonUtils.getDateTime(year, month, day, h, m, s, ms);
+    }
+
+    protected Date createTime(Integer[] array) {
+    	if (array == null) {
+    	    return null;
+    	}
+    	if (array == null || array.length < 4) {
+    	    return null;
+    	}
+    	
+    	int h = toInt(array[0]);
+    	int m = toInt(array[1]);
+    	int s = toInt(array[2]);
+    	int ms = toInt(array[3]);
+    	
+    	return CommonUtils.getTime(h, m, s, ms);
     }
     
     

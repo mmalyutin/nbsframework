@@ -99,7 +99,8 @@ functionCall
   |  Print '(' expression ')'     -> ^(FUNC_CALL Print expression)
   |  Assert '(' expression ')'    -> ^(FUNC_CALL Assert expression)
   |  Date '(' exprList? ')'      -> ^(FUNC_CALL Date exprList?)
-  |  DateTime '(' exprList? ')'      -> ^(FUNC_CALL DateTime exprList?)  
+  |  DateTime '(' exprList? ')'      -> ^(FUNC_CALL DateTime exprList?)
+  |  Time '(' exprList? ')'      -> ^(FUNC_CALL Time exprList?)    
   |  List '(' exprList? ')'      -> ^(FUNC_CALL List exprList?)
   |  Set '(' exprList? ')'      -> ^(FUNC_CALL Set exprList?)  
   ;
@@ -331,6 +332,7 @@ RangeE   : '..<';
 
 Date     : 'Date';
 DateTime : 'DateTime';
+Time     : 'Time';
 List     : 'List';
 Set      : 'Set';
 

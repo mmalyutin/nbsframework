@@ -138,48 +138,112 @@ assert(Date(1970, 1, 1).getTime() == 0);
 println(DateTime(2016, 12, 1, 17, 20));
 
 
-var dateTime1 = DateTime(2016, 12, 31, 17, 20, 40, 120);
-println(dateTime1);
+var dateTime = DateTime(2016, 12, 31, 17, 20, 40, 120);
+println(dateTime);
 
 // +50 ms
-dateTime1 = dateTime1 + 50;
-println(dateTime1);
+dateTime = dateTime + 50;
+println(dateTime);
 
 // +1 day
-dateTime1 = dateTime1 + DAY_TIME; 
-println(dateTime1);
+dateTime = dateTime + DAY_TIME; 
+println(dateTime);
 
-assert(dateTime1["year"] == 2017);
-assert(dateTime1["month"] == 1);
-assert(dateTime1["day"] == 1);
-assert(dateTime1["hour"] == 17);
-assert(dateTime1["minute"] == 20);
-assert(dateTime1["second"] == 40);
-assert(dateTime1["millisecond"] == 170);
+assert(dateTime["year"] == 2017);
+assert(dateTime["month"] == 1);
+assert(dateTime["day"] == 1);
+assert(dateTime["hour"] == 17);
+assert(dateTime["minute"] == 20);
+assert(dateTime["second"] == 40);
+assert(dateTime["millisecond"] == 170);
 
-assert(dateTime1.getYear() == 2017);
-assert(dateTime1.getMonth() == 1);
-assert(dateTime1.getDay() == 1);
-assert(dateTime1.getHour() == 17);
-assert(dateTime1.getMinute() == 20);
-assert(dateTime1.getSecond() == 40);
-assert(dateTime1.getMillisecond() == 170);
+assert(dateTime.getYear() == 2017);
+assert(dateTime.getMonth() == 1);
+assert(dateTime.getDay() == 1);
+assert(dateTime.getHour() == 17);
+assert(dateTime.getMinute() == 20);
+assert(dateTime.getSecond() == 40);
+assert(dateTime.getMillisecond() == 170);
 
 
 // modify
-dateTime1["year"] = 2015;
-dateTime1["month"] = 3;
-dateTime1["day"] = 15;
-dateTime1["hour"] = 23;
-dateTime1["minute"] = 47;
-dateTime1["second"] = 34;
-dateTime1["millisecond"] = 113;
+dateTime["year"] = 2015;
+dateTime["month"] = 3;
+dateTime["day"] = 15;
+dateTime["hour"] = 23;
+dateTime["minute"] = 47;
+dateTime["second"] = 34;
+dateTime["millisecond"] = 113;
 
 // check modify
-assert(dateTime1["year"] == 2015);
-assert(dateTime1["month"] == 3);
-assert(dateTime1["day"] == 15);
-assert(dateTime1["hour"] == 23);
-assert(dateTime1["minute"] == 47);
-assert(dateTime1["second"] == 34);
-assert(dateTime1["millisecond"] == 113);
+assert(dateTime["year"] == 2015);
+assert(dateTime["month"] == 3);
+assert(dateTime["day"] == 15);
+assert(dateTime["hour"] == 23);
+assert(dateTime["minute"] == 47);
+assert(dateTime["second"] == 34);
+assert(dateTime["millisecond"] == 113);
+
+//
+dateTime = DateTime(1900, 7, 20); 
+
+assert(dateTime["year"] == 1900);
+assert(dateTime["month"] == 7);
+assert(dateTime["day"] == 20);
+assert(dateTime["hour"] == 0);
+assert(dateTime["minute"] == 0);
+assert(dateTime["second"] == 0);
+assert(dateTime["millisecond"] == 0);
+
+//
+dateTime = DateTime(1900, 7, 20, 17);
+
+assert(dateTime["year"] == 1900);
+assert(dateTime["month"] == 7);
+assert(dateTime["day"] == 20);
+assert(dateTime["hour"] == 17);
+assert(dateTime["minute"] == 0);
+assert(dateTime["second"] == 0);
+assert(dateTime["millisecond"] == 0);
+
+//
+dateTime = DateTime(1900, 7, 20, 17, 18);
+
+assert(dateTime["year"] == 1900);
+assert(dateTime["month"] == 7);
+assert(dateTime["day"] == 20);
+assert(dateTime["hour"] == 17);
+assert(dateTime["minute"] == 18);
+assert(dateTime["second"] == 0);
+assert(dateTime["millisecond"] == 0);
+
+//
+dateTime = DateTime(1900, 7, 20, 17, 18, 19);
+
+assert(dateTime["year"] == 1900);
+assert(dateTime["month"] == 7);
+assert(dateTime["day"] == 20);
+assert(dateTime["hour"] == 17);
+assert(dateTime["minute"] == 18);
+assert(dateTime["second"] == 19);
+assert(dateTime["millisecond"] == 0);
+
+//
+dateTime = DateTime(1900, 7, 20, 17, 18, 19, 20);
+
+assert(dateTime["year"] == 1900);
+assert(dateTime["month"] == 7);
+assert(dateTime["day"] == 20);
+assert(dateTime["hour"] == 17);
+assert(dateTime["minute"] == 18);
+assert(dateTime["second"] == 19);
+assert(dateTime["millisecond"] == 20);
+
+var t = Time(10, 20, 30, 120);
+println(t);
+
+
+assert(t["hour"] == 10);
+assert(t["minute"] == 20);
+assert(t["second"] == 30);
+assert(t["millisecond"] == 120);

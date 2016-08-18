@@ -26,6 +26,7 @@
 package org.plazmaforge.framework.script.lang;
 
 import java.util.Date;
+import java.util.List;
 
 import org.plazmaforge.framework.script.util.CommonUtils;
 
@@ -41,7 +42,7 @@ public class LTime extends LInstant {
     }
 
     public LTime(long time) {
-	super(Type.TIME, CommonUtils.getDate(time));
+	super(Type.TIME, CommonUtils.getTime(time));
     }
    
     protected LTime newInstance(long time) {
@@ -50,9 +51,30 @@ public class LTime extends LInstant {
     
     @Override
     public String _toString() {
-	return toDateString();
+	return toTimeString();
     }
     
+    
+    @Override
+    public LValue _invoke(String method, List<LValue> parameters) {
+	if (isUnsupportedMethod(method)) {
+	    raiseIllegalMethodException(method);
+	    return null;
+	}
+	return super._invoke(method, parameters);
+    }
+    
+    protected boolean isUnsupportedMethod(String method) {
+	if (method == null) {
+	    return false;
+	}
+	return "getYear".equals(method)
+		|| "setYear".equals(method)
+		|| "getMonth".equals(method)
+		|| "setMonth".equals(method)
+		|| "getDay".equals(method)
+		|| "setDay".equals(method);
+    }
     
     
 }
