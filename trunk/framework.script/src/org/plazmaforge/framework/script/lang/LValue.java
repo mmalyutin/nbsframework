@@ -244,6 +244,10 @@ public class LValue implements Comparable<LValue> {
         return value instanceof Date;
     }
 
+    public boolean isInstant() {
+        return type == Type.DATE || type == Type.DATE_TIME || type == Type.TIME;
+    }
+    
     public boolean isExtObject() {
         return type == Type.EXT_OBJ;
     }

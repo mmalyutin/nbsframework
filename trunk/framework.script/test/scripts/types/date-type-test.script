@@ -1,4 +1,5 @@
 
+
 //
 println("Test Date type");
 println("=========================================================");
@@ -135,3 +136,50 @@ assert(Date(1970, 1, 1).getTime() == 0);
 
 
 println(DateTime(2016, 12, 1, 17, 20));
+
+
+var dateTime1 = DateTime(2016, 12, 31, 17, 20, 40, 120);
+println(dateTime1);
+
+// +50 ms
+dateTime1 = dateTime1 + 50;
+println(dateTime1);
+
+// +1 day
+dateTime1 = dateTime1 + DAY_TIME; 
+println(dateTime1);
+
+assert(dateTime1["year"] == 2017);
+assert(dateTime1["month"] == 1);
+assert(dateTime1["day"] == 1);
+assert(dateTime1["hour"] == 17);
+assert(dateTime1["minute"] == 20);
+assert(dateTime1["second"] == 40);
+assert(dateTime1["millisecond"] == 170);
+
+assert(dateTime1.getYear() == 2017);
+assert(dateTime1.getMonth() == 1);
+assert(dateTime1.getDay() == 1);
+assert(dateTime1.getHour() == 17);
+assert(dateTime1.getMinute() == 20);
+assert(dateTime1.getSecond() == 40);
+assert(dateTime1.getMillisecond() == 170);
+
+
+// modify
+dateTime1["year"] = 2015;
+dateTime1["month"] = 3;
+dateTime1["day"] = 15;
+dateTime1["hour"] = 23;
+dateTime1["minute"] = 47;
+dateTime1["second"] = 34;
+dateTime1["millisecond"] = 113;
+
+// check modify
+assert(dateTime1["year"] == 2015);
+assert(dateTime1["month"] == 3);
+assert(dateTime1["day"] == 15);
+assert(dateTime1["hour"] == 23);
+assert(dateTime1["minute"] == 47);
+assert(dateTime1["second"] == 34);
+assert(dateTime1["millisecond"] == 113);

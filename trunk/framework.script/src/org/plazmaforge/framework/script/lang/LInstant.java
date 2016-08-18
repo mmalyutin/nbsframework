@@ -29,8 +29,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.plazmaforge.framework.script.util.CommonUtils;
+
 
 /**
+ * Base class for LDate/LDateTime/LTime with java.util.Date value. 
+ * 
  * @author ohapon
  *
  */
@@ -48,8 +52,7 @@ public abstract class LInstant extends LValue {
     }
 
     public String toDateString() {
-	Calendar calendar = Calendar.getInstance();
-	calendar.setTime((Date) getValue());
+	Calendar calendar = getCalendar();
 	
 	int year = calendar.get(Calendar.YEAR);
 	int month = calendar.get(Calendar.MONTH) + 1;
@@ -58,8 +61,7 @@ public abstract class LInstant extends LValue {
     }
     
     public String toTimeString() {
-	Calendar calendar = Calendar.getInstance();
-	calendar.setTime((Date) getValue());
+	Calendar calendar = getCalendar();
 	
 	int h = calendar.get(Calendar.HOUR_OF_DAY);
 	int m = calendar.get(Calendar.MINUTE);
@@ -94,7 +96,7 @@ public abstract class LInstant extends LValue {
 	    return new LBoolean(ltNull(a, b));
 	}	
 	
-	if (!a.isDate() || !b.isDate()) {
+	if (!equalsType(a) || !equalsType(b)) {
 	    return super._lt(a, b);
 	}
 	
@@ -113,7 +115,7 @@ public abstract class LInstant extends LValue {
 	    return new LBoolean(lteNull(a, b));
 	}	
 	
-	if (!a.isDate() || !b.isDate()) {
+	if (!equalsType(a) || !equalsType(b)) {
 	    return super._lte(a, b);
 	}
 	return new LBoolean(a.asDate().getTime() <= b.asDate().getTime()); 
@@ -131,7 +133,7 @@ public abstract class LInstant extends LValue {
 	    return new LBoolean(gtNull(a, b));
 	}	
 	
-	if (!a.isDate() || !b.isDate()) {
+	if (!equalsType(a) || !equalsType(b)) {
 	    return super._gt(a, b);
 	}
 	return new LBoolean(a.asDate().getTime() > b.asDate().getTime()); 
@@ -149,7 +151,7 @@ public abstract class LInstant extends LValue {
 	    return new LBoolean(gteNull(a, b));
 	}	
 	
-	if (!a.isDate() || !b.isDate()) {
+	if (!equalsType(a) || !equalsType(b)) {
 	    return super._gte(a, b);
 	}
 	return new LBoolean(a.asDate().getTime() >= b.asDate().getTime()); 
@@ -171,7 +173,7 @@ public abstract class LInstant extends LValue {
 	    //return LValue.NULL;
 	}
 	
-	if (!a.isDate()) {
+	if (!equalsType(a)) {
 	    return super._add(a, b);
 	}
 
@@ -182,7 +184,7 @@ public abstract class LInstant extends LValue {
 	
 	// NUMBER
 	if (b.isNumber()) {
-	    // Date + Long (ms) = Date
+	    // Date/DateTime/Time + Long (ms) = Date
 	    return newInstance(a.asDate().getTime() + b.asLong());
 	}
 	return super._add(a, b);
@@ -202,7 +204,7 @@ public abstract class LInstant extends LValue {
 	    //return LValue.NULL;
 	}
 	
-	if (!a.isDate()) {
+	if (!equalsType(a)) {
 	    return super._sub(a, b);
 	}
 
@@ -218,8 +220,8 @@ public abstract class LInstant extends LValue {
 	}
 	
 	// DATE
-	if (b.isDate()) {
-	    // Date - Date = Long (ms)
+	if (b.isInstant()) {
+	    // Date/DateTime/Time - Date/DateTime/Time = Long (ms)
 	    return new LNumber(a.asDate().getTime() - b.asDate().getTime());
 	}
 	return super._sub(a, b);
@@ -229,7 +231,7 @@ public abstract class LInstant extends LValue {
     
     @Override
     public LValue _get(LValue index) {
-	if (index.isString() ){
+	if (index.isString()) {
 	    return _get(index.asString());
 	}
 	raiseIllegalMethodException("get");
@@ -306,7 +308,62 @@ public abstract class LInstant extends LValue {
 	    }
 	    setDay(parameter.asInteger());
 	    return LValue.VOID;
+	
+	// HOUR
+	} else if ("getHour".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getHour());
+
+	} else if ("setHour".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setHour(parameter.asInteger());
+	    return LValue.VOID;
 	    
+	// MINUTE
+	} else if ("getMinute".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getMinute());
+
+	} else if ("setMinute".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setMinute(parameter.asInteger());
+	    return LValue.VOID;
+	    
+	// SECOND
+	} else if ("getSecond".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getSecond());
+
+	} else if ("setSecond".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setSecond(parameter.asInteger());
+	    return LValue.VOID;
+
+	// MILLISECOND
+	} else if ("getMillisecond".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(getMillisecond());
+
+	} else if ("setMillisecond".equals(method)) {
+	    checkMethod(method, parameters, 1);
+	    LValue parameter = parameters.get(0);
+	    if (!parameter.isNumber()) {
+		raiseIllegalMethodParameterTypeException("Number");
+	    }
+	    setMillisecond(parameter.asInteger());
+	    return LValue.VOID;
 	}
 	
 	return super._invoke(method, parameters);
@@ -315,7 +372,7 @@ public abstract class LInstant extends LValue {
     ////
     
     public Calendar getCalendar() {
-	Calendar calendar = Calendar.getInstance();
+	Calendar calendar = CommonUtils.getGMTCalendar();
 	calendar.setTime((Date) getValue());
 	return calendar;
     }
@@ -364,7 +421,45 @@ public abstract class LInstant extends LValue {
 	doSetTime(calendar.getTimeInMillis());
     }
     
+    public int getHour() {
+	return getCalendar().get(Calendar.HOUR_OF_DAY);
+    }
+
+    public void setHour(int hour) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.HOUR_OF_DAY, hour);
+	doSetTime(calendar.getTimeInMillis());
+    }
     
+    public int getMinute() {
+	return getCalendar().get(Calendar.MINUTE);
+    }
+
+    public void setMinute(int minute) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.MINUTE, minute);
+	doSetTime(calendar.getTimeInMillis());
+    }
+    
+    public int getSecond() {
+	return getCalendar().get(Calendar.SECOND);
+    }
+
+    public void setSecond(int second) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.SECOND, second);
+	doSetTime(calendar.getTimeInMillis());
+    }
+
+    public int getMillisecond() {
+	return getCalendar().get(Calendar.MILLISECOND);
+    }
+
+    public void setMillisecond(int second) {
+	Calendar calendar = getCalendar();
+	calendar.set(Calendar.MILLISECOND, second);
+	doSetTime(calendar.getTimeInMillis());
+    }
     
     
 }
