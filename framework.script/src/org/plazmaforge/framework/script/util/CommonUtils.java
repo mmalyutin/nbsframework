@@ -50,7 +50,8 @@ public class CommonUtils {
     }
     
     public static Date getTime(int h, int m, int s, int ms) {
-	Calendar calendar = getCalendar(0, 0, 0, h, m, s, ms);
+	// Set start date 1970 Jan 1
+	Calendar calendar = getCalendar(1970, 0, 1, h, m, s, ms);
 	return calendar.getTime();
     }
     
@@ -147,8 +148,11 @@ public class CommonUtils {
 	// WARNING: All date in GMT time zone
 	Calendar calendar = getGMTCalendar();
 
-	// Reset (truncate) time
-	setDate(calendar, 0, 0, 0);
+	// Set start date 1970 Jan 1
+	setDate(calendar, 1970, 0, 1);
+
+	// Reset
+	setTime(calendar, 0, 0, 0, 0);
 	
 	return calendar.getTime();
     }
