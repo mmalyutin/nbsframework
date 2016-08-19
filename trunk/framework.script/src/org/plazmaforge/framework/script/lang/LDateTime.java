@@ -26,6 +26,8 @@
 package org.plazmaforge.framework.script.lang;
 
 import java.util.Date;
+import java.util.List;
+
 import org.plazmaforge.framework.script.util.CommonUtils;
 
 /**
@@ -53,4 +55,20 @@ public class LDateTime extends LInstant {
     }
   
     
+    @Override
+    public LValue _invoke(String method, List<LValue> parameters) {
+	
+	// TO DATE
+	if ("toDate".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LDate(getTime());
+	    
+	// TO TIME    
+	} else if ("toTime".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LTime(getTime());
+	}
+	
+	return super._invoke(method, parameters);
+    }
 }

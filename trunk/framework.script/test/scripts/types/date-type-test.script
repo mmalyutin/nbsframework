@@ -239,11 +239,116 @@ assert(dateTime["minute"] == 18);
 assert(dateTime["second"] == 19);
 assert(dateTime["millisecond"] == 20);
 
+assert(DateTime(2001, 7, 20) == DateTime(2001, 7, 20));
+assert(DateTime(2001, 7, 20, 17) == DateTime(2001, 7, 20, 17));
+assert(DateTime(2001, 7, 20, 17, 15) == DateTime(2001, 7, 20, 17, 15));
+assert(DateTime(2001, 7, 20, 17, 15, 40) == DateTime(2001, 7, 20, 17, 15, 40));
+assert(DateTime(2001, 7, 20, 17, 15, 40, 180) == DateTime(2001, 7, 20, 17, 15, 40, 180));
+assert(DateTime(2001, 7, 20, 17, 15, 40, 0) == DateTime(2001, 7, 20, 17, 15, 40));
+assert(DateTime(2001, 7, 20, 17, 15, 0, 0) == DateTime(2001, 7, 20, 17, 15));
+assert(DateTime(2001, 7, 20, 17, 0, 0, 0) == DateTime(2001, 7, 20, 17));
+assert(DateTime(2001, 7, 20, 0, 0, 0, 0) == DateTime(2001, 7, 20));
+
+assert(DateTime(2001, 7, 20) >= DateTime(2001, 7, 20));
+assert(DateTime(2001, 7, 20) <= DateTime(2001, 7, 20));
+
+assert(DateTime(2001, 7, 20, 17, 15, 40, 180) >= DateTime(2001, 7, 20, 17, 15, 40, 180));
+assert(DateTime(2001, 7, 20, 17, 15, 40, 180) <= DateTime(2001, 7, 20, 17, 15, 40, 180));
+
+// >
+assert(DateTime(2001, 7, 21) > DateTime(2001, 7, 20));
+assert(DateTime(2001, 7, 20, 11) > DateTime(2001, 7, 20));
+assert(DateTime(2001, 7, 20, 11, 12) > DateTime(2001, 7, 20));
+assert(DateTime(2001, 7, 20, 11, 12, 13) > DateTime(2001, 7, 20));
+assert(DateTime(2001, 7, 20, 11, 12, 13, 111) > DateTime(2001, 7, 20));
+
+// >
+assert(DateTime(2001, 7, 20, 11, 12, 13, 111) > DateTime(2001, 7, 20, 11, 12, 13, 110));
+assert(DateTime(2001, 7, 20, 11, 12, 14, 111) > DateTime(2001, 7, 20, 11, 12, 13, 111));
+assert(DateTime(2001, 7, 20, 11, 13, 13, 111) > DateTime(2001, 7, 20, 11, 12, 13, 111));
+assert(DateTime(2001, 7, 20, 12, 13, 13, 111) > DateTime(2001, 7, 20, 11, 13, 13, 111));
+assert(DateTime(2001, 7, 21, 11, 13, 13, 111) > DateTime(2001, 7, 20, 11, 13, 13, 111));
+assert(DateTime(2001, 8, 20, 11, 13, 13, 111) > DateTime(2001, 7, 20, 11, 13, 13, 111));
+assert(DateTime(2002, 7, 20, 11, 13, 13, 111) > DateTime(2001, 7, 20, 11, 13, 13, 111));
+
+
+// <
+assert(DateTime(2001, 7, 20) < DateTime(2001, 7, 21));
+assert(DateTime(2001, 7, 20) < DateTime(2001, 7, 20, 11));
+assert(DateTime(2001, 7, 20) < DateTime(2001, 7, 20, 11, 12));
+assert(DateTime(2001, 7, 20) < DateTime(2001, 7, 20, 11, 12, 13));
+assert(DateTime(2001, 7, 20) < DateTime(2001, 7, 20, 11, 12, 13, 111));
+
+// <
+assert(DateTime(2001, 7, 20, 11, 12, 13, 110) < DateTime(2001, 7, 20, 11, 12, 13, 111));
+assert(DateTime(2001, 7, 20, 11, 12, 13, 111) < DateTime(2001, 7, 20, 11, 12, 14, 111));
+assert(DateTime(2001, 7, 20, 11, 12, 13, 111) < DateTime(2001, 7, 20, 11, 13, 13, 111));
+assert(DateTime(2001, 7, 20, 11, 13, 13, 111) < DateTime(2001, 7, 20, 12, 13, 13, 111));
+assert(DateTime(2001, 7, 20, 11, 13, 13, 111) < DateTime(2001, 7, 21, 11, 13, 13, 111));
+assert(DateTime(2001, 7, 20, 11, 13, 13, 111) < DateTime(2001, 8, 20, 11, 13, 13, 111));
+assert(DateTime(2001, 7, 20, 11, 13, 13, 111) < DateTime(2002, 7, 20, 11, 13, 13, 111));
+
+// convert to Date
+assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toDate() == Date(2001, 7, 20));
+
+// convert to Time
+assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toTime() == Time(11, 12, 13, 110));
+assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toTime().getTime() == Time(11, 12, 13, 110).getTime());
+
+
+// Time
+assert(Time().getTime() == 0);
+assert(Time(0).getTime() == 0);
+
 var t = Time(10, 20, 30, 120);
 println(t);
-
 
 assert(t["hour"] == 10);
 assert(t["minute"] == 20);
 assert(t["second"] == 30);
 assert(t["millisecond"] == 120);
+
+
+assert(Time(10, 20, 30, 120) == Time(10, 20, 30, 120));
+assert(Time(10, 20, 30, 0) == Time(10, 20, 30));
+assert(Time(10, 20, 0, 0) == Time(10, 20));
+assert(Time(0, 0, 0, 10) == Time(0, 0, 0, 10));
+assert(Time(0, 0, 0, 10) == Time(10));
+
+assert(Time(10, 20, 30, 120) >= Time(10, 20, 30, 120));
+assert(Time(10, 20, 30, 0) >= Time(10, 20, 30));
+assert(Time(10, 20, 0, 0) >= Time(10, 20));
+assert(Time(0, 0, 0, 10) >= Time(0, 0, 0, 10));
+assert(Time(0, 0, 0, 10) >= Time(10));
+
+assert(Time(10, 20, 30, 120) <= Time(10, 20, 30, 120));
+assert(Time(10, 20, 30, 0) <= Time(10, 20, 30));
+assert(Time(10, 20, 0, 0) <= Time(10, 20));
+assert(Time(0, 0, 0, 10) <= Time(0, 0, 0, 10));
+assert(Time(0, 0, 0, 10) <= Time(10));
+
+
+assert(Time(10, 20, 30, 121) > Time(10, 20, 30, 120));
+assert(Time(10, 20, 31, 120) > Time(10, 20, 30, 120));
+assert(Time(10, 21, 30, 120) > Time(10, 20, 30, 120));
+assert(Time(11, 20, 30, 120) > Time(10, 20, 30, 120));
+
+assert(Time(10, 20, 30, 120) < Time(10, 20, 30, 121));
+assert(Time(10, 20, 30, 120) < Time(10, 20, 31, 120));
+assert(Time(10, 20, 30, 120) < Time(10, 21, 30, 120));
+assert(Time(10, 20, 30, 120) < Time(11, 20, 30, 120));
+
+
+assert((Time(10, 20, 30, 120) + 100) == Time(10, 20, 30, 220));
+
+assert((Time(10, 20, 30, 120) + 1000) == Time(10, 20, 31, 120));  // + 1 second
+assert((Time(10, 20, 30, 120) + 2000) == Time(10, 20, 32, 120));  // + 2 second
+
+assert((Time(10, 20, 30, 120) - 1000) == Time(10, 20, 29, 120));  // - 1 second
+assert((Time(10, 20, 30, 120) - 2000) == Time(10, 20, 28, 120));  // - 2 second
+
+assert((Time(10, 20, 30, 120) + 60000) == Time(10, 21, 30, 120));  // + 1 minute
+assert((Time(10, 20, 30, 120) + 120000) == Time(10, 22, 30, 120)); // + 2 minute
+
+assert((Time(10, 20, 30, 120) - 60000) == Time(10, 19, 30, 120));  // - 1 minute
+assert((Time(10, 20, 30, 120) - 120000) == Time(10, 18, 30, 120)); // - 2 minute

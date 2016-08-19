@@ -36,6 +36,7 @@ import org.plazmaforge.framework.script.util.CommonUtils;
  */
 public class LTime extends LInstant {
 
+    // Emulate start date 1970-Jan-1
 
     public LTime(Date value) {
 	super(Type.TIME, value);
