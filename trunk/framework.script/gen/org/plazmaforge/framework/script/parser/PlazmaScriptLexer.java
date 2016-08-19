@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-08-18 18:46:50
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 grammar/PlazmaScript.g 2016-08-19 17:50:47
 
   package org.plazmaforge.framework.script.parser;
 
@@ -11,107 +11,108 @@ import java.util.Map;
 import java.util.HashMap;
 public class PlazmaScriptLexer extends Lexer {
     public static final int FUNCTION=19;
-    public static final int LT=75;
+    public static final int LT=76;
     public static final int TERNARY=15;
     public static final int EXP_LIST=12;
     public static final int DateTime=40;
     public static final int Date=39;
     public static final int EOF=-1;
-    public static final int QMark=90;
-    public static final int NotWord=73;
+    public static final int QMark=91;
+    public static final int NotWord=74;
     public static final int BREAK=30;
     public static final int Identifier=35;
     public static final int UNARY_PLUS=16;
     public static final int FUNC_CALL=8;
-    public static final int CParen=86;
-    public static final int Comment=98;
+    public static final int CParen=87;
+    public static final int Comment=99;
     public static final int EXP=9;
-    public static final int Digits=94;
-    public static final int CBrace=82;
+    public static final int Digits=95;
+    public static final int CBrace=83;
     public static final int RETURN=5;
-    public static final int ExponentPart=95;
-    public static final int ExponentIndicator=100;
-    public static final int Sign=102;
-    public static final int OrWord=63;
-    public static final int Null=56;
-    public static final int DecimalNumeral=92;
-    public static final int CBracket=84;
-    public static final int ContextIdentifier=96;
+    public static final int ExponentPart=96;
+    public static final int ExponentIndicator=101;
+    public static final int Sign=103;
+    public static final int OrWord=64;
+    public static final int Null=57;
+    public static final int DecimalNumeral=93;
+    public static final int CBracket=85;
+    public static final int ContextIdentifier=97;
     public static final int Println=36;
-    public static final int Bool=55;
-    public static final int Modulus=80;
+    public static final int Bool=56;
+    public static final int Modulus=81;
     public static final int Time=41;
-    public static final int AndWord=66;
-    public static final int Colon=91;
+    public static final int AndWord=67;
+    public static final int Colon=92;
     public static final int LIST=27;
-    public static final int Def=47;
-    public static final int RangeE=51;
+    public static final int Def=48;
+    public static final int RangeE=52;
     public static final int LOOKUP=29;
-    public static final int Range=52;
+    public static final int Range=53;
     public static final int Break=33;
-    public static final int SignedInteger=101;
-    public static final int BitOr=62;
+    public static final int SignedInteger=102;
+    public static final int BitOr=63;
     public static final int STATEMENTS=6;
-    public static final int GT=74;
+    public static final int GT=75;
     public static final int CALL=23;
-    public static final int DecimalFloatingPoint=93;
-    public static final int Else=45;
-    public static final int Equals=67;
-    public static final int Var=46;
-    public static final int XorWord=60;
-    public static final int OParen=85;
+    public static final int DecimalFloatingPoint=94;
+    public static final int Else=46;
+    public static final int Equals=68;
+    public static final int Var=47;
+    public static final int XorWord=61;
+    public static final int OParen=86;
     public static final int Assert=38;
     public static final int ATTRIBUTE=22;
-    public static final int While=49;
+    public static final int While=50;
     public static final int ID_LIST=13;
-    public static final int Add=76;
-    public static final int Set=43;
+    public static final int Add=77;
+    public static final int Set=44;
     public static final int TAIL=24;
     public static final int IF=14;
-    public static final int Space=99;
+    public static final int Space=100;
     public static final int INDEX=21;
-    public static final int Assign=88;
+    public static final int Assign=89;
     public static final int EXP_MAP=11;
-    public static final int NaN=57;
-    public static final int Number=54;
+    public static final int NaN=58;
+    public static final int Number=55;
     public static final int CONTINUE=31;
-    public static final int T__104=104;
     public static final int Print=37;
-    public static final int GTEquals=69;
-    public static final int String=59;
-    public static final int Or=61;
+    public static final int T__105=105;
+    public static final int GTEquals=70;
+    public static final int String=60;
+    public static final int Or=62;
     public static final int Return=32;
-    public static final int If=44;
-    public static final int And=64;
-    public static final int In=50;
-    public static final int NEquals=68;
+    public static final int If=45;
+    public static final int And=65;
+    public static final int In=51;
+    public static final int NEquals=69;
     public static final int Continue=34;
-    public static final int Subtract=77;
+    public static final int Subtract=78;
     public static final int EXP_PAIR=10;
-    public static final int BitAnd=65;
-    public static final int Multiply=78;
-    public static final int OBrace=81;
+    public static final int BitAnd=66;
+    public static final int Multiply=79;
+    public static final int OBrace=82;
     public static final int INDEXES=20;
     public static final int NEGATE=18;
     public static final int SET=28;
-    public static final int Digit=97;
-    public static final int For=48;
-    public static final int Divide=79;
-    public static final int List=42;
+    public static final int Duration=42;
+    public static final int Digit=98;
+    public static final int For=49;
+    public static final int Divide=80;
+    public static final int List=43;
     public static final int TAILS=25;
-    public static final int SColon=87;
-    public static final int OBracket=83;
-    public static final int NonZeroDigit=103;
+    public static final int SColon=88;
+    public static final int OBracket=84;
+    public static final int NonZeroDigit=104;
     public static final int BLOCK=4;
     public static final int MAP=26;
-    public static final int Not=72;
+    public static final int Not=73;
     public static final int UNARY_MIN=17;
     public static final int ASSIGNMENT=7;
-    public static final int Infinity=58;
-    public static final int Comma=89;
-    public static final int Integer=53;
-    public static final int Pow=71;
-    public static final int LTEquals=70;
+    public static final int Infinity=59;
+    public static final int Comma=90;
+    public static final int Integer=54;
+    public static final int Pow=72;
+    public static final int LTEquals=71;
 
     // delegates
     // delegators
@@ -126,10 +127,10 @@ public class PlazmaScriptLexer extends Lexer {
     }
     public String getGrammarFileName() { return "grammar/PlazmaScript.g"; }
 
-    // $ANTLR start "T__104"
-    public final void mT__104() throws RecognitionException {
+    // $ANTLR start "T__105"
+    public final void mT__105() throws RecognitionException {
         try {
-            int _type = T__104;
+            int _type = T__105;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // grammar/PlazmaScript.g:7:8: ( '.' )
             // grammar/PlazmaScript.g:7:10: '.'
@@ -144,15 +145,15 @@ public class PlazmaScriptLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__104"
+    // $ANTLR end "T__105"
 
     // $ANTLR start "Println"
     public final void mPrintln() throws RecognitionException {
         try {
             int _type = Println;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:279:10: ( 'println' )
-            // grammar/PlazmaScript.g:279:12: 'println'
+            // grammar/PlazmaScript.g:280:10: ( 'println' )
+            // grammar/PlazmaScript.g:280:12: 'println'
             {
             match("println"); if (state.failed) return ;
 
@@ -172,8 +173,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Print;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:280:10: ( 'print' )
-            // grammar/PlazmaScript.g:280:12: 'print'
+            // grammar/PlazmaScript.g:281:10: ( 'print' )
+            // grammar/PlazmaScript.g:281:12: 'print'
             {
             match("print"); if (state.failed) return ;
 
@@ -193,8 +194,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Assert;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:281:10: ( 'assert' )
-            // grammar/PlazmaScript.g:281:12: 'assert'
+            // grammar/PlazmaScript.g:282:10: ( 'assert' )
+            // grammar/PlazmaScript.g:282:12: 'assert'
             {
             match("assert"); if (state.failed) return ;
 
@@ -214,8 +215,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Var;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:282:10: ( 'var' )
-            // grammar/PlazmaScript.g:282:12: 'var'
+            // grammar/PlazmaScript.g:283:10: ( 'var' )
+            // grammar/PlazmaScript.g:283:12: 'var'
             {
             match("var"); if (state.failed) return ;
 
@@ -235,8 +236,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Def;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:283:10: ( 'def' )
-            // grammar/PlazmaScript.g:283:12: 'def'
+            // grammar/PlazmaScript.g:284:10: ( 'def' )
+            // grammar/PlazmaScript.g:284:12: 'def'
             {
             match("def"); if (state.failed) return ;
 
@@ -256,8 +257,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = If;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:284:10: ( 'if' )
-            // grammar/PlazmaScript.g:284:12: 'if'
+            // grammar/PlazmaScript.g:285:10: ( 'if' )
+            // grammar/PlazmaScript.g:285:12: 'if'
             {
             match("if"); if (state.failed) return ;
 
@@ -277,8 +278,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Else;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:285:10: ( 'else' )
-            // grammar/PlazmaScript.g:285:12: 'else'
+            // grammar/PlazmaScript.g:286:10: ( 'else' )
+            // grammar/PlazmaScript.g:286:12: 'else'
             {
             match("else"); if (state.failed) return ;
 
@@ -298,8 +299,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Return;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:286:10: ( 'return' )
-            // grammar/PlazmaScript.g:286:12: 'return'
+            // grammar/PlazmaScript.g:287:10: ( 'return' )
+            // grammar/PlazmaScript.g:287:12: 'return'
             {
             match("return"); if (state.failed) return ;
 
@@ -319,8 +320,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = For;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:287:10: ( 'for' )
-            // grammar/PlazmaScript.g:287:12: 'for'
+            // grammar/PlazmaScript.g:288:10: ( 'for' )
+            // grammar/PlazmaScript.g:288:12: 'for'
             {
             match("for"); if (state.failed) return ;
 
@@ -340,8 +341,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = While;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:288:10: ( 'while' )
-            // grammar/PlazmaScript.g:288:12: 'while'
+            // grammar/PlazmaScript.g:289:10: ( 'while' )
+            // grammar/PlazmaScript.g:289:12: 'while'
             {
             match("while"); if (state.failed) return ;
 
@@ -361,8 +362,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = In;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:289:10: ( 'in' )
-            // grammar/PlazmaScript.g:289:12: 'in'
+            // grammar/PlazmaScript.g:290:10: ( 'in' )
+            // grammar/PlazmaScript.g:290:12: 'in'
             {
             match("in"); if (state.failed) return ;
 
@@ -382,8 +383,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Null;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:290:10: ( 'null' )
-            // grammar/PlazmaScript.g:290:12: 'null'
+            // grammar/PlazmaScript.g:291:10: ( 'null' )
+            // grammar/PlazmaScript.g:291:12: 'null'
             {
             match("null"); if (state.failed) return ;
 
@@ -403,8 +404,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = NaN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:291:10: ( 'NaN' )
-            // grammar/PlazmaScript.g:291:12: 'NaN'
+            // grammar/PlazmaScript.g:292:10: ( 'NaN' )
+            // grammar/PlazmaScript.g:292:12: 'NaN'
             {
             match("NaN"); if (state.failed) return ;
 
@@ -424,8 +425,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Infinity;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:292:10: ( 'Infinity' )
-            // grammar/PlazmaScript.g:292:12: 'Infinity'
+            // grammar/PlazmaScript.g:293:10: ( 'Infinity' )
+            // grammar/PlazmaScript.g:293:12: 'Infinity'
             {
             match("Infinity"); if (state.failed) return ;
 
@@ -445,8 +446,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Break;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:293:10: ( 'break' )
-            // grammar/PlazmaScript.g:293:12: 'break'
+            // grammar/PlazmaScript.g:294:10: ( 'break' )
+            // grammar/PlazmaScript.g:294:12: 'break'
             {
             match("break"); if (state.failed) return ;
 
@@ -466,8 +467,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Continue;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:294:10: ( 'continue' )
-            // grammar/PlazmaScript.g:294:12: 'continue'
+            // grammar/PlazmaScript.g:295:10: ( 'continue' )
+            // grammar/PlazmaScript.g:295:12: 'continue'
             {
             match("continue"); if (state.failed) return ;
 
@@ -487,8 +488,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = XorWord;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:296:10: ( 'xor' )
-            // grammar/PlazmaScript.g:296:12: 'xor'
+            // grammar/PlazmaScript.g:297:10: ( 'xor' )
+            // grammar/PlazmaScript.g:297:12: 'xor'
             {
             match("xor"); if (state.failed) return ;
 
@@ -508,8 +509,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Or;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:297:10: ( '||' )
-            // grammar/PlazmaScript.g:297:12: '||'
+            // grammar/PlazmaScript.g:298:10: ( '||' )
+            // grammar/PlazmaScript.g:298:12: '||'
             {
             match("||"); if (state.failed) return ;
 
@@ -529,8 +530,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = BitOr;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:298:10: ( '|' )
-            // grammar/PlazmaScript.g:298:12: '|'
+            // grammar/PlazmaScript.g:299:10: ( '|' )
+            // grammar/PlazmaScript.g:299:12: '|'
             {
             match('|'); if (state.failed) return ;
 
@@ -549,8 +550,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = OrWord;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:299:10: ( 'or' )
-            // grammar/PlazmaScript.g:299:12: 'or'
+            // grammar/PlazmaScript.g:300:10: ( 'or' )
+            // grammar/PlazmaScript.g:300:12: 'or'
             {
             match("or"); if (state.failed) return ;
 
@@ -570,8 +571,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = And;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:300:10: ( '&&' )
-            // grammar/PlazmaScript.g:300:12: '&&'
+            // grammar/PlazmaScript.g:301:10: ( '&&' )
+            // grammar/PlazmaScript.g:301:12: '&&'
             {
             match("&&"); if (state.failed) return ;
 
@@ -591,8 +592,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = BitAnd;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:301:10: ( '&' )
-            // grammar/PlazmaScript.g:301:12: '&'
+            // grammar/PlazmaScript.g:302:10: ( '&' )
+            // grammar/PlazmaScript.g:302:12: '&'
             {
             match('&'); if (state.failed) return ;
 
@@ -611,8 +612,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = AndWord;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:302:10: ( 'and' )
-            // grammar/PlazmaScript.g:302:12: 'and'
+            // grammar/PlazmaScript.g:303:10: ( 'and' )
+            // grammar/PlazmaScript.g:303:12: 'and'
             {
             match("and"); if (state.failed) return ;
 
@@ -632,8 +633,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Equals;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:303:10: ( '==' )
-            // grammar/PlazmaScript.g:303:12: '=='
+            // grammar/PlazmaScript.g:304:10: ( '==' )
+            // grammar/PlazmaScript.g:304:12: '=='
             {
             match("=="); if (state.failed) return ;
 
@@ -653,8 +654,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = NEquals;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:304:10: ( '!=' )
-            // grammar/PlazmaScript.g:304:12: '!='
+            // grammar/PlazmaScript.g:305:10: ( '!=' )
+            // grammar/PlazmaScript.g:305:12: '!='
             {
             match("!="); if (state.failed) return ;
 
@@ -674,8 +675,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = GTEquals;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:305:10: ( '>=' )
-            // grammar/PlazmaScript.g:305:12: '>='
+            // grammar/PlazmaScript.g:306:10: ( '>=' )
+            // grammar/PlazmaScript.g:306:12: '>='
             {
             match(">="); if (state.failed) return ;
 
@@ -695,8 +696,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = LTEquals;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:306:10: ( '<=' )
-            // grammar/PlazmaScript.g:306:12: '<='
+            // grammar/PlazmaScript.g:307:10: ( '<=' )
+            // grammar/PlazmaScript.g:307:12: '<='
             {
             match("<="); if (state.failed) return ;
 
@@ -716,8 +717,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Pow;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:307:10: ( '^' )
-            // grammar/PlazmaScript.g:307:12: '^'
+            // grammar/PlazmaScript.g:308:10: ( '^' )
+            // grammar/PlazmaScript.g:308:12: '^'
             {
             match('^'); if (state.failed) return ;
 
@@ -736,8 +737,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Not;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:308:10: ( '!' )
-            // grammar/PlazmaScript.g:308:12: '!'
+            // grammar/PlazmaScript.g:309:10: ( '!' )
+            // grammar/PlazmaScript.g:309:12: '!'
             {
             match('!'); if (state.failed) return ;
 
@@ -756,8 +757,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = NotWord;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:309:10: ( 'not' )
-            // grammar/PlazmaScript.g:309:12: 'not'
+            // grammar/PlazmaScript.g:310:10: ( 'not' )
+            // grammar/PlazmaScript.g:310:12: 'not'
             {
             match("not"); if (state.failed) return ;
 
@@ -777,8 +778,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:310:10: ( '>' )
-            // grammar/PlazmaScript.g:310:12: '>'
+            // grammar/PlazmaScript.g:311:10: ( '>' )
+            // grammar/PlazmaScript.g:311:12: '>'
             {
             match('>'); if (state.failed) return ;
 
@@ -797,8 +798,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:311:10: ( '<' )
-            // grammar/PlazmaScript.g:311:12: '<'
+            // grammar/PlazmaScript.g:312:10: ( '<' )
+            // grammar/PlazmaScript.g:312:12: '<'
             {
             match('<'); if (state.failed) return ;
 
@@ -817,8 +818,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Add;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:312:10: ( '+' )
-            // grammar/PlazmaScript.g:312:12: '+'
+            // grammar/PlazmaScript.g:313:10: ( '+' )
+            // grammar/PlazmaScript.g:313:12: '+'
             {
             match('+'); if (state.failed) return ;
 
@@ -837,8 +838,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Subtract;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:313:10: ( '-' )
-            // grammar/PlazmaScript.g:313:12: '-'
+            // grammar/PlazmaScript.g:314:10: ( '-' )
+            // grammar/PlazmaScript.g:314:12: '-'
             {
             match('-'); if (state.failed) return ;
 
@@ -857,8 +858,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Multiply;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:314:10: ( '*' )
-            // grammar/PlazmaScript.g:314:12: '*'
+            // grammar/PlazmaScript.g:315:10: ( '*' )
+            // grammar/PlazmaScript.g:315:12: '*'
             {
             match('*'); if (state.failed) return ;
 
@@ -877,8 +878,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Divide;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:315:10: ( '/' )
-            // grammar/PlazmaScript.g:315:12: '/'
+            // grammar/PlazmaScript.g:316:10: ( '/' )
+            // grammar/PlazmaScript.g:316:12: '/'
             {
             match('/'); if (state.failed) return ;
 
@@ -897,8 +898,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Modulus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:317:10: ( '%' )
-            // grammar/PlazmaScript.g:317:12: '%'
+            // grammar/PlazmaScript.g:318:10: ( '%' )
+            // grammar/PlazmaScript.g:318:12: '%'
             {
             match('%'); if (state.failed) return ;
 
@@ -917,8 +918,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = OBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:318:10: ( '{' )
-            // grammar/PlazmaScript.g:318:12: '{'
+            // grammar/PlazmaScript.g:319:10: ( '{' )
+            // grammar/PlazmaScript.g:319:12: '{'
             {
             match('{'); if (state.failed) return ;
 
@@ -937,8 +938,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = CBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:319:10: ( '}' )
-            // grammar/PlazmaScript.g:319:12: '}'
+            // grammar/PlazmaScript.g:320:10: ( '}' )
+            // grammar/PlazmaScript.g:320:12: '}'
             {
             match('}'); if (state.failed) return ;
 
@@ -957,8 +958,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = OBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:320:10: ( '[' )
-            // grammar/PlazmaScript.g:320:12: '['
+            // grammar/PlazmaScript.g:321:10: ( '[' )
+            // grammar/PlazmaScript.g:321:12: '['
             {
             match('['); if (state.failed) return ;
 
@@ -977,8 +978,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = CBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:321:10: ( ']' )
-            // grammar/PlazmaScript.g:321:12: ']'
+            // grammar/PlazmaScript.g:322:10: ( ']' )
+            // grammar/PlazmaScript.g:322:12: ']'
             {
             match(']'); if (state.failed) return ;
 
@@ -997,8 +998,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = OParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:322:10: ( '(' )
-            // grammar/PlazmaScript.g:322:12: '('
+            // grammar/PlazmaScript.g:323:10: ( '(' )
+            // grammar/PlazmaScript.g:323:12: '('
             {
             match('('); if (state.failed) return ;
 
@@ -1017,8 +1018,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = CParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:323:10: ( ')' )
-            // grammar/PlazmaScript.g:323:12: ')'
+            // grammar/PlazmaScript.g:324:10: ( ')' )
+            // grammar/PlazmaScript.g:324:12: ')'
             {
             match(')'); if (state.failed) return ;
 
@@ -1037,8 +1038,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = SColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:324:10: ( ';' )
-            // grammar/PlazmaScript.g:324:12: ';'
+            // grammar/PlazmaScript.g:325:10: ( ';' )
+            // grammar/PlazmaScript.g:325:12: ';'
             {
             match(';'); if (state.failed) return ;
 
@@ -1057,8 +1058,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Assign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:325:10: ( '=' )
-            // grammar/PlazmaScript.g:325:12: '='
+            // grammar/PlazmaScript.g:326:10: ( '=' )
+            // grammar/PlazmaScript.g:326:12: '='
             {
             match('='); if (state.failed) return ;
 
@@ -1077,8 +1078,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:326:10: ( ',' )
-            // grammar/PlazmaScript.g:326:12: ','
+            // grammar/PlazmaScript.g:327:10: ( ',' )
+            // grammar/PlazmaScript.g:327:12: ','
             {
             match(','); if (state.failed) return ;
 
@@ -1097,8 +1098,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = QMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:327:10: ( '?' )
-            // grammar/PlazmaScript.g:327:12: '?'
+            // grammar/PlazmaScript.g:328:10: ( '?' )
+            // grammar/PlazmaScript.g:328:12: '?'
             {
             match('?'); if (state.failed) return ;
 
@@ -1117,8 +1118,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:328:10: ( ':' )
-            // grammar/PlazmaScript.g:328:12: ':'
+            // grammar/PlazmaScript.g:329:10: ( ':' )
+            // grammar/PlazmaScript.g:329:12: ':'
             {
             match(':'); if (state.failed) return ;
 
@@ -1137,8 +1138,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Range;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:330:10: ( '..' )
-            // grammar/PlazmaScript.g:330:12: '..'
+            // grammar/PlazmaScript.g:331:10: ( '..' )
+            // grammar/PlazmaScript.g:331:12: '..'
             {
             match(".."); if (state.failed) return ;
 
@@ -1158,8 +1159,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = RangeE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:331:10: ( '..<' )
-            // grammar/PlazmaScript.g:331:12: '..<'
+            // grammar/PlazmaScript.g:332:10: ( '..<' )
+            // grammar/PlazmaScript.g:332:12: '..<'
             {
             match("..<"); if (state.failed) return ;
 
@@ -1179,8 +1180,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Date;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:333:10: ( 'Date' )
-            // grammar/PlazmaScript.g:333:12: 'Date'
+            // grammar/PlazmaScript.g:334:10: ( 'Date' )
+            // grammar/PlazmaScript.g:334:12: 'Date'
             {
             match("Date"); if (state.failed) return ;
 
@@ -1200,8 +1201,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = DateTime;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:334:10: ( 'DateTime' )
-            // grammar/PlazmaScript.g:334:12: 'DateTime'
+            // grammar/PlazmaScript.g:335:10: ( 'DateTime' )
+            // grammar/PlazmaScript.g:335:12: 'DateTime'
             {
             match("DateTime"); if (state.failed) return ;
 
@@ -1221,8 +1222,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Time;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:335:10: ( 'Time' )
-            // grammar/PlazmaScript.g:335:12: 'Time'
+            // grammar/PlazmaScript.g:336:10: ( 'Time' )
+            // grammar/PlazmaScript.g:336:12: 'Time'
             {
             match("Time"); if (state.failed) return ;
 
@@ -1237,13 +1238,34 @@ public class PlazmaScriptLexer extends Lexer {
     }
     // $ANTLR end "Time"
 
+    // $ANTLR start "Duration"
+    public final void mDuration() throws RecognitionException {
+        try {
+            int _type = Duration;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // grammar/PlazmaScript.g:337:10: ( 'Duration' )
+            // grammar/PlazmaScript.g:337:12: 'Duration'
+            {
+            match("Duration"); if (state.failed) return ;
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Duration"
+
     // $ANTLR start "List"
     public final void mList() throws RecognitionException {
         try {
             int _type = List;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:336:10: ( 'List' )
-            // grammar/PlazmaScript.g:336:12: 'List'
+            // grammar/PlazmaScript.g:338:10: ( 'List' )
+            // grammar/PlazmaScript.g:338:12: 'List'
             {
             match("List"); if (state.failed) return ;
 
@@ -1263,8 +1285,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Set;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:337:10: ( 'Set' )
-            // grammar/PlazmaScript.g:337:12: 'Set'
+            // grammar/PlazmaScript.g:339:10: ( 'Set' )
+            // grammar/PlazmaScript.g:339:12: 'Set'
             {
             match("Set"); if (state.failed) return ;
 
@@ -1284,7 +1306,7 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Bool;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:340:3: ( 'true' | 'false' )
+            // grammar/PlazmaScript.g:342:3: ( 'true' | 'false' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1303,7 +1325,7 @@ public class PlazmaScriptLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // grammar/PlazmaScript.g:340:6: 'true'
+                    // grammar/PlazmaScript.g:342:6: 'true'
                     {
                     match("true"); if (state.failed) return ;
 
@@ -1311,7 +1333,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:341:6: 'false'
+                    // grammar/PlazmaScript.g:343:6: 'false'
                     {
                     match("false"); if (state.failed) return ;
 
@@ -1333,8 +1355,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:356:3: ( DecimalNumeral )
-            // grammar/PlazmaScript.g:356:6: DecimalNumeral
+            // grammar/PlazmaScript.g:358:3: ( DecimalNumeral )
+            // grammar/PlazmaScript.g:358:6: DecimalNumeral
             {
             mDecimalNumeral(); if (state.failed) return ;
 
@@ -1353,7 +1375,7 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Number;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:360:3: ( ( DecimalNumeral '..' )=> Integer | DecimalFloatingPoint )
+            // grammar/PlazmaScript.g:362:3: ( ( DecimalNumeral '..' )=> Integer | DecimalFloatingPoint )
             int alt2=2;
             switch ( input.LA(1) ) {
             case '0':
@@ -1417,7 +1439,7 @@ public class PlazmaScriptLexer extends Lexer {
 
             switch (alt2) {
                 case 1 :
-                    // grammar/PlazmaScript.g:360:5: ( DecimalNumeral '..' )=> Integer
+                    // grammar/PlazmaScript.g:362:5: ( DecimalNumeral '..' )=> Integer
                     {
                     mInteger(); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
@@ -1427,7 +1449,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:361:5: DecimalFloatingPoint
+                    // grammar/PlazmaScript.g:363:5: DecimalFloatingPoint
                     {
                     mDecimalFloatingPoint(); if (state.failed) return ;
 
@@ -1446,7 +1468,7 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "DecimalFloatingPoint"
     public final void mDecimalFloatingPoint() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:366:3: ( Digits ( '.' Digits )? ( ExponentPart )? | '.' Digits ( ExponentPart )? )
+            // grammar/PlazmaScript.g:368:3: ( Digits ( '.' Digits )? ( ExponentPart )? | '.' Digits ( ExponentPart )? )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1465,10 +1487,10 @@ public class PlazmaScriptLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // grammar/PlazmaScript.g:366:5: Digits ( '.' Digits )? ( ExponentPart )?
+                    // grammar/PlazmaScript.g:368:5: Digits ( '.' Digits )? ( ExponentPart )?
                     {
                     mDigits(); if (state.failed) return ;
-                    // grammar/PlazmaScript.g:366:12: ( '.' Digits )?
+                    // grammar/PlazmaScript.g:368:12: ( '.' Digits )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -1477,7 +1499,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // grammar/PlazmaScript.g:366:13: '.' Digits
+                            // grammar/PlazmaScript.g:368:13: '.' Digits
                             {
                             match('.'); if (state.failed) return ;
                             mDigits(); if (state.failed) return ;
@@ -1487,7 +1509,7 @@ public class PlazmaScriptLexer extends Lexer {
 
                     }
 
-                    // grammar/PlazmaScript.g:366:26: ( ExponentPart )?
+                    // grammar/PlazmaScript.g:368:26: ( ExponentPart )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -1496,7 +1518,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     switch (alt4) {
                         case 1 :
-                            // grammar/PlazmaScript.g:366:26: ExponentPart
+                            // grammar/PlazmaScript.g:368:26: ExponentPart
                             {
                             mExponentPart(); if (state.failed) return ;
 
@@ -1509,11 +1531,11 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:367:5: '.' Digits ( ExponentPart )?
+                    // grammar/PlazmaScript.g:369:5: '.' Digits ( ExponentPart )?
                     {
                     match('.'); if (state.failed) return ;
                     mDigits(); if (state.failed) return ;
-                    // grammar/PlazmaScript.g:367:16: ( ExponentPart )?
+                    // grammar/PlazmaScript.g:369:16: ( ExponentPart )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -1522,7 +1544,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     switch (alt5) {
                         case 1 :
-                            // grammar/PlazmaScript.g:367:16: ExponentPart
+                            // grammar/PlazmaScript.g:369:16: ExponentPart
                             {
                             mExponentPart(); if (state.failed) return ;
 
@@ -1547,8 +1569,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Identifier;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:377:3: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | Digit )* )
-            // grammar/PlazmaScript.g:377:6: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | Digit )*
+            // grammar/PlazmaScript.g:379:3: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | Digit )* )
+            // grammar/PlazmaScript.g:379:6: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | Digit )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1560,7 +1582,7 @@ public class PlazmaScriptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // grammar/PlazmaScript.g:377:34: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | Digit )*
+            // grammar/PlazmaScript.g:379:34: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | Digit )*
             loop7:
             do {
                 int alt7=2;
@@ -1610,15 +1632,15 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = ContextIdentifier;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:386:3: ( ( '$' Identifier ) | ( '$' ( Identifier )? '{' Identifier '}' ) )
+            // grammar/PlazmaScript.g:388:3: ( ( '$' Identifier ) | ( '$' ( Identifier )? '{' Identifier '}' ) )
             int alt9=2;
             alt9 = dfa9.predict(input);
             switch (alt9) {
                 case 1 :
-                    // grammar/PlazmaScript.g:386:6: ( '$' Identifier )
+                    // grammar/PlazmaScript.g:388:6: ( '$' Identifier )
                     {
-                    // grammar/PlazmaScript.g:386:6: ( '$' Identifier )
-                    // grammar/PlazmaScript.g:386:7: '$' Identifier
+                    // grammar/PlazmaScript.g:388:6: ( '$' Identifier )
+                    // grammar/PlazmaScript.g:388:7: '$' Identifier
                     {
                     match('$'); if (state.failed) return ;
                     mIdentifier(); if (state.failed) return ;
@@ -1629,13 +1651,13 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:386:25: ( '$' ( Identifier )? '{' Identifier '}' )
+                    // grammar/PlazmaScript.g:388:25: ( '$' ( Identifier )? '{' Identifier '}' )
                     {
-                    // grammar/PlazmaScript.g:386:25: ( '$' ( Identifier )? '{' Identifier '}' )
-                    // grammar/PlazmaScript.g:386:26: '$' ( Identifier )? '{' Identifier '}'
+                    // grammar/PlazmaScript.g:388:25: ( '$' ( Identifier )? '{' Identifier '}' )
+                    // grammar/PlazmaScript.g:388:26: '$' ( Identifier )? '{' Identifier '}'
                     {
                     match('$'); if (state.failed) return ;
-                    // grammar/PlazmaScript.g:386:30: ( Identifier )?
+                    // grammar/PlazmaScript.g:388:30: ( Identifier )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -1644,7 +1666,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // grammar/PlazmaScript.g:386:30: Identifier
+                            // grammar/PlazmaScript.g:388:30: Identifier
                             {
                             mIdentifier(); if (state.failed) return ;
 
@@ -1677,7 +1699,7 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:402:3: ( '\"' (~ ( '\"' | '\\\\' ) | '\\\\' ( '\\\\' | '\"' ) )* '\"' | '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' ( '\\\\' | '\\'' ) )* '\\'' )
+            // grammar/PlazmaScript.g:404:3: ( '\"' (~ ( '\"' | '\\\\' ) | '\\\\' ( '\\\\' | '\"' ) )* '\"' | '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' ( '\\\\' | '\\'' ) )* '\\'' )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1696,10 +1718,10 @@ public class PlazmaScriptLexer extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // grammar/PlazmaScript.g:402:6: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' ( '\\\\' | '\"' ) )* '\"'
+                    // grammar/PlazmaScript.g:404:6: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' ( '\\\\' | '\"' ) )* '\"'
                     {
                     match('\"'); if (state.failed) return ;
-                    // grammar/PlazmaScript.g:402:11: (~ ( '\"' | '\\\\' ) | '\\\\' ( '\\\\' | '\"' ) )*
+                    // grammar/PlazmaScript.g:404:11: (~ ( '\"' | '\\\\' ) | '\\\\' ( '\\\\' | '\"' ) )*
                     loop10:
                     do {
                         int alt10=3;
@@ -1715,7 +1737,7 @@ public class PlazmaScriptLexer extends Lexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // grammar/PlazmaScript.g:402:12: ~ ( '\"' | '\\\\' )
+                    	    // grammar/PlazmaScript.g:404:12: ~ ( '\"' | '\\\\' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1731,7 +1753,7 @@ public class PlazmaScriptLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // grammar/PlazmaScript.g:402:29: '\\\\' ( '\\\\' | '\"' )
+                    	    // grammar/PlazmaScript.g:404:29: '\\\\' ( '\\\\' | '\"' )
                     	    {
                     	    match('\\'); if (state.failed) return ;
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\\' ) {
@@ -1758,10 +1780,10 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:403:6: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' ( '\\\\' | '\\'' ) )* '\\''
+                    // grammar/PlazmaScript.g:405:6: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' ( '\\\\' | '\\'' ) )* '\\''
                     {
                     match('\''); if (state.failed) return ;
-                    // grammar/PlazmaScript.g:403:11: (~ ( '\\'' | '\\\\' ) | '\\\\' ( '\\\\' | '\\'' ) )*
+                    // grammar/PlazmaScript.g:405:11: (~ ( '\\'' | '\\\\' ) | '\\\\' ( '\\\\' | '\\'' ) )*
                     loop11:
                     do {
                         int alt11=3;
@@ -1777,7 +1799,7 @@ public class PlazmaScriptLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // grammar/PlazmaScript.g:403:12: ~ ( '\\'' | '\\\\' )
+                    	    // grammar/PlazmaScript.g:405:12: ~ ( '\\'' | '\\\\' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1793,7 +1815,7 @@ public class PlazmaScriptLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // grammar/PlazmaScript.g:403:29: '\\\\' ( '\\\\' | '\\'' )
+                    	    // grammar/PlazmaScript.g:405:29: '\\\\' ( '\\\\' | '\\'' )
                     	    {
                     	    match('\\'); if (state.failed) return ;
                     	    if ( input.LA(1)=='\''||input.LA(1)=='\\' ) {
@@ -1838,7 +1860,7 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Comment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:407:3: ( '//' (~ ( '\\r' | '\\n' ) )* | '/*' ( . )* '*/' )
+            // grammar/PlazmaScript.g:409:3: ( '//' (~ ( '\\r' | '\\n' ) )* | '/*' ( . )* '*/' )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1868,11 +1890,11 @@ public class PlazmaScriptLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // grammar/PlazmaScript.g:407:6: '//' (~ ( '\\r' | '\\n' ) )*
+                    // grammar/PlazmaScript.g:409:6: '//' (~ ( '\\r' | '\\n' ) )*
                     {
                     match("//"); if (state.failed) return ;
 
-                    // grammar/PlazmaScript.g:407:11: (~ ( '\\r' | '\\n' ) )*
+                    // grammar/PlazmaScript.g:409:11: (~ ( '\\r' | '\\n' ) )*
                     loop13:
                     do {
                         int alt13=2;
@@ -1885,7 +1907,7 @@ public class PlazmaScriptLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // grammar/PlazmaScript.g:407:11: ~ ( '\\r' | '\\n' )
+                    	    // grammar/PlazmaScript.g:409:11: ~ ( '\\r' | '\\n' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1913,11 +1935,11 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:408:6: '/*' ( . )* '*/'
+                    // grammar/PlazmaScript.g:410:6: '/*' ( . )* '*/'
                     {
                     match("/*"); if (state.failed) return ;
 
-                    // grammar/PlazmaScript.g:408:11: ( . )*
+                    // grammar/PlazmaScript.g:410:11: ( . )*
                     loop14:
                     do {
                         int alt14=2;
@@ -1942,7 +1964,7 @@ public class PlazmaScriptLexer extends Lexer {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // grammar/PlazmaScript.g:408:11: .
+                    	    // grammar/PlazmaScript.g:410:11: .
                     	    {
                     	    matchAny(); if (state.failed) return ;
 
@@ -1977,8 +1999,8 @@ public class PlazmaScriptLexer extends Lexer {
         try {
             int _type = Space;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // grammar/PlazmaScript.g:412:3: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' ) )
-            // grammar/PlazmaScript.g:412:6: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )
+            // grammar/PlazmaScript.g:414:3: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' ) )
+            // grammar/PlazmaScript.g:414:6: ( ' ' | '\\t' | '\\r' | '\\n' | '\\u000C' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -2007,8 +2029,8 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "ExponentPart"
     public final void mExponentPart() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:418:5: ( ExponentIndicator SignedInteger )
-            // grammar/PlazmaScript.g:418:9: ExponentIndicator SignedInteger
+            // grammar/PlazmaScript.g:420:5: ( ExponentIndicator SignedInteger )
+            // grammar/PlazmaScript.g:420:9: ExponentIndicator SignedInteger
             {
             mExponentIndicator(); if (state.failed) return ;
             mSignedInteger(); if (state.failed) return ;
@@ -2024,8 +2046,8 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "ExponentIndicator"
     public final void mExponentIndicator() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:422:5: ( ( 'e' | 'E' ) )
-            // grammar/PlazmaScript.g:422:9: ( 'e' | 'E' )
+            // grammar/PlazmaScript.g:424:5: ( ( 'e' | 'E' ) )
+            // grammar/PlazmaScript.g:424:9: ( 'e' | 'E' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2049,10 +2071,10 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "SignedInteger"
     public final void mSignedInteger() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:426:5: ( ( Sign )? Digits )
-            // grammar/PlazmaScript.g:426:9: ( Sign )? Digits
+            // grammar/PlazmaScript.g:428:5: ( ( Sign )? Digits )
+            // grammar/PlazmaScript.g:428:9: ( Sign )? Digits
             {
-            // grammar/PlazmaScript.g:426:9: ( Sign )?
+            // grammar/PlazmaScript.g:428:9: ( Sign )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2061,7 +2083,7 @@ public class PlazmaScriptLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // grammar/PlazmaScript.g:426:9: Sign
+                    // grammar/PlazmaScript.g:428:9: Sign
                     {
                     mSign(); if (state.failed) return ;
 
@@ -2083,8 +2105,8 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "Sign"
     public final void mSign() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:430:5: ( ( '+' | '-' ) )
-            // grammar/PlazmaScript.g:430:9: ( '+' | '-' )
+            // grammar/PlazmaScript.g:432:5: ( ( '+' | '-' ) )
+            // grammar/PlazmaScript.g:432:9: ( '+' | '-' )
             {
             if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                 input.consume();
@@ -2108,7 +2130,7 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "DecimalNumeral"
     public final void mDecimalNumeral() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:434:3: ( '0' | NonZeroDigit ( Digits )? )
+            // grammar/PlazmaScript.g:436:3: ( '0' | NonZeroDigit ( Digits )? )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2127,17 +2149,17 @@ public class PlazmaScriptLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // grammar/PlazmaScript.g:434:6: '0'
+                    // grammar/PlazmaScript.g:436:6: '0'
                     {
                     match('0'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // grammar/PlazmaScript.g:435:6: NonZeroDigit ( Digits )?
+                    // grammar/PlazmaScript.g:437:6: NonZeroDigit ( Digits )?
                     {
                     mNonZeroDigit(); if (state.failed) return ;
-                    // grammar/PlazmaScript.g:435:19: ( Digits )?
+                    // grammar/PlazmaScript.g:437:19: ( Digits )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -2146,7 +2168,7 @@ public class PlazmaScriptLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // grammar/PlazmaScript.g:435:19: Digits
+                            // grammar/PlazmaScript.g:437:19: Digits
                             {
                             mDigits(); if (state.failed) return ;
 
@@ -2169,11 +2191,11 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "Digits"
     public final void mDigits() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:438:5: ( Digit ( Digit )* )
-            // grammar/PlazmaScript.g:438:9: Digit ( Digit )*
+            // grammar/PlazmaScript.g:440:5: ( Digit ( Digit )* )
+            // grammar/PlazmaScript.g:440:9: Digit ( Digit )*
             {
             mDigit(); if (state.failed) return ;
-            // grammar/PlazmaScript.g:438:15: ( Digit )*
+            // grammar/PlazmaScript.g:440:15: ( Digit )*
             loop19:
             do {
                 int alt19=2;
@@ -2186,7 +2208,7 @@ public class PlazmaScriptLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // grammar/PlazmaScript.g:438:15: Digit
+            	    // grammar/PlazmaScript.g:440:15: Digit
             	    {
             	    mDigit(); if (state.failed) return ;
 
@@ -2210,7 +2232,7 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:442:3: ( '0' | NonZeroDigit )
+            // grammar/PlazmaScript.g:444:3: ( '0' | NonZeroDigit )
             // grammar/PlazmaScript.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9') ) {
@@ -2235,8 +2257,8 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR start "NonZeroDigit"
     public final void mNonZeroDigit() throws RecognitionException {
         try {
-            // grammar/PlazmaScript.g:447:3: ( '1' .. '9' )
-            // grammar/PlazmaScript.g:447:6: '1' .. '9'
+            // grammar/PlazmaScript.g:449:3: ( '1' .. '9' )
+            // grammar/PlazmaScript.g:449:6: '1' .. '9'
             {
             matchRange('1','9'); if (state.failed) return ;
 
@@ -2249,14 +2271,14 @@ public class PlazmaScriptLexer extends Lexer {
     // $ANTLR end "NonZeroDigit"
 
     public void mTokens() throws RecognitionException {
-        // grammar/PlazmaScript.g:1:8: ( T__104 | Println | Print | Assert | Var | Def | If | Else | Return | For | While | In | Null | NaN | Infinity | Break | Continue | XorWord | Or | BitOr | OrWord | And | BitAnd | AndWord | Equals | NEquals | GTEquals | LTEquals | Pow | Not | NotWord | GT | LT | Add | Subtract | Multiply | Divide | Modulus | OBrace | CBrace | OBracket | CBracket | OParen | CParen | SColon | Assign | Comma | QMark | Colon | Range | RangeE | Date | DateTime | Time | List | Set | Bool | Integer | Number | Identifier | ContextIdentifier | String | Comment | Space )
-        int alt20=64;
+        // grammar/PlazmaScript.g:1:8: ( T__105 | Println | Print | Assert | Var | Def | If | Else | Return | For | While | In | Null | NaN | Infinity | Break | Continue | XorWord | Or | BitOr | OrWord | And | BitAnd | AndWord | Equals | NEquals | GTEquals | LTEquals | Pow | Not | NotWord | GT | LT | Add | Subtract | Multiply | Divide | Modulus | OBrace | CBrace | OBracket | CBracket | OParen | CParen | SColon | Assign | Comma | QMark | Colon | Range | RangeE | Date | DateTime | Time | Duration | List | Set | Bool | Integer | Number | Identifier | ContextIdentifier | String | Comment | Space )
+        int alt20=65;
         alt20 = dfa20.predict(input);
         switch (alt20) {
             case 1 :
-                // grammar/PlazmaScript.g:1:10: T__104
+                // grammar/PlazmaScript.g:1:10: T__105
                 {
-                mT__104(); if (state.failed) return ;
+                mT__105(); if (state.failed) return ;
 
                 }
                 break;
@@ -2632,70 +2654,77 @@ public class PlazmaScriptLexer extends Lexer {
                 }
                 break;
             case 55 :
-                // grammar/PlazmaScript.g:1:352: List
+                // grammar/PlazmaScript.g:1:352: Duration
+                {
+                mDuration(); if (state.failed) return ;
+
+                }
+                break;
+            case 56 :
+                // grammar/PlazmaScript.g:1:361: List
                 {
                 mList(); if (state.failed) return ;
 
                 }
                 break;
-            case 56 :
-                // grammar/PlazmaScript.g:1:357: Set
+            case 57 :
+                // grammar/PlazmaScript.g:1:366: Set
                 {
                 mSet(); if (state.failed) return ;
 
                 }
                 break;
-            case 57 :
-                // grammar/PlazmaScript.g:1:361: Bool
+            case 58 :
+                // grammar/PlazmaScript.g:1:370: Bool
                 {
                 mBool(); if (state.failed) return ;
 
                 }
                 break;
-            case 58 :
-                // grammar/PlazmaScript.g:1:366: Integer
+            case 59 :
+                // grammar/PlazmaScript.g:1:375: Integer
                 {
                 mInteger(); if (state.failed) return ;
 
                 }
                 break;
-            case 59 :
-                // grammar/PlazmaScript.g:1:374: Number
+            case 60 :
+                // grammar/PlazmaScript.g:1:383: Number
                 {
                 mNumber(); if (state.failed) return ;
 
                 }
                 break;
-            case 60 :
-                // grammar/PlazmaScript.g:1:381: Identifier
+            case 61 :
+                // grammar/PlazmaScript.g:1:390: Identifier
                 {
                 mIdentifier(); if (state.failed) return ;
 
                 }
                 break;
-            case 61 :
-                // grammar/PlazmaScript.g:1:392: ContextIdentifier
+            case 62 :
+                // grammar/PlazmaScript.g:1:401: ContextIdentifier
                 {
                 mContextIdentifier(); if (state.failed) return ;
 
                 }
                 break;
-            case 62 :
-                // grammar/PlazmaScript.g:1:410: String
+            case 63 :
+                // grammar/PlazmaScript.g:1:419: String
                 {
                 mString(); if (state.failed) return ;
 
                 }
                 break;
-            case 63 :
-                // grammar/PlazmaScript.g:1:417: Comment
+            case 64 :
+                // grammar/PlazmaScript.g:1:426: Comment
                 {
                 mComment(); if (state.failed) return ;
 
                 }
                 break;
-            case 64 :
-                // grammar/PlazmaScript.g:1:425: Space
+            case 65 :
+                // grammar/PlazmaScript.g:1:434: Space
                 {
                 mSpace(); if (state.failed) return ;
 
@@ -2708,8 +2737,8 @@ public class PlazmaScriptLexer extends Lexer {
 
     // $ANTLR start synpred1_PlazmaScript
     public final void synpred1_PlazmaScript_fragment() throws RecognitionException {   
-        // grammar/PlazmaScript.g:360:5: ( DecimalNumeral '..' )
-        // grammar/PlazmaScript.g:360:6: DecimalNumeral '..'
+        // grammar/PlazmaScript.g:362:5: ( DecimalNumeral '..' )
+        // grammar/PlazmaScript.g:362:6: DecimalNumeral '..'
         {
         mDecimalNumeral(); if (state.failed) return ;
         match(".."); if (state.failed) return ;
@@ -2788,59 +2817,62 @@ public class PlazmaScriptLexer extends Lexer {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "385:1: ContextIdentifier : ( ( '$' Identifier ) | ( '$' ( Identifier )? '{' Identifier '}' ) );";
+            return "387:1: ContextIdentifier : ( ( '$' Identifier ) | ( '$' ( Identifier )? '{' Identifier '}' ) );";
         }
     }
     static final String DFA20_eotS =
-        "\1\uffff\1\64\17\57\1\112\1\57\1\115\1\117\1\121\1\123\1\125\4"+
-        "\uffff\1\127\13\uffff\5\57\2\135\4\uffff\1\140\2\uffff\5\57\1\146"+
-        "\1\147\14\57\2\uffff\1\164\14\uffff\5\57\1\uffff\1\135\2\uffff\2"+
-        "\57\1\175\1\176\1\177\2\uffff\2\57\1\u0082\3\57\1\u0086\1\u0087"+
-        "\3\57\1\u008b\1\uffff\3\57\1\u008f\1\57\1\135\2\57\3\uffff\1\u0093"+
-        "\1\57\1\uffff\2\57\1\u0097\2\uffff\3\57\1\uffff\1\u009c\1\u009d"+
-        "\1\u009e\1\uffff\1\u009f\1\u00a1\1\57\1\uffff\1\57\1\u009f\1\u00a4"+
-        "\1\uffff\1\57\1\u00a6\2\57\4\uffff\1\57\1\uffff\1\u00aa\1\u00ab"+
-        "\1\uffff\1\57\1\uffff\2\57\1\u00af\2\uffff\3\57\1\uffff\1\u00b3"+
-        "\1\u00b4\1\u00b5\3\uffff";
+        "\1\uffff\1\65\17\57\1\112\1\57\1\115\1\117\1\121\1\123\1\125\4"+
+        "\uffff\1\127\13\uffff\5\57\2\136\4\uffff\1\141\2\uffff\5\57\1\147"+
+        "\1\150\14\57\2\uffff\1\165\14\uffff\6\57\1\uffff\1\136\2\uffff\2"+
+        "\57\1\177\1\u0080\1\u0081\2\uffff\2\57\1\u0084\3\57\1\u0088\1\u0089"+
+        "\3\57\1\u008d\1\uffff\4\57\1\u0092\1\57\1\136\2\57\3\uffff\1\u0096"+
+        "\1\57\1\uffff\2\57\1\u009a\2\uffff\3\57\1\uffff\1\u009f\1\57\1\u00a1"+
+        "\1\u00a2\1\uffff\1\u00a3\1\u00a5\1\57\1\uffff\1\57\1\u00a3\1\u00a8"+
+        "\1\uffff\1\57\1\u00aa\2\57\1\uffff\1\57\3\uffff\1\57\1\uffff\1\u00af"+
+        "\1\u00b0\1\uffff\1\57\1\uffff\3\57\1\u00b5\2\uffff\4\57\1\uffff"+
+        "\1\u00ba\1\u00bb\1\u00bc\1\u00bd\4\uffff";
     static final String DFA20_eofS =
-        "\u00b6\uffff";
+        "\u00be\uffff";
     static final String DFA20_minS =
         "\1\11\1\56\1\162\1\156\1\141\1\145\1\146\1\154\1\145\1\141\1\150"+
         "\1\157\1\141\1\156\1\162\2\157\1\174\1\162\1\46\4\75\4\uffff\1\52"+
         "\13\uffff\1\141\2\151\1\145\1\162\2\56\4\uffff\1\74\2\uffff\1\151"+
         "\1\163\1\144\1\162\1\146\2\60\1\163\1\164\1\162\1\154\1\151\1\154"+
         "\1\164\1\116\1\146\1\145\1\156\1\162\2\uffff\1\60\14\uffff\1\164"+
-        "\1\155\1\163\1\164\1\165\1\uffff\1\56\2\uffff\1\156\1\145\3\60\2"+
-        "\uffff\1\145\1\165\1\60\1\163\2\154\2\60\1\151\1\141\1\164\1\60"+
-        "\1\uffff\2\145\1\164\1\60\1\145\1\56\1\164\1\162\3\uffff\1\60\1"+
-        "\162\1\uffff\2\145\1\60\2\uffff\1\156\1\153\1\151\1\uffff\3\60\1"+
-        "\uffff\2\60\1\164\1\uffff\1\156\2\60\1\uffff\1\151\1\60\1\156\1"+
-        "\151\4\uffff\1\156\1\uffff\2\60\1\uffff\1\164\1\uffff\1\165\1\155"+
-        "\1\60\2\uffff\1\171\2\145\1\uffff\3\60\3\uffff";
+        "\1\162\1\155\1\163\1\164\1\165\1\uffff\1\56\2\uffff\1\156\1\145"+
+        "\3\60\2\uffff\1\145\1\165\1\60\1\163\2\154\2\60\1\151\1\141\1\164"+
+        "\1\60\1\uffff\1\145\1\141\1\145\1\164\1\60\1\145\1\56\1\164\1\162"+
+        "\3\uffff\1\60\1\162\1\uffff\2\145\1\60\2\uffff\1\156\1\153\1\151"+
+        "\1\uffff\1\60\1\164\2\60\1\uffff\2\60\1\164\1\uffff\1\156\2\60\1"+
+        "\uffff\1\151\1\60\1\156\1\151\1\uffff\1\151\3\uffff\1\156\1\uffff"+
+        "\2\60\1\uffff\1\164\1\uffff\1\165\1\155\1\157\1\60\2\uffff\1\171"+
+        "\2\145\1\156\1\uffff\4\60\4\uffff";
     static final String DFA20_maxS =
         "\1\175\1\71\1\162\1\163\1\141\1\145\1\156\1\154\1\145\1\157\1\150"+
         "\1\165\1\141\1\156\1\162\2\157\1\174\1\162\1\46\4\75\4\uffff\1\57"+
-        "\13\uffff\1\141\2\151\1\145\1\162\2\145\4\uffff\1\74\2\uffff\1\151"+
+        "\13\uffff\1\165\2\151\1\145\1\162\2\145\4\uffff\1\74\2\uffff\1\151"+
         "\1\163\1\144\1\162\1\146\2\172\1\163\1\164\1\162\1\154\1\151\1\154"+
         "\1\164\1\116\1\146\1\145\1\156\1\162\2\uffff\1\172\14\uffff\1\164"+
-        "\1\155\1\163\1\164\1\165\1\uffff\1\145\2\uffff\1\156\1\145\3\172"+
-        "\2\uffff\1\145\1\165\1\172\1\163\2\154\2\172\1\151\1\141\1\164\1"+
-        "\172\1\uffff\2\145\1\164\1\172\2\145\1\164\1\162\3\uffff\1\172\1"+
-        "\162\1\uffff\2\145\1\172\2\uffff\1\156\1\153\1\151\1\uffff\3\172"+
-        "\1\uffff\2\172\1\164\1\uffff\1\156\2\172\1\uffff\1\151\1\172\1\156"+
-        "\1\151\4\uffff\1\156\1\uffff\2\172\1\uffff\1\164\1\uffff\1\165\1"+
-        "\155\1\172\2\uffff\1\171\2\145\1\uffff\3\172\3\uffff";
+        "\1\162\1\155\1\163\1\164\1\165\1\uffff\1\145\2\uffff\1\156\1\145"+
+        "\3\172\2\uffff\1\145\1\165\1\172\1\163\2\154\2\172\1\151\1\141\1"+
+        "\164\1\172\1\uffff\1\145\1\141\1\145\1\164\1\172\2\145\1\164\1\162"+
+        "\3\uffff\1\172\1\162\1\uffff\2\145\1\172\2\uffff\1\156\1\153\1\151"+
+        "\1\uffff\1\172\1\164\2\172\1\uffff\2\172\1\164\1\uffff\1\156\2\172"+
+        "\1\uffff\1\151\1\172\1\156\1\151\1\uffff\1\151\3\uffff\1\156\1\uffff"+
+        "\2\172\1\uffff\1\164\1\uffff\1\165\1\155\1\157\1\172\2\uffff\1\171"+
+        "\2\145\1\156\1\uffff\4\172\4\uffff";
     static final String DFA20_acceptS =
         "\30\uffff\1\35\1\42\1\43\1\44\1\uffff\1\46\1\47\1\50\1\51\1\52"+
-        "\1\53\1\54\1\55\1\57\1\60\1\61\7\uffff\1\74\1\75\1\76\1\100\1\uffff"+
-        "\1\1\1\73\23\uffff\1\23\1\24\1\uffff\1\26\1\27\1\31\1\56\1\32\1"+
-        "\36\1\33\1\40\1\34\1\41\1\77\1\45\5\uffff\1\72\1\uffff\1\63\1\62"+
-        "\5\uffff\1\7\1\14\14\uffff\1\25\10\uffff\1\30\1\5\1\6\2\uffff\1"+
-        "\12\3\uffff\1\37\1\16\3\uffff\1\22\3\uffff\1\70\3\uffff\1\10\3\uffff"+
-        "\1\15\4\uffff\1\64\1\66\1\67\1\71\1\uffff\1\3\2\uffff\1\13\1\uffff"+
-        "\1\20\3\uffff\1\4\1\11\3\uffff\1\2\3\uffff\1\17\1\21\1\65";
+        "\1\53\1\54\1\55\1\57\1\60\1\61\7\uffff\1\75\1\76\1\77\1\101\1\uffff"+
+        "\1\74\1\1\23\uffff\1\23\1\24\1\uffff\1\26\1\27\1\31\1\56\1\32\1"+
+        "\36\1\33\1\40\1\34\1\41\1\100\1\45\6\uffff\1\73\1\uffff\1\63\1\62"+
+        "\5\uffff\1\7\1\14\14\uffff\1\25\11\uffff\1\30\1\5\1\6\2\uffff\1"+
+        "\12\3\uffff\1\37\1\16\3\uffff\1\22\4\uffff\1\71\3\uffff\1\10\3\uffff"+
+        "\1\15\4\uffff\1\64\1\uffff\1\66\1\70\1\72\1\uffff\1\3\2\uffff\1"+
+        "\13\1\uffff\1\20\4\uffff\1\4\1\11\4\uffff\1\2\4\uffff\1\17\1\21"+
+        "\1\65\1\67";
     static final String DFA20_specialS =
-        "\u00b6\uffff}>";
+        "\u00be\uffff}>";
     static final String[] DFA20_transitionS = {
             "\2\62\1\uffff\2\62\22\uffff\1\62\1\25\1\61\1\uffff\1\60\1\35"+
             "\1\23\1\61\1\42\1\43\1\33\1\31\1\45\1\32\1\1\1\34\1\55\11\56"+
@@ -2849,7 +2881,7 @@ public class PlazmaScriptLexer extends Lexer {
             "\1\57\1\uffff\1\3\1\16\1\17\1\5\1\7\1\11\2\57\1\6\4\57\1\13"+
             "\1\22\1\2\1\57\1\10\1\57\1\54\1\57\1\4\1\12\1\20\2\57\1\36\1"+
             "\21\1\37",
-            "\1\63\1\uffff\12\65",
+            "\1\63\1\uffff\12\64",
             "\1\66",
             "\1\70\4\uffff\1\67",
             "\1\71",
@@ -2888,28 +2920,27 @@ public class PlazmaScriptLexer extends Lexer {
             "",
             "",
             "",
-            "\1\130",
-            "\1\131",
+            "\1\130\23\uffff\1\131",
             "\1\132",
             "\1\133",
             "\1\134",
-            "\1\65\1\uffff\12\65\13\uffff\1\65\37\uffff\1\65",
-            "\1\65\1\uffff\12\136\13\uffff\1\65\37\uffff\1\65",
+            "\1\135",
+            "\1\64\1\uffff\12\64\13\uffff\1\64\37\uffff\1\64",
+            "\1\64\1\uffff\12\137\13\uffff\1\64\37\uffff\1\64",
             "",
             "",
             "",
             "",
-            "\1\137",
+            "\1\140",
             "",
             "",
-            "\1\141",
             "\1\142",
             "\1\143",
             "\1\144",
             "\1\145",
+            "\1\146",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\1\150",
             "\1\151",
             "\1\152",
             "\1\153",
@@ -2921,6 +2952,7 @@ public class PlazmaScriptLexer extends Lexer {
             "\1\161",
             "\1\162",
             "\1\163",
+            "\1\164",
             "",
             "",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
@@ -2936,99 +2968,107 @@ public class PlazmaScriptLexer extends Lexer {
             "",
             "",
             "",
-            "\1\165",
             "\1\166",
             "\1\167",
             "\1\170",
             "\1\171",
-            "",
-            "\1\65\1\uffff\12\172\13\uffff\1\65\37\uffff\1\65",
-            "",
-            "",
+            "\1\172",
             "\1\173",
-            "\1\174",
+            "",
+            "\1\64\1\uffff\12\174\13\uffff\1\64\37\uffff\1\64",
+            "",
+            "",
+            "\1\175",
+            "\1\176",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "",
-            "\1\u0080",
-            "\1\u0081",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u0082",
             "\1\u0083",
-            "\1\u0084",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u0085",
+            "\1\u0086",
+            "\1\u0087",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\1\u0088",
-            "\1\u0089",
             "\1\u008a",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "",
+            "\1\u008b",
             "\1\u008c",
-            "\1\u008d",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
             "\1\u008e",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u008f",
             "\1\u0090",
-            "\1\65\1\uffff\12\172\13\uffff\1\65\37\uffff\1\65",
             "\1\u0091",
-            "\1\u0092",
-            "",
-            "",
-            "",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u0093",
+            "\1\64\1\uffff\12\174\13\uffff\1\64\37\uffff\1\64",
             "\1\u0094",
-            "",
             "\1\u0095",
-            "\1\u0096",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
+            "",
+            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u0097",
             "",
             "\1\u0098",
             "\1\u0099",
-            "\1\u009a",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
-            "\12\57\7\uffff\23\57\1\u009b\6\57\4\uffff\1\57\1\uffff\32"+
+            "",
+            "\1\u009b",
+            "\1\u009c",
+            "\1\u009d",
+            "",
+            "\12\57\7\uffff\23\57\1\u009e\6\57\4\uffff\1\57\1\uffff\32"+
             "\57",
+            "\1\u00a0",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\13\57\1\u00a0\16"+
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\13\57\1\u00a4\16"+
             "\57",
-            "\1\u00a2",
+            "\1\u00a6",
             "",
-            "\1\u00a3",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "",
-            "\1\u00a5",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u00a7",
-            "\1\u00a8",
-            "",
-            "",
-            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "\1\u00a9",
-            "",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "",
+            "\1\u00ab",
             "\1\u00ac",
             "",
             "\1\u00ad",
+            "",
+            "",
+            "",
             "\1\u00ae",
+            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
-            "",
-            "\1\u00b0",
             "\1\u00b1",
+            "",
             "\1\u00b2",
+            "\1\u00b3",
+            "\1\u00b4",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "",
+            "\1\u00b6",
+            "\1\u00b7",
+            "\1\u00b8",
+            "\1\u00b9",
             "",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
             "",
             "",
             ""
@@ -3064,7 +3104,7 @@ public class PlazmaScriptLexer extends Lexer {
             this.transition = DFA20_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__104 | Println | Print | Assert | Var | Def | If | Else | Return | For | While | In | Null | NaN | Infinity | Break | Continue | XorWord | Or | BitOr | OrWord | And | BitAnd | AndWord | Equals | NEquals | GTEquals | LTEquals | Pow | Not | NotWord | GT | LT | Add | Subtract | Multiply | Divide | Modulus | OBrace | CBrace | OBracket | CBracket | OParen | CParen | SColon | Assign | Comma | QMark | Colon | Range | RangeE | Date | DateTime | Time | List | Set | Bool | Integer | Number | Identifier | ContextIdentifier | String | Comment | Space );";
+            return "1:1: Tokens : ( T__105 | Println | Print | Assert | Var | Def | If | Else | Return | For | While | In | Null | NaN | Infinity | Break | Continue | XorWord | Or | BitOr | OrWord | And | BitAnd | AndWord | Equals | NEquals | GTEquals | LTEquals | Pow | Not | NotWord | GT | LT | Add | Subtract | Multiply | Divide | Modulus | OBrace | CBrace | OBracket | CBracket | OParen | CParen | SColon | Assign | Comma | QMark | Colon | Range | RangeE | Date | DateTime | Time | Duration | List | Set | Bool | Integer | Number | Identifier | ContextIdentifier | String | Comment | Space );";
         }
     }
  

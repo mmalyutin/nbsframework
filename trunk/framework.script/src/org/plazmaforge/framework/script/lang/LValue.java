@@ -15,7 +15,7 @@ import org.plazmaforge.framework.script.PropertyAccessor;
 
 public class LValue implements Comparable<LValue> {
 
-    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, OBJ, EXT_OBJ}
+    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, DURATION, OBJ, EXT_OBJ}
     
     public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
