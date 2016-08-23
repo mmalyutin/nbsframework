@@ -106,6 +106,7 @@ date["year"] = 2000;
 date["month"] = 10;
 date["day"] = 20;
 
+
 // check new attributes
 assert(date["year"] == 2000);
 assert(date["month"] == 10);
@@ -121,12 +122,14 @@ assert(date["day"] == 23);
 assert(date["time"] == time);
 
 
+
 // now Date
 date1 = Date();
 date2 = Date(date1.getYear(), date1.getMonth(), date1.getDay());
 
 println(date1.getTime());
 println(date2.getTime());
+
 
 // truncate time
 assert((Date(date1.getTime() + 10)).getTime() == date1.getTime());
@@ -297,7 +300,6 @@ assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toTime().getTime() == Time(11, 12,
 
 
 // Time
-assert(Time().getTime() == 0);
 assert(Time(0).getTime() == 0);
 
 var t = Time(10, 20, 30, 120);
@@ -390,3 +392,11 @@ println("toHours       : "  + duration.toHours());
 println("toDays        : "  + duration.toDays());
 
 assert(duration.toDays() == 1);
+
+
+println("Current Date    : "  + Date());
+println("Current DateTime: "  + DateTime());
+println("Current Time    : "  + Time());
+
+
+println("Current DateTime: "  + DateTime()["hour"]);

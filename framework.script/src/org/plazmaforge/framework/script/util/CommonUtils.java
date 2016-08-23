@@ -100,6 +100,14 @@ public class CommonUtils {
     }
     
     
+    public static Calendar getZCalendar() {
+	Calendar calendar1 = getGMTCalendar();
+	Calendar calendar2 = Calendar.getInstance();
+	int offset = calendar2.get(Calendar.ZONE_OFFSET);
+	calendar1.setTimeInMillis(calendar1.getTimeInMillis() + offset);
+	return calendar1;
+    }    
+    
     public static void setDate(Calendar calendar, int year, int month, int day) {
 	calendar.set(Calendar.YEAR, year);
 	calendar.set(Calendar.MONTH, month);
@@ -129,7 +137,7 @@ public class CommonUtils {
     
     public static Date newDate() {
 	// WARNING: All date in GMT time zone
-	Calendar calendar = getGMTCalendar();
+	Calendar calendar = getZCalendar();
 
 	// Reset (truncate) time
 	setTime(calendar, 0, 0, 0, 0);
@@ -139,23 +147,25 @@ public class CommonUtils {
 
     public static Date newDateTime() {
 	// WARNING: All date in GMT time zone
-	Calendar calendar = getGMTCalendar();
+	Calendar calendar = getZCalendar();
 	
 	return calendar.getTime();
     }
 
     public static Date newTime() {
 	// WARNING: All date in GMT time zone
-	Calendar calendar = getGMTCalendar();
+	Calendar calendar = getZCalendar();
 
 	// Set start date 1970 Jan 1
 	setDate(calendar, 1970, 0, 1);
 
 	// Reset
-	setTime(calendar, 0, 0, 0, 0);
+	//setTime(calendar, 0, 0, 0, 0);
 	
 	return calendar.getTime();
     }
+    
+    
     
     
 }
