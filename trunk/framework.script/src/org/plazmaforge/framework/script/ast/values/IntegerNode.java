@@ -22,8 +22,10 @@
 
 package org.plazmaforge.framework.script.ast.values;
 
+
 import org.plazmaforge.framework.script.lang.LNumber;
 import org.plazmaforge.framework.script.lang.LValue;
+import org.plazmaforge.framework.script.util.NumberUtils;
 
 public class IntegerNode extends ValueNode {
 
@@ -31,7 +33,8 @@ public class IntegerNode extends ValueNode {
 	this.value = value == null ? LValue.NULL : new LNumber(parseInteger(value));
     }
     
-    protected Integer parseInteger(String value) {
-	return Integer.parseInt(value); 
+    protected Number parseInteger(String value) {
+	//return Integer.parseInt(value);
+	return NumberUtils.parseInteger(value);
     }
 }
