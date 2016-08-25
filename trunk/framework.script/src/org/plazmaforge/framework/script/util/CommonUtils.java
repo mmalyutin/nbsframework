@@ -38,7 +38,10 @@ import java.util.TimeZone;
  */
 public class CommonUtils {
 
-    public static long DAY_TIME = 24 * 60 * 60 * 1000; 
+    public static long DAY_TIME = 24 * 60 * 60 * 1000;
+    
+    public static TimeZone GMT_TIME_ZONE = TimeZone.getTimeZone("GMT");
+    
 	    
     public static Date getDate(int year, int month, int day) {
 	return getDateTime(year, month, day, 0, 0, 0, 0);
@@ -96,16 +99,22 @@ public class CommonUtils {
     }
 
     public static Calendar getGMTCalendar() {
-	return Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+	return Calendar.getInstance(GMT_TIME_ZONE);
     }
     
     
-    public static Calendar getZCalendar() {
-	Calendar calendar1 = getGMTCalendar();
-	Calendar calendar2 = Calendar.getInstance();
-	int offset = calendar2.get(Calendar.ZONE_OFFSET);
-	calendar1.setTimeInMillis(calendar1.getTimeInMillis() + offset);
-	return calendar1;
+    public static Calendar newCalendar() {
+	Calendar gmtCalendar = getGMTCalendar();
+	Calendar defCalendar = Calendar.getInstance();
+	
+	TimeZone timeZone = TimeZone.getDefault();
+	int offset = timeZone.getOffset(defCalendar.getTimeInMillis());
+	//int offset = timeZone.getRawOffset() + timeZone.getDSTSavings();
+	
+	// set offset 
+	gmtCalendar.setTimeInMillis(gmtCalendar.getTimeInMillis() + offset);
+	
+	return gmtCalendar;
     }    
     
     public static void setDate(Calendar calendar, int year, int month, int day) {
@@ -115,17 +124,11 @@ public class CommonUtils {
     }
     
     public static void setTime(Calendar calendar, int h, int m, int s, int ms) {
-	//calendar.clear(Calendar.HOUR_OF_DAY);
-	//calendar.clear(Calendar.MINUTE);
-	//calendar.clear(Calendar.SECOND);
-	//calendar.clear(Calendar.MILLISECOND);
-
 	calendar.set(Calendar.HOUR_OF_DAY, h);
 	calendar.set(Calendar.MINUTE, m);
 	calendar.set(Calendar.SECOND, s);
 	calendar.set(Calendar.MILLISECOND, ms);
     }
-    
     
     public static long truncateTime(long time) {
 	return (time / DAY_TIME) * (DAY_TIME);
@@ -137,7 +140,7 @@ public class CommonUtils {
     
     public static Date newDate() {
 	// WARNING: All date in GMT time zone
-	Calendar calendar = getZCalendar();
+	Calendar calendar = newCalendar();
 
 	// Reset (truncate) time
 	setTime(calendar, 0, 0, 0, 0);
@@ -147,21 +150,18 @@ public class CommonUtils {
 
     public static Date newDateTime() {
 	// WARNING: All date in GMT time zone
-	Calendar calendar = getZCalendar();
+	Calendar calendar = newCalendar();
 	
 	return calendar.getTime();
     }
 
     public static Date newTime() {
 	// WARNING: All date in GMT time zone
-	Calendar calendar = getZCalendar();
+	Calendar calendar = newCalendar();
 
 	// Set start date 1970 Jan 1
 	setDate(calendar, 1970, 0, 1);
 
-	// Reset
-	//setTime(calendar, 0, 0, 0, 0);
-	
 	return calendar.getTime();
     }
     
