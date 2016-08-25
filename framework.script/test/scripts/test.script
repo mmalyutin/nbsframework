@@ -413,26 +413,26 @@ println("=================");
 println("Year  : " + date.getYear());
 println("Month : " + date.getMonth());
 println("Day   : " + date.getDay());
-println("Time  : " + date.getTime() + " ms");
+println("Time  : " + date.getInstant() + " ms");
 
 date.setYear(2014);
 println();
 println("Date  : " + date);
-println("Time  : " + date.getTime() + " ms");
+println("Time  : " + date.getInstant() + " ms");
 
 date.setMonth(11);
 println();
 println("Date  : " + date);
 println("Month : " + date.getMonth());
 println("Day   : " + date.getDay());
-println("Time  : " + date.getTime() + " ms");
+println("Time  : " + date.getInstant() + " ms");
 
 date.setDay(26);
 println();
 println("Date  : " + date);
 println("Month : " + date.getMonth());
 println("Day   : " + date.getDay());
-println("Time  : " + date.getTime() + " ms");
+println("Time  : " + date.getInstant() + " ms");
 
 var dayTime = 24 * 60 * 60 * 1000;
 

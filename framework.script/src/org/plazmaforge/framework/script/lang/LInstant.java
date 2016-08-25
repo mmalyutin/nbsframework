@@ -253,12 +253,12 @@ public abstract class LInstant extends LValue {
     @Override
     public LValue _invoke(String method, List<LValue> parameters) {
 	
-	// TIME
-	if ("getTime".equals(method)) {
+	// TIME IN MILLISECONDS
+	if ("getInstant".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(getTime());
 	    
-	} else if ("setTime".equals(method)) {
+	} else if ("setInstant".equals(method)) {
 	    checkMethod(method, parameters, 1);
 	    LValue parameter = parameters.get(0);
 	    if (!parameter.isNumber()) {
