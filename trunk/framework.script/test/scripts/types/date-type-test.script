@@ -45,8 +45,8 @@ assert(date.getDay() == 3);
 // delta time (1 day = DAY_TIME)
 var date1 = Date(2001, 1, 1);
 var date2 = Date(2001, 1, 4);
-var time1 = date1.getTime();
-var time2 = date2.getTime();
+var time1 = date1.getInstant();
+var time2 = date2.getInstant();
 var time = time2 - time1; // delta time
 
 assert(time == (DAY_TIME * 3)); // 3 days
@@ -67,10 +67,10 @@ assert(date.getDay() == 21);
 
 
 // check time
-var oldTime = date.getTime(); 
-date.setTime(oldTime);
+var oldTime = date.getInstant(); 
+date.setInstant(oldTime);
 
-var newTime = date.getTime();
+var newTime = date.getInstant();
 assert(oldTime == newTime);
 assert(date.getYear() == 2016);
 assert(date.getMonth() == 12);
@@ -78,28 +78,28 @@ assert(date.getDay() == 21);
 
 
 // change time (+days)
-time = date.getTime();
-date.setTime(time + (DAY_TIME * 7)); // +7 days
+time = date.getInstant();
+date.setInstant(time + (DAY_TIME * 7)); // +7 days
 
 assert(date.getYear() == 2016);
 assert(date.getMonth() == 12);
 assert(date.getDay() == 28);
 
 // change time (-days)
-time = date.getTime();
-date.setTime(time - (DAY_TIME * 5)); // -5 days
+time = date.getInstant();
+date.setInstant(time - (DAY_TIME * 5)); // -5 days
 
 assert(date.getYear() == 2016);
 assert(date.getMonth() == 12);
 assert(date.getDay() == 23);
 
 // get/set by [] 
-time = date.getTime();
+time = date.getInstant();
 
 assert(date["year"] == 2016);
 assert(date["month"] == 12);
 assert(date["day"] == 23);
-assert(date["time"] == time);
+assert(date["instant"] == time);
 
 // set new attributes
 date["year"] = 2000;
@@ -113,13 +113,13 @@ assert(date["month"] == 10);
 assert(date["day"] == 20);
 
 // set new time
-date["time"] = time;
+date["instant"] = time;
 
 // check new attributes and time
 assert(date["year"] == 2016);
 assert(date["month"] == 12);
 assert(date["day"] == 23);
-assert(date["time"] == time);
+assert(date["instant"] == time);
 
 
 
@@ -127,15 +127,15 @@ assert(date["time"] == time);
 date1 = Date();
 date2 = Date(date1.getYear(), date1.getMonth(), date1.getDay());
 
-println(date1.getTime());
-println(date2.getTime());
+println(date1.getInstant());
+println(date2.getInstant());
 
 
 // truncate time
-assert((Date(date1.getTime() + 10)).getTime() == date1.getTime());
+assert((Date(date1.getInstant() + 10)).getInstant() == date1.getInstant());
 
-assert(date1.getTime() - date2.getTime() == 0);
-assert(Date(1970, 1, 1).getTime() == 0);
+assert(date1.getInstant() - date2.getInstant() == 0);
+assert(Date(1970, 1, 1).getInstant() == 0);
 
 
 println(DateTime(2016, 12, 1, 17, 20));
@@ -296,11 +296,11 @@ assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toDate() == Date(2001, 7, 20));
 
 // convert to Time
 assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toTime() == Time(11, 12, 13, 110));
-assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toTime().getTime() == Time(11, 12, 13, 110).getTime());
+assert(DateTime(2001, 7, 20, 11, 12, 13, 110).toTime().getInstant() == Time(11, 12, 13, 110).getInstant());
 
 
 // Time
-assert(Time(0).getTime() == 0);
+assert(Time(0).getInstant() == 0);
 
 var t = Time(10, 20, 30, 120);
 println(t);
@@ -393,10 +393,17 @@ println("toDays        : "  + duration.toDays());
 
 assert(duration.toDays() == 1);
 
+var curDate = Date();
+var curDateTime = DateTime();
+var curTime = Time();
 
-println("Current Date    : "  + Date());
-println("Current DateTime: "  + DateTime());
-println("Current Time    : "  + Time());
+println();
+println("Current Date    : "  + curDate);
+println("Current DateTime: "  + curDateTime);
+println("Current Time    : "  + curTime);
 
 
-println("Current DateTime: "  + DateTime()["hour"]);
+println("Current Hour    : "  + curDateTime["hour"]);
+println("Current Minute  : "  + curDateTime["minute"]);
+println("Current Second  : "  + curDateTime["second"]);
+println("Current Ms      : "  + curDateTime["millisecond"]);
