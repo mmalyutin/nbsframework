@@ -24,8 +24,10 @@ package org.plazmaforge.framework.script.lang;
 
 import java.util.List;
 
+import org.plazmaforge.framework.script.util.CalendarInfo;
 
-public class LDuration extends LValue {
+
+public class LDuration extends LValue implements CalendarInfo {
 
     
     /**
