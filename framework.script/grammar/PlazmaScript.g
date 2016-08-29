@@ -101,7 +101,8 @@ functionCall
   |  Date '(' exprList? ')'      -> ^(FUNC_CALL Date exprList?)
   |  DateTime '(' exprList? ')'      -> ^(FUNC_CALL DateTime exprList?)
   |  Time '(' exprList? ')'      -> ^(FUNC_CALL Time exprList?)
-  |  Duration '(' expression? ')'  -> ^(FUNC_CALL Duration expression?)          
+  |  Duration '(' expression? ')'  -> ^(FUNC_CALL Duration expression?)
+  |  Period '(' exprList? ')'  -> ^(FUNC_CALL Period exprList?)            
   |  List '(' exprList? ')'      -> ^(FUNC_CALL List exprList?)
   |  Set '(' exprList? ')'      -> ^(FUNC_CALL Set exprList?)  
   ;
@@ -335,6 +336,7 @@ Date     : 'Date';
 DateTime : 'DateTime';
 Time     : 'Time';
 Duration : 'Duration';
+Period   : 'Period';
 List     : 'List';
 Set      : 'Set';
 

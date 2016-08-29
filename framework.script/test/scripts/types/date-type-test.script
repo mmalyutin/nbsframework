@@ -430,6 +430,7 @@ println("toStandardYears : "  + duration.toStandardYears());
 
 duration = Duration(Date(2002, 1, 15) - Date(2001, 1, 14));
 println();
+println("Duration        : " + duration);
 println("toMilliseconds  : "  + duration.toMilliseconds());
 println("toSeconds       : "  + duration.toSeconds());
 println("toMinutes       : "  + duration.toMinutes());
@@ -439,3 +440,19 @@ println("toDays          : "  + duration.toDays());
 println("toStandardWeeks : "  + duration.toStandardWeeks());
 println("toStandardMonths: "  + duration.toStandardMonths());
 println("toStandardYears : "  + duration.toStandardYears());
+
+
+
+var period = Period(Date(2001, 1, 14), Date(2001, 1, 15));
+
+println();
+println("Period          : " + period);
+println("toMilliseconds  : "  + period.toMilliseconds());
+println("toSeconds       : "  + period.toSeconds());
+println("toMinutes       : "  + period.toMinutes());
+println("toHours         : "  + period.toHours());
+println("toDays          : "  + period.toDays());
+
+println("toStandardWeeks : "  + period.toStandardWeeks());
+println("toStandardMonths: "  + period.toStandardMonths());
+println("toStandardYears : "  + period.toStandardYears());
