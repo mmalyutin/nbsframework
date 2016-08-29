@@ -36,10 +36,8 @@ import java.util.TimeZone;
  * @author ohapon
  *
  */
-public class CommonUtils {
+public class CommonUtils implements CalendarConstants {
 
-    public static long DAY_TIME = 24 * 60 * 60 * 1000;
-    
     public static TimeZone GMT_TIME_ZONE = TimeZone.getTimeZone("GMT");
     
 	    
@@ -131,11 +129,11 @@ public class CommonUtils {
     }
     
     public static long truncateTime(long time) {
-	return (time / DAY_TIME) * (DAY_TIME);
+	return (time / MILLISECONDS_PER_DAY ) * (MILLISECONDS_PER_DAY );
     }
 
     public static long shiftTime(long time) {
-	return time <= DAY_TIME ? time: (time - truncateTime(time));
+	return time <= MILLISECONDS_PER_DAY ? time: (time - truncateTime(time));
     }
     
     public static Date newDate() {
