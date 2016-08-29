@@ -15,7 +15,7 @@ import org.plazmaforge.framework.script.PropertyAccessor;
 
 public class LValue implements Comparable<LValue> {
 
-    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, DURATION, OBJ, EXT_OBJ}
+    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, DURATION, PERIOD, OBJ, EXT_OBJ}
     
     public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
@@ -44,7 +44,7 @@ public class LValue implements Comparable<LValue> {
         this.value = value;
         
         // only accept boolean, list, map, number or string types
-        if(!(isBoolean() || isList() || isSet() || isMap() || isNumber() || isString() || isDate() || isExtObject())) {
+        if(!(isBoolean() || isList() || isSet() || isMap() || isNumber() || isString() || isDate() || isDuration() || isPeriod() || isExtObject())) {
             throw new RuntimeException("invalid data type: " + value + " (" + value.getClass() + ")");
         }
     }
@@ -246,6 +246,18 @@ public class LValue implements Comparable<LValue> {
 
     public boolean isInstant() {
         return type == Type.DATE || type == Type.DATE_TIME || type == Type.TIME;
+    }
+
+    public boolean isDuration() {
+        return type == Type.DURATION;
+    }
+
+    public boolean isPeriod() {
+        return type == Type.PERIOD;
+    }
+
+    public boolean isInterval() {
+        return type == Type.DURATION || type == Type.PERIOD;
     }
     
     public boolean isExtObject() {

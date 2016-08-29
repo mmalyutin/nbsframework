@@ -22,52 +22,39 @@
 
 package org.plazmaforge.framework.script.lang;
 
-import java.util.List;
-
 import org.plazmaforge.framework.script.util.CalendarConstants;
 
 
-public class LDuration extends LInterval implements CalendarConstants {
+public class LPeriod extends LInterval implements CalendarConstants {
 
     
     /**
      * @param value
      */
-    public LDuration(long value) {
-	super(Type.DURATION, new DurationValue(value));
+    public LPeriod(long start, long end) {
+	super(Type.PERIOD, new PeriodValue(start, end));
     }
+
 
     @Override
     public String _toString() {
-	return "" + getInstant();
-    }
+	return "" + getStart() + ":" + getEnd();
+    }    
     
-    @Override
-    public LValue _invoke(String method, List<LValue> parameters) {
-	
-	// TIME IN MILLISECONDS
-	if ("setInstant".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    LValue parameter = parameters.get(0);
-	    if (!parameter.isNumber()) {
-		raiseIllegalMethodParameterTypeException("Number");
-	    }
-	    setInstant(parameter.asLong());
-	    return LValue.VOID;
-	}
-	
-	return super._invoke(method, parameters);
-    }
-    
-    protected DurationValue getDurationValue() {
-	 return (DurationValue) getValue();
+    protected PeriodValue getPeriodValue() {
+	return (PeriodValue) getValue();
     }
 
     public long getInstant() {
-        return getDurationValue().getInstant();
+	return getPeriodValue().getInstant();
     }
 
-    public void setInstant(long instant) {
-	getDurationValue().setInstant(instant);
-    }    
+    protected long getStart() {
+	return getPeriodValue().getStart();
+    }
+
+    protected long getEnd() {
+	return getPeriodValue().getEnd();
+    }
+    
 }

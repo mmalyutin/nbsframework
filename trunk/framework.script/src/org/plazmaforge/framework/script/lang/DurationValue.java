@@ -22,52 +22,39 @@
 
 package org.plazmaforge.framework.script.lang;
 
-import java.util.List;
+import java.io.Serializable;
 
-import org.plazmaforge.framework.script.util.CalendarConstants;
+/**
+ * Presents duration time in milliseconds 
+ * 
+ * @author ohapon
+ *
+ */
+public class DurationValue implements Serializable {
 
-
-public class LDuration extends LInterval implements CalendarConstants {
-
+    private static final long serialVersionUID = 3110803116355040902L;
     
-    /**
-     * @param value
-     */
-    public LDuration(long value) {
-	super(Type.DURATION, new DurationValue(value));
+    private long instant;
+
+    public DurationValue() {
+	super();
     }
 
-    @Override
-    public String _toString() {
-	return "" + getInstant();
-    }
-    
-    @Override
-    public LValue _invoke(String method, List<LValue> parameters) {
-	
-	// TIME IN MILLISECONDS
-	if ("setInstant".equals(method)) {
-	    checkMethod(method, parameters, 1);
-	    LValue parameter = parameters.get(0);
-	    if (!parameter.isNumber()) {
-		raiseIllegalMethodParameterTypeException("Number");
-	    }
-	    setInstant(parameter.asLong());
-	    return LValue.VOID;
-	}
-	
-	return super._invoke(method, parameters);
-    }
-    
-    protected DurationValue getDurationValue() {
-	 return (DurationValue) getValue();
+    public DurationValue(long instant) {
+	super();
+	this.instant = instant;
     }
 
     public long getInstant() {
-        return getDurationValue().getInstant();
+        return instant;
     }
 
     public void setInstant(long instant) {
-	getDurationValue().setInstant(instant);
-    }    
+        this.instant = instant;
+    }
+    
+    
+    
+
+    
 }
