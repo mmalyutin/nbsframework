@@ -494,6 +494,12 @@ public class LNumber extends LValue {
 	} else if ("toInteger".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asInteger());
+	} else if ("toLong".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asLong());
+	} else if ("toFloat".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asDouble());
 	} else if ("toDouble".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asDouble());

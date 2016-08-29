@@ -442,11 +442,21 @@ println("toStandardMonths: "  + duration.toStandardMonths());
 println("toStandardYears : "  + duration.toStandardYears());
 
 
-
-var period = Period(Date(2001, 1, 14), Date(2001, 1, 15));
+var startPeriod = Date(2001, 1, 14);
+var endPeriod =  Date(2001, 1, 15);
+var period = Period(startPeriod, endPeriod);
 
 println();
 println("Period          : " + period);
+println("start           : " + period.getStart());
+println("end             : " + period.getEnd());
+println("end - start     : " + (period.getEnd() - period.getStart()).toLong());
+
+assert(period.getStart() == startPeriod.getInstant());
+assert(period.getEnd() == endPeriod.getInstant());
+assert(period.getEnd() - period.getStart() == period.getInstant());
+
+println();
 println("toMilliseconds  : "  + period.toMilliseconds());
 println("toSeconds       : "  + period.toSeconds());
 println("toMinutes       : "  + period.toMinutes());
@@ -456,3 +466,15 @@ println("toDays          : "  + period.toDays());
 println("toStandardWeeks : "  + period.toStandardWeeks());
 println("toStandardMonths: "  + period.toStandardMonths());
 println("toStandardYears : "  + period.toStandardYears());
+
+println();
+println("toCalendarMonths: "  + period.toCalendarMonths());
+
+
+period = Period(Date(2001, 1, 14), Date(2002, 1, 14));
+println("2001-01-14:2002-01-14");
+println("toCalendarMonths: "  + period.toCalendarMonths());
+
+period = Period(Date(2001, 1, 14), Date(2002, 2, 14));
+println("2001-01-14:2002-02-14");
+println("toCalendarMonths: "  + period.toCalendarMonths());
