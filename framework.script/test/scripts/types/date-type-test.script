@@ -391,6 +391,11 @@ println("toMinutes     : "  + duration.toMinutes());
 println("toHours       : "  + duration.toHours());
 println("toDays        : "  + duration.toDays());
 
+
+assert(duration.toMilliseconds() == 86400000);
+assert(duration.toSeconds() == 86400);
+assert(duration.toMinutes() == 1440);
+assert(duration.toHours() == 24);
 assert(duration.toDays() == 1);
 
 var curDate = Date();
@@ -407,3 +412,12 @@ println("Current Hour    : "  + curDateTime["hour"]);
 println("Current Minute  : "  + curDateTime["minute"]);
 println("Current Second  : "  + curDateTime["second"]);
 println("Current Ms      : "  + curDateTime["millisecond"]);
+
+
+duration = Duration(DateTime(2001, 1, 15, 12, 11, 10, 100) - DateTime(2001, 1, 14, 12, 11, 9, 80));
+println();
+println("toMilliseconds: "  + duration.toMilliseconds());
+println("toSeconds     : "  + duration.toSeconds());
+println("toMinutes     : "  + duration.toMinutes());
+println("toHours       : "  + duration.toHours());
+println("toDays        : "  + duration.toDays());

@@ -24,10 +24,10 @@ package org.plazmaforge.framework.script.lang;
 
 import java.util.List;
 
-import org.plazmaforge.framework.script.util.CalendarInfo;
+import org.plazmaforge.framework.script.util.CalendarConstants;
 
 
-public class LDuration extends LValue implements CalendarInfo {
+public class LDuration extends LValue implements CalendarConstants {
 
     
     /**
@@ -57,19 +57,19 @@ public class LDuration extends LValue implements CalendarInfo {
 	
 	else if ("toMilliseconds".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(asLong());
+	    return new LNumber(asLong());                           // milliseconds
 	} else if ("toSeconds".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(asLong() / 1000);
+	    return new LNumber(asLong() / MILLISECONDS_PER_SECOND); // milliseconds -> seconds
 	} else if ("toMinutes".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(asLong() / 1000 / 60);
+	    return new LNumber(asLong() / MILLISECONDS_PER_MINUTE); // milliseconds -> minutes
 	} else if ("toHours".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(asLong() / 1000 / 60 / 60);
+	    return new LNumber(asLong() / MILLISECONDS_PER_HOUR);   // milliseconds -> hours
 	} else if ("toDays".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(asLong() / 1000 / 60 / 60 / 24);
+	    return new LNumber(asLong() / MILLISECONDS_PER_DAY);    // milliseconds -> days
 	}
 
 	

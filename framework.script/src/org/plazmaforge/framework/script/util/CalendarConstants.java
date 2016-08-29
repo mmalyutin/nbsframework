@@ -22,7 +22,12 @@
 
 package org.plazmaforge.framework.script.util;
 
-public interface CalendarInfo {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public interface CalendarConstants {
 
     int SECONDS_PER_MINUTE = 60;
     
@@ -37,6 +42,10 @@ public interface CalendarInfo {
     int SECONDS_PER_DAY = SECONDS_PER_HOUR * HOURS_PER_DAY;
     
     int MINUTES_PER_DAY = MINUTES_PER_HOUR * HOURS_PER_DAY;
+    
+    int MILLISECONDS_PER_MINUTE = SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
+    
+    int MILLISECONDS_PER_HOUR = SECONDS_PER_HOUR * MILLISECONDS_PER_SECOND;
     
     int MILLISECONDS_PER_DAY = SECONDS_PER_DAY * MILLISECONDS_PER_SECOND;
     
