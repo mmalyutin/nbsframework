@@ -375,11 +375,11 @@ duration = Duration(Time(10, 20, 30) - Time(7, 5, 20));
 //assert(duration.getInstant() == 10000);
 
 println();
-println("toMilliseconds: "  + duration.toMilliseconds());
-println("toSeconds     : "  + duration.toSeconds());
-println("toMinutes     : "  + duration.toMinutes());
-println("toHours       : "  + duration.toHours());
-println("toDays        : "  + duration.toDays());
+println("toMilliseconds : "  + duration.toMilliseconds());
+println("toSeconds      : "  + duration.toSeconds());
+println("toMinutes      : "  + duration.toMinutes());
+println("toHours        : "  + duration.toHours());
+println("toDays         : "  + duration.toDays());
 
 
 
@@ -416,8 +416,26 @@ println("Current Ms      : "  + curDateTime["millisecond"]);
 
 duration = Duration(DateTime(2001, 1, 15, 12, 11, 10, 100) - DateTime(2001, 1, 14, 12, 11, 9, 80));
 println();
-println("toMilliseconds: "  + duration.toMilliseconds());
-println("toSeconds     : "  + duration.toSeconds());
-println("toMinutes     : "  + duration.toMinutes());
-println("toHours       : "  + duration.toHours());
-println("toDays        : "  + duration.toDays());
+println("toMilliseconds  : "  + duration.toMilliseconds());
+println("toSeconds       : "  + duration.toSeconds());
+println("toMinutes       : "  + duration.toMinutes());
+println("toHours         : "  + duration.toHours());
+println("toDays          : "  + duration.toDays());
+
+println("toStandardWeeks : "  + duration.toStandardWeeks());
+println("toStandardMonths: "  + duration.toStandardMonths());
+println("toStandardYears : "  + duration.toStandardYears());
+
+
+
+duration = Duration(Date(2002, 1, 15) - Date(2001, 1, 14));
+println();
+println("toMilliseconds  : "  + duration.toMilliseconds());
+println("toSeconds       : "  + duration.toSeconds());
+println("toMinutes       : "  + duration.toMinutes());
+println("toHours         : "  + duration.toHours());
+println("toDays          : "  + duration.toDays());
+
+println("toStandardWeeks : "  + duration.toStandardWeeks());
+println("toStandardMonths: "  + duration.toStandardMonths());
+println("toStandardYears : "  + duration.toStandardYears());
