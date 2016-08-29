@@ -70,6 +70,15 @@ public class LDuration extends LValue implements CalendarConstants {
 	} else if ("toDays".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asLong() / MILLISECONDS_PER_DAY);    // milliseconds -> days
+	} else if ("toStandardWeeks".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asLong() / MILLISECONDS_PER_WEEK);   // milliseconds -> weeks (standard week)
+	} else if ("toStandardMonths".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asLong() / MILLISECONDS_PER_MONTH);   // milliseconds -> months (standard months)
+	} else if ("toStandardYears".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LNumber(asLong() / MILLISECONDS_PER_YEAR);   // milliseconds -> years (standard years)
 	}
 
 	
