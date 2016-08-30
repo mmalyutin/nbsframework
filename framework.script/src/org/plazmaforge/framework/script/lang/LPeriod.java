@@ -70,76 +70,91 @@ public class LPeriod extends LInterval implements CalendarConstants {
 	    setEnd(parameter.asLong());
 	    return LValue.VOID;
     
-	    
+	
+	/* 
 	} else if ("toCalendardWeeks".equals(method)) {
 	    
 	    //TODO
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(getInstant() / MILLISECONDS_PER_WEEK);   // milliseconds -> weeks (standard week)
-	    
+	*/    
 	    
 	} else if ("toCalendarMonths".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    
-	    Calendar startCalendar = getCalendar(getStart());
-	    Calendar endCalendar = getCalendar(getEnd());
-
-	    int startYear = startCalendar.get(Calendar.YEAR);
-	    int endYear = endCalendar.get(Calendar.YEAR);
-	    
-	    int startMonth = startCalendar.get(Calendar.MONTH);
-	    int endMonth = endCalendar.get(Calendar.MONTH);
-
-	    int startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
-	    int endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
-	    
-	    int years = endYear - startYear;
-	    
-	    int months = 0;
-	    if (years == 0) {
-		months = getMonthsInYear(startMonth, startDay, endMonth, endDay);
-	    } else {
-		int beforeMonths = getMonthsInYear(startMonth, startDay, Calendar.DECEMBER, 31);
-		int afterMonths = years > 0 ? getMonthsInYear(Calendar.JANUARY, 1, endMonth, endDay) : 0;
-		int middleMonths = years > 1 ? (years - 2 * 12) : 0;
-		months = beforeMonths + middleMonths + afterMonths;
-		
-	    }
-	    
+	    Calendar start = getCalendar(getStart());
+	    Calendar end = getCalendar(getEnd());
+	    int months = monthsBetween(start, end);
 	    return new LNumber(months);
 	} else if ("toCalendarYears".equals(method)) {
-	    
-	    //TODO
-	    checkMethod(method, parameters, 0);
-	    return new LNumber(getInstant() / MILLISECONDS_PER_YEAR);   // milliseconds -> years (standard years)
+
+	    Calendar start = getCalendar(getStart());
+	    Calendar end = getCalendar(getEnd());
+	    int years = yearsBetween(start, end);
+	    return new LNumber(years);
 	}
 
 	
 	return super._invoke(method, parameters);
     }
     
-    protected int getMonthsInYear(int startMonth, int startDay, int endMonth, int endDay) {
+    protected int yearsBetween(Calendar start, Calendar end) {
+	int months = monthsBetween(start, end);
+	int years = months / MONTHS_PER_YEAR;
+	return years;
+    }
+    
+    protected int monthsBetween(Calendar start, Calendar end) {
+	if (end.compareTo(start) < 0) {
+	    Calendar swap = start;
+	    start = end;
+	    end = swap;
+	}
+
+	int startYear = start.get(Calendar.YEAR);
+	int endYear = end.get(Calendar.YEAR);
+
+	int startMonth = start.get(Calendar.MONTH);
+	int endMonth = end.get(Calendar.MONTH);
+
+	int startDay = start.get(Calendar.DAY_OF_MONTH);
+	int endDay = end.get(Calendar.DAY_OF_MONTH);
+
+	// TODO
+	// 29 FEB -> 01 MAR: startMonth == Calendar.FEBRUARY && endMonth == Calendar.MARCH && startDay == 29 && endDay == 1
 	
-	if (startMonth == endMonth) {
-	    if (startDay == endDay) {
-		return 1;
-	    }
-	    return 0;
-	}
-	// 29 FEB -> 01 MAR
-	if (startMonth == Calendar.FEBRUARY && endMonth == Calendar.MARCH && startDay == 29 && endDay == 1) {
-	    return 0;
-	}
-	int months = endMonth - startMonth;
+	// shift endMonth
 	if (endDay < startDay) {
-	    months--;
+	    if (startYear == endYear) {
+		if (startMonth != endMonth) {
+		    endMonth--;
+		} else {
+		    endMonth = startMonth;
+		}
+	    } else {
+		if (endMonth == Calendar.JANUARY) {
+		    endYear--;
+		    endMonth = Calendar.DECEMBER;
+		} else {
+		    endMonth--;
+		}
+	    }
+	}
+
+	int years = endYear - startYear;
+	int months = 0;
+	if (years == 0) {
+	    months = endMonth - startMonth;
+	} else {
+	    int beforeMonths = Calendar.DECEMBER - startMonth;
+	    int afterMonths = endMonth + 1;
+	    int middleMonths = years > 2 ? (years - 2 * MONTHS_PER_YEAR) : 0;
+	    months = beforeMonths + middleMonths + afterMonths;
 	}
 	return months;
     }
     
-    protected int getMonthsInYear(int endMonth, int endDay) {
-	return getMonthsInYear(0, 1, endMonth, endDay);
-    }
+   
     
 
     @Override
