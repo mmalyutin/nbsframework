@@ -70,15 +70,6 @@ public class LPeriod extends LInterval implements CalendarConstants {
 	    setEnd(parameter.asLong());
 	    return LValue.VOID;
     
-	
-	/* 
-	} else if ("toCalendardWeeks".equals(method)) {
-	    
-	    //TODO
-	    checkMethod(method, parameters, 0);
-	    return new LNumber(getInstant() / MILLISECONDS_PER_WEEK);   // milliseconds -> weeks (standard week)
-	*/    
-	    
 	} else if ("toCalendarMonths".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    

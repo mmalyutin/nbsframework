@@ -421,8 +421,8 @@ println("toSeconds       : "  + duration.toSeconds());
 println("toMinutes       : "  + duration.toMinutes());
 println("toHours         : "  + duration.toHours());
 println("toDays          : "  + duration.toDays());
+println("toWeeks         : "  + duration.toWeeks());
 
-println("toStandardWeeks : "  + duration.toStandardWeeks());
 println("toStandardMonths: "  + duration.toStandardMonths());
 println("toStandardYears : "  + duration.toStandardYears());
 
@@ -436,8 +436,8 @@ println("toSeconds       : "  + duration.toSeconds());
 println("toMinutes       : "  + duration.toMinutes());
 println("toHours         : "  + duration.toHours());
 println("toDays          : "  + duration.toDays());
+println("toWeeks         : "  + duration.toWeeks());
 
-println("toStandardWeeks : "  + duration.toStandardWeeks());
 println("toStandardMonths: "  + duration.toStandardMonths());
 println("toStandardYears : "  + duration.toStandardYears());
 
@@ -462,25 +462,41 @@ println("toSeconds       : "  + period.toSeconds());
 println("toMinutes       : "  + period.toMinutes());
 println("toHours         : "  + period.toHours());
 println("toDays          : "  + period.toDays());
+println("toWeeks         : "  + period.toWeeks());
 
-println("toStandardWeeks : "  + period.toStandardWeeks());
 println("toStandardMonths: "  + period.toStandardMonths());
 println("toStandardYears : "  + period.toStandardYears());
 
 println();
-//println("toCalendarMonths: "  + period.toCalendarMonths());
+println("toCalendarMonths: "  + period.toCalendarMonths());
 
 
 period = Period(Date(2001, 1, 14), Date(2002, 1, 14));
 println("2001-01-14:2002-01-14");
+
+println("toMilliseconds  : "  + period.toMilliseconds());
+println("toSeconds       : "  + period.toSeconds());
+println("toMinutes       : "  + period.toMinutes());
+println("toHours         : "  + period.toHours());
+println("toDays          : "  + period.toDays());
+println("toWeeks         : "  + period.toWeeks());
+
 println("toStandardMonths: "  + period.toStandardMonths());
 println("toCalendarMonths: "  + period.toCalendarMonths());
-println("toStandardYears: "  + period.toStandardYears());
-println("toCalendarYears: "  + period.toCalendarYears());
+println("toStandardYears : "  + period.toStandardYears());
+println("toCalendarYears : "  + period.toCalendarYears());
 
 period = Period(Date(2001, 1, 14), Date(2002, 2, 14));
 println("2001-01-14:2002-02-14");
+
+println("toMilliseconds  : "  + period.toMilliseconds());
+println("toSeconds       : "  + period.toSeconds());
+println("toMinutes       : "  + period.toMinutes());
+println("toHours         : "  + period.toHours());
+println("toDays          : "  + period.toDays());
+println("toWeeks         : "  + period.toWeeks());
+
 println("toStandardMonths: "  + period.toStandardMonths());
 println("toCalendarMonths: "  + period.toCalendarMonths());
-println("toStandardYears: "  + period.toStandardYears());
-println("toCalendarYears: "  + period.toCalendarYears());
+println("toStandardYears : "  + period.toStandardYears());
+println("toCalendarYears : "  + period.toCalendarYears());
