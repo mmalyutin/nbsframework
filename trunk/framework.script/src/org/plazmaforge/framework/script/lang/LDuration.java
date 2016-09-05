@@ -42,6 +42,146 @@ public class LDuration extends LInterval implements CalendarConstants {
 	return "" + getInstant();
     }
     
+    
+    // <
+    @Override
+    public LValue _lt(LValue a, LValue b) {
+	LValue result = nullResult(a, "<", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(ltNull(a, b));
+	}	
+	
+	if (!equalsType(a) || !equalsType(b)) {
+	    return super._lt(a, b);
+	}
+	
+	return new LBoolean(a.asLong() < b.asLong()); 
+    }
+    
+    // <=
+    @Override
+    public LValue _lte(LValue a, LValue b) {
+	LValue result = nullResult(a, "<=", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(lteNull(a, b));
+	}	
+	
+	if (!equalsType(a) || !equalsType(b)) {
+	    return super._lte(a, b);
+	}
+	return new LBoolean(a.asLong() <= b.asLong()); 
+    }
+
+    // >
+    @Override
+    public LValue _gt(LValue a, LValue b) {
+	LValue result = nullResult(a, ">", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(gtNull(a, b));
+	}	
+	
+	if (!equalsType(a) || !equalsType(b)) {
+	    return super._gt(a, b);
+	}
+	return new LBoolean(a.asLong() > b.asLong()); 
+    }
+    
+    // >=
+    @Override
+    public LValue _gte(LValue a, LValue b) {
+	LValue result = nullResult(a, ">=", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL || b == LValue.NULL) {
+	    return new LBoolean(gteNull(a, b));
+	}	
+	
+	if (!equalsType(a) || !equalsType(b)) {
+	    return super._gte(a, b);
+	}
+	return new LBoolean(a.asLong() >= b.asLong()); 
+    }
+ 
+    ////    
+    
+ // +
+    public LValue _add(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "+", b);
+	if (result != null) {
+	    return result; 
+	}
+	
+	if (a == LValue.NULL) {
+	    // Illegal operation
+	    super._add(a, b);
+	    //return LValue.NULL;
+	}
+	
+	if (!equalsType(a)) {
+	    return super._add(a, b);
+	}
+
+	// NULL
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	}
+	
+	// NUMBER, DURATION
+	if (b.isNumber() || b.isDuration()) {
+	    // Duration + Long (ms) = Duration
+	    return new LDuration(a.asLong() + b.asLong());
+	}
+	return super._add(a, b);
+    }
+    
+    // -
+    public LValue _sub(LValue a, LValue b) {
+	
+	LValue result = nullResult(a, "-", b);
+	if (result != null) {
+	    return result; 
+	}
+
+	if (a == LValue.NULL) {
+	    // Illegal operation
+	    return super._sub(a, b);
+	    //return LValue.NULL;
+	}
+	
+	if (!equalsType(a)) {
+	    return super._sub(a, b);
+	}
+
+	// NULL
+	if (b == LValue.NULL) {
+	    b = new LNumber(0);
+	}
+	
+	// NUMBER, DURATION
+	if (b.isNumber() || b.isDuration()) {
+	    // Duration - Long (ms) = Duration
+	    return new LDuration(a.asLong() - b.asLong());
+	}
+	
+	return super._sub(a, b);
+    }
+    
+    ////    
     @Override
     public LValue _invoke(String method, List<LValue> parameters) {
 	

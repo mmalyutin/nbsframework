@@ -188,8 +188,8 @@ public abstract class LInstant extends LValue {
 	    b = new LNumber(0);
 	}
 	
-	// NUMBER / INTERVAL
-	if (b.isNumber() || b.isInterval()) {
+	// NUMBER, DURATION
+	if (b.isNumber() || b.isDuration()) {
 	    // Date/DateTime/Time + Long (ms) = Date
 	    return newInstance(a.asLong() + b.asLong());
 	}
@@ -219,8 +219,8 @@ public abstract class LInstant extends LValue {
 	    b = new LNumber(0);
 	}
 	
-	// NUMBER / INTERVAL
-	if (b.isNumber() || b.isInterval()) {
+	// NUMBER, DURATION
+	if (b.isNumber() || b.isDuration()) {
 	    // Date - Long (ms) = Date
 	    return newInstance(a.asLong() - b.asLong());
 	}

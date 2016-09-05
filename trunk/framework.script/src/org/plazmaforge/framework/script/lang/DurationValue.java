@@ -52,6 +52,28 @@ public class DurationValue implements Serializable {
     public void setInstant(long instant) {
         this.instant = instant;
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + (int) (instant ^ (instant >>> 32));
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DurationValue other = (DurationValue) obj;
+	if (instant != other.instant)
+	    return false;
+	return true;
+    }
     
     
     
