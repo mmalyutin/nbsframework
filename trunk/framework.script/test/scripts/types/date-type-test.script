@@ -500,3 +500,23 @@ println("toStandardMonths: "  + period.toStandardMonths());
 println("toCalendarMonths: "  + period.toCalendarMonths());
 println("toStandardYears : "  + period.toStandardYears());
 println("toCalendarYears : "  + period.toCalendarYears());
+
+
+// Time +/- Duration
+duration = Duration(105); // 105 ms
+
+assert((Time(200) + duration).getInstant() == (200 + 105));
+assert((Time(1200) - duration).getInstant() == (1200 - 105));
+
+assert((Time(15, 20, 21, 113) + duration).getInstant() == (15 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 + 105));
+assert((Time(18, 20, 21, 113) - duration).getInstant() == (18 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 - 105));
+
+
+// Time +/- Period
+period = Period(1001, 2008); // 1007 ms
+
+assert((Time(502) + period).getInstant() == (502 + 1007));
+assert((Time(1502) - period).getInstant() == (1502 - 1007));
+
+assert((Time(15, 20, 21, 113) + period).getInstant() == (15 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 + 1007));
+assert((Time(18, 20, 21, 113) - period).getInstant() == (18 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 - 1007));

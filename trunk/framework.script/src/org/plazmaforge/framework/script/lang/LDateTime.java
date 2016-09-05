@@ -61,12 +61,12 @@ public class LDateTime extends LInstant {
 	// TO DATE
 	if ("toDate".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LDate(getTime());
+	    return new LDate(getInstant());
 	    
 	// TO TIME    
 	} else if ("toTime".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LTime(getTime());
+	    return new LTime(getInstant());
 	}
 	
 	return super._invoke(method, parameters);
