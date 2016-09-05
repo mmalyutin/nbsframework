@@ -46,6 +46,12 @@ public abstract class LInterval extends LValue implements CalendarConstants {
     
     
     @Override
+    public Long asLong() {
+	// Returns time in milliseconds
+	return getInstant();
+    }    
+    
+    @Override
     public LValue _invoke(String method, List<LValue> parameters) {
 	
 	// TIME IN MILLISECONDS

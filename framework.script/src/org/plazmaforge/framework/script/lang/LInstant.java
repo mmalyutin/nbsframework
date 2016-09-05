@@ -34,6 +34,7 @@ import org.plazmaforge.framework.script.util.CommonUtils;
 
 /**
  * Base class for LDate/LDateTime/LTime with java.util.Date value. 
+ * Supports operations: <, <=, >, >=, +, -
  * 
  * @author ohapon
  *
@@ -83,6 +84,11 @@ public abstract class LInstant extends LValue {
 	return "" + (value < 10 ? ("00" + value) : (value < 100 ? ("0" + value) : value));
     }
 
+    @Override
+    public Long asLong() {
+	// Returns time in milliseconds
+	return getInstant();
+    }
     
     // <
     @Override
@@ -100,7 +106,7 @@ public abstract class LInstant extends LValue {
 	    return super._lt(a, b);
 	}
 	
-	return new LBoolean(a.asDate().getTime() < b.asDate().getTime()); 
+	return new LBoolean(a.asLong() < b.asLong()); 
     }
     
     // <=
@@ -118,7 +124,7 @@ public abstract class LInstant extends LValue {
 	if (!equalsType(a) || !equalsType(b)) {
 	    return super._lte(a, b);
 	}
-	return new LBoolean(a.asDate().getTime() <= b.asDate().getTime()); 
+	return new LBoolean(a.asLong() <= b.asLong()); 
     }
 
     // >
@@ -136,7 +142,7 @@ public abstract class LInstant extends LValue {
 	if (!equalsType(a) || !equalsType(b)) {
 	    return super._gt(a, b);
 	}
-	return new LBoolean(a.asDate().getTime() > b.asDate().getTime()); 
+	return new LBoolean(a.asLong() > b.asLong()); 
     }
     
     // >=
@@ -154,7 +160,7 @@ public abstract class LInstant extends LValue {
 	if (!equalsType(a) || !equalsType(b)) {
 	    return super._gte(a, b);
 	}
-	return new LBoolean(a.asDate().getTime() >= b.asDate().getTime()); 
+	return new LBoolean(a.asLong() >= b.asLong()); 
     }
  
     ////
@@ -182,10 +188,10 @@ public abstract class LInstant extends LValue {
 	    b = new LNumber(0);
 	}
 	
-	// NUMBER
-	if (b.isNumber()) {
+	// NUMBER / INTERVAL
+	if (b.isNumber() || b.isInterval()) {
 	    // Date/DateTime/Time + Long (ms) = Date
-	    return newInstance(a.asDate().getTime() + b.asLong());
+	    return newInstance(a.asLong() + b.asLong());
 	}
 	return super._add(a, b);
     }
@@ -213,16 +219,16 @@ public abstract class LInstant extends LValue {
 	    b = new LNumber(0);
 	}
 	
-	// NUMBER
-	if (b.isNumber()) {
+	// NUMBER / INTERVAL
+	if (b.isNumber() || b.isInterval()) {
 	    // Date - Long (ms) = Date
-	    return newInstance(a.asDate().getTime() - b.asLong());
+	    return newInstance(a.asLong() - b.asLong());
 	}
 	
 	// DATE
 	if (b.isInstant()) {
 	    // Date/DateTime/Time - Date/DateTime/Time = Long (ms)
-	    return new LNumber(a.asDate().getTime() - b.asDate().getTime());
+	    return new LNumber(a.asLong() - b.asLong());
 	}
 	return super._sub(a, b);
     }
@@ -256,7 +262,7 @@ public abstract class LInstant extends LValue {
 	// TIME IN MILLISECONDS
 	if ("getInstant".equals(method)) {
 	    checkMethod(method, parameters, 0);
-	    return new LNumber(getTime());
+	    return new LNumber(getInstant());
 	    
 	} else if ("setInstant".equals(method)) {
 	    checkMethod(method, parameters, 1);
@@ -264,7 +270,7 @@ public abstract class LInstant extends LValue {
 	    if (!parameter.isNumber()) {
 		raiseIllegalMethodParameterTypeException("Number");
 	    }
-	    setTime(parameter.asLong());
+	    setInstant(parameter.asLong());
 	    return LValue.VOID;
 	    
 	// YEAR    
@@ -377,11 +383,11 @@ public abstract class LInstant extends LValue {
 	return calendar;
     }
 
-    public long getTime() {
+    public long getInstant() {
 	return asDate().getTime();
     }
 
-    public void setTime(long time) {
+    public void setInstant(long time) {
 	//long truncTime = CommonUtils.truncateTime(time);
 	doSetTime(time);
     }
