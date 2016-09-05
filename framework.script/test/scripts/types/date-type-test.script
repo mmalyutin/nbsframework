@@ -512,11 +512,20 @@ assert((Time(15, 20, 21, 113) + duration).getInstant() == (15 * 60 * 60 * 1000 +
 assert((Time(18, 20, 21, 113) - duration).getInstant() == (18 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 - 105));
 
 
-// Time +/- Period
-period = Period(1001, 2008); // 1007 ms
+// Duration ==, <, <=, >, >=
+assert(Duration(105) == Duration(105));
+assert(Duration(105) <= Duration(105));
+assert(Duration(105) >= Duration(105));
 
-assert((Time(502) + period).getInstant() == (502 + 1007));
-assert((Time(1502) - period).getInstant() == (1502 - 1007));
+assert(Duration(105) < Duration(107));
+assert(Duration(105) <= Duration(107));
 
-assert((Time(15, 20, 21, 113) + period).getInstant() == (15 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 + 1007));
-assert((Time(18, 20, 21, 113) - period).getInstant() == (18 * 60 * 60 * 1000 + 20 * 60 * 1000 + 21 * 1000 + 113 - 1007));
+assert(Duration(205) > Duration(107));
+assert(Duration(205) >= Duration(107));
+
+// Duration +/- Number
+assert((Duration(1205) + 15) == Duration(1220));
+assert((Duration(1205) -  5) == Duration(1200));
+
+assert((Duration(1205) + Duration(15)) == Duration(1220));
+assert((Duration(1205) - Duration(5))  == Duration(1200));
