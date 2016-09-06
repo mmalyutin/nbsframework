@@ -139,7 +139,7 @@ public class LPeriod extends LInterval implements CalendarConstants {
 	} else {
 	    int beforeMonths = Calendar.DECEMBER - startMonth;
 	    int afterMonths = endMonth + 1;
-	    int middleMonths = years > 2 ? (years - 2 * MONTHS_PER_YEAR) : 0;
+	    int middleMonths = years > 2 ? ((years - 2) * MONTHS_PER_YEAR) : 0;
 	    months = beforeMonths + middleMonths + afterMonths;
 	}
 	return months;
