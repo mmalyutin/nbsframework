@@ -78,10 +78,10 @@ public abstract class LInterval extends LValue implements CalendarConstants {
 	} else if ("toWeeks".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(getInstant() / MILLISECONDS_PER_WEEK);   // milliseconds -> weeks
-	} else if ("toStandardMonths".equals(method)) {
+	} else if ("toMonths".equals(method) || "toStandardMonths".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(getInstant() / MILLISECONDS_PER_MONTH);   // milliseconds -> months (standard months)
-	} else if ("toStandardYears".equals(method)) {
+	} else if ("toYears".equals(method) || "toStandardYears".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(getInstant() / MILLISECONDS_PER_YEAR);   // milliseconds -> years (standard years)
 	}
