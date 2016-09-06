@@ -176,4 +176,27 @@ assert((12345.678).toInteger() == 12345);
 assert((1234.6746754674674564674567467467).toDouble() == 1234.6746754674675);
 
 
+var value = 123;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
 
+value = 1234567890123456789;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+
+
+value = 12345678901234567890123456789;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " +value.getMetaClassName());
+println("Value = " + value);
+
+value = NaN;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);

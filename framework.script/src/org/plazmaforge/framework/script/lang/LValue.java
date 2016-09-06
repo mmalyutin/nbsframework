@@ -15,6 +15,8 @@ import org.plazmaforge.framework.script.PropertyAccessor;
 
 public class LValue implements Comparable<LValue> {
 
+    public static String[] STANDARD_PACKAGES = {"java.lang", "java.util", "java.math"};
+    
     public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, DURATION, PERIOD, OBJ, EXT_OBJ}
     
     public static final LValue NULL = new LNullValue();
@@ -657,9 +659,37 @@ public class LValue implements Comparable<LValue> {
 	} else 	if ("hashCode".equals(method)) {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(_hashCode());
+	} else	if ("getMetaTypeName".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LString(getMetaTypeName());
+	} else 	if ("getMetaClassName".equals(method)) {
+	    checkMethod(method, parameters, 0);
+	    return new LString(getMetaClassName());
 	}
 	raiseIllegalMethodException(method);
 	return null;
+    }
+    
+    // META INFO
+    public String getMetaTypeName() {
+	return type == null ? "[unknown]" : type.toString(); 
+    }
+
+    public String getMetaClassName() {
+	return value == null ? "[unknown]" : normalizeSatnadrdPackage(value.getClass().getName()); 
+    }
+    
+    protected String normalizeSatnadrdPackage(String className) {
+	if (className == null) {
+	    return null;
+	}
+	className = className.trim();
+	for (String pkg: STANDARD_PACKAGES) {
+	    if (className.startsWith(pkg + ".")) {
+		return className.substring(pkg.length() + 1);
+	    }
+	}
+	return className;
     }
 
 
