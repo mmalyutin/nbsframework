@@ -17,7 +17,7 @@ public class LValue implements Comparable<LValue> {
 
     public static String[] STANDARD_PACKAGES = {"java.lang", "java.util", "java.math"};
     
-    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, DURATION, PERIOD, OBJ, EXT_OBJ}
+    public enum Type {NUMBER, STRING, BOOLEAN, LIST, SET, MAP, DATE_TIME, DATE, TIME, DURATION, PERIOD, OBJECT, EXTERNAL_OBJECT}
     
     public static final LValue NULL = new LNullValue();
     public static final LValue VOID = new LValue();
@@ -263,7 +263,7 @@ public class LValue implements Comparable<LValue> {
     }
     
     public boolean isExtObject() {
-        return type == Type.EXT_OBJ;
+        return type == Type.EXTERNAL_OBJECT;
     }
     
     //// SOFT TYPE
@@ -672,11 +672,11 @@ public class LValue implements Comparable<LValue> {
     
     // META INFO
     public String getMetaTypeName() {
-	return type == null ? "[unknown]" : type.toString(); 
+	return type == null ? "[undefined]" : type.toString(); 
     }
 
     public String getMetaClassName() {
-	return value == null ? "[unknown]" : normalizeSatnadrdPackage(value.getClass().getName()); 
+	return value == null ? "[undefined]" : normalizeSatnadrdPackage(value.getClass().getName()); 
     }
     
     protected String normalizeSatnadrdPackage(String className) {

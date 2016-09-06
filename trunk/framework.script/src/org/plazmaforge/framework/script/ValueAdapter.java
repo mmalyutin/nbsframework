@@ -32,7 +32,7 @@ import java.util.Set;
 
 import org.plazmaforge.framework.script.lang.LBoolean;
 import org.plazmaforge.framework.script.lang.LDate;
-import org.plazmaforge.framework.script.lang.LExtObject;
+import org.plazmaforge.framework.script.lang.LExternalObject;
 import org.plazmaforge.framework.script.lang.LList;
 import org.plazmaforge.framework.script.lang.LMap;
 import org.plazmaforge.framework.script.lang.LNumber;
@@ -78,7 +78,7 @@ public class ValueAdapter {
 	    return new LMap((Map<?, ?>) value);
 	}
 	
-	return new LExtObject(value); 
+	return new LExternalObject(value); 
 
 	//return value == null ? LValue.NULL : new LValue(value);
     }
