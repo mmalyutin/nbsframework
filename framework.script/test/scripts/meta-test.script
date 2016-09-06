@@ -1,0 +1,203 @@
+//
+
+println("Test Meta Data");
+println("==============================================================");
+
+var OBJECT_TYPE        = "OBJECT";
+var STRING_TYPE        = "STRING";
+var NUMBER_TYPE        = "NUMBER";
+var BOOLEAN_TYPE       = "BOOLEAN";
+var DATE_TYPE          = "DATE";
+var TIME_TYPE          = "TIME";
+var DATE_TIME_TYPE     = "DATE_TIME";
+var LIST_TYPE          = "LIST";
+var SET_TYPE           = "SET";
+var MAP_TYPE           = "MAP";
+var DURATION_TYPE      = "DURATION";
+var PERIOD_TYPE        = "PERIOD";
+
+
+var OBJECT_CLASS       = "Object";
+var STRING_CLASS       = "String";
+var NUMBER_CLASS       = "Number";
+var INTEGER_CLASS      = "Integer";
+var LONG_CLASS         = "Long"; 
+var FLOAT_CLASS        = "Float";
+var DOUBLE_CLASS       = "Double";
+var BIG_INTEGER_CLASS  = "BigInteger";
+var BIG_DECIMAL_CLASS  = "BigDecimal";
+var BOOLEAN_CLASS      = "Boolean";
+var DATE_CLASS         = "Date";
+var LIST_CLASS         = "ArrayList";     // default
+var SET_CLASS          = "LinkedHashSet"; // default
+var MAP_CLASS          = "LinkedHashMap"; // default
+
+
+var value;
+println();
+println(value);
+
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+
+// Null (?)
+value = null;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+
+
+// String
+value = "TestString";
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == STRING_TYPE);
+assert(value.getMetaClassName() == STRING_CLASS);
+
+
+// Number: Integer
+value = 1;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == NUMBER_TYPE);
+assert(value.getMetaClassName() == INTEGER_CLASS);
+
+
+// Number: Long
+value = 1234567890123456789;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == NUMBER_TYPE);
+assert(value.getMetaClassName() == LONG_CLASS);
+
+
+// Number: BigInteger
+value = 12345678901234567890123456789;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == NUMBER_TYPE);
+assert(value.getMetaClassName() == BIG_INTEGER_CLASS);
+
+
+// Number: BigDecimal
+value = 3.14;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == NUMBER_TYPE);
+assert(value.getMetaClassName() == BIG_DECIMAL_CLASS);
+
+value = 1234567890123456789.1234567890123456789;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == NUMBER_TYPE);
+assert(value.getMetaClassName() == BIG_DECIMAL_CLASS);
+
+
+// Boolean
+value = true;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == BOOLEAN_TYPE);
+assert(value.getMetaClassName() == BOOLEAN_CLASS);
+
+value = false;
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == BOOLEAN_TYPE);
+assert(value.getMetaClassName() == BOOLEAN_CLASS);
+
+// Date
+value = Date(2001, 12, 31);
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == DATE_TYPE);
+assert(value.getMetaClassName() == DATE_CLASS);
+
+
+// Time
+value = Time(18, 25, 30, 120);
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == TIME_TYPE);
+assert(value.getMetaClassName() == DATE_CLASS); // (TIME_CLASS?) 
+
+
+// DateTime
+value = DateTime(2001, 12, 31, 18, 25, 30, 120);
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == DATE_TIME_TYPE);
+assert(value.getMetaClassName() == DATE_CLASS); // (DATE_TIME_CLASS?)
+
+
+// List
+value = [1, 2, 3, 4]; 
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == LIST_TYPE);
+assert(value.getMetaClassName() == LIST_CLASS);
+
+
+// Set
+value = [1, 2, 3, 4].toSet(); 
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == SET_TYPE);
+assert(value.getMetaClassName() == SET_CLASS);
+
+
+// Map
+value = {"x": 100, "y": 200 }; 
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == MAP_TYPE);
+assert(value.getMetaClassName() == MAP_CLASS);
+
+
+// Duration
+value = Duration(100); 
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == DURATION_TYPE);
+//assert(value.getMetaClassName() == DURATION_CLASS);
+
+
+// Period
+value = Period(100, 200); 
+println();
+println("Type  = " + value.getMetaTypeName());
+println("Class = " + value.getMetaClassName());
+println("Value = " + value);
+assert(value.getMetaTypeName() == PERIOD_TYPE);
+//assert(value.getMetaClassName() == PERIOD_CLASS);

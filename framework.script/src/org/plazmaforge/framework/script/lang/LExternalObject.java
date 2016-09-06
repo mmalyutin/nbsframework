@@ -25,14 +25,14 @@ package org.plazmaforge.framework.script.lang;
 import java.util.List;
 
 
-public class LExtObject extends LValue {
+public class LExternalObject extends LValue {
 
     private LAccessor accessor;
     
     public static LAccessorFactory accessorFactory = new LClassAccessorFactory();   
     
-    public LExtObject(Object value) {
-	super(Type.EXT_OBJ, value);
+    public LExternalObject(Object value) {
+	super(Type.EXTERNAL_OBJECT, value);
     }
 
     
