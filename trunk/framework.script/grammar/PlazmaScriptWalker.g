@@ -61,6 +61,7 @@ block returns [LNode node]
 
 statement returns [LNode node]
   :  assignment     {node = $assignment.node;}
+  |  declare        {node = $declare.node;}
   |  functionCall   {node = $functionCall.node;}
   |  lookup         {node = $lookup.node;}  
   |  ifStatement    {node = $ifStatement.node;}
@@ -75,6 +76,10 @@ statement returns [LNode node]
 
 assignment returns [LNode node]
   :  ^(ASSIGNMENT variableDef? Identifier indexes? expression) {node = new AssignmentNode($variableDef.node, $Identifier.text, $indexes.e, $expression.node, currentScope, globalScope);}
+  ;
+
+declare returns [LNode node]
+  :  ^(DECLARE variableDef Identifier) {node = new AssignmentNode($variableDef.node, $Identifier.text, null, null, currentScope, globalScope);}
   ;
 
 functionCall returns [LNode node]

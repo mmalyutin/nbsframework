@@ -11,6 +11,7 @@ tokens {
   RETURN;
   STATEMENTS;
   ASSIGNMENT;
+  DECLARE;
   FUNC_CALL;
   //METHOD_CALL;
   EXP;
@@ -78,6 +79,7 @@ block
 
 statement
   :  assignment ';'   -> assignment
+  |  declare ';'   -> declare  
   |  functionCall ';' -> functionCall
   |  lookup ';' -> lookup                                 // ???
   |  ifStatement
@@ -92,6 +94,10 @@ assignment
   :  variableDef? Identifier indexes? '=' expression -> ^(ASSIGNMENT variableDef? Identifier indexes? expression)
   |  variableDef? anyIdentifier indexes? '=' expression -> ^(ASSIGNMENT variableDef? {new CommonTree(new CommonToken(Identifier, $anyIdentifier.text))} indexes? expression)
   ;
+  
+declare
+  : variableDef Identifier ->  ^(DECLARE variableDef Identifier)
+  ; 
 
 functionCall
   :  Identifier '(' exprList? ')' -> ^(FUNC_CALL Identifier exprList?)
