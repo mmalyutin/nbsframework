@@ -504,7 +504,7 @@ public class LNumber extends LValue {
 	    checkMethod(method, parameters, 0);
 	    return new LNumber(asDouble());
 	}
-	raiseIllegalMethodException(method);
-	return null;
+	
+	return super._invoke(method, parameters);
     }
 }
