@@ -1,4 +1,4 @@
-<report name="Report1" caption="Report 1">
+<report name="Report1" caption="Report 1" description="Report Description1">
 	<data-sources>
 		<data-source>
 			<fields>

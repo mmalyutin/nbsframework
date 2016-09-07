@@ -22,23 +22,14 @@
 
 package org.plazmaforge.framework.report.storage.xml.document;
 
-import org.plazmaforge.framework.report.storage.xml.XMLInfo;
+import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
+
 
 /**
  * 
  * @author ohapon
  *
  */
-public interface XMLDocumentInfo extends XMLInfo {
+public class XMLAbstractDocumentReader extends XMLAbstractReader implements XMLDocumentInfo {
 
-
-    //////////////////////////////////////////////////////////////
-    // DOCUMENT
-    //////////////////////////////////////////////////////////////
-
-    String XML_DOCUMENT = "document";
-    
-    String XML_PAGES = "pages";
-    
-    String XML_PAGE = "page";
 }

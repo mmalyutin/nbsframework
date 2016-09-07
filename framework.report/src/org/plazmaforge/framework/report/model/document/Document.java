@@ -34,13 +34,61 @@ import java.util.List;
  */
 public class Document {
 
+    /**
+     * Name of report
+     */
+    private String name;
+    
+    /**
+     * Caption (NLS display name) of document
+     */
+    private String caption;
+
+    /**
+     * Caption (NLS description) of document
+     */
+    private String description;
+
+    
     private List<Page> pages;
+
+    public Document() {
+	super();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public List<Page> getPages() {
 	if (pages == null) {
 	    pages = new ArrayList<Page>();
 	}
         return pages;
+    }
+    
+    public Page getPage(int index) {
+	return getPages().get(index);
     }
 
     public void setPages(List<Page> pages) {

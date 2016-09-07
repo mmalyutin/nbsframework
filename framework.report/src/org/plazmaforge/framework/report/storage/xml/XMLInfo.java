@@ -128,4 +128,9 @@ public interface XMLInfo {
     
     String XML_PROPERTY = "property";
 
+    
+    ////
+    
+    String XML_ELEMENTS = "elements";
+    
 }
