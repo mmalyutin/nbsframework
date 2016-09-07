@@ -20,15 +20,21 @@
  * ohapon@users.sourceforge.net
  */
 
-/**
- * 
- */
-package org.plazmaforge.framework.report.storage.xml;
+package org.plazmaforge.framework.report.storage.xml.document;
+
+import org.plazmaforge.framework.report.storage.xml.XMLInfo;
 
 /**
+ * 
  * @author ohapon
  *
  */
-public class XMLReportWriter {
+public interface XMLDocumentInfo extends XMLInfo {
 
+
+    //////////////////////////////////////////////////////////////
+    // DOCUMENT
+    //////////////////////////////////////////////////////////////
+
+    String XML_DOCUMENT = "document";
 }

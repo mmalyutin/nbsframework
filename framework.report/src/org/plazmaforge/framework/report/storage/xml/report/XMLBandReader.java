@@ -23,7 +23,7 @@
 /**
  * 
  */
-package org.plazmaforge.framework.report.storage.xml;
+package org.plazmaforge.framework.report.storage.xml.report;
 
 import java.util.List;
 

@@ -23,7 +23,7 @@
 /**
  * 
  */
-package org.plazmaforge.framework.report.storage.xml;
+package org.plazmaforge.framework.report.storage.xml.report;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
@@ -31,6 +31,7 @@ import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
+import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
@@ -38,7 +39,7 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  * @author ohapon
  *
  */
-public class XMLAbstractReportReader extends XMLAbstractReader implements XMLInfo {
+public class XMLAbstractReportReader extends XMLAbstractReader implements XMLReportInfo {
 
     protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
     
