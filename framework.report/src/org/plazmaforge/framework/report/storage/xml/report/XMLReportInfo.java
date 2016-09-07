@@ -50,6 +50,10 @@ public interface XMLReportInfo extends XMLInfo {
     
     String XML_BAND = "band";
     
+    String XML_REPORT_GROUPS = "report-groups";
+    
+    String XML_REPORT_GROUP = "report-group";
+    
     String XML_DATA_CONNECTORS = "data-connectors";
     
     String XML_DATA_CONNECTOR = "data-connector";

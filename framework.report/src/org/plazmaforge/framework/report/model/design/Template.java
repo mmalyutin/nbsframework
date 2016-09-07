@@ -45,6 +45,21 @@ import org.plazmaforge.framework.report.model.base.grid.ColumnModel;
 public class Template implements ColumnModel, HasBands, HasExpressionBuilder {
 
     /**
+     * Name of report
+     */
+    private String name;
+    
+    /**
+     * Caption (NLS display name) of template
+     */
+    private String caption;
+    
+    /**
+     * Caption (NLS description) of template
+     */
+    private String description;
+    
+    /**
      * Template type: Table, Crosstab or null
      */
     private String type;
@@ -79,6 +94,30 @@ public class Template implements ColumnModel, HasBands, HasExpressionBuilder {
 	paging = true;
     }
     
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getType() {
         return type;
     }
@@ -194,13 +233,17 @@ public class Template implements ColumnModel, HasBands, HasExpressionBuilder {
 	return columnModel.getColumnCount();
     }
 
+    public ReportGroup getGroup(int index) {
+        return getGroups().get(index);
+    }
+
     public List<ReportGroup> getGroups() {
 	if (groups == null) {
 	    groups = new ArrayList<ReportGroup>();
 	}
         return groups;
     }
-
+    
     public void setGroups(List<ReportGroup> groups) {
         this.groups = groups;
     }

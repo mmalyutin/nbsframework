@@ -33,10 +33,18 @@ import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.design.Band;
+import org.plazmaforge.framework.report.model.design.ReportGroup;
 import org.plazmaforge.framework.report.model.design.Template;
 
 /**
  * @author ohapon
+ * 
+ * Read template elements:
+ * 
+ * - page-setup
+ * - columns
+ * - report-groups
+ * - bands
  *
  */
 public class XMLTemplateReader extends XMLAbstractReportReader {
@@ -51,7 +59,6 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     protected void readTemplateAttributes(Template template, Element element) {
 	String value = null;
 	
-	/*
 	// name
 	value = getValue(element, XML_ATTR_NAME);
 	if (value != null) {
@@ -61,9 +68,14 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	// caption
 	value = getValue(element, XML_ATTR_CAPTION);
 	if (value != null) {
-	    template.setDisplayName(value);
+	    template.setCaption(value);
 	}
-	*/
+	
+	// description
+	value = getValue(element, XML_ATTR_DESCRIPTION);
+	if (value != null) {
+	    template.setDescription(value);
+	}
 	
 	// type
 	value = getValue(element, XML_ATTR_TYPE);
@@ -76,9 +88,11 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     protected void readTemplateContent(Template template, Element element) {
 	readPageSetup(template, element);
 	readTemplateColumns(template, element);
+	readTemplateGroups(template, element);
 	readTemplateBands(template, element);
     }
     
+    // PAGE-SETUP
     protected void readPageSetup(Template template, Element element) {
 	Element node = element.getChild(XML_PAGE_SETUP);
 	if (node == null) {
@@ -107,6 +121,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	
     }
     
+    // COLUMNS
     protected void readTemplateColumns(Template template, Element element) {
 	Element node = getChild(element, XML_COLUMNS);
 	if (node == null){
@@ -130,6 +145,26 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	}
     }
 
+    // REPORT-GROUPS
+    protected void readTemplateGroups(Template template, Element element) {
+	Element node = getChild(element, XML_REPORT_GROUPS);
+	if (node == null) {
+	    return;
+	}
+	List children = node.getChildren();
+	if (children == null || children.isEmpty()) {
+	    return;
+	}
+	int count = children.size();
+	XMLGroupReader groupReader = new XMLGroupReader();
+	for (int i = 0; i < count; i++) {
+	    ReportGroup group = new ReportGroup();
+	    template.addGroup(group);
+	    groupReader.readGroup(group, (Element) children.get(i));
+	}
+    }
+    
+    // BANDS
     protected void readTemplateBands(Template template, Element element) {
 	Element node = getChild(element, XML_BANDS);
 	if (node == null) {
