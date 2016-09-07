@@ -40,6 +40,7 @@ import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.Report;
+import org.plazmaforge.framework.report.model.design.ReportGroup;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
@@ -135,6 +136,8 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertNotNull(template);
 	
+	
+	
 	// Get page setup
 	PageSetup pageSetup = template.getPageSetup();
 	
@@ -144,6 +147,9 @@ public class XMLReportReaderTest extends TestCase {
 	assertEquals(22, pageSetup.getMargin().getTop());
 	assertEquals(23, pageSetup.getMargin().getRight());
 	assertEquals(24, pageSetup.getMargin().getBottom());
+	
+	
+	
 	
 	// Get template columns
 	assertEquals(3, template.getColumnCount());
@@ -159,24 +165,74 @@ public class XMLReportReaderTest extends TestCase {
 	column = template.getColumn(2);
 	assertNotNull(column);
 	assertEquals(100, column.getWidth());
-
-
-	// Get bands
-	assertEquals(3, template.getBandCount());
 	
-	// Get ReportHeader
-	Band band = template.getBand(0);
+	
+	
+
+	// Get groups
+	assertEquals(1, template.getGroupCount());
+	
+	ReportGroup group = template.getGroup(0);
+	assertNotNull(group);
+	
+	assertEquals("PRODUCT_GROUP", group.getName());
+	assertEquals("$F{GROUP_NAME}", group.getExpressionText());
+	
+	// Get group bands
+	assertEquals(2, group.getBandCount());
+	
+	// Get GroupHeader
+	Band band = group.getBand(0);
+	assertNotNull(band);
+
+	assertEquals(1, band.getRowCount());
+	Row row = band.getRow(0);
+
+	assertNotNull(row);
+	
+	assertEquals(20, row.getHeight());
+	assertEquals(1, row.getCellCount());
+	
+	Cell cell = row.getCell(0);
+	assertNotNull(cell);
+	
+	assertEquals("\"GroupHeader: \"  + $F{GROUP_NAME}", cell.getExpressionText());
+	
+	
+	// Get GroupFooter
+	band = group.getBand(1);
 	assertNotNull(band);
 	
 	assertEquals(1, band.getRowCount());
-	Row row = band.getRow(0);
+	row = band.getRow(0);
+
+	assertNotNull(row);
+	
+	assertEquals(20, row.getHeight());
+	assertEquals(1, row.getCellCount());
+	
+	cell = row.getCell(0);
+	assertNotNull(cell);
+	
+	assertEquals("GroupFooter", cell.getValue());
+	
+	
+	// Get template bands
+	assertEquals(3, template.getBandCount());
+	
+	// Get ReportHeader
+	band = template.getBand(0);
+	assertNotNull(band);
+	
+	assertEquals(1, band.getRowCount());
+	row = band.getRow(0);
 	
 	assertNotNull(row);
 	
 	assertEquals(15, row.getHeight());
 	assertEquals(1, row.getCellCount());
 	
-	Cell cell = row.getCell(0);
+	cell = row.getCell(0);
 	assertNotNull(cell);
 	
 	assertEquals(3, cell.getColspan());

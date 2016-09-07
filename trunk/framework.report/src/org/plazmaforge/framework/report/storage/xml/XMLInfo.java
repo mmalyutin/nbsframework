@@ -37,6 +37,8 @@ public interface XMLInfo {
     
     String XML_ATTR_CAPTION = "caption";
     
+    String XML_ATTR_DESCRIPTION = "description";    
+    
     String XML_ATTR_TYPE = "type";
     
     String XML_ATTR_FORMAT = "format";

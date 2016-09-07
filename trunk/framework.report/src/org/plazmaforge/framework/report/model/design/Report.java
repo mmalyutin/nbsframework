@@ -51,6 +51,11 @@ public class Report implements HasExpressionBuilder {
      * Caption (NLS display name) of report
      */
     private String caption;
+
+    /**
+     * Caption (NLS description) of report
+     */
+    private String description;
     
     /**
      * Type of report (Table, Crosstab...)
@@ -101,6 +106,14 @@ public class Report implements HasExpressionBuilder {
 
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getType() {

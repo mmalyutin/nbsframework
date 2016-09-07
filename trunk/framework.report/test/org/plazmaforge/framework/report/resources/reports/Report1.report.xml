@@ -10,11 +10,6 @@
 			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT</query>
 		</data-source>
 	</data-sources>
-	<report-group>
-		<report-group name="PRODUCT_GROUP">
-			<expression>$F{GROUP_NAME}</expression>
-		</report-group>
-	</report-group>
 	<templates>
 		<template type="Table">
 			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24"/>
@@ -23,6 +18,31 @@
 				<column width="250" />
 				<column width="100" />
 			</columns>
+			<report-groups>
+				<report-group name="PRODUCT_GROUP">
+					<expression>$F{GROUP_NAME}</expression>
+					<bands>
+						<band type="GroupHeader">
+							<rows>
+								<row height="20">
+									<cells>
+										<cell colspan="3"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
+									</cells>
+								</row>
+							</rows>
+						</band>
+						<band type="GroupFooter">
+							<rows>
+								<row height="20">
+									<cells>
+										<cell colspan="3"><value>GroupFooter</value></cell>
+									</cells>
+								</row>
+							</rows>
+						</band>
+					</bands>
+				</report-group>
+			</report-groups>
 			<bands>
 				<band type="ReportHeader">
 					<rows>

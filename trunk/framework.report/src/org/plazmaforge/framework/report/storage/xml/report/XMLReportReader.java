@@ -43,6 +43,17 @@ import org.plazmaforge.framework.report.storage.ReportReader;
 
 /**
  * @author ohapon
+ * 
+ * Read report elements:
+ * 
+ * - properties
+ * - parameters
+ * - variables
+ * - data-connectors
+ * - data-sources
+ * - styles
+ * - templates
+ * 
  *
  */
 public class XMLReportReader extends XMLAbstractReportReader implements ReportReader {
@@ -134,6 +145,12 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	if (value != null) {
 	    report.setCaption(value);
 	}
+
+	// description
+	value = getValue(element, XML_ATTR_DESCRIPTION);
+	if (value != null) {
+	    report.setDescription(value);
+	}
 	
 	// type
 	value = getValue(element, XML_ATTR_TYPE);
@@ -149,9 +166,31 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	//readVariables(report, element);
 	//readDataConnectors(report, element);
 	readDataSources(report, element);
+	//readStyles(report, element);
 	readTemplates(report, element);
     }
 
+    // DATA-SOURCES
+    protected void readDataSources(Report report, Element element) {
+	Element node = getChild(element, XML_DATA_SOURCES);
+	if (node == null){
+	    return;
+	}
+
+	List children = node.getChildren();
+	if (children == null || children.isEmpty()) {
+	    return;
+	}
+	int count = children.size();
+	XMLDataSourceReader templateReader = new XMLDataSourceReader();
+	for (int i = 0; i < count; i++) {
+	    DSDataSource dataSource = new DSBaseDataSource();
+	    report.addDataSource(dataSource);
+	    templateReader.readDataSource(dataSource, (Element) children.get(i));
+	}
+    }
+    
+    // TEMPLATES
     protected void readTemplates(Report report, Element element) {
 	Element node = getChild(element, XML_TEMPLATES);
 	if (node == null){
@@ -171,24 +210,6 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	}
     }
 
-    protected void readDataSources(Report report, Element element) {
-	Element node = getChild(element, XML_DATA_SOURCES);
-	if (node == null){
-	    return;
-	}
-
-	List children = node.getChildren();
-	if (children == null || children.isEmpty()) {
-	    return;
-	}
-	int count = children.size();
-	XMLDataSourceReader templateReader = new XMLDataSourceReader();
-	for (int i = 0; i < count; i++) {
-	    DSDataSource dataSource = new DSBaseDataSource();
-	    report.addDataSource(dataSource);
-	    templateReader.readDataSource(dataSource, (Element) children.get(i));
-	}
-    }
 
   
     

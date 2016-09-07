@@ -60,7 +60,7 @@ public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpre
     
     @Override
     public Band getBand(int index) {
-	return getBands().get(0);
+	return getBands().get(index);
     }
 
     @Override
