@@ -41,6 +41,7 @@ import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
+import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 import junit.framework.TestCase;
 

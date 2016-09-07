@@ -23,7 +23,7 @@
 /**
  * 
  */
-package org.plazmaforge.framework.report.storage.xml;
+package org.plazmaforge.framework.report.storage.xml.report;
 
 import java.io.File;
 import java.io.FileInputStream;
