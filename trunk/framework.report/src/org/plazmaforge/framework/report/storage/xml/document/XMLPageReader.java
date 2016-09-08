@@ -27,8 +27,10 @@ package org.plazmaforge.framework.report.storage.xml.document;
 
 import java.util.List;
 
-import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.xml.base.XMLGridReader;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
@@ -37,14 +39,14 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  */
 public class XMLPageReader extends XMLAbstractDocumentReader {
 
-    public void readPage(Page page, Element element) {
+    public void readPage(Page page, org.jdom.Element element) {
 	readPageAttributes(page, element);
 	readPageContent(page, element);
     }
 
     ////
     
-    protected void readPageAttributes(Page page, Element element) {
+    protected void readPageAttributes(Page page, org.jdom.Element element) {
 	
 	// background
 	Color background = getColor(element, XML_ATTR_BACKGROUND);
@@ -60,13 +62,13 @@ public class XMLPageReader extends XMLAbstractDocumentReader {
 
     }
     
-    protected void readPageContent(Page page, Element element) {
+    protected void readPageContent(Page page, org.jdom.Element element) {
 	readPageElements(page, element);
     }
     
     
-    protected void readPageElements(Page page, Element element) {
-	Element node = getChild(element, XML_ELEMENTS);
+    protected void readPageElements(Page page, org.jdom.Element element) {
+	org.jdom.Element node = getChild(element, XML_ELEMENTS);
 	if (node == null) {
 	    return;
 	}
@@ -76,26 +78,37 @@ public class XMLPageReader extends XMLAbstractDocumentReader {
 	}
 	int count = children.size();
 	
-	/*
-	Element rowNode = null;
-	Integer iValue = null;
+	org.jdom.Element childNode = null;
 	for (int i = 0; i < count; i++) {
-	    rowNode = (Element) children.get(i);
-	    Row row = new Row();
-	    band.addRow(row);
-	    
-	    // Get attributes
-	    iValue = getIntegerValue(rowNode, XML_ATTR_HEIGHT);
-	    if (iValue != null) {
-		row.setHeight(iValue);
+	    childNode = (org.jdom.Element) children.get(i);
+	    Element child = readElementByType(childNode);
+	    if (child != null) {
+		page.addChild(child);
 	    }
-	    
-	    // Get cells
-	    readRowCells(row, rowNode);
 	}
-	*/
+
     }
     
+    
+    protected Element readElementByType(org.jdom.Element element) {
+	String elementName = element.getName();
+	if (XML_ELEMENT.equals(elementName)) {
+	    return readElement(element);
+	} else if (XML_GRID.equals(elementName)) {
+	    return readGrid(element);
+	}
+	// handleError("Document is not valid");
+	return null;
+    }
  
+    protected Element readElement(org.jdom.Element element) {
+	// TODO
+	return null;
+    }    
+    
+    protected Grid readGrid(org.jdom.Element element) {
+	XMLGridReader reader = new XMLGridReader();
+	return reader.readGrid(element);
+    }    
     
 }

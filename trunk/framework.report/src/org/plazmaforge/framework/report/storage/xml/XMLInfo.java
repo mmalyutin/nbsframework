@@ -133,4 +133,6 @@ public interface XMLInfo {
     
     String XML_ELEMENTS = "elements";
     
+    String XML_ELEMENT = "element";
+    
 }

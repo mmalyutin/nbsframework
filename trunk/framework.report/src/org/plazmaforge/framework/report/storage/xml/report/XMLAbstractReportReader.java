@@ -25,8 +25,6 @@
  */
 package org.plazmaforge.framework.report.storage.xml.report;
 
-import org.jdom.Element;
-import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 
 /**
@@ -35,28 +33,6 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLAbstractReportReader extends XMLAbstractReader implements XMLReportInfo {
     
-    protected DSExpression getExpression(Element element) {
-	return getExpression(element, true);
-    }
-
-    protected DSExpression getExpression(Element element, boolean isLoadDataType) {
-	if (element == null) {
-	    return null;
-	}
-	DSExpression expression = new DSExpression();
-	String sValue = getContentValue(element);
-	if (sValue != null) {
-	    expression.setText(sValue);
-	}
-	if (!isLoadDataType) {
-	    return expression;
-	}
-	sValue = getValue(element, XML_ATTR_DATA_TYPE);
-	if (sValue != null) {
-	    expression.setDataType(sValue);
-	}
-	return expression;
-    }
-
+   
     
 }

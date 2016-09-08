@@ -1,6 +1,46 @@
 <document name="Document1" caption="Document 1" description="Document Description1">
 	<pages>
 		<page>
+			<elements>
+				<grid>
+					<columns>
+						<column width="150" />
+						<column width="250" />
+					</columns>
+					<rows>
+						<row height="20">
+							<cells>
+								<cell>
+									<value>1</value>
+								</cell>
+								<cell>
+									<value>Product 1</value>
+								</cell>
+							</cells>
+						</row>
+						<row height="25">
+							<cells>
+								<cell>
+									<value>2</value>
+								</cell>
+								<cell>
+									<value>Product 2</value>
+								</cell>
+							</cells>
+						</row>
+						<row height="30">
+							<cells>
+								<cell>
+									<value>3</value>
+								</cell>
+								<cell>
+									<value>Product 3</value>
+								</cell>
+							</cells>
+						</row>
+					</rows>
+				</grid>
+			</elements>
 		</page>
 		<page>
 		</page>

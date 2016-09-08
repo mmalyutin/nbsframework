@@ -156,6 +156,7 @@
 		<complexType>
 			<sequence>
 				<element ref="report:element" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="report:grid" minOccurs="0" maxOccurs="unbounded" />
 			</sequence>
 		</complexType>
 	</element>

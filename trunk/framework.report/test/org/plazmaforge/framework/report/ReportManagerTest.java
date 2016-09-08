@@ -149,6 +149,7 @@ public class ReportManagerTest extends DataTestCase {
 	}
 	System.out.println();
     }
+
     
     private void printElement(Element element) {
 	System.out.println(element.toStringModel());
