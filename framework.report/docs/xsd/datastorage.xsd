@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/report" xmlns:report="http://plazmaforge.org/report" elementFormDefault="qualified">
 
-	<include schemaLocation="report.xsd"/>
+	<include schemaLocation="base.xsd"/>
 
 	<element name="data-connectors">
 		<complexType>
