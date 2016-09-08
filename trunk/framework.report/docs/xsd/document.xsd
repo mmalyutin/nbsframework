@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://plazmaforge.org/report" xmlns:report="http://plazmaforge.org/report" elementFormDefault="qualified">
+
+	<include schemaLocation="base.xsd"/>
+	
+	<element name="document">
+		<complexType>
+			<sequence>
+				<element ref="report:page-setup" minOccurs="0" maxOccurs="1" />
+				<element ref="report:pages" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+		</complexType>
+	</element>
+
+	<element name="pages">
+		<complexType>
+			<sequence>
+				<element ref="report:page" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="page">
+		<complexType>
+			<sequence>
+				<element ref="report:elements" minOccurs="0" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+</schema>
