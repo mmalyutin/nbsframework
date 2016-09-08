@@ -27,9 +27,15 @@ package org.plazmaforge.framework.report.storage.xml.document;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.Column;
+import org.plazmaforge.framework.report.model.base.grid.Grid;
+import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
@@ -86,8 +92,76 @@ public class XMLDocumentReaderTest extends TestCase {
 	Page page = document.getPage(0);
 	assertNotNull(page);
 	
+	checkPage(page);
+	
 	page = document.getPage(1);
 	assertNotNull(page);
 
+    }
+    
+    private void checkPage(Page page) {
+	List<Element> elements = page.getChildren();
+	assertNotNull(elements);
+	assertEquals(1, elements.size());
+	
+	Element element = elements.get(0);
+	assertTrue(element instanceof Grid);
+	
+	Grid grid = (Grid) element;
+	
+	assertEquals(2, grid.getColumnCount());
+	assertEquals(3, grid.getRowCount());
+	
+	Column column = grid.getColumns().get(0);
+	assertEquals(150, column.getWidth());
+	
+	column = grid.getColumns().get(1);
+	assertEquals(250, column.getWidth());
+	
+	// Row - 1
+	Row row = grid.getRows().get(0);
+	assertEquals(20, row.getHeight());
+	assertEquals(2, row.getCellCount());
+	Cell cell = row.getCell(0);
+	Object value = cell.getValue();
+	assertNotNull(value);
+	assertEquals("1", value.toString());
+
+	cell = row.getCell(1);
+	value = cell.getValue();
+	assertNotNull(value);
+	assertEquals("Product 1", value.toString());
+	
+	
+	// Row - 2
+	row = grid.getRows().get(1);
+	assertEquals(25, row.getHeight());
+	assertEquals(2, row.getCellCount());
+	cell = row.getCell(0);
+	value = cell.getValue();
+	assertNotNull(value);
+	assertEquals("2", value.toString());
+
+	cell = row.getCell(1);
+	value = cell.getValue();
+	assertNotNull(value);
+	assertEquals("Product 2", value.toString());
+	
+
+	// Row - 3
+	row = grid.getRows().get(2);
+	assertEquals(30, row.getHeight());
+	assertEquals(2, row.getCellCount());
+	cell = row.getCell(0);
+	value = cell.getValue();
+	assertNotNull(value);
+	assertEquals("3", value.toString());
+
+	cell = row.getCell(1);
+	value = cell.getValue();
+	assertNotNull(value);
+	assertEquals("Product 3", value.toString());
+	
+	
     }
 }

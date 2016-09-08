@@ -29,6 +29,7 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
+import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
@@ -46,6 +47,51 @@ public class XMLAbstractReader implements XMLInfo  {
     
     private FormatterManager formatterManager;
     
+    ////
+    
+    protected void readElementAttributes(org.plazmaforge.framework.report.model.base.Element element, Element xmlElement) {
+  	String sValue = null;
+  	Integer iValue = null;
+
+  	// x
+  	iValue = getIntegerValue(xmlElement, XML_ATTR_X);
+  	if (iValue != null) {
+  	    element.setX(iValue);
+  	}
+
+  	// y
+  	iValue = getIntegerValue(xmlElement, XML_ATTR_Y);
+  	if (iValue != null) {
+  	    element.setY(iValue);
+  	}
+  	
+  	// width
+  	iValue = getIntegerValue(xmlElement, XML_ATTR_WIDTH);
+  	if (iValue != null) {
+  	    element.setWidth(iValue);
+  	}
+  	
+  	// height
+  	iValue = getIntegerValue(xmlElement, XML_ATTR_HEIGHT);
+  	if (iValue != null) {
+  	    element.setHeight(iValue);
+  	}
+
+  	// background
+  	Color background = getColor(xmlElement, XML_ATTR_BACKGROUND);
+  	if  (background != null) {
+  	    element.setBackground(background);
+  	}
+  	    
+  	// foreground
+  	Color foreground = getColor(xmlElement, XML_ATTR_FOREGROUND);
+  	if (foreground != null) {
+  	    element.setForeground(foreground);
+  	}
+
+    }
+    
+    ////
     
     protected int intValue(Element element, String name) {
 	return getIntegerValue(element, name, 0);
@@ -265,6 +311,32 @@ public class XMLAbstractReader implements XMLInfo  {
     
     ////
     
+    
+    protected DSExpression getExpression(Element element) {
+   	return getExpression(element, true);
+    }
+
+    protected DSExpression getExpression(Element element, boolean isLoadDataType) {
+   	if (element == null) {
+   	    return null;
+   	}
+   	DSExpression expression = new DSExpression();
+   	String sValue = getContentValue(element);
+   	if (sValue != null) {
+   	    expression.setText(sValue);
+   	}
+   	if (!isLoadDataType) {
+   	    return expression;
+   	}
+   	sValue = getValue(element, XML_ATTR_DATA_TYPE);
+   	if (sValue != null) {
+   	    expression.setDataType(sValue);
+   	}
+   	return expression;
+    }
+    
+    ////
+       
     protected String normalizeString(String str) {
 	if (str == null) {
 	    return null;
