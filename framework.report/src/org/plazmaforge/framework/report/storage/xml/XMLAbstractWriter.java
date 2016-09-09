@@ -85,4 +85,9 @@ public class XMLAbstractWriter implements XMLInfo {
 	return root;
     }
     
+    protected void addChild(Element parent, Element child ) {
+	parent.getChildren().add(child);
+    }
+    
+    
 }

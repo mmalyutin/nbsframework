@@ -25,7 +25,6 @@ package org.plazmaforge.framework.report.storage.xml.document;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Element;
@@ -66,27 +65,33 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
 	//TODO
 	Element root = createXMLRootElement(XML_DOCUMENT);
 	org.jdom.Document doc = new org.jdom.Document(root);
-	List<Element> children = new ArrayList<Element>();
-	int pageCount = document.getPageCount();
 	
-	if (pageCount > 0) {
-	    Element xmlPages = new Element(XML_PAGES);
-	    children.add(xmlPages);
-	    
-	    Element xmlPage = null;
-	    List<Element> pagesChildren = new ArrayList<Element>();
-	    for (Page page: document.getPages()) {
-		xmlPage = new Element(XML_PAGE);
-		pagesChildren.add(xmlPage);
-	    }
-	    xmlPages.setContent(pagesChildren);
+	// PAGES
+	Element pagesNode = buildPagesNode(document);
+	if (pagesNode != null) {
+	    addChild(root, pagesNode);
 	}
-		
-	root.setContent(children);
 	
 	return doc;
     }
     
-   
+    //PAGES
+    protected Element buildPagesNode(Document document) {
+	if (!document.hasPages()) {
+	    return null;
+	}
+	List<Page> pages = document.getPages();
+	Element parentNode = new Element(XML_PAGES);
+	Element pageNode = null;
+	XMLPageWriter writer = new XMLPageWriter();
+	for (Page page : pages) {
+	    pageNode = writer.writePage(page);
+	    addChild(parentNode, pageNode);
+	}
+	return parentNode;
+    }
+    
+    
+    
 
 }
