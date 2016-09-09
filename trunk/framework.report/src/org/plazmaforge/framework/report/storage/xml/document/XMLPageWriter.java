@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.report.storage.xml.document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.xml.base.XMLGridWriter;
 
 /**
  * 
@@ -37,17 +37,11 @@ import org.plazmaforge.framework.report.model.document.Page;
 public class XMLPageWriter extends XMLAbstractDocumentWriter {
 
     //PAGE
-    public Element writePage(Page page) {
-	Element pageNode = new Element(XML_PAGE);
-	
-	//List<Element> children = new ArrayList<Element>();
-	//Element elementsNode = buildPageElements(page);
-	//if (elementsNode != null) {
-	//    children.add(elementsNode);
-	//}
-	//pageNode.setContent(children);
-	
-	return pageNode;
+    public void writePage(Page page, Element node) {
+	Element elementsNode = buildPageElements(page);
+	if (elementsNode != null) {
+	    addChild(node, elementsNode);
+	}
     }
     
     //ELEMENTS
@@ -83,7 +77,10 @@ public class XMLPageWriter extends XMLAbstractDocumentWriter {
 	
     //GRID
     protected Element buildGridNode(Grid grid) {
-	return null;
+	XMLGridWriter writer = new XMLGridWriter();
+	Element node  = createElement(XML_GRID);
+	writer.writeGrid(grid, node);
+	return node;
     }
 
 }

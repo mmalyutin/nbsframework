@@ -24,6 +24,9 @@ package org.plazmaforge.framework.report.storage.xml.document;
 
 import java.io.StringWriter;
 
+import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.Grid;
+import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 
@@ -48,7 +51,7 @@ public class XMLDocumentWriterTest extends TestCase {
 	Page page = null;
 
 	//1
-	page = new Page();
+	page = createTestPage();
 	document.addPage(page);
 	
 	//2
@@ -56,5 +59,37 @@ public class XMLDocumentWriterTest extends TestCase {
 	document.addPage(page);
 	
 	return document;
+    }
+    
+    private Page createTestPage() {
+	Page page = new Page();
+	Grid grid = createTestGrid();
+	page.addChild(grid);
+	return page;
+    }
+
+    private Grid createTestGrid() {
+	Grid grid = new Grid();
+	Row row = null;
+	for (int i = 1; i <= 10; i++ ) {
+	    row = createTestRow(i);
+	    grid.addRow(row);
+	}
+	return grid;
+    }
+    
+    private Row createTestRow(int number) {
+	Row row = new Row();
+	row.setHeight(27);
+	
+	Cell cell = new Cell();
+	cell.setValue("" + number);
+	row.addCell(cell);
+
+	cell = new Cell();
+	cell.setValue("Product" + number);
+	row.addCell(cell);
+	
+	return row;
     }
 }

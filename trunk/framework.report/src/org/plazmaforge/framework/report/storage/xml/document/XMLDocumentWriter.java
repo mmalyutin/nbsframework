@@ -63,7 +63,7 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
     
     protected org.jdom.Document buildXMLDocument(Document document) {
 	//TODO
-	Element root = createXMLRootElement(XML_DOCUMENT);
+	Element root = createElement(XML_DOCUMENT);
 	org.jdom.Document doc = new org.jdom.Document(root);
 	
 	// PAGES
@@ -81,11 +81,12 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
 	    return null;
 	}
 	List<Page> pages = document.getPages();
-	Element parentNode = new Element(XML_PAGES);
+	Element parentNode = createElement(XML_PAGES);
 	Element pageNode = null;
 	XMLPageWriter writer = new XMLPageWriter();
 	for (Page page : pages) {
-	    pageNode = writer.writePage(page);
+	    pageNode = 	createElement(XML_PAGE);
+	    writer.writePage(page, pageNode);
 	    addChild(parentNode, pageNode);
 	}
 	return parentNode;

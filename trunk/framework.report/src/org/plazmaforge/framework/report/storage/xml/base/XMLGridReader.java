@@ -32,6 +32,11 @@ import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class XMLGridReader extends XMLAbstractReader {
 
     public Grid readGrid(Element element) {
@@ -63,7 +68,6 @@ public class XMLGridReader extends XMLAbstractReader {
 	}
 	int count = children.size();
 	Element columnNode = null;
-	Integer iValue = null;
 	for (int i = 0; i < count; i++) {
 	    columnNode = (Element) children.get(i);
 	    Column column = readColumn(columnNode);
