@@ -138,6 +138,10 @@ public class Element implements Serializable, HasExpressionBuilder {
 	return position;
     }
 
+    public boolean hasPosition() {
+	return position != null;
+    }
+    
     public void setPosition(Point position) {
         this.position = position;
     }
@@ -149,6 +153,10 @@ public class Element implements Serializable, HasExpressionBuilder {
         return size;
     }
 
+    public boolean hasSize() {
+	return size != null;
+    }
+    
     public void setSize(Size size) {
         this.size = size;
     }

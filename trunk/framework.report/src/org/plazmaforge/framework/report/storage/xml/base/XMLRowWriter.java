@@ -36,15 +36,22 @@ import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocument
  */
 public class XMLRowWriter extends XMLAbstractDocumentWriter {
 
-    public void writeRow(Row grid, Element node) {
+    public void writeRow(Row row, Element node) {
+	
+	if (row.getHeight() > 0) {
+	    setValue(node, XML_ATTR_HEIGHT, row.getHeight());
+	}
+	
 	
 	//CELLS
-	Element cellsNode = buildCellsNode(grid);
+	Element cellsNode = buildCellsNode(row);
 	if (cellsNode != null) {
 	    addChild(node, cellsNode);
 	}
     }
     
+    
+   
     
     //CELLS
     protected Element buildCellsNode(Row row) {

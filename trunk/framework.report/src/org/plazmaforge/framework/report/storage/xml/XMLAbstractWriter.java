@@ -36,13 +36,14 @@ import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XMLAbstractWriter implements XMLInfo {
+public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 
     
     protected void writeXMLDocument(Document doc, String fileName) throws RTException {
@@ -77,6 +78,44 @@ public class XMLAbstractWriter implements XMLInfo {
 	}
     }
     
+    ////
+    
+    protected void writeElementAttributes(org.plazmaforge.framework.report.model.base.Element element, Element xmlElement) {
+
+  	// position
+  	if (element.hasPosition()) {
+  	    if (element.getPosition().hasX()) {
+  		setIntegerValue(xmlElement, XML_ATTR_X, element.getPosition().getX());
+  	    }
+  	    if (element.getPosition().hasY()) {
+  		setIntegerValue(xmlElement, XML_ATTR_Y, element.getPosition().getY());
+  	    }
+  	}
+
+  	//size
+  	if (element.hasSize()) {
+  	    if (element.getSize().hasWidth()) {
+  		setIntegerValue(xmlElement, XML_ATTR_WIDTH, element.getSize().getWidth());
+  	    }
+  	    if (element.getSize().hasHeight()) {
+  		setIntegerValue(xmlElement, XML_ATTR_HEIGHT, element.getSize().getHeight());
+  	    }
+  	}
+  	
+  	// background
+  	Color background = element.getBackground();
+  	if (background != null) {
+  	    setColor(xmlElement, XML_ATTR_BACKGROUND, background);
+  	}
+  	    
+  	// foreground
+  	Color foreground = element.getForeground();
+  	if (foreground != null) {
+  	    setColor(xmlElement, XML_ATTR_FOREGROUND, foreground);
+  	}
+
+    }    
+    
     
     ////
     
@@ -87,6 +126,48 @@ public class XMLAbstractWriter implements XMLInfo {
     
     protected void addChild(Element parent, Element child ) {
 	parent.getChildren().add(child);
+    }
+    
+    protected void setValue(Element element, String name, Object value) {
+	if (value == null) {
+	    return;
+	}
+	// TODO: dataType
+   	element.setAttribute(name, value.toString());
+    }
+
+    protected void setIntegerValue(Element element, String name, Integer value) {
+	// TODO: dataType
+   	setValue(element, name, value);
+    }
+    
+    protected void setColor(Element element, String name, Color color) {
+	setValue(element, name, COLOR_FORMATTER.format(color));
+    }
+    
+    protected void setContentValue(Element element, Object value) {
+	setContentValue(element, value, null);
+    }
+    
+    protected void setContentValue(Element element, Object value, String dataType) {
+	if (value == null) {
+	    return;
+	}
+	String str = toString(value, dataType);
+	if (str == null) {
+	    return;
+	}
+	element.setText(str);
+    }
+    
+    
+    protected String toString(Object value, String dataType) {
+	if (value == null) {
+	    return null;
+	}
+	// TODO: dataType
+	String str = value.toString();
+	return normalizeString(str);
     }
     
     

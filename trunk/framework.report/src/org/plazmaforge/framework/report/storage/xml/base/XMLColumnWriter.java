@@ -24,7 +24,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 
 
 import org.jdom.Element;
-import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocumentWriter;
 
 /**
@@ -32,51 +32,17 @@ import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocument
  * @author ohapon
  *
  */
-public class XMLCellWriter extends XMLAbstractDocumentWriter {
+public class XMLColumnWriter extends XMLAbstractDocumentWriter {
 
-    public void writeCell(Cell cell, Element node) {
+    public void writeColumn(Column column, Element node) {
 	
-	// column span
-	if (cell.getColspan() > 1) {
-	    setIntegerValue(node, XML_ATTR_COLSPAN, cell.getColspan());
-	}
-
-	// row span
-	if (cell.getRowspan() > 1) {
-	    setIntegerValue(node, XML_ATTR_ROWSPAN, cell.getRowspan());
-	}
-	
-	// dataType
-	String sValue = normalizeString(cell.getDataType());
-	if (sValue != null) {
-	    setValue(node, XML_ATTR_DATA_TYPE, sValue);
+	// width
+	if (column.getWidth() > 1) {
+	    setIntegerValue(node, XML_ATTR_WIDTH, column.getWidth());
 	}
 
-	// format
-	sValue = normalizeString(cell.getFormat());
-	if (sValue != null) {
-	    setValue(node, XML_ATTR_FORMAT, sValue);
-	}
-	
-	// value
-	Object value = cell.getValue();
-	if (value != null) {
-	    sValue = toString(value, cell.getDataType());
-	    if (sValue != null) {
-		Element valueNode = createElement(XML_VALUE);
-		addChild(node, valueNode);
-		setContentValue(valueNode, sValue);
-	    }
-	}
-	
-	// expression
-	// TODO
-	
     }
     
-    protected String convertCellValue(Object value, String dataType) {
-	return value == null ? null : value.toString();
-    }
-    
+  
     
 }
