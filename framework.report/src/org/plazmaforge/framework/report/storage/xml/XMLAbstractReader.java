@@ -34,27 +34,20 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
-import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
  * @author ohapon
  *
  */
-public class XMLAbstractReader implements XMLInfo  {
+public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 
     
-    protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
-    
-    private FormatterManager formatterManager;
-    
-    ////
     
     protected Document readXMLDocument(String fileName) throws RTException {
 	if (fileName == null) {
@@ -158,7 +151,7 @@ public class XMLAbstractReader implements XMLInfo  {
     }
     
     protected String getValue(Element element, String name) {
-	if(element == null || name == null){
+	if(element == null || name == null) {
 	    return null;
 	}
 	String value = element.getAttributeValue(name);
@@ -345,14 +338,6 @@ public class XMLAbstractReader implements XMLInfo  {
 	return margin.isEmpty() ? null : margin;
     }
 
-    protected  FormatterManager getFormatterManager() {
-	if (formatterManager == null) {
-	    formatterManager = new FormatterManager();
-	    formatterManager.registerDefaultFormatters();
-	}
-	return formatterManager;
-    }
-    
     ////
     
     
@@ -381,12 +366,4 @@ public class XMLAbstractReader implements XMLInfo  {
     
     ////
        
-    protected String normalizeString(String str) {
-	if (str == null) {
-	    return null;
-	}
-	str = str.trim();
-	return str.isEmpty() ? null : str;
-    }
-
 }

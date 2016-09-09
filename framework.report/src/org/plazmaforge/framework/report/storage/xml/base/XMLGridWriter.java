@@ -25,6 +25,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocumentWriter;
@@ -37,16 +38,46 @@ import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocument
 public class XMLGridWriter extends XMLAbstractDocumentWriter {
 
     public void writeGrid(Grid grid, Element node) {
-	
-	//ROWS
-	Element rowsNode = buildRowsNode(grid);
-	if (rowsNode != null) {
-	    addChild(node, rowsNode);
+	writeElementAttributes(grid, node);
+	writeColumns(grid, node);
+	writeRows(grid, node);
+    }
+
+    //COLUMNS
+    protected void writeColumns(Grid grid, Element node) {
+	Element columnsNode = buildColumnsNode(grid);
+	if (columnsNode == null) {
+	    return;
 	}
+	addChild(node, columnsNode);	
     }
     
+
+    protected Element buildColumnsNode(Grid grid) {
+	if (!grid.hasColumns()) {
+	    return null;
+	}
+	List<Column> columns = grid.getColumns();
+	Element parentNode = createElement(XML_COLUMNS);
+	Element columnNode = null;
+	XMLColumnWriter writer = new XMLColumnWriter();
+	for (Column column : columns) {
+	    columnNode = createElement(XML_COLUMN);
+	    writer.writeColumn(column, columnNode);
+	    addChild(parentNode, columnNode);
+	}
+	return parentNode;
+    }
     
     //ROWS
+    protected void writeRows(Grid grid, Element node) {
+	Element rowsNode = buildRowsNode(grid);
+	if (rowsNode == null) {
+	    return;
+	}
+	addChild(node, rowsNode);	
+    }
+    
     protected Element buildRowsNode(Grid grid) {
 	if (!grid.hasRows()) {
 	    return null;
@@ -56,7 +87,7 @@ public class XMLGridWriter extends XMLAbstractDocumentWriter {
 	Element rowNode = null;
 	XMLRowWriter writer = new XMLRowWriter();
 	for (Row row : rows) {
-	    rowNode = 	createElement(XML_ROW);
+	    rowNode = createElement(XML_ROW);
 	    writer.writeRow(row, rowNode);
 	    addChild(parentNode, rowNode);
 	}
