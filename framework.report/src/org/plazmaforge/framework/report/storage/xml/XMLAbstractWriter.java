@@ -80,7 +80,7 @@ public class XMLAbstractWriter implements XMLInfo {
     
     ////
     
-    protected Element createXMLRootElement(String name) {
+    protected Element createElement(String name) {
 	Element root = new Element(name);
 	return root;
     }
