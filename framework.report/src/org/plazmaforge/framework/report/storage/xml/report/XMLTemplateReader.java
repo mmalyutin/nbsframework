@@ -49,9 +49,11 @@ import org.plazmaforge.framework.report.model.design.Template;
  */
 public class XMLTemplateReader extends XMLAbstractReportReader {
 
-    public void readTemplate(Template template, Element element) {
+    public Template readTemplate(Element element) {
+	Template template = new Template();
 	readTemplateAttributes(template, element);
 	readTemplateContent(template, element);
+	return template;
     }
     
     ////
@@ -156,11 +158,11 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    return;
 	}
 	int count = children.size();
-	XMLGroupReader groupReader = new XMLGroupReader();
+	XMLGroupReader reader = new XMLGroupReader();
 	for (int i = 0; i < count; i++) {
 	    ReportGroup group = new ReportGroup();
 	    template.addGroup(group);
-	    groupReader.readGroup(group, (Element) children.get(i));
+	    reader.readGroup(group, (Element) children.get(i));
 	}
     }
     
@@ -175,11 +177,10 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    return;
 	}
 	int count = children.size();
-	XMLBandReader bandReader = new XMLBandReader();
+	XMLBandReader reader = new XMLBandReader();
 	for (int i = 0; i < count; i++) {
-	    Band band = new Band();
+	    Band band = reader.readBand((Element) children.get(i));
 	    template.addBand(band);
-	    bandReader.readBand(band, (Element) children.get(i));
 	}
     }
     

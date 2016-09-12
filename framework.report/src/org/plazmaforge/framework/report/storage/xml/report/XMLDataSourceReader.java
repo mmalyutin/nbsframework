@@ -29,6 +29,7 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSComputedField;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
@@ -45,9 +46,11 @@ import org.plazmaforge.framework.core.datastorage.DSQuery;
 public class XMLDataSourceReader extends XMLAbstractReportReader {
 
     
-    public void readDataSource(DSDataSource dataSource, Element element) {
+    public DSDataSource readDataSource(Element element) {
+	DSDataSource dataSource = new DSBaseDataSource();
 	readDataSourceAttributes(dataSource, element);
 	readDataSourceContent(dataSource, element);
+	return dataSource;
     }
     
     ////

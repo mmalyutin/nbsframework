@@ -84,11 +84,10 @@ public class XMLGroupReader extends XMLAbstractReportReader {
 	    return;
 	}
 	int count = children.size();
-	XMLBandReader bandReader = new XMLBandReader();
+	XMLBandReader reader = new XMLBandReader();
 	for (int i = 0; i < count; i++) {
-	    Band band = new Band();
+	    Band band = reader.readBand((Element) children.get(i));
 	    group.addBand(band);
-	    bandReader.readBand(band, (Element) children.get(i));
 	}
     }
     

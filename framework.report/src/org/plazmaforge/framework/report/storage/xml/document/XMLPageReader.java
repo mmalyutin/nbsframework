@@ -39,9 +39,11 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  */
 public class XMLPageReader extends XMLAbstractDocumentReader {
 
-    public void readPage(Page page, org.jdom.Element element) {
+    public Page readPage(org.jdom.Element element) {
+	Page page = new Page();
 	readPageAttributes(page, element);
 	readPageContent(page, element);
+	return page;
     }
 
     ////
