@@ -44,9 +44,11 @@ import org.plazmaforge.framework.report.model.design.ReportGroup;
  */
 public class XMLGroupReader extends XMLAbstractReportReader {
 
-    public void readGroup(ReportGroup group, Element element) {
+    public ReportGroup readGroup(Element element) {
+	ReportGroup group = new ReportGroup();
 	readGroupAttributes(group, element);
 	readGroupContent(group, element);
+	return group;
     }
 
     ////
@@ -70,11 +72,11 @@ public class XMLGroupReader extends XMLAbstractReportReader {
 	    group.setExpression(expression);
 	}
 
-	readGroupBands(group, element);
+	readBands(group, element);
     }
     
     // BANDS
-    protected void readGroupBands(ReportGroup group, Element element) {
+    protected void readBands(ReportGroup group, Element element) {
 	Element node = getChild(element, XML_BANDS);
 	if (node == null) {
 	    return;
