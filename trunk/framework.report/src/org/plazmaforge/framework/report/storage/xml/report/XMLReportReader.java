@@ -31,7 +31,6 @@ import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
@@ -145,11 +144,10 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	    return;
 	}
 	int count = children.size();
-	XMLDataSourceReader templateReader = new XMLDataSourceReader();
+	XMLDataSourceReader reader = new XMLDataSourceReader();
 	for (int i = 0; i < count; i++) {
-	    DSDataSource dataSource = new DSBaseDataSource();
+	    DSDataSource dataSource = reader.readDataSource((Element) children.get(i));
 	    report.addDataSource(dataSource);
-	    templateReader.readDataSource(dataSource, (Element) children.get(i));
 	}
     }
     
@@ -165,11 +163,10 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	    return;
 	}
 	int count = children.size();
-	XMLTemplateReader templateReader = new XMLTemplateReader();
+	XMLTemplateReader reader = new XMLTemplateReader();
 	for (int i = 0; i < count; i++) {
-	    Template template = new Template();
+	    Template template = reader.readTemplate((Element) children.get(i));
 	    report.addTemplate(template);
-	    templateReader.readTemplate(template, (Element) children.get(i));
 	}
     }
 

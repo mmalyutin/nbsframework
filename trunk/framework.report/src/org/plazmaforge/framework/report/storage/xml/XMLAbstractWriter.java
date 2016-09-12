@@ -80,38 +80,38 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     
     ////
     
-    protected void writeElementAttributes(org.plazmaforge.framework.report.model.base.Element element, Element xmlElement) {
+    protected void writeElementAttributes(org.plazmaforge.framework.report.model.base.Element element, Element node) {
 
   	// position
   	if (element.hasPosition()) {
   	    if (element.getPosition().hasX()) {
-  		setIntegerValue(xmlElement, XML_ATTR_X, element.getPosition().getX());
+  		setIntegerValue(node, XML_ATTR_X, element.getPosition().getX());
   	    }
   	    if (element.getPosition().hasY()) {
-  		setIntegerValue(xmlElement, XML_ATTR_Y, element.getPosition().getY());
+  		setIntegerValue(node, XML_ATTR_Y, element.getPosition().getY());
   	    }
   	}
 
   	//size
   	if (element.hasSize()) {
   	    if (element.getSize().hasWidth()) {
-  		setIntegerValue(xmlElement, XML_ATTR_WIDTH, element.getSize().getWidth());
+  		setIntegerValue(node, XML_ATTR_WIDTH, element.getSize().getWidth());
   	    }
   	    if (element.getSize().hasHeight()) {
-  		setIntegerValue(xmlElement, XML_ATTR_HEIGHT, element.getSize().getHeight());
+  		setIntegerValue(node, XML_ATTR_HEIGHT, element.getSize().getHeight());
   	    }
   	}
   	
   	// background
   	Color background = element.getBackground();
   	if (background != null) {
-  	    setColor(xmlElement, XML_ATTR_BACKGROUND, background);
+  	    setColor(node, XML_ATTR_BACKGROUND, background);
   	}
   	    
   	// foreground
   	Color foreground = element.getForeground();
   	if (foreground != null) {
-  	    setColor(xmlElement, XML_ATTR_FOREGROUND, foreground);
+  	    setColor(node, XML_ATTR_FOREGROUND, foreground);
   	}
 
     }    
@@ -120,11 +120,11 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     ////
     
     protected Element createElement(String name) {
-	Element root = new Element(name);
-	return root;
+	Element node = new Element(name);
+	return node;
     }
     
-    protected void addChild(Element parent, Element child ) {
+    protected void addChild(Element parent, Element child) {
 	parent.getChildren().add(child);
     }
     

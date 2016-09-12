@@ -40,9 +40,11 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  */
 public class XMLBandReader extends XMLAbstractReportReader {
 
-    public void readBand(Band band, Element element) {
+    public Band readBand(Element element) {
+	Band band = new Band();
 	readBandAttributes(band, element);
 	readBandContent(band, element);
+	return band;
     }
 
     ////

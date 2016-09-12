@@ -155,9 +155,8 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
 	int count = children.size();
 	XMLPageReader pageReader = new XMLPageReader();
 	for (int i = 0; i < count; i++) {
-	    Page page = new Page();
+	    Page page = pageReader.readPage((Element) children.get(i));
 	    document.addPage(page);
-	    pageReader.readPage(page, (Element) children.get(i));
 	}
     }    
     

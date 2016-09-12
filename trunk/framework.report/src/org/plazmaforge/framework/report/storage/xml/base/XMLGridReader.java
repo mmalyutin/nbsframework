@@ -46,8 +46,8 @@ public class XMLGridReader extends XMLAbstractReader {
 	return grid;
     }
 
-    protected void readGridAttributes(Grid grid, Element xmlElement) {
-	readElementAttributes(grid, xmlElement);
+    protected void readGridAttributes(Grid grid, Element element) {
+	readElementAttributes(grid, element);
     }
     
     protected void readGridContent(Grid grid, Element element) {
