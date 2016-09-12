@@ -28,10 +28,9 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.util.List;
 
 import org.jdom.Element;
-import org.plazmaforge.framework.core.datastorage.DSExpression;
-import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
+import org.plazmaforge.framework.report.storage.xml.base.XMLRowReader;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
@@ -95,92 +94,13 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	}
 	int count = children.size();
 	Element rowNode = null;
-	Integer iValue = null;
+	XMLRowReader reader = new XMLRowReader();
 	for (int i = 0; i < count; i++) {
 	    rowNode = (Element) children.get(i);
-	    Row row = new Row();
+	    Row row = reader.readRow(rowNode);
 	    band.addRow(row);
-	    
-	    // Get attributes
-	    iValue = getIntegerValue(rowNode, XML_ATTR_HEIGHT);
-	    if (iValue != null) {
-		row.setHeight(iValue);
-	    }
-	    
-	    // Get cells
-	    readRowCells(row, rowNode);
-	    
-	    
 	}
     }
     
-    protected void readRowCells(Row row, Element element) {
-	Element node = getChild(element, XML_CELLS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
-	if (children == null || children.isEmpty()) {
-	    return;
-	}
-	int count = children.size();
-	Element cellNode = null;
-	for (int i = 0; i < count; i++) {
-	    cellNode = (Element) children.get(i);
-	    Cell cell = new Cell();
-	    readRowCell(cell, cellNode);
-	    row.addCell(cell);
-	}
-    }
-    
-
-    protected void readRowCell(Cell cell, Element element) {
-	
-	String sValue = null;
-	Integer iValue = null;
-
-	// column span
-	iValue = getIntegerValue(element, XML_ATTR_COLSPAN);
-	if (iValue != null) {
-	    cell.setColspan(iValue);
-	}
-
-	// row span
-	iValue = getIntegerValue(element, XML_ATTR_ROWSPAN);
-	if (iValue != null) {
-	    cell.setRowspan(iValue);
-	}
-
-	// dataType
-	sValue = getValue(element, XML_ATTR_DATA_TYPE);
-	if (sValue != null) {
-	    cell.setDataType(sValue);
-	}
-
-	// format
-	sValue = getValue(element, XML_ATTR_FORMAT);
-	if (sValue != null) {
-	    cell.setFormat(sValue);
-	}
-
-	// value: attribute
-	sValue = getValue(element, XML_ATTR_VALUE);
-	if (sValue != null) {
-	    cell.setValue(sValue);
-	}
-
-	// value: node
-	sValue = getContentValue(getChild(element, XML_VALUE));
-	if (sValue != null) {
-	    cell.setValue(sValue);
-	}
-
-	// expression
-	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION), false);
-	if (expression != null) {
-	    cell.setExpression(expression);
-	}
-
-    }
     
 }

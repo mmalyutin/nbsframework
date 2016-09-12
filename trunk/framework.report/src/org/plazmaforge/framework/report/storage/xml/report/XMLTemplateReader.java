@@ -89,9 +89,9 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     
     protected void readTemplateContent(Template template, Element element) {
 	readPageSetup(template, element);
-	readTemplateColumns(template, element);
-	readTemplateGroups(template, element);
-	readTemplateBands(template, element);
+	readColumns(template, element);
+	readGroups(template, element);
+	readBands(template, element);
     }
     
     // PAGE-SETUP
@@ -124,7 +124,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
     
     // COLUMNS
-    protected void readTemplateColumns(Template template, Element element) {
+    protected void readColumns(Template template, Element element) {
 	Element node = getChild(element, XML_COLUMNS);
 	if (node == null){
 	    return;
@@ -148,7 +148,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
 
     // REPORT-GROUPS
-    protected void readTemplateGroups(Template template, Element element) {
+    protected void readGroups(Template template, Element element) {
 	Element node = getChild(element, XML_REPORT_GROUPS);
 	if (node == null) {
 	    return;
@@ -160,14 +160,13 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	int count = children.size();
 	XMLGroupReader reader = new XMLGroupReader();
 	for (int i = 0; i < count; i++) {
-	    ReportGroup group = new ReportGroup();
+	    ReportGroup group = reader.readGroup((Element) children.get(i));
 	    template.addGroup(group);
-	    reader.readGroup(group, (Element) children.get(i));
 	}
     }
     
     // BANDS
-    protected void readTemplateBands(Template template, Element element) {
+    protected void readBands(Template template, Element element) {
 	Element node = getChild(element, XML_BANDS);
 	if (node == null) {
 	    return;
