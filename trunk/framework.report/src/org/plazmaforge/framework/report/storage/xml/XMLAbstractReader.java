@@ -312,7 +312,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
    	return getExpression(element, true);
     }
 
-    protected DSExpression getExpression(Element element, boolean isLoadDataType) {
+    protected DSExpression getExpression(Element element, boolean isUseDataType) {
    	if (element == null) {
    	    return null;
    	}
@@ -321,7 +321,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
    	if (sValue != null) {
    	    expression.setText(sValue);
    	}
-   	if (!isLoadDataType) {
+   	if (!isUseDataType) {
    	    return expression;
    	}
    	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);

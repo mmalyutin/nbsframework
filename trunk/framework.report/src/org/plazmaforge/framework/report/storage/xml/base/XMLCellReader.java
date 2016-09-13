@@ -79,7 +79,7 @@ public class XMLCellReader extends XMLAbstractReader {
    	}
 
    	// expression
-   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION), false);
+   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION), USE_DATA_TYPE_IN_EXPRESSION);
    	if (expression != null) {
    	    cell.setExpression(expression);
    	}

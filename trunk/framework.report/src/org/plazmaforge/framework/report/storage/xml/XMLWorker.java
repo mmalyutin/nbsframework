@@ -104,7 +104,7 @@ public class XMLWorker {
      }
      
      protected void setColor(Element element, String name, Color color) {
- 	setStringValue(element, name, COLOR_FORMATTER.format(color));
+ 	setStringValue(element, name, color == null ? null : COLOR_FORMATTER.format(color));
      }
      
      protected void setContentValue(Element element, Object value) {
@@ -116,6 +116,10 @@ public class XMLWorker {
  	    return;
  	}
  	String str = toString(value, dataType);
+ 	if (str == null) {
+ 	    return;
+ 	}
+ 	str = normalizeString(str);
  	if (str == null) {
  	    return;
  	}
