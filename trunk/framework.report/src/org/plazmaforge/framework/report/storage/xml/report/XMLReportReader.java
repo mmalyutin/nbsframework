@@ -97,25 +97,25 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	String value = null;
 	
 	// name
-	value = getValue(element, XML_ATTR_NAME);
+	value = getStringValue(element, XML_ATTR_NAME);
 	if (value != null) {
 	    report.setName(value);
 	}
 	
 	// caption
-	value = getValue(element, XML_ATTR_CAPTION);
+	value = getStringValue(element, XML_ATTR_CAPTION);
 	if (value != null) {
 	    report.setCaption(value);
 	}
 
 	// description
-	value = getValue(element, XML_ATTR_DESCRIPTION);
+	value = getStringValue(element, XML_ATTR_DESCRIPTION);
 	if (value != null) {
 	    report.setDescription(value);
 	}
 	
 	// type
-	value = getValue(element, XML_ATTR_TYPE);
+	value = getStringValue(element, XML_ATTR_TYPE);
 	if (value != null) {
 	    report.setType(value);
 	}

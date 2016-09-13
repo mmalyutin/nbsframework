@@ -128,42 +128,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 
     }
     
-    ////
-    
-    protected int intValue(Element element, String name) {
-	return getIntegerValue(element, name, 0);
-    }
-    
-    protected Integer getIntegerValue(Element element, String name) {
-	return getIntegerValue(element, name, null);
-    }
-    
-    protected Integer getIntegerValue(Element element, String name, Integer def) {
-	String value = getValue(element, name);
-	if (value == null) {
-	    return def;
-	}
-	try {
-	    return Integer.valueOf(value);
-	} catch (NumberFormatException ex) {
-	    return def;
-	}
-    }
-    
-    protected String getValue(Element element, String name) {
-	if(element == null || name == null) {
-	    return null;
-	}
-	String value = element.getAttributeValue(name);
-	return normalizeString(value);
-    }
-
-    protected String getContentValue(Element element) {
-	if (element == null) {
-	    return null;
-	}
-	return element.getText();
-    }
+   //
 
     protected Element getChild(Element parent, String name) {
 	return parent.getChild(name, parent.getNamespace());	
@@ -211,13 +176,15 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 
     }
     
+  
+    
     protected Color getColor(Element element, String name) {
 	if(element == null || name == null) {
 	    return null;
 	}
 
-	// width
-	String value = getValue(element, name);
+	// color attribute (foreground, background)
+	String value = getStringValue(element, name);
 	if (value == null) {
 	    return null;
 	}
@@ -357,7 +324,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
    	if (!isLoadDataType) {
    	    return expression;
    	}
-   	sValue = getValue(element, XML_ATTR_DATA_TYPE);
+   	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
    	if (sValue != null) {
    	    expression.setDataType(sValue);
    	}

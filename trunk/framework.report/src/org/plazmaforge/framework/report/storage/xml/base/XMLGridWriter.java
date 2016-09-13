@@ -28,14 +28,14 @@ import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
-import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocumentWriter;
+import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XMLGridWriter extends XMLAbstractDocumentWriter {
+public class XMLGridWriter extends XMLAbstractWriter {
 
     public void writeGrid(Grid grid, Element node) {
 	writeElementAttributes(grid, node);

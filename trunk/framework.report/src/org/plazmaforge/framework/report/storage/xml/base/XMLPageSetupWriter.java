@@ -22,11 +22,8 @@
 
 package org.plazmaforge.framework.report.storage.xml.base;
 
-import java.util.List;
-
 import org.jdom.Element;
-import org.plazmaforge.framework.report.model.base.grid.Cell;
-import org.plazmaforge.framework.report.model.base.grid.Row;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
 /**
@@ -34,41 +31,25 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
  * @author ohapon
  *
  */
-public class XMLRowWriter extends XMLAbstractWriter {
+public class XMLPageSetupWriter extends XMLAbstractWriter {
 
-    public void writeRow(Row row, Element node) {
-	
-	if (row.getHeight() > 0) {
-	    setIntegerValue(node, XML_ATTR_HEIGHT, row.getHeight());
+    public void writePageSetup(PageSetup page, Element node) {
+
+	// format
+	if (page.getFormat()  != null) {
+	    setStringValue(node, XML_ATTR_FORMAT, page.getFormat());
+	}
+
+	// size
+	if (page.hasSize()) {
+	    setSizeByAttributes(page.getSize(), node);
 	}
 	
-	//CELLS
-	Element cellsNode = buildCellsNode(row);
-	if (cellsNode != null) {
-	    addChild(node, cellsNode);
+	// margin
+	if (page.hasMargin()) {
+	    setMarginByAttributes(page.getMargin(), node);
 	}
+
     }
-    
-    
-   
-    
-    //CELLS
-    protected Element buildCellsNode(Row row) {
-	if (!row.hasCells()) {
-	    return null;
-	}
-	List<Cell> cells = row.getCells();
-	Element parentNode = createElement(XML_CELLS);
-	Element cellNode = null;
-	XMLCellWriter writer = new XMLCellWriter();
-	for (Cell cell : cells) {
-	    cellNode = 	createElement(XML_CELL);
-	    writer.writeCell(cell, cellNode);
-	    addChild(parentNode, cellNode);
-	}
-	return parentNode;
-    }
-    
-    
-    
+
 }

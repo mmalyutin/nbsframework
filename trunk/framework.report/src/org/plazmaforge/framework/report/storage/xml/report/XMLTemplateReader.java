@@ -28,13 +28,12 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.util.List;
 
 import org.jdom.Element;
-import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.PageSetup;
-import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.ReportGroup;
 import org.plazmaforge.framework.report.model.design.Template;
+import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupReader;
 
 /**
  * @author ohapon
@@ -62,25 +61,25 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	String value = null;
 	
 	// name
-	value = getValue(element, XML_ATTR_NAME);
+	value = getStringValue(element, XML_ATTR_NAME);
 	if (value != null) {
 	    template.setName(value);
 	}
 	
 	// caption
-	value = getValue(element, XML_ATTR_CAPTION);
+	value = getStringValue(element, XML_ATTR_CAPTION);
 	if (value != null) {
 	    template.setCaption(value);
 	}
 	
 	// description
-	value = getValue(element, XML_ATTR_DESCRIPTION);
+	value = getStringValue(element, XML_ATTR_DESCRIPTION);
 	if (value != null) {
 	    template.setDescription(value);
 	}
 	
 	// type
-	value = getValue(element, XML_ATTR_TYPE);
+	value = getStringValue(element, XML_ATTR_TYPE);
 	if (value != null) {
 	    template.setType(value);
 	}
@@ -100,6 +99,11 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	if (node == null) {
 	    return;
 	}
+	XMLPageSetupReader reader = new XMLPageSetupReader();
+	PageSetup pageSetup = reader.readPageSetup(node);
+	template.setPageSetup(pageSetup);
+	
+	/*
 	PageSetup pageSetup = new PageSetup();
 	template.setPageSetup(pageSetup);
 
@@ -120,6 +124,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	if (margin != null) {
 	    pageSetup.setMargin(margin);
 	}
+	*/
 	
     }
     

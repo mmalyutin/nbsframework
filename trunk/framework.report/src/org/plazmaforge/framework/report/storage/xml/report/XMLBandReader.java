@@ -53,7 +53,7 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	Integer iValue = null;
 	
 	// type
-	sValue = getValue(element, XML_ATTR_TYPE);
+	sValue = getStringValue(element, XML_ATTR_TYPE);
 	if (sValue != null) {
 	    band.setType(sValue);
 	}

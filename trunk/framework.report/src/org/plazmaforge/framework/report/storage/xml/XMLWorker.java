@@ -22,8 +22,10 @@
 
 package org.plazmaforge.framework.report.storage.xml;
 
+import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
+import org.plazmaforge.framework.uwt.graphics.Color;
 
 public class XMLWorker {
 
@@ -49,5 +51,85 @@ public class XMLWorker {
 	return str.isEmpty() ? null : str;
     }
 
+    //// GET-VALUE
+    
+    protected int intValue(Element element, String name) {
+	return getIntegerValue(element, name, 0);
+    }
+    
+    protected Integer getIntegerValue(Element element, String name) {
+	return getIntegerValue(element, name, null);
+    }
+    
+    protected Integer getIntegerValue(Element element, String name, Integer def) {
+	String value = getStringValue(element, name);
+	if (value == null) {
+	    return def;
+	}
+	try {
+	    return Integer.valueOf(value);
+	} catch (NumberFormatException ex) {
+	    return def;
+	}
+    }
+    
+    protected String getStringValue(Element element, String name) {
+	if(element == null || name == null) {
+	    return null;
+	}
+	String value = element.getAttributeValue(name);
+	return normalizeString(value);
+    }
 
+    protected String getContentValue(Element element) {
+	if (element == null) {
+	    return null;
+	}
+	return element.getText();
+    }
+    
+    
+    
+    //// SET_VALUE
+    
+    protected void setStringValue(Element element, String name, String value) {
+ 	if (value == null) {
+ 	    return;
+ 	}
+    	element.setAttribute(name, value.toString());
+     }
+
+     protected void setIntegerValue(Element element, String name, Integer value) {
+    	setStringValue(element, name, toString(value, "Integer"));
+     }
+     
+     protected void setColor(Element element, String name, Color color) {
+ 	setStringValue(element, name, COLOR_FORMATTER.format(color));
+     }
+     
+     protected void setContentValue(Element element, Object value) {
+ 	setContentValue(element, value, null);
+     }
+     
+     protected void setContentValue(Element element, Object value, String dataType) {
+ 	if (value == null) {
+ 	    return;
+ 	}
+ 	String str = toString(value, dataType);
+ 	if (str == null) {
+ 	    return;
+ 	}
+ 	element.setText(str);
+     }
+     
+     protected String toString(Object value, String dataType) {
+ 	if (value == null) {
+ 	    return null;
+ 	}
+ 	// TODO: dataType
+ 	String str = value.toString();
+ 	return normalizeString(str);
+     }
+     
+    
 }
