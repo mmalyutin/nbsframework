@@ -59,19 +59,19 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 	String sValue = null;
 	
 	// name
-	sValue = getValue(element, XML_ATTR_NAME);
+	sValue = getStringValue(element, XML_ATTR_NAME);
 	if (sValue != null) {
 	    dataSource.setName(sValue);
 	}
 	
 	// caption
-	sValue = getValue(element, XML_ATTR_CAPTION);
+	sValue = getStringValue(element, XML_ATTR_CAPTION);
 	if (sValue != null) {
 	    dataSource.setCaption(sValue);
 	}
 	
 	// type
-	sValue = getValue(element, XML_ATTR_TYPE);
+	sValue = getStringValue(element, XML_ATTR_TYPE);
 	if (sValue != null) {
 	    dataSource.setType(sValue);
 	}
@@ -95,7 +95,7 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 	    return null;
 	}
 	DSQuery query = new DSQuery();
-	String sValue = getValue(element, XML_ATTR_LANGUAGE);
+	String sValue = getStringValue(element, XML_ATTR_LANGUAGE);
 	if (sValue != null) {
 	    query.setLanguage(sValue);
 	}
@@ -134,19 +134,19 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 	String sValue = null;
 	
 	// name
-	sValue = getValue(element, XML_ATTR_NAME);
+	sValue = getStringValue(element, XML_ATTR_NAME);
 	if (sValue != null) {
 	    parameter.setName(sValue);
 	}
 	
 	// caption
-	sValue = getValue(element, XML_ATTR_CAPTION);
+	sValue = getStringValue(element, XML_ATTR_CAPTION);
 	if (sValue != null) {
 	    parameter.setCaption(sValue);
 	}
 
 	// dataType
-	sValue = getValue(element, XML_ATTR_DATA_TYPE);
+	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
 	if (sValue != null) {
 	    parameter.setDataType(sValue);
 	}
@@ -157,7 +157,7 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 	//    field.setFormat(sValue);
 	//}
 
-	sValue = getValue(element, XML_ATTR_DEFAULT_VALUE);
+	sValue = getStringValue(element, XML_ATTR_DEFAULT_VALUE);
 	if (sValue != null) {
 	    Object defaultValue = getFormatterManager().toValue(sValue, parameter.getDataType());
 	    parameter.setDefaultValue(defaultValue);
@@ -195,19 +195,19 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 	String sValue = null;
 	
 	// name
-	sValue = getValue(element, XML_ATTR_NAME);
+	sValue = getStringValue(element, XML_ATTR_NAME);
 	if (sValue != null) {
 	    field.setName(sValue);
 	}
 	
 	// caption
-	sValue = getValue(element, XML_ATTR_CAPTION);
+	sValue = getStringValue(element, XML_ATTR_CAPTION);
 	if (sValue != null) {
 	    field.setCaption(sValue);
 	}
 
 	// dataType
-	sValue = getValue(element, XML_ATTR_DATA_TYPE);
+	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
 	if (sValue != null) {
 	    field.setDataType(sValue);
 	}

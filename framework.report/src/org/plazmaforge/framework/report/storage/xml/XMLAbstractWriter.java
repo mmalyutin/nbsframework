@@ -36,6 +36,8 @@ import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
@@ -116,6 +118,37 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 
     }    
     
+    ////
+    
+    protected void setSizeByAttributes(Size size, Element node) {
+  	if (size == null || size.isEmpty()) {
+  	    return;
+  	}
+  	if (size.hasWidth()) {
+  	    setIntegerValue(node, XML_ATTR_WIDTH, size.getWidth());
+  	}
+  	if (size.hasHeight()) {
+  	    setIntegerValue(node, XML_ATTR_HEIGHT, size.getHeight());
+  	}
+    }
+    
+    protected void setMarginByAttributes(Margin margin, Element node) {
+   	if (margin == null || margin.isEmpty()) {
+   	    return;
+   	}
+   	if (margin.hasLeft()) {
+   	    setIntegerValue(node, XML_ATTR_MARGIN_LEFT, margin.getLeft());
+   	}
+   	if (margin.hasTop()) {
+   	    setIntegerValue(node, XML_ATTR_MARGIN_TOP, margin.getTop());
+   	}
+   	if (margin.hasRight()) {
+   	    setIntegerValue(node, XML_ATTR_MARGIN_RIGHT, margin.getRight());
+   	}
+   	if (margin.hasBottom()) {
+   	    setIntegerValue(node, XML_ATTR_MARGIN_BOTTOM, margin.getBottom());
+   	}
+    }
     
     ////
     
@@ -128,47 +161,6 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 	parent.getChildren().add(child);
     }
     
-    protected void setValue(Element element, String name, Object value) {
-	if (value == null) {
-	    return;
-	}
-	// TODO: dataType
-   	element.setAttribute(name, value.toString());
-    }
-
-    protected void setIntegerValue(Element element, String name, Integer value) {
-	// TODO: dataType
-   	setValue(element, name, value);
-    }
-    
-    protected void setColor(Element element, String name, Color color) {
-	setValue(element, name, COLOR_FORMATTER.format(color));
-    }
-    
-    protected void setContentValue(Element element, Object value) {
-	setContentValue(element, value, null);
-    }
-    
-    protected void setContentValue(Element element, Object value, String dataType) {
-	if (value == null) {
-	    return;
-	}
-	String str = toString(value, dataType);
-	if (str == null) {
-	    return;
-	}
-	element.setText(str);
-    }
-    
-    
-    protected String toString(Object value, String dataType) {
-	if (value == null) {
-	    return null;
-	}
-	// TODO: dataType
-	String str = value.toString();
-	return normalizeString(str);
-    }
-    
+ 
     
 }

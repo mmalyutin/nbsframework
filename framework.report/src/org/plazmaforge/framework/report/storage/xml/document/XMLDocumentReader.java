@@ -119,19 +119,19 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
    	String value = null;
    	
    	// name
-   	value = getValue(element, XML_ATTR_NAME);
+   	value = getStringValue(element, XML_ATTR_NAME);
    	if (value != null) {
    	    document.setName(value);
    	}
    	
    	// caption
-   	value = getValue(element, XML_ATTR_CAPTION);
+   	value = getStringValue(element, XML_ATTR_CAPTION);
    	if (value != null) {
    	    document.setCaption(value);
    	}
 
    	// description
-   	value = getValue(element, XML_ATTR_DESCRIPTION);
+   	value = getStringValue(element, XML_ATTR_DESCRIPTION);
    	if (value != null) {
    	    document.setDescription(value);
    	}

@@ -57,7 +57,7 @@ public class XMLGroupReader extends XMLAbstractReportReader {
 	String value = null;
 
 	// name
-	value = getValue(element, XML_ATTR_NAME);
+	value = getStringValue(element, XML_ATTR_NAME);
 	if (value != null) {
 	    group.setName(value);
 	}

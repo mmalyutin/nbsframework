@@ -25,14 +25,14 @@ package org.plazmaforge.framework.report.storage.xml.base;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
-import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocumentWriter;
+import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XMLCellWriter extends XMLAbstractDocumentWriter {
+public class XMLCellWriter extends XMLAbstractWriter {
 
     public void writeCell(Cell cell, Element node) {
 	
@@ -49,13 +49,13 @@ public class XMLCellWriter extends XMLAbstractDocumentWriter {
 	// dataType
 	String sValue = normalizeString(cell.getDataType());
 	if (sValue != null) {
-	    setValue(node, XML_ATTR_DATA_TYPE, sValue);
+	    setStringValue(node, XML_ATTR_DATA_TYPE, sValue);
 	}
 
 	// format
 	sValue = normalizeString(cell.getFormat());
 	if (sValue != null) {
-	    setValue(node, XML_ATTR_FORMAT, sValue);
+	    setStringValue(node, XML_ATTR_FORMAT, sValue);
 	}
 	
 	// value

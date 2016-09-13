@@ -25,14 +25,14 @@ package org.plazmaforge.framework.report.storage.xml.base;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Column;
-import org.plazmaforge.framework.report.storage.xml.document.XMLAbstractDocumentWriter;
+import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XMLColumnWriter extends XMLAbstractDocumentWriter {
+public class XMLColumnWriter extends XMLAbstractWriter {
 
     public void writeColumn(Column column, Element node) {
 	
