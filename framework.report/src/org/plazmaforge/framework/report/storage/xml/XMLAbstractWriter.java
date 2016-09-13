@@ -35,6 +35,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
@@ -151,6 +152,27 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     }
     
     ////
+    
+
+    protected void setExpression(DSExpression expression, Element node) {
+   	setExpression(expression, node, true);
+    }
+
+    protected void setExpression(DSExpression expression, Element node, boolean isUseDataType) {
+   	if (expression == null) {
+   	    return;
+   	}
+   	// content
+   	setContentValue(node, expression.getText());
+   	
+   	// dataType
+   	if (isUseDataType) {
+   	 setStringValue(node, XML_ATTR_DATA_TYPE, expression.getDataType());
+   	}
+   	
+    }
+    
+    ////    
     
     protected Element createElement(String name) {
 	Element node = new Element(name);

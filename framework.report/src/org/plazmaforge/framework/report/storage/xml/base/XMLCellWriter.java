@@ -58,24 +58,25 @@ public class XMLCellWriter extends XMLAbstractWriter {
 	    setStringValue(node, XML_ATTR_FORMAT, sValue);
 	}
 	
+	Element valueNode = null;
+	
 	// value
 	Object value = cell.getValue();
 	if (value != null) {
 	    sValue = toString(value, cell.getDataType());
 	    if (sValue != null) {
-		Element valueNode = createElement(XML_VALUE);
+		valueNode = createElement(XML_VALUE);
 		addChild(node, valueNode);
 		setContentValue(valueNode, sValue);
 	    }
 	}
-	
+
 	// expression
-	// TODO
+	if (cell.getExpression() != null) {
+	    valueNode = createElement(XML_EXPRESSION);
+	    setExpression(cell.getExpression(), valueNode, USE_DATA_TYPE_IN_EXPRESSION);
+	}
 	
-    }
-    
-    protected String convertCellValue(Object value, String dataType) {
-	return value == null ? null : value.toString();
     }
     
     
