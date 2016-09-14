@@ -36,7 +36,7 @@ public class XMLPageSetupWriter extends XMLAbstractWriter {
     public void writePageSetup(PageSetup page, Element node) {
 
 	// format
-	if (page.getFormat()  != null) {
+	if (page.getFormat() != null) {
 	    setStringValue(node, XML_ATTR_FORMAT, page.getFormat());
 	}
 
