@@ -28,6 +28,8 @@ package org.plazmaforge.framework.report.model.document;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.plazmaforge.framework.report.model.base.PageSetup;
+
 /**
  * @author ohapon
  *
@@ -49,6 +51,11 @@ public class Document {
      */
     private String description;
 
+    /**
+     * Page Setup
+     */
+    private PageSetup pageSetup;
+    
     
     private List<Page> pages;
 
@@ -78,6 +85,21 @@ public class Document {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public PageSetup getPageSetup() {
+	if (pageSetup == null) {
+	    pageSetup = new PageSetup();
+	}
+        return pageSetup;
+    }
+
+    public void setPageSetup(PageSetup pageSetup) {
+        this.pageSetup = pageSetup;
+    }
+    
+    public boolean hasPageSetup() {
+	return pageSetup != null;
     }
 
     public List<Page> getPages() {

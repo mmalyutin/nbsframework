@@ -49,22 +49,6 @@ public class PageSetup {
         this.format = format;
     }
 
-//    public int getWidth() {
-//        return width;
-//    }
-//
-//    public void setWidth(int width) {
-//        this.width = width;
-//    }
-//
-//    public int getHeight() {
-//        return height;
-//    }
-//
-//    public void setHeight(int height) {
-//        this.height = height;
-//    }
-
     public Size getSize() {
 	if (size == null) {
 	    size = new Size();
@@ -97,5 +81,8 @@ public class PageSetup {
 	return margin != null && !margin.isEmpty();
     }
     
+    public boolean isEmpty() {
+	return  getFormat() == null && !hasSize() && !hasMargin();
+    }
     
 }

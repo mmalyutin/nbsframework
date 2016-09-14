@@ -102,30 +102,6 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	XMLPageSetupReader reader = new XMLPageSetupReader();
 	PageSetup pageSetup = reader.readPageSetup(node);
 	template.setPageSetup(pageSetup);
-	
-	/*
-	PageSetup pageSetup = new PageSetup();
-	template.setPageSetup(pageSetup);
-
-	// Page format
-	String sValue = getValue(element, XML_ATTR_FORMAT);
-	if (sValue != null) {
-	    pageSetup.setFormat(sValue);
-	}
-
-	// Size
-	Size size = getSizeByAttributes(element);
-	if (size != null) {
-	   pageSetup.setSize(size); 
-	}
-	
-	// Margin
-	Margin margin = getMargin(node);
-	if (margin != null) {
-	    pageSetup.setMargin(margin);
-	}
-	*/
-	
     }
     
     // COLUMNS

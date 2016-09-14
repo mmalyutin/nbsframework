@@ -29,8 +29,10 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupWriter;
 
 
 /**
@@ -62,17 +64,40 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
     
     
     protected org.jdom.Document buildXMLDocument(Document document) {
-	//TODO
+
 	Element root = createElement(XML_DOCUMENT);
 	org.jdom.Document doc = new org.jdom.Document(root);
 	
+	Element node = null;
+
+	// PAGE-SETUP
+	node = buildPageSetupNode(document);
+	if (node != null) {
+	    addChild(root, node);
+	}
+	
 	// PAGES
-	Element pagesNode = buildPagesNode(document);
-	if (pagesNode != null) {
-	    addChild(root, pagesNode);
+	node = buildPagesNode(document);
+	if (node != null) {
+	    addChild(root, node);
 	}
 	
 	return doc;
+    }
+
+    // PAGE-SETUP
+    protected Element buildPageSetupNode(Document document) {
+	if (!document.hasPageSetup()) {
+	    return null;
+	}
+	PageSetup pageSetup = document.getPageSetup();
+	if (pageSetup.isEmpty()) {
+	    return null;
+	}
+	Element node = createElement(XML_PAGES);
+	XMLPageSetupWriter writer = new XMLPageSetupWriter();
+	writer.writePageSetup(pageSetup, node);
+	return node;
     }
     
     //PAGES

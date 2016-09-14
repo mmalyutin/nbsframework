@@ -31,9 +31,12 @@ import java.util.List;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.report.storage.DocumentReader;
+import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupReader;
 
 /**
  * 
@@ -139,7 +142,19 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
     }
 
     protected void readDocumentContent(Document document, Element element) {
+	readPageSetup(document, element);
    	readPages(document, element);
+    }
+    
+    // PAGE-SETUP
+    protected void readPageSetup(Document document, Element element) {
+	Element node = element.getChild(XML_PAGE_SETUP);
+	if (node == null) {
+	    return;
+	}
+	XMLPageSetupReader reader = new XMLPageSetupReader();
+	PageSetup pageSetup = reader.readPageSetup(node);
+	document.setPageSetup(pageSetup);
     }
     
     // PAGES
