@@ -120,6 +120,46 @@ public class DSExpression implements HasDataType, Serializable {
 	b.append("]");
 	return b.toString();
     }
+
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((dataType == null) ? 0 : dataType.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((text == null) ? 0 : text.hashCode());
+	return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DSExpression other = (DSExpression) obj;
+	if (dataType == null) {
+	    if (other.dataType != null)
+		return false;
+	} else if (!dataType.equals(other.dataType))
+	    return false;
+	if (id == null) {
+	    if (other.id != null)
+		return false;
+	} else if (!id.equals(other.id))
+	    return false;
+	if (text == null) {
+	    if (other.text != null)
+		return false;
+	} else if (!text.equals(other.text))
+	    return false;
+	return true;
+    }
     
     
 }
