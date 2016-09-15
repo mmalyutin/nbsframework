@@ -32,6 +32,7 @@ import java.util.List;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -81,12 +82,29 @@ public class XMLDocumentReaderTest extends TestCase {
 	InputStream is = ReportEngine.class.getResourceAsStream("resources/documents/Document1.document.xml");
 	Document document = reader.readDocument(is);
 	
+	// Document
 	assertNotNull(document);
 
 	assertEquals("Document1", document.getName());
 	assertEquals("Document 1", document.getCaption());
 	assertEquals("Document Description1", document.getDescription());
 	
+	// Page Setup
+	PageSetup pageSetup = document.getPageSetup();
+	assertNotNull(pageSetup);
+	
+	// Page Setup: margin
+	assertEquals(21, pageSetup.getMargin().getLeft());
+	assertEquals(22, pageSetup.getMargin().getTop());
+	assertEquals(23, pageSetup.getMargin().getRight());
+	assertEquals(24, pageSetup.getMargin().getBottom());
+
+	// Page Setup: format
+	assertEquals("CUSTOM", pageSetup.getFormat());
+	assertEquals(600, pageSetup.getSize().getWidth());
+	assertEquals(800, pageSetup.getSize().getHeight());
+	
+	// Pages
 	assertEquals(2, document.getPageCount());
 	
 	Page page = document.getPage(0);

@@ -42,7 +42,7 @@ public class Padding extends Insets {
     }
     
     public String toString() {
-	return "Margin[" + toValuesString() + "]";
+	return "Padding[" + toValuesString() + "]";
     }
 
     public Padding clone() {

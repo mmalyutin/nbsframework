@@ -84,5 +84,52 @@ public class PageSetup {
     public boolean isEmpty() {
 	return  getFormat() == null && !hasSize() && !hasMargin();
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((format == null) ? 0 : format.hashCode());
+	result = prime * result + ((margin == null) ? 0 : margin.hashCode());
+	result = prime * result + ((size == null) ? 0 : size.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	PageSetup other = (PageSetup) obj;
+	if (format == null) {
+	    if (other.format != null)
+		return false;
+	} else if (!format.equals(other.format))
+	    return false;
+	if (margin == null) {
+	    if (other.margin != null)
+		return false;
+	} else if (!margin.equals(other.margin))
+	    return false;
+	if (size == null) {
+	    if (other.size != null)
+		return false;
+	} else if (!size.equals(other.size))
+	    return false;
+	return true;
+    }
     
+    @Override
+    public String toString() {
+  	StringBuilder b = new StringBuilder();
+  	b.append("PageSetup=[");
+  	b.append("format=" + format);
+  	b.append(", size=" + (size == null ? null : ("[" + size.toValuesString() + "]")));
+  	b.append(", margin=" + (margin == null ? null : ("[" + margin.toValuesString() + "]")));
+  	b.append("]");
+  	return b.toString();
+    }
 }

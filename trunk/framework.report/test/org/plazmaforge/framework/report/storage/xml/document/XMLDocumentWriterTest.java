@@ -22,8 +22,10 @@
 
 package org.plazmaforge.framework.report.storage.xml.document;
 
+import java.io.StringReader;
 import java.io.StringWriter;
 
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -35,31 +37,83 @@ import junit.framework.TestCase;
 
 public class XMLDocumentWriterTest extends TestCase {
 
+    private static final String PAGE_FORMAT = "CUSTOM";
+    
+    private static final int PAGE_WIDTH = 600;
+    
+    private static final int PAGE_HEIGHT = 800;
+    
+    private static final int PAGE_MARGIN_LEFT = 21;
+    
+    private static final int PAGE_MARGIN_TOP = 22;
+    
+    private static final int PAGE_MARGIN_RIGHT = 23;
+    
+    private static final int PAGE_MARGIN_BOTTOM = 24;
+    
+    
+    
     public void testWrite() throws Exception {
 	XMLDocumentWriter writer = new XMLDocumentWriter();
-	Document document = createTestDocument();
 	
+	// Create test document
+	Document document1 = createTestDocument();
+	
+	// Write the document
 	StringWriter sw = new StringWriter();
-	writer.writeDocument(document, sw);
+	writer.writeDocument(document1, sw);
 	
-	System.out.println(sw.toString());
+	String documentString1 = sw.toString(); 
+	System.out.println(documentString1);
+
+	// Read the document
+	StringReader sr = new StringReader(documentString1);
+	XMLDocumentReader reader = new XMLDocumentReader();
+	Document document2 = reader.readDocument(sr);
 	
+	// Equals document1 and document2
+	assertEquals(document1, document2);
 	
     }
     
     private Document createTestDocument() {
 	Document document = new Document();
+	
+	document.setName("Document1");
+	document.setCaption("Document 1");
+	document.setDescription("Document Description 1");
+	
+	// Page Setup
+	PageSetup pageSetup = createTestPageSetup();
+	document.setPageSetup(pageSetup);
+	
+	// Pages
 	Page page = null;
-
-	//1
+	
+	// Page 1
 	page = createTestPage();
 	document.addPage(page);
 	
-	//2
+	// Page 2
 	page = new Page();
 	document.addPage(page);
 	
 	return document;
+    }
+    
+    private PageSetup createTestPageSetup() {
+	PageSetup pageSetup = new PageSetup();
+	pageSetup.setFormat(PAGE_FORMAT);
+
+	pageSetup.getSize().setWidth(PAGE_WIDTH);
+	pageSetup.getSize().setHeight(PAGE_HEIGHT);
+	
+	pageSetup.getMargin().setLeft(PAGE_MARGIN_LEFT);
+	pageSetup.getMargin().setTop(PAGE_MARGIN_TOP);
+	pageSetup.getMargin().setRight(PAGE_MARGIN_RIGHT);
+	pageSetup.getMargin().setBottom(PAGE_MARGIN_BOTTOM);
+	
+	return pageSetup;
     }
     
     private Page createTestPage() {

@@ -75,4 +75,31 @@ public class BaseRowModel implements RowModel {
     public int getRowCount() {
 	return rows == null ? 0 : rows.size();
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((rows == null) ? 0 : rows.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	BaseRowModel other = (BaseRowModel) obj;
+	if (rows == null) {
+	    if (other.rows != null)
+		return false;
+	} else if (!rows.equals(other.rows))
+	    return false;
+	return true;
+    }
+    
+    
 }

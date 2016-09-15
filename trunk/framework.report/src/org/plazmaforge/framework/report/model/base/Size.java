@@ -92,4 +92,44 @@ public class Size implements Serializable {
     protected int intValue(Integer value) {
 	return value == null ? 0 : value;
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((height == null) ? 0 : height.hashCode());
+	result = prime * result + ((width == null) ? 0 : width.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Size other = (Size) obj;
+	if (height == null) {
+	    if (other.height != null)
+		return false;
+	} else if (!height.equals(other.height))
+	    return false;
+	if (width == null) {
+	    if (other.width != null)
+		return false;
+	} else if (!width.equals(other.width))
+	    return false;
+	return true;
+    }
+    
+    @Override
+    public String toString() {
+	return "Size[" + toValuesString() + "]";
+    }
+    
+    protected String toValuesString() {
+ 	return "width=" + width + ", height=" + height;
+    }    
 }

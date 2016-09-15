@@ -68,6 +68,21 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
 	Element root = createElement(XML_DOCUMENT);
 	org.jdom.Document doc = new org.jdom.Document(root);
 	
+   	// name
+   	if (document.getName() != null) {
+   	    setStringValue(root, XML_ATTR_NAME, document.getName());
+   	}
+   	
+   	// caption
+   	if (document.getCaption() != null) {
+   	    setStringValue(root, XML_ATTR_CAPTION, document.getCaption());
+   	}
+   	
+   	// description
+   	if (document.getDescription() != null) {
+   	    setStringValue(root, XML_ATTR_DESCRIPTION, document.getDescription());
+   	}
+   	
 	Element node = null;
 
 	// PAGE-SETUP
@@ -94,7 +109,7 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
 	if (pageSetup.isEmpty()) {
 	    return null;
 	}
-	Element node = createElement(XML_PAGES);
+	Element node = createElement(XML_PAGE_SETUP);
 	XMLPageSetupWriter writer = new XMLPageSetupWriter();
 	writer.writePageSetup(pageSetup, node);
 	return node;
