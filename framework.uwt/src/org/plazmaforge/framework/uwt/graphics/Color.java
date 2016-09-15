@@ -180,5 +180,35 @@ public class Color extends Resource {
 	return toRGBAString(this);
     }
 
-    
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + Float.floatToIntBits(alpha);
+	result = prime * result + blue;
+	result = prime * result + green;
+	result = prime * result + red;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Color other = (Color) obj;
+	if (Float.floatToIntBits(alpha) != Float.floatToIntBits(other.alpha))
+	    return false;
+	if (blue != other.blue)
+	    return false;
+	if (green != other.green)
+	    return false;
+	if (red != other.red)
+	    return false;
+	return true;
+    }
 }
