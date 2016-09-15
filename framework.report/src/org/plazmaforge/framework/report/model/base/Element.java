@@ -223,4 +223,77 @@ public class Element implements Serializable, HasExpressionBuilder {
 	    expressions.add(exprsession);
 	}
     }
+
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((background == null) ? 0 : background.hashCode());
+	result = prime * result + ((font == null) ? 0 : font.hashCode());
+	result = prime * result
+		+ ((foreground == null) ? 0 : foreground.hashCode());
+	result = prime * result
+		+ ((position == null) ? 0 : position.hashCode());
+	result = prime * result + ((size == null) ? 0 : size.hashCode());
+	result = prime * result + (visible ? 1231 : 1237);
+	return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Element other = (Element) obj;
+	if (background == null) {
+	    if (other.background != null)
+		return false;
+	} else if (!background.equals(other.background))
+	    return false;
+	if (font == null) {
+	    if (other.font != null)
+		return false;
+	} else if (!font.equals(other.font))
+	    return false;
+	if (foreground == null) {
+	    if (other.foreground != null)
+		return false;
+	} else if (!foreground.equals(other.foreground))
+	    return false;
+	if (position == null) {
+	    if (other.position != null)
+		return false;
+	} else if (!position.equals(other.position))
+	    return false;
+	if (size == null) {
+	    if (other.size != null)
+		return false;
+	} else if (!size.equals(other.size))
+	    return false;
+	if (visible != other.visible)
+	    return false;
+	return true;
+    }
+
+
+    @Override
+    public String toString() {
+	return "Element [visible=" + visible 
+		+ ", background=" + background
+		+ ", foreground=" + foreground 
+		+ ", font=" + font 
+		+ ", x=" + (position == null ? null : getX()) 
+		+ ", y=" + (position == null ? null : getY())
+		+ ", width=" + (size == null ? null : getWidth())
+		+ ", height=" + (size == null ? null : getHeight()) 
+		+ "]";
+    }
+
+
 }

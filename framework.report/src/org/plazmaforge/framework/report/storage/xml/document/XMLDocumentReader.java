@@ -26,13 +26,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.List;
 
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.PageSetup;
-import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.report.storage.DocumentReader;
@@ -59,6 +59,12 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
 	org.jdom.Document doc = readXMLDocument(is);
 	return readDocument(null, doc);
     }
+    
+    public Document readDocument(Reader reader) throws RTException {
+	org.jdom.Document doc = readXMLDocument(reader);
+	return readDocument(null, doc);
+    }
+    
 
     ////
 
@@ -84,6 +90,19 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
 	}
     }
 
+    protected org.jdom.Document readXMLDocument(Reader reader) throws RTException {
+	if (reader == null) {
+	    throw new RTException("Can't read report. Reader is null.");
+	}
+	try {
+	    SAXBuilder builder = new SAXBuilder();
+	    // builder.setValidation(false);
+	    return builder.build(reader);
+	} catch (Exception ex) {
+	    throw new RTException(ex);
+	}
+    }
+    
     protected org.jdom.Document readXMLDocument(InputStream is) throws RTException {
 	if (is == null) {
 	    throw new RTException("Can't read report. InputStream is null.");

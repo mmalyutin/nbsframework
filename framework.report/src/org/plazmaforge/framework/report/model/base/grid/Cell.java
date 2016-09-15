@@ -171,5 +171,57 @@ public class Cell extends Container implements HasExpression {
 	    expressions.add(expression);
 	}
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result + colspan;
+	result = prime * result
+		+ ((dataType == null) ? 0 : dataType.hashCode());
+	result = prime * result
+		+ ((expression == null) ? 0 : expression.hashCode());
+	result = prime * result + ((format == null) ? 0 : format.hashCode());
+	result = prime * result + rowspan;
+	result = prime * result + ((value == null) ? 0 : value.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Cell other = (Cell) obj;
+	if (colspan != other.colspan)
+	    return false;
+	if (dataType == null) {
+	    if (other.dataType != null)
+		return false;
+	} else if (!dataType.equals(other.dataType))
+	    return false;
+	if (expression == null) {
+	    if (other.expression != null)
+		return false;
+	} else if (!expression.equals(other.expression))
+	    return false;
+	if (format == null) {
+	    if (other.format != null)
+		return false;
+	} else if (!format.equals(other.format))
+	    return false;
+	if (rowspan != other.rowspan)
+	    return false;
+	if (value == null) {
+	    if (other.value != null)
+		return false;
+	} else if (!value.equals(other.value))
+	    return false;
+	return true;
+    }
+    
     
 }

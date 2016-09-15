@@ -190,6 +190,39 @@ public class Grid extends Element implements HasExpressionBuilder {
 	}
 	
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result
+		+ ((columnModel == null) ? 0 : columnModel.hashCode());
+	result = prime * result
+		+ ((rowModel == null) ? 0 : rowModel.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Grid other = (Grid) obj;
+	if (columnModel == null) {
+	    if (other.columnModel != null)
+		return false;
+	} else if (!columnModel.equals(other.columnModel))
+	    return false;
+	if (rowModel == null) {
+	    if (other.rowModel != null)
+		return false;
+	} else if (!rowModel.equals(other.rowModel))
+	    return false;
+	return true;
+    }
     
     
 }

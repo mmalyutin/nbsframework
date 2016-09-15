@@ -163,5 +163,53 @@ public class Row implements HasExpressionBuilder {
 	    }
 	}
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((background == null) ? 0 : background.hashCode());
+	result = prime * result + ((cells == null) ? 0 : cells.hashCode());
+	result = prime * result + ((font == null) ? 0 : font.hashCode());
+	result = prime * result
+		+ ((foreground == null) ? 0 : foreground.hashCode());
+	result = prime * result + height;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Row other = (Row) obj;
+	if (background == null) {
+	    if (other.background != null)
+		return false;
+	} else if (!background.equals(other.background))
+	    return false;
+	if (cells == null) {
+	    if (other.cells != null)
+		return false;
+	} else if (!cells.equals(other.cells))
+	    return false;
+	if (font == null) {
+	    if (other.font != null)
+		return false;
+	} else if (!font.equals(other.font))
+	    return false;
+	if (foreground == null) {
+	    if (other.foreground != null)
+		return false;
+	} else if (!foreground.equals(other.foreground))
+	    return false;
+	if (height != other.height)
+	    return false;
+	return true;
+    }
     
 }
