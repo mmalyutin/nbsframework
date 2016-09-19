@@ -23,27 +23,25 @@
 /**
  * 
  */
-package org.plazmaforge.framework.report.storage.xml.report;
+package org.plazmaforge.framework.report.storage.xml.datastorage;
 
 
 import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
-import org.plazmaforge.framework.core.datastorage.DSComputedField;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
-import org.plazmaforge.framework.core.datastorage.DSExpression;
-import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSQuery;
+import org.plazmaforge.framework.report.storage.xml.report.XMLAbstractReportReader;
 
 
 /**
  * @author ohapon
  *
  */
-public class XMLDataSourceReader extends XMLAbstractReportReader {
+public class XMLDSDataSourceReader extends XMLAbstractReportReader {
 
     
     public DSDataSource readDataSource(Element element) {
@@ -81,7 +79,8 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
     protected void readDataSourceContent(DSDataSource dataSource, Element element) {
 	
 	// Read query
-	DSQuery query = readQuery(getChild(element, XML_QUERY));
+	XMLDSQueryReader reader = new XMLDSQueryReader(); 
+	DSQuery query = reader.readQuery(getChild(element, XML_QUERY));
 	if (query != null) {
 	    dataSource.setQuery(query);
 	}
@@ -90,21 +89,7 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
 	readFields(dataSource, element);
     }
     
-    protected DSQuery readQuery(Element element) {
-	if (element == null) {
-	    return null;
-	}
-	DSQuery query = new DSQuery();
-	String sValue = getStringValue(element, XML_ATTR_LANGUAGE);
-	if (sValue != null) {
-	    query.setLanguage(sValue);
-	}
-	sValue = getContentValue(element);
-	if (sValue != null) {
-	    query.setText(sValue);
-	}
-	return query;
-    }
+ 
     
     protected void readParameters(DSDataSource dataSource, Element element) {
    	Element node = getChild(element, XML_PARAMETERS);
@@ -117,8 +102,9 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
    	    return;
    	}
    	int count = children.size();
+   	XMLDSParameterReader reader = new XMLDSParameterReader(); 
    	for (int i = 0; i < count; i++) {
-   	    DSParameter parameter = readParameter((Element) children.get(i));
+   	    DSParameter parameter = reader.readParameter((Element) children.get(i));
    	    if (parameter == null) {
    		continue;
    	    }
@@ -126,47 +112,6 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
    	}
     }
     
-    protected DSParameter readParameter(Element element) {
-	
-	DSExpression expression = getExpression(element);
-	DSParameter parameter = expression == null ? new DSParameter() : new DSExpressionParameter(expression); 
-	
-	String sValue = null;
-	
-	// name
-	sValue = getStringValue(element, XML_ATTR_NAME);
-	if (sValue != null) {
-	    parameter.setName(sValue);
-	}
-	
-	// caption
-	sValue = getStringValue(element, XML_ATTR_CAPTION);
-	if (sValue != null) {
-	    parameter.setCaption(sValue);
-	}
-
-	// dataType
-	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
-	if (sValue != null) {
-	    parameter.setDataType(sValue);
-	}
-
-	// format
-	//sValue = getValue(element, XML_ATTR_FORMAT);
-	//if (sValue != null) {
-	//    field.setFormat(sValue);
-	//}
-
-	sValue = getStringValue(element, XML_ATTR_DEFAULT_VALUE);
-	if (sValue != null) {
-	    Object defaultValue = getFormatterManager().toValue(sValue, parameter.getDataType());
-	    parameter.setDefaultValue(defaultValue);
-	}
-	
-	return parameter;
-
-    }
-
     protected void readFields(DSDataSource dataSource, Element element) {
    	Element node = getChild(element, XML_FIELDS);
    	if (node == null){
@@ -178,49 +123,14 @@ public class XMLDataSourceReader extends XMLAbstractReportReader {
    	    return;
    	}
    	int count = children.size();
+   	XMLDSFieldReader reader = new XMLDSFieldReader();
    	for (int i = 0; i < count; i++) {
-   	    DSField field = readField((Element) children.get(i));
+   	    DSField field = reader.readField((Element) children.get(i));
    	    if (field == null) {
    		continue;
    	    }
    	    dataSource.addField(field);   	    
    	}
     }
-    
-    protected DSField readField(Element element) {
-	
-	DSExpression expression = getExpression(element);
-	DSField field = expression == null ? new DSField() : new DSComputedField(expression); 
-	
-	String sValue = null;
-	
-	// name
-	sValue = getStringValue(element, XML_ATTR_NAME);
-	if (sValue != null) {
-	    field.setName(sValue);
-	}
-	
-	// caption
-	sValue = getStringValue(element, XML_ATTR_CAPTION);
-	if (sValue != null) {
-	    field.setCaption(sValue);
-	}
-
-	// dataType
-	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
-	if (sValue != null) {
-	    field.setDataType(sValue);
-	}
-
-	// format
-	//sValue = getValue(element, XML_ATTR_FORMAT);
-	//if (sValue != null) {
-	//    field.setFormat(sValue);
-	//}
-	
-	return field;
-
-    }
-
     
 }
