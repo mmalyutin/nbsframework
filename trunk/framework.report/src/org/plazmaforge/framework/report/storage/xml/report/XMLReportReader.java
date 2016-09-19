@@ -36,6 +36,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportReader;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceReader;
 
 /**
  * @author ohapon
@@ -144,7 +145,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	    return;
 	}
 	int count = children.size();
-	XMLDataSourceReader reader = new XMLDataSourceReader();
+	XMLDSDataSourceReader reader = new XMLDSDataSourceReader();
 	for (int i = 0; i < count; i++) {
 	    DSDataSource dataSource = reader.readDataSource((Element) children.get(i));
 	    report.addDataSource(dataSource);

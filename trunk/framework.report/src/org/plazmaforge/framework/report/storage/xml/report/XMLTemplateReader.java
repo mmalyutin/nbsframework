@@ -33,6 +33,7 @@ import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.ReportGroup;
 import org.plazmaforge.framework.report.model.design.Template;
+import org.plazmaforge.framework.report.storage.xml.base.XMLColumnReader;
 import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupReader;
 
 /**
@@ -115,15 +116,9 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    return;
 	}
 	int count = children.size();
-	Element columnNode = null;
-	Integer iValue = null;
+	XMLColumnReader reader = new XMLColumnReader();
 	for (int i = 0; i < count; i++) {
-	    columnNode = (Element) children.get(i);
-	    Column column = new Column();
-	    iValue = getIntegerValue(columnNode, XML_ATTR_WIDTH);
-	    if (iValue != null) {
-		column.setWidth(iValue);
-	    }
+	    Column column = reader.readColumn((Element) children.get(i));
 	    template.addColumn(column);
 	}
     }
