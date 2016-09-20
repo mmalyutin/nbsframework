@@ -126,10 +126,17 @@ public interface XMLInfo {
     
     String XML_EXPRESSION = "expression";
     
+    String XML_INIT_EXPRESSION = "init-expression";
+    
     String XML_PROPERTIES = "properties";
     
     String XML_PROPERTY = "property";
 
+    String XML_ATTR_RESET_TYPE = "resetType";
+    
+    String XML_ATTR_RESET_VALUE = "resetValue";
+    
+    String XML_ATTR_AGGREGATION = "aggregation";
     
     ////
     

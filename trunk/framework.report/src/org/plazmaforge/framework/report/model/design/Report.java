@@ -25,9 +25,11 @@
  */
 package org.plazmaforge.framework.report.model.design;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
@@ -40,7 +42,14 @@ import org.plazmaforge.framework.report.model.base.Element;
  * @author ohapon
  *
  */
-public class Report implements HasExpressionBuilder {
+public class Report implements Serializable, LocalizedIdentifier, HasExpressionBuilder {
+
+    private static final long serialVersionUID = 2207663710009758227L;
+    
+    /**
+     * Id of report
+     */
+    private String id;
     
     /**
      * Name of report
@@ -92,6 +101,14 @@ public class Report implements HasExpressionBuilder {
     private List<Template> templates;
     
     
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -107,6 +124,10 @@ public class Report implements HasExpressionBuilder {
     public void setCaption(String caption) {
         this.caption = caption;
     }
+    
+    public String getDisplayName() {
+  	return getCaption() == null ? getName() : getCaption();
+    }    
 
     public String getDescription() {
         return description;

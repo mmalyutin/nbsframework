@@ -54,19 +54,10 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     ////
 
     protected void readDataSourceAttributes(DSDataSource dataSource, Element element) {
+	
+	readIdentifier(element, dataSource);
+	
 	String sValue = null;
-	
-	// name
-	sValue = getStringValue(element, XML_ATTR_NAME);
-	if (sValue != null) {
-	    dataSource.setName(sValue);
-	}
-	
-	// caption
-	sValue = getStringValue(element, XML_ATTR_CAPTION);
-	if (sValue != null) {
-	    dataSource.setCaption(sValue);
-	}
 	
 	// type
 	sValue = getStringValue(element, XML_ATTR_TYPE);

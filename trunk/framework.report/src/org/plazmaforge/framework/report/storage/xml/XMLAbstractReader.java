@@ -34,6 +34,7 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Insets;
@@ -332,5 +333,35 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     }
     
     ////
+    
+    protected void readIdentifier(Element element, LocalizedIdentifier identifier) {
+
+	String sValue = null;
+
+   	// id
+   	//sValue = getStringValue(element, XML_ATTR_ID);
+   	//if (sValue != null) {
+   	//    identifier.setId(sValue);
+   	//}
+	
+   	// name
+   	sValue = getStringValue(element, XML_ATTR_NAME);
+   	if (sValue != null) {
+   	    identifier.setName(sValue);
+   	}
+   	
+   	// caption
+   	sValue = getStringValue(element, XML_ATTR_CAPTION);
+   	if (sValue != null) {
+   	    identifier.setCaption(sValue);
+   	}
+   	
+   	// description
+   	sValue = getStringValue(element, XML_ATTR_DESCRIPTION);
+   	if (sValue != null) {
+   	    identifier.setDescription(sValue);
+   	}
+   	
+    }
        
 }

@@ -32,11 +32,15 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
+import org.plazmaforge.framework.core.datastorage.DSParameter;
+import org.plazmaforge.framework.core.datastorage.DSVariable;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportReader;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceReader;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSParameterReader;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSVariableReader;
 
 /**
  * @author ohapon
@@ -95,25 +99,9 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     protected void readReportAttributes(Report report, Element element) {
+	readIdentifier(element, report);
+	
 	String value = null;
-	
-	// name
-	value = getStringValue(element, XML_ATTR_NAME);
-	if (value != null) {
-	    report.setName(value);
-	}
-	
-	// caption
-	value = getStringValue(element, XML_ATTR_CAPTION);
-	if (value != null) {
-	    report.setCaption(value);
-	}
-
-	// description
-	value = getStringValue(element, XML_ATTR_DESCRIPTION);
-	if (value != null) {
-	    report.setDescription(value);
-	}
 	
 	// type
 	value = getStringValue(element, XML_ATTR_TYPE);
@@ -125,18 +113,56 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     
     protected void readReportContent(Report report, Element element) {
 	//readProperties(report, element);
-	//readParameters(report, element);
-	//readVariables(report, element);
+	readParameters(report, element);
+	readVariables(report, element);
 	//readDataConnectors(report, element);
 	readDataSources(report, element);
 	//readStyles(report, element);
 	readTemplates(report, element);
     }
 
+    // VARIABLES
+    protected void readVariables(Report report, Element element) {
+	Element node = getChild(element, XML_VARIABLES);
+	if (node == null){
+	    return;
+	}
+
+	List children = node.getChildren();
+	if (children == null || children.isEmpty()) {
+	    return;
+	}
+	int count = children.size();
+	XMLDSVariableReader reader = new XMLDSVariableReader();
+	for (int i = 0; i < count; i++) {
+	    DSVariable variable = reader.readVariable((Element) children.get(i));
+	    report.addVariable(variable);
+	}
+    }
+    
+    // PARAMETERS
+    protected void readParameters(Report report, Element element) {
+	Element node = getChild(element, XML_PARAMETERS);
+	if (node == null){
+	    return;
+	}
+
+	List children = node.getChildren();
+	if (children == null || children.isEmpty()) {
+	    return;
+	}
+	int count = children.size();
+	XMLDSParameterReader reader = new XMLDSParameterReader();
+	for (int i = 0; i < count; i++) {
+	    DSParameter parameter = reader.readParameter((Element) children.get(i));
+	    report.addParameter(parameter);
+	}
+    }
+    
     // DATA-SOURCES
     protected void readDataSources(Report report, Element element) {
 	Element node = getChild(element, XML_DATA_SOURCES);
-	if (node == null){
+	if (node == null) {
 	    return;
 	}
 
