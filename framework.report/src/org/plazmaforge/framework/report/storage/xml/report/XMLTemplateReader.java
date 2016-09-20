@@ -59,25 +59,10 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     ////
 
     protected void readTemplateAttributes(Template template, Element element) {
+	
+	readIdentifier(element, template);
+	
 	String value = null;
-	
-	// name
-	value = getStringValue(element, XML_ATTR_NAME);
-	if (value != null) {
-	    template.setName(value);
-	}
-	
-	// caption
-	value = getStringValue(element, XML_ATTR_CAPTION);
-	if (value != null) {
-	    template.setCaption(value);
-	}
-	
-	// description
-	value = getStringValue(element, XML_ATTR_DESCRIPTION);
-	if (value != null) {
-	    template.setDescription(value);
-	}
 	
 	// type
 	value = getStringValue(element, XML_ATTR_TYPE);

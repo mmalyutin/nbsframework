@@ -37,23 +37,13 @@ public class XMLDSFieldReader extends XMLAbstractReader {
 
     public DSField readField(Element element) {
 	
-  	DSExpression expression = getExpression(element);
+  	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
   	DSField field = expression == null ? new DSField() : new DSComputedField(expression); 
+  	
+  	readIdentifier(element, field);
   	
   	String sValue = null;
   	
-  	// name
-  	sValue = getStringValue(element, XML_ATTR_NAME);
-  	if (sValue != null) {
-  	    field.setName(sValue);
-  	}
-  	
-  	// caption
-  	sValue = getStringValue(element, XML_ATTR_CAPTION);
-  	if (sValue != null) {
-  	    field.setCaption(sValue);
-  	}
-
   	// dataType
   	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
   	if (sValue != null) {

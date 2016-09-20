@@ -552,52 +552,6 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	// Transfer report fields to scope	
 	scope.setFields(fields);
 
-	
-	/*
-
-	// Get main data source
-	DSDataSource dataSource = context.getMainDataSource();
-
-	// Get main data
-	DSResultSet data = context.getMainData();
-
-	List<DSField> fieldList = null;
-	DSField[] fields = null;
-
-	// Get fields
-
-	// 1. Get field names by Main Data Source
-	if (dataSource != null && dataSource.hasFields()) {
-	    fieldList = dataSource.getFields();
-	    fields = fieldList == null ? new DSField[0] : fieldList.toArray(new DSField[0]);
-	}
-
-	// 2. Get field names by Main Data
-	if (fields == null && (data instanceof DSStructuredResultSet)) {
-	    List<String> fieldNames = ((DSStructuredResultSet) data).getFieldNames();
-	    if (fieldNames == null) {
-		fields = new DSField[0];
-	    } else {
-		fields = new DSField[fieldNames.size()];
-		for (int i = 0; i < fieldNames.size(); i++) {
-		    String fieldName = fieldNames.get(i);
-		    DSField field = new DSField();
-		    field.setName(fieldName);
-		    fields[i] = field;
-		}
-	    }
-	}
-
-	// 3. Get field names by Template
-	if (fields == null) {
-	    // TODO: Find fields in template
-	    fields = new DSField[0];
-	}
-
-	// Transfer report fields to scope	
-	scope.setFields(fields);
-	
-	*/
     }    
     
     protected void initVariables(ReportContext context) {

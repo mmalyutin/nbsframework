@@ -24,8 +24,7 @@ package org.plazmaforge.framework.report.storage.xml.datastorage;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
-import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
-import org.plazmaforge.framework.core.datastorage.DSParameter;
+import org.plazmaforge.framework.core.datastorage.DSVariable;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 
 /**
@@ -33,36 +32,52 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  * @author ohapon
  *
  */
-public class XMLDSParameterReader extends XMLAbstractReader {
+public class XMLDSVariableReader extends XMLAbstractReader {
 
-    public DSParameter readParameter(Element element) {
+    public DSVariable readVariable(Element element) {
 	
-   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
-   	DSParameter parameter = expression == null ? new DSParameter() : new DSExpressionParameter(expression); 
-   	
-   	readIdentifier(element, parameter);
+   	DSVariable variable = new DSVariable(); 
+   	readIdentifier(element, variable);
    	
    	String sValue = null;
    	
    	// dataType
    	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
    	if (sValue != null) {
-   	    parameter.setDataType(sValue);
+   	    variable.setDataType(sValue);
    	}
 
-   	// format
-   	//sValue = getValue(element, XML_ATTR_FORMAT);
-   	//if (sValue != null) {
-   	//    field.setFormat(sValue);
-   	//}
+   	// expression
+   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
+   	if (expression != null) {
+   	    variable.setExpression(expression);
+   	}
 
-   	sValue = getStringValue(element, XML_ATTR_DEFAULT_VALUE);
-   	if (sValue != null) {
-   	    Object defaultValue = getFormatterManager().toValue(sValue, parameter.getDataType());
-   	    parameter.setDefaultValue(defaultValue);
+   	// init-expression
+   	expression = getExpression(getChild(element, XML_INIT_EXPRESSION));
+   	if (expression != null) {
+   	    variable.setInitExpression(expression);
    	}
    	
-   	return parameter;
+   	// resetType
+   	sValue = getStringValue(element, XML_ATTR_RESET_TYPE);
+   	if (sValue != null) {
+   	    variable.setResetType(sValue);
+   	}
+
+   	// resetValue
+   	sValue = getStringValue(element, XML_ATTR_RESET_VALUE);
+   	if (sValue != null) {
+   	    variable.setResetValue(sValue);
+   	}
+
+   	// aggregation
+   	sValue = getStringValue(element, XML_ATTR_AGGREGATION);
+   	if (sValue != null) {
+   	    variable.setAggregation(sValue);
+   	}
+   	
+   	return variable;
 
     }    
 }

@@ -25,9 +25,11 @@
  */
 package org.plazmaforge.framework.report.model.design;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
 import org.plazmaforge.framework.report.model.base.Element;
@@ -42,7 +44,16 @@ import org.plazmaforge.framework.report.model.base.grid.ColumnModel;
  * The Report Template has bands
  *
  */
-public class Template implements ColumnModel, HasBands, HasExpressionBuilder {
+public class Template implements Serializable, LocalizedIdentifier, ColumnModel, HasBands, HasExpressionBuilder {
+
+    private static final long serialVersionUID = 5671682441505999936L;
+    
+
+    /**
+     * Id of report
+     */
+    private String id;
+    
 
     /**
      * Name of report
@@ -94,6 +105,15 @@ public class Template implements ColumnModel, HasBands, HasExpressionBuilder {
 	paging = true;
     }
     
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -110,6 +130,10 @@ public class Template implements ColumnModel, HasBands, HasExpressionBuilder {
         this.caption = caption;
     }
 
+    public String getDisplayName() {
+  	return getCaption() == null ? getName() : getCaption();
+    }
+    
     public String getDescription() {
         return description;
     }
