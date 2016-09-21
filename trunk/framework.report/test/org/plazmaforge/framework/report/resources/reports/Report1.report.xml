@@ -1,4 +1,10 @@
 <report name="Report1" caption="Report 1" description="Report Description1">
+	<parameters>
+		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>100</default-value></parameter>
+	</parameters>
+	<variables>
+		<variable name="FULL_PRODUCT_NAME"><expression>${GROUP_NAME} + "/" + ${PRODUCT_NAME}</expression></variable>
+	</variables>
 	<data-sources>
 		<data-source>
 			<fields>
@@ -7,7 +13,7 @@
 				<field name="GROUP_NAME" data-type="String"/>
 				<field name="PRICE" data-type="Float"/>
 			</fields>
-			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT</query>
+			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query>
 		</data-source>
 	</data-sources>
 	<templates>
