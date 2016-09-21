@@ -92,7 +92,22 @@ public class XMLReportReaderTest extends TestCase {
 	assertEquals("Report1", report.getName());
 	assertEquals("Report 1", report.getCaption());
 	
+	// Parameters
+	checkParameters(report);
 	
+	// Variables
+	checkVariables(report);
+
+	// DataSource
+	checkDataSource(report);
+	
+	// Templates
+	checkTemplates(report);
+
+    }
+    
+    
+    private void checkParameters(Report report) {
 	// Get report parameters
 	assertEquals(1, report.getParameterCount());
 	DSParameter parameter = report.getParameters().get(0);
@@ -100,16 +115,44 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertEquals("PRICE_LIMIT", parameter.getName());
 	assertEquals(new Float(100.0), parameter.getDefaultValue());
-
+    }
+    
+    
+    private void checkVariables(Report report) {
 	
 	// Get report variables
-	assertEquals(1, report.getVariableCount());
+	assertEquals(3, report.getVariableCount());
+	
+	// Variable 1
 	DSVariable variable = report.getVariables().get(0);
 	assertNotNull(variable);
 	
 	assertEquals("FULL_PRODUCT_NAME", variable.getName());
+	assertEquals("String", variable.getDataType());
 	assertEquals("${GROUP_NAME} + \"/\" + ${PRODUCT_NAME}", variable.getExpressionText());
 	
+	// Variable 2
+	variable = report.getVariables().get(1);
+	assertNotNull(variable);
+	
+	assertEquals("GROUP_NAME_HEADER", variable.getName());
+	assertEquals("String", variable.getDataType());
+	assertEquals("\"Group: \"  + ${GROUP_NAME}", variable.getExpressionText());
+	assertEquals("Group", variable.getResetType());
+	assertEquals("PRODUCT_GROUP", variable.getResetValue());
+
+	// Variable 3
+	variable = report.getVariables().get(2);
+	assertNotNull(variable);
+	
+	assertEquals("PRICE_AVG", variable.getName());
+	assertEquals("Float", variable.getDataType());
+	assertEquals("${PRICE}", variable.getExpressionText());
+	assertEquals("AVG", variable.getAggregation());
+	
+    }
+    
+    private void checkDataSource(Report report) {
 	// Get report data
 	DSDataSource dataSource = report.getDataSource();
 	assertNotNull(dataSource);
@@ -147,8 +190,9 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(field);
 	assertEquals("PRICE", field.getName());
 	assertEquals("Float", field.getDataType());
-
-	
+    }
+    
+    private void checkTemplates(Report report) {
 	
 	// Get report template
 	assertEquals(1, report.getTemplateCount());
@@ -340,6 +384,5 @@ public class XMLReportReaderTest extends TestCase {
 
 	assertEquals("$F{PRICE}", cell.getExpressionText());
 	assertEquals("#.00", cell.getFormat());
-
     }
 }
