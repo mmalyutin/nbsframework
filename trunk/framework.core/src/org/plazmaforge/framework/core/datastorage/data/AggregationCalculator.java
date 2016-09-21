@@ -69,6 +69,27 @@ public class AggregationCalculator {
    	    return countValue;
    	}
 
+   	if  ("AVG".equals(aggregation)) {
+   	    
+   	    Integer countValue = getCastInteger(aggregationValue.getCountValue(), 0);
+   	    if (value != null) {
+   		countValue = countValue + 1;
+   	    }
+   	    aggregationValue.setCountValue(countValue);
+
+   	    Double sumValue = getCastDouble(aggregationValue.getSumValue(), 0.0);
+   	    Double currValue =  getCastDouble(value, 0.0);
+   	    
+   	    sumValue = sumValue + currValue;
+   	    aggregationValue.setSumValue(sumValue);
+   	    
+   	    if (countValue == 0) {
+   		return new Double(0);
+   	    }
+   	    
+   	    return sumValue / countValue;
+   	}   
+   	
    	return value;
        }
     
