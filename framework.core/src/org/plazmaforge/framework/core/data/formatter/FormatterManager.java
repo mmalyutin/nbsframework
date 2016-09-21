@@ -36,7 +36,7 @@ public class FormatterManager extends FormatterFactory {
 	}
 	Formatter formatter = getFormatter(type);
 	if (formatter == null) {
-	    return null;
+	    return value.toString();
 	}
 	return formatter.format(value);
     }
@@ -47,7 +47,7 @@ public class FormatterManager extends FormatterFactory {
 	}
 	Formatter formatter = getFormatter(type);
 	if (formatter == null) {
-	    return null;
+	    return value;
 	}
 	return formatter.parse(value);
     }
