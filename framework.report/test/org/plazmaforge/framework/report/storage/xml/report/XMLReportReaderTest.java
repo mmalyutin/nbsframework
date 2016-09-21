@@ -139,7 +139,7 @@ public class XMLReportReaderTest extends TestCase {
 	assertEquals("String", variable.getDataType());
 	assertEquals("\"Group: \"  + ${GROUP_NAME}", variable.getExpressionText());
 	assertEquals("Group", variable.getResetType());
-	assertEquals("PRODUCT_GROUP", variable.getResetValue());
+	assertEquals("PRODUCT_GROUP", variable.getResetName());
 
 	// Variable 3
 	variable = report.getVariables().get(2);
@@ -153,6 +153,7 @@ public class XMLReportReaderTest extends TestCase {
     }
     
     private void checkDataSource(Report report) {
+	
 	// Get report data
 	DSDataSource dataSource = report.getDataSource();
 	assertNotNull(dataSource);

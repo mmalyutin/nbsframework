@@ -4,7 +4,7 @@
 	</parameters>
 	<variables>
 		<variable name="FULL_PRODUCT_NAME" data-type="String"><expression>${GROUP_NAME} + "/" + ${PRODUCT_NAME}</expression></variable>
-		<variable name="GROUP_NAME_HEADER" data-type="String" resetType="Group" resetValue="PRODUCT_GROUP"><expression>"Group: "  + ${GROUP_NAME}</expression></variable>
+		<variable name="GROUP_NAME_HEADER" data-type="String" reset-type="Group" reset-name="PRODUCT_GROUP"><expression>"Group: "  + ${GROUP_NAME}</expression></variable>
 		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>${PRICE}</expression></variable>
 	</variables>
 	<data-sources>

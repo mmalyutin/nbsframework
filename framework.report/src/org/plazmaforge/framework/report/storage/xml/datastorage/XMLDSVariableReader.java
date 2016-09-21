@@ -65,10 +65,10 @@ public class XMLDSVariableReader extends XMLAbstractReader {
    	    variable.setResetType(sValue);
    	}
 
-   	// resetValue
-   	sValue = getStringValue(element, XML_ATTR_RESET_VALUE);
+   	// resetName
+   	sValue = getStringValue(element, XML_ATTR_RESET_NAME);
    	if (sValue != null) {
-   	    variable.setResetValue(sValue);
+   	    variable.setResetName(sValue);
    	}
 
    	// aggregation
