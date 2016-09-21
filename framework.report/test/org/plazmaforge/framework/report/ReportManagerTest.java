@@ -25,6 +25,7 @@
  */
 package org.plazmaforge.framework.report;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
@@ -39,6 +40,7 @@ import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 
 /**
@@ -46,6 +48,7 @@ import org.plazmaforge.framework.report.model.document.Page;
  *
  */
 public class ReportManagerTest extends DataTestCase {
+
 
     public void testFillNullReport() throws Exception {
 	System.out.println("Test fill NullReport");
@@ -118,6 +121,20 @@ public class ReportManagerTest extends DataTestCase {
 	printDocument(document);
     }
 
+    public void testFillReportFromFile() throws Exception {
+	String fileName = "resources/reports/Report1.report.xml";
+   	System.out.println("Test fill Report form file: '" + fileName + "'");
+
+	XMLReportReader reader = new XMLReportReader();
+	InputStream is = ReportEngine.class.getResourceAsStream(fileName);
+	Report report = reader.readReport(is);
+	
+	assertNotNull(report);
+   	
+   	ReportManager manager = new ReportManager();
+   	Document document = manager.fillReport(report, getConnection());
+   	printDocument(document);
+    }
     
     private void printDocument(Document document) {
 	if (document == null) {
