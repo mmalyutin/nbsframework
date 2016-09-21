@@ -87,7 +87,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     
     ////
     
-    protected void readElementAttributes(org.plazmaforge.framework.report.model.base.Element element, Element xmlElement) {
+    protected void readElementAttributes(Element xmlElement, org.plazmaforge.framework.report.model.base.Element element)  {
   	String sValue = null;
   	Integer iValue = null;
 
@@ -243,12 +243,12 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	    return null;
 	}
 	Margin margin = new Margin();
-	loadInsets(element, margin);
+	readInsets(element, margin);
 	return margin.isEmpty() ? null : margin;
     }
 	
     
-    protected void loadInsets(Element element, Insets margin) {
+    protected void readInsets(Element element, Insets margin) {
 	if(element == null) {
 	    return;
 	}

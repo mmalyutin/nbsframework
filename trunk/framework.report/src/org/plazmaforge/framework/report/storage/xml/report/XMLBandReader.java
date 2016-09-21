@@ -41,14 +41,14 @@ public class XMLBandReader extends XMLAbstractReportReader {
 
     public Band readBand(Element element) {
 	Band band = new Band();
-	readBandAttributes(band, element);
-	readBandContent(band, element);
+	readBandAttributes(element, band);
+	readBandContent(element, band);
 	return band;
     }
 
     ////
     
-    protected void readBandAttributes(Band band, Element element) {
+    protected void readBandAttributes(Element element, Band band) {
 	String sValue = null;
 	Integer iValue = null;
 	
@@ -78,12 +78,12 @@ public class XMLBandReader extends XMLAbstractReportReader {
 
     }
     
-    protected void readBandContent(Band band, Element element) {
-	readBandRows(band, element);
+    protected void readBandContent(Element element, Band band) {
+	readBandRows(element, band);
     }
     
     
-    protected void readBandRows(Band band, Element element) {
+    protected void readBandRows(Element element, Band band) {
 	Element node = getChild(element, XML_ROWS);
 	if (node == null) {
 	    return;

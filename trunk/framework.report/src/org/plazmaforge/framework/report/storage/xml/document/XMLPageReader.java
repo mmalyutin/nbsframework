@@ -41,14 +41,14 @@ public class XMLPageReader extends XMLAbstractDocumentReader {
 
     public Page readPage(org.jdom.Element element) {
 	Page page = new Page();
-	readPageAttributes(page, element);
-	readPageContent(page, element);
+	readPageAttributes(element, page);
+	readPageContent(element, page);
 	return page;
     }
 
     ////
     
-    protected void readPageAttributes(Page page, org.jdom.Element element) {
+    protected void readPageAttributes(org.jdom.Element element, Page page) {
 	
 	// background
 	Color background = getColor(element, XML_ATTR_BACKGROUND);
@@ -64,12 +64,12 @@ public class XMLPageReader extends XMLAbstractDocumentReader {
 
     }
     
-    protected void readPageContent(Page page, org.jdom.Element element) {
-	readPageElements(page, element);
+    protected void readPageContent(org.jdom.Element element, Page page) {
+	readPageElements(element, page);
     }
     
     
-    protected void readPageElements(Page page, org.jdom.Element element) {
+    protected void readPageElements(org.jdom.Element element, Page page) {
 	org.jdom.Element node = getChild(element, XML_ELEMENTS);
 	if (node == null) {
 	    return;

@@ -39,23 +39,23 @@ public class XMLGridReader extends XMLAbstractReader {
 
     public Grid readGrid(Element element) {
 	Grid grid = new Grid();
-	readGridAttributes(grid, element);
-	readGridContent(grid, element);
+	readGridAttributes(element, grid);
+	readGridContent(element, grid);
 	return grid;
     }
 
-    protected void readGridAttributes(Grid grid, Element element) {
-	readElementAttributes(grid, element);
+    protected void readGridAttributes(Element element, Grid grid) {
+	readElementAttributes(element, grid);
     }
     
-    protected void readGridContent(Grid grid, Element element) {
-	readColumns(grid, element);
-	readRows(grid, element);
+    protected void readGridContent(Element element, Grid grid) {
+	readColumns(element, grid);
+	readRows(element, grid);
     }
     
     
     // COLUMNS
-    protected void readColumns(Grid grid, Element element) {
+    protected void readColumns(Element element, Grid grid) {
 	Element node = getChild(element, XML_COLUMNS);
 	if (node == null){
 	    return;
@@ -76,7 +76,7 @@ public class XMLGridReader extends XMLAbstractReader {
  
 
     // ROWS
-    protected void readRows(Grid grid, Element element) {
+    protected void readRows(Element element, Grid grid) {
 	Element node = getChild(element, XML_ROWS);
 	if (node == null) {
 	    return;
