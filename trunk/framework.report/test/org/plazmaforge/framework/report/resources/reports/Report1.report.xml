@@ -3,9 +3,9 @@
 		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>150.0</default-value></parameter>
 	</parameters>
 	<variables>
-		<variable name="FULL_PRODUCT_NAME" data-type="String"><expression>${GROUP_NAME} + "/" + ${PRODUCT_NAME}</expression></variable>
-		<variable name="GROUP_NAME_HEADER" data-type="String" reset-type="Group" reset-name="PRODUCT_GROUP"><expression>"Group: "  + ${GROUP_NAME}</expression></variable>
-		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>${PRICE}</expression></variable>
+		<variable name="FULL_PRODUCT_NAME" data-type="String"><expression>$F{GROUP_NAME} + "/" + $F{PRODUCT_NAME}</expression></variable>
+		<variable name="GROUP_NAME_HEADER" data-type="String" reset-type="Group" reset-name="PRODUCT_GROUP"><expression>"Group: "  + $F{GROUP_NAME}</expression></variable>
+		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>$F{PRICE}</expression></variable>
 	</variables>
 	<data-sources>
 		<data-source>
@@ -37,6 +37,11 @@
 										<cell colspan="3"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
 									</cells>
 								</row>
+								<row height="20">
+									<cells>
+										<cell colspan="3"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
+									</cells>
+								</row>
 							</rows>
 						</band>
 						<band type="GroupFooter">
@@ -59,6 +64,16 @@
 								<cell colspan="3"><value>My Report</value></cell>
 							</cells>
 						</row>
+						<row height="15">
+							<cells>
+								<cell><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
+							</cells>
+						</row>
+						<row height="15">
+							<cells>
+								<cell><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
+							</cells>
+						</row>
 					</rows>
 				</band>
 				<band type="ColumnHeader">
@@ -79,10 +94,22 @@
 								<cell><expression>$F{PRODUCT_ID}</expression></cell>
 								<cell><expression>$F{PRODUCT_NAME}</expression></cell>
 								<cell format="#.00"><expression>$F{PRICE}</expression></cell>
+								<cell><expression>$V{FULL_PRODUCT_NAME}</expression></cell>
 							</cells>
 						</row>
 					</rows>
 				</band>
+				
+				<band type="ReportFooter">
+					<rows>
+						<row height="15">
+							<cells>
+								<cell><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				
 			</bands>
 		</template>
 	</templates>
