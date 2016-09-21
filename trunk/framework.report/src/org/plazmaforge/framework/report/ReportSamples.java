@@ -64,7 +64,7 @@ public class ReportSamples {
 	variable.setExpression(expression);
 	variable.setAggregation("SUM");
 	variable.setResetType("Group");
-	variable.setResetValue("Group1");
+	variable.setResetName("Group1");
 	report.addVariable(variable);
 	
 	

@@ -51,7 +51,7 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
     private String resetType;
     
     // Group/Template name
-    private String resetValue;
+    private String resetName;
     
     // COUNT, SUM, AVG
     private String aggregation;
@@ -75,6 +75,17 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
         this.expression = expression;
     }
 
+    public String getExpressionText() {
+	return expression == null ? null : expression.getText();
+    }
+    
+    public void setExpressionText(String expressionText) {
+	if (expression == null){
+	    expression = new DSExpression();
+	}
+	expression.setText(expressionText);
+    }
+    
     public DSExpression getInitExpression() {
         return initExpression;
     }
@@ -83,6 +94,17 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
         this.initExpression = initExpression;
     }
 
+    public String getInitExpressionText() {
+	return initExpression == null ? null : initExpression.getText();
+    }
+    
+    public void setInitExpressionText(String expressionText) {
+	if (initExpression == null){
+	    initExpression = new DSExpression();
+	}
+	initExpression.setText(expressionText);
+    }    
+    
     public String getResetType() {
         return resetType;
     }
@@ -91,12 +113,12 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
         this.resetType = resetType;
     }
 
-    public String getResetValue() {
-        return resetValue;
+    public String getResetName() {
+        return resetName;
     }
 
-    public void setResetValue(String resetValue) {
-        this.resetValue = resetValue;
+    public void setResetName(String resetName) {
+        this.resetName = resetName;
     }
 
     public String getAggregation() {

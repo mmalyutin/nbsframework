@@ -132,9 +132,9 @@ public interface XMLInfo {
     
     String XML_PROPERTY = "property";
 
-    String XML_ATTR_RESET_TYPE = "resetType";
+    String XML_ATTR_RESET_TYPE = "reset-type";
     
-    String XML_ATTR_RESET_VALUE = "resetValue";
+    String XML_ATTR_RESET_NAME = "reset-name";
     
     String XML_ATTR_AGGREGATION = "aggregation";
     

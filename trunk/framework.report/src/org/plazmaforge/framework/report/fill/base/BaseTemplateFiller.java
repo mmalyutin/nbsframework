@@ -677,7 +677,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
     
     
-    protected void resetVariableValues(ReportContext context, String resetType, String resetValue) {
+    protected void resetVariableValues(ReportContext context, String resetType, String resetName) {
 	if (resetType == null) {
 	    return;
 	}
@@ -699,7 +699,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 		continue;
 	    }
 
-	    if (resetValue != null && (variable.getResetValue() == null || !resetValue.equals(variable.getResetValue()))) {
+	    if (resetName != null && (variable.getResetName() == null || !resetName.equals(variable.getResetName()))) {
 		continue;
 	    }
 
