@@ -108,7 +108,7 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(variable);
 	
 	assertEquals("FULL_PRODUCT_NAME", variable.getName());
-	assertEquals("${GROUP_NAME} + \"/\" + ${PRODUCT_NAME}", variable.getExpression().getText());
+	assertEquals("${GROUP_NAME} + \"/\" + ${PRODUCT_NAME}", variable.getExpressionText());
 	
 	// Get report data
 	DSDataSource dataSource = report.getDataSource();
