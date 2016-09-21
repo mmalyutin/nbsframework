@@ -71,7 +71,7 @@ public class TestDB {
 	    
 	    pstm.setInt(1, i);
 	    pstm.setString(2, "Product " + i);
-	    pstm.setString(3, "Group 1");
+	    pstm.setString(3, "Group " + (i < 200 ? "1" : "2"));
 	    pstm.setFloat(4, (float)(i/100.00 + i));
 	    pstm.execute();
 	}
