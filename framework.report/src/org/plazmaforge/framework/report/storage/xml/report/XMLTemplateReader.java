@@ -51,14 +51,14 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 
     public Template readTemplate(Element element) {
 	Template template = new Template();
-	readTemplateAttributes(template, element);
-	readTemplateContent(template, element);
+	readTemplateAttributes(element, template);
+	readTemplateContent(element, template);
 	return template;
     }
     
     ////
 
-    protected void readTemplateAttributes(Template template, Element element) {
+    protected void readTemplateAttributes(Element element, Template template) {
 	
 	readIdentifier(element, template);
 	
@@ -72,15 +72,15 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	
     }
     
-    protected void readTemplateContent(Template template, Element element) {
-	readPageSetup(template, element);
-	readColumns(template, element);
-	readGroups(template, element);
-	readBands(template, element);
+    protected void readTemplateContent(Element element, Template template) {
+	readPageSetup(element, template);
+	readColumns(element, template);
+	readGroups(element, template);
+	readBands(element, template);
     }
     
     // PAGE-SETUP
-    protected void readPageSetup(Template template, Element element) {
+    protected void readPageSetup(Element element, Template template) {
 	Element node = element.getChild(XML_PAGE_SETUP);
 	if (node == null) {
 	    return;
@@ -91,7 +91,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
     
     // COLUMNS
-    protected void readColumns(Template template, Element element) {
+    protected void readColumns(Element element, Template template) {
 	Element node = getChild(element, XML_COLUMNS);
 	if (node == null){
 	    return;
@@ -109,7 +109,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
 
     // REPORT-GROUPS
-    protected void readGroups(Template template, Element element) {
+    protected void readGroups(Element element, Template template) {
 	Element node = getChild(element, XML_REPORT_GROUPS);
 	if (node == null) {
 	    return;
@@ -127,7 +127,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
     
     // BANDS
-    protected void readBands(Template template, Element element) {
+    protected void readBands(Element element, Template template) {
 	Element node = getChild(element, XML_BANDS);
 	if (node == null) {
 	    return;

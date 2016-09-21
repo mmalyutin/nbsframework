@@ -91,14 +91,14 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	}
 	Report report = new Report();
 	
-	readReportAttributes(report, element);
-	readReportContent(report, element);
+	readReportAttributes(element, report);
+	readReportContent(element, report);
 	
 
 	return report;
     }
     
-    protected void readReportAttributes(Report report, Element element) {
+    protected void readReportAttributes(Element element, Report report) {
 	readIdentifier(element, report);
 	
 	String value = null;
@@ -111,18 +111,18 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	
     }
     
-    protected void readReportContent(Report report, Element element) {
-	//readProperties(report, element);
-	readParameters(report, element);
-	readVariables(report, element);
-	//readDataConnectors(report, element);
-	readDataSources(report, element);
-	//readStyles(report, element);
-	readTemplates(report, element);
+    protected void readReportContent(Element element, Report report) {
+	//readProperties(element, report);
+	readParameters(element, report);
+	readVariables(element, report);
+	//readDataConnectors(element, report);
+	readDataSources(element, report);
+	//readStyles(element, report);
+	readTemplates(element, report);
     }
 
     // VARIABLES
-    protected void readVariables(Report report, Element element) {
+    protected void readVariables(Element element, Report report) {
 	Element node = getChild(element, XML_VARIABLES);
 	if (node == null){
 	    return;
@@ -141,7 +141,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     // PARAMETERS
-    protected void readParameters(Report report, Element element) {
+    protected void readParameters(Element element, Report report) {
 	Element node = getChild(element, XML_PARAMETERS);
 	if (node == null){
 	    return;
@@ -160,7 +160,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     // DATA-SOURCES
-    protected void readDataSources(Report report, Element element) {
+    protected void readDataSources(Element element, Report report) {
 	Element node = getChild(element, XML_DATA_SOURCES);
 	if (node == null) {
 	    return;
@@ -179,7 +179,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     // TEMPLATES
-    protected void readTemplates(Report report, Element element) {
+    protected void readTemplates(Element element, Report report) {
 	Element node = getChild(element, XML_TEMPLATES);
 	if (node == null){
 	    return;

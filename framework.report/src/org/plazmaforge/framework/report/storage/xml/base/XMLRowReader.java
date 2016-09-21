@@ -47,14 +47,14 @@ public class XMLRowReader extends XMLAbstractReader {
 	}
 
 	// Get cells
-	readCells(row, element);
+	readCells(element, row);
 	
 	return row;
     }
     
     
     // CELLS
-    protected void readCells(Row row, Element element) {
+    protected void readCells(Element element, Row row) {
 	Element node = getChild(element, XML_CELLS);
 	if (node == null) {
 	    return;

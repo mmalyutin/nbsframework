@@ -46,14 +46,14 @@ public class XMLGroupReader extends XMLAbstractReportReader {
 
     public ReportGroup readGroup(Element element) {
 	ReportGroup group = new ReportGroup();
-	readGroupAttributes(group, element);
-	readGroupContent(group, element);
+	readGroupAttributes(element, group);
+	readGroupContent(element, group);
 	return group;
     }
 
     ////
     
-    protected void readGroupAttributes(ReportGroup group, Element element) {
+    protected void readGroupAttributes(Element element, ReportGroup group) {
 	String value = null;
 
 	// name
@@ -64,7 +64,7 @@ public class XMLGroupReader extends XMLAbstractReportReader {
 	
     }
     
-    protected void readGroupContent(ReportGroup group, Element element) {
+    protected void readGroupContent(Element element, ReportGroup group) {
 	
 	// expression
 	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION), false);
@@ -72,11 +72,11 @@ public class XMLGroupReader extends XMLAbstractReportReader {
 	    group.setExpression(expression);
 	}
 
-	readBands(group, element);
+	readBands(element, group);
     }
     
     // BANDS
-    protected void readBands(ReportGroup group, Element element) {
+    protected void readBands(Element element, ReportGroup group) {
 	Element node = getChild(element, XML_BANDS);
 	if (node == null) {
 	    return;

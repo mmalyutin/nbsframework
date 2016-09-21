@@ -46,14 +46,14 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     
     public DSDataSource readDataSource(Element element) {
 	DSDataSource dataSource = new DSBaseDataSource();
-	readDataSourceAttributes(dataSource, element);
-	readDataSourceContent(dataSource, element);
+	readDataSourceAttributes(element, dataSource);
+	readDataSourceContent(element, dataSource);
 	return dataSource;
     }
     
     ////
 
-    protected void readDataSourceAttributes(DSDataSource dataSource, Element element) {
+    protected void readDataSourceAttributes(Element element, DSDataSource dataSource) {
 	
 	readIdentifier(element, dataSource);
 	
@@ -67,7 +67,7 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
 	
     }
     
-    protected void readDataSourceContent(DSDataSource dataSource, Element element) {
+    protected void readDataSourceContent(Element element, DSDataSource dataSource) {
 	
 	// Read query
 	XMLDSQueryReader reader = new XMLDSQueryReader(); 
@@ -76,13 +76,13 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
 	    dataSource.setQuery(query);
 	}
 	
-	readParameters(dataSource, element);
-	readFields(dataSource, element);
+	readParameters(element, dataSource);
+	readFields(element, dataSource);
     }
     
  
     
-    protected void readParameters(DSDataSource dataSource, Element element) {
+    protected void readParameters(Element element, DSDataSource dataSource) {
    	Element node = getChild(element, XML_PARAMETERS);
    	if (node == null){
    	    return;
@@ -103,7 +103,7 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
    	}
     }
     
-    protected void readFields(DSDataSource dataSource, Element element) {
+    protected void readFields(Element element, DSDataSource dataSource) {
    	Element node = getChild(element, XML_FIELDS);
    	if (node == null){
    	    return;

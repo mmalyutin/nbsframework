@@ -130,14 +130,14 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
 	}
 	Document document = new Document();
 	
-	readDocumentAttributes(document, element);
-	readDocumentContent(document, element);
+	readDocumentAttributes(element, document);
+	readDocumentContent(element, document);
 	
 
 	return document;
     }
     
-    protected void readDocumentAttributes(Document document, Element element) {
+    protected void readDocumentAttributes(Element element, Document document) {
    	String value = null;
    	
    	// name
@@ -160,13 +160,13 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
    	
     }
 
-    protected void readDocumentContent(Document document, Element element) {
-	readPageSetup(document, element);
-   	readPages(document, element);
+    protected void readDocumentContent(Element element, Document document) {
+	readPageSetup(element, document);
+   	readPages(element, document);
     }
     
     // PAGE-SETUP
-    protected void readPageSetup(Document document, Element element) {
+    protected void readPageSetup(Element element, Document document) {
 	Element node = element.getChild(XML_PAGE_SETUP);
 	if (node == null) {
 	    return;
@@ -177,7 +177,7 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
     }
     
     // PAGES
-    protected void readPages(Document document, Element element) {
+    protected void readPages(Element element, Document document) {
 	Element node = getChild(element, XML_PAGES);
 	if (node == null) {
 	    return;
