@@ -56,7 +56,7 @@ public class XMLDSParameterReader extends XMLAbstractReader {
    	//    field.setFormat(sValue);
    	//}
 
-   	sValue = getStringValue(element, XML_ATTR_DEFAULT_VALUE);
+   	sValue = getContentValue(getChild(element, XML_DEFAULT_VALUE));
    	if (sValue != null) {
    	    Object defaultValue = getFormatterManager().toValue(sValue, parameter.getDataType());
    	    parameter.setDefaultValue(defaultValue);

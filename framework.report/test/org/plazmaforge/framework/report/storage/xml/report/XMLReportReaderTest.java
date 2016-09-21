@@ -31,7 +31,9 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
+import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSQuery;
+import org.plazmaforge.framework.core.datastorage.DSVariable;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.PageSetup;
@@ -90,6 +92,24 @@ public class XMLReportReaderTest extends TestCase {
 	assertEquals("Report1", report.getName());
 	assertEquals("Report 1", report.getCaption());
 	
+	
+	// Get report parameters
+	assertEquals(1, report.getParameterCount());
+	DSParameter parameter = report.getParameters().get(0);
+	assertNotNull(parameter);
+	
+	assertEquals("PRICE_LIMIT", parameter.getName());
+	assertEquals(new Float(100.0), parameter.getDefaultValue());
+
+	
+	// Get report variables
+	assertEquals(1, report.getVariableCount());
+	DSVariable variable = report.getVariables().get(0);
+	assertNotNull(variable);
+	
+	assertEquals("FULL_PRODUCT_NAME", variable.getName());
+	assertEquals("${GROUP_NAME} + \"/\" + ${PRODUCT_NAME}", variable.getExpression().getText());
+	
 	// Get report data
 	DSDataSource dataSource = report.getDataSource();
 	assertNotNull(dataSource);
@@ -101,7 +121,7 @@ public class XMLReportReaderTest extends TestCase {
 	String queryText = query.getText();
 	assertNotNull(queryText);
 	assertEquals(queryText, dataSource.getQueryText());
-	assertEquals(queryText, "SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT");
+	assertEquals(queryText, "SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT");
 	
 	// Get fields
 	List<DSField> fields = dataSource.getFields();
