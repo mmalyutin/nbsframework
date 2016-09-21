@@ -1,6 +1,6 @@
 <report name="Report1" caption="Report 1" description="Report Description1">
 	<parameters>
-		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>100</default-value></parameter>
+		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>150.0</default-value></parameter>
 	</parameters>
 	<variables>
 		<variable name="FULL_PRODUCT_NAME" data-type="String"><expression>${GROUP_NAME} + "/" + ${PRODUCT_NAME}</expression></variable>

@@ -520,13 +520,26 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	Report report = context.getReport();
 	ReportScope scope = context.getReportScope();
 	
-	// Transfer report parameters to scope
-	scope.setParameters(report.getParameters().toArray(new DSParameter[0]));
+	// Defined report parameters
+	List<DSParameter> reportParameters = report.getParameters();
 	
-	// Transfer report parameter values to scope
+	// Transfer report parameters to scope
+	scope.setParameters(reportParameters.toArray(new DSParameter[0]));
+	
+//	// 1. Transfer DEFAULT report parameter values to scope
+//	for (DSParameter parameter: reportParameters) {
+//	    Object value = parameter.getDefaultValue(); 
+//	    if (value == null) {
+//		continue;
+//	    }
+//	    String name = parameter.getName();
+//	    scope.setScopeValue(Scope.PARAMETER, name, DSExpression.EVALUATION_DEFAULT, value);
+//	}
+	
+	// 2. Transfer INPUT report parameter values to scope
 	Map<String, Object> parameters = context.getParameters();
 	Set<Map.Entry<String, Object>> entries = parameters.entrySet();
-	for (Map.Entry<String, Object> entry: entries){
+	for (Map.Entry<String, Object> entry: entries) {
 	    String name = entry.getKey();
 	    Object value = entry.getValue();
 	    scope.setScopeValue(Scope.PARAMETER, name, DSExpression.EVALUATION_DEFAULT, value);
