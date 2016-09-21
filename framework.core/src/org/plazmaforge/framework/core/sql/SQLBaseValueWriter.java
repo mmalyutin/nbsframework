@@ -101,6 +101,11 @@ public class SQLBaseValueWriter extends AbstractSQLWorker implements SQLValueWri
 	    stm.setClob(index, toSQLClob(value));
 	    break;
 	}
+	default: {
+	    stm.setObject(index, value);
+	}
+	
+	
 
 	}
     }    
