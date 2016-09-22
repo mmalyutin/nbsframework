@@ -166,7 +166,7 @@ public class Insets implements Serializable {
 	return "Insets[" + toValuesString() + "]";
     }
 
-    protected String toValuesString() {
+    public String toValuesString() {
  	return "top=" + top + ", right=" + right +  ", bottom=" + bottom + ", left=" + left;
     }
     

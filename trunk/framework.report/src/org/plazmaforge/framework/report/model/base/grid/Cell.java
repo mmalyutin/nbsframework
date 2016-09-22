@@ -125,7 +125,7 @@ public class Cell extends Container implements HasExpression {
 
     public String toString() {
 	StringBuilder b = new StringBuilder();
-	b.append("Cell=[");
+	b.append("Cell[");
 	boolean flag = false;
 	if (colspan > 1) {
 	    b.append("colspan=" + colspan);
@@ -152,7 +152,14 @@ public class Cell extends Container implements HasExpression {
 	    b.append("value=" + value);
 	    flag = true;
 	}
-	if  (expression != null) {
+	if (format != null) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("format=" + format);
+	    flag = true;
+	}
+	if (expression != null) {
 	    if (flag) {
 		b.append(", ");
 	    }

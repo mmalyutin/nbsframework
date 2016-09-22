@@ -26,7 +26,6 @@
 package org.plazmaforge.framework.report.model.document;
 
 import org.plazmaforge.framework.report.model.base.Container;
-import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 
 /**
@@ -37,8 +36,6 @@ public class Page extends Container {
 
     private static final long serialVersionUID = -9205094676201936864L;
 
-    private Margin margin;
-    
     private Document document;
     
     public Page() {
@@ -56,46 +53,6 @@ public class Page extends Container {
 	return document == null ? null : document.getPageSetup();
     }
     
-    public Margin getMargin() {
-	if (margin == null) {
-	    margin = new Margin();
-	}
-        return margin;
-    }
-
-    public void setMargin(Margin margin) {
-        this.margin = margin;
-    }
-    
-    public boolean hasMargin() {
-	return margin != null && !margin.isEmpty();
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
-	result = prime * result + ((margin == null) ? 0 : margin.hashCode());
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (!super.equals(obj))
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Page other = (Page) obj;
-	if (margin == null) {
-	    if (other.margin != null)
-		return false;
-	} else if (!margin.equals(other.margin))
-	    return false;
-	return true;
-    }    
-    
     public int getDisplayWidth() {
 	if (hasWidth()) {
 	    return getWidth();
@@ -103,11 +60,39 @@ public class Page extends Container {
 	return getPageSetup() == null ? 0 : getPageSetup().getSize().getWidth();
     }
     
+  
     public int getDisplayHeight() {
 	if (hasHeight()) {
 	    return getHeight();
 	}
 	return getPageSetup() == null ? 0 : getPageSetup().getSize().getHeight();
     }
+    
+//    @Override
+//    public int hashCode() {
+//	final int prime = 31;
+//	int result = super.hashCode();
+//	result = prime * result
+//		+ ((document == null) ? 0 : document.hashCode());
+//	return result;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//	if (this == obj)
+//	    return true;
+//	if (!super.equals(obj))
+//	    return false;
+//	if (getClass() != obj.getClass())
+//	    return false;
+//	Page other = (Page) obj;
+//	if (document == null) {
+//	    if (other.document != null)
+//		return false;
+//	} else if (!document.equals(other.document))
+//	    return false;
+//	return true;
+//    }
+    
     
 }

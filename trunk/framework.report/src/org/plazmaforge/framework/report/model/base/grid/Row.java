@@ -133,9 +133,9 @@ public class Row implements HasExpressionBuilder {
 
     public String toString( ){
 	StringBuffer buf = new StringBuffer();
-	buf.append("Row=[height=" + height);
+	buf.append("Row[height=" + height);
 	List<Cell> cells = getCells();
-	buf.append(", Cells: [");
+	buf.append(", cells=[");
 	boolean first = true;
 	for (Cell cell: cells) {
 	    if (!first) {

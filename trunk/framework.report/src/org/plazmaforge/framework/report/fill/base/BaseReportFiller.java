@@ -45,8 +45,6 @@ import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.datastorage.DSWrappedDataSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.data.AggregationCalculator;
-import org.plazmaforge.framework.core.datastorage.data.QueryAnalyzer;
-import org.plazmaforge.framework.core.datastorage.data.Scope;
 import org.plazmaforge.framework.core.datastorage.model.DSDataBuilder;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.report.ReportEngine;
@@ -58,6 +56,7 @@ import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ScriptGenerator;
 import org.plazmaforge.framework.report.fill.script.ScriptInfo;
 import org.plazmaforge.framework.report.fill.script.ScriptProvider;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.ReportParameters;
 import org.plazmaforge.framework.report.model.design.Template;
@@ -109,14 +108,27 @@ public class BaseReportFiller implements ReportFiller {
 	Document document = new Document();
 	
 	// If report is empty then return empty document
-	if (report == null || report.isEmpty()) {
+	if (report == null || !report.hasTemplates()) {
 	    return document;
 	}
 
 	// Prepare template fillers
 	List<Template> templates = report.getTemplates();
+	
+	
 	Map<Template, TemplateFiller> templateFillers = new HashMap<Template, TemplateFiller>();
+	boolean first = true;
 	for (Template template: templates) {
+	    
+	    // FIRST TEMPLATE
+	    if (first) {
+		first = false;
+		PageSetup pageSetup = template.getPageSetup();
+		if (pageSetup != null) {
+		    document.setPageSetup(pageSetup);  
+		}
+	    }
+	    
 	    String templateType = template.getType();
 	    if (templateType == null) {
 		templateType = ReportEngine.DEFAULT_TEMPLATE_TYPE;

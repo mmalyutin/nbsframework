@@ -49,7 +49,7 @@ public class Column {
     }
     
     public String toString() {
-	return "Column=[" + "width=" + width + "]";
+	return "Column[" + "width=" + width + "]";
     }
 
     @Override

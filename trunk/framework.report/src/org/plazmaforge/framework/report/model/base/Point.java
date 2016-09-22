@@ -79,6 +79,10 @@ public class Point implements Serializable {
         return y != null;
     }
     
+    public boolean isEmpty() {
+  	return x == null && y == null;
+    }
+    
     public Point clone() {
 	return new Point(hasX() ? getX(): null, hasY() ? getY() : null);
     }

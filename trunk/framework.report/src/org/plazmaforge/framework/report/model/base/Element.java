@@ -94,6 +94,10 @@ public class Element implements Serializable, HasExpressionBuilder {
     public void setX(Integer x) {
         getPosition().setX(x);
     }
+    
+    public boolean hasX() {
+	return hasPosition() && getPosition().hasX();
+    }
 
     public int getY() {
         return getPosition().getY();
@@ -107,6 +111,10 @@ public class Element implements Serializable, HasExpressionBuilder {
         getPosition().setY(y);
     }
 
+    public boolean hasY() {
+	return hasPosition() && getPosition().hasY();
+    }
+    
     public int getWidth() {
         return getSize().getWidth();
     }
@@ -122,7 +130,7 @@ public class Element implements Serializable, HasExpressionBuilder {
     public boolean hasWidth() {
   	return hasSize() && getSize().hasWidth();
     }
-
+    
     public int getHeight() {
         return getSize().getHeight();
     }
@@ -149,6 +157,10 @@ public class Element implements Serializable, HasExpressionBuilder {
     public boolean hasPosition() {
 	return position != null;
     }
+
+    public boolean isEmptyPosition() {
+	return position == null || position.isEmpty();
+    }
     
     public void setPosition(Point position) {
         this.position = position;
@@ -164,6 +176,10 @@ public class Element implements Serializable, HasExpressionBuilder {
     public boolean hasSize() {
 	return size != null;
     }
+
+    public boolean isEmptySize() {
+	return size == null || size.isEmpty();
+    }
     
     public void setSize(Size size) {
         this.size = size;
@@ -177,12 +193,20 @@ public class Element implements Serializable, HasExpressionBuilder {
         this.background = background;
     }
 
+    public boolean hasBackground() {
+        return background != null;
+    }
+    
     public Color getForeground() {
         return foreground;
     }
 
     public void setForeground(Color foreground) {
         this.foreground = foreground;
+    }
+
+    public boolean hasForeground() {
+        return foreground != null;
     }
     
     public Font getFont() {
@@ -191,6 +215,10 @@ public class Element implements Serializable, HasExpressionBuilder {
 
     public void setFont(Font font) {
         this.font = font;
+    }
+
+    public boolean hasFont() {
+        return font != null;
     }
 
 
@@ -292,16 +320,18 @@ public class Element implements Serializable, HasExpressionBuilder {
 
     @Override
     public String toString() {
-	return "Element [visible=" + visible 
+	return "Element[" + toValuesString() + "]";
+    }
+
+    public String toValuesString() {
+	return "visible=" + visible 
 		+ ", background=" + background
 		+ ", foreground=" + foreground 
 		+ ", font=" + font 
 		+ ", x=" + (position == null ? null : getX()) 
 		+ ", y=" + (position == null ? null : getY())
 		+ ", width=" + (size == null ? null : getWidth())
-		+ ", height=" + (size == null ? null : getHeight()) 
-		+ "]";
+		+ ", height=" + (size == null ? null : getHeight()); 
     }
-
 
 }

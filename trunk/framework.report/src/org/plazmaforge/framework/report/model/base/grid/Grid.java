@@ -118,9 +118,9 @@ public class Grid extends Element implements HasExpressionBuilder {
     
     public String toString() {
 	StringBuffer buf = new StringBuffer();
-	buf.append("Grid=[");
+	buf.append("Grid[");
 	List<Column> columns = getColumns();
-	buf.append("Columns: [");
+	buf.append("columns=[");
 	boolean first = true;	
 	for (Column column: columns) {
 	    if (!first) {
@@ -133,7 +133,7 @@ public class Grid extends Element implements HasExpressionBuilder {
 	
 	List<Row> rows = getRows();
 	buf.append(", ");	
-	buf.append("Rows: [");
+	buf.append("rows=[");
 	first = true;	
 	for (Row row: rows) {
 	    if (!first) {
@@ -152,17 +152,17 @@ public class Grid extends Element implements HasExpressionBuilder {
 
     public String toStringModel() {
 	StringBuffer buf = new StringBuffer();
-	buf.append("Grid=[");
+	buf.append("Grid[");
 	
 	List<Column> columns = getColumns();
-	buf.append("\n  Columns: [");
+	buf.append("\n  columns=[");
 	for (Column column: columns) {
 	    buf.append("\n    " + column.toString());
 	}
 	buf.append("\n  ]");
 	
 	List<Row> rows = getRows();
-	buf.append("\n  Rows: [");
+	buf.append("\n  rows=[");
 	for (Row row: rows) {
 	    buf.append("\n    " + row.toString());
 	}

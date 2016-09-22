@@ -190,4 +190,17 @@ public class Document {
 	return true;
     }
 
+    @Override
+    public String toString() {
+	return "Document[" 
+		+ "name=" + name 
+		+ ", caption=" + caption
+		+ ", description=" + description 
+		+ ", pageSetup=" + pageSetup
+		+ ", pages=" + (pages == null ? null : ("[" + pages.size() + "]"))
+		+ "]";
+    }
+    
+    
+
 }
