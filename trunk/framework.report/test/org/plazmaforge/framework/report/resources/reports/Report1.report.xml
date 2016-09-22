@@ -20,11 +20,12 @@
 	</data-sources>
 	<templates>
 		<template type="Table">
-			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24"/>
+			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
-				<column width="150" />
-				<column width="250" />
 				<column width="100" />
+				<column width="150" />
+				<column width="150" />
+				<column width="150" />
 			</columns>
 			<report-groups>
 				<report-group name="PRODUCT_GROUP">
