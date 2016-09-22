@@ -27,6 +27,7 @@ package org.plazmaforge.framework.report.model.document;
 
 import org.plazmaforge.framework.report.model.base.Container;
 import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 
 /**
  * @author ohapon
@@ -38,8 +39,21 @@ public class Page extends Container {
 
     private Margin margin;
     
+    private Document document;
     
     public Page() {
+    }
+    
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public PageSetup getPageSetup() {
+	return document == null ? null : document.getPageSetup();
     }
     
     public Margin getMargin() {
@@ -81,5 +95,19 @@ public class Page extends Container {
 	    return false;
 	return true;
     }    
+    
+    public int getDisplayWidth() {
+	if (hasWidth()) {
+	    return getWidth();
+	}
+	return getPageSetup() == null ? 0 : getPageSetup().getSize().getWidth();
+    }
+    
+    public int getDisplayHeight() {
+	if (hasHeight()) {
+	    return getHeight();
+	}
+	return getPageSetup() == null ? 0 : getPageSetup().getSize().getHeight();
+    }
     
 }
