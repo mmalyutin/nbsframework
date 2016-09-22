@@ -25,16 +25,15 @@
  */
 package org.plazmaforge.framework.reportviewer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.logging.Logger;
 import org.plazmaforge.framework.report.ReportEngine;
-import org.plazmaforge.framework.report.ReportSamples;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.ReportExporter;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
 import org.plazmaforge.framework.uwt.AbstractDesktopApplication;
 import org.plazmaforge.framework.uwt.ApplicationView;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
@@ -156,6 +155,9 @@ public class ViewerApp extends AbstractDesktopApplication {
 	
 	frame.layout();
 	
+	fileName = properties.get("file");
+	openInputDocument();
+	
 	start();
 	
 	
@@ -263,8 +265,8 @@ public class ViewerApp extends AbstractDesktopApplication {
 	int pageX = marginLeft;
 	int pageY = marginTop;
 	
-	int pageWidth = page.getWidth();
-	int pageHeight = page.getHeight();
+	int pageWidth = getPageWidth(page);
+	int pageHeight = getPageHeight(page);
 	gc.drawRectangle(pageX - 1, pageY - 1, pageWidth + 1, pageHeight + 1);
 	gc.fillRectangle(pageX, pageY, pageWidth, pageHeight);
 	
@@ -283,19 +285,32 @@ public class ViewerApp extends AbstractDesktopApplication {
 	return document != null && pageCount > 0;
     }
     
-    private void openDocument(String fileName) {
+    protected void openInputDocument() {
+	if (fileName == null) {
+	    return;
+	}
+	openDocument(fileName);	
+    }
+    
+    protected void openDocument(String fileName) {
 	document = null;
 	page = null;
 	pageIndex = -1;
 	pageCount = 0;
 	
 	try {
-	    //TODO
-	    Map<String, Object> parameters = new HashMap<String, Object>();
-	    parameters.put("PARAM1", "Today");
-	    document = ReportSamples.createTableReportDocument(parameters);
+	    
+	    
+	    //TEST
+	    //Map<String, Object> parameters = new HashMap<String, Object>();
+	    //parameters.put("PARAM1", "Today");
+	    //document = ReportSamples.createTableReportDocument(parameters);
+	    
+	    XMLDocumentReader reader = new XMLDocumentReader();
+	    document = reader.readDocument(fileName);
+	    
 	    pageCount = document.getPageCount();
-	    if (document != null && document.hasPages()){
+	    if (document != null && document.hasPages()) {
 		pageIndex = 0;
 		setPage(pageIndex);
 	    }
@@ -307,8 +322,8 @@ public class ViewerApp extends AbstractDesktopApplication {
     
     protected void doOpenAction() {
 	//TODO
-	fileName = "MyReport.report.xml";
-	openDocument(fileName);
+	//fileName = "Document1.document.xml";
+	//openDocument(fileName);
     }
     
     protected void doFirstPageAction() {
@@ -358,8 +373,8 @@ public class ViewerApp extends AbstractDesktopApplication {
     protected void setPage(int pageIndex) {
 	page = document.getPages().get(pageIndex);
 	
-	scrollPanel.setContentWidth(marginLeft * 2 + page.getWidth());
-	scrollPanel.setContentHeight(marginTop * 2 + page.getHeight());
+	scrollPanel.setContentWidth(marginLeft * 2 + getPageWidth(page));
+	scrollPanel.setContentHeight(marginTop * 2 + getPageHeight(page));
 	
 	canvas.repaint();
 	updateState();
@@ -378,6 +393,14 @@ public class ViewerApp extends AbstractDesktopApplication {
 	prevPageItem.setEnabled(pageIndex > 0);
 	nextPageItem.setEnabled(pageIndex < pageCount - 1);
 	lastPageItem.setEnabled(pageIndex < pageCount - 1);
+    }
+    
+    protected int getPageWidth(Page page) {
+	return page == null ? 0 : page.getDisplayWidth(); 
+    }
+    
+    protected int getPageHeight(Page page) {
+	return page == null ? 0 : page.getDisplayHeight(); 
     }
     
 }

@@ -119,6 +119,10 @@ public class Element implements Serializable, HasExpressionBuilder {
         getSize().setWidth(width);
     }
 
+    public boolean hasWidth() {
+  	return hasSize() && getSize().hasWidth();
+    }
+
     public int getHeight() {
         return getSize().getHeight();
     }
@@ -131,6 +135,10 @@ public class Element implements Serializable, HasExpressionBuilder {
         getSize().setHeight(height);
     }
 
+    public boolean hasHeight() {
+	return hasSize() && getSize().hasHeight();
+    }    
+    
     public Point getPosition() {
 	if (position == null) {
 	    position = new Point();

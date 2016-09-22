@@ -113,15 +113,17 @@ public class Document {
 	return getPages().get(index);
     }
 
-    public void setPages(List<Page> pages) {
-        this.pages = pages;
-    }
-    
     public void addPage(Page page) {
+	if (page != null) {
+	    page.setDocument(this);
+	}
 	getPages().add(page);
     }
 
     public void removePage(Page page) {
+	if (page != null) {
+	    page.setDocument(null);
+	}
 	getPages().remove(page);
     }
 
