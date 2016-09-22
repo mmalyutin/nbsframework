@@ -38,8 +38,30 @@ public class Container extends Element {
 
     private static final long serialVersionUID = 2159963005052721945L;
     
+    private Margin margin;
+    
     private List<Element> children;
 
+    
+    public Margin getMargin() {
+	if (margin == null) {
+	    margin = new Margin();
+	}
+	return margin;
+    }
+
+    public void setMargin(Margin margin) {
+	this.margin = margin;
+    }
+
+    public boolean hasMargin() {
+	return margin != null;
+    }
+
+    public boolean isEmptyMargin() {
+	return margin == null || margin.isEmpty();
+    }
+    
     public List<Element> getChildren() {
 	if (children == null){
 	    children = new ArrayList<Element>();
@@ -105,7 +127,16 @@ public class Container extends Element {
     }
     
     
-    
+
+    @Override
+    public String toString() {
+	return "Container[" + toValuesString() + "]";
+    }
+
+    public String toValuesString() {
+	return  super.toValuesString() 
+		+ ", margin=" + margin;
+    }
    
     
 }

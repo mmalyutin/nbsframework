@@ -65,6 +65,10 @@ public class PageSetup {
     public boolean hasSize() {
 	return size != null;
     }
+
+    public boolean isEmptySize() {
+	return size == null || size.isEmpty();
+    }
     
     public Margin getMargin() {
 	if (margin == null) {
@@ -80,9 +84,13 @@ public class PageSetup {
     public boolean hasMargin() {
 	return margin != null && !margin.isEmpty();
     }
+
+    public boolean isEmptyMargin() {
+	return margin == null || margin.isEmpty();
+    }
     
     public boolean isEmpty() {
-	return  getFormat() == null && !hasSize() && !hasMargin();
+	return  getFormat() == null && isEmptySize() && isEmptyMargin();
     }
 
     @Override
@@ -125,10 +133,10 @@ public class PageSetup {
     @Override
     public String toString() {
   	StringBuilder b = new StringBuilder();
-  	b.append("PageSetup=[");
+  	b.append("PageSetup[");
   	b.append("format=" + format);
-  	b.append(", size=" + (size == null ? null : ("[" + size.toValuesString() + "]")));
-  	b.append(", margin=" + (margin == null ? null : ("[" + margin.toValuesString() + "]")));
+  	b.append(", size=" + size);
+  	b.append(", margin=" + margin);
   	b.append("]");
   	return b.toString();
     }
