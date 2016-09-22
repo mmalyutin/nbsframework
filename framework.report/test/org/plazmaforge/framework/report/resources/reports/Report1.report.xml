@@ -94,7 +94,7 @@
 							<cells>
 								<cell><expression>$F{PRODUCT_ID}</expression></cell>
 								<cell><expression>$F{PRODUCT_NAME}</expression></cell>
-								<cell format="#.00"><expression>$F{PRICE}</expression></cell>
+								<cell format="#.00" data-type="Float"><expression>$F{PRICE}</expression></cell>
 								<cell><expression>$V{FULL_PRODUCT_NAME}</expression></cell>
 							</cells>
 						</row>

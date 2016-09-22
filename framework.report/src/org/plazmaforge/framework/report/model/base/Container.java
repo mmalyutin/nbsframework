@@ -38,29 +38,25 @@ public class Container extends Element {
 
     private static final long serialVersionUID = 2159963005052721945L;
     
-    private Margin margin;
+    private Padding padding;
     
     private List<Element> children;
-
     
-    public Margin getMargin() {
-	if (margin == null) {
-	    margin = new Margin();
-	}
-	return margin;
+    public Padding getPadding() {
+        return padding;
     }
 
-    public void setMargin(Margin margin) {
-	this.margin = margin;
+    public void setPadding(Padding padding) {
+        this.padding = padding;
     }
 
-    public boolean hasMargin() {
-	return margin != null;
-    }
+    public boolean hasPadding() {
+        return padding != null;
+    }    
 
-    public boolean isEmptyMargin() {
-	return margin == null || margin.isEmpty();
-    }
+    public boolean isEmptyPadding() {
+        return padding == null || padding.isEmpty();
+    }    
     
     public List<Element> getChildren() {
 	if (children == null){
@@ -101,11 +97,22 @@ public class Container extends Element {
     }
 
     @Override
+    public String toString() {
+	return "Container[" + toValuesString() + "]";
+    }
+
+    public String toValuesString() {
+  	return  super.toValuesString() 
+  		+ ", padding=" + padding;
+    }
+    
+    @Override
     public int hashCode() {
 	final int prime = 31;
 	int result = super.hashCode();
 	result = prime * result
 		+ ((children == null) ? 0 : children.hashCode());
+	result = prime * result + ((padding == null) ? 0 : padding.hashCode());
 	return result;
     }
 
@@ -123,20 +130,15 @@ public class Container extends Element {
 		return false;
 	} else if (!children.equals(other.children))
 	    return false;
+	if (padding == null) {
+	    if (other.padding != null)
+		return false;
+	} else if (!padding.equals(other.padding))
+	    return false;
 	return true;
     }
-    
-    
 
-    @Override
-    public String toString() {
-	return "Container[" + toValuesString() + "]";
-    }
-
-    public String toValuesString() {
-	return  super.toValuesString() 
-		+ ", margin=" + margin;
-    }
+  
    
     
 }
