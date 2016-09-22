@@ -30,6 +30,7 @@ import java.util.List;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpression;
 import org.plazmaforge.framework.report.model.base.Container;
+import org.plazmaforge.framework.report.model.base.Padding;
 
 /**
  * @author ohapon
@@ -55,6 +56,7 @@ public class Cell extends Container implements HasExpression {
     public Cell() {
 	this.colspan = 1;
 	this.rowspan = 1;
+	setPadding(new Padding(2, 0, 0, 2));
     }
 
     public int getColspan() {

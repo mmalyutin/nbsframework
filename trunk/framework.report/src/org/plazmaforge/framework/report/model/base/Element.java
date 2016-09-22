@@ -68,6 +68,11 @@ public class Element implements Serializable, HasExpressionBuilder {
      */
     private Font font;
 
+    /**
+     * Margin
+     */
+    private Margin margin;
+
     
     public Element() {
 	visible = true;
@@ -220,7 +225,25 @@ public class Element implements Serializable, HasExpressionBuilder {
     public boolean hasFont() {
         return font != null;
     }
+    
+    public Margin getMargin() {
+	if (margin == null) {
+	    margin = new Margin();
+	}
+	return margin;
+    }
 
+    public void setMargin(Margin margin) {
+	this.margin = margin;
+    }
+
+    public boolean hasMargin() {
+	return margin != null;
+    }
+
+    public boolean isEmptyMargin() {
+	return margin == null || margin.isEmpty();
+    }    
 
     public String toStringModel() {
 	return toString();
@@ -260,6 +283,23 @@ public class Element implements Serializable, HasExpressionBuilder {
 	}
     }
 
+    @Override
+    public String toString() {
+	return "Element[" + toValuesString() + "]";
+    }
+
+    public String toValuesString() {
+	return "visible=" + visible 
+		+ ", background=" + background
+		+ ", foreground=" + foreground 
+		+ ", font=" + font 
+		+ ", margin=" + margin
+		+ ", x=" + (position == null ? null : getX()) 
+		+ ", y=" + (position == null ? null : getY())
+		+ ", width=" + (size == null ? null : getWidth())
+		+ ", height=" + (size == null ? null : getHeight()); 
+    }
+
 
     @Override
     public int hashCode() {
@@ -270,6 +310,7 @@ public class Element implements Serializable, HasExpressionBuilder {
 	result = prime * result + ((font == null) ? 0 : font.hashCode());
 	result = prime * result
 		+ ((foreground == null) ? 0 : foreground.hashCode());
+	result = prime * result + ((margin == null) ? 0 : margin.hashCode());
 	result = prime * result
 		+ ((position == null) ? 0 : position.hashCode());
 	result = prime * result + ((size == null) ? 0 : size.hashCode());
@@ -302,6 +343,11 @@ public class Element implements Serializable, HasExpressionBuilder {
 		return false;
 	} else if (!foreground.equals(other.foreground))
 	    return false;
+	if (margin == null) {
+	    if (other.margin != null)
+		return false;
+	} else if (!margin.equals(other.margin))
+	    return false;
 	if (position == null) {
 	    if (other.position != null)
 		return false;
@@ -317,21 +363,6 @@ public class Element implements Serializable, HasExpressionBuilder {
 	return true;
     }
 
-
-    @Override
-    public String toString() {
-	return "Element[" + toValuesString() + "]";
-    }
-
-    public String toValuesString() {
-	return "visible=" + visible 
-		+ ", background=" + background
-		+ ", foreground=" + foreground 
-		+ ", font=" + font 
-		+ ", x=" + (position == null ? null : getX()) 
-		+ ", y=" + (position == null ? null : getY())
-		+ ", width=" + (size == null ? null : getWidth())
-		+ ", height=" + (size == null ? null : getHeight()); 
-    }
-
+    
+    
 }

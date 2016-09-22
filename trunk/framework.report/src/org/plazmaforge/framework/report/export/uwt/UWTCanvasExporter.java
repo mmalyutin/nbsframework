@@ -163,13 +163,27 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	    int columnIndex = 0;
 	    int cellX = offsetX;
 	    int cellY = offsetY;
+	    int paddingLeft = 0;
+	    int paddingTop = 0;
+	    
 	    for (Cell cell : cells) {
 
 		if (cell.getValue() != null) {
-		    if (cell.getValue() instanceof String) {
-			String text = (String) cell.getValue();
-			gc.drawText(text, cellX, cellY);
+		    paddingLeft = 0;
+		    paddingTop = 0;
+		    if (cell.hasPadding()) {
+			paddingLeft = cell.getPadding().getLeft();
+			paddingTop = cell.getPadding().getTop();
 		    }
+		    
+		    //if (cell.getValue() instanceof String) {
+			//String text = (String) cell.getValue();
+			//gc.drawText(text, cellX + paddingLeft, cellY + paddingTop);
+		    //}
+
+		    String text = cell.getValue().toString();
+		    gc.drawText(text, cellX + paddingLeft, cellY + paddingTop);
+
 		}
 		int prevColumnIndex = columnIndex;
 		columnIndex += cell.getColspan();
