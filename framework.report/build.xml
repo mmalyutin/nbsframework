@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-report" default="create-jar">
+
+	<property file="build.properties" />
+
+	<path id="plazma-classpath">
+		<fileset dir="../lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create-jar" description="Create jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/plazma-framework-report-${version}.jar" basedir="${classes.dir}" includes="**">
+
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-framework-report" description="Clean framework report">
+		<delete dir="${framework.report.target.dir}"/>
+    </target>
+
+
+	<target name="create-framework-report" description="Create framework report" depends="clean-framework-report">
+		
+		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${framework.report.target.dir}" />
+		<mkdir dir="${framework.report.target.dir}/dist" />
+		<mkdir dir="${framework.report.target.dir}/lib" />
+		
+		<copy todir="${framework.report.target.dir}">
+			<fileset dir="${framework.report.dir}">
+				<include name="**" />
+				<exclude name=".settings/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.report.target.dir}/dist">
+			<fileset dir="${dist.dir}">
+				<include name="plazma-framework-report-${version}.jar" />
+			</fileset>
+		</copy>
+		
+      	<replace file="${framework.report.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+
+	</target>
+
+
+</project>
