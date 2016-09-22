@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-reportviewer" default="create-jar">
+
+	<property file="build.properties" />
+
+	<path id="plazma-classpath">
+		<fileset dir="../lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create-jar" description="Create jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/plazma-framework-reportviewer-${version}.jar" basedir="${classes.dir}" includes="**">
+
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-framework-reportviewer" description="Clean framework reportviewer">
+		<delete dir="${framework.reportviewer.target.dir}"/>
+    </target>
+
+
+	<target name="create-framework-reportviewer" description="Create framework reportviewer" depends="clean-framework-reportviewer">
+		
+		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${framework.reportviewer.target.dir}" />
+		<mkdir dir="${framework.reportviewer.target.dir}/dist" />
+		<mkdir dir="${framework.reportviewer.target.dir}/lib" />
+		
+		<copy todir="${framework.reportviewer.target.dir}">
+			<fileset dir="${framework.reportviewer.dir}">
+				<include name="**" />
+				<exclude name=".settings/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.reportviewer.target.dir}/dist">
+			<fileset dir="${dist.dir}">
+				<include name="plazma-framework-reportviewer-${version}.jar" />
+			</fileset>
+		</copy>
+		
+      	<replace file="${framework.reportviewer.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+
+	</target>
+
+
+</project>
