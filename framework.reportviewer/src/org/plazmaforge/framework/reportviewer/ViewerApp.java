@@ -78,7 +78,7 @@ public class ViewerApp extends AbstractDesktopApplication {
     private ToolItem lastPageItem;
 
     private ScrollPanel scrollPanel;
-    private Canvas canvas;
+    private DocumentCanvas canvas;
 
     private int marginLeft = 20;
     private int marginTop = 50;
@@ -149,6 +149,7 @@ public class ViewerApp extends AbstractDesktopApplication {
 	if (reportExporter == null) {
 	    logger.warn("UWTCanvasReportExporter not found");
 	}
+	canvas.setReportExporter(reportExporter);
 	
 
 	updateState();
@@ -241,17 +242,20 @@ public class ViewerApp extends AbstractDesktopApplication {
 	return toolBar;
     }
     
-    private Canvas createCanvas() {
-	Canvas canvas = new Canvas() {
-	    protected void paint(GC gc) {
-		paintCanvas(gc);
-	    }
-
-	};
+    private DocumentCanvas createCanvas() {
+//	DocumentCanvas canvas = new DocumentCanvas() {
+//	    protected void paint(GC gc) {
+//		paintCanvas(gc);
+//	    }
+//
+//	};
+	
+	DocumentCanvas canvas = new DocumentCanvas();
 	canvas.setLayoutData(new GridData(1, 1, HorizontalAlign.FILL, VerticalAlign.FILL, true, true));
 	return canvas;
     }
 
+    /*
     protected void paintCanvas(GC gc) {
 	
 	//if (fileName != null) {
@@ -280,6 +284,7 @@ public class ViewerApp extends AbstractDesktopApplication {
 	    //
 	}
     }
+    */
     
     protected boolean hasData() {
 	return document != null && pageCount > 0;
@@ -376,6 +381,7 @@ public class ViewerApp extends AbstractDesktopApplication {
 	scrollPanel.setContentWidth(marginLeft * 2 + getPageWidth(page));
 	scrollPanel.setContentHeight(marginTop * 2 + getPageHeight(page));
 	
+	canvas.setPage(page);
 	canvas.repaint();
 	updateState();
     }
