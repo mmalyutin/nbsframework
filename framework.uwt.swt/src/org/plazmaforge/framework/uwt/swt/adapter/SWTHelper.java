@@ -2,6 +2,9 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.plazmaforge.framework.core.type.TypeUtils;
@@ -33,6 +36,7 @@ public class SWTHelper {
     //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    private static Map<String, org.eclipse.swt.graphics.Font> fontMap = new HashMap<String, org.eclipse.swt.graphics.Font>(); 
 
     /**
      * Convert alpha form 0..1 to 0..255
@@ -53,6 +57,14 @@ public class SWTHelper {
      * @return
      */
     public static org.eclipse.swt.graphics.Font getFont(Font font) {
+	if (font == null) {
+	    return null;
+	}
+	String key = font.getKey();
+	org.eclipse.swt.graphics.Font xFont = fontMap.get(key);
+	if (xFont != null) {
+	    return xFont;
+	}
 	
 	// Convert font style from UWT to SWT
 	int style = SWT.NORMAL;
@@ -65,7 +77,10 @@ public class SWTHelper {
 	org.eclipse.swt.widgets.Display display = Display.getCurrent();
 	int height = getFontHeight(display, font.getSize());
 	org.eclipse.swt.graphics.FontData fontData = new org.eclipse.swt.graphics.FontData(font.getName(), height, style);
-	org.eclipse.swt.graphics.Font xFont = new org.eclipse.swt.graphics.Font(Display.getCurrent(), fontData);
+	xFont = new org.eclipse.swt.graphics.Font(Display.getCurrent(), fontData);
+	
+	fontMap.put(key, xFont);
+	
   	return xFont;
     }
 
