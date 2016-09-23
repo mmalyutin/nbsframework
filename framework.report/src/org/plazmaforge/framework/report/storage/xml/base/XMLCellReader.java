@@ -26,6 +26,8 @@ import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * 
@@ -84,6 +86,24 @@ public class XMLCellReader extends XMLAbstractReader {
    	    cell.setExpression(expression);
    	}
    	
+	// background
+	Color background = getColor(element, XML_ATTR_BACKGROUND);
+	if (background != null) {
+	    cell.setBackground(background);
+	}
+	
+   	// foreground
+	Color foreground = getColor(element, XML_ATTR_FOREGROUND);
+	if (foreground != null) {
+	    cell.setForeground(foreground);
+	}
+
+	// font
+	Font font = getFont(element, XML_ATTR_FONT);
+	if (font != null) {
+	    cell.setFont(font);
+	}   		
+   		   	
    	return cell;
 
     }

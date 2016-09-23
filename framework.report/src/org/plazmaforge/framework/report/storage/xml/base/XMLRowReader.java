@@ -28,6 +28,8 @@ import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * 
@@ -40,12 +42,31 @@ public class XMLRowReader extends XMLAbstractReader {
     public Row readRow(Element element) {
 	Row row = new Row();
 
-	// Get attributes
+	// height
 	Integer iValue = getIntegerValue(element, XML_ATTR_HEIGHT);
 	if (iValue != null) {
 	    row.setHeight(iValue);
 	}
+	
+	// background
+	Color background = getColor(element, XML_ATTR_BACKGROUND);
+	if (background != null) {
+	    row.setBackground(background);
+	}
 
+	// foreground
+	Color foreground = getColor(element, XML_ATTR_FOREGROUND);
+	if (foreground != null) {
+	    row.setForeground(foreground);
+	}
+
+	// font
+	Font font = getFont(element, XML_ATTR_FONT);
+	if (font != null) {
+	    row.setFont(font);
+	}
+	
+	
 	// Get cells
 	readCells(element, row);
 	

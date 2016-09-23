@@ -9,7 +9,7 @@
 						<column width="250" />
 					</columns>
 					<rows>
-						<row height="20">
+						<row height="20" background="black">
 							<cells>
 								<cell>
 									<value>1</value>
