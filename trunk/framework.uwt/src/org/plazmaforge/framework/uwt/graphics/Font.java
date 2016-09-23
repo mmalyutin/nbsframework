@@ -129,5 +129,7 @@ public class Font extends PathResource {
 	return true;
     }
 
-    
+    public String getKey() {
+	return "" + name + ", " + size + ", " + style; 
+    }
 }
