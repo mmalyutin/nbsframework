@@ -41,6 +41,7 @@ import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * @author ohapon
@@ -127,6 +128,12 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
   	    element.setForeground(foreground);
   	}
 
+  	// font
+  	Font font = getFont(xmlElement, XML_ATTR_FONT);
+  	if (font != null) {
+  	    element.setFont(font);
+  	}
+  	
     }
     
    //
@@ -178,20 +185,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     }
     
   
-    
-    protected Color getColor(Element element, String name) {
-	if(element == null || name == null) {
-	    return null;
-	}
-
-	// color attribute (foreground, background)
-	String value = getStringValue(element, name);
-	if (value == null) {
-	    return null;
-	}
-	Color color = (Color) COLOR_FORMATTER.parse(value);
-	return color;
-    }
+ 
 
     /**
      * Get margin by element attributes

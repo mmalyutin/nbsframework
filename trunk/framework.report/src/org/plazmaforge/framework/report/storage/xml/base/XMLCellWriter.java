@@ -26,6 +26,8 @@ package org.plazmaforge.framework.report.storage.xml.base;
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * 
@@ -77,6 +79,23 @@ public class XMLCellWriter extends XMLAbstractWriter {
 	    setExpression(cell.getExpression(), valueNode, USE_DATA_TYPE_IN_EXPRESSION);
 	}
 	
+	// background
+	Color background = cell.getBackground();
+	if (background != null) {
+	    setColor(node, XML_ATTR_BACKGROUND, background);
+	}
+
+	// foreground
+	Color foreground = cell.getForeground();
+	if (foreground != null) {
+	    setColor(node, XML_ATTR_FOREGROUND, foreground);
+	}
+
+	// font
+	Font font = cell.getFont();
+	if (font != null) {
+	    setFont(node, XML_ATTR_FONT, font);
+	}		
     }
     
     

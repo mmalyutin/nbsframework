@@ -28,6 +28,8 @@ import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * 
@@ -41,8 +43,26 @@ public class XMLRowWriter extends XMLAbstractWriter {
 	if (row.getHeight() > 0) {
 	    setIntegerValue(node, XML_ATTR_HEIGHT, row.getHeight());
 	}
+
+	// background
+	Color background = row.getBackground();
+	if (background != null) {
+	    setColor(node, XML_ATTR_BACKGROUND, background);
+	}
+
+	// foreground
+	Color foreground = row.getForeground();
+	if (foreground != null) {
+	    setColor(node, XML_ATTR_FOREGROUND, foreground);
+	}
+
+	// font
+	Font font = row.getFont();
+	if (font != null) {
+	    setFont(node, XML_ATTR_FONT, font);
+	}	
 	
-	//CELLS
+	// cells
 	Element cellsNode = buildCellsNode(row);
 	if (cellsNode != null) {
 	    addChild(node, cellsNode);

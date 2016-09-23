@@ -40,6 +40,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * 
@@ -117,6 +118,12 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
   	    setColor(node, XML_ATTR_FOREGROUND, foreground);
   	}
 
+  	// font
+  	Font font = element.getFont();
+  	if (font != null) {
+  	    setFont(node, XML_ATTR_FONT, font);
+  	}
+  	
     }    
     
     ////

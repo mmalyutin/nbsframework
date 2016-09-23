@@ -25,11 +25,14 @@ package org.plazmaforge.framework.report.storage.xml;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
+import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 public class XMLWorker {
 
     protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
+    protected static final FontFormatter FONT_FORMATTER = new FontFormatter();
     
     private FormatterManager formatterManager;
     
@@ -81,6 +84,35 @@ public class XMLWorker {
 	return normalizeString(value);
     }
 
+    
+    protected Color getColor(Element element, String name) {
+	if(element == null || name == null) {
+	    return null;
+	}
+
+	// color attribute (foreground, background)
+	String value = getStringValue(element, name);
+	if (value == null) {
+	    return null;
+	}
+	Color color = (Color) COLOR_FORMATTER.parse(value);
+	return color;
+    }
+
+    protected Font getFont(Element element, String name) {
+	if(element == null || name == null) {
+	    return null;
+	}
+
+	// font attribute: name, size, style
+	String value = getStringValue(element, name);
+	if (value == null) {
+	    return null;
+	}
+	Font font = (Font) FONT_FORMATTER.parse(value);
+	return font;
+    }
+    
     protected String getContentValue(Element element) {
 	if (element == null) {
 	    return null;
@@ -105,6 +137,10 @@ public class XMLWorker {
      
      protected void setColor(Element element, String name, Color color) {
  	setStringValue(element, name, color == null ? null : COLOR_FORMATTER.format(color));
+     }
+     
+     protected void setFont(Element element, String name, Font font) {
+ 	setStringValue(element, name, font == null ? null : FONT_FORMATTER.format(font));
      }
      
      protected void setContentValue(Element element, Object value) {

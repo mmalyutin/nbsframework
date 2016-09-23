@@ -73,6 +73,8 @@ public interface XMLInfo {
     
     String XML_ATTR_FOREGROUND = "foreground";
     
+    String XML_ATTR_FONT = "font";
+    
     String XML_ATTR_MARGIN = "margin";
     
     String XML_ATTR_MARGIN_LEFT = "margin-left";

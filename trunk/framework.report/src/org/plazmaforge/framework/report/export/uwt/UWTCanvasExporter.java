@@ -37,6 +37,7 @@ import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 
 /**
@@ -132,6 +133,8 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	}
 
 	int columnCount = grid.getColumnCount();
+	int rowCount = grid.getRowCount();
+	
 	List<Column> columns = grid.getColumns();
 	int width = 0;
 	for (Column column : columns) {
@@ -144,31 +147,130 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	    height += row.getHeight();
 	}
 
-	// Draw grid border
-	gc.drawRectangle(offsetX, offsetY, width, height);
 
 	Color background = gc.getBackground();
+	Color foreground = gc.getForeground();
+	Font font = gc.getFont();
+	
+	Color gridBackground = grid.getBackground();
+	Color gridForeground = grid.getForeground();
+	Font gridFont = grid.getFont();
+	
+	Color rowBackground = null;
+	Color rowForeground = null;
+	Font rowFont = null;
+
+	Color cellBackground = null;
+	Color cellForeground = null;
+	Font cellFont = null;
+	
+	// grid: background
+	fillBackground(gc, offsetX, offsetY, width, height, gridBackground);
+	
+	// grid: border
+	gc.drawRectangle(offsetX, offsetY, width, height);
+
+
+	if (gridBackground == null) {
+	    gridBackground = background;
+	}
+	if (gridForeground == null) {
+	    gridForeground = foreground;
+	}
+	if (gridFont == null) {
+	    gridFont = font;
+	}
+	
+		
 	for (Row row : rows) {
 	    
-	    if (row.getBackground() != null) {
-		gc.setBackground(row.getBackground());
-		gc.fillRectangle(offsetX, offsetY, width, row.getHeight());
+	    // row: restore gc
+	    gc.setBackground(gridBackground);
+	    gc.setForeground(gridForeground);
+	    gc.setFont(gridFont);
+
+	    // row: load gc
+	    rowBackground = row.getBackground();
+	    rowForeground = row.getForeground();
+	    rowFont = row.getFont();
+		
+	    // row: background
+	    fillBackground(gc, offsetX, offsetY, width, row.getHeight(), rowBackground);
+	    
+	    if (rowBackground == null) {
+		rowBackground = gridBackground;
+	    }
+	    if (rowForeground == null) {
+		rowForeground = gridForeground;
+	    }
+	    if (rowFont == null) {
+		rowFont = gridFont;
 	    }
 	    
-	    gc.setBackground(background);
+
+	    // row: init gc
+	    gc.setBackground(rowBackground);
+	    gc.setForeground(rowForeground);
+	    gc.setFont(rowFont);	    
 	    
 	    
 	    List<Cell> cells = row.getCells();
 
 	    int columnIndex = 0;
+	    int rowIndex = 0;
+	    
 	    int cellX = offsetX;
 	    int cellY = offsetY;
+	    int cellWidth = 0;
+	    int cellHeight = 0;
+	    int colspan = 0;
+	    int rowspan = 0;
+	    
 	    int paddingLeft = 0;
 	    int paddingTop = 0;
 	    
+	    
 	    for (Cell cell : cells) {
+		
+		cellWidth = 0;
+		cellHeight = 0;
+		colspan = cell.getColspan();
+		rowspan = cell.getRowspan();
+		int nextColumnIndex = columnIndex + colspan;
+		int nextRowIndex = rowIndex + rowspan;
+		
+		if (nextColumnIndex > columnCount) {
+		    // overflow columns
+		    break;
+		}
+		if (nextRowIndex > rowCount) {
+		    // overflow rows
+		    break;
+		}
+		
+		for (int i = columnIndex; i < nextColumnIndex; i++) {
+		    cellWidth += columns.get(i).getWidth();
+		}
+		for (int i = rowIndex; i < nextRowIndex; i++) {
+		    cellHeight += rows.get(i).getHeight();
+		}
 
-		if (cell.getValue() != null) {
+		
+		// cell: restore gc
+		gc.setBackground(rowBackground);
+		gc.setForeground(rowForeground);
+		gc.setFont(rowFont);
+		
+		// cell: load gc
+		cellBackground = cell.getBackground();
+		cellForeground = cell.getForeground();
+		cellFont = cell.getFont();
+		
+		// cell: background
+		fillBackground(gc, cellX, cellY, cellWidth, cellHeight, cellBackground);
+		
+		Object value = cell.getValue();
+		if (value != null) {
 		    paddingLeft = 0;
 		    paddingTop = 0;
 		    if (cell.hasPadding()) {
@@ -176,32 +278,74 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 			paddingTop = cell.getPadding().getTop();
 		    }
 		    
-		    //if (cell.getValue() instanceof String) {
-			//String text = (String) cell.getValue();
-			//gc.drawText(text, cellX + paddingLeft, cellY + paddingTop);
-		    //}
-
-		    String text = cell.getValue().toString();
-		    gc.drawText(text, cellX + paddingLeft, cellY + paddingTop);
+		    String text = value.toString();
+		    drawText(gc, text, cellX + paddingLeft, cellY + paddingTop, -1, -1, cellFont, cellForeground);
+		    //gc.drawText(text, cellX + paddingLeft, cellY + paddingTop);
 
 		}
-		int prevColumnIndex = columnIndex;
-		columnIndex += cell.getColspan();
-		if (columnIndex < columnCount) {
-		    cellX += columns.get(prevColumnIndex).getWidth(); // ???
-		}
+		
+		columnIndex = nextColumnIndex;
+		cellX += cellWidth;
+		
+		//int prevColumnIndex = columnIndex;
+		//columnIndex += cell.getColspan();
+		//if (columnIndex < columnCount) {
+		//    cellX += columns.get(prevColumnIndex).getWidth(); // ???
+		//}
 
 	    }
 	    
 
+	    rowIndex++;
 	    offsetY += row.getHeight();
 	    
+	    
+
+	    // row: init gc
+	    gc.setBackground(rowBackground);
+	    gc.setForeground(rowForeground);
+	    gc.setFont(rowFont);	 
+	    
+	    
 	    //TODO
-	    // Draw row bottom border
+	    // row: bottom border
 	    gc.drawLine(offsetX, offsetY - 1, offsetX + width, offsetY - 1);
 
 	}
+	
+	//gc.drawRectangle(offsetX, offsetY, width, height);
     }
 
+    protected void fillBackground(GC gc, int x, int y, int width, int height, Color background) {
+	fillBackground(gc, x, y, width, height, background, true);
+    }
+	
+    protected void fillBackground(GC gc, int x, int y, int width, int height, Color background, boolean restore) {
+	if (background == null) {
+	    return;
+	}
+	Color oldBackground = null;
+	if (restore) {
+	    oldBackground = gc.getBackground();
+	}
+	gc.setBackground(background);
+	gc.fillRectangle(x, y, width, height);
+	if (restore) {
+	    gc.setBackground(oldBackground);
+	}
+    }
     
+    
+    protected void drawText(GC gc, String text, int x, int y, int width, int height, Font font, Color foreground) {
+	if (text == null) {
+	    return;
+	}
+	if (font != null) {
+	    gc.setFont(font);
+	}
+	if (foreground != null) {
+	    gc.setForeground(foreground);
+	}
+	gc.drawText(text, x, y); // TODO
+    }
 }
