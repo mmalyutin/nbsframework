@@ -22,7 +22,15 @@
 
 package org.plazmaforge.framework.report.tool;
 
+import java.util.Map;
 import java.util.Properties;
+
+import org.plazmaforge.framework.core.datastorage.DSResultSet;
+import org.plazmaforge.framework.report.ReportManager;
+import org.plazmaforge.framework.report.model.design.Report;
+import org.plazmaforge.framework.report.model.document.Document;
+import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentWriter;
+import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 
 public class ReportTool {
@@ -58,16 +66,61 @@ public class ReportTool {
 
 	//BufferedReader in = null;
 	Properties p = pProperties;
-	String datastorageFileName = p.getProperty("datastorage");
-	String reportFileName = p.getProperty("report");
-	String documentFileName = p.getProperty("document");
+
+	String reportFile = p.getProperty("report");
+	String documentFile = p.getProperty("document");
+	String datastorageFile = p.getProperty("datastorage");	
+	boolean log = p.getProperty("log", "false").equalsIgnoreCase("true");
 	
-	if (reportFileName == null) {
+	if (reportFile == null) {
+	    trace("Error: -report is not setting");
 	    printHelp();
 	    return;
 	}
-	// TODO
-
+	
+	
+	try {
+	    if (log) {
+		trace("report   = " + reportFile);
+		trace("document = " + documentFile);
+		trace("log      = " + log);
+	    }
+	    
+	    if (documentFile == null) {
+		int index =  reportFile.lastIndexOf(".");
+		if (index > 0) {
+		    documentFile = reportFile.substring(0, index);
+		    index =  documentFile.lastIndexOf(".");
+		    if (index > 0) {
+			String ext = documentFile.substring(index + 1);
+			if (ext.equals("report")) {
+			    documentFile = reportFile.substring(0, index);
+			}
+		    }
+		} else {
+		    documentFile = reportFile;
+		}
+		documentFile = documentFile + ".document.xml";
+	    }
+	    
+	    trace("document = " + documentFile);
+	    
+	    // Read the report form XML file
+	    XMLReportReader reportReader = new XMLReportReader();
+	    Report report = reportReader.readReport(reportFile);
+	    
+	    // Fill the report
+	    ReportManager reportManager = new ReportManager();
+	    Document document = reportManager.fillReport(report, (DSResultSet) null, (Map<String, Object>) null);
+	    
+	    // Write the document to XML file
+	    XMLDocumentWriter documentWriter = new XMLDocumentWriter();
+	    documentWriter.writeDocument(document, documentFile);
+	    
+	} catch (Exception e) {
+	    error("ReportTool.init error: " + e.getMessage());
+	    //e.printStackTrace();
+	}
     }
 
     private String toNormalizeString(String str) {
@@ -90,9 +143,9 @@ public class ReportTool {
 
 	System.out.println("Usage: java ReportTool [-options]\n"
 		+ "where options include:\n"
-		+ "    -datastorage <report file> optional\n"		
 		+ "    -report <report file>\n"
-		+ "    -document <document file> optional\n")
+		+ "    -document <document file> optional\n"
+		+ "    -datastorage <report file> optional\n")		
 		;
     }
 
