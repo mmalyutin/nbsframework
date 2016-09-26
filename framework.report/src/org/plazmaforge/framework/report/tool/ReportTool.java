@@ -26,10 +26,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
+import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
-import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentWriter;
 import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 
@@ -69,6 +69,7 @@ public class ReportTool {
 
 	String reportFile = p.getProperty("report");
 	String documentFile = p.getProperty("document");
+	String exportFormat = p.getProperty("format");
 	String datastorageFile = p.getProperty("datastorage");	
 	boolean log = p.getProperty("log", "false").equalsIgnoreCase("true");
 	
@@ -81,9 +82,21 @@ public class ReportTool {
 	
 	try {
 	    if (log) {
+		trace("Input data");
+		trace("============================================================");
 		trace("report   = " + reportFile);
 		trace("document = " + documentFile);
+		trace("format   = " + exportFormat);
 		trace("log      = " + log);
+	    }
+
+	    if (exportFormat == null) {
+		exportFormat = "XML";
+	    }
+	    
+	    if (!ReportEngine.supportsReportExporter(exportFormat)) {
+		error("Unsupports export format: " + exportFormat);
+		return;
 	    }
 	    
 	    if (documentFile == null) {
@@ -102,8 +115,15 @@ public class ReportTool {
 		}
 		documentFile = documentFile + ".document.xml";
 	    }
-	    
+
+
+	    trace("\n");
+	    trace("Modify data");
+	    trace("============================================================");
 	    trace("document = " + documentFile);
+	    trace("format   = " + exportFormat);
+	    trace("\n");
+	    
 	    
 	    // Read the report form XML file
 	    XMLReportReader reportReader = new XMLReportReader();
@@ -113,9 +133,8 @@ public class ReportTool {
 	    ReportManager reportManager = new ReportManager();
 	    Document document = reportManager.fillReport(report, (DSResultSet) null, (Map<String, Object>) null);
 	    
-	    // Write the document to XML file
-	    XMLDocumentWriter documentWriter = new XMLDocumentWriter();
-	    documentWriter.writeDocument(document, documentFile);
+	    // Write the document to file
+	    reportManager.exportDocumentToFile(document, exportFormat, documentFile, null);
 	    
 	} catch (Exception e) {
 	    error("ReportTool.init error: " + e.getMessage());
@@ -145,6 +164,7 @@ public class ReportTool {
 		+ "where options include:\n"
 		+ "    -report <report file>\n"
 		+ "    -document <document file> optional\n"
+		+ "    -format <export format> optional\n"		
 		+ "    -datastorage <report file> optional\n")		
 		;
     }

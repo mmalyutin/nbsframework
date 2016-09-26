@@ -31,6 +31,7 @@ import java.util.Map;
 import org.plazmaforge.framework.report.export.ReportExporter;
 import org.plazmaforge.framework.report.export.ReportExporterFactory;
 import org.plazmaforge.framework.report.export.uwt.UWTCanvasExporterFactory;
+import org.plazmaforge.framework.report.export.xml.XMLExporterFactory;
 import org.plazmaforge.framework.report.fill.ReportFiller;
 import org.plazmaforge.framework.report.fill.ReportFillerFactory;
 import org.plazmaforge.framework.report.fill.TemplateFiller;
@@ -105,6 +106,10 @@ public class ReportEngine {
 	ReportExporterFactory factory = getInstance().reportExporters.get(type);
 	return factory == null ? null : factory.getReportExporter();
     }
+    
+    public static boolean supportsReportExporter(String type) {
+	return getInstance().reportExporters.get(type) != null;
+    }
 
     public static ScriptProvider getScriptProvider(String language) {
 	language = normalyzeString(language);
@@ -131,6 +136,7 @@ public class ReportEngine {
 	templateFillers.put(TableTemplateFillerFactory.TYPE, new TableTemplateFillerFactory());
 
 	reportExporters = new HashMap<String, ReportExporterFactory>();
+	reportExporters.put(XMLExporterFactory.TYPE, new XMLExporterFactory());
 	reportExporters.put(UWTCanvasExporterFactory.TYPE, new UWTCanvasExporterFactory());
 
 	scriptProviders = new HashMap<String, ScriptProvider>();

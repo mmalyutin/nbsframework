@@ -35,6 +35,29 @@ import org.plazmaforge.framework.report.model.document.Page;
  */
 public interface ReportExporter {
 
+    // input
+    String PROPERTY_INPUT_TYPE = "inputType";
+    
+    String PROPERTY_INPUT_FILE = "inputFile";
+    
+    String PROPERTY_INPUT_FILE_NAME = "inputFileName";
+    
+    String PROPERTY_INPUT_STREAM = "inputStream";
+    
+    String PROPERTY_READER = "reader";
+    
+    // output
+    String PROPERTY_OUTPUT_TYPE = "outputType";
+    
+    String PROPERTY_OUTPUT_FILE = "outputFile";
+    
+    String PROPERTY_OUTPUT_FILE_NAME = "outputFileName";
+    
+    String PROPERTY_OUTPUT_STREAM = "outputStream";
+    
+    String PROPERTY_WRITER = "writer";
+    
+    
     /**
      * Set data to exporter
      * @param name
