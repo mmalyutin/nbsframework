@@ -50,7 +50,7 @@ public class Font extends PathResource {
     
     private int style;
     
-    
+    private String key;
     
     public Font(String name, int size) {
 	this(name, size, NORMAL); // By default NORMAL style
@@ -61,6 +61,7 @@ public class Font extends PathResource {
 	this.name = name;
 	this.size = size;
 	this.style = style;
+	this.key = getKey(this);
     }
 
     public String getName() {
@@ -129,7 +130,11 @@ public class Font extends PathResource {
 	return true;
     }
 
+    private String getKey(Font font) {
+	return "" + font.getName() + ", " + font.getSize() + ", " + font.getStyle(); 
+    }
+    
     public String getKey() {
-	return "" + name + ", " + size + ", " + style; 
+	return key;
     }
 }
