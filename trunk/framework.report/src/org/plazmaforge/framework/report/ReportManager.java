@@ -27,12 +27,14 @@ package org.plazmaforge.framework.report;
 
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.ReportExporter;
+import org.plazmaforge.framework.report.export.xml.XMLExporter;
 import org.plazmaforge.framework.report.fill.ReportFiller;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
@@ -102,6 +104,14 @@ public class ReportManager {
     }
     
     
+    public void exportDocumentToFile(Document document, String exportType, String outputFileName, Map<String, Object> exportData) throws RTException {
+	if (exportData == null) {
+	    exportData = new HashMap<String, Object>();
+	}
+	exportData.put(XMLExporter.PROPERTY_OUTPUT_TYPE, "fileName");
+	exportData.put(XMLExporter.PROPERTY_OUTPUT_FILE_NAME, outputFileName);
+	exportDocument(document, exportType, exportData);
+    }
     
     public void exportDocument(Document document, String exportType, Map<String, Object> exportData) throws RTException {
 	if (exportType == null) {

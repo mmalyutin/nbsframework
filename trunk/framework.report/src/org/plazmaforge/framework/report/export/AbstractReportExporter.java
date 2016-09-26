@@ -53,8 +53,24 @@ public abstract class AbstractReportExporter implements ReportExporter {
     }
 
     
+    protected String getOutputType() {
+	return (String) dataMap.get(PROPERTY_OUTPUT_TYPE);
+    }
     
+    protected boolean isValidOutputType(String outputType) {
+	if (outputType == null) {
+	    return false;
+	}
+	return outputType.equals("fileName") || outputType.equals("file") || outputType.equals("stream") || outputType.equals("writer");  
+    }
     
+    protected boolean isFileNameOutputType(String outputType) {
+	return (outputType == null ? false : outputType.equals("fileName"));
+    }
+    
+    protected boolean isFileOutputType(String outputType) {
+	return (outputType == null ? false : outputType.equals("file"));
+    }
     
     
     
