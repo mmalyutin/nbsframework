@@ -94,6 +94,8 @@ public class Color extends Resource {
     public final static Color BLUE = new Color(0, 0, 255);
 
 
+    public static final float DEFAULT_ALPHA = 1.0f;    
+    
     
     private int red;
     
@@ -102,9 +104,9 @@ public class Color extends Resource {
     private int blue;
 
     private float alpha;
-    
-    public static final float DEFAULT_ALPHA = 1.0f; 
 
+    private String key;
+    
     public Color(int red, int green, int blue) {
 	this(red, green, blue, DEFAULT_ALPHA);
     }
@@ -114,6 +116,7 @@ public class Color extends Resource {
 	this.green = green;
 	this.blue = blue;
 	this.alpha = (alpha < 0 || alpha > DEFAULT_ALPHA) ? DEFAULT_ALPHA : alpha;
+	this.key = getKey(this);
     }
 
     public int getRed() {
@@ -133,15 +136,12 @@ public class Color extends Resource {
         return alpha;
     }
     
-    public static String getKey(Color color) {
-	if (color == null) {
-	    return null;
-	}
+    private static String getKey(Color color) {
 	return color.getRed() + ", " + color.getGreen() + ", " + color.getBlue() + (color.getAlpha() == DEFAULT_ALPHA ? "" : (", " + color.getAlpha()));
     }
     
     public String getKey() {
-	return getKey(this);
+	return key;
     }
     
 

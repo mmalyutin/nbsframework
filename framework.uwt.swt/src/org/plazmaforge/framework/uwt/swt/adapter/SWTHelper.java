@@ -36,6 +36,8 @@ public class SWTHelper {
     //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    private static Map<String, org.eclipse.swt.graphics.Color> colorMap = new HashMap<String, org.eclipse.swt.graphics.Color>();
+    
     private static Map<String, org.eclipse.swt.graphics.Font> fontMap = new HashMap<String, org.eclipse.swt.graphics.Font>(); 
 
     /**
@@ -48,7 +50,19 @@ public class SWTHelper {
     }
     
     public static org.eclipse.swt.graphics.Color getColor(Color color) {
-  	return new org.eclipse.swt.graphics.Color(null, color.getRed(), color.getGreen(), color.getBlue());
+	if (color == null) {
+	    return null;
+	}
+	String key = color.getKey();
+	org.eclipse.swt.graphics.Color xColor = colorMap.get(key);
+	if  (xColor != null) {
+	    return xColor;
+	}
+	xColor = new org.eclipse.swt.graphics.Color(null, color.getRed(), color.getGreen(), color.getBlue());
+	
+	colorMap.put(key, xColor);
+	
+	return xColor;
     }
 
     /**

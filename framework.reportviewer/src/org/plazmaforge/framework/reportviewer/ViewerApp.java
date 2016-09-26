@@ -38,10 +38,8 @@ import org.plazmaforge.framework.uwt.AbstractDesktopApplication;
 import org.plazmaforge.framework.uwt.ApplicationView;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
-import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.layout.GridData;
-import org.plazmaforge.framework.uwt.widget.Canvas;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
@@ -243,49 +241,11 @@ public class ViewerApp extends AbstractDesktopApplication {
     }
     
     private DocumentCanvas createCanvas() {
-//	DocumentCanvas canvas = new DocumentCanvas() {
-//	    protected void paint(GC gc) {
-//		paintCanvas(gc);
-//	    }
-//
-//	};
-	
 	DocumentCanvas canvas = new DocumentCanvas();
 	canvas.setLayoutData(new GridData(1, 1, HorizontalAlign.FILL, VerticalAlign.FILL, true, true));
 	return canvas;
     }
 
-    /*
-    protected void paintCanvas(GC gc) {
-	
-	//if (fileName != null) {
-	//    gc.drawText("View Report: " + fileName, 10, 10);
-	//}
-	
-	if (reportExporter == null || page == null) {
-	    return;
-	}
-	
-	int pageX = marginLeft;
-	int pageY = marginTop;
-	
-	int pageWidth = getPageWidth(page);
-	int pageHeight = getPageHeight(page);
-	gc.drawRectangle(pageX - 1, pageY - 1, pageWidth + 1, pageHeight + 1);
-	gc.fillRectangle(pageX, pageY, pageWidth, pageHeight);
-	
-	try {
-	    reportExporter.setData("gc", gc);
-	    reportExporter.setData("offsetX", pageX);
-	    reportExporter.setData("offsetY", pageY);
-	    reportExporter.exportPage(page);
-	    reportExporter.setData("gc", null);
-	} catch (RTException ex) {
-	    //
-	}
-    }
-    */
-    
     protected boolean hasData() {
 	return document != null && pageCount > 0;
     }
