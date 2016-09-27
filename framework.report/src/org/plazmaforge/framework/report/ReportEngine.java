@@ -52,6 +52,9 @@ import org.plazmaforge.framework.report.fill.script.ps.PSScriptProvider;
  */
 public class ReportEngine {
 
+    public static String DEFAULT_DOCUMENT_FROMAT = "XML";
+    
+    
     public static String DEFAULT_REPORT_TYPE = "Simple";
     
     public static String DEFAULT_TEMPLATE_TYPE = "Simple";
@@ -124,6 +127,40 @@ public class ReportEngine {
 	return scriptProvider;
     }
 
+    /**
+     * Generates document file name by report file and output format
+     * @param reportFile
+     * @return
+     */
+    public static String generateDocumentFile(String reportFile, String format) {
+	if (reportFile == null) {
+	    return null;
+	}
+	if (format == null) {
+	    format = DEFAULT_DOCUMENT_FROMAT;
+	}
+	String documentFile = null;
+	int index =  reportFile.lastIndexOf(".");
+	if (index > 0) {
+	    documentFile = reportFile.substring(0, index);
+	    index =  documentFile.lastIndexOf(".");
+	    if (index > 0) {
+		String ext = documentFile.substring(index + 1);
+		if (ext.equals("report")) {
+		    documentFile = reportFile.substring(0, index);
+		}
+	    }
+	} else {
+	    documentFile = reportFile;
+	}
+	String ext = format.toLowerCase();
+	//TODO
+	if (ext.equals("xml")) {
+	    ext = "document." + ext;
+	}
+	documentFile = documentFile + "." + ext;
+	return documentFile;
+    }
     
     private void init() {
 	
