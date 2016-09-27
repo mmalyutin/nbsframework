@@ -151,6 +151,17 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		oCell = new Cell();
 		oCell.setColspan(cell.getColspan());
 		oCell.setRowspan(cell.getRowspan());
+		
+		if (cell.getBackground() != null) {
+		    oCell.setBackground(cell.getBackground());
+		}
+		if (cell.getForeground() != null) {
+		    oCell.setForeground(cell.getForeground());
+		}
+		if (cell.getFont() != null) {
+		    oCell.setFont(cell.getFont());
+		}
+		
 		oRow.addCell(oCell);
 
 		DSExpression expression = cell.getExpression();
