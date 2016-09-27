@@ -28,10 +28,13 @@ import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFPalette;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractReportExporter;
 import org.plazmaforge.framework.report.model.base.Element;
@@ -41,6 +44,8 @@ import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * 
@@ -85,7 +90,7 @@ public class XLSExporter extends AbstractReportExporter {
     }
     
     protected void exportDocument(Document document, String fileName) throws RTException {
-	HSSFWorkbook workbook = null;
+	//HSSFWorkbook workbook = null;
 	HSSFSheet sheet = null;
 	OutputStream os = null;
 	try {
@@ -110,11 +115,11 @@ public class XLSExporter extends AbstractReportExporter {
 	}
 	int pageCount = document.getPageCount();
 	for (int i = 0; i < pageCount; i++) {
-	    exportPage(document.getPage(i), sheet);
+	    exportPage(document.getPage(i), sheet, i == 0);
 	}
     }
     
-    protected void exportPage(Page page, HSSFSheet sheet) throws RTException {
+    protected void exportPage(Page page, HSSFSheet sheet, boolean firstPage) throws RTException {
 	if (!page.hasChildren()) {
 	    return;
 	}
@@ -123,16 +128,20 @@ public class XLSExporter extends AbstractReportExporter {
 	for (int i = 0; i < childrenCount; i++) {
 	    Element child = children.get(i);
 	    if (child instanceof Grid) {
-		exportGrid((Grid) child, sheet);
+		exportGrid((Grid) child, sheet, firstPage);
 	    }
 	}
     }
 
-    protected void exportGrid(Grid grid, HSSFSheet sheet) throws RTException {
-	exportRows(grid, sheet);
+    protected void exportGrid(Grid grid, HSSFSheet sheet, boolean firstPage) throws RTException {
+	exportRows(grid, sheet, firstPage);
     }
     
-    protected void exportRows(Grid grid, HSSFSheet sheet) throws RTException {
+    protected void setColumnWidth(HSSFSheet sheet, int columnIndex, int columnWidth) {
+	sheet.setColumnWidth(columnIndex, columnWidth * 43); // Math.min(43 * width, 256*255));
+    }
+    
+    protected void exportRows(Grid grid, HSSFSheet sheet, boolean firstPage) throws RTException {
 	if (!grid.hasRows()) {
 	    return;
 	}
@@ -144,16 +153,19 @@ public class XLSExporter extends AbstractReportExporter {
 	int rowCount = grid.getRowCount();
 	
 	// TODO
-	//sheet.setColumnWidth((short) columnIndex, (short) (column.getDisplaySize() * 20));
+	if (firstPage) {
+	    for (int i = 0; i < columnCount; i++) {
+		Column column = columns.get(i);
+		setColumnWidth(sheet, i, column.getWidth());
+	    }
+	}
 	
 	for (int i = 0; i < rowCount; i++) {
 	    int rowIndex = i;
 	    Row row = rows.get(rowIndex);
 	    
-	    HSSFRow  xRow = sheet.createRow(i);
-	    short h = (short) row.getHeight();
-	    //xRow.setHeight(h);
-	    xRow.setHeightInPoints(h);
+	    HSSFRow xRow = sheet.createRow(i);
+	    xRow.setHeightInPoints(row.getHeight());
 	    
 	    int columnIndex = 0;
 	    int cellIndex = 0;
@@ -163,8 +175,15 @@ public class XLSExporter extends AbstractReportExporter {
 	    int colspan = 0;
 	    int rowspan = 0;
 
+
+	    Color cellBackground = null;
+	    Color cellForeground = null;
+	    Font cellFont = null;
+	    
 	    int cellCount = row.getCellCount();
 	    List<Cell> cells = row.getCells();
+	
+	    HSSFCellStyle cellStyle = null;
 	    
 	    Cell cell = null;
 	    for (int j = 0; j < cellCount; j++) {
@@ -196,6 +215,27 @@ public class XLSExporter extends AbstractReportExporter {
 		
 		/////////////////////////////////////////////////
 		HSSFCell xCell = xRow.createCell((short) columnIndex);
+		
+		cellBackground = cell.getBackground();
+		cellForeground = cell.getForeground();
+		cellFont = cell.getFont();
+
+		if (cellBackground != null || cellForeground != null || cellFont != null) {
+		    cellStyle = workbook.createCellStyle();
+		    if (cellBackground != null) {
+			//cellStyle.setFillBackgroundColor(getWorkbookColor(cellBackground).getIndex());
+			cellStyle.setFillForegroundColor(getWorkbookColor(cellBackground).getIndex());
+			cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			xCell.setCellStyle(cellStyle);
+		    }
+		    
+		}
+		
+		if (colspan > 1 || rowspan > 1) {
+		    //TODO
+		    sheet.addMergedRegion(new CellRangeAddress(rowIndex, (rowIndex + rowspan - 1), columnIndex, (columnIndex + colspan - 1)));
+
+		}
 	
 		
 		Object value = cell.getValue();
@@ -228,4 +268,24 @@ public class XLSExporter extends AbstractReportExporter {
 	return workbook.createSheet(name);
     }
 
+    protected HSSFColor getWorkbookColor(Color color) {
+	return getWorkbookColor(workbook, (byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+    }
+    
+    protected HSSFColor getWorkbookColor(HSSFWorkbook workbook, byte r, byte g, byte b) {
+	HSSFPalette palette = workbook.getCustomPalette();
+	HSSFColor hssfColor = null;
+	try {
+	    hssfColor = palette.findColor(r, g, b);
+	    if (hssfColor == null) {
+		palette.setColorAtIndex(HSSFColor.LAVENDER.index, r, g, b);
+		hssfColor = palette.getColor(HSSFColor.LAVENDER.index);
+	    }
+	} catch (Exception e) {
+	    //logger.error(e);
+	}
+
+	return hssfColor;
+    }
+    
 }
