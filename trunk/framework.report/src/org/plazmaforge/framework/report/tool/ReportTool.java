@@ -91,7 +91,7 @@ public class ReportTool {
 	    }
 
 	    if (exportFormat == null) {
-		exportFormat = "XML";
+		exportFormat = ReportEngine.DEFAULT_DOCUMENT_FROMAT;
 	    }
 	    
 	    if (!ReportEngine.supportsReportExporter(exportFormat)) {
@@ -100,20 +100,7 @@ public class ReportTool {
 	    }
 	    
 	    if (documentFile == null) {
-		int index =  reportFile.lastIndexOf(".");
-		if (index > 0) {
-		    documentFile = reportFile.substring(0, index);
-		    index =  documentFile.lastIndexOf(".");
-		    if (index > 0) {
-			String ext = documentFile.substring(index + 1);
-			if (ext.equals("report")) {
-			    documentFile = reportFile.substring(0, index);
-			}
-		    }
-		} else {
-		    documentFile = reportFile;
-		}
-		documentFile = documentFile + ".document.xml";
+		documentFile = ReportEngine.generateDocumentFile(reportFile, exportFormat);
 	    }
 
 
