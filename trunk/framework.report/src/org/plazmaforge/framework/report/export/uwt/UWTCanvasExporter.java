@@ -49,10 +49,21 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 
 
     
-    private int offsetX;
+    protected int offsetX;
     
-    private int offsetY;
+    protected int offsetY;
 
+    
+    // Current parent: NOT NULL 
+    protected Color parentBackground;
+    protected Color parentForeground;
+    protected Font parentFont;
+	
+    // Current: NOT NULL
+    protected Color background;
+    protected Color foreground;
+    protected Font font;
+    
     @Override
     public void exportDocument(Document document) throws RTException {
 	if (document == null) {
@@ -128,6 +139,26 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	}
     }
 
+    protected Color getColor(Color color, Color parentColor) {
+	return color == null ? parentColor : color;
+    }
+
+    protected Font getFont(Font font, Font parentFont) {
+	return font == null ? parentFont : font;
+    }
+    
+    protected void normalizeCurrentStyle() {
+	background = getColor(background, parentBackground);
+	foreground = getColor(foreground, parentForeground);
+	font = getFont(font, parentFont);
+    }
+    
+    protected void setCurrentStyle(GC gc) {
+	gc.setBackground(background);
+	gc.setForeground(foreground);
+	gc.setFont(font);
+    }
+
     protected void paintGrid(GC gc, Grid grid) {
 	if (grid.getRowCount() == 0) {
 	    return;
@@ -142,13 +173,24 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	List<Row> rows = grid.getRows();
 	int height = ExportHelper.calculateHeight(rows);
 
-	Color background = gc.getBackground();
-	Color foreground = gc.getForeground();
-	Font font = gc.getFont();
+	Color contextBackground = gc.getBackground();
+	Color contextForeground = gc.getForeground();
+	Font contextFont = gc.getFont();
+
+	// Current parent: NOT NULL
+	parentBackground = null;
+	parentForeground = null;
+	parentFont = null;
 	
-	Color gridBackground = grid.getBackground();
-	Color gridForeground = grid.getForeground();
-	Font gridFont = grid.getFont();
+	// Current: NOT NULL
+	background = null;
+	foreground = null;
+	font = null;
+
+	
+	Color gridBackground = null;
+	Color gridForeground = null;
+	Font gridFont = null;
 	
 	Color rowBackground = null;
 	Color rowForeground = null;
@@ -158,55 +200,60 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	Color cellForeground = null;
 	Font cellFont = null;
 	
+
+	// grid: parent gc
+	parentBackground = contextBackground;
+	parentForeground = contextForeground;
+	parentFont = contextFont;
+	
+	// grid: load gc
+	gridBackground = grid.getBackground();
+	gridForeground = grid.getForeground();
+	gridFont = grid.getFont();
+
+	// grid: current gc
+	background = gridBackground;
+	foreground = gridForeground;
+	font = gridFont;
+	
 	// grid: background
-	fillBackground(gc, offsetX, offsetY, width, height, gridBackground);
+	fillBackground(gc, offsetX, offsetY, width, height, background);
+
+	// grid: normalize current gc
+	normalizeCurrentStyle();
+
+	// grid: init gc
+	setCurrentStyle(gc);
 	
 	// grid: border
 	gc.drawRectangle(offsetX, offsetY, width, height);
 
 
-	if (gridBackground == null) {
-	    gridBackground = background;
-	}
-	if (gridForeground == null) {
-	    gridForeground = foreground;
-	}
-	if (gridFont == null) {
-	    gridFont = font;
-	}
-	
-		
 	for (Row row : rows) {
 	    
-	    // row: restore gc
-	    gc.setBackground(gridBackground);
-	    gc.setForeground(gridForeground);
-	    gc.setFont(gridFont);
-
+	    // row: parent gc
+	    parentBackground = getColor(gridBackground, contextBackground);
+	    parentForeground = getColor(gridForeground, contextForeground);
+	    parentFont = getFont(gridFont, contextFont);
+		
 	    // row: load gc
 	    rowBackground = row.getBackground();
 	    rowForeground = row.getForeground();
 	    rowFont = row.getFont();
+
+	    // row: current gc
+	    background = rowBackground;
+	    foreground = rowForeground;
+	    font = rowFont;
 		
 	    // row: background
-	    fillBackground(gc, offsetX, offsetY, width, row.getHeight(), rowBackground);
+	    fillBackground(gc, offsetX, offsetY, width, row.getHeight(), background);
 	    
-	    if (rowBackground == null) {
-		rowBackground = gridBackground;
-	    }
-	    if (rowForeground == null) {
-		rowForeground = gridForeground;
-	    }
-	    if (rowFont == null) {
-		rowFont = gridFont;
-	    }
+	    // row: normalize current gc
+	    normalizeCurrentStyle();
 	    
-
 	    // row: init gc
-	    gc.setBackground(rowBackground);
-	    gc.setForeground(rowForeground);
-	    gc.setFont(rowFont);	    
-	    
+	    setCurrentStyle(gc);
 	    
 	    List<Cell> cells = row.getCells();
 
@@ -246,18 +293,29 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
 		
 		
-		// cell: restore gc
-		gc.setBackground(rowBackground);
-		gc.setForeground(rowForeground);
-		gc.setFont(rowFont);
+		// cell: parent gc
+		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
+		parentForeground = getColor(rowForeground, gridForeground != null ? gridForeground : contextForeground);
+		parentFont = getFont(rowFont, gridFont != null ? gridFont: contextFont);
 		
 		// cell: load gc
 		cellBackground = cell.getBackground();
 		cellForeground = cell.getForeground();
 		cellFont = cell.getFont();
 		
+		// cell: current gc
+		background = cellBackground;
+		foreground = cellForeground;
+		font = cellFont;
+		
 		// cell: background
-		fillBackground(gc, cellX, cellY, cellWidth, cellHeight, cellBackground);
+		fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
+		
+		// cell: normalize current gc
+		normalizeCurrentStyle();
+		
+		// cell: init gc
+		setCurrentStyle(gc);
 		
 		Object value = cell.getValue();
 		if (value != null) {
@@ -269,20 +327,12 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 		    }
 		    
 		    String text = value.toString();
-		    drawText(gc, text, cellX + paddingLeft, cellY + paddingTop, -1, -1, cellFont, cellForeground);
-		    //gc.drawText(text, cellX + paddingLeft, cellY + paddingTop);
-
+		    drawText(gc, text, cellX + paddingLeft, cellY + paddingTop, -1, -1, font, foreground);
 		}
 		
 		columnIndex = nextColumnIndex;
 		cellX += cellWidth;
 		
-		//int prevColumnIndex = columnIndex;
-		//columnIndex += cell.getColspan();
-		//if (columnIndex < columnCount) {
-		//    cellX += columns.get(prevColumnIndex).getWidth(); // ???
-		//}
-
 	    }
 	    
 
@@ -290,12 +340,26 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	    offsetY += row.getHeight();
 	    
 	    
+	    // row: parent gc
+	    parentBackground = getColor(gridBackground, contextBackground);
+	    parentForeground = getColor(gridForeground, contextForeground);
+	    parentFont = getFont(gridFont, contextFont);
+		
+	    // row: load gc
+	    rowBackground = row.getBackground();
+	    rowForeground = row.getForeground();
+	    rowFont = row.getFont();
 
-	    // row: init gc
-	    gc.setBackground(rowBackground);
-	    gc.setForeground(rowForeground);
-	    gc.setFont(rowFont);	 
+	    // row: current gc
+	    background = rowBackground;
+	    foreground = rowForeground;
+	    font = rowFont;
 	    
+	    // row: fix current gc
+	    normalizeCurrentStyle();
+	    
+	    // row: init gc
+	    setCurrentStyle(gc);
 	    
 	    //TODO
 	    // row: bottom border
@@ -307,22 +371,11 @@ public class UWTCanvasExporter extends AbstractReportExporter {
     }
 
     protected void fillBackground(GC gc, int x, int y, int width, int height, Color background) {
-	fillBackground(gc, x, y, width, height, background, true);
-    }
-	
-    protected void fillBackground(GC gc, int x, int y, int width, int height, Color background, boolean restore) {
 	if (background == null) {
 	    return;
 	}
-	Color oldBackground = null;
-	if (restore) {
-	    oldBackground = gc.getBackground();
-	}
 	gc.setBackground(background);
 	gc.fillRectangle(x, y, width, height);
-	if (restore) {
-	    gc.setBackground(oldBackground);
-	}
     }
     
     
