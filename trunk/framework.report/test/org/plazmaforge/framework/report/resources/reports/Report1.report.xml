@@ -62,7 +62,7 @@
 					<rows>
 						<row height="15">
 							<cells>
-								<cell colspan="3"><value>My Report</value></cell>
+								<cell colspan="3" background="red"><value>My Report</value></cell>
 							</cells>
 						</row>
 						<row height="15">
