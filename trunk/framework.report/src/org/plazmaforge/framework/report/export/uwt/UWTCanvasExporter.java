@@ -28,7 +28,7 @@ package org.plazmaforge.framework.report.export.uwt;
 import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
-import org.plazmaforge.framework.report.export.AbstractReportExporter;
+import org.plazmaforge.framework.report.export.AbstractBaseReportExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
@@ -45,7 +45,7 @@ import org.plazmaforge.framework.uwt.graphics.GC;
  * @author ohapon
  *
  */
-public class UWTCanvasExporter extends AbstractReportExporter {
+public class UWTCanvasExporter extends AbstractBaseReportExporter {
 
 
     
@@ -54,15 +54,6 @@ public class UWTCanvasExporter extends AbstractReportExporter {
     protected int offsetY;
 
     
-    // Current parent: NOT NULL 
-    protected Color parentBackground;
-    protected Color parentForeground;
-    protected Font parentFont;
-	
-    // Current: NOT NULL
-    protected Color background;
-    protected Color foreground;
-    protected Font font;
     
     @Override
     public void exportDocument(Document document) throws RTException {
@@ -139,20 +130,6 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	}
     }
 
-    protected Color getColor(Color color, Color parentColor) {
-	return color == null ? parentColor : color;
-    }
-
-    protected Font getFont(Font font, Font parentFont) {
-	return font == null ? parentFont : font;
-    }
-    
-    protected void normalizeCurrentStyle() {
-	background = getColor(background, parentBackground);
-	foreground = getColor(foreground, parentForeground);
-	font = getFont(font, parentFont);
-    }
-    
     protected void setCurrentStyle(GC gc) {
 	gc.setBackground(background);
 	gc.setForeground(foreground);
@@ -160,7 +137,7 @@ public class UWTCanvasExporter extends AbstractReportExporter {
     }
 
     protected void paintGrid(GC gc, Grid grid) {
-	if (grid.getRowCount() == 0) {
+	if (!grid.hasRows()) {
 	    return;
 	}
 
@@ -168,9 +145,9 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	int rowCount = grid.getRowCount();
 	
 	List<Column> columns = grid.getColumns();
-	int width = ExportHelper.calculateWidth(columns);
-
 	List<Row> rows = grid.getRows();
+	
+	int width = ExportHelper.calculateWidth(columns);
 	int height = ExportHelper.calculateHeight(rows);
 
 	Color contextBackground = gc.getBackground();
