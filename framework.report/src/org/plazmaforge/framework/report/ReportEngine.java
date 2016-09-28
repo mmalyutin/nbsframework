@@ -44,6 +44,7 @@ import org.plazmaforge.framework.report.fill.base.TableTemplateFillerFactory;
 import org.plazmaforge.framework.report.fill.script.ScriptProvider;
 import org.plazmaforge.framework.report.fill.script.ns.NSScriptProvider;
 import org.plazmaforge.framework.report.fill.script.ps.PSScriptProvider;
+import org.plazmaforge.framework.util.StringUtils;
 
 
 /**
@@ -86,37 +87,56 @@ public class ReportEngine {
 	}
 	return instance;
     }
+    
+    
+    // REPORT FILLERS
 
     public static ReportFiller getReportFiller(String type) {
-	type = normalyzeString(type);
+	type = normalizeString(type);
 	if (type == null) {
 	    type = DEFAULT_REPORT_TYPE;
 	}
 	ReportFillerFactory factory = getInstance().reportFillers.get(type);
 	return factory == null ? null : factory.getReportFiller();
     }
+
+    
+    // TEMPLATE FILLERS
     
     public static TemplateFiller getTemplateFiller(String type) {
-	type = normalyzeString(type);
+	type = normalizeString(type);
 	if (type == null) {
 	    type = DEFAULT_TEMPLATE_TYPE;
 	}
 	TemplateFillerFactory factory = getInstance().templateFillers.get(type);
 	return factory == null ? null : factory.getTemplateFiller();
     }
+
     
+    // REPORT EXPORTERS
 
     public static ReportExporter getReportExporter(String type) {
-	ReportExporterFactory factory = getInstance().reportExporters.get(type);
+	ReportExporterFactory factory = getInstance().reportExporters.get(normalizeKey(type));
 	return factory == null ? null : factory.getReportExporter();
     }
     
-    public static boolean supportsReportExporter(String type) {
-	return getInstance().reportExporters.get(type) != null;
+    public static void registerReportExporterFactory(String type, ReportExporterFactory factory) {
+	getInstance().reportExporters.put(normalizeKey(type), factory);
     }
 
+    public static void unregisterReportExporterFactory(String type) {
+	getInstance().reportExporters.remove(normalizeKey(type));
+    }
+    
+    public static boolean supportsReportExporter(String type) {
+	return getInstance().reportExporters.get(normalizeKey(type)) != null;
+    }
+
+    
+    // SCRIPT PROVIDERS
+    
     public static ScriptProvider getScriptProvider(String language) {
-	language = normalyzeString(language);
+	language = normalizeString(language);
 	if (language == null) {
 	    language = DEFAULT_LANGUAGE;
 	}
@@ -165,31 +185,41 @@ public class ReportEngine {
     private void init() {
 	
 	reportFillers = new HashMap<String, ReportFillerFactory>();
+	reportExporters = new HashMap<String, ReportExporterFactory>();
+	templateFillers = new HashMap<String, TemplateFillerFactory>();
+	
+
+	// Report fillers
 	reportFillers.put(BaseReportFillerFactory.TYPE, new BaseReportFillerFactory());
 	reportFillers.put("Simple", new BaseReportFillerFactory());
 
-	templateFillers = new HashMap<String, TemplateFillerFactory>();
+	// Template fillers
 	templateFillers.put(BaseTemplateFillerFactory.TYPE, new BaseTemplateFillerFactory());
 	templateFillers.put(SimpleTemplateFillerFactory.TYPE, new SimpleTemplateFillerFactory());
 	templateFillers.put(TableTemplateFillerFactory.TYPE, new TableTemplateFillerFactory());
 
-	reportExporters = new HashMap<String, ReportExporterFactory>();
-	reportExporters.put(XMLExporterFactory.TYPE, new XMLExporterFactory());
-	reportExporters.put(XLSExporterFactory.TYPE, new XLSExporterFactory());
-	reportExporters.put(UWTCanvasExporterFactory.TYPE, new UWTCanvasExporterFactory());
-
+	// Script providers
 	scriptProviders = new HashMap<String, ScriptProvider>();
 	scriptProviders.put(DEFAULT_LANGUAGE, new PSScriptProvider());
 	scriptProviders.put(DEFAULT_NO_LANGUAGE, new NSScriptProvider());
 
+	// Report exporters
+	registerDefaultReportExporters();
     }
     
-    private static String normalyzeString(String str) {
-	if (str == null) {
-	    return null;
-	}
-	str = str.trim();
-	return str.isEmpty() ? null : str;
+    private void registerDefaultReportExporters(){
+	registerReportExporterFactory(XMLExporterFactory.TYPE, new XMLExporterFactory());		// XML
+	registerReportExporterFactory(XLSExporterFactory.TYPE, new XLSExporterFactory());		// XLS
+	registerReportExporterFactory(UWTCanvasExporterFactory.TYPE, new UWTCanvasExporterFactory());	// UWT
+    }
+    
+    private static String normalizeString(String str) {
+	return StringUtils.normalizeString(str);
+    }
+    
+    private static String normalizeKey(String key) {
+	key = normalizeString(key);
+	return key == null ? null : key.toUpperCase();
     }
 
     
