@@ -114,7 +114,7 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(parameter);
 	
 	assertEquals("PRICE_LIMIT", parameter.getName());
-	assertEquals(new Float(100.0), parameter.getDefaultValue());
+	assertEquals(new Float(150.0), parameter.getDefaultValue());
     }
     
     
@@ -129,7 +129,7 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertEquals("FULL_PRODUCT_NAME", variable.getName());
 	assertEquals("String", variable.getDataType());
-	assertEquals("${GROUP_NAME} + \"/\" + ${PRODUCT_NAME}", variable.getExpressionText());
+	assertEquals("$F{GROUP_NAME} + \"/\" + $F{PRODUCT_NAME}", variable.getExpressionText());
 	
 	// Variable 2
 	variable = report.getVariables().get(1);
@@ -137,7 +137,7 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertEquals("GROUP_NAME_HEADER", variable.getName());
 	assertEquals("String", variable.getDataType());
-	assertEquals("\"Group: \"  + ${GROUP_NAME}", variable.getExpressionText());
+	assertEquals("\"Group: \"  + $F{GROUP_NAME}", variable.getExpressionText());
 	assertEquals("Group", variable.getResetType());
 	assertEquals("PRODUCT_GROUP", variable.getResetName());
 
@@ -147,7 +147,7 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertEquals("PRICE_AVG", variable.getName());
 	assertEquals("Float", variable.getDataType());
-	assertEquals("${PRICE}", variable.getExpressionText());
+	assertEquals("$F{PRICE}", variable.getExpressionText());
 	assertEquals("AVG", variable.getAggregation());
 	
     }
@@ -217,19 +217,19 @@ public class XMLReportReaderTest extends TestCase {
 	
 	
 	// Get template columns
-	assertEquals(3, template.getColumnCount());
+	assertEquals(4, template.getColumnCount());
 	
 	Column column = template.getColumn(0);
 	assertNotNull(column);
-	assertEquals(150, column.getWidth());
+	assertEquals(100, column.getWidth());
 
 	column = template.getColumn(1);
 	assertNotNull(column);
-	assertEquals(250, column.getWidth());
+	assertEquals(150, column.getWidth());
 
 	column = template.getColumn(2);
 	assertNotNull(column);
-	assertEquals(100, column.getWidth());
+	assertEquals(150, column.getWidth());
 	
 	
 	
@@ -250,7 +250,7 @@ public class XMLReportReaderTest extends TestCase {
 	Band band = group.getBand(0);
 	assertNotNull(band);
 
-	assertEquals(1, band.getRowCount());
+	assertEquals(2, band.getRowCount());
 	Row row = band.getRow(0);
 
 	assertNotNull(row);
@@ -283,13 +283,13 @@ public class XMLReportReaderTest extends TestCase {
 	
 	
 	// Get template bands
-	assertEquals(3, template.getBandCount());
+	assertEquals(4, template.getBandCount());
 	
 	// Get ReportHeader
 	band = template.getBand(0);
 	assertNotNull(band);
 	
-	assertEquals(1, band.getRowCount());
+	assertEquals(3, band.getRowCount());
 	row = band.getRow(0);
 	
 	assertNotNull(row);
@@ -356,7 +356,7 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(row);
 
 	assertEquals(20, row.getHeight());
-	assertEquals(3, row.getCellCount());
+	assertEquals(4, row.getCellCount());
 
 	// Get cell-1
 	cell = row.getCell(0);
