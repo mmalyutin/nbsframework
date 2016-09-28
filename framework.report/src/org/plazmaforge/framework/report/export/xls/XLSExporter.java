@@ -37,6 +37,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractReportExporter;
+import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -206,12 +207,9 @@ public class XLSExporter extends AbstractReportExporter {
 		    break;
 		}
 		
-		for (int k = columnIndex; k < nextColumnIndex; k++) {
-		    cellWidth += columns.get(k).getWidth();
-		}
-		for (int k = rowIndex; k < nextRowIndex; k++) {
-		    cellHeight += rows.get(k).getHeight();
-		}
+		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
+		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
+
 		
 		/////////////////////////////////////////////////
 		HSSFCell xCell = xRow.createCell((short) columnIndex);
