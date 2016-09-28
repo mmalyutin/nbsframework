@@ -24,10 +24,13 @@ package org.plazmaforge.framework.report.export.xls;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFPalette;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -65,6 +68,9 @@ public class XLSExporter extends AbstractReportExporter {
 
     protected HSSFCellStyle emptyCellStyle;
 
+    protected Map<String, HSSFColor> colorMap;
+    
+    protected Map<String, HSSFFont> fontMap;
     
     @Override
     public void exportDocument(Document document) throws RTException {
@@ -90,7 +96,13 @@ public class XLSExporter extends AbstractReportExporter {
 	
     }
     
+    protected void init() {
+	colorMap = new HashMap<String, HSSFColor>();
+	fontMap = new HashMap<String, HSSFFont>();
+    }
+    
     protected void exportDocument(Document document, String fileName) throws RTException {
+	init();
 	//HSSFWorkbook workbook = null;
 	HSSFSheet sheet = null;
 	OutputStream os = null;
@@ -220,12 +232,25 @@ public class XLSExporter extends AbstractReportExporter {
 
 		if (cellBackground != null || cellForeground != null || cellFont != null) {
 		    cellStyle = workbook.createCellStyle();
+		    
+		    // cell: background
 		    if (cellBackground != null) {
-			//cellStyle.setFillBackgroundColor(getWorkbookColor(cellBackground).getIndex());
-			cellStyle.setFillForegroundColor(getWorkbookColor(cellBackground).getIndex());
-			cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
-			xCell.setCellStyle(cellStyle);
+			HSSFColor xColor = getColor(cellBackground);
+			if (xColor != null) {
+			    cellStyle.setFillForegroundColor(xColor.getIndex());
+			    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			}
 		    }
+		    
+		    // cell: foreground, font
+		    if (cellForeground != null || cellFont != null) {
+			HSSFFont xFont = getFont(cellFont, cellForeground);
+			if (xFont != null) {
+			    cellStyle.setFont(xFont);
+			}
+		    }
+		    
+		    xCell.setCellStyle(cellStyle);
 		    
 		}
 		
@@ -266,11 +291,30 @@ public class XLSExporter extends AbstractReportExporter {
 	return workbook.createSheet(name);
     }
 
-    protected HSSFColor getWorkbookColor(Color color) {
-	return getWorkbookColor(workbook, (byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+    protected HSSFColor getColor(Color color) {
+	if (color == null) {
+	    return null;
+	}
+	HSSFColor xColor = colorMap.get(color.getKey());
+	if (xColor != null) {
+	    return xColor;
+	}
+	xColor = createColor(color);
+	if (xColor == null) {
+	    return null;
+	}
+	colorMap.put(color.getKey(), xColor);
+	return xColor;
     }
     
-    protected HSSFColor getWorkbookColor(HSSFWorkbook workbook, byte r, byte g, byte b) {
+    protected HSSFColor createColor(Color color) {
+	if (color == null) {
+	    return null;
+	}
+	return createColor((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+    }
+    
+    protected HSSFColor createColor(byte r, byte g, byte b) {
 	HSSFPalette palette = workbook.getCustomPalette();
 	HSSFColor hssfColor = null;
 	try {
@@ -285,5 +329,59 @@ public class XLSExporter extends AbstractReportExporter {
 
 	return hssfColor;
     }
+    
+    protected HSSFFont getFont(Font font, Color color) {
+	if (font == null && color == null) {
+	    return null;
+	}
+	String key = (font == null ? "." : font.getKey()) + "|" + (color == null ? "." : color.getKey()); 
+	HSSFFont xFont = fontMap.get(key);
+	if (xFont != null) {
+	    return xFont;
+	}
+	xFont = createFont(font, color);
+	if (xFont == null) {
+	    return xFont;
+	}
+	fontMap.put(key, xFont);
+	return xFont;
+    }
+    
+    protected HSSFFont createFont(Font font, Color color) {
+	if (font == null && color == null) {
+	    return null;
+	}
+	HSSFFont xFont = workbook.createFont();
+	if (font != null) {
+	    if (font.getName() != null) {
+		xFont.setFontName(font.getName());
+	    }
+	    if (font.getSize() > 0) {
+		xFont.setFontHeightInPoints((short) font.getSize());
+	    }
+	    if (font.isBold()) {
+		xFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+	    }
+	    if (font.isItalic()) {
+		xFont.setItalic(true);
+	    }
+	    /*
+	    if (font.isUnderline()) {
+		cellFont.setUnderline(HSSFFont.U_SINGLE);
+	    }
+	    if (font.isStrikeThrough()) {
+		cellFont.setStrikeout(true);
+	    }
+	    */
+	}
+	if (color != null) {
+	    HSSFColor xColor = getColor(color);
+	    if (xColor != null) {
+		xFont.setColor(xColor.getIndex());
+	    }
+	}
+	return xFont;
+    }
+    
     
 }
