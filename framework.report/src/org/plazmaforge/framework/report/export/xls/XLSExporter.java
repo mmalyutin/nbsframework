@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.report.export.xls;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.plazmaforge.framework.report.exception.RTException;
-import org.plazmaforge.framework.report.export.AbstractReportExporter;
+import org.plazmaforge.framework.report.export.AbstractBaseReportExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
@@ -56,21 +57,36 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  * @author ohapon
  *
  */
-public class XLSExporter extends AbstractReportExporter {
+public class XLSExporter extends AbstractBaseReportExporter {
 
-    protected HSSFWorkbook workbook;
+    protected HSSFWorkbook xWorkbook;
 
-    protected HSSFSheet sheet;
+    protected HSSFSheet xSheet;
 
-    protected HSSFRow row;
+    protected HSSFRow xRow;
 
-    protected HSSFCell cell;
+    protected HSSFCell xCell;
 
     protected HSSFCellStyle emptyCellStyle;
 
+    protected HSSFCellStyle cellStyle;
+    
     protected Map<String, HSSFColor> colorMap;
     
     protected Map<String, HSSFFont> fontMap;
+    
+    
+    
+    protected int rowIndex;
+    
+    protected int columnIndex;
+    
+    protected int cellIndex;
+    
+    protected int colspan;
+    
+    protected int rowspan;
+
     
     @Override
     public void exportDocument(Document document) throws RTException {
@@ -96,25 +112,107 @@ public class XLSExporter extends AbstractReportExporter {
 	
     }
     
-    protected void init() {
+    protected void initExport() {
+	
+	rowIndex = -1;
+	columnIndex = -1;
+	cellIndex = -1;
+	colspan = 1;
+	rowspan = 1;
+	    
+	xWorkbook = null;
+	xSheet = null;
+	xRow = null;
+	xCell = null;
+	emptyCellStyle = null;
+	cellStyle = null;
+	
 	colorMap = new HashMap<String, HSSFColor>();
 	fontMap = new HashMap<String, HSSFFont>();
     }
     
+    protected void createXWorkbook() {
+	xWorkbook = createWorkbook();
+    }
+    
+    protected void writeXWorkbook(OutputStream os) throws IOException {
+	xWorkbook.write(os);
+    }
+    
+    protected void createXSheet(String name) {
+	xSheet = createSheet(xWorkbook, name);
+    }
+    
+    protected void createXRow(int rowIndex) {
+	xRow = xSheet.createRow(rowIndex);
+    }
+    
+    protected void createXCell(int columnIndex){
+	xCell = xRow.createCell((short) columnIndex);
+    }
+    
+    protected void setXCellStyle(Cell cell) {
+	if (background == null && foreground == null && font == null) {
+	    return;
+	}
+	
+	cellStyle = xWorkbook.createCellStyle();
+
+	// cell: background
+	if (background != null) {
+	    HSSFColor xColor = getColor(background);
+	    if (xColor != null) {
+		cellStyle.setFillForegroundColor(xColor.getIndex());
+		cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	    }
+	}
+
+	// cell: foreground, font
+	if (foreground != null || font != null) {
+	    HSSFFont xFont = getFont(font, foreground);
+	    if (xFont != null) {
+		cellStyle.setFont(xFont);
+	    }
+	}
+
+	xCell.setCellStyle(cellStyle);
+
+    }
+    
+    protected void setXCellSize(Cell cell) {
+	if (colspan > 1 || rowspan > 1) {
+	    // TODO
+	    xSheet.addMergedRegion(new CellRangeAddress(rowIndex, (rowIndex + rowspan - 1), columnIndex, (columnIndex + colspan - 1)));
+	}
+    }
+    
+    protected void setXCellValue(Cell cell) {
+	Object value = cell.getValue();
+	if (value != null) {
+	    xCell.setCellValue(value.toString());
+	}
+    }
+    
+    protected void setColumnWidth(int columnIndex, int columnWidth) {
+	xSheet.setColumnWidth(columnIndex, columnWidth * 43); // Math.min(43 * width, 256*255));
+    }
+    
+    protected void setRowHeight(int height) {
+	xRow.setHeightInPoints(height);
+    }
+    
     protected void exportDocument(Document document, String fileName) throws RTException {
-	init();
-	//HSSFWorkbook workbook = null;
-	HSSFSheet sheet = null;
+	initExport();
 	OutputStream os = null;
 	try {
 	
-	    workbook = createWorkbook();
-	    sheet = createSheet(workbook, "XLSExport"); // TODO
+	    createXWorkbook();
+	    createXSheet("XLSExport"); // TODO
 	    
-	    exportPages(document, sheet);
+	    exportPages(document);
 	    
 	    os = new FileOutputStream(fileName);
-	    workbook.write(os);
+	    writeXWorkbook(os);
 	    os.flush();
 	    
 	} catch (Exception ex) {
@@ -122,17 +220,17 @@ public class XLSExporter extends AbstractReportExporter {
 	}
     }  
     
-    protected void exportPages(Document document, HSSFSheet sheet) throws RTException {
+    protected void exportPages(Document document) throws RTException {
 	if (!document.hasPages()) {
 	    return;
 	}
 	int pageCount = document.getPageCount();
 	for (int i = 0; i < pageCount; i++) {
-	    exportPage(document.getPage(i), sheet, i == 0);
+	    exportPage(document.getPage(i), i == 0);
 	}
     }
     
-    protected void exportPage(Page page, HSSFSheet sheet, boolean firstPage) throws RTException {
+    protected void exportPage(Page page, boolean firstPage) throws RTException {
 	if (!page.hasChildren()) {
 	    return;
 	}
@@ -141,62 +239,120 @@ public class XLSExporter extends AbstractReportExporter {
 	for (int i = 0; i < childrenCount; i++) {
 	    Element child = children.get(i);
 	    if (child instanceof Grid) {
-		exportGrid((Grid) child, sheet, firstPage);
+		exportGrid((Grid) child, firstPage);
 	    }
 	}
     }
 
-    protected void exportGrid(Grid grid, HSSFSheet sheet, boolean firstPage) throws RTException {
-	exportRows(grid, sheet, firstPage);
-    }
-    
-    protected void setColumnWidth(HSSFSheet sheet, int columnIndex, int columnWidth) {
-	sheet.setColumnWidth(columnIndex, columnWidth * 43); // Math.min(43 * width, 256*255));
-    }
-    
-    protected void exportRows(Grid grid, HSSFSheet sheet, boolean firstPage) throws RTException {
+    protected void exportGrid(Grid grid, boolean firstPage) throws RTException {
 	if (!grid.hasRows()) {
 	    return;
 	}
 	
 	int columnCount = grid.getColumnCount();
-	List<Column> columns = grid.getColumns();
-	
-	List<Row> rows = grid.getRows();
 	int rowCount = grid.getRowCount();
 	
-	// TODO
+	List<Column> columns = grid.getColumns();
+	List<Row> rows = grid.getRows();
+	
+	Color contextBackground = null;
+	Color contextForeground = null;
+	Font contextFont = null;
+	
+	// Current parent
+	parentBackground = null;
+	parentForeground = null;
+	parentFont = null;
+	
+	// Current
+	background = null;
+	foreground = null;
+	font = null;	
+	
+	Color gridBackground = null;
+	Color gridForeground = null;
+	Font gridFont = null;
+	
+	Color rowBackground = null;
+	Color rowForeground = null;
+	Font rowFont = null;
+
+	Color cellBackground = null;
+	Color cellForeground = null;
+	Font cellFont = null;
+	
+	
+	// grid: parent gc
+	parentBackground = contextBackground;
+	parentForeground = contextForeground;
+	parentFont = contextFont;
+	
+	// grid: load gc
+	gridBackground = grid.getBackground();
+	gridForeground = grid.getForeground();
+	gridFont = grid.getFont();
+
+	// grid: current gc
+	background = gridBackground;
+	foreground = gridForeground;
+	font = gridFont;
+	
+	
+	// grid: background
+	// [?]
+
+	// grid: normalize current gc
+	normalizeCurrentStyle();
+
+	// grid: init gc
+	// [?]
+	
+	// grid: border
+	// [?]
+	
 	if (firstPage) {
 	    for (int i = 0; i < columnCount; i++) {
 		Column column = columns.get(i);
-		setColumnWidth(sheet, i, column.getWidth());
+		setColumnWidth(i, column.getWidth());
 	    }
 	}
 	
 	for (int i = 0; i < rowCount; i++) {
-	    int rowIndex = i;
+	    
+	    rowIndex = i;
 	    Row row = rows.get(rowIndex);
 	    
-	    HSSFRow xRow = sheet.createRow(i);
-	    xRow.setHeightInPoints(row.getHeight());
+	    // row: parent gc
+	    parentBackground = getColor(gridBackground, contextBackground);
+	    parentForeground = getColor(gridForeground, contextForeground);
+	    parentFont = getFont(gridFont, contextFont);
+		
+	    // row: load gc
+	    rowBackground = row.getBackground();
+	    rowForeground = row.getForeground();
+	    rowFont = row.getFont();
+
+	    // row: current gc
+	    background = rowBackground;
+	    foreground = rowForeground;
+	    font = rowFont;
 	    
-	    int columnIndex = 0;
-	    int cellIndex = 0;
+	    createXRow(rowIndex);
+	    setRowHeight(row.getHeight());
+	    
+	    columnIndex = 0;
+	    cellIndex = 0;
 	    
 	    int cellWidth = 0;
 	    int cellHeight = 0;
-	    int colspan = 0;
-	    int rowspan = 0;
+	    colspan = 0;
+	    rowspan = 0;
 
 
-	    Color cellBackground = null;
-	    Color cellForeground = null;
-	    Font cellFont = null;
-	    
 	    int cellCount = row.getCellCount();
 	    List<Cell> cells = row.getCells();
 	
-	    HSSFCellStyle cellStyle = null;
+	    
 	    
 	    Cell cell = null;
 	    for (int j = 0; j < cellCount; j++) {
@@ -222,49 +378,31 @@ public class XLSExporter extends AbstractReportExporter {
 		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
 		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
 
+		// cell: parent gc
+		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
+		parentForeground = getColor(rowForeground, gridForeground != null ? gridForeground : contextForeground);
+		parentFont = getFont(rowFont, gridFont != null ? gridFont: contextFont);
 		
-		/////////////////////////////////////////////////
-		HSSFCell xCell = xRow.createCell((short) columnIndex);
-		
+		// cell: load gc
 		cellBackground = cell.getBackground();
 		cellForeground = cell.getForeground();
 		cellFont = cell.getFont();
-
-		if (cellBackground != null || cellForeground != null || cellFont != null) {
-		    cellStyle = workbook.createCellStyle();
-		    
-		    // cell: background
-		    if (cellBackground != null) {
-			HSSFColor xColor = getColor(cellBackground);
-			if (xColor != null) {
-			    cellStyle.setFillForegroundColor(xColor.getIndex());
-			    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
-			}
-		    }
-		    
-		    // cell: foreground, font
-		    if (cellForeground != null || cellFont != null) {
-			HSSFFont xFont = getFont(cellFont, cellForeground);
-			if (xFont != null) {
-			    cellStyle.setFont(xFont);
-			}
-		    }
-		    
-		    xCell.setCellStyle(cellStyle);
-		    
-		}
 		
-		if (colspan > 1 || rowspan > 1) {
-		    //TODO
-		    sheet.addMergedRegion(new CellRangeAddress(rowIndex, (rowIndex + rowspan - 1), columnIndex, (columnIndex + colspan - 1)));
-
-		}
-	
+		// cell: current gc
+		background = cellBackground;
+		foreground = cellForeground;
+		font = cellFont;
 		
-		Object value = cell.getValue();
-		if (value != null) {
-		    xCell.setCellValue(value.toString());
-		}
+		
+		/////////////////////////////////////////////////
+		
+		createXCell(columnIndex);
+		
+		setXCellStyle(cell);
+		setXCellSize(cell);
+		
+		setXCellValue(cell);
+		
 		/////////////////////////////////////////////////
 		columnIndex = nextColumnIndex;
 		//cellX += cellWidth;
@@ -315,7 +453,7 @@ public class XLSExporter extends AbstractReportExporter {
     }
     
     protected HSSFColor createColor(byte r, byte g, byte b) {
-	HSSFPalette palette = workbook.getCustomPalette();
+	HSSFPalette palette = xWorkbook.getCustomPalette();
 	HSSFColor hssfColor = null;
 	try {
 	    hssfColor = palette.findColor(r, g, b);
@@ -351,7 +489,7 @@ public class XLSExporter extends AbstractReportExporter {
 	if (font == null && color == null) {
 	    return null;
 	}
-	HSSFFont xFont = workbook.createFont();
+	HSSFFont xFont = xWorkbook.createFont();
 	if (font != null) {
 	    if (font.getName() != null) {
 		xFont.setFontName(font.getName());
