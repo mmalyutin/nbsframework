@@ -29,6 +29,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractReportExporter;
+import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -136,17 +137,10 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 	int rowCount = grid.getRowCount();
 	
 	List<Column> columns = grid.getColumns();
-	int width = 0;
-	for (Column column : columns) {
-	    width += column.getWidth();
-	}
+	int width = ExportHelper.calculateWidth(columns);
 
 	List<Row> rows = grid.getRows();
-	int height = 0;
-	for (Row row : rows) {
-	    height += row.getHeight();
-	}
-
+	int height = ExportHelper.calculateHeight(rows);
 
 	Color background = gc.getBackground();
 	Color foreground = gc.getForeground();
@@ -248,13 +242,9 @@ public class UWTCanvasExporter extends AbstractReportExporter {
 		    break;
 		}
 		
-		for (int i = columnIndex; i < nextColumnIndex; i++) {
-		    cellWidth += columns.get(i).getWidth();
-		}
-		for (int i = rowIndex; i < nextRowIndex; i++) {
-		    cellHeight += rows.get(i).getHeight();
-		}
-
+		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
+		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
+		
 		
 		// cell: restore gc
 		gc.setBackground(rowBackground);
