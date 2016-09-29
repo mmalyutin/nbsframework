@@ -27,15 +27,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.formatter.Formatter;
-import org.plazmaforge.framework.core.data.formatter.type.BooleanFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.ByteFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DateFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DateTimeFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DoubleFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.FloatFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.IntegerFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.ShortFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.TimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWBooleanFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDoubleFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWFloatFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWIntegerFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWShortFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWTimeFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.DirectionFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
@@ -84,16 +84,18 @@ public class UIFormatterHelper {
     private static Map<String, Formatter> formatters = new HashMap<String, Formatter>();
     
     static {
-	formatters.put(BOOLEAN_TYPE, new BooleanFormatter());
-	formatters.put(BYTE_TYPE, new ByteFormatter());
-	formatters.put(SHORT_TYPE, new ShortFormatter());
-	formatters.put(INTEGER_TYPE, new IntegerFormatter());
-	formatters.put(FLOAT_TYPE, new FloatFormatter());
-	formatters.put(DOUBLE_TYPE, new DoubleFormatter());
 	
-	formatters.put(DATE_TYPE, new DateFormatter());
-	formatters.put(TIME_TYPE, new TimeFormatter());
-	formatters.put(DATE_TIME_TYPE, new DateTimeFormatter());
+	// Read/Write formatter
+	formatters.put(BOOLEAN_TYPE, new RWBooleanFormatter());
+	formatters.put(BYTE_TYPE, new RWByteFormatter());
+	formatters.put(SHORT_TYPE, new RWShortFormatter());
+	formatters.put(INTEGER_TYPE, new RWIntegerFormatter());
+	formatters.put(FLOAT_TYPE, new RWFloatFormatter());
+	formatters.put(DOUBLE_TYPE, new RWDoubleFormatter());
+	
+	formatters.put(DATE_TYPE, new RWDateFormatter());
+	formatters.put(TIME_TYPE, new RWTimeFormatter());
+	formatters.put(DATE_TIME_TYPE, new RWDateTimeFormatter());
 	
 	formatters.put(COLOR_TYPE, new ColorFormatter());
 	formatters.put(FONT_TYPE, new FontFormatter());

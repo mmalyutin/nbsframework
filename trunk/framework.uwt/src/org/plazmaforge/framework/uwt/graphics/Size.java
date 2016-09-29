@@ -53,8 +53,9 @@ public class Size {
       this.height = height;
     }
 
+    @Override
     public String toString() {
-      return "Size[width=" + width + ", height=" + height  + "]";
+	return "Size[width=" + width + ", height=" + height  + "]";
     }
 
     public boolean equals(Object obj) {
