@@ -26,19 +26,6 @@ package org.plazmaforge.framework.core.data.formatter;
 
 public abstract class AbstractFormatter<T> implements Formatter<T> {
 
-    private String format;
-    
-//    @Override
-//    public String getFormat() {
-//	return this.format;
-//    }
-//
-//    @Override
-//    public void setFormat(String format) {
-//	this.format = format;
-//    }
-
-    
     @Override
     public String format(T value) {
 	// By default. Use format to present value in string

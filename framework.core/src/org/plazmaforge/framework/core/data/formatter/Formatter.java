@@ -30,10 +30,6 @@ package org.plazmaforge.framework.core.data.formatter;
 
 public interface Formatter<T> {
 
-    //String getFormat();
-    
-    //void setFormat(String format);
-    
     String format(T value);
     
     T parse(String str);

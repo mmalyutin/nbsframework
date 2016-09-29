@@ -26,15 +26,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.type.Types;
-import org.plazmaforge.framework.core.data.formatter.type.ByteFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DateFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DateTimeFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DoubleFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.FloatFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.IntegerFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.ShortFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.StringFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.TimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDoubleFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWFloatFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWIntegerFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWShortFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWStringFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWTimeFormatter;
 
 /**
  * Formatter Factory
@@ -60,16 +60,16 @@ public class FormatterFactory {
     }
     
     public void registerDefaultFormatters() {
-	registerFormatter(Types.StringType, new StringFormatter());
-	registerFormatter(Types.TextType, new StringFormatter());
-	registerFormatter(Types.BooleanType, new ByteFormatter());
-	registerFormatter(Types.ShortType, new ShortFormatter());
-	registerFormatter(Types.IntegerType, new IntegerFormatter());
-	registerFormatter(Types.FloatType, new FloatFormatter());
-	registerFormatter(Types.DoubleType, new DoubleFormatter());
-	registerFormatter(Types.DateType, new DateFormatter());
-	registerFormatter(Types.TimeType, new TimeFormatter());
-	registerFormatter(Types.DateTimeType, new DateTimeFormatter());
+	registerFormatter(Types.StringType, new RWStringFormatter());
+	registerFormatter(Types.TextType, new RWStringFormatter());
+	registerFormatter(Types.BooleanType, new RWByteFormatter());
+	registerFormatter(Types.ShortType, new RWShortFormatter());
+	registerFormatter(Types.IntegerType, new RWIntegerFormatter());
+	registerFormatter(Types.FloatType, new RWFloatFormatter());
+	registerFormatter(Types.DoubleType, new RWDoubleFormatter());
+	registerFormatter(Types.DateType, new RWDateFormatter());
+	registerFormatter(Types.TimeType, new RWTimeFormatter());
+	registerFormatter(Types.DateTimeType, new RWDateTimeFormatter());
     }
     
     
@@ -78,31 +78,43 @@ public class FormatterFactory {
     }
 
     public Formatter<?> getFormatter(String type, String format) {
-	
-	/*
 	if (type == null) {
+	   return null; 
+	}
+	if (format == null) {
+	    return doGetFormatter(type); 
+	}
+
+	// TODO: 
+	// by path: <type>::<format>
+	String path = getFormatterPath(type, format);
+	Formatter<?> formatter = doGetFormatter(path);
+	if (formatter != null) {
+	    return formatter;
+	}
+	// by type
+	formatter = doGetFormatter(type);
+	if (formatter == null) {
 	    return null;
 	}
-	
-	if (TypeUtils.isLikeStringType(type)) {
-	    return new StringPresenter();
-	} else if (Types.IntegerType.equals(type)) {
-	    return new IntegerPresenter();
-	} else if (Types.FloatType.equals(type)) {
-	    return new FloatPresenter();
-	} else if (Types.DoubleType.equals(type)) {
-	    return new DoublePresenter();
-	}
-	return null;
-	*/
-	
-	return doGetFormatter(type);
+	registerFormatter(path, formatter);
+	return formatter;
     }
     
     protected Formatter<?> doGetFormatter(String type) {
 	return formatters.get(type);
     }
     
+    
+    protected String getFormatterPath(String name, String format) {
+ 	if (name == null) {
+ 	    return null;
+ 	}
+ 	if (format  == null) {
+ 	    return name;
+ 	}
+ 	return name + "::" + format;
+     }
     
 
 }

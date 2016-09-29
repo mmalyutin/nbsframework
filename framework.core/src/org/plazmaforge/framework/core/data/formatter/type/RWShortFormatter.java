@@ -22,7 +22,6 @@
 
 package org.plazmaforge.framework.core.data.formatter.type;
 
-
 import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
 /**
@@ -30,18 +29,17 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class DoubleFormatter extends AbstractFormatter<Double> {
+public class RWShortFormatter extends AbstractFormatter<Short> {
 
     @Override
-    public Double parse(String str) {
+    public Short parse(String str) {
 	try {
 	    if (str == null) {
 		return null;
 	    }
-	    return Double.valueOf(str);
+	    return Short.valueOf(str);
 	} catch (NumberFormatException ex) {
 	    return null;
 	}
     }
-
 }
