@@ -303,7 +303,9 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 			paddingTop = cell.getPadding().getTop();
 		    }
 		    
-		    String text = value.toString();
+		    //String text = value.toString();
+		    
+		    String text = formatCellValue(cell);
 		    drawText(gc, text, cellX + paddingLeft, cellY + paddingTop, -1, -1, font, foreground);
 		}
 		
