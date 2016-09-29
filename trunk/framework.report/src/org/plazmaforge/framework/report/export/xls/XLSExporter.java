@@ -218,10 +218,10 @@ public class XLSExporter extends AbstractWorkbookExporter {
     }
     
     protected HSSFFont getXFont(Font font, Color color) {
-	if (font == null && color == null) {
+	String key = getFontColorKey(font, color);
+	if (key == null) {
 	    return null;
 	}
-	String key = (font == null ? "." : font.getKey()) + "|" + (color == null ? "." : color.getKey()); 
 	HSSFFont xFont = fontMap.get(key);
 	if (xFont != null) {
 	    return xFont;
