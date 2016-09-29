@@ -205,10 +205,10 @@ public class XLSXExporter extends AbstractWorkbookExporter {
     }
     
     protected XSSFFont getXFont(Font font, Color color) {
-	if (font == null && color == null) {
+	String key = getFontColorKey(font, color);
+	if (key == null) {
 	    return null;
 	}
-	String key = (font == null ? "." : font.getKey()) + "|" + (color == null ? "." : color.getKey()); 
 	XSSFFont xFont = fontMap.get(key);
 	if (xFont != null) {
 	    return xFont;
@@ -220,6 +220,7 @@ public class XLSXExporter extends AbstractWorkbookExporter {
 	fontMap.put(key, xFont);
 	return xFont;
     }
+    
     
     protected XSSFFont createXFont(Font font, Color color) {
 	if (font == null && color == null) {
