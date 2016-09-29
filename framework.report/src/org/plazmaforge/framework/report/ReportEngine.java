@@ -32,6 +32,7 @@ import org.plazmaforge.framework.report.export.ReportExporter;
 import org.plazmaforge.framework.report.export.ReportExporterFactory;
 import org.plazmaforge.framework.report.export.uwt.UWTCanvasExporterFactory;
 import org.plazmaforge.framework.report.export.xls.XLSExporterFactory;
+import org.plazmaforge.framework.report.export.xlsx.XLSXExporterFactory;
 import org.plazmaforge.framework.report.export.xml.XMLExporterFactory;
 import org.plazmaforge.framework.report.fill.ReportFiller;
 import org.plazmaforge.framework.report.fill.ReportFillerFactory;
@@ -210,6 +211,7 @@ public class ReportEngine {
     private void registerDefaultReportExporters(){
 	registerReportExporterFactory(XMLExporterFactory.TYPE, new XMLExporterFactory());		// XML
 	registerReportExporterFactory(XLSExporterFactory.TYPE, new XLSExporterFactory());		// XLS
+	registerReportExporterFactory(XLSXExporterFactory.TYPE, new XLSXExporterFactory());		// XLS
 	registerReportExporterFactory(UWTCanvasExporterFactory.TYPE, new UWTCanvasExporterFactory());	// UWT
     }
     
