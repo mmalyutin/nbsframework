@@ -28,7 +28,7 @@ package org.plazmaforge.framework.report.export.uwt;
 import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
-import org.plazmaforge.framework.report.export.AbstractBaseReportExporter;
+import org.plazmaforge.framework.report.export.AbstractBaseExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
@@ -45,7 +45,7 @@ import org.plazmaforge.framework.uwt.graphics.GC;
  * @author ohapon
  *
  */
-public class UWTCanvasExporter extends AbstractBaseReportExporter {
+public class UWTCanvasExporter extends AbstractBaseExporter {
 
 
     
