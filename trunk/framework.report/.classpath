@@ -9,6 +9,10 @@
 	<classpathentry kind="var" path="PLAZMA_LIB/jdom_1_0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/framework.script"/>
 	<classpathentry kind="var" path="PLAZMA_LIB/antlr/antlr-3.2.jar"/>
-	<classpathentry kind="var" path="PLAZMA_LIB/poi-3.6-20091214.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/poi-ooxml-3.10.1.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/poi-ooxml-schemas-3.10.1.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/poi-3.10.1.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/xmlbeans-2.5.0.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/dom4j-1.4.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
