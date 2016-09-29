@@ -25,8 +25,12 @@
  */
 package org.plazmaforge.framework.report.export;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.plazmaforge.framework.core.type.TypeUtils;
+import org.plazmaforge.framework.report.model.base.grid.Cell;
 
 
 /**
@@ -71,8 +75,29 @@ public abstract class AbstractReportExporter implements ReportExporter {
     protected boolean isFileOutputType(String outputType) {
 	return (outputType == null ? false : outputType.equals("file"));
     }
+
+    
+    //// TODO: Use formatter manager
     
     
+    protected String formatCellValue(Cell cell) {
+	return formatValue(cell.getValue(), cell.getDataType(), cell.getFormat());
+    }
+
+    protected String formatValue(Object value, String dataType, String format) {
+	if (value == null) {
+	    return "";
+	}
+
+	if (TypeUtils.isLikeDecimalType(dataType)) {
+	    if (format == null) {
+		format = "#.0";
+	    }
+	    DecimalFormat decimalFormat = new DecimalFormat(format);
+	    return decimalFormat.format(value);
+	}
+	return value.toString();
+    }
     
 }
 

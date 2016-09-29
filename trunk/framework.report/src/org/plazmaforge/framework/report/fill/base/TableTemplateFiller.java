@@ -171,9 +171,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		if (dataType == null) {
 		    // Auto set data type by class
 		    dataType = TypeUtils.getType(value == null ? null : value.getClass());
-		    oCell.setDataType(dataType);
 		}
-		
+		oCell.setDataType(dataType);
 		oCell.setValue(value);
 		oCell.setFormat(cell.getFormat());
 		
