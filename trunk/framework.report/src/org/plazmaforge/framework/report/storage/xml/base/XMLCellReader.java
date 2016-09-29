@@ -69,15 +69,21 @@ public class XMLCellReader extends XMLAbstractReader {
    	}
 
    	// value: attribute
-   	sValue = getStringValue(element, XML_ATTR_VALUE);
-   	if (sValue != null) {
-   	    cell.setValue(sValue);
-   	}
+   	//sValue = getStringValue(element, XML_ATTR_VALUE);
+   	//if (sValue != null) {
+   	//    cell.setValue(sValue);
+   	//}
 
    	// value: node
    	sValue = getContentValue(getChild(element, XML_VALUE));
+   	if (sValue == null) {
+   	    
+   	    // value: attribute
+   	    sValue = getStringValue(element, XML_ATTR_VALUE);
+   	}
    	if (sValue != null) {
-   	    cell.setValue(sValue);
+   	    Object value = getTValue(cell.getDataType(), sValue);
+   	    cell.setValue(value);
    	}
 
    	// expression

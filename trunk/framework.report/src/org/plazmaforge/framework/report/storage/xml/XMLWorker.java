@@ -54,7 +54,44 @@ public class XMLWorker {
 	return str.isEmpty() ? null : str;
     }
 
-    //// GET-VALUE
+    
+    ////GET-SET-TYPED-VALUE
+
+    /*
+    protected Object getTypedValue(Element element, String name, String dataType) {
+	String value = getStringValue(element, name);
+	if (value == null) {
+	    return null;
+	}
+	return getFormatterManager().toValue(value, dataType);
+    }
+    
+    protected void setTypedValue(Element element, String name, String dataType, Object value) {
+	if (value == null) {
+ 	    return;
+ 	}
+	setStringValue(element, name, getFormatterManager().toString(value, dataType));
+    }
+    */
+
+    
+    protected Object getTValue(String dataType, String value) {
+	if (value == null) {
+	    return null;
+	}
+	return getFormatterManager().toValue(value, dataType);
+    }
+    
+    protected String getTString(String dataType, Object value) {
+	if (value == null) {
+ 	    return null;
+ 	}
+	return getFormatterManager().toString(value, dataType);
+    }
+    
+    
+    ////GET-VALUE
+    
     
     protected int intValue(Element element, String name) {
 	return getIntegerValue(element, name, 0);
@@ -132,7 +169,7 @@ public class XMLWorker {
      }
 
      protected void setIntegerValue(Element element, String name, Integer value) {
-    	setStringValue(element, name, toString(value, "Integer"));
+    	setStringValue(element, name, getTString("Integer", value));
      }
      
      protected void setColor(Element element, String name, Color color) {
@@ -151,7 +188,7 @@ public class XMLWorker {
  	if (value == null) {
  	    return;
  	}
- 	String str = toString(value, dataType);
+ 	String str = getTString(dataType, value);
  	if (str == null) {
  	    return;
  	}
@@ -162,14 +199,14 @@ public class XMLWorker {
  	element.setText(str);
      }
      
-     protected String toString(Object value, String dataType) {
- 	if (value == null) {
- 	    return null;
- 	}
- 	// TODO: dataType
- 	String str = value.toString();
- 	return normalizeString(str);
-     }
+//     protected String toString(Object value, String dataType) {
+// 	if (value == null) {
+// 	    return null;
+// 	}
+// 	// TODO: dataType
+// 	String str = value.toString();
+// 	return normalizeString(str);
+//     }
      
     
 }

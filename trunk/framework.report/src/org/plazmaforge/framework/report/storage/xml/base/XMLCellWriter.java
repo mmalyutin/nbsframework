@@ -65,7 +65,7 @@ public class XMLCellWriter extends XMLAbstractWriter {
 	// value
 	Object value = cell.getValue();
 	if (value != null) {
-	    sValue = toString(value, cell.getDataType());
+	    sValue = getTString(cell.getDataType(), value);
 	    if (sValue != null) {
 		valueNode = createElement(XML_VALUE);
 		addChild(node, valueNode);

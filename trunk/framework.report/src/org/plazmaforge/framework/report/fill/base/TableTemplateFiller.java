@@ -28,6 +28,7 @@ package org.plazmaforge.framework.report.fill.base;
 import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
+import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -164,6 +165,19 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		
 		oRow.addCell(oCell);
 
+		
+		Object value = evaluateCellValue(context, evaluation, cell);
+		String dataType = cell.getDataType();
+		if (dataType == null) {
+		    // Auto set data type by class
+		    dataType = TypeUtils.getType(value == null ? null : value.getClass());
+		    oCell.setDataType(dataType);
+		}
+		
+		oCell.setValue(value);
+		oCell.setFormat(cell.getFormat());
+		
+		/*
 		DSExpression expression = cell.getExpression();
 		if (expression != null) {
 		    // Set text value by cell expression
@@ -184,10 +198,22 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 			}
 		    }
 		}
+		*/
 
 	    }
 	}
 	return fillContainer;
+    }
+    
+    protected Object evaluateCellValue(ReportContext context, int evaluation, Cell cell) {
+	if (cell == null) {
+	    return null;
+	}
+	DSExpression expression = cell.getExpression();
+	if (expression != null) {
+	    return evaluateExpression(context, evaluation, expression);
+	}
+	return cell.getValue();
     }
     
 }
