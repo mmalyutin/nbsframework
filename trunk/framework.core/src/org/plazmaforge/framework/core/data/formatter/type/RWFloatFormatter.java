@@ -29,7 +29,7 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class FloatFormatter extends AbstractFormatter<Float> {
+public class RWFloatFormatter extends AbstractFormatter<Float> {
 
     @Override
     public Float parse(String str) {

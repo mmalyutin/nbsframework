@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.core.data.formatter.type;
 
+
 import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
 /**
@@ -29,14 +30,18 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class BooleanFormatter extends AbstractFormatter<Boolean> {
+public class RWDoubleFormatter extends AbstractFormatter<Double> {
 
     @Override
-    public Boolean parse(String str) {
-	if (str == null) {
+    public Double parse(String str) {
+	try {
+	    if (str == null) {
+		return null;
+	    }
+	    return Double.valueOf(str);
+	} catch (NumberFormatException ex) {
 	    return null;
 	}
-	return Boolean.valueOf(str);
     }
 
 }

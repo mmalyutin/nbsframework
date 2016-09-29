@@ -34,7 +34,7 @@ import org.plazmaforge.framework.util.StringUtils;
  * @author ohapon
  *
  */
-public class DateFormatter extends AbstractFormatter<Date> {
+public class RWDateFormatter extends AbstractFormatter<Date> {
 
     public static String DEFAULT_DATE_DELIM = "-";
     

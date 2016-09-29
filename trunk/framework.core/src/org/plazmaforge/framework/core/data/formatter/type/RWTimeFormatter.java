@@ -33,7 +33,7 @@ import org.plazmaforge.framework.util.StringUtils;
  * @author ohapon
  *
  */
-public class TimeFormatter extends DateFormatter {
+public class RWTimeFormatter extends RWDateFormatter {
 
     public static String DEFAULT_TIME_DELIM = ":";
     

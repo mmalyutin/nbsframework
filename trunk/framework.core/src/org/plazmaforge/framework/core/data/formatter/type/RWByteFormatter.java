@@ -29,13 +29,17 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class StringFormatter extends AbstractFormatter<String> {
+public class RWByteFormatter extends AbstractFormatter<Byte> {
 
-    
     @Override
-    public String parse(String str) {
-	return str;
+    public Byte parse(String str) {
+	try {
+	    if (str == null) {
+		return null;
+	    }
+	    return Byte.valueOf(str);
+	} catch (NumberFormatException ex) {
+	    return null;
+	}
     }
-    
-    
 }

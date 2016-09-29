@@ -29,7 +29,7 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class IntegerFormatter extends AbstractFormatter<Integer>  {
+public class RWIntegerFormatter extends AbstractFormatter<Integer>  {
 
     @Override
     public Integer parse(String str) {

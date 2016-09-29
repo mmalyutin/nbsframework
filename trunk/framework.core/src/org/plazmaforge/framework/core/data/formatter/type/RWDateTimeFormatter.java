@@ -33,7 +33,7 @@ import org.plazmaforge.framework.util.StringUtils;
  * @author ohapon
  *
  */
-public class DateTimeFormatter extends DateFormatter {
+public class RWDateTimeFormatter extends RWDateFormatter {
 
     @Override
     public Date parse(String str) {
@@ -60,7 +60,7 @@ public class DateTimeFormatter extends DateFormatter {
 	
 	if (str.length() > 10 ) {
 	    String timeStr = str.substring(10).trim();
-	    array = StringUtils.split(timeStr, TimeFormatter.DEFAULT_TIME_DELIM, true);
+	    array = StringUtils.split(timeStr, RWTimeFormatter.DEFAULT_TIME_DELIM, true);
 	    if (array != null && array.length >=4) {
 		hours = intValue(array[0]);
 		minutes = intValue(array[2]);
@@ -104,7 +104,7 @@ public class DateTimeFormatter extends DateFormatter {
 	
 	// yyyy-MM-dd HH:mm:ss
 	return "" + year + DEFAULT_DATE_DELIM + toString2(month) + DEFAULT_DATE_DELIM + toString2(day) 
-		+ " " + toString2(hours) + TimeFormatter.DEFAULT_TIME_DELIM + toString2(minutes)+ TimeFormatter.DEFAULT_TIME_DELIM + toString2(seconds);
+		+ " " + toString2(hours) + RWTimeFormatter.DEFAULT_TIME_DELIM + toString2(minutes)+ RWTimeFormatter.DEFAULT_TIME_DELIM + toString2(seconds);
     }
 
 }

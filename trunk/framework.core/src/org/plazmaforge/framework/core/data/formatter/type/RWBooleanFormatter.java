@@ -29,17 +29,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
  * @author ohapon
  *
  */
-public class ShortFormatter extends AbstractFormatter<Short> {
+public class RWBooleanFormatter extends AbstractFormatter<Boolean> {
 
     @Override
-    public Short parse(String str) {
-	try {
-	    if (str == null) {
-		return null;
-	    }
-	    return Short.valueOf(str);
-	} catch (NumberFormatException ex) {
+    public Boolean parse(String str) {
+	if (str == null) {
 	    return null;
 	}
+	return Boolean.valueOf(str);
     }
+
 }
