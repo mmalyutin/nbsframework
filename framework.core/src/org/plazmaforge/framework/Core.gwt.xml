@@ -4,12 +4,25 @@
     	<exclude name="data/Accessor.java"/>
     	<exclude name="data/ClassPropertyProvider.java"/>
     	<exclude name="data/ClassPropertyProviderFactory.java"/>
+    	<exclude name="data/converter/type/**"/>
+    	
+    	<exclude name="data/formatter/type/DateFormatter.java"/>
+    	<exclude name="data/formatter/type/DateTimeFormatter.java"/>
+    	<exclude name="data/formatter/type/TimeFormatter.java"/>
+    	<exclude name="data/formatter/type/ByteFormatter.java"/>
+    	<exclude name="data/formatter/type/ShortFormatter.java"/>
+    	<exclude name="data/formatter/type/IntegerFormatter.java"/>
+    	<exclude name="data/formatter/type/FloatFormatter.java"/>
+    	<exclude name="data/formatter/type/DoubleFormatter.java"/>
+    	
     	<exclude name="dataset/**" />
     	<exclude name="datasource/**" />
     	<exclude name="resource/BundleResource.java"/>
     	<exclude name="resource/BundleResourceProvider.java"/>
     	<exclude name="service/ReflectionServiceMethodCaller.java"/>
     	<exclude name="service/ReflectionServiceMethodInvoker.java"/>
+    	<exclude name="sql/**" />
+    	<exclude name="xml/**" />
     	<exclude name="logging/ConsoleHandler.java"/>
     	<exclude name="logging/Log4JHandler.java"/>
     </source>
