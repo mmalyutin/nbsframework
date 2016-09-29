@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  * @author ohapon
  *
  */
-public abstract class AbstractBaseReportExporter extends AbstractReportExporter {
+public abstract class AbstractBaseExporter extends AbstractReportExporter {
 
     protected Color parentBackground;
     protected Color parentForeground;
