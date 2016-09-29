@@ -27,9 +27,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.formatter.Formatter;
-import org.plazmaforge.framework.core.data.formatter.type.DateFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.DateTimeFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.TimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWTimeFormatter;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
@@ -184,9 +184,9 @@ public class FieldTab extends AbstractTab {
 	
 	add(spinnerField);
 
-	final DateFormatter dateFormatter = new DateFormatter();
-	final DateTimeFormatter dateTimeFormatter = new DateTimeFormatter();
-	final TimeFormatter timeFormatter = new TimeFormatter();
+	final RWDateFormatter dateFormatter = new RWDateFormatter();
+	final RWDateTimeFormatter dateTimeFormatter = new RWDateTimeFormatter();
+	final RWTimeFormatter timeFormatter = new RWTimeFormatter();
 	
 	Button getButton = new Button("Get values");
 	getButton.addSelectionListener(new SelectionListener() {
