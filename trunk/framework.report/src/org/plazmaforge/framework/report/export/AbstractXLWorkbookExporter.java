@@ -29,6 +29,7 @@ import java.util.Map;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
@@ -42,6 +43,14 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  */
 public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporter {
 
+    
+    public static final int CELL_TYPE_NUMERIC = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
+    public static final int CELL_TYPE_STRING = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
+    public static final int CELL_TYPE_FORMULA = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
+    public static final int CELL_TYPE_BLANK = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
+    public static final int CELL_TYPE_BOOLEAN = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
+    public static final int CELL_TYPE_ERROR = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
+    
     
     protected org.apache.poi.ss.usermodel.Workbook xWorkbook;
 
@@ -106,12 +115,53 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 
     @Override
     protected void setXCellValue(Cell cell) {
+	int cellType = getCellType(cell);
+	if (cellType >= 0) {
+	    xCell.setCellType(cellType);
+	}
 	Object value = cell.getValue();
-	if (value != null) {
+	if (value == null) {
+	    return;
+	}
+	boolean error = false;
+	if (cellType == CELL_TYPE_NUMERIC) {
+	    if (value instanceof Number) {
+		xCell.setCellValue(((Number) value).doubleValue());
+	    } else {
+		error = true;
+	    }
+	} else if (cellType == CELL_TYPE_STRING) {
 	    xCell.setCellValue(value.toString());
+	} else if (cellType == CELL_TYPE_BOOLEAN) {
+	    if (value instanceof Boolean) {
+		xCell.setCellValue(((Boolean) value));
+	    } else {
+		error = true;
+	    }
+	}
+	if (error) {
+	    xCell.setCellType(CELL_TYPE_ERROR);
 	}
     }
 
+    protected int getCellType(Cell cell) {
+	String dataType = cell.getDataType();
+	if (dataType == null){
+	    return -1;
+	}
+	if (TypeUtils.isLikeNumberType(dataType)) {
+	    return CELL_TYPE_NUMERIC;
+	} else if (TypeUtils.isStringType(dataType)){
+	    return CELL_TYPE_STRING;
+	} else if (TypeUtils.isBooleanType(dataType)){
+	    return CELL_TYPE_BOOLEAN;
+	}
+	//else if (TypeUtils.isLikeCalendarType(dataType)){
+	//    return CELL_TYPE_NUMERIC;
+	//}
+	return -1;
+    }
+    
     @Override
     protected void setXColumnWidth(int columnIndex, int columnWidth) {
 	xSheet.setColumnWidth(columnIndex, columnWidth * 43); // Math.min(43 * width, 256*255));
