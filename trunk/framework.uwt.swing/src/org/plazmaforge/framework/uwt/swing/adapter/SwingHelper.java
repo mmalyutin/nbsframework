@@ -1,5 +1,9 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JCheckBox;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
@@ -53,6 +57,15 @@ public class SwingHelper {
 	if (font.isItalic()) {
 	    style |= java.awt.Font.ITALIC;
 	}
+	
+	/*
+	 Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
+         fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+         java.awt.Font boldUnderline = new java.awt.Font("Serif",Font.BOLD, 12).deriveFont(fontAttributes);
+         return boldUnderline;
+         */
+	
+	
 	// WARNING !!! 
 	// AWT Attributes order: name, style, size
 	// UWT Attributes order: name, size, style
