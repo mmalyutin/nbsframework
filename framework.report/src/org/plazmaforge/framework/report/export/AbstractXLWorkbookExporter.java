@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
@@ -142,6 +143,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	if (error) {
 	    xCell.setCellType(CELL_TYPE_ERROR);
 	}
+	
     }
 
     protected int getCellType(Cell cell) {
@@ -151,12 +153,12 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	}
 	if (TypeUtils.isLikeNumberType(dataType)) {
 	    return CELL_TYPE_NUMERIC;
-	} else if (TypeUtils.isStringType(dataType)){
+	} else if (TypeUtils.isStringType(dataType)) {
 	    return CELL_TYPE_STRING;
-	} else if (TypeUtils.isBooleanType(dataType)){
+	} else if (TypeUtils.isBooleanType(dataType)) {
 	    return CELL_TYPE_BOOLEAN;
 	}
-	//else if (TypeUtils.isLikeCalendarType(dataType)){
+	//else if (TypeUtils.isLikeCalendarType(dataType)) {
 	//    return CELL_TYPE_NUMERIC;
 	//}
 	return -1;
@@ -174,7 +176,11 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     
     @Override
     protected void setXCellStyle(Cell cell) {
-	if (background == null && foreground == null && font == null) {
+	if (cell == null) {
+	    return;
+	}
+	String format = normalizeString(cell.getFormat());
+	if (background == null && foreground == null && font == null && format == null) {
 	    return;
 	}
 	
@@ -197,8 +203,13 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    }
 	}
 
-	xCell.setCellStyle(cellStyle);
+	if (format != null) {
+	    DataFormat df = xWorkbook.createDataFormat();
+	    short f = df.getFormat(format);
+	    cellStyle.setDataFormat(f);
+	}
 
+	xCell.setCellStyle(cellStyle);
     }
     
     ////
@@ -243,8 +254,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	return xFont;
     }
 
-    protected org.apache.poi.ss.usermodel.Font createXFont(Font font,
-	    Color color) {
+    protected org.apache.poi.ss.usermodel.Font createXFont(Font font, Color color) {
 	if (font == null && color == null) {
 	    return null;
 	}

@@ -31,6 +31,7 @@ import java.util.Map;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.util.StringUtils;
 
 
 /**
@@ -97,6 +98,11 @@ public abstract class AbstractReportExporter implements ReportExporter {
 	    return decimalFormat.format(value);
 	}
 	return value.toString();
+    }
+    
+    
+    protected String normalizeString(String str) {
+	return StringUtils.normalizeString(str);
     }
     
 }
