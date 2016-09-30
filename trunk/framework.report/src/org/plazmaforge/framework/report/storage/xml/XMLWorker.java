@@ -24,6 +24,7 @@ package org.plazmaforge.framework.report.storage.xml;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
+import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -47,11 +48,7 @@ public class XMLWorker {
     }
     
     protected String normalizeString(String str) {
-	if (str == null) {
-	    return null;
-	}
-	str = str.trim();
-	return str.isEmpty() ? null : str;
+	return StringUtils.normalizeString(str);
     }
 
     
