@@ -142,15 +142,10 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	if (!document.hasPages()) {
  	    return;
  	}
- 	exportPage(document.getPage(0), true);
- 	exportPage(document.getPage(1), false);
- 	
- 	/*
  	int pageCount = document.getPageCount();
  	for (int i = 0; i < pageCount; i++) {
  	    exportPage(document.getPage(i), i == 0);
  	}
- 	*/
      }
      
      protected void exportPage(Page page, boolean firstPage) throws RTException {
