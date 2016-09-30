@@ -112,9 +112,9 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
     }
   
     protected void initExport() {
-  	rowIndex = -1;
-  	columnIndex = -1;
-  	cellIndex = -1;
+  	rowIndex = 0;
+  	columnIndex = 0;
+  	cellIndex = 0;
   	colspan = 1;
   	rowspan = 1;
     }
@@ -142,10 +142,15 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	if (!document.hasPages()) {
  	    return;
  	}
+ 	exportPage(document.getPage(0), true);
+ 	exportPage(document.getPage(1), false);
+ 	
+ 	/*
  	int pageCount = document.getPageCount();
  	for (int i = 0; i < pageCount; i++) {
  	    exportPage(document.getPage(i), i == 0);
  	}
+ 	*/
      }
      
      protected void exportPage(Page page, boolean firstPage) throws RTException {
@@ -237,8 +242,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	
  	for (int i = 0; i < rowCount; i++) {
  	    
- 	    rowIndex = i;
- 	    Row row = rows.get(rowIndex);
+ 	    //rowIndex = i;
+ 	    Row row = rows.get(i);
  	    
  	    // row: parent gc
  	    parentBackground = getColor(gridBackground, contextBackground);
@@ -282,7 +287,7 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		colspan = cell.getColspan();
  		rowspan = cell.getRowspan();
  		int nextColumnIndex = columnIndex + colspan;
- 		int nextRowIndex = rowIndex + rowspan;
+ 		int nextRowIndex = i + rowspan;
  		
  		if (nextColumnIndex > columnCount) {
  		    // overflow columns
@@ -294,7 +299,7 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		}
  		
  		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
- 		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
+ 		cellHeight = ExportHelper.calculateCellHeight(cell, rows, i);
 
  		// cell: parent gc
  		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
@@ -326,6 +331,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		//cellX += cellWidth;
 
  	    }
+ 	    
+ 	   rowIndex++;
  	}
  	
      }
