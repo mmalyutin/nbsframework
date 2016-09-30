@@ -60,19 +60,19 @@
 			<bands>
 				<band type="ReportHeader">
 					<rows>
-						<row height="15">
+						<row height="20">
 							<cells>
-								<cell colspan="3" background="red"><value>My Report</value></cell>
+								<cell colspan="4" background="red" font="16"><value>My Report</value></cell>
 							</cells>
 						</row>
 						<row height="15">
 							<cells>
-								<cell><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
+								<cell font="bold|italic"><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
 							</cells>
 						</row>
 						<row height="15">
 							<cells>
-								<cell><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
+								<cell foreground="green"><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
 							</cells>
 						</row>
 					</rows>
@@ -81,9 +81,10 @@
 					<rows>
 						<row height="30">
 							<cells>
-								<cell><value>Product ID</value></cell>
-								<cell><value>Product Name</value></cell>
-								<cell><value>Price</value></cell>
+								<cell font="bold"><value>Product ID</value></cell>
+								<cell font="bold"><value>Product Name</value></cell>
+								<cell font="bold"><value>Price</value></cell>
+								<cell font="bold"><value>Full Name</value></cell>
 							</cells>
 						</row>
 					</rows>
@@ -105,7 +106,7 @@
 					<rows>
 						<row height="15">
 							<cells>
-								<cell><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
+								<cell colspan="4" background="gray"><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
 							</cells>
 						</row>
 					</rows>
