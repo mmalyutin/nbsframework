@@ -90,7 +90,7 @@ public class SWTHelper {
 	}
 	org.eclipse.swt.widgets.Display display = Display.getCurrent();
 	int height = getFontHeight(display, font.getSize());
-	org.eclipse.swt.graphics.FontData fontData = new org.eclipse.swt.graphics.FontData(font.getName(), height, style);
+	org.eclipse.swt.graphics.FontData fontData = new org.eclipse.swt.graphics.FontData((font.getName() == null ? "" : font.getName()), height, style);
 	xFont = new org.eclipse.swt.graphics.Font(Display.getCurrent(), fontData);
 	
 	fontMap.put(key, xFont);
