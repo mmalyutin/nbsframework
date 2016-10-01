@@ -182,6 +182,35 @@ public class ReportEngine {
 	documentFile = documentFile + "." + ext;
 	return documentFile;
     }
+
+    public static String generateOutputFile(String inputFile, String format) {
+	if (inputFile == null) {
+	    return null;
+	}
+	inputFile = normalizeString(inputFile);
+	if (inputFile == null) {
+	    return null;
+	}
+	String outputFile = null;
+	int index =  inputFile.lastIndexOf(".");
+	if (index > 0) {
+	    outputFile = inputFile.substring(0, index);
+	    index =  outputFile.lastIndexOf(".");
+	    if (index > 0) {
+		String ext = outputFile.substring(index + 1);
+		if (ext.equals("report") || ext.equals("document")) {
+		    outputFile = inputFile.substring(0, index);
+		}
+	    }
+	} else {
+	    outputFile = inputFile;
+	}
+	String ext = normalizeString(format);
+	if (ext != null) {
+	    outputFile = outputFile + "." + ext;
+	}
+	return outputFile;
+    }
     
     private void init() {
 	
