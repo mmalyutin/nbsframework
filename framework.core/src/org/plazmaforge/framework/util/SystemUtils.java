@@ -25,6 +25,7 @@ import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -164,5 +165,40 @@ public class SystemUtils {
 	return list == null ? 0 : list.size();
     }
 
+
+    private static String normalizeString(String str) {
+	return StringUtils.normalizeString(str);
+    }
+	    
+    public static Properties loadProperties(String[] args) {
+   	Properties properties = new Properties();
+   	if (args == null || args.length == 0){
+   	    return properties;
+   	}
+   	String p = null;
+   	String v = null;
+      	for (int i = 0; i < args.length; i++) {
+      	    p = normalizeString(args[i]);
+      	    if (p == null) {
+      		continue;
+      	    }
+      	    if (p.startsWith("-") && p.length() > 1) {
+      		p = p.substring(1);
+      		if ((i + 1) < args.length) {
+      		    v = normalizeString(args[i + 1]);
+      		    if (v != null && v.startsWith("-")) {
+      			v = "true";
+      		    } else {
+      			i++;
+      		    }
+      		} else {
+      		    v = "true";
+      		}
+      		properties.put(p, v);
+      		
+      	    }
+      	}
+      	return properties;
+    }    
    
 }

@@ -2,6 +2,7 @@ package org.plazmaforge.framework.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -78,6 +79,28 @@ public class CoreUtils {
 	}
     }     
      
+    public static void transferProperties(Properties properties, Map<String, String> map) {
+	if (properties == null || map == null) {
+	    return;
+	}
+	Set<Object> keySet = properties.keySet();
+	for (Object key: keySet) {
+	    if (key == null) {
+		continue;
+	    }
+	    map.put(key.toString(), properties.getProperty(key.toString()));
+	}
+    }
+    
+    public static Map<String, String> toMap(Properties properties) {
+	if (properties == null) {
+	    return null;
+	}
+	Map<String, String> map = new HashMap<String, String>();
+	transferProperties(properties, map);
+	return map;
+    }
+    
     public static String getSimpleClassName(String className) {
 	if (className == null) {
 	    return null;
@@ -95,38 +118,4 @@ public class CoreUtils {
     }
     
 
-    private static String normalizeString(String str) {
-	return StringUtils.normalizeString(str);
-    }
-	    
-    public static Properties loadArgs(String[] args) {
-   	Properties properties = new Properties();
-   	if (args == null || args.length == 0){
-   	    return properties;
-   	}
-   	String p = null;
-   	String v = null;
-      	for (int i = 0; i < args.length; i++) {
-      	    p = normalizeString(args[i]);
-      	    if (p == null) {
-      		continue;
-      	    }
-      	    if (p.startsWith("-") && p.length() > 1) {
-      		p = p.substring(1);
-      		if ((i + 1) < args.length) {
-      		    v = normalizeString(args[i + 1]);
-      		    if (v != null && v.startsWith("-")) {
-      			v = "true";
-      		    } else {
-      			i++;
-      		    }
-      		} else {
-      		    v = "true";
-      		}
-      		properties.put(p, v);
-      		
-      	    }
-      	}
-      	return properties;
-    }    
 }
