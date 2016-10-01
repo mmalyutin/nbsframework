@@ -31,47 +31,30 @@ import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
+import org.plazmaforge.framework.util.SystemUtils;
 
 
 public class ReportTool {
 
-    private Properties pProperties = new Properties();
-
     
-    public static void main(String[] arg) {
-
-	for (int i = 0; i < arg.length; i++) {
-	    String p = arg[i];
-	    if (p.equals("-?")) {
-		printHelp();
-		System.exit(0);
-	    }
+    public static void main(String[] args) {
+	Properties properties = SystemUtils.loadProperties(args);
+	if (properties.getProperty("?") != null) {
+	    printHelp();
+	    System.exit(0);
 	}
-
 	ReportTool tool = new ReportTool();
-	tool.execute(arg);
+	tool.execute(properties);
 	System.exit(0);
     }
 
-    public void execute(String[] arg) {
+    public void execute(Properties properties) {
 
-	for (int i = 0; i < arg.length; i++) {
-	    String p = arg[i];
-
-	    if (p.charAt(0) == '-') {
-		pProperties.put(p.substring(1), arg[i + 1]);
-		i++;
-	    }
-	}
-
-	//BufferedReader in = null;
-	Properties p = pProperties;
-
-	String reportFile = p.getProperty("report");
-	String documentFile = p.getProperty("document");
-	String exportFormat = p.getProperty("format");
-	String datastorageFile = p.getProperty("datastorage");	
-	boolean log = p.getProperty("log", "false").equalsIgnoreCase("true");
+	String reportFile = properties.getProperty("report");
+	String documentFile = properties.getProperty("document");
+	String exportFormat = properties.getProperty("format");
+	String datastorageFile = properties.getProperty("datastorage");	
+	boolean log = properties.getProperty("log", "false").equalsIgnoreCase("true");
 	
 	if (reportFile == null) {
 	    trace("Error: -report is not setting");
