@@ -33,60 +33,60 @@ import junit.framework.TestCase;
  * @author ohapon
  *
  */
-public class SystemUtilsTest extends TestCase {
+public class CoreUtilsTest extends TestCase {
     
     
     public void testLoadArgs() {
 	Properties propetrties = null;
 
 	// Null arguments
-	propetrties = SystemUtils.loadArgs(null);
+	propetrties = CoreUtils.loadArgs(null);
 	assertNotNull(propetrties);
 	
 	// Empty arguments
-	propetrties = SystemUtils.loadArgs(new String[] {});
+	propetrties = CoreUtils.loadArgs(new String[] {});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
-	propetrties = SystemUtils.loadArgs(new String[] {""});
+	propetrties = CoreUtils.loadArgs(new String[] {""});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
-	propetrties = SystemUtils.loadArgs(new String[] {" "});
+	propetrties = CoreUtils.loadArgs(new String[] {" "});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
-	propetrties = SystemUtils.loadArgs(new String[] {" ", " ", ""});
+	propetrties = CoreUtils.loadArgs(new String[] {" ", " ", ""});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
 	// Ignore arguments (without '-')
-	propetrties = SystemUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2"});
+	propetrties = CoreUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2"});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
 	// Ignore arguments (without '-' and only '-')
-	propetrties = SystemUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "", "-", "-"});
+	propetrties = CoreUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "", "-", "-"});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
 	// Ignore arguments (without '-' and only '-' and last ' ')
-	propetrties = SystemUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "", "-", "-", " "});
+	propetrties = CoreUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "", "-", "-", " "});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 
 	// Ignore arguments (without '-' and only '-' and last 'value5')
-	propetrties = SystemUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "", "-", "-", "value5"});
+	propetrties = CoreUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "", "-", "-", "value5"});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 	
-	propetrties = SystemUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "value3", "-", "-", "value5"});
+	propetrties = CoreUtils.loadArgs(new String[] {"property1", "value1", "property2", "value2", "-", "value3", "-", "-", "value5"});
 	assertNotNull(propetrties);
 	assertTrue(propetrties.isEmpty());
 	
 	
 	// Load arguments (1 property)
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 1);
@@ -94,7 +94,7 @@ public class SystemUtilsTest extends TestCase {
 	
 
 	// Load arguments (2 properties)
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "-property2", "value2"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "-property2", "value2"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 2);
@@ -102,34 +102,34 @@ public class SystemUtilsTest extends TestCase {
 	assertEquals(propetrties.getProperty("property2"), "value2");
 
 	// Load arguments (1 property and ignore properties)
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "property2"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "property2"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 1);
 	assertEquals(propetrties.getProperty("property1"), "value1");
 
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "property2", "value2"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "property2", "value2"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 1);
 	assertEquals(propetrties.getProperty("property1"), "value1");
 	
 	// Load arguments (2 properties and ignore properties)
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "property2", "value22", "-property2", "value2", "property2", "value222", "property3", "value333"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "property2", "value22", "-property2", "value2", "property2", "value222", "property3", "value333"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 2);
 	assertEquals(propetrties.getProperty("property1"), "value1");
 	assertEquals(propetrties.getProperty("property2"), "value2");	
 
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "-property2"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "-property2"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 2);
 	assertEquals(propetrties.getProperty("property1"), "value1");
 	assertEquals(propetrties.getProperty("property2"), "true");	
 
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "-property2", "-property3"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "-property2", "-property3"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 3);
@@ -137,7 +137,7 @@ public class SystemUtilsTest extends TestCase {
 	assertEquals(propetrties.getProperty("property2"), "true");
 	assertEquals(propetrties.getProperty("property3"), "true");	
 
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "value1", "-property2", "-property3", "-property4", "value4"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "value1", "-property2", "-property3", "-property4", "value4"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 4);
@@ -147,7 +147,7 @@ public class SystemUtilsTest extends TestCase {
 	assertEquals(propetrties.getProperty("property4"), "value4");	
 
 	
-	propetrties = SystemUtils.loadArgs(new String[] {"-property1", "-property2", "-property3", "value3", "-property4", "-property5", "value5"});
+	propetrties = CoreUtils.loadArgs(new String[] {"-property1", "-property2", "-property3", "value3", "-property4", "-property5", "value5"});
 	assertNotNull(propetrties);
 	assertTrue(!propetrties.isEmpty());
 	assertTrue(propetrties.size() == 5);
