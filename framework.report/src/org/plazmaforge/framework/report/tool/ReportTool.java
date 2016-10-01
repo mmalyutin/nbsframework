@@ -30,7 +30,6 @@ import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
-import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 import org.plazmaforge.framework.util.SystemUtils;
 
 
@@ -95,12 +94,13 @@ public class ReportTool {
 	    trace("\n");
 	    
 	    
-	    // Read the report form XML file
-	    XMLReportReader reportReader = new XMLReportReader();
-	    Report report = reportReader.readReport(reportFile);
+	    // Create ReportManager
+	    ReportManager reportManager = new ReportManager();
+	    
+	    // Read the report form file
+	    Report report = reportManager.readReport(reportFile);
 	    
 	    // Fill the report
-	    ReportManager reportManager = new ReportManager();
 	    Document document = reportManager.fillReport(report, (DSResultSet) null, (Map<String, Object>) null);
 	    
 	    // Write the document to file

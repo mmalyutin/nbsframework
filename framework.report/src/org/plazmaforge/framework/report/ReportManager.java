@@ -26,6 +26,8 @@
 package org.plazmaforge.framework.report;
 
 
+import java.io.File;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,9 +40,13 @@ import org.plazmaforge.framework.report.export.xml.XMLExporter;
 import org.plazmaforge.framework.report.fill.ReportFiller;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
+import org.plazmaforge.framework.report.storage.ReportReader;
+import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 /**
  * General Report Manager
+ * 
+ * - Read Report
  * 
  * - Fill Report
  * 
@@ -51,7 +57,31 @@ import org.plazmaforge.framework.report.model.document.Document;
  */
 public class ReportManager {
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // READ REPORT
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     
+    public Report readReport(String fileName) throws RTException {
+	return createReportReader().readReport(fileName);
+    }
+
+    public Report readReport(File file) throws RTException {
+	return createReportReader().readReport(file);
+    }
+
+    public Report readReport(InputStream is) throws RTException {
+	return createReportReader().readReport(is);
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // FILL REPORT
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public Document fillReport(Report report, DSResultSet reportData) throws RTException {
 	return fillReport(report, reportData, null);
@@ -104,6 +134,12 @@ public class ReportManager {
     }
     
     
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // EXPORT DOCUMNT
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     public void exportDocumentToFile(Document document, String exportType, String outputFileName, Map<String, Object> exportData) throws RTException {
 	if (exportData == null) {
 	    exportData = new HashMap<String, Object>();
@@ -135,9 +171,15 @@ public class ReportManager {
 	// Export report
 	reportExporter.exportDocument(document);
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     protected String getReportType(Report report) {
 	return report == null ? null : report.getType();
+    }
+    
+    protected ReportReader createReportReader(){
+	return new XMLReportReader();	
     }
     
 }
