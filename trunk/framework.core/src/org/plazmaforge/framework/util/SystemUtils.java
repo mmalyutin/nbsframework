@@ -181,13 +181,20 @@ public class SystemUtils {
    	    if (p == null) {
    		continue;
    	    }
-   	    if (p.charAt(0) == '-' && p.length() > 1) {
+   	    if (p.startsWith("-") && p.length() > 1) {
    		p = p.substring(1);
    		if ((i + 1) < args.length) {
    		    v = normalizeString(args[i + 1]);
+   		    if (v != null && v.startsWith("-")) {
+   			v = "true";
+   		    } else {
+   			i++;
+   		    }
+   		} else {
+   		    v = "true";
    		}
    		properties.put(p, v);
-   		i++;
+   		
    	    }
    	}
    	return properties;
