@@ -32,7 +32,16 @@ import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.util.SystemUtils;
 
-
+/**
+ * 
+ * ReportTool steps:
+ *  1. Read Report (report XML format)
+ *  2. Fill Report (report object)
+ *  3. Export Document (custom format, by default: document XML format)
+ * 
+ * @author ohapon
+ *
+ */
 public class ReportTool {
 
     
@@ -52,7 +61,7 @@ public class ReportTool {
 	String reportFile = properties.getProperty("report");
 	String documentFile = properties.getProperty("document");
 	String exportFormat = properties.getProperty("format");
-	String datastorageFile = properties.getProperty("datastorage");	
+	String datastorageFile = properties.getProperty("datastorage");	// TODO: Not implemented
 	boolean log = properties.getProperty("log", "false").equalsIgnoreCase("true");
 	
 	if (reportFile == null) {
