@@ -27,12 +27,13 @@ package org.plazmaforge.framework.uwt;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.plazmaforge.framework.core.data.Destroyer;
 import org.plazmaforge.framework.core.data.Initializer;
+import org.plazmaforge.framework.util.CoreUtils;
+import org.plazmaforge.framework.util.SystemUtils;
 
 /**
  * @author ohapon
@@ -48,21 +49,7 @@ public class AbstractDesktopApplication extends Application {
      * @return
      */
     public static Map<String, String> getProperties(String[] args) {
-
-	Map<String, String> properties = new LinkedHashMap<String, String>();
-	int i = 0;
-	while (i < args.length) {
-	    String arg = args[i];
-	    i++;
-	    if (arg.startsWith("-") && arg.length() > 1) {
-		if (i >= args.length) {
-		    break;
-		}
-		String property = arg.substring(1, arg.length());
-		String value = args[i]; // next element
-		properties.put(property, value);
-	    }
-	}
+	Map<String, String> properties = CoreUtils.toMap(SystemUtils.loadProperties(args));
 	return properties;
     }
     
