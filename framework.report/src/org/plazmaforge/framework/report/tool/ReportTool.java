@@ -115,6 +115,8 @@ public class ReportTool {
 	    // Write the document to file
 	    reportManager.exportDocumentToFile(document, exportFormat, documentFile, null);
 	    
+	    trace("Report '" + reportFile + "' was exported to file '" + documentFile + "' with format '"  + exportFormat + "'");
+	    
 	} catch (Exception e) {
 	    error("ReportTool.init error: " + e.getMessage());
 	    //e.printStackTrace();
