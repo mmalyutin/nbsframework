@@ -35,7 +35,7 @@
 							<rows>
 								<row height="20">
 									<cells>
-										<cell colspan="3"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
+										<cell colspan="3" font="11, underline"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
 									</cells>
 								</row>
 								<row height="20">
