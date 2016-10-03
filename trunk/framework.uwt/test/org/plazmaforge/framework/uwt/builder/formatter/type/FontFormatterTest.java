@@ -31,20 +31,20 @@ import junit.framework.TestCase;
 public class FontFormatterTest extends TestCase {
 
     @Test
-    public void testParseFont() throws Exception {
+    public void testParseAttributes() throws Exception {
 	
-	FontFormatter presenter = new FontFormatter();
+	FontFormatter formatter = new FontFormatter();
 	
 	// Test invalid name
-	String fontName = presenter.parseName(null);
+	String fontName = formatter.parseName(null);
 	assertNull(fontName);
 	
-	fontName = presenter.parseName("");
+	fontName = formatter.parseName("");
 	assertNull(fontName);
 	
 
 	// Test valid name
-	fontName = presenter.parseName("Arial");
+	fontName = formatter.parseName("Arial");
 	assertNotNull(fontName);
 	assertEquals("Arial", fontName);
 
@@ -52,22 +52,22 @@ public class FontFormatterTest extends TestCase {
 	
 	
 	// Test invalid size
-	Integer fontSize = presenter.parseSize(null);
+	Integer fontSize = formatter.parseSize(null);
 	assertNull(fontSize);
 	
-	fontSize = presenter.parseSize("");
+	fontSize = formatter.parseSize("");
 	assertNull(fontSize);
 
-	fontSize = presenter.parseSize("blahblah");
+	fontSize = formatter.parseSize("blahblah");
 	assertNull(fontSize);
 
-	fontSize = presenter.parseSize("10px"); // Ups...
+	fontSize = formatter.parseSize("10px"); // Ups...
 	assertNull(fontSize);
 
 
 	// Test valid size
 	Integer testSize = 10;
-	fontSize = presenter.parseSize("10");
+	fontSize = formatter.parseSize("10");
 	assertNotNull(fontSize);
 	assertEquals(testSize, fontSize);
 
@@ -75,47 +75,170 @@ public class FontFormatterTest extends TestCase {
 	
 	
 	// Test invalid style
-	Integer fontStyle = presenter.parseStyle(null);
+	Integer testStyle = null;
+	Integer fontStyle = formatter.parseStyle(null);
 	assertNull(fontStyle);
 
-	fontStyle = presenter.parseStyle("");
+	
+	fontStyle = formatter.parseStyle("");
 	assertNull(fontStyle);
 
-	fontStyle = presenter.parseStyle("blahblah");
+	fontStyle = formatter.parseStyle("blahblah");
 	assertNull(fontStyle);
 
-	fontStyle = presenter.parseStyle("bo|it");
+	fontStyle = formatter.parseStyle("bo|it");
 	assertNull(fontStyle);
 
-	Integer testStyle = Font.BOLD;
-	fontStyle = presenter.parseStyle("bold");
+	
+	testStyle = Font.BOLD;
+	fontStyle = formatter.parseStyle("bold");
 	assertNotNull(fontStyle);
 	assertEquals(testStyle, fontStyle);
-
 
 	testStyle = Font.ITALIC;
-	fontStyle = presenter.parseStyle("italic");
+	fontStyle = formatter.parseStyle("italic");
 	assertNotNull(fontStyle);
 	assertEquals(testStyle, fontStyle);
 
-	testStyle = Font.BOLD | Font.ITALIC;
-	fontStyle = presenter.parseStyle("bold|italic");
+	testStyle = Font.UNDERLINE;
+	fontStyle = formatter.parseStyle("underline");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	testStyle = Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("strikeout");
 	assertNotNull(fontStyle);
 	assertEquals(testStyle, fontStyle);
 	
+	testStyle = Font.BOLD | Font.ITALIC;
+	fontStyle = formatter.parseStyle("bold|italic");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	testStyle = Font.BOLD | Font.ITALIC | Font.UNDERLINE;
+	fontStyle = formatter.parseStyle("bold|italic|underline");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	testStyle = Font.BOLD | Font.ITALIC | Font.UNDERLINE | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("bold|italic|underline|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+	
+
+    }
+    
+    @Test
+    public void testParseFontStyle() {
+	
+	// Style matrix
+	
+	FontFormatter formatter = new FontFormatter();
+	Integer testStyle = null;
+	Integer fontStyle = formatter.parseStyle(null);
+	
+	// 0|0|0|1
+	testStyle = Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 0|0|1|0
+	testStyle = Font.UNDERLINE;
+	fontStyle = formatter.parseStyle("underline");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 0|0|1|1
+	testStyle = Font.UNDERLINE | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("underline|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 0|1|0|0
+	testStyle = Font.ITALIC;
+	fontStyle = formatter.parseStyle("italic");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 0|1|0|1
+	testStyle = Font.ITALIC | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("italic|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 0|1|1|0
+	testStyle = Font.ITALIC | Font.UNDERLINE;
+	fontStyle = formatter.parseStyle("italic|underline");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 0|1|1|1
+	testStyle = Font.ITALIC | Font.UNDERLINE | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("italic|underline|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|0|0|0
+	testStyle = Font.BOLD;
+	fontStyle = formatter.parseStyle("bold");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|0|0|1
+	testStyle = Font.BOLD | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("bold|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|0|1|0
+	testStyle = Font.BOLD | Font.UNDERLINE;
+	fontStyle = formatter.parseStyle("bold|underline");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|0|1|1
+	testStyle = Font.BOLD | Font.UNDERLINE | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("bold|underline|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|1|0|0
+	testStyle = Font.BOLD | Font.ITALIC;
+	fontStyle = formatter.parseStyle("bold|italic");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|1|0|1
+	testStyle = Font.BOLD | Font.ITALIC | Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("bold|italic|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|1|1|0
+	testStyle = Font.BOLD | Font.ITALIC | Font.UNDERLINE;
+	fontStyle = formatter.parseStyle("bold|italic|underline");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
+
+	// 1|1|1|1
+	testStyle = Font.BOLD | Font.ITALIC | Font.UNDERLINE| Font.STRIKEOUT;
+	fontStyle = formatter.parseStyle("bold|italic|underline|strikeout");
+	assertNotNull(fontStyle);
+	assertEquals(testStyle, fontStyle);
 	
     }
     
     @Test
-    public void testToValue() throws Exception {
+    public void testParseFont() throws Exception {
 	
-	FontFormatter presenter = new FontFormatter();
+	FontFormatter formatter = new FontFormatter();
 	
 	// Test invalid
-	Font font = (Font) presenter.parse(null);
+	Font font = (Font) formatter.parse(null);
 	assertNull(font);
 	
-	font = (Font) presenter.parse("");
+	font = (Font) formatter.parse("");
 	assertNull(font);
 
 	
@@ -124,7 +247,7 @@ public class FontFormatterTest extends TestCase {
 	int fontSize = 0;
 	int fontStyle = 0;
 	
-	font = (Font) presenter.parse("Arial");
+	font = (Font) formatter.parse("Arial");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -135,7 +258,7 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = 0;
 	
-	font = (Font) presenter.parse("Arial, 10");
+	font = (Font) formatter.parse("Arial, 10");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -146,7 +269,7 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = Font.BOLD;
 
-	font = (Font) presenter.parse("Arial, 10, bold");
+	font = (Font) formatter.parse("Arial, 10, bold");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -157,7 +280,7 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = Font.ITALIC;
 
-	font = (Font) presenter.parse("Arial, 10, italic");
+	font = (Font) formatter.parse("Arial, 10, italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -168,14 +291,14 @@ public class FontFormatterTest extends TestCase {
 	fontSize = 10;
 	fontStyle = Font.BOLD | Font.ITALIC;
 
-	font = (Font) presenter.parse("Arial, 10, bold|italic");
+	font = (Font) formatter.parse("Arial, 10, bold|italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
 	assertEquals(fontStyle, font.getStyle());
 
 	//
-	font = (Font) presenter.parse("Arial, 10, bold | italic");
+	font = (Font) formatter.parse("Arial, 10, bold | italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -183,7 +306,7 @@ public class FontFormatterTest extends TestCase {
 
 
 	//
-	font = (Font) presenter.parse("Arial,10,bold|italic");
+	font = (Font) formatter.parse("Arial,10,bold|italic");
 	assertNotNull(font);
 	assertEquals(fontName, font.getName());
 	assertEquals(fontSize, font.getSize());
@@ -193,35 +316,35 @@ public class FontFormatterTest extends TestCase {
     }
     
     @Test
-    public void testToString() throws Exception {
+    public void testFormatFont() throws Exception {
 	
-	FontFormatter presenter = new FontFormatter();
+	FontFormatter formatter = new FontFormatter();
 
 	// Test invalid
-	String fontString = presenter.format(null);
+	String fontString = formatter.format(null);
 	assertNull(fontString);
 
 	// Test valid
 	Font font = new Font("Arial", 10);
-	fontString = presenter.format(font);
+	fontString = formatter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10", fontString);
 
 	//
 	font = new Font("Arial", 10, Font.BOLD);
-	fontString = presenter.format(font);
+	fontString = formatter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10, bold", fontString);
 
 	//
 	font = new Font("Arial", 10, Font.ITALIC);
-	fontString = presenter.format(font);
+	fontString = formatter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10, italic", fontString);
 
 	//
 	font = new Font("Arial", 10, Font.BOLD | Font.ITALIC);
-	fontString = presenter.format(font);
+	fontString = formatter.format(font);
 	assertNotNull(fontString);
 	assertEquals("Arial, 10, bold|italic", fontString);
 
