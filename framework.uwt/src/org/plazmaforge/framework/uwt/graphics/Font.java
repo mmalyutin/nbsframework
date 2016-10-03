@@ -46,13 +46,13 @@ public class Font extends PathResource {
      * The underline style constant.  This can be combined with the other
      * style constants (except NORMAL) for mixed styles.
      */
-    public static final int UNDERLINE   = 3;
+    public static final int UNDERLINE   = 4;
     
     /**
      * The strikeout style constant.  This can be combined with the other
      * style constants (except NORMAL) for mixed styles.
      */
-    public static final int STRIKEOUT   = 4;
+    public static final int STRIKEOUT   = 8;
 
     
     
