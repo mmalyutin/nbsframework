@@ -26,6 +26,8 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.ScrollPanel;
 
@@ -37,8 +39,40 @@ public class SWTScrollPanelAdapter extends SWTPanelAdapter {
     
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
-	org.eclipse.swt.custom.ScrolledComposite xComposite = new org.eclipse.swt.custom.ScrolledComposite(xParent, SWT.NONE | SWT.H_SCROLL | SWT.V_SCROLL);
+	final org.eclipse.swt.custom.ScrolledComposite xComposite = new org.eclipse.swt.custom.ScrolledComposite(xParent, SWT.NONE | SWT.H_SCROLL | SWT.V_SCROLL);
    	org.eclipse.swt.widgets.Composite xContent = createDefaultContent(xComposite, SWT.BORDER);
+
+   	// Special for activating mouse scrolling
+   	xComposite.addListener(SWT.Activate, new Listener() {
+   	        public void handleEvent(Event e) {
+   	           xComposite.setFocus();
+   	        }
+	});
+   	
+   	xComposite.addListener(SWT.MouseWheel, new Listener() {
+   	    public void handleEvent(Event event) {
+   	        xComposite.getVerticalBar().setIncrement(event.count * 3);
+   	    }
+   	});
+   	
+   	/*
+   	xComposite.addListener(SWT.MouseWheel, new Listener() {
+   	        public void handleEvent(Event event) {
+   	            //System.out.println("MOUSE WHEEL");
+   	            int wheelCount = event.count;
+   	            wheelCount = (int) Math.ceil(wheelCount / 3.0f);
+   	            while (wheelCount < 0) {
+   	        	xComposite.getVerticalBar().setIncrement(4);
+   	                wheelCount++;
+   	            }
+
+   	            while (wheelCount > 0) {
+   	        	xComposite.getVerticalBar().setIncrement(-4);
+   	                wheelCount--;
+   	            }
+   	        }
+   	 });
+   	 */
    	
    	//xContent.setLayout(null);
    	
