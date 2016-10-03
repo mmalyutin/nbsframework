@@ -24,6 +24,8 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
 
 import org.plazmaforge.framework.uwt.UIObject;
@@ -181,7 +183,8 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		setForegroundAlpha(xGC, gc);
-		xGC.drawText(text, x, y, true); // true - without filling background
+		//xGC.drawText(text, x, y, true); // true - without filling background
+		drawText(gc, xGC, text, x, y);
 	    } else if (args.length == 4) {
 		String text = getString(args[0]);
 		int x = intValue(args[1]);
@@ -281,4 +284,37 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	
 	
     }
+    
+    protected void drawText(GC gc, org.eclipse.swt.graphics.GC xGC, String text, int x, int y) {
+	if (text == null){
+	    return;
+	}
+	boolean underline = false;
+	boolean strikeout = false;
+	Font font = gc.getFont();
+	underline = font != null && font.isUnderline();
+	strikeout = font != null && font.isStrikeout();
+
+	if (!underline && !strikeout){
+	    xGC.drawText(text, x, y, true);
+	    return;
+
+	}
+	
+	//TODO
+	TextLayout layout = new TextLayout(xGC.getDevice());
+	layout.setWidth(xGC.stringExtent(text).x + 10); // TODO: FIX: STUB
+	layout.setText(text);
+	
+	TextStyle style = new TextStyle(xGC.getFont(), null, null);
+	style.underline = underline;
+	style.strikeout = strikeout;
+	layout.setStyle(style, 0, text.length() - 1);
+	
+	
+	layout.draw(xGC, x, y);
+	
+	layout.dispose();
+    }
+    
 }
