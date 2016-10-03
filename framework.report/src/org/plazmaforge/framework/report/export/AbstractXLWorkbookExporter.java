@@ -272,11 +272,12 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    if (font.isItalic()) {
 		xFont.setItalic(true);
 	    }
-	    /*
-	     * if (font.isUnderline()) {
-	     * cellFont.setUnderline(HSSFFont.U_SINGLE); } if
-	     * (font.isStrikeThrough()) { cellFont.setStrikeout(true); }
-	     */
+	    if (font.isUnderline()) {
+		xFont.setUnderline(org.apache.poi.ss.usermodel.Font.U_SINGLE);
+	    }
+	    if (font.isStrikeout()) {
+		xFont.setStrikeout(true);
+	    }
 	}
 	if (color != null) {
 	    org.apache.poi.ss.usermodel.Color xColor = getXColor(color);
