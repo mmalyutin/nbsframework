@@ -42,9 +42,15 @@ public class FontFormatter extends AbstractFormatter<Font> {
     private static final String ATTR_STYLE = "style";
     
     
+    // Style attributes
+    
     private static final String BOLD = "bold";
     
     private static final String ITALIC = "italic";
+    
+    private static final String UNDERLINE   = "underline";
+    
+    private static final String STRIKEOUT   = "strikeout";
     
     
     
@@ -261,8 +267,24 @@ public class FontFormatter extends AbstractFormatter<Font> {
 	    first = false;
 	}
 	
-	// (?) Underline
-	// (?) Strikeout
+	// Underline
+	if (font.isUnderline()) {
+	    if (!first) {
+		buf.append("|");
+	    }
+	    buf.append(UNDERLINE);
+	    first = false;
+	}
+	
+	// Strikeout
+	if (font.isStrikeout()) {
+	    if (!first) {
+		buf.append("|");
+	    }
+	    buf.append(STRIKEOUT);
+	    first = false;
+	}
+	
 	
 	return buf.toString();
     }
@@ -302,6 +324,10 @@ public class FontFormatter extends AbstractFormatter<Font> {
 		style |= Font.BOLD;
 	    } else if (isItalicStyle(attribute)) {
 		style |= Font.ITALIC;
+	    } else if (isUnderlineStyle(attribute)) {
+		style |= Font.UNDERLINE;
+	    } else if (isStrikeoutStyle(attribute)) {
+		style |= Font.STRIKEOUT;
 	    } else {
 		// Parse error: invalid style
 		return null;
@@ -318,5 +344,14 @@ public class FontFormatter extends AbstractFormatter<Font> {
 	return ITALIC.equals(value);
     }
 
+    protected boolean isUnderlineStyle(String value) {
+	return UNDERLINE.equals(value);
+    }
+    
+    protected boolean isStrikeoutStyle(String value) {
+	return STRIKEOUT.equals(value);
+    }
+    
+    
 
 }

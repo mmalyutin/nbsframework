@@ -28,7 +28,7 @@ public class Font extends PathResource {
     /**
      * The normal style constant.
      */
-    public static final int NORMAL       = 0;
+    public static final int NORMAL      = 0;
 
     /**
      * The bold style constant.  This can be combined with the other style
@@ -41,6 +41,18 @@ public class Font extends PathResource {
      * style constants (except NORMAL) for mixed styles.
      */
     public static final int ITALIC      = 2;
+    
+    /**
+     * The underline style constant.  This can be combined with the other
+     * style constants (except NORMAL) for mixed styles.
+     */
+    public static final int UNDERLINE   = 3;
+    
+    /**
+     * The strikeout style constant.  This can be combined with the other
+     * style constants (except NORMAL) for mixed styles.
+     */
+    public static final int STRIKEOUT   = 4;
 
     
     
@@ -99,6 +111,20 @@ public class Font extends PathResource {
         return (style & ITALIC) != 0;
     }
 
+    /**
+     * Indicates whether or not this <code>Font</code> object's style is UNDERLINE.
+     */
+    public boolean isUnderline() {
+        return (style & UNDERLINE) != 0;
+    }
+
+    /**
+     * Indicates whether or not this <code>Font</code> object's style is STRIKEOUT.
+     */
+    public boolean isStrikeout() {
+        return (style & STRIKEOUT) != 0;
+    }    
+    
     @Override
     public int hashCode() {
 	final int prime = 31;
