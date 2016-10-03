@@ -46,22 +46,22 @@ public class ColorFormatterTest  extends TestCase {
 
     @Test
     public void testParseHex() throws Exception {
-	ColorFormatter presenter = new ColorFormatter();
+	ColorFormatter formatter = new ColorFormatter();
 	
 	// Test invalid
 	Color color = null;
 	
 	for (String value: HEX_INVALID_VALUES) {
-	    color = presenter.parseHex(value);
+	    color = formatter.parseHex(value);
 	    assertNull(color);
 	}
 	
 	// Test valid
-	color = presenter.parseHex("#112233");
+	color = formatter.parseHex("#112233");
 	assertNotNull(color);
 	assertEquals("#112233", "#" + color.toHexString());
 
-	color = presenter.parseHex("#aabbcc");
+	color = formatter.parseHex("#aabbcc");
 	assertNotNull(color);
 	assertEquals("#aabbcc", "#" + color.toHexString());
 
@@ -70,18 +70,18 @@ public class ColorFormatterTest  extends TestCase {
     
     @Test
     public void testParseRGB() throws Exception {
-	ColorFormatter presenter = new ColorFormatter();
+	ColorFormatter formatter = new ColorFormatter();
 	
 	// Test invalid
 	Color color = null;
 	
 	for (String value: RGB_INVALID_VALUES) {
-	    color = presenter.parseRGB(value);
+	    color = formatter.parseRGB(value);
 	    assertNull(color);
 	}
 	
 	// Test valid
-	color = presenter.parseRGB("rgb(11, 22, 33)");
+	color = formatter.parseRGB("rgb(11, 22, 33)");
 	assertNotNull(color);
 	assertEquals(color.getRed(), 11);
 	assertEquals(color.getGreen(), 22);
@@ -91,20 +91,20 @@ public class ColorFormatterTest  extends TestCase {
     
     @Test
     public void testParseNames() throws Exception {
-	ColorFormatter presenter = new ColorFormatter();
+	ColorFormatter formatter = new ColorFormatter();
 	
 	// Test invalid
-	Color color = presenter.parseName(null);
+	Color color = formatter.parseName(null);
 	assertNull(color);
 	
-	color = presenter.parseName("blahblah");
+	color = formatter.parseName("blahblah");
 	assertNull(color);
 	
 	// Test valid
 	
 	// Color in lower case
 	for (String value: COLORS) {
-	    color = presenter.parseName(value);
+	    color = formatter.parseName(value);
 	    assertNotNull(color);
 	    
 	    Color findColor = findColor(value);
@@ -117,7 +117,7 @@ public class ColorFormatterTest  extends TestCase {
 
 	// Color in upper case
 	for (String value: COLORS) {
-	    color = presenter.parseName(value.toUpperCase());
+	    color = formatter.parseName(value.toUpperCase());
 	    assertNotNull(color);
 	    
 	    Color findColor = findColor(value);
@@ -134,34 +134,34 @@ public class ColorFormatterTest  extends TestCase {
     
     @Test
     public void testToValue() throws Exception {
-	ColorFormatter presenter = new ColorFormatter();
+	ColorFormatter formatter = new ColorFormatter();
 	
 	// Test invalid
-	Color color = (Color) presenter.parse(null);
+	Color color = (Color) formatter.parse(null);
 	assertNull(color);
 	
-	color = (Color) presenter.parse("");
+	color = (Color) formatter.parse("");
 	assertNull(color);
 
 	for (String value: HEX_INVALID_VALUES) {
-	    color = (Color) presenter.parse(value);
+	    color = (Color) formatter.parse(value);
 	    assertNull(color);
 	}
 
 	for (String value: RGB_INVALID_VALUES) {
-	    color = (Color) presenter.parse(value);
+	    color = (Color) formatter.parse(value);
 	    assertNull(color);
 	}
 	
 	
-	color = presenter.parseName("blahblah");
+	color = formatter.parseName("blahblah");
 	assertNull(color);
 	
 	// Test valid
 	
 	// Color in lower case
 	for (String value: COLORS) {
-	    color = (Color) presenter.parse(value);
+	    color = (Color) formatter.parse(value);
 	    assertNotNull(color);
 	    
 	    Color findColor = findColor(value);
@@ -173,7 +173,7 @@ public class ColorFormatterTest  extends TestCase {
 
 	// Color in upper case
 	for (String value: COLORS) {
-	    color = (Color) presenter.parse(value.toUpperCase());
+	    color = (Color) formatter.parse(value.toUpperCase());
 	    assertNotNull(color);
 	    
 	    Color findColor = findColor(value);
@@ -184,16 +184,16 @@ public class ColorFormatterTest  extends TestCase {
 	}
 
 	// Hex
-	color = (Color) presenter.parse("#112233");
+	color = (Color) formatter.parse("#112233");
 	assertNotNull(color);
 	assertEquals("#112233", "#" + color.toHexString());
 
-	color = (Color) presenter.parse("#aabbcc");
+	color = (Color) formatter.parse("#aabbcc");
 	assertNotNull(color);
 	assertEquals("#aabbcc", "#" + color.toHexString());
 
 	// RGB
-	color = (Color) presenter.parse("rgb(11, 22, 33)");
+	color = (Color) formatter.parse("rgb(11, 22, 33)");
 	assertNotNull(color);
 	assertEquals(color.getRed(), 11);
 	assertEquals(color.getGreen(), 22);
@@ -203,10 +203,10 @@ public class ColorFormatterTest  extends TestCase {
     
     @Test
     public void testToString() throws Exception {
-	ColorFormatter presenter = new ColorFormatter();
+	ColorFormatter formatter = new ColorFormatter();
 	
 	// Test invalid
-	String colorString = presenter.format(null);
+	String colorString = formatter.format(null);
 	assertNull(colorString);
 	
 	
@@ -221,7 +221,7 @@ public class ColorFormatterTest  extends TestCase {
 
 	String colorHex = "#" + redHex + greenHex + blueHex; 
 	Color color = new Color(red, green, blue);
-	colorString = presenter.format(color);
+	colorString = formatter.format(color);
 	assertNotNull(colorString);
 	assertEquals(colorHex, colorString);
 
