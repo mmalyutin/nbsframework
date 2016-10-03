@@ -50,6 +50,8 @@ public class SwingHelper {
     }
 
     public static java.awt.Font getFont(Font font) {
+	
+	// bold|italic
 	int style = java.awt.Font.PLAIN;
 	if (font.isBold()) {
 	    style |= java.awt.Font.BOLD;
@@ -58,18 +60,24 @@ public class SwingHelper {
 	    style |= java.awt.Font.ITALIC;
 	}
 	
-	/*
-	 Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
-         fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-         java.awt.Font boldUnderline = new java.awt.Font("Serif",Font.BOLD, 12).deriveFont(fontAttributes);
-         return boldUnderline;
-         */
-	
-	
+	// create AWT font
+	//
 	// WARNING !!! 
 	// AWT Attributes order: name, style, size
 	// UWT Attributes order: name, size, style
 	java.awt.Font xFont = new java.awt.Font(font.getName(), style, font.getSize());
+	
+	// underline|strikeout
+	if (font.isUnderline() || font.isStrikeout()){
+	    Map<TextAttribute, Object> fontAttributes = new HashMap<TextAttribute, Object>();
+	    if (font.isUnderline()) {
+		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+	    }
+	    if (font.isStrikeout()) {
+		fontAttributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+	    }
+	    xFont = xFont.deriveFont(fontAttributes);
+	}
 	return xFont;
     }
 
