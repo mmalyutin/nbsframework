@@ -303,7 +303,8 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	
 	//TODO
 	TextLayout layout = new TextLayout(xGC.getDevice());
-	layout.setWidth(xGC.stringExtent(text).x + 10); // TODO: FIX: STUB
+	int textWidth = xGC.stringExtent(text).x;
+	layout.setWidth(textWidth + 10); // TODO: FIX: STUB
 	layout.setText(text);
 	
 	TextStyle style = new TextStyle(xGC.getFont(), null, null);

@@ -82,15 +82,31 @@ public class SWTHelper {
 	
 	// Convert font style from UWT to SWT
 	int style = SWT.NORMAL;
-	if ((font.getStyle() & Font.BOLD) != 0) {
+	if (font.isBold()) {
 	    style |= SWT.BOLD;
 	}
-	if ((font.getStyle() & Font.ITALIC) != 0) {
+	if (font.isItalic()) {
 	    style |= SWT.ITALIC;
 	}
+	
 	org.eclipse.swt.widgets.Display display = Display.getCurrent();
+	String name = font.getName();
 	int height = getFontHeight(display, font.getSize());
-	org.eclipse.swt.graphics.FontData fontData = new org.eclipse.swt.graphics.FontData((font.getName() == null ? "" : font.getName()), height, style);
+	
+	if (font.isIncomplete()) {
+	    
+	    org.eclipse.swt.graphics.Font defaultFont = getDefaultFont(display);
+	    org.eclipse.swt.graphics.FontData defaultFontData[] = defaultFont.getFontData();
+	    
+	    if (font.isEmptyName()) {
+		name = defaultFontData[0].getName();
+	    }
+	    if (font.isEmptySize()) {
+		height = defaultFontData[0].getHeight();
+	    }
+	}
+	
+	org.eclipse.swt.graphics.FontData fontData = new org.eclipse.swt.graphics.FontData(name, height, style);
 	xFont = new org.eclipse.swt.graphics.Font(Display.getCurrent(), fontData);
 	
 	fontMap.put(key, xFont);
@@ -98,6 +114,13 @@ public class SWTHelper {
   	return xFont;
     }
 
+    public static org.eclipse.swt.graphics.Font getDefaultFont(org.eclipse.swt.widgets.Display display) {
+	if (display == null) {
+	    display = Display.getCurrent();
+	}
+	return display.getSystemFont();
+    }
+    
     /**
      * Return height of font by Device DPI
      * @param device
