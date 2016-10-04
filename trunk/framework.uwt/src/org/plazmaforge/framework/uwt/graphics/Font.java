@@ -70,9 +70,9 @@ public class Font extends PathResource {
 
     public Font(String name, int size, int style) {
 	super();
-	this.name = name;
-	this.size = size;
-	this.style = style;
+	this.name = normalizeName(name);
+	this.size = normalizeSize(size);
+	this.style = normalizeStyle(style);
 	this.key = getKey(this);
     }
 
@@ -157,10 +157,49 @@ public class Font extends PathResource {
     }
 
     private String getKey(Font font) {
-	return "" + font.getName() + ", " + font.getSize() + ", " + font.getStyle(); 
+	return (font.isEmptyName() ? "" : (font.getName() + ", " )) + font.getSize() + ", " + font.getStyle(); 
     }
     
     public String getKey() {
 	return key;
     }
+    
+    private String normalizeName(String name) {
+	name = normalizeString(name);
+	return name == null ? "" : name;
+    }
+
+    private int normalizeStyle(int style) {
+	return style < 0 ? 0 : style;
+    }
+
+    private int normalizeSize(int size) {
+	return size < 0 ? 0 : size;
+    }
+    
+    private String normalizeString(String str) {
+	if (str == null) {
+	    return null;
+	}
+	str = str.trim();
+	return str.isEmpty() ? null : str;
+    }
+    
+    public boolean isIncomplete() {
+	return isEmptyName() || isEmptySize();
+    }
+
+    public boolean isComplete() {
+	return !isIncomplete();
+    }
+    
+    public boolean isEmptyName() {
+	return name.isEmpty();
+    }
+    
+    public boolean isEmptySize() {
+	return size == 0;
+    }
+    
+    
 }
