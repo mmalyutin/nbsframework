@@ -46,7 +46,50 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
     }
 
     protected Font getFont(Font font, Font parentFont) {
-	return font == null ? parentFont : font;
+	//return font == null ? parentFont : font;
+	
+	if (font == null && parentFont == null) {
+	    return null;
+	}
+	
+	if (font == null) {
+	    font = parentFont;
+	}
+	if (font.isComplete()) {
+	    return font;
+	}
+	
+	// merge incomplete font
+	String name = null;
+	int size = 0;
+	int style = 0;
+	
+	// font name
+	if (font.isEmptyName()) {
+	    if (parentFont != null && !parentFont.isEmptyName()) {
+		name = parentFont.getName();
+	    } else {
+		name = "";
+	    }
+	} else {
+	    name = font.getName();
+	}
+
+	// font size
+	if (font.isEmptySize()) {
+	    if (parentFont != null && !parentFont.isEmptySize()) {
+		size = parentFont.getSize();
+	    } else {
+		size = 12; // TODO
+	    }
+	} else {
+	    size = font.getSize();
+	}
+	
+	// font style
+	style = font.getStyle();
+	
+	return new Font(name , size, style);
     }
     
     protected void normalizeCurrentStyle() {
