@@ -206,6 +206,9 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	gc.drawRectangle(offsetX, offsetY, width, height);
 
 
+	int columnIndex = 0;
+	int rowIndex = 0;
+	
 	for (Row row : rows) {
 	    
 	    // row: parent gc
@@ -234,8 +237,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    
 	    List<Cell> cells = row.getCells();
 
-	    int columnIndex = 0;
-	    int rowIndex = 0;
+	    columnIndex = 0;
+	    //rowIndex = 0;
 	    
 	    int cellX = offsetX;
 	    int cellY = offsetY;
@@ -294,19 +297,27 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		// cell: init gc
 		setCurrentStyle(gc);
 		
+		// cell: area
+		paddingLeft = 0;
+		paddingTop = 0;
+		if (cell.hasPadding()) {
+		    paddingLeft = cell.getPadding().getLeft();
+		    paddingTop = cell.getPadding().getTop();
+		}
+		
+		int areaX = cellX /*+ paddingLeft*/;
+		int areaY = cellY /*+ paddingTop*/;
+		int areaWidth = cellWidth;
+		int areaHeight = cellHeight;
+		
 		Object value = cell.getValue();
 		if (value != null) {
-		    paddingLeft = 0;
-		    paddingTop = 0;
-		    if (cell.hasPadding()) {
-			paddingLeft = cell.getPadding().getLeft();
-			paddingTop = cell.getPadding().getTop();
-		    }
-		    
-		    //String text = value.toString();
-		    
 		    String text = formatCellValue(cell);
-		    drawText(gc, text, cellX + paddingLeft, cellY + paddingTop, -1, -1, font, foreground);
+		    //if (text.startsWith("PRICE") ){
+			//System.out.print("");
+			
+		    //}
+		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground);
 		}
 		
 		columnIndex = nextColumnIndex;
@@ -368,6 +379,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	if (foreground != null) {
 	    gc.setForeground(foreground);
 	}
-	gc.drawText(text, x, y); // TODO
+	//gc.drawText(text, x, y);
+	gc.drawTextBox(text, x, y, width, height);
     }
 }
