@@ -162,6 +162,12 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		if (cell.getFont() != null) {
 		    oCell.setFont(cell.getFont());
 		}
+		if (cell.getHorizontalAlign() != null) {
+		    oCell.setHorizontalAlign(cell.getHorizontalAlign());
+		}
+		if (cell.getVerticalAlign() != null) {
+		    oCell.setVerticalAlign(cell.getVerticalAlign());
+		}
 		
 		oRow.addCell(oCell);
 
@@ -176,29 +182,6 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		oCell.setValue(value);
 		oCell.setFormat(cell.getFormat());
 		
-		/*
-		DSExpression expression = cell.getExpression();
-		if (expression != null) {
-		    // Set text value by cell expression
-		    Object value = evaluateExpression(context, evaluation, expression);
-		    if (value != null) {
-			String text = formatCellValue(value, cell);
-			if (text != null) {
-			    oCell.setValue(text);
-			}
-		    }
-		} else {
-		    // Set text value by cell value
-		    Object value = cell.getValue();
-		    if (value != null) {
-			String text = formatCellValue(value, cell);
-			if (text != null) {
-			    oCell.setValue(text);
-			}
-		    }
-		}
-		*/
-
 	    }
 	}
 	return fillContainer;

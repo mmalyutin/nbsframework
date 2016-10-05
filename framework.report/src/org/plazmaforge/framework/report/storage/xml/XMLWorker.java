@@ -193,6 +193,10 @@ public class XMLWorker {
      protected void setFont(Element element, String name, Font font) {
  	setStringValue(element, name, font == null ? null : FONT_FORMATTER.format(font));
      }
+
+     protected void setHorizontalAlign(Element element, String name, HorizontalAlign horizontalAlign) {
+ 	setStringValue(element, name, horizontalAlign == null ? null : HORIZONTAL_ALIGN_FORMATTER.format(horizontalAlign));
+     }
      
      protected void setContentValue(Element element, Object value) {
  	setContentValue(element, value, null);
