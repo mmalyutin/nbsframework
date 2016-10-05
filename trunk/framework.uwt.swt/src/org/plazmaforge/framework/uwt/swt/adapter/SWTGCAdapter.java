@@ -24,6 +24,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
@@ -194,6 +195,21 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 		drawText(xGC, text, x, y, angle); // true - without filling background
 	    }
 	    return null;
+
+	} else if (eq(methodName, GC.METHOD_DRAW_TEXT_BOX)) {
+	    if (args == null) {
+		return null;
+	    }
+	    if (args.length == 5) {
+		String text = getString(args[0]);
+		int x = intValue(args[1]);
+		int y = intValue(args[2]);
+		int width = intValue(args[3]);
+		int height = intValue(args[4]);
+		setForegroundAlpha(xGC, gc);
+		drawTextBox(gc, xGC, text, x, y, width, height); 
+	    }
+	    return null;
 	    
 	// Fill    
 	} else if (eq(methodName, GC.METHOD_FILL_RECTANGLE)) { 
@@ -295,27 +311,77 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	underline = font != null && font.isUnderline();
 	strikeout = font != null && font.isStrikeout();
 
-	if (!underline && !strikeout){
+	if (!underline && !strikeout) {
+	    //if (text.startsWith("Product")) {
+		//xGC.setClipping(x, y, 150, 9);
+	    //}
 	    xGC.drawText(text, x, y, true);
+	    //if (text.startsWith("Product")) {
+		//xGC.setClipping((Rectangle) null);
+	    //}
 	    return;
 
 	}
 	
 	//TODO
-	TextLayout layout = new TextLayout(xGC.getDevice());
+	TextLayout textLayout = getTextLayout(xGC);
 	int textWidth = xGC.stringExtent(text).x;
-	layout.setWidth(textWidth + 10); // TODO: FIX: STUB
-	layout.setText(text);
+	textLayout.setWidth(textWidth + 10); // TODO: FIX: STUB
+	textLayout.setText(text);
 	
-	TextStyle style = new TextStyle(xGC.getFont(), null, null);
-	style.underline = underline;
-	style.strikeout = strikeout;
-	layout.setStyle(style, 0, text.length() - 1);
+	TextStyle textStyle = getTextStyle(xGC);
+	textStyle.underline = underline;
+	textStyle.strikeout = strikeout;
+
+	textLayout.setStyle(textStyle, 0, text.length() - 1);
 	
 	
-	layout.draw(xGC, x, y);
+	textLayout.draw(xGC, x, y);
 	
-	layout.dispose();
+	textLayout.dispose();
+    }
+
+    protected TextLayout getTextLayout(org.eclipse.swt.graphics.GC xGC) {
+	TextLayout layout = new TextLayout(xGC.getDevice());
+	return layout;
     }
     
+    protected TextStyle getTextStyle(org.eclipse.swt.graphics.GC xGC) {
+	TextStyle textStyle = new TextStyle(xGC.getFont(), null, null);
+	return textStyle;
+    }
+    
+    protected void drawTextBox(GC gc, org.eclipse.swt.graphics.GC xGC, String text, int x, int y, int width, int height) {
+	if (text == null) {
+	    return;
+	}
+	boolean underline = false;
+	boolean strikeout = false;
+	Font font = gc.getFont();
+	underline = font != null && font.isUnderline();
+	strikeout = font != null && font.isStrikeout();
+	
+	// create text layout
+	TextLayout textLayout = getTextLayout(xGC);
+	textLayout.setText(text);
+	textLayout.setWidth(width);
+	
+	int textWidth = width; // TODO
+	int textHeight = textLayout.getBounds().height;
+	
+	// create text style
+	TextStyle textStyle = getTextStyle(xGC);
+	textStyle.underline = underline;
+	textStyle.strikeout = strikeout;
+
+	textLayout.setStyle(textStyle, 0, text.length() - 1);
+
+	// draw text (clip)
+	xGC.setClipping(x, y, width, height);
+	textLayout.draw(xGC, x, y);
+	xGC.setClipping((Rectangle) null);
+	
+	textLayout.dispose();
+	
+    }
 }
