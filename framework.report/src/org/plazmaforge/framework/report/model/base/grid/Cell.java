@@ -31,6 +31,8 @@ import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpression;
 import org.plazmaforge.framework.report.model.base.Container;
 import org.plazmaforge.framework.report.model.base.Padding;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 /**
  * @author ohapon
@@ -45,6 +47,10 @@ public class Cell extends Container implements HasExpression {
     
     private int rowspan;
 
+    private HorizontalAlign horizontalAlign;
+    
+    private VerticalAlign verticalAlign;
+    
     private String dataType;
     
     private Object value;
@@ -52,6 +58,7 @@ public class Cell extends Container implements HasExpression {
     private DSExpression expression;
 
     private String format;
+    
     
     public Cell() {
 	this.colspan = 1;
@@ -75,6 +82,22 @@ public class Cell extends Container implements HasExpression {
         this.rowspan = rowspan < 1 ? 1 : rowspan;
     }
 
+    public HorizontalAlign getHorizontalAlign() {
+        return horizontalAlign;
+    }
+
+    public void setHorizontalAlign(HorizontalAlign horizontalAlign) {
+        this.horizontalAlign = horizontalAlign;
+    }
+
+    public VerticalAlign getVerticalAlign() {
+        return verticalAlign;
+    }
+
+    public void setVerticalAlign(VerticalAlign verticalAlign) {
+        this.verticalAlign = verticalAlign;
+    }
+    
     public String getDataType() {
         return dataType;
     }
@@ -125,6 +148,7 @@ public class Cell extends Container implements HasExpression {
         this.format = format;
     }
 
+
     public String toString() {
 	StringBuilder b = new StringBuilder();
 	b.append("Cell[");
@@ -138,6 +162,20 @@ public class Cell extends Container implements HasExpression {
 		b.append(", ");
 	    }
 	    b.append("rowspan=" + rowspan);
+	    flag = true;
+	}
+	if (horizontalAlign != null) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("horizontalAlign=" + horizontalAlign);
+	    flag = true;
+	}
+	if (verticalAlign != null) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("verticalAlign=" + verticalAlign);
 	    flag = true;
 	}
 	if (dataType != null) {
@@ -191,8 +229,12 @@ public class Cell extends Container implements HasExpression {
 	result = prime * result
 		+ ((expression == null) ? 0 : expression.hashCode());
 	result = prime * result + ((format == null) ? 0 : format.hashCode());
+	result = prime * result
+		+ ((horizontalAlign == null) ? 0 : horizontalAlign.hashCode());
 	result = prime * result + rowspan;
 	result = prime * result + ((value == null) ? 0 : value.hashCode());
+	result = prime * result
+		+ ((verticalAlign == null) ? 0 : verticalAlign.hashCode());
 	return result;
     }
 
@@ -222,6 +264,8 @@ public class Cell extends Container implements HasExpression {
 		return false;
 	} else if (!format.equals(other.format))
 	    return false;
+	if (horizontalAlign != other.horizontalAlign)
+	    return false;
 	if (rowspan != other.rowspan)
 	    return false;
 	if (value == null) {
@@ -229,8 +273,10 @@ public class Cell extends Container implements HasExpression {
 		return false;
 	} else if (!value.equals(other.value))
 	    return false;
+	if (verticalAlign != other.verticalAlign)
+	    return false;
 	return true;
     }
-    
+
     
 }
