@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
@@ -365,6 +366,9 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	TextLayout textLayout = getTextLayout(xGC);
 	textLayout.setText(text);
 	textLayout.setWidth(width);
+	
+	// TODO: align
+	//textLayout.setAlignment(SWT.CENTER);
 	
 	int textWidth = width; // TODO
 	int textHeight = textLayout.getBounds().height;
