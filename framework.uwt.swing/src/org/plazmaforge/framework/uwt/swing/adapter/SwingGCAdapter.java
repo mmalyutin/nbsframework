@@ -22,7 +22,14 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
+import java.awt.Shape;
+import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.util.Map;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -183,7 +190,22 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 		drawText((java.awt.Graphics2D) xGC, text, x, y, angle);
 	    }
 	    return null;
-	    
+
+	} else if (eq(methodName, GC.METHOD_DRAW_TEXT_BOX)) { 
+	    if (args == null) {
+		return null;
+	    }
+	    if (args.length == 5) {
+		int fontHeight = xGC.getFont().getSize();
+		String text = getString(args[0]);
+		int x = intValue(args[1]);
+		int y = intValue(args[2]); // + fontHeight; //TODO
+		int width = intValue(args[3]);
+		int height = intValue(args[4]);
+		setForeground(xGC, gc);
+		drawText((java.awt.Graphics2D) xGC, text, x, y, width, height);
+	    }
+	    return null;	    
 	    
 	// Fill    
 	} else if (eq(methodName, GC.METHOD_FILL_RECTANGLE)) { 
@@ -266,4 +288,54 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	gc.drawString(text, 0, 0);
 	
     }
+    
+    protected void drawText(java.awt.Graphics2D gc, String text, int x, int y, int width, int height) {
+	if (text == null) {
+	    return;
+	}
+	
+	int start = 0;
+	int end	= text.length();
+	java.awt.Font font = gc.getFont();
+	java.awt.Color color = gc.getColor();
+	
+	Map<TextAttribute, ?> m = font.getAttributes();
+	Object underlineObject = m.get(TextAttribute.UNDERLINE);
+	Object strikeoutObject = m.get(TextAttribute.STRIKETHROUGH);
+	
+	boolean underline = underlineObject != null && underlineObject.equals(1);
+	boolean strikeout = strikeoutObject != null && strikeoutObject.equals(true);
+	 
+	AttributedString astr = new AttributedString(text);
+	astr.addAttribute(TextAttribute.FONT, font, start, end);
+	astr.addAttribute(TextAttribute.FOREGROUND, color, start, end);
+	if (underline) {
+	    astr.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON, start, end);	    
+	}
+	if (strikeout) {
+	    astr.addAttribute(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON, start, end);	    
+	}
+	
+	
+	
+	AttributedCharacterIterator paragraph = astr.getIterator();
+	LineBreakMeasurer lineMeasurer = new LineBreakMeasurer(paragraph, gc.getFontRenderContext());
+	
+	int lineX = x;
+	int lineY = y;
+	
+	gc.setClip(x, y, width, height);
+	while (lineMeasurer.getPosition() < paragraph.getEndIndex()) {
+	    TextLayout textlayout = lineMeasurer.nextLayout(width);
+	    if (textlayout == null) {
+		break;
+	    }
+	    lineY += textlayout.getAscent();
+	    textlayout.draw(gc, lineX, lineY);
+	    lineY += textlayout.getDescent() + textlayout.getLeading();
+	}
+	gc.setClip((Shape) null);
+	
+    }
+    
 }

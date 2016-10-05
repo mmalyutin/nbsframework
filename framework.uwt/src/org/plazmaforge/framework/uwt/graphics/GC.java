@@ -57,7 +57,8 @@ public final class GC extends UIObject {
     public static final String METHOD_DRAW_ARC = "drawArc";
     
     public static final String METHOD_DRAW_TEXT = "drawText";
-    
+
+    public static final String METHOD_DRAW_TEXT_BOX = "drawTextBox";
 
     public static final String METHOD_FILL_RECTANGLE = "fillRectangle";
     
@@ -179,6 +180,12 @@ public final class GC extends UIObject {
 	getAdapter().invoke(this, METHOD_DRAW_TEXT, new Object[] {text, x, y, angle});
     }
 
+    ////
+    
+    public void drawTextBox(String text,int x, int y, int width, int height) {
+	getAdapter().invoke(this, METHOD_DRAW_TEXT_BOX, new Object[] {text, x, y, width, height});
+    }
+    
     ////
 
     public void fillRectangle(int x1, int y1, int width, int height) {
