@@ -35,6 +35,8 @@ import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.graphics.Size;
+import org.plazmaforge.framework.uwt.widget.Style;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 public class SWTGCAdapter extends SWTAbstractAdapter {
 
@@ -201,14 +203,15 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	    if (args == null) {
 		return null;
 	    }
-	    if (args.length == 5) {
+	    if (args.length >= 5) {
 		String text = getString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		int width = intValue(args[3]);
 		int height = intValue(args[4]);
+		HorizontalAlign horizontalAlign = args.length > 5 ? (HorizontalAlign) args[5] : null;
 		setForegroundAlpha(xGC, gc);
-		drawTextBox(gc, xGC, text, x, y, width, height); 
+		drawTextBox(gc, xGC, text, x, y, width, height, horizontalAlign); 
 	    }
 	    return null;
 	    
@@ -352,7 +355,7 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	return textStyle;
     }
     
-    protected void drawTextBox(GC gc, org.eclipse.swt.graphics.GC xGC, String text, int x, int y, int width, int height) {
+    protected void drawTextBox(GC gc, org.eclipse.swt.graphics.GC xGC, String text, int x, int y, int width, int height, HorizontalAlign horizontalAlign) {
 	if (text == null) {
 	    return;
 	}
@@ -362,13 +365,24 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	underline = font != null && font.isUnderline();
 	strikeout = font != null && font.isStrikeout();
 	
+	// horizontal alignment: left, center, right
+	if (horizontalAlign == null || horizontalAlign == HorizontalAlign.FILL) {
+	    horizontalAlign = HorizontalAlign.LEFT;
+	}
+	int aligment = SWT.LEFT;
+	if (horizontalAlign == HorizontalAlign.CENTER) {
+	    aligment = SWT.CENTER;
+	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
+	    aligment = SWT.RIGHT;
+	}
+	
 	// create text layout
 	TextLayout textLayout = getTextLayout(xGC);
 	textLayout.setText(text);
 	textLayout.setWidth(width);
 	
-	// TODO: align
-	//textLayout.setAlignment(SWT.CENTER);
+	// horizontal alignment
+	textLayout.setAlignment(aligment);
 	
 	int textWidth = width; // TODO
 	int textHeight = textLayout.getBounds().height;

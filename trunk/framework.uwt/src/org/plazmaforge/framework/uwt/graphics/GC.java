@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.uwt.graphics;
 
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**
  * 
@@ -181,9 +182,13 @@ public final class GC extends UIObject {
     }
 
     ////
-    
+
     public void drawTextBox(String text,int x, int y, int width, int height) {
-	getAdapter().invoke(this, METHOD_DRAW_TEXT_BOX, new Object[] {text, x, y, width, height});
+	drawTextBox(text, x, y, width, height, null);
+    }
+    
+    public void drawTextBox(String text,int x, int y, int width, int height, HorizontalAlign horizontalAlign) {
+	getAdapter().invoke(this, METHOD_DRAW_TEXT_BOX, new Object[] {text, x, y, width, height, horizontalAlign});
     }
     
     ////
