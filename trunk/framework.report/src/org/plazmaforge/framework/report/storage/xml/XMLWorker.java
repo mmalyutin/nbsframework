@@ -27,13 +27,16 @@ import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
+import org.plazmaforge.framework.uwt.builder.formatter.type.HorizontalAlignFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 public class XMLWorker {
 
     protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
     protected static final FontFormatter FONT_FORMATTER = new FontFormatter();
+    protected static final HorizontalAlignFormatter HORIZONTAL_ALIGN_FORMATTER = new HorizontalAlignFormatter();
     
     private FormatterManager formatterManager;
     
@@ -146,6 +149,20 @@ public class XMLWorker {
 	Font font = (Font) FONT_FORMATTER.parse(value);
 	return font;
     }
+    
+    protected HorizontalAlign getHorizontalAlign(Element element, String name) {
+ 	if(element == null || name == null) {
+ 	    return null;
+ 	}
+
+ 	// color attribute (foreground, background)
+ 	String value = getStringValue(element, name);
+ 	if (value == null) {
+ 	    return null;
+ 	}
+ 	HorizontalAlign color = (HorizontalAlign) HORIZONTAL_ALIGN_FORMATTER.parse(value);
+ 	return color;
+   }
     
     protected String getContentValue(Element element) {
 	if (element == null) {

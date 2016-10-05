@@ -40,6 +40,7 @@ import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**
  * @author ohapon
@@ -317,7 +318,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 			//System.out.print("");
 			
 		    //}
-		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground);
+		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign());
 		}
 		
 		columnIndex = nextColumnIndex;
@@ -369,7 +370,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
     }
     
     
-    protected void drawText(GC gc, String text, int x, int y, int width, int height, Font font, Color foreground) {
+    protected void drawText(GC gc, String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign) {
 	if (text == null) {
 	    return;
 	}
@@ -380,6 +381,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    gc.setForeground(foreground);
 	}
 	//gc.drawText(text, x, y);
-	gc.drawTextBox(text, x, y, width, height);
+	gc.drawTextBox(text, x, y, width, height, horizontalAlign);
     }
 }
