@@ -35,7 +35,6 @@ import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.graphics.Size;
-import org.plazmaforge.framework.uwt.widget.Style;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 public class SWTGCAdapter extends SWTAbstractAdapter {
@@ -316,21 +315,14 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	strikeout = font != null && font.isStrikeout();
 
 	if (!underline && !strikeout) {
-	    //if (text.startsWith("Product")) {
-		//xGC.setClipping(x, y, 150, 9);
-	    //}
 	    xGC.drawText(text, x, y, true);
-	    //if (text.startsWith("Product")) {
-		//xGC.setClipping((Rectangle) null);
-	    //}
 	    return;
 
 	}
 	
-	//TODO
 	TextLayout textLayout = getTextLayout(xGC);
-	int textWidth = xGC.stringExtent(text).x;
-	textLayout.setWidth(textWidth + 10); // TODO: FIX: STUB
+	//int textWidth = xGC.stringExtent(text).x;
+	//textLayout.setWidth(textWidth + 10);
 	textLayout.setText(text);
 	
 	TextStyle textStyle = getTextStyle(xGC);
