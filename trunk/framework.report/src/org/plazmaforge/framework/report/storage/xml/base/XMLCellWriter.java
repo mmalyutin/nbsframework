@@ -28,6 +28,7 @@ import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**
  * 
@@ -46,6 +47,12 @@ public class XMLCellWriter extends XMLAbstractWriter {
 	// row span
 	if (cell.getRowspan() > 1) {
 	    setIntegerValue(node, XML_ATTR_ROWSPAN, cell.getRowspan());
+	}
+	
+	// horizontal alignment
+	HorizontalAlign horizontalAlign = cell.getHorizontalAlign();
+	if (horizontalAlign != null) {
+	    setHorizontalAlign(node, XML_ATTR_HORIZONTAL_ALIGN, horizontalAlign);
 	}
 	
 	// dataType

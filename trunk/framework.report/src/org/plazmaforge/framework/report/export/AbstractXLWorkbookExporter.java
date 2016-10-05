@@ -34,6 +34,7 @@ import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 
 
@@ -51,6 +52,18 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     public static final int CELL_TYPE_BLANK = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
     public static final int CELL_TYPE_BOOLEAN = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
     public static final int CELL_TYPE_ERROR = org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
+    
+    public static final short ALIGN_GENERAL = org.apache.poi.ss.usermodel.CellStyle.ALIGN_GENERAL;
+    public static final short ALIGN_LEFT = org.apache.poi.ss.usermodel.CellStyle.ALIGN_LEFT;
+    public static final short ALIGN_CENTER = org.apache.poi.ss.usermodel.CellStyle.ALIGN_CENTER;
+    public static final short ALIGN_RIGHT = org.apache.poi.ss.usermodel.CellStyle.ALIGN_RIGHT;
+    public static final short ALIGN_FILL = org.apache.poi.ss.usermodel.CellStyle.ALIGN_FILL;
+    public static final short ALIGN_JUSTIFY = org.apache.poi.ss.usermodel.CellStyle.ALIGN_JUSTIFY;
+    public static final short ALIGN_CENTER_SELECTION = org.apache.poi.ss.usermodel.CellStyle.ALIGN_CENTER_SELECTION;
+    public static final short VERTICAL_TOP = org.apache.poi.ss.usermodel.CellStyle.VERTICAL_TOP;
+    public static final short VERTICAL_CENTER = org.apache.poi.ss.usermodel.CellStyle.VERTICAL_CENTER;
+    public static final short VERTICAL_BOTTOM = org.apache.poi.ss.usermodel.CellStyle.VERTICAL_BOTTOM;
+    public static final short VERTICAL_JUSTIFY = org.apache.poi.ss.usermodel.CellStyle.VERTICAL_JUSTIFY;
     
     
     protected org.apache.poi.ss.usermodel.Workbook xWorkbook;
@@ -179,8 +192,9 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	if (cell == null) {
 	    return;
 	}
-	String format = normalizeString(cell.getFormat());
-	if (background == null && foreground == null && font == null && format == null) {
+	HorizontalAlign horizontalAlign = cell.getHorizontalAlign();
+	String format = normalizeString(cell.getFormat());	
+	if (background == null && foreground == null && font == null && horizontalAlign == null && format == null ) {
 	    return;
 	}
 	
@@ -203,12 +217,22 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    }
 	}
 
+	// cell: horizontal align
+	if (horizontalAlign != null) {
+	    if (horizontalAlign == HorizontalAlign.CENTER) {
+		cellStyle.setAlignment(ALIGN_CENTER);
+	    } else if (horizontalAlign == HorizontalAlign.RIGHT) {
+		cellStyle.setAlignment(ALIGN_RIGHT);
+	    }
+	}
+
 	if (format != null) {
 	    DataFormat df = xWorkbook.createDataFormat();
 	    short f = df.getFormat(format);
 	    cellStyle.setDataFormat(f);
 	}
 
+	
 	xCell.setCellStyle(cellStyle);
     }
     

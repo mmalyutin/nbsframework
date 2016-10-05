@@ -57,6 +57,12 @@ public class XMLCellReader extends XMLAbstractReader {
    	    cell.setRowspan(iValue);
    	}
 
+   	// horizontal alignment
+   	HorizontalAlign horizontalAlign = getHorizontalAlign(element, XML_ATTR_HORIZONTAL_ALIGN);
+   	if (horizontalAlign != null) {
+   	    cell.setHorizontalAlign(horizontalAlign);
+   	}
+   	
    	// dataType
    	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
    	if (sValue != null) {
@@ -69,11 +75,6 @@ public class XMLCellReader extends XMLAbstractReader {
    	    cell.setFormat(sValue);
    	}
    	
-   	HorizontalAlign horizontalAlign = getHorizontalAlign(element, "horizontal-align");
-   	if (horizontalAlign != null) {
-   	    cell.setHorizontalAlign(horizontalAlign);
-   	}
-
    	// value: attribute
    	//sValue = getStringValue(element, XML_ATTR_VALUE);
    	//if (sValue != null) {

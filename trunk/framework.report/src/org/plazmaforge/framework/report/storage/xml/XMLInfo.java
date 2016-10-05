@@ -65,6 +65,10 @@ public interface XMLInfo {
     
     String XML_ATTR_ROWSPAN = "rowspan";
     
+    String XML_ATTR_HORIZONTAL_ALIGN = "horizontal-align";
+    
+    String XML_ATTR_VERTICAL_ALIGN = "vertical-align";
+    
     String XML_ATTR_VALUE = "value";
     
     String XML_ATTR_DEFAULT_VALUE = "default-value";    
