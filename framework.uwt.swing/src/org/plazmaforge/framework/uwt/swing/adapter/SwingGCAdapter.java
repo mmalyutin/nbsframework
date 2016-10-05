@@ -324,12 +324,23 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	int lineX = x;
 	int lineY = y;
 	
+	//TODO: align
+	boolean center = false;
 	gc.setClip(x, y, width, height);
 	while (lineMeasurer.getPosition() < paragraph.getEndIndex()) {
+	    lineX = x;
 	    TextLayout textlayout = lineMeasurer.nextLayout(width);
 	    if (textlayout == null) {
 		break;
 	    }
+	    if (center) {
+		double w = textlayout.getBounds().getWidth();
+		if (w < width) {
+		    int k = (int) (width - w) / 2;
+		    lineX += k;
+		}
+	    }
+		
 	    lineY += textlayout.getAscent();
 	    textlayout.draw(gc, lineX, lineY);
 	    lineY += textlayout.getDescent() + textlayout.getLeading();
