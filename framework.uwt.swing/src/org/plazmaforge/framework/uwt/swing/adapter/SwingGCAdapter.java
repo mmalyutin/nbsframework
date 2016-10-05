@@ -37,6 +37,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.graphics.Size;
 import org.plazmaforge.framework.uwt.swing.util.SwingGCUtils;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 public class SwingGCAdapter extends SwingAbstractAdapter {
 
@@ -195,15 +196,16 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	    if (args == null) {
 		return null;
 	    }
-	    if (args.length == 5) {
+	    if (args.length >= 5) {
 		int fontHeight = xGC.getFont().getSize();
 		String text = getString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]); // + fontHeight; //TODO
 		int width = intValue(args[3]);
 		int height = intValue(args[4]);
+		HorizontalAlign horizontalAlign = args.length > 5 ? (HorizontalAlign) args[5] : null;
 		setForeground(xGC, gc);
-		drawText((java.awt.Graphics2D) xGC, text, x, y, width, height);
+		drawText((java.awt.Graphics2D) xGC, text, x, y, width, height, horizontalAlign);
 	    }
 	    return null;	    
 	    
@@ -289,7 +291,7 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	
     }
     
-    protected void drawText(java.awt.Graphics2D gc, String text, int x, int y, int width, int height) {
+    protected void drawText(java.awt.Graphics2D gc, String text, int x, int y, int width, int height, HorizontalAlign horizontalAlign) {
 	if (text == null) {
 	    return;
 	}
@@ -316,7 +318,10 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	    astr.addAttribute(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON, start, end);	    
 	}
 	
-	
+	// horizontal alignment: left, center, right
+	if (horizontalAlign == null || horizontalAlign == HorizontalAlign.FILL) {
+	    horizontalAlign = HorizontalAlign.LEFT;
+	}
 	
 	AttributedCharacterIterator paragraph = astr.getIterator();
 	LineBreakMeasurer lineMeasurer = new LineBreakMeasurer(paragraph, gc.getFontRenderContext());
@@ -324,22 +329,31 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	int lineX = x;
 	int lineY = y;
 	
-	//TODO: align
-	boolean center = false;
+	int textWidth = 0;
+	int textHeight = 0;
+	int offsetX = 0;
+	
 	gc.setClip(x, y, width, height);
 	while (lineMeasurer.getPosition() < paragraph.getEndIndex()) {
 	    lineX = x;
+	    offsetX = 0;
 	    TextLayout textlayout = lineMeasurer.nextLayout(width);
 	    if (textlayout == null) {
 		break;
 	    }
-	    if (center) {
-		double w = textlayout.getBounds().getWidth();
-		if (w < width) {
-		    int k = (int) (width - w) / 2;
-		    lineX += k;
+	    if (horizontalAlign == HorizontalAlign.CENTER) {
+		textWidth = (int) textlayout.getBounds().getWidth();
+		if (textWidth < width) {
+		    offsetX = (int) (width - textWidth) / 2;
+		}
+	    } else if (horizontalAlign == HorizontalAlign.RIGHT) {
+		textWidth = (int) textlayout.getBounds().getWidth();
+		if (textWidth < width) {
+		    offsetX = width - textWidth;
 		}
 	    }
+	    
+	    lineX += offsetX;
 		
 	    lineY += textlayout.getAscent();
 	    textlayout.draw(gc, lineX, lineY);
