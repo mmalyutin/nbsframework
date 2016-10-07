@@ -370,7 +370,7 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	    aligment = SWT.RIGHT;
 	}
 
-	// vertical alignment: left, center, right
+	// vertical alignment: top, middle, bottom
 	if (verticalAlign == null || verticalAlign == VerticalAlign.FILL) {
 	    verticalAlign = VerticalAlign.TOP;
 	}
