@@ -27,8 +27,11 @@ import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.uwt.UIObject;
@@ -38,6 +41,7 @@ import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.graphics.Size;
 import org.plazmaforge.framework.uwt.swing.util.SwingGCUtils;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 public class SwingGCAdapter extends SwingAbstractAdapter {
 
@@ -200,12 +204,13 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 		int fontHeight = xGC.getFont().getSize();
 		String text = getString(args[0]);
 		int x = intValue(args[1]);
-		int y = intValue(args[2]); // + fontHeight; //TODO
+		int y = intValue(args[2]);// + fontHeight; //TODO
 		int width = intValue(args[3]);
 		int height = intValue(args[4]);
 		HorizontalAlign horizontalAlign = args.length > 5 ? (HorizontalAlign) args[5] : null;
+		VerticalAlign verticalAlign = args.length > 6 ? (VerticalAlign) args[6] : null;
 		setForeground(xGC, gc);
-		drawText((java.awt.Graphics2D) xGC, text, x, y, width, height, horizontalAlign);
+		drawTextBox((java.awt.Graphics2D) xGC, text, x, y, width, height, horizontalAlign, verticalAlign);
 	    }
 	    return null;	    
 	    
@@ -291,7 +296,7 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	
     }
     
-    protected void drawText(java.awt.Graphics2D gc, String text, int x, int y, int width, int height, HorizontalAlign horizontalAlign) {
+    protected void drawTextBox(java.awt.Graphics2D gc, String text, int x, int y, int width, int height, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) {
 	if (text == null) {
 	    return;
 	}
@@ -323,6 +328,11 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	    horizontalAlign = HorizontalAlign.LEFT;
 	}
 	
+	// vertical alignment: top, middle, bottom
+	if (verticalAlign == null || verticalAlign == VerticalAlign.FILL) {
+	    verticalAlign = VerticalAlign.TOP;
+	}
+	
 	AttributedCharacterIterator paragraph = astr.getIterator();
 	LineBreakMeasurer lineMeasurer = new LineBreakMeasurer(paragraph, gc.getFontRenderContext());
 	
@@ -332,8 +342,62 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	int textWidth = 0;
 	int textHeight = 0;
 	int offsetX = 0;
+	int offsetY = 0;
 	
 	gc.setClip(x, y, width, height);
+	
+	List<TextLayout> textlayouts = new ArrayList<TextLayout>();
+	List<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
+	
+	while (lineMeasurer.getPosition() < paragraph.getEndIndex()) {
+	    TextLayout textlayout = lineMeasurer.nextLayout(width);
+	    if (textlayout == null) {
+		break;
+	    }
+	    textlayouts.add(textlayout);
+	    
+	    Rectangle2D rectangle = textlayout.getBounds(); 
+	    rectangles.add(rectangle);
+	    
+	    textHeight += textlayout.getAscent() + textlayout.getLeading() + textlayout.getDescent();
+	}
+
+	if (textHeight < height) {
+	    if (verticalAlign == VerticalAlign.MIDDLE) {
+		offsetY = (height - textHeight) / 2;
+	    } else if  (verticalAlign == VerticalAlign.BOTTOM) {
+		offsetY = height - textHeight;
+	    }
+	}
+	
+	lineY += offsetY;
+	
+	for (int i = 0; i < textlayouts.size(); i++) {
+	    lineX = x;
+	    offsetX = 0;
+	    TextLayout textlayout = textlayouts.get(i);
+	    Rectangle2D rectangle = rectangles.get(i);
+	    
+	    if (horizontalAlign == HorizontalAlign.CENTER) {
+		textWidth = (int) rectangle.getWidth();
+		if (textWidth < width) {
+		    offsetX = (int) (width - textWidth) / 2;
+		}
+	    } else if (horizontalAlign == HorizontalAlign.RIGHT) {
+		textWidth = (int) rectangle.getWidth();
+		if (textWidth < width) {
+		    offsetX = width - textWidth;
+		}
+	    }
+	    
+	    lineX += offsetX;
+		
+	    lineY += textlayout.getAscent(); // 1
+	    textlayout.draw(gc, lineX, lineY);
+	    lineY += textlayout.getDescent() + textlayout.getLeading(); // 2
+	}
+	
+	/*
 	while (lineMeasurer.getPosition() < paragraph.getEndIndex()) {
 	    lineX = x;
 	    offsetX = 0;
@@ -359,6 +423,9 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	    textlayout.draw(gc, lineX, lineY);
 	    lineY += textlayout.getDescent() + textlayout.getLeading();
 	}
+	*/
+	
+	
 	gc.setClip((Shape) null);
 	
     }
