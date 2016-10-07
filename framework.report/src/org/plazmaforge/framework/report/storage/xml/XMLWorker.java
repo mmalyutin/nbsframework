@@ -126,55 +126,21 @@ public class XMLWorker {
 
     
     protected Color getColor(Element element, String name) {
-	if(element == null || name == null) {
-	    return null;
-	}
-
 	// color attribute (foreground, background)
-	String value = getStringValue(element, name);
-	if (value == null) {
-	    return null;
-	}
-	Color color = (Color) COLOR_FORMATTER.parse(value);
-	return color;
+	return (Color) COLOR_FORMATTER.parse(getStringValue(element, name));
     }
 
     protected Font getFont(Element element, String name) {
-	if(element == null || name == null) {
-	    return null;
-	}
-
 	// font attribute: name, size, style
-	String value = getStringValue(element, name);
-	if (value == null) {
-	    return null;
-	}
-	Font font = (Font) FONT_FORMATTER.parse(value);
-	return font;
+	return (Font) FONT_FORMATTER.parse(getStringValue(element, name));
     }
     
     protected HorizontalAlign getHorizontalAlign(Element element, String name) {
- 	if(element == null || name == null) {
- 	    return null;
- 	}
- 	String value = getStringValue(element, name);
- 	if (value == null) {
- 	    return null;
- 	}
- 	HorizontalAlign align = (HorizontalAlign) HORIZONTAL_ALIGN_FORMATTER.parse(value);
- 	return align;
+ 	return (HorizontalAlign) HORIZONTAL_ALIGN_FORMATTER.parse(getStringValue(element, name));
    }
 
     protected VerticalAlign getVerticalAlign(Element element, String name) {
- 	if(element == null || name == null) {
- 	    return null;
- 	}
- 	String value = getStringValue(element, name);
- 	if (value == null) {
- 	    return null;
- 	}
- 	VerticalAlign align = (VerticalAlign) VERTICAL_ALIGN_FORMATTER.parse(value);
- 	return align;
+ 	return (VerticalAlign) VERTICAL_ALIGN_FORMATTER.parse(getStringValue(element, name));
    }
     
     protected String getContentValue(Element element) {
