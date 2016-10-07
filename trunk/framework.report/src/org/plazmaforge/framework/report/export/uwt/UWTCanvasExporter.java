@@ -41,6 +41,7 @@ import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 /**
  * @author ohapon
@@ -318,7 +319,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 			//System.out.print("");
 			
 		    //}
-		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign());
+		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
 		}
 		
 		columnIndex = nextColumnIndex;
@@ -370,7 +371,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
     }
     
     
-    protected void drawText(GC gc, String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign) {
+    protected void drawText(GC gc, String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) {
 	if (text == null) {
 	    return;
 	}
@@ -381,6 +382,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    gc.setForeground(foreground);
 	}
 	//gc.drawText(text, x, y);
-	gc.drawTextBox(text, x, y, width, height, horizontalAlign);
+	gc.drawTextBox(text, x, y, width, height, horizontalAlign, verticalAlign);
     }
 }

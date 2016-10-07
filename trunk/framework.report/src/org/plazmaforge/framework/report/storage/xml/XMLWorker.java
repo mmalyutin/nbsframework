@@ -28,15 +28,18 @@ import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.HorizontalAlignFormatter;
+import org.plazmaforge.framework.uwt.builder.formatter.type.VerticalAlignFormatter;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 public class XMLWorker {
 
     protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
     protected static final FontFormatter FONT_FORMATTER = new FontFormatter();
     protected static final HorizontalAlignFormatter HORIZONTAL_ALIGN_FORMATTER = new HorizontalAlignFormatter();
+    protected static final VerticalAlignFormatter VERTICAL_ALIGN_FORMATTER = new VerticalAlignFormatter();
     
     private FormatterManager formatterManager;
     
@@ -154,14 +157,24 @@ public class XMLWorker {
  	if(element == null || name == null) {
  	    return null;
  	}
-
- 	// color attribute (foreground, background)
  	String value = getStringValue(element, name);
  	if (value == null) {
  	    return null;
  	}
- 	HorizontalAlign color = (HorizontalAlign) HORIZONTAL_ALIGN_FORMATTER.parse(value);
- 	return color;
+ 	HorizontalAlign align = (HorizontalAlign) HORIZONTAL_ALIGN_FORMATTER.parse(value);
+ 	return align;
+   }
+
+    protected VerticalAlign getVerticalAlign(Element element, String name) {
+ 	if(element == null || name == null) {
+ 	    return null;
+ 	}
+ 	String value = getStringValue(element, name);
+ 	if (value == null) {
+ 	    return null;
+ 	}
+ 	VerticalAlign align = (VerticalAlign) VERTICAL_ALIGN_FORMATTER.parse(value);
+ 	return align;
    }
     
     protected String getContentValue(Element element) {
@@ -196,6 +209,10 @@ public class XMLWorker {
 
      protected void setHorizontalAlign(Element element, String name, HorizontalAlign horizontalAlign) {
  	setStringValue(element, name, horizontalAlign == null ? null : HORIZONTAL_ALIGN_FORMATTER.format(horizontalAlign));
+     }
+
+     protected void setVerticalAlign(Element element, String name, VerticalAlign verticalAlign) {
+ 	setStringValue(element, name, verticalAlign == null ? null : VERTICAL_ALIGN_FORMATTER.format(verticalAlign));
      }
      
      protected void setContentValue(Element element, Object value) {

@@ -29,6 +29,7 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 /**
  * 
@@ -61,6 +62,12 @@ public class XMLCellReader extends XMLAbstractReader {
    	HorizontalAlign horizontalAlign = getHorizontalAlign(element, XML_ATTR_HORIZONTAL_ALIGN);
    	if (horizontalAlign != null) {
    	    cell.setHorizontalAlign(horizontalAlign);
+   	}
+
+   	// vertical alignment
+   	VerticalAlign verticalAlign = getVerticalAlign(element, XML_ATTR_VERTICAL_ALIGN);
+   	if (verticalAlign != null) {
+   	    cell.setVerticalAlign(verticalAlign);
    	}
    	
    	// dataType
