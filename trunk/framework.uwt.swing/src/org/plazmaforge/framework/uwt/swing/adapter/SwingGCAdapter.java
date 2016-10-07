@@ -305,7 +305,7 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	Object underlineObject = m.get(TextAttribute.UNDERLINE);
 	Object strikeoutObject = m.get(TextAttribute.STRIKETHROUGH);
 	
-	boolean underline = underlineObject != null && underlineObject.equals(1);
+	boolean underline = underlineObject != null && (((Integer) underlineObject > -1));
 	boolean strikeout = strikeoutObject != null && strikeoutObject.equals(true);
 	 
 	AttributedString astr = new AttributedString(text);
