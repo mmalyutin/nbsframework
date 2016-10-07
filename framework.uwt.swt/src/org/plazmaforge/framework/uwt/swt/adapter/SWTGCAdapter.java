@@ -36,6 +36,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.graphics.Size;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 public class SWTGCAdapter extends SWTAbstractAdapter {
 
@@ -209,8 +210,9 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 		int width = intValue(args[3]);
 		int height = intValue(args[4]);
 		HorizontalAlign horizontalAlign = args.length > 5 ? (HorizontalAlign) args[5] : null;
+		VerticalAlign verticalAlign = args.length > 6 ? (VerticalAlign) args[6] : null;
 		setForegroundAlpha(xGC, gc);
-		drawTextBox(gc, xGC, text, x, y, width, height, horizontalAlign); 
+		drawTextBox(gc, xGC, text, x, y, width, height, horizontalAlign, verticalAlign); 
 	    }
 	    return null;
 	    
@@ -347,7 +349,7 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	return textStyle;
     }
     
-    protected void drawTextBox(GC gc, org.eclipse.swt.graphics.GC xGC, String text, int x, int y, int width, int height, HorizontalAlign horizontalAlign) {
+    protected void drawTextBox(GC gc, org.eclipse.swt.graphics.GC xGC, String text, int x, int y, int width, int height, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) {
 	if (text == null) {
 	    return;
 	}
@@ -367,6 +369,12 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
 	    aligment = SWT.RIGHT;
 	}
+
+	// vertical alignment: left, center, right
+	if (verticalAlign == null || verticalAlign == VerticalAlign.FILL) {
+	    verticalAlign = VerticalAlign.TOP;
+	}
+	
 	
 	// create text layout
 	TextLayout textLayout = getTextLayout(xGC);
@@ -376,8 +384,25 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	// horizontal alignment
 	textLayout.setAlignment(aligment);
 	
-	int textWidth = width; // TODO
-	int textHeight = textLayout.getBounds().height;
+	int textWidth = width;
+	int textHeight = 0;
+	//int textHeight = textLayout.getBounds().height;
+	
+	// calculate text height
+	int lineCount = textLayout.getLineCount();
+	for (int i = 0; i < lineCount; i++) {
+	    textHeight += textLayout.getLineBounds(i).height;
+	}
+	
+	int offsetY = 0;
+	if (textHeight < height) {
+	    if (verticalAlign == VerticalAlign.MIDDLE) {
+		offsetY = (height - textHeight) / 2;
+	    } else if  (verticalAlign == VerticalAlign.BOTTOM) {
+		offsetY = height - textHeight;
+	    }
+	}
+	
 	
 	// create text style
 	TextStyle textStyle = getTextStyle(xGC);
@@ -388,7 +413,7 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 
 	// draw text (clip)
 	xGC.setClipping(x, y, width, height);
-	textLayout.draw(xGC, x, y);
+	textLayout.draw(xGC, x, y + offsetY);
 	xGC.setClipping((Rectangle) null);
 	
 	textLayout.dispose();
