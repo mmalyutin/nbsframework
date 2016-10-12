@@ -65,12 +65,17 @@ public class GlobalScope extends Scope {
 	if (!isGlobalVariableMode(var)) {
 	    return super.getVariableValue(var);
 	}
-	LValue lValue = super.getVariableValue(var);
-	if (lValue == null) {
-	    Object value = variableProvider.getVariableValue(var); // get NATIVE value form external environment
-	    lValue = ValueAdapter.fromNativeValue(value);
-	    super.setVariableValue(var, lValue); // WARNING!
-	}
+	Object value = variableProvider.getVariableValue(var); // get NATIVE value form external environment
+	LValue lValue = ValueAdapter.fromNativeValue(value);
+	super.setVariableValue(var, lValue); // WARNING!
+
+//	LValue lValue = super.getVariableValue(var);
+//	if (lValue == null) {
+//	    Object value = variableProvider.getVariableValue(var); // get NATIVE value form external environment
+//	    lValue = ValueAdapter.fromNativeValue(value);
+//	    super.setVariableValue(var, lValue); // WARNING!
+//	}
+	
 	return lValue;
     }
 
