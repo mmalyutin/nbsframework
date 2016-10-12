@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.core.data.formatter;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
@@ -44,9 +45,108 @@ import org.plazmaforge.framework.core.type.Types;
  */
 public class FormatterManager  {
 
+    private Map<String, FormatterFactory<?>> formatterFactories = new LinkedHashMap<String, FormatterFactory<?>>();
+
+    private FormatterRegistry formatterRegistry = new FormatterRegistry();
+
+    private final boolean cacheMode;
+    
     
     private Map<String, Formatter<?>> formatters = new HashMap<String, Formatter<?>>();
     
+    
+    public FormatterManager() {
+	this(false);
+    }
+
+    public FormatterManager(boolean cacheMode) {
+	this.cacheMode = cacheMode;
+    }
+    
+    public boolean isCacheMode() {
+        return cacheMode;
+    }
+    
+
+    public void registerFormatterFactory(String name, FormatterFactory<?> formatterFactory) {
+	formatterFactories.put(name, formatterFactory);
+    }
+    
+    public void unregisterFormatterFactory(String name) {
+	formatterFactories.remove(name);
+    }
+    
+    public FormatterFactory<?> getFormatterFactory(String name) {
+	return formatterFactories.get(name);
+    }
+    
+    public Map<String, FormatterFactory<?>> getFormatterFactories() {
+	return new LinkedHashMap<String, FormatterFactory<?>>(formatterFactories);    
+    }
+    
+    ////
+    
+    public Formatter<?> getFormatter1(String name) {
+	if (name == null) {
+	    return null;
+	}
+	String path = getFormatterPath(name, null);
+	Formatter<?> formatter = doGetFormatter(path);
+	if (formatter != null) {
+	    return formatter;
+	}
+	FormatterFactory<?> formatterFactory = getFormatterFactory(name);
+	if (formatterFactory == null) {
+	    return null;
+	}
+	formatter = formatterFactory.getFormatter();
+	doAddFormatter(path, formatter);
+	return formatter;
+    }
+    
+    public Formatter<?> getFormatter1(String name, String format) {
+	if (name == null) {
+	    return null;
+	}
+	String path = getFormatterPath(name, format);
+	Formatter<?> formatter = doGetFormatter(path);
+	if (formatter != null) {
+	    return formatter;
+	}
+	FormatterFactory<?> formatterFactory = getFormatterFactory(name);
+	if (formatterFactory == null) {
+	    return null;
+	}
+	formatter = formatterFactory.getFormatter(format);
+	doAddFormatter(path, formatter);
+	return formatter;
+    }
+    
+    protected String getFormatterPath(String name, String format) {
+	if (name == null) {
+	    return null;
+	}
+	if (format == null) {
+	    return name;
+	}
+	return name + "::" + format;
+    }
+    
+    protected Formatter<?> doGetFormatter(String path) {
+	if (!cacheMode) {
+	    return null;
+	}
+	return formatterRegistry.getFormatter(path);
+    }
+
+    protected void doAddFormatter(String path, Formatter<?> formatter) {
+	if (!cacheMode) {
+	    return;
+	}
+	formatterRegistry.addFormatter(path, formatter);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public void registerFormatter(String type, Formatter<?> formatter) {
 	formatters.put(type, formatter);
@@ -79,18 +179,18 @@ public class FormatterManager  {
 	   return null; 
 	}
 	if (format == null) {
-	    return doGetFormatter(type); 
+	    return doGetFormatter2(type); 
 	}
 
 	// TODO: 
 	// by path: <type>::<format>
 	String path = getFormatterPath(type, format);
-	Formatter<?> formatter = doGetFormatter(path);
+	Formatter<?> formatter = doGetFormatter2(path);
 	if (formatter != null) {
 	    return formatter;
 	}
 	// by type
-	formatter = doGetFormatter(type);
+	formatter = doGetFormatter2(type);
 	if (formatter == null) {
 	    return null;
 	}
@@ -98,23 +198,13 @@ public class FormatterManager  {
 	return formatter;
     }
     
-    protected Formatter<?> doGetFormatter(String type) {
+    protected Formatter<?> doGetFormatter2(String type) {
 	return formatters.get(type);
     }
     
     
-    protected String getFormatterPath(String name, String format) {
- 	if (name == null) {
- 	    return null;
- 	}
- 	if (format  == null) {
- 	    return name;
- 	}
- 	return name + "::" + format;
-     }
-
     
-    //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     public String toString(Object value, String type) {
@@ -138,6 +228,7 @@ public class FormatterManager  {
 	}
 	return formatter.parse(value);
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     
 }
