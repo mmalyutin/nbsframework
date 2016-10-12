@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.formatter.type.RWBooleanFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
@@ -146,6 +147,13 @@ public class FormatterManager  {
 	formatterRegistry.addFormatter(path, formatter);
     }
 
+    public void registerBaseFormatterFactories() {
+	//TODO
+	registerFormatterFactory(Types.StringType, new RWStringFormatterFactory());
+	registerFormatterFactory(Types.TextType, new RWStringFormatterFactory());
+	registerFormatterFactory(Types.BooleanType, new RWBooleanFormatterFactory());
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public void registerFormatter(String type, Formatter<?> formatter) {
@@ -159,7 +167,8 @@ public class FormatterManager  {
     public void registerDefaultFormatters() {
 	registerFormatter(Types.StringType, new RWStringFormatter());
 	registerFormatter(Types.TextType, new RWStringFormatter());
-	registerFormatter(Types.BooleanType, new RWByteFormatter());
+	registerFormatter(Types.BooleanType, new RWBooleanFormatter());
+	registerFormatter(Types.ByteType, new RWByteFormatter());	
 	registerFormatter(Types.ShortType, new RWShortFormatter());
 	registerFormatter(Types.IntegerType, new RWIntegerFormatter());
 	registerFormatter(Types.FloatType, new RWFloatFormatter());
@@ -229,6 +238,34 @@ public class FormatterManager  {
 	return formatter.parse(value);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    private static class RWStringFormatterFactory implements FormatterFactory<String> {
+
+	@Override
+	public Formatter<String> getFormatter() {
+	    return new RWStringFormatter();
+	}
+
+	@Override
+	public Formatter<String> getFormatter(String format) {
+	    return getFormatter();
+	}
+	
+    }
+    
+    
+    private static class RWBooleanFormatterFactory implements FormatterFactory<Boolean> {
+
+  	@Override
+  	public Formatter<Boolean> getFormatter() {
+  	    return new RWBooleanFormatter();
+  	}
+
+  	@Override
+  	public Formatter<Boolean> getFormatter(String format) {
+  	    return getFormatter();
+  	}
+  	
+    }    
 }
