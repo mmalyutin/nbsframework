@@ -1113,25 +1113,16 @@ public abstract class ListForm<T> extends Form<T> implements IListForm<T> {
 	}
 	
 	// AUTO FORMATTER
-	Formatter formatter = column.getFormatter();
+	Formatter<?> formatter = column.getFormatter();
 	if (formatter != null) {
 	    // Formatter is not empty
 	    return;
 	}
-	formatter = getFormatterFactory().getFormatter(column.getDataType(), format);
+	formatter = getFormatter(column.getDataType(), format);
 	column.setFormatter(formatter);
 	
     }
     
-    private FormatterFactory formatterFactory;
-    
-    protected  FormatterFactory getFormatterFactory() {
-	if (formatterFactory == null) {
-	    formatterFactory = new FormatterFactory();
-	    formatterFactory.registerDefaultFormatters();
-	}
-	return formatterFactory;
-    }
 
     @Override
     protected void updateState() {

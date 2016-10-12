@@ -22,14 +22,101 @@
 
 package org.plazmaforge.framework.core.data.formatter;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWDoubleFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWFloatFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWIntegerFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWShortFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWStringFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWTimeFormatter;
+import org.plazmaforge.framework.core.type.Types;
+
 
 /**
  * 
  * @author ohapon
  *
  */
-public class FormatterManager extends FormatterFactory {
+public class FormatterManager  {
 
+    
+    private Map<String, Formatter<?>> formatters = new HashMap<String, Formatter<?>>();
+    
+    
+    public void registerFormatter(String type, Formatter<?> formatter) {
+	formatters.put(type, formatter);
+    }
+
+    public void unregisterFormatter(String type) {
+	formatters.remove(type);
+    }
+    
+    public void registerDefaultFormatters() {
+	registerFormatter(Types.StringType, new RWStringFormatter());
+	registerFormatter(Types.TextType, new RWStringFormatter());
+	registerFormatter(Types.BooleanType, new RWByteFormatter());
+	registerFormatter(Types.ShortType, new RWShortFormatter());
+	registerFormatter(Types.IntegerType, new RWIntegerFormatter());
+	registerFormatter(Types.FloatType, new RWFloatFormatter());
+	registerFormatter(Types.DoubleType, new RWDoubleFormatter());
+	registerFormatter(Types.DateType, new RWDateFormatter());
+	registerFormatter(Types.TimeType, new RWTimeFormatter());
+	registerFormatter(Types.DateTimeType, new RWDateTimeFormatter());
+    }
+    
+    
+    public Formatter<?> getFormatter(String type) {
+	return getFormatter(type, null);
+    }
+
+    public Formatter<?> getFormatter(String type, String format) {
+	if (type == null) {
+	   return null; 
+	}
+	if (format == null) {
+	    return doGetFormatter(type); 
+	}
+
+	// TODO: 
+	// by path: <type>::<format>
+	String path = getFormatterPath(type, format);
+	Formatter<?> formatter = doGetFormatter(path);
+	if (formatter != null) {
+	    return formatter;
+	}
+	// by type
+	formatter = doGetFormatter(type);
+	if (formatter == null) {
+	    return null;
+	}
+	registerFormatter(path, formatter);
+	return formatter;
+    }
+    
+    protected Formatter<?> doGetFormatter(String type) {
+	return formatters.get(type);
+    }
+    
+    
+    protected String getFormatterPath(String name, String format) {
+ 	if (name == null) {
+ 	    return null;
+ 	}
+ 	if (format  == null) {
+ 	    return name;
+ 	}
+ 	return name + "::" + format;
+     }
+
+    
+    //////////////////////////////////////////////////////////////////////////
+    
+    
     public String toString(Object value, String type) {
 	if (value == null) {
 	    return null;

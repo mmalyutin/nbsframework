@@ -34,6 +34,8 @@ import org.plazmaforge.framework.core.data.CallbackAdapter;
 import org.plazmaforge.framework.core.data.DataResult;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.PropertyProviderFactory;
+import org.plazmaforge.framework.core.data.formatter.Formatter;
+import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.data.provider.DataProvider;
 import org.plazmaforge.framework.core.data.provider.DataProviderAsync;
 import org.plazmaforge.framework.core.data.provider.ModelProviderAsync;
@@ -257,6 +259,12 @@ public abstract class Form<T> extends ContainerView<T> implements IForm<T> {
      * Closed flag
      */
     private boolean closed;
+
+    /**
+     * Formatter Manager 
+     */
+    private FormatterManager formatterManager;
+    
     
     public Form() {
 	super();
@@ -1241,4 +1249,21 @@ public abstract class Form<T> extends ContainerView<T> implements IForm<T> {
 	}
 	return formClassName;
     }
+
+    protected Formatter<?> getFormatter(String dataType) {
+	return getFormatter(dataType, null);
+    }
+    
+    protected Formatter<?> getFormatter(String dataType, String format) {
+	return getFormatterManager().getFormatter(dataType, format);
+    }
+    
+    protected FormatterManager getFormatterManager() {
+	if (formatterManager == null) {
+	    formatterManager = new FormatterManager();
+	    formatterManager.registerDefaultFormatters();
+	}
+	return formatterManager;
+    }
+    
 }
