@@ -36,6 +36,7 @@ import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
+import org.plazmaforge.framework.core.data.formatter.RWFormatterManager;
 import org.plazmaforge.framework.core.data.provider.DataProvider;
 import org.plazmaforge.framework.core.data.provider.DataProviderAsync;
 import org.plazmaforge.framework.core.data.provider.ModelProviderAsync;
@@ -1260,8 +1261,9 @@ public abstract class Form<T> extends ContainerView<T> implements IForm<T> {
     
     protected FormatterManager getFormatterManager() {
 	if (formatterManager == null) {
-	    formatterManager = new FormatterManager();
-	    formatterManager.registerDefaultFormatters();
+	    // TODO: Use UI Formatter Manager
+	    formatterManager = new RWFormatterManager();
+	    formatterManager.init();
 	}
 	return formatterManager;
     }
