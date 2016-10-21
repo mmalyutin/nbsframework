@@ -24,6 +24,7 @@ package org.plazmaforge.framework.report.storage.xml;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
+import org.plazmaforge.framework.core.data.formatter.RWFormatterManager;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
@@ -47,8 +48,9 @@ public class XMLWorker {
 
     protected  FormatterManager getFormatterManager() {
 	if (formatterManager == null) {
-	    formatterManager = new FormatterManager();
-	    formatterManager.registerDefaultFormatters();
+	    // Read/Write FormatterManager
+	    formatterManager = new RWFormatterManager();
+	    formatterManager.init();
 	}
 	return formatterManager;
     }
