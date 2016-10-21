@@ -22,24 +22,23 @@
 
 package org.plazmaforge.framework.core.data.formatter;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.plazmaforge.framework.core.data.formatter.type.RWBooleanFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWDoubleFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWFloatFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWIntegerFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWShortFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWStringFormatter;
-import org.plazmaforge.framework.core.data.formatter.type.RWTimeFormatter;
-import org.plazmaforge.framework.core.type.Types;
 
 
 /**
+ * 
+ * General FormatterManager
+ * 
+ * - Register/Unregister FormatterFactory
+ * 
+ * - Get FormatterFactory by name 
+ * 
+ * - Get Formatter by:  (name) | (name, format)
+ * 
+ * - Use FormatterRegistry for cache mode
+ * 
  * 
  * @author ohapon
  *
@@ -51,9 +50,6 @@ public class FormatterManager  {
     private FormatterRegistry formatterRegistry = new FormatterRegistry();
 
     private final boolean cacheMode;
-    
-    
-    private Map<String, Formatter<?>> formatters = new HashMap<String, Formatter<?>>();
     
     
     public FormatterManager() {
@@ -87,7 +83,7 @@ public class FormatterManager  {
     
     ////
     
-    public Formatter<?> getFormatter1(String name) {
+    public Formatter<?> getFormatter(String name) {
 	if (name == null) {
 	    return null;
 	}
@@ -105,7 +101,7 @@ public class FormatterManager  {
 	return formatter;
     }
     
-    public Formatter<?> getFormatter1(String name, String format) {
+    public Formatter<?> getFormatter(String name, String format) {
 	if (name == null) {
 	    return null;
 	}
@@ -147,74 +143,11 @@ public class FormatterManager  {
 	formatterRegistry.addFormatter(path, formatter);
     }
 
-    public void registerBaseFormatterFactories() {
-	//TODO
-	registerFormatterFactory(Types.StringType, new RWStringFormatterFactory());
-	registerFormatterFactory(Types.TextType, new RWStringFormatterFactory());
-	registerFormatterFactory(Types.BooleanType, new RWBooleanFormatterFactory());
+    public void init() {
+	// do nothing by default
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    public void registerFormatter(String type, Formatter<?> formatter) {
-	formatters.put(type, formatter);
-    }
-
-    public void unregisterFormatter(String type) {
-	formatters.remove(type);
-    }
-    
-    public void registerDefaultFormatters() {
-	registerFormatter(Types.StringType, new RWStringFormatter());
-	registerFormatter(Types.TextType, new RWStringFormatter());
-	registerFormatter(Types.BooleanType, new RWBooleanFormatter());
-	registerFormatter(Types.ByteType, new RWByteFormatter());	
-	registerFormatter(Types.ShortType, new RWShortFormatter());
-	registerFormatter(Types.IntegerType, new RWIntegerFormatter());
-	registerFormatter(Types.FloatType, new RWFloatFormatter());
-	registerFormatter(Types.DoubleType, new RWDoubleFormatter());
-	registerFormatter(Types.DateType, new RWDateFormatter());
-	registerFormatter(Types.TimeType, new RWTimeFormatter());
-	registerFormatter(Types.DateTimeType, new RWDateTimeFormatter());
-    }
-    
-    
-    public Formatter<?> getFormatter(String type) {
-	return getFormatter(type, null);
-    }
-
-    public Formatter<?> getFormatter(String type, String format) {
-	if (type == null) {
-	   return null; 
-	}
-	if (format == null) {
-	    return doGetFormatter2(type); 
-	}
-
-	// TODO: 
-	// by path: <type>::<format>
-	String path = getFormatterPath(type, format);
-	Formatter<?> formatter = doGetFormatter2(path);
-	if (formatter != null) {
-	    return formatter;
-	}
-	// by type
-	formatter = doGetFormatter2(type);
-	if (formatter == null) {
-	    return null;
-	}
-	registerFormatter(path, formatter);
-	return formatter;
-    }
-    
-    protected Formatter<?> doGetFormatter2(String type) {
-	return formatters.get(type);
-    }
-    
-    
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     
     public String toString(Object value, String type) {
 	if (value == null) {
@@ -238,34 +171,4 @@ public class FormatterManager  {
 	return formatter.parse(value);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    private static class RWStringFormatterFactory implements FormatterFactory<String> {
-
-	@Override
-	public Formatter<String> getFormatter() {
-	    return new RWStringFormatter();
-	}
-
-	@Override
-	public Formatter<String> getFormatter(String format) {
-	    return getFormatter();
-	}
-	
-    }
-    
-    
-    private static class RWBooleanFormatterFactory implements FormatterFactory<Boolean> {
-
-  	@Override
-  	public Formatter<Boolean> getFormatter() {
-  	    return new RWBooleanFormatter();
-  	}
-
-  	@Override
-  	public Formatter<Boolean> getFormatter(String format) {
-  	    return getFormatter();
-  	}
-  	
-    }    
 }

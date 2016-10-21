@@ -39,6 +39,15 @@ import org.plazmaforge.framework.core.data.converter.type.date.String2TimeConver
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
+ * General ConverterManager
+ * 
+ * - Register/Unregister ConverterFactory
+ * 
+ * - Get ConverterFactory by name 
+ * 
+ * - Get Converter by:  (name) | (name, format) | (name, sourceFormat, targetFormat)
+ * 
+ * - Use ConverterRegistry for cache mode
  * 
  * @author ohapon
  *
