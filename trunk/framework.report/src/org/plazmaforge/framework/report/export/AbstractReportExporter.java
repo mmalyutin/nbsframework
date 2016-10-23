@@ -29,6 +29,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.formatter.FormatterManager;
+import org.plazmaforge.framework.core.data.formatter.STFormatterManager;
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.util.StringUtils;
@@ -40,6 +42,8 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public abstract class AbstractReportExporter implements ReportExporter {
 
+    private FormatterManager formatterManager;
+    
     private Map<String, Object> dataMap;
 
     public AbstractReportExporter() {
@@ -104,6 +108,14 @@ public abstract class AbstractReportExporter implements ReportExporter {
     protected String normalizeString(String str) {
 	return StringUtils.normalizeString(str);
     }
+
+    protected FormatterManager getFormatterManager() {
+	if (formatterManager == null) {
+	    formatterManager = new STFormatterManager();
+	}
+        return formatterManager;
+    }
+    
     
 }
 
