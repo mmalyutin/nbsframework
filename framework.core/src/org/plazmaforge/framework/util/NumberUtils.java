@@ -459,7 +459,7 @@ public class NumberUtils {
 	if (type == null) {
 	    return false;
 	}
-	return isByte(type) || isShort(type) || isInteger(type) || isLong(type);
+	return isByte(type) || isShort(type) || isInteger(type) || isLong(type) || isBigInteger(type);
     }
 
     public static boolean isLikeDecimal(Class<?> type) {
