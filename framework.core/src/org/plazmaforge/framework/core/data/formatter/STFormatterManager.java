@@ -32,6 +32,7 @@ import org.plazmaforge.framework.core.data.formatter.type.DoubleFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.FloatFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.IntegerFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.ShortFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.StringFormatter;
 //import org.plazmaforge.framework.core.data.formatter.type.StringFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.TimeFormatter;
 import org.plazmaforge.framework.core.type.Types;
@@ -50,8 +51,8 @@ public class STFormatterManager extends FormatterManager {
     }
     
     protected void registerFormatterFactories() {
-//	registerFormatterFactory(Types.StringType, new StringFormatterFactory());
-//	registerFormatterFactory(Types.TextType, new StringFormatterFactory());
+	registerFormatterFactory(Types.StringType, new StringFormatterFactory());
+	registerFormatterFactory(Types.TextType, new StringFormatterFactory());
 	registerFormatterFactory(Types.BooleanType, new BooleanFormatterFactory());
 	registerFormatterFactory(Types.ByteType, new ByteFormatterFactory());
 	registerFormatterFactory(Types.ShortType, new ShortFormatterFactory());
@@ -66,14 +67,14 @@ public class STFormatterManager extends FormatterManager {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-//    private static class StringFormatterFactory extends AbstractFormatterFactory<String> {
-//
-//	@Override
-//	public Formatter<String> getFormatter() {
-//	    return new StringFormatter();
-//	}
-//
-//    }
+    private static class StringFormatterFactory extends AbstractFormatterFactory<String> {
+
+	@Override
+	public Formatter<String> getFormatter() {
+	    return new StringFormatter();
+	}
+
+    }
     
     private static class BooleanFormatterFactory extends AbstractFormatterFactory<Boolean> {
 
