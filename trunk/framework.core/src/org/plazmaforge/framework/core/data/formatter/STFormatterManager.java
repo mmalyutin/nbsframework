@@ -22,8 +22,12 @@
 
 package org.plazmaforge.framework.core.data.formatter;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
+import org.plazmaforge.framework.core.data.formatter.type.BigDecimalFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.BigIntegerFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.BooleanFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.ByteFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.DateFormatter;
@@ -69,6 +73,8 @@ public class STFormatterManager extends FormatterManager {
 	registerFormatterFactory(Types.LongType, new LongFormatterFactory());
 	registerFormatterFactory(Types.FloatType, new FloatFormatterFactory());
 	registerFormatterFactory(Types.DoubleType, new DoubleFormatterFactory());
+	registerFormatterFactory(Types.BigIntegerType, new BigIntegerFormatterFactory());
+	registerFormatterFactory(Types.BigDecimalType, new BigDecimalFormatterFactory());
 	registerFormatterFactory(Types.DateType, new DateFormatterFactory());
 	registerFormatterFactory(Types.TimeType, new TimeFormatterFactory());
 	registerFormatterFactory(Types.DateTimeType, new DateTimeFormatterFactory());
@@ -188,7 +194,36 @@ public class STFormatterManager extends FormatterManager {
   	}
   	
     }    
+    
+    
+    private static class BigIntegerFormatterFactory extends AbstractFormatterFactory<BigInteger> {
 
+  	@Override
+  	public Formatter<BigInteger> getFormatter() {
+  	    return new BigIntegerFormatter();
+  	}
+
+  	@Override
+  	public Formatter<BigInteger> getFormatter(String format) {
+  	    return new BigIntegerFormatter(format);
+  	}
+  	
+    }        
+
+    private static class BigDecimalFormatterFactory extends AbstractFormatterFactory<BigDecimal> {
+
+  	@Override
+  	public Formatter<BigDecimal> getFormatter() {
+  	    return new BigDecimalFormatter();
+  	}
+
+  	@Override
+  	public Formatter<BigDecimal> getFormatter(String format) {
+  	    return new BigDecimalFormatter(format);
+  	}
+  	
+    }
+    
     private static class DateFormatterFactory extends AbstractFormatterFactory<Date> {
 
   	@Override

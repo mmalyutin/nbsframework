@@ -29,8 +29,8 @@ import junit.framework.TestCase;
 public class DoubleFormatterTest extends TestCase {
     
     
-    // Short
-    public void testShortFormatter() throws Exception {
+    // Double
+    public void testDoubleFormatter() throws Exception {
 	
 	// TODO: Temp solution: Use 'locale' attribute to configure locale in DataConnector/DataSet/DataResultSet 
 	Locale.setDefault(Locale.ENGLISH);
