@@ -48,6 +48,7 @@ public abstract class AbstractDateFormatter <T extends Date> implements Formatte
     public AbstractDateFormatter(String format) {
 	super();
 	this.format = format;
+	this.formatter = createFormatter(format);
     }
 
     protected DateFormat createFormatter(String format) {
