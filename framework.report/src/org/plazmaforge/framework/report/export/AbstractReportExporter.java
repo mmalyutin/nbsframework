@@ -79,30 +79,13 @@ public abstract class AbstractReportExporter implements ReportExporter {
 	return (outputType == null ? false : outputType.equals("file"));
     }
 
-    
-    //// TODO: Use formatter manager
-    
-    
     protected String formatCellValue(Cell cell) {
 	return formatValue(cell.getValue(), cell.getDataType(), cell.getFormat());
     }
 
     protected String formatValue(Object value, String dataType, String format) {
-//	if (value == null) {
-//	    return "";
-//	}
-//
-//	if (TypeUtils.isLikeDecimalType(dataType)) {
-//	    if (format == null) {
-//		format = "#.0";
-//	    }
-//	    DecimalFormat decimalFormat = new DecimalFormat(format);
-//	    return decimalFormat.format(value);
-//	}
-//	return value.toString();
 	return getFormatterManager().format(value, dataType, format);
     }
-    
     
     protected String normalizeString(String str) {
 	return StringUtils.normalizeString(str);
