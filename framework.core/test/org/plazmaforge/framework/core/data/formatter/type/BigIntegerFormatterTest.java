@@ -22,73 +22,74 @@
 
 package org.plazmaforge.framework.core.data.formatter.type;
 
+import java.math.BigInteger;
 import java.util.Locale;
 
 import junit.framework.TestCase;
 
-public class IntegerFormatterTest extends TestCase {
+public class BigIntegerFormatterTest extends TestCase {
     
     
-    // Integer
-    public void testIntegerFormatter() throws Exception {
+    // BigInteger
+    public void testBigIntegerFormatter() throws Exception {
 	
 	// TODO: Temp solution: Use 'locale' attribute to configure locale in DataConnector/DataSet/DataResultSet 
 	Locale.setDefault(Locale.ENGLISH);
 
-	IntegerFormatter formatter = new IntegerFormatter();
+	BigIntegerFormatter formatter = new BigIntegerFormatter();
 	
 	String str = null;
-	Integer value = null;
+	BigInteger value = null;
 	
 	// Format value
 	str = formatter.format(value);
 	assertNull(str);
 	
-	value = 0;
+	value = new BigInteger("0");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "0");
 
-	value = -1;
+	value = new BigInteger("-1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "-1");
 
-	value = 1;
+	value = new BigInteger("1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "1");
 
-	value = 1234567890;
+	value = new BigInteger("1234567890");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "1234567890");
 	
-	formatter = new IntegerFormatter("#.00");
+	formatter = new BigIntegerFormatter("#.00");
 
-	value = 0;
+	value = new BigInteger("0");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, ".00");
 
-	value = -1;
+	value = new BigInteger("-1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "-1.00");
 
-	value = 1;
+	value = new BigInteger("1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "1.00");
 
-	value = 1234567890;
+	value = new BigInteger("1234567890");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "1234567890.00");
 	
 	
 	// Parse string
-	formatter = new IntegerFormatter();
+	formatter = new BigIntegerFormatter();
 	
 	str = null;
 	value = formatter.parse(str);
@@ -105,23 +106,23 @@ public class IntegerFormatterTest extends TestCase {
 	str = "0";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(0));
+	assertEquals(value, new BigInteger("0"));
 
 	str = "1234567890";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(1234567890));
+	assertEquals(value, new BigInteger("1234567890"));
 
 	str = "-1234567890";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(-1234567890));
+	assertEquals(value, new BigInteger("-1234567890"));
 	
-	formatter = new IntegerFormatter("#.00");
+	formatter = new BigIntegerFormatter("#.00");
 	str = "1234567890.5";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(1234567890));	
+	assertEquals(value, new BigInteger("1234567890"));	
 	
     }
 

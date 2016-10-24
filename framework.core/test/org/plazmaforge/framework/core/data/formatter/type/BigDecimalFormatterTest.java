@@ -22,73 +22,79 @@
 
 package org.plazmaforge.framework.core.data.formatter.type;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 import junit.framework.TestCase;
 
-public class IntegerFormatterTest extends TestCase {
+public class BigDecimalFormatterTest extends TestCase {
     
     
-    // Integer
-    public void testIntegerFormatter() throws Exception {
+    // BigDecimal
+    public void testBigDecimalFormatter() throws Exception {
 	
 	// TODO: Temp solution: Use 'locale' attribute to configure locale in DataConnector/DataSet/DataResultSet 
 	Locale.setDefault(Locale.ENGLISH);
 
-	IntegerFormatter formatter = new IntegerFormatter();
+	BigDecimalFormatter formatter = new BigDecimalFormatter();
 	
 	String str = null;
-	Integer value = null;
+	BigDecimal value = null;
 	
 	// Format value
 	str = formatter.format(value);
 	assertNull(str);
 	
-	value = 0;
+	value = new BigDecimal("0");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "0");
 
-	value = -1;
+	value = new BigDecimal("-1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "-1");
 
-	value = 1;
+	value = new BigDecimal("1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "1");
 
-	value = 1234567890;
+	value = new BigDecimal("123456.789");
 	str = formatter.format(value);
 	assertNotNull(str);
-	assertEquals(str, "1234567890");
+	assertEquals(str, "123456.789");
 	
-	formatter = new IntegerFormatter("#.00");
+	formatter = new BigDecimalFormatter("#.00");
 
-	value = 0;
+	value = new BigDecimal("0");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, ".00");
 
-	value = -1;
+	value = new BigDecimal("-1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "-1.00");
 
-	value = 1;
+	value = new BigDecimal("1");
 	str = formatter.format(value);
 	assertNotNull(str);
 	assertEquals(str, "1.00");
 
-	value = 1234567890;
+	value = new BigDecimal("123456.781");
 	str = formatter.format(value);
 	assertNotNull(str);
-	assertEquals(str, "1234567890.00");
+	assertEquals(str, "123456.78"); // round down 
+	
+	value = new BigDecimal("123456.789");
+	str = formatter.format(value);
+	assertNotNull(str);
+	assertEquals(str, "123456.79"); // round up
 	
 	
 	// Parse string
-	formatter = new IntegerFormatter();
+	formatter = new BigDecimalFormatter();
 	
 	str = null;
 	value = formatter.parse(str);
@@ -105,24 +111,25 @@ public class IntegerFormatterTest extends TestCase {
 	str = "0";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(0));
+	assertEquals(value, new BigDecimal("0"));
 
-	str = "1234567890";
+	str = "123456.789";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(1234567890));
+	assertEquals(value, new BigDecimal("123456.789"));
 
-	str = "-1234567890";
+	str = "-123456.789";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(-1234567890));
+	assertEquals(value, new BigDecimal("-123456.789"));
 	
-	formatter = new IntegerFormatter("#.00");
-	str = "1234567890.5";
+	formatter = new BigDecimalFormatter("#.00");
+	str = "123456.789";
 	value = formatter.parse(str);
 	assertNotNull(value);
-	assertEquals(value, new Integer(1234567890));	
-	
+	assertEquals(value, new BigDecimal("123456.789")); // ???		
+
+
     }
 
 }
