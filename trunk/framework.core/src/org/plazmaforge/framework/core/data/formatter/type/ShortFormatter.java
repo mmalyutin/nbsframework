@@ -31,6 +31,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractNumberFormatter;
  */
 public class ShortFormatter extends AbstractNumberFormatter<Short> {
 
+    public ShortFormatter() {
+	super();
+    }
+
+    public ShortFormatter(String format) {
+	super(format);
+    }
+
     @Override
     protected Class<Short> getType() {
 	return Short.class;

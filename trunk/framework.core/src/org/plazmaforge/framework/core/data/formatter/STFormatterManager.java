@@ -45,6 +45,14 @@ import org.plazmaforge.framework.core.type.Types;
  */
 public class STFormatterManager extends FormatterManager {
 
+    public STFormatterManager() {
+	super();
+    }
+
+    public STFormatterManager(boolean cacheMode) {
+	super(cacheMode);
+    }
+
     @Override
     public void init() {
 	registerFormatterFactories();
@@ -74,6 +82,11 @@ public class STFormatterManager extends FormatterManager {
 	    return new StringFormatter();
 	}
 
+	@Override
+	public Formatter<String> getFormatter(String format) {
+	    return new StringFormatter();
+	}
+	
     }
     
     private static class BooleanFormatterFactory extends AbstractFormatterFactory<Boolean> {
@@ -81,6 +94,11 @@ public class STFormatterManager extends FormatterManager {
   	@Override
   	public Formatter<Boolean> getFormatter() {
   	    return new BooleanFormatter();
+  	}
+
+  	@Override
+  	public Formatter<Boolean> getFormatter(String format) {
+  	    return new BooleanFormatter(format);
   	}
   	
     }    
@@ -91,6 +109,11 @@ public class STFormatterManager extends FormatterManager {
   	public Formatter<Byte> getFormatter() {
   	    return new ByteFormatter();
   	}
+
+  	@Override
+  	public Formatter<Byte> getFormatter(String format) {
+  	    return new ByteFormatter(format);
+  	}
   	
     }    
 
@@ -99,6 +122,11 @@ public class STFormatterManager extends FormatterManager {
   	@Override
   	public Formatter<Short> getFormatter() {
   	    return new ShortFormatter();
+  	}
+
+  	@Override
+  	public Formatter<Short> getFormatter(String format) {
+  	    return new ShortFormatter(format);
   	}
   	
     }    
@@ -109,6 +137,11 @@ public class STFormatterManager extends FormatterManager {
   	public Formatter<Integer> getFormatter() {
   	    return new IntegerFormatter();
   	}
+
+  	@Override
+  	public Formatter<Integer> getFormatter(String format) {
+  	    return new IntegerFormatter(format);
+  	}
   	
     }    
 
@@ -118,6 +151,11 @@ public class STFormatterManager extends FormatterManager {
   	public Formatter<Float> getFormatter() {
   	    return new FloatFormatter();
   	}
+
+  	@Override
+  	public Formatter<Float> getFormatter(String format) {
+  	    return new FloatFormatter(format);
+  	}
   	
     }    
 
@@ -126,6 +164,11 @@ public class STFormatterManager extends FormatterManager {
   	@Override
   	public Formatter<Double> getFormatter() {
   	    return new DoubleFormatter();
+  	}
+
+  	@Override
+  	public Formatter<Double> getFormatter(String format) {
+  	    return new DoubleFormatter(format);
   	}
   	
     }    
@@ -137,6 +180,11 @@ public class STFormatterManager extends FormatterManager {
   	    return new DateFormatter();
   	}
   	
+  	@Override
+  	public Formatter<Date> getFormatter(String format) {
+  	    return new DateFormatter(format);
+  	}
+  	
     }    
 
     private static class TimeFormatterFactory extends AbstractFormatterFactory<Date> {
@@ -144,6 +192,11 @@ public class STFormatterManager extends FormatterManager {
   	@Override
   	public Formatter<Date> getFormatter() {
   	    return new TimeFormatter();
+  	}
+
+  	@Override
+  	public Formatter<Date> getFormatter(String format) {
+  	    return new TimeFormatter(format);
   	}
   	
     }    
@@ -154,6 +207,12 @@ public class STFormatterManager extends FormatterManager {
   	public Formatter<Date> getFormatter() {
   	    return new DateTimeFormatter();
   	}
+  	
+
+	@Override
+	public Formatter<Date> getFormatter(String format) {
+	    return new DateTimeFormatter(format);
+	}
   	
     }    
 }

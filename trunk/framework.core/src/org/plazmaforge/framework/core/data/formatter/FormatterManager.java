@@ -148,6 +148,19 @@ public class FormatterManager  {
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public String format(Object value, String type, String format) {
+	if (value == null) {
+	    return null;
+	}
+	Formatter formatter = getFormatter(type, format);
+	if (formatter == null) {
+	    return value.toString();
+	}
+	return formatter.format(value);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public String toString(Object value, String type) {
 	if (value == null) {

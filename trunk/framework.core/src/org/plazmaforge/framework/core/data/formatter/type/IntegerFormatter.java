@@ -31,6 +31,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractNumberFormatter;
  */
 public class IntegerFormatter extends AbstractNumberFormatter<Integer> {
 
+    public IntegerFormatter() {
+	super();
+    }
+
+    public IntegerFormatter(String format) {
+	super(format);
+    }
+
     @Override
     protected Class<Integer> getType() {
 	return Integer.class;
