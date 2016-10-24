@@ -46,6 +46,7 @@ public abstract class AbstractNumberFormatter<T extends Number> implements Forma
     public AbstractNumberFormatter(String format) {
 	super();
 	this.format = format;
+	this.formatter = createFormatter(format);
     }
 
     protected NumberFormat createFormatter(String format) {

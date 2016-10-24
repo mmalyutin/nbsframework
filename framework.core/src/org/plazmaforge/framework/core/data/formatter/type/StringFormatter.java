@@ -32,6 +32,10 @@ import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 public class StringFormatter extends AbstractFormatter<String> {
 
     
+    public StringFormatter() {
+	super();
+    }
+
     @Override
     public String parse(String str) {
 	return str;

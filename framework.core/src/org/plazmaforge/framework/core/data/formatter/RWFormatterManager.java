@@ -47,6 +47,14 @@ import org.plazmaforge.framework.core.type.Types;
  */
 public class RWFormatterManager extends FormatterManager {
 
+    public RWFormatterManager() {
+	super();
+    }
+
+    public RWFormatterManager(boolean cacheMode) {
+	super(cacheMode);
+    }
+
     @Override
     public void init() {
 	registerFormatterFactories();

@@ -33,6 +33,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractDateFormatter;
  */
 public class TimeFormatter extends AbstractDateFormatter<Date> {
 
+    public TimeFormatter() {
+	super();
+    }
+
+    public TimeFormatter(String format) {
+	super(format);
+    }
+
     @Override
     protected Class<Date> getType() {
 	return Date.class;

@@ -31,6 +31,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractNumberFormatter;
  */
 public class ByteFormatter extends AbstractNumberFormatter<Byte> {
 
+    public ByteFormatter() {
+	super();
+    }
+
+    public ByteFormatter(String format) {
+	super(format);
+    }
+
     @Override
     protected Class<Byte> getType() {
 	return Byte.class;

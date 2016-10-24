@@ -31,6 +31,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractNumberFormatter;
  */
 public class FloatFormatter extends AbstractNumberFormatter<Float> {
 
+    public FloatFormatter() {
+	super();
+    }
+
+    public FloatFormatter(String format) {
+	super(format);
+    }
+
     @Override
     protected Class<Float> getType() {
 	return Float.class;

@@ -31,6 +31,14 @@ import org.plazmaforge.framework.core.data.formatter.AbstractNumberFormatter;
  */
 public class DoubleFormatter extends AbstractNumberFormatter<Double> {
 
+    public DoubleFormatter() {
+	super();
+    }
+
+    public DoubleFormatter(String format) {
+	super(format);
+    }
+
     @Override
     protected Class<Double> getType() {
 	return Double.class;
