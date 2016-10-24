@@ -25,13 +25,11 @@
  */
 package org.plazmaforge.framework.report.export;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.data.formatter.STFormatterManager;
-import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.util.StringUtils;
 
@@ -90,18 +88,19 @@ public abstract class AbstractReportExporter implements ReportExporter {
     }
 
     protected String formatValue(Object value, String dataType, String format) {
-	if (value == null) {
-	    return "";
-	}
-
-	if (TypeUtils.isLikeDecimalType(dataType)) {
-	    if (format == null) {
-		format = "#.0";
-	    }
-	    DecimalFormat decimalFormat = new DecimalFormat(format);
-	    return decimalFormat.format(value);
-	}
-	return value.toString();
+//	if (value == null) {
+//	    return "";
+//	}
+//
+//	if (TypeUtils.isLikeDecimalType(dataType)) {
+//	    if (format == null) {
+//		format = "#.0";
+//	    }
+//	    DecimalFormat decimalFormat = new DecimalFormat(format);
+//	    return decimalFormat.format(value);
+//	}
+//	return value.toString();
+	return getFormatterManager().format(value, dataType, format);
     }
     
     
@@ -111,7 +110,9 @@ public abstract class AbstractReportExporter implements ReportExporter {
 
     protected FormatterManager getFormatterManager() {
 	if (formatterManager == null) {
-	    formatterManager = new STFormatterManager();
+	    formatterManager = new STFormatterManager(true);
+	    formatterManager.init();
+	    
 	}
         return formatterManager;
     }
