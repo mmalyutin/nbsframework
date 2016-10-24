@@ -14,8 +14,9 @@
 				<field name="PRODUCT_NAME" data-type="String"/>
 				<field name="GROUP_NAME" data-type="String"/>
 				<field name="PRICE" data-type="Float"/>
+				<field name="CREATED_DATE" data-type="Date"/>
 			</fields>
-			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query>
+			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query>
 		</data-source>
 	</data-sources>
 	<templates>
@@ -40,7 +41,8 @@
 								</row>
 								<row height="20">
 									<cells>
-										<cell colspan="3"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
+										<cell colspan="2"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
+										<cell colspan="1" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
 									</cells>
 								</row>
 							</rows>

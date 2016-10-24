@@ -30,6 +30,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 /**
  * Test Database
  * 
@@ -60,19 +61,21 @@ public class TestDB {
 			"  PRODUCT_ID INTEGER," +
 			"  PRODUCT_NAME VARCHAR," +
 			"  GROUP_NAME VARCHAR," + 
-			"  PRICE NUMERIC(15, 2)" +
+			"  PRICE NUMERIC(15, 2)," +
+			"  CREATED_DATE DATE" +			
 			")");
 	stm.close();
     }
     
     private void populateTables(Connection connection) throws SQLException {
-	PreparedStatement pstm = connection.prepareStatement("INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE) VALUES (?, ?, ?, ?)");
+	PreparedStatement pstm = connection.prepareStatement("INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE) VALUES (?, ?, ?, ?, ?)");
 	for (int i = 101; i <= 200; i++) {
 	    
 	    pstm.setInt(1, i);
 	    pstm.setString(2, "Product " + i);
 	    pstm.setString(3, "Group " + (i < 200 ? "1" : "2"));
 	    pstm.setFloat(4, (float)(i/100.00 + i));
+	    pstm.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
 	    pstm.execute();
 	}
 	pstm.close();
