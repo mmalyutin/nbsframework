@@ -31,6 +31,7 @@ import org.plazmaforge.framework.core.data.formatter.type.DateTimeFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.DoubleFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.FloatFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.IntegerFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.LongFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.ShortFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.StringFormatter;
 //import org.plazmaforge.framework.core.data.formatter.type.StringFormatter;
@@ -65,6 +66,7 @@ public class STFormatterManager extends FormatterManager {
 	registerFormatterFactory(Types.ByteType, new ByteFormatterFactory());
 	registerFormatterFactory(Types.ShortType, new ShortFormatterFactory());
 	registerFormatterFactory(Types.IntegerType, new IntegerFormatterFactory());
+	registerFormatterFactory(Types.LongType, new LongFormatterFactory());
 	registerFormatterFactory(Types.FloatType, new FloatFormatterFactory());
 	registerFormatterFactory(Types.DoubleType, new DoubleFormatterFactory());
 	registerFormatterFactory(Types.DateType, new DateFormatterFactory());
@@ -145,6 +147,20 @@ public class STFormatterManager extends FormatterManager {
   	
     }    
 
+    private static class LongFormatterFactory extends AbstractFormatterFactory<Long> {
+
+  	@Override
+  	public Formatter<Long> getFormatter() {
+  	    return new LongFormatter();
+  	}
+
+  	@Override
+  	public Formatter<Long> getFormatter(String format) {
+  	    return new LongFormatter(format);
+  	}
+  	
+    }    
+    
     private static class FloatFormatterFactory extends AbstractFormatterFactory<Float> {
 
   	@Override
