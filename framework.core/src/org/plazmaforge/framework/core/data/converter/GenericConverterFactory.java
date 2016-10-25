@@ -193,7 +193,7 @@ public class GenericConverterFactory<S, T> implements ConverterFactory<S, T> {
     }
     
     protected String getConverterClassName() {
-	return ConverterManager.getConverterClassName(pkg, sourceType, targetType);
+	return GenericConverterManager.getConverterClassName(pkg, sourceType, targetType);
     }
     
 }

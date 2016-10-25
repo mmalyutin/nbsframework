@@ -32,6 +32,7 @@ import java.util.Map;
 
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
+import org.plazmaforge.framework.core.data.converter.STConverterManager;
 import org.plazmaforge.framework.util.StringUtils;
 
 
@@ -170,14 +171,10 @@ public abstract class AbstractResultSet implements DSResultSet {
 	return getConverterManager().getConverter(name, format);
     }
     
-    protected void initConverterManager() {
-	converterManager.registerBaseConveretrFactories();
-    }
-
     public ConverterManager getConverterManager() {
 	if (converterManager == null) {
-	    converterManager = new ConverterManager(true);
-	    initConverterManager();
+	    converterManager = new STConverterManager(true);
+	    converterManager.init();
 	}
 	return converterManager;
     }
