@@ -24,6 +24,8 @@ package org.plazmaforge.framework.report.export;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,7 +143,12 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	if (cellType == CELL_TYPE_NUMERIC) {
 	    if (value instanceof Number) {
 		xCell.setCellValue(((Number) value).doubleValue());
+	    } else if (value instanceof Date) {
+		xCell.setCellValue(((Date) value));
+	    } else if (value instanceof Calendar) {
+		xCell.setCellValue(((Calendar) value));
 	    } else {
+		// Unsupported type
 		error = true;
 	    }
 	} else if (cellType == CELL_TYPE_STRING) {
@@ -150,9 +157,13 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    if (value instanceof Boolean) {
 		xCell.setCellValue(((Boolean) value));
 	    } else {
+		// Unsupported type
 		error = true;
 	    }
+	} else {
+	    xCell.setCellValue(value.toString());
 	}
+	
 	if (error) {
 	    xCell.setCellType(CELL_TYPE_ERROR);
 	}
@@ -170,10 +181,9 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    return CELL_TYPE_STRING;
 	} else if (TypeUtils.isBooleanType(dataType)) {
 	    return CELL_TYPE_BOOLEAN;
+	} else if (TypeUtils.isLikeCalendarType(dataType)) {
+	    return CELL_TYPE_NUMERIC;
 	}
-	//else if (TypeUtils.isLikeCalendarType(dataType)) {
-	//    return CELL_TYPE_NUMERIC;
-	//}
 	return -1;
     }
     
