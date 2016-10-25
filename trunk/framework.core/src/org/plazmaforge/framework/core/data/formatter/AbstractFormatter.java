@@ -23,7 +23,12 @@
 package org.plazmaforge.framework.core.data.formatter;
 
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ * @param <T>
+ */
 public abstract class AbstractFormatter<T> implements Formatter<T> {
 
     @Override

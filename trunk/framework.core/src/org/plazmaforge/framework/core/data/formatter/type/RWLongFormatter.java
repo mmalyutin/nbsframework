@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,27 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter;
+package org.plazmaforge.framework.core.data.formatter.type;
 
-import java.util.Map;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-import junit.framework.TestCase;
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class RWLongFormatter extends AbstractFormatter<Long>  {
 
-public class ConverterManagerTest extends TestCase {
-
-    public void testInit() {
-	ConverterManager manager = new ConverterManager();
-	manager.registerBaseConveretrFactories();
-	
-	Map<String, ConverterFactory<?, ?>> converterFactories = manager.getConverterFactories();
-	int i = 0;
-	for (Map.Entry<String, ConverterFactory<?, ?>> entry : converterFactories.entrySet()) {
-	    i++;
-	    //System.out.println(entry.getKey() + "=" + entry.getValue().getClass());
-	    System.out.println("" + (i < 10 ? " " : "") + i + ". " + entry.getKey());
+    @Override
+    public Long parse(String str) {
+	try {
+	    if (str == null) {
+		return null;
+	    }
+	    return Long.valueOf(str);
+	} catch (NumberFormatException ex) {
+	    return null;
 	}
     }
+
 }
