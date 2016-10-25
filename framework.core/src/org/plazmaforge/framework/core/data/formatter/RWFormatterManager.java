@@ -23,8 +23,12 @@
 package org.plazmaforge.framework.core.data.formatter;
 
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
+import org.plazmaforge.framework.core.data.formatter.type.RWBigDecimalFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWBigIntegerFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWBooleanFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWByteFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWDateFormatter;
@@ -32,6 +36,7 @@ import org.plazmaforge.framework.core.data.formatter.type.RWDateTimeFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWDoubleFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWFloatFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWIntegerFormatter;
+import org.plazmaforge.framework.core.data.formatter.type.RWLongFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWShortFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWStringFormatter;
 import org.plazmaforge.framework.core.data.formatter.type.RWTimeFormatter;
@@ -67,8 +72,11 @@ public class RWFormatterManager extends FormatterManager {
 	registerFormatterFactory(Types.ByteType, new RWByteFormatterFactory());
 	registerFormatterFactory(Types.ShortType, new RWShortFormatterFactory());
 	registerFormatterFactory(Types.IntegerType, new RWIntegerFormatterFactory());
+	registerFormatterFactory(Types.LongType, new RWLongFormatterFactory());
 	registerFormatterFactory(Types.FloatType, new RWFloatFormatterFactory());
 	registerFormatterFactory(Types.DoubleType, new RWDoubleFormatterFactory());
+	registerFormatterFactory(Types.BigIntegerType, new RWBigIntegerFormatterFactory());
+	registerFormatterFactory(Types.BigDecimalType, new RWBigDecimalFormatterFactory());
 	registerFormatterFactory(Types.DateType, new RWDateFormatterFactory());
 	registerFormatterFactory(Types.TimeType, new RWTimeFormatterFactory());
 	registerFormatterFactory(Types.DateTimeType, new RWDateTimeFormatterFactory());
@@ -122,6 +130,15 @@ public class RWFormatterManager extends FormatterManager {
   	
     }    
 
+    private static class RWLongFormatterFactory extends AbstractFormatterFactory<Long> {
+
+  	@Override
+  	public Formatter<Long> getFormatter() {
+  	    return new RWLongFormatter();
+  	}
+  	
+    }    
+    
     private static class RWFloatFormatterFactory extends AbstractFormatterFactory<Float> {
 
   	@Override
@@ -140,6 +157,24 @@ public class RWFormatterManager extends FormatterManager {
   	
     }    
 
+    private static class RWBigIntegerFormatterFactory extends AbstractFormatterFactory<BigInteger> {
+
+  	@Override
+  	public Formatter<BigInteger> getFormatter() {
+  	    return new RWBigIntegerFormatter();
+  	}
+  	
+    }    
+
+    private static class RWBigDecimalFormatterFactory extends AbstractFormatterFactory<BigDecimal> {
+
+  	@Override
+  	public Formatter<BigDecimal> getFormatter() {
+  	    return new RWBigDecimalFormatter();
+  	}
+  	
+    }    
+    
     private static class RWDateFormatterFactory extends AbstractFormatterFactory<Date> {
 
   	@Override

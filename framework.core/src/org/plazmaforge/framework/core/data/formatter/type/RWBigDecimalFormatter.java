@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2015 Oleh Hapon ohapon@users.sourceforge.net
+ * Copyright (C) 2012-2013 Oleh Hapon ohapon@users.sourceforge.net
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,29 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.converter;
+package org.plazmaforge.framework.core.data.formatter.type;
 
-import java.util.Map;
+import java.math.BigDecimal;
 
-import junit.framework.TestCase;
+import org.plazmaforge.framework.core.data.formatter.AbstractFormatter;
 
-public class ConverterManagerTest extends TestCase {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class RWBigDecimalFormatter extends AbstractFormatter<BigDecimal>  {
 
-    public void testInit() {
-	ConverterManager manager = new ConverterManager();
-	manager.registerBaseConveretrFactories();
-	
-	Map<String, ConverterFactory<?, ?>> converterFactories = manager.getConverterFactories();
-	int i = 0;
-	for (Map.Entry<String, ConverterFactory<?, ?>> entry : converterFactories.entrySet()) {
-	    i++;
-	    //System.out.println(entry.getKey() + "=" + entry.getValue().getClass());
-	    System.out.println("" + (i < 10 ? " " : "") + i + ". " + entry.getKey());
+    @Override
+    public BigDecimal parse(String str) {
+	try {
+	    if (str == null) {
+		return null;
+	    }
+	    return new BigDecimal(str);
+	} catch (NumberFormatException ex) {
+	    return null;
 	}
     }
+
 }
