@@ -84,14 +84,14 @@ public class XMLWorker {
 	if (value == null) {
 	    return null;
 	}
-	return getFormatterManager().toValue(value, dataType);
+	return getFormatterManager().parseValue(value, dataType);
     }
     
     protected String getTString(String dataType, Object value) {
 	if (value == null) {
  	    return null;
  	}
-	return getFormatterManager().toString(value, dataType);
+	return getFormatterManager().formatValue(value, dataType);
     }
     
     
@@ -111,11 +111,7 @@ public class XMLWorker {
 	if (value == null) {
 	    return def;
 	}
-	try {
-	    return Integer.valueOf(value);
-	} catch (NumberFormatException ex) {
-	    return def;
-	}
+	return (Integer) getTValue("Integer", value);
     }
     
     protected String getStringValue(Element element, String name) {
@@ -201,15 +197,6 @@ public class XMLWorker {
  	}
  	element.setText(str);
      }
-     
-//     protected String toString(Object value, String dataType) {
-// 	if (value == null) {
-// 	    return null;
-// 	}
-// 	// TODO: dataType
-// 	String str = value.toString();
-// 	return normalizeString(str);
-//     }
      
     
 }

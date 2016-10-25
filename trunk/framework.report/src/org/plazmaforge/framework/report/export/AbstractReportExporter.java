@@ -84,7 +84,7 @@ public abstract class AbstractReportExporter implements ReportExporter {
     }
 
     protected String formatValue(Object value, String dataType, String format) {
-	return getFormatterManager().format(value, dataType, format);
+	return getFormatterManager().formatValue(value, dataType, format);
     }
     
     protected String normalizeString(String str) {
