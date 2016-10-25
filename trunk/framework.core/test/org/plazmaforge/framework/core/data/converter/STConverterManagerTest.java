@@ -26,11 +26,11 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-public class ConverterManagerTest extends TestCase {
+public class STConverterManagerTest extends TestCase {
 
     public void testInit() {
-	ConverterManager manager = new ConverterManager();
-	manager.registerBaseConveretrFactories();
+	STConverterManager manager = new STConverterManager(true);
+	manager.init();
 	
 	Map<String, ConverterFactory<?, ?>> converterFactories = manager.getConverterFactories();
 	int i = 0;

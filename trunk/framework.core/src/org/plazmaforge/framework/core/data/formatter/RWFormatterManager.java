@@ -62,6 +62,7 @@ public class RWFormatterManager extends FormatterManager {
 
     @Override
     public void init() {
+	super.init();
 	registerFormatterFactories();
     }
     

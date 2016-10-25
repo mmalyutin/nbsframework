@@ -25,6 +25,7 @@ package org.plazmaforge.framework.core.datastorage;
 import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
+import org.plazmaforge.framework.core.data.converter.STConverterManager;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -142,14 +143,10 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 	return path == null ? field.getName() : path; 
     }
   
-    protected void initConverterManager() {
-	converterManager.registerBaseConveretrFactories();
-    }
-
     public ConverterManager getConverterManager() {
 	if (converterManager == null) {
-	    converterManager = new ConverterManager(true);
-	    initConverterManager();
+	    converterManager = new STConverterManager(true);
+	    converterManager.init();
 	}
         return converterManager;
     }

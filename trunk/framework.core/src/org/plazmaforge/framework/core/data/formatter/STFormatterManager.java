@@ -60,6 +60,7 @@ public class STFormatterManager extends FormatterManager {
 
     @Override
     public void init() {
+	super.init();
 	registerFormatterFactories();
     }
     
