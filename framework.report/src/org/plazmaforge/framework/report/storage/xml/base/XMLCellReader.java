@@ -24,6 +24,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -68,6 +69,11 @@ public class XMLCellReader extends XMLAbstractReader {
    	VerticalAlign verticalAlign = getVerticalAlign(element, XML_ATTR_VERTICAL_ALIGN);
    	if (verticalAlign != null) {
    	    cell.setVerticalAlign(verticalAlign);
+   	}
+   	
+   	Border border = getBorder(element);
+   	if (border != null) {
+   	    cell.setBorder(border);
    	}
    	
    	// dataType

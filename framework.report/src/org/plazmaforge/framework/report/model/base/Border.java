@@ -33,30 +33,27 @@ public class Border implements Serializable  {
 
     private static final long serialVersionUID = -9119801104835934766L;
     
-    
-    
-    private Pen leftPen;
-    
     private Pen topPen;
     
     private Pen rightPen;
     
     private Pen bottomPen;
 
+    private Pen leftPen;
+    
     public Border() {
 	super();
     }
 
-    public Pen getLeftPen() {
-	if (leftPen == null) {
-	    leftPen = new Pen();
-	}
-        return leftPen;
+
+    public Border(Pen topPen, Pen rightPen, Pen bottomPen, Pen leftPen) {
+	super();
+	this.topPen = topPen;
+	this.rightPen = rightPen;
+	this.bottomPen = bottomPen;
+	this.leftPen = leftPen;
     }
 
-    public void setLeftPen(Pen leftPen) {
-        this.leftPen = leftPen;
-    }
 
     public Pen getTopPen() {
 	if (topPen == null) {
@@ -91,6 +88,17 @@ public class Border implements Serializable  {
         this.bottomPen = bottomPen;
     }
 
+    public Pen getLeftPen() {
+	if (leftPen == null) {
+	    leftPen = new Pen();
+	}
+        return leftPen;
+    }
+
+    public void setLeftPen(Pen leftPen) {
+        this.leftPen = leftPen;
+    }
+    
     
     ////
     
@@ -104,10 +112,6 @@ public class Border implements Serializable  {
     
     ////
 
-    public boolean hasLeftPen() {
-	return hasPen(leftPen);
-    }
-    
     public boolean hasTopPen() {
 	return hasPen(topPen);
     }
@@ -120,13 +124,21 @@ public class Border implements Serializable  {
 	return hasPen(bottomPen);
     }
     
+    public boolean hasLeftPen() {
+	return hasPen(leftPen);
+    }
     
     public boolean isEmpty() {
-	return isEmpty(leftPen) && isEmpty(topPen) && isEmpty(rightPen) && isEmpty(bottomPen);
+	return isEmpty(topPen) && isEmpty(rightPen) && isEmpty(bottomPen) && isEmpty(leftPen);
     }
 
     @Override
     public String toString() {
-	return "Border[leftPen=" + leftPen + ", topPen=" + topPen + ", rightPen="  + rightPen + ", bottomPen="  + bottomPen + "]";
+	return "Border[topPen=" + topPen + ", rightPen="  + rightPen + ", bottomPen="  + bottomPen + ", leftPen=" + leftPen +  "]";
+    }
+    
+    @Override
+    public Border clone() {
+	return new Border(topPen, rightPen, bottomPen, leftPen);
     }
 }

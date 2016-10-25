@@ -36,6 +36,10 @@ public class Padding extends Insets {
     public Padding() {
 	super();
     }
+    
+    public Padding(Integer value) {
+	super(value, value, value, value);
+    }
 
     public Padding(Integer top, Integer right, Integer bottom, Integer left) {
 	super(top, right, bottom, left);

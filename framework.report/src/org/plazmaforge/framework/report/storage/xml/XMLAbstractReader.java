@@ -37,8 +37,10 @@ import org.jdom.input.SAXBuilder;
 import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
@@ -241,6 +243,86 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	return margin.isEmpty() ? null : margin;
     }
 	
+    protected Pen getBorderPenByAttributes(Element element, String borderAttribute) {
+	
+   	if (element == null) {
+   	    return null;
+   	}
+   	
+   	if (borderAttribute == null) {
+   	    borderAttribute = XML_ATTR_BORDER;
+   	}
+
+   	// width
+   	Integer width = getIntegerValue(element, borderAttribute);
+   	
+   	 // style
+   	String style = getStringValue(element, borderAttribute + "-style");
+   	
+   	// color
+   	Color color = getColor(element, borderAttribute + "-color");
+   	
+   	if (width == null && style == null && color == null) {
+   	    return null;
+   	}
+   	
+   	Pen pen = new Pen();
+   	if (width != null) {
+   	    pen.setLineWidth(width);
+   	}
+   	if (style != null) {
+   	    //TODO
+   	    //pen.setLineStyle(styleValue);
+   	}
+   	if (color != null) {
+   	    pen.setLineColor(color);
+   	}
+   	
+   	return pen.isEmpty() ? null : pen;
+    }
+    
+    protected Border getBorderByAttributes(Element element) {
+	
+	Pen pen = getBorderPenByAttributes(element, XML_ATTR_BORDER);
+	Pen leftPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_LEFT);
+	Pen topPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_TOP);
+	Pen rightPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_RIGHT);
+	Pen bottomPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_BOTTOM);
+	
+	if (pen == null && leftPen == null && topPen == null && rightPen == null && bottomPen == null) {
+	    return null;
+	}
+	
+	Border border = new Border();
+	if (pen != null) {
+	    border.setLeftPen(pen.clone());
+	    border.setTopPen(pen.clone());
+	    border.setRightPen(pen.clone());
+	    border.setBottomPen(pen.clone());
+	}
+	
+	if (leftPen != null) {
+	    border.setLeftPen(leftPen);
+	}
+	
+	if (topPen != null) {
+	    border.setTopPen(topPen);
+	}
+	
+	if (rightPen != null) {
+	    border.setRightPen(rightPen);
+	}
+	
+	if (bottomPen != null) {
+	    border.setBottomPen(bottomPen);
+	}
+	
+	return border;
+    }
+    
+    protected Border getBorder(Element element) {
+	return getBorderByAttributes(element);
+    }
     
     protected void readInsets(Element element, Insets margin) {
 	if(element == null) {
