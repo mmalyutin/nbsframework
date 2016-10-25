@@ -235,10 +235,13 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	    }
  	}
  	
+ 	Row row = null;
+	Cell cell = null;
+	
  	for (int i = 0; i < rowCount; i++) {
  	    
  	    //rowIndex = i;
- 	    Row row = rows.get(i);
+ 	    row = rows.get(i);
  	    
  	    // row: parent gc
  	    parentBackground = getColor(gridBackground, contextBackground);
@@ -266,13 +269,9 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	    colspan = 0;
  	    rowspan = 0;
 
-
  	    int cellCount = row.getCellCount();
  	    List<Cell> cells = row.getCells();
  	
- 	    
- 	    
- 	    Cell cell = null;
  	    for (int j = 0; j < cellCount; j++) {
  		cellIndex = j;
  		cell = cells.get(cellIndex);
