@@ -78,7 +78,8 @@ public class TypeUtils {
 	return Types.DateType.equals(type) 
 		|| Types.TimeType.equals(type)
 		|| Types.DateTimeType.equals(type)
-		|| Types.TimestampType.equals(type);
+		|| Types.TimestampType.equals(type)
+		|| Types.CalendarType.equals(type);
     }
 
     ////
@@ -155,6 +156,10 @@ public class TypeUtils {
 	return Types.TimestampType.equals(type);
     }
 
+    public static boolean isCalendarType(String type) {
+	return Types.CalendarType.equals(type);
+    }
+    
     
     /**
      * Return type by class
@@ -230,6 +235,12 @@ public class TypeUtils {
 	} else if (Types.TimestampType.equals(type)) {
 	    return Date.class; 
 	}
+	
+//      TODO: GWT/JS ???	
+//	else if (Types.CalendarType.equals(type)) {
+//	    return Calendar.class; 
+//	}
+
 	return null;
     }
 
