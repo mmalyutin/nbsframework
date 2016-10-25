@@ -48,6 +48,9 @@ public class Border implements Serializable  {
     }
 
     public Pen getLeftPen() {
+	if (leftPen == null) {
+	    leftPen = new Pen();
+	}
         return leftPen;
     }
 
@@ -56,6 +59,9 @@ public class Border implements Serializable  {
     }
 
     public Pen getTopPen() {
+	if (topPen == null) {
+	    topPen = new Pen();
+	}
         return topPen;
     }
 
@@ -64,6 +70,9 @@ public class Border implements Serializable  {
     }
     
     public Pen getRightPen() {
+	if (rightPen == null) {
+	    rightPen = new Pen();
+	}
         return rightPen;
     }
 
@@ -72,6 +81,9 @@ public class Border implements Serializable  {
     }
 
     public Pen getBottomPen() {
+	if (bottomPen == null) {
+	    bottomPen = new Pen();
+	}
         return bottomPen;
     }
 
