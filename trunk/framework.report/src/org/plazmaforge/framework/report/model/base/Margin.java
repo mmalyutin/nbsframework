@@ -36,6 +36,10 @@ public class Margin extends Insets {
     public Margin() {
 	super();
     }
+    
+    public Margin(Integer value) {
+	super(value, value, value, value);
+    }
 
     public Margin(Integer top, Integer right, Integer bottom, Integer left) {
 	super(top, right, bottom, left);

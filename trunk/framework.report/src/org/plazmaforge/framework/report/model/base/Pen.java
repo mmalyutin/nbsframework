@@ -55,6 +55,13 @@ public class Pen implements Serializable {
 	super();
     }
 
+    public Pen(int lineWidth, byte lineStyle, Color lineColor) {
+	super();
+	this.lineWidth = lineWidth;
+	this.lineStyle = lineStyle;
+	this.lineColor = lineColor;
+    }
+
     public int getLineWidth() {
         return lineWidth;
     }
@@ -118,5 +125,10 @@ public class Pen implements Serializable {
     @Override
     public String toString() {
 	return "Pen[lineWidth=" + lineWidth + ", lineStyle=" + lineStyle + ", lineColor="  + lineColor + "]";
+    }
+    
+    @Override
+    public Pen clone() {
+	return new Pen(lineWidth, lineStyle, lineColor);
     }
 }

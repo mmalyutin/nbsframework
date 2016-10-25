@@ -69,15 +69,18 @@ public interface XMLInfo {
     
     String XML_ATTR_VERTICAL_ALIGN = "vertical-align";
     
+    
     String XML_ATTR_VALUE = "value";
     
-    String XML_ATTR_DEFAULT_VALUE = "default-value";    
+    String XML_ATTR_DEFAULT_VALUE = "default-value";
+    
     
     String XML_ATTR_BACKGROUND = "background";
     
     String XML_ATTR_FOREGROUND = "foreground";
     
     String XML_ATTR_FONT = "font";
+    
     
     String XML_ATTR_MARGIN = "margin";
     
@@ -89,6 +92,7 @@ public interface XMLInfo {
 
     String XML_ATTR_MARGIN_BOTTOM = "margin-bottom";
     
+    
     String XML_ATTR_PADDING = "padding";
     
     String XML_ATTR_PADDING_LEFT = "padding-left";
@@ -98,7 +102,42 @@ public interface XMLInfo {
     String XML_ATTR_PADDING_TOP = "padding-top";
 
     String XML_ATTR_PADDING_BOTTOM = "padding-bottom";
+    
 
+    String XML_ATTR_BORDER = "border";
+    
+    String XML_ATTR_BORDER_STYLE = "border-style";
+    
+    String XML_ATTR_BORDER_COLOR = "border-color";
+    
+    
+    String XML_ATTR_BORDER_LEFT = "border-left";
+
+    String XML_ATTR_BORDER_RIGHT = "border-right";
+    
+    String XML_ATTR_BORDER_TOP = "border-top";
+
+    String XML_ATTR_BORDER_BOTTOM = "border-bottom";
+    
+    
+    String XML_ATTR_BORDER_LEFT_STYLE = "border-left-style";
+
+    String XML_ATTR_BORDER_RIGHT_STYLE = "border-right-style";
+    
+    String XML_ATTR_BORDER_TOP_STYLE = "border-top-style";
+
+    String XML_ATTR_BORDER_BOTTOM_STYLE = "border-bottom-style";
+    
+
+    String XML_ATTR_BORDER_LEFT_COLOR = "border-left-color";
+
+    String XML_ATTR_BORDER_RIGHT_COLOR = "border-right-color";
+    
+    String XML_ATTR_BORDER_TOP_COLOR = "border-top-color";
+
+    String XML_ATTR_BORDER_BOTTOM_COLOR = "border-bottom-color";
+    
+    
     String XML_ATTR_DATA_TYPE = "data-type";
     
     String XML_ATTR_EXPRESSION = "expression";

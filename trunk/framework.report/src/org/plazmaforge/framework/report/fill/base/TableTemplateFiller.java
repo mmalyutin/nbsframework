@@ -169,6 +169,11 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		    oCell.setVerticalAlign(cell.getVerticalAlign());
 		}
 		
+		if (cell.hasBorder()) {
+		    oCell.setBorder(cell.getBorder().clone());
+		    
+		}
+		
 		oRow.addCell(oCell);
 
 		
