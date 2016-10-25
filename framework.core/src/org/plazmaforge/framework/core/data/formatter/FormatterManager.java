@@ -96,7 +96,7 @@ public class FormatterManager  {
 	if (formatterFactory == null) {
 	    return null;
 	}
-	formatter = formatterFactory.getFormatter();
+	formatter = formatterFactory.getFormatter(); // NO FORMAT
 	doAddFormatter(path, formatter);
 	return formatter;
     }
@@ -114,7 +114,7 @@ public class FormatterManager  {
 	if (formatterFactory == null) {
 	    return null;
 	}
-	formatter = formatterFactory.getFormatter(format);
+	formatter = formatterFactory.getFormatter(format); // FORMAT
 	doAddFormatter(path, formatter);
 	return formatter;
     }
@@ -149,7 +149,7 @@ public class FormatterManager  {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String format(Object value, String type, String format) {
+    public String formatValue(Object value, String type, String format) {
 	if (value == null) {
 	    return null;
 	}
@@ -159,29 +159,27 @@ public class FormatterManager  {
 	}
 	return formatter.format(value);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    public String toString(Object value, String type) {
-	if (value == null) {
-	    return null;
-	}
-	Formatter formatter = getFormatter(type);
-	if (formatter == null) {
-	    return value.toString();
-	}
-	return formatter.format(value);
+    public String formatValue(Object value, String type) {
+	return formatValue(value, type, null);
     }
-    
-    public Object toValue(String value, String type) {
+
+    public Object parseValue(String value, String type, String format) {
 	if (value == null) {
 	    return null;
 	}
-	Formatter formatter = getFormatter(type);
+	Formatter formatter = getFormatter(type, format);
 	if (formatter == null) {
 	    return value;
 	}
 	return formatter.parse(value);
     }
+
+    public Object parseValue(String value, String type) {
+	return parseValue(value, type, null);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
 }
