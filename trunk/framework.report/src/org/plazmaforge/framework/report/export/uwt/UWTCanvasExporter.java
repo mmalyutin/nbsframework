@@ -210,8 +210,14 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 
 	int columnIndex = 0;
 	int rowIndex = 0;
+	int cellIndex = 0;
 	
-	for (Row row : rows) {
+	Row row = null;
+	Cell cell = null;
+	
+	for (int i = 0; i < rowCount; i++) {
+	    
+	    row = rows.get(i);
 	    
 	    // row: parent gc
 	    parentBackground = getColor(gridBackground, contextBackground);
@@ -237,8 +243,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    // row: init gc
 	    setCurrentStyle(gc);
 	    
-	    List<Cell> cells = row.getCells();
-
 	    columnIndex = 0;
 	    //rowIndex = 0;
 	    
@@ -252,8 +256,12 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    int paddingLeft = 0;
 	    int paddingTop = 0;
 	    
+	    int cellCount = row.getCellCount();
+ 	    List<Cell> cells = row.getCells();
 	    
-	    for (Cell cell : cells) {
+	    for (int j = 0; j < cellCount; j++) {
+		cellIndex = j;
+		cell = cells.get(cellIndex);
 		
 		cellWidth = 0;
 		cellHeight = 0;
@@ -315,10 +323,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		Object value = cell.getValue();
 		if (value != null) {
 		    String text = formatCellValue(cell);
-		    //if (text.startsWith("PRICE") ){
-			//System.out.print("");
-			
-		    //}
 		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
 		}
 		
