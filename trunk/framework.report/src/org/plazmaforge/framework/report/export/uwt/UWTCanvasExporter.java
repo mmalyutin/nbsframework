@@ -255,6 +255,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    
 	    int paddingLeft = 0;
 	    int paddingTop = 0;
+	    int paddingRight = 0;
+	    int paddingBottom = 0;
 	    
 	    int cellCount = row.getCellCount();
  	    List<Cell> cells = row.getCells();
@@ -307,23 +309,32 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		// cell: init gc
 		setCurrentStyle(gc);
 		
-		// cell: area
+		// cell: padding
 		paddingLeft = 0;
 		paddingTop = 0;
+		paddingRight = 0;
+		paddingBottom = 0;
+
 		if (cell.hasPadding()) {
 		    paddingLeft = cell.getPadding().getLeft();
 		    paddingTop = cell.getPadding().getTop();
+		    paddingRight = cell.getPadding().getRight();
+		    paddingBottom = cell.getPadding().getBottom();
 		}
 		
-		int areaX = cellX /*+ paddingLeft*/;
-		int areaY = cellY /*+ paddingTop*/;
-		int areaWidth = cellWidth;
-		int areaHeight = cellHeight;
+		// cell: area
+		int areaX = cellX + paddingLeft;
+		int areaY = cellY + paddingTop;
+		int areaWidth = cellWidth - paddingLeft - paddingRight;
+		int areaHeight = cellHeight - paddingTop - paddingBottom;
 		
-		Object value = cell.getValue();
-		if (value != null) {
-		    String text = formatCellValue(cell);
-		    drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
+		// cell: paint
+		if (areaWidth > 0 && areaHeight > 0) {
+		    Object value = cell.getValue();
+		    if (value != null) {
+			String text = formatCellValue(cell);
+			drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
+		    }
 		}
 		
 		columnIndex = nextColumnIndex;
