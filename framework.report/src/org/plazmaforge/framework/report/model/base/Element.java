@@ -319,6 +319,7 @@ public class Element implements Serializable, HasExpressionBuilder {
 		+ ", foreground=" + foreground 
 		+ ", font=" + font 
 		+ ", margin=" + margin
+		+ ", border=" + border		
 		+ ", x=" + (position == null ? null : getX()) 
 		+ ", y=" + (position == null ? null : getY())
 		+ ", width=" + (size == null ? null : getWidth())
@@ -332,6 +333,7 @@ public class Element implements Serializable, HasExpressionBuilder {
 	int result = 1;
 	result = prime * result
 		+ ((background == null) ? 0 : background.hashCode());
+	result = prime * result + ((border == null) ? 0 : border.hashCode());
 	result = prime * result + ((font == null) ? 0 : font.hashCode());
 	result = prime * result
 		+ ((foreground == null) ? 0 : foreground.hashCode());
@@ -357,6 +359,11 @@ public class Element implements Serializable, HasExpressionBuilder {
 	    if (other.background != null)
 		return false;
 	} else if (!background.equals(other.background))
+	    return false;
+	if (border == null) {
+	    if (other.border != null)
+		return false;
+	} else if (!border.equals(other.border))
 	    return false;
 	if (font == null) {
 	    if (other.font != null)
@@ -387,6 +394,8 @@ public class Element implements Serializable, HasExpressionBuilder {
 	    return false;
 	return true;
     }
+
+
 
     
     

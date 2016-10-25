@@ -141,4 +141,53 @@ public class Border implements Serializable  {
     public Border clone() {
 	return new Border(topPen, rightPen, bottomPen, leftPen);
     }
+
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((bottomPen == null) ? 0 : bottomPen.hashCode());
+	result = prime * result + ((leftPen == null) ? 0 : leftPen.hashCode());
+	result = prime * result
+		+ ((rightPen == null) ? 0 : rightPen.hashCode());
+	result = prime * result + ((topPen == null) ? 0 : topPen.hashCode());
+	return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Border other = (Border) obj;
+	if (bottomPen == null) {
+	    if (other.bottomPen != null)
+		return false;
+	} else if (!bottomPen.equals(other.bottomPen))
+	    return false;
+	if (leftPen == null) {
+	    if (other.leftPen != null)
+		return false;
+	} else if (!leftPen.equals(other.leftPen))
+	    return false;
+	if (rightPen == null) {
+	    if (other.rightPen != null)
+		return false;
+	} else if (!rightPen.equals(other.rightPen))
+	    return false;
+	if (topPen == null) {
+	    if (other.topPen != null)
+		return false;
+	} else if (!topPen.equals(other.topPen))
+	    return false;
+	return true;
+    }
+    
+    
 }
