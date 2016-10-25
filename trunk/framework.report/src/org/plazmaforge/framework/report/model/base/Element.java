@@ -73,6 +73,12 @@ public class Element implements Serializable, HasExpressionBuilder {
      */
     private Margin margin;
 
+    /**
+     * Border
+     */
+    private Border border;
+    
+    
     
     public Element() {
 	visible = true;
@@ -245,6 +251,25 @@ public class Element implements Serializable, HasExpressionBuilder {
 	return margin == null || margin.isEmpty();
     }    
 
+    public Border getBorder() {
+	if (border == null) {
+	    border = new Border();
+	}
+        return border;
+    }
+
+    public void setBorder(Border border) {
+        this.border = border;
+    }
+
+    public boolean hasBorder() {
+	return border != null;
+    }
+
+    public boolean isEmptyBorder() {
+	return border == null || border.isEmpty();
+    }    
+    
     public String toStringModel() {
 	return toString();
     }
