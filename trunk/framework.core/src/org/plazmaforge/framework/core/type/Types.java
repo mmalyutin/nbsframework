@@ -63,6 +63,8 @@ public class Types {
     public static final String DateTimeType = "DateTime";
     
     public static final String TimestampType = "Timestamp";
+    
+    public static final String CalendarType = "Calendar";
 
     
     private Types() {
