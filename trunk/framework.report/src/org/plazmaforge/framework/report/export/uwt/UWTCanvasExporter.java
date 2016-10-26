@@ -30,6 +30,7 @@ import java.util.List;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
+import org.plazmaforge.framework.report.export.ExportHelper.BorderLayout;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -149,9 +150,14 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	List<Column> columns = grid.getColumns();
 	List<Row> rows = grid.getRows();
 	
-	int width = ExportHelper.calculateWidth(columns);
-	int height = ExportHelper.calculateHeight(rows);
+	int gridWidth = ExportHelper.calculateWidth(columns);
+	int gridHeight = ExportHelper.calculateHeight(rows);
 
+	//BorderLayout layout = ExportHelper.getBorderLayout(grid, null);
+	//int gridWidth = layout.getAreaWidth();
+	//int gridHeight = layout.getAreaHeight();
+
+	
 	Color contextBackground = gc.getBackground();
 	Color contextForeground = gc.getForeground();
 	Font contextFont = gc.getFont();
@@ -196,7 +202,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	font = gridFont;
 	
 	// grid: background
-	fillBackground(gc, offsetX, offsetY, width, height, background);
+	fillBackground(gc, offsetX, offsetY, gridWidth, gridHeight, background);
 
 	// grid: normalize current gc
 	normalizeCurrentStyle();
@@ -205,7 +211,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	setCurrentStyle(gc);
 	
 	// grid: border
-	gc.drawRectangle(offsetX, offsetY, width, height);
+	gc.drawRectangle(offsetX, offsetY, gridWidth, gridHeight);
 
 
 	int columnIndex = 0;
@@ -235,7 +241,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    font = rowFont;
 		
 	    // row: background
-	    fillBackground(gc, offsetX, offsetY, width, row.getHeight(), background);
+	    fillBackground(gc, offsetX, offsetY, gridWidth, row.getHeight(), background);
 	    
 	    // row: normalize current gc
 	    normalizeCurrentStyle();
@@ -370,7 +376,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    
 	    //TODO
 	    // row: bottom border
-	    gc.drawLine(offsetX, offsetY - 1, offsetX + width, offsetY - 1);
+	    gc.drawLine(offsetX, offsetY - 1, offsetX + gridWidth, offsetY - 1);
 
 	}
 	
