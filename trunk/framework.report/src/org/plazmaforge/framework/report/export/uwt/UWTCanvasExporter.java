@@ -31,6 +31,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.export.ExportHelper.BorderLayout;
+import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -43,6 +44,8 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
+
+
 
 /**
  * @author ohapon
@@ -150,13 +153,15 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	List<Column> columns = grid.getColumns();
 	List<Row> rows = grid.getRows();
 	
-	int gridWidth = ExportHelper.calculateWidth(columns);
-	int gridHeight = ExportHelper.calculateHeight(rows);
+	//int gridWidth = ExportHelper.calculateWidth(columns);
+	//int gridHeight = ExportHelper.calculateHeight(rows);
 
-	//BorderLayout layout = ExportHelper.getBorderLayout(grid, null);
-	//int gridWidth = layout.getAreaWidth();
-	//int gridHeight = layout.getAreaHeight();
+	BorderLayout layout = ExportHelper.getBorderLayout(grid, null);
+	int gridWidth = layout.getAreaWidth();
+	int gridHeight = layout.getAreaHeight();
 
+	int gridOffsetX = offsetX;
+	int gridOffsetY = offsetY;
 	
 	Color contextBackground = gc.getBackground();
 	Color contextForeground = gc.getForeground();
@@ -202,7 +207,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	font = gridFont;
 	
 	// grid: background
-	fillBackground(gc, offsetX, offsetY, gridWidth, gridHeight, background);
+	fillBackground(gc, gridOffsetX, gridOffsetY, gridWidth, gridHeight, background);
 
 	// grid: normalize current gc
 	normalizeCurrentStyle();
@@ -211,7 +216,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	setCurrentStyle(gc);
 	
 	// grid: border
-	gc.drawRectangle(offsetX, offsetY, gridWidth, gridHeight);
+	gc.drawRectangle(gridOffsetX, gridOffsetY, gridWidth, gridHeight);
 
 
 	int columnIndex = 0;
@@ -221,9 +226,36 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	Row row = null;
 	Cell cell = null;
 	
+	int rowOffsetX = 0;
+	int rowOffsetY = 0;
+	int rowWidth = 0;
+	int rowHeight = 0;
+		
 	for (int i = 0; i < rowCount; i++) {
 	    
 	    row = rows.get(i);
+	    
+	    rowOffsetX = gridOffsetX;
+	    rowOffsetY = offsetY;
+	    rowWidth = gridWidth;
+	    rowHeight = row.getHeight();
+	    
+	    int rowBorderTop = 0;
+	    int rowBorderBottom = 0;
+	    BorderRegion rowBorder = layout.getRowBorder(i);
+	    if (rowBorder != null) {
+		rowBorderTop = rowBorder.getPrevWidth();
+		rowBorderBottom = rowBorder.getNextWidth();
+	    }
+	    
+//	    BorderRegion cb2 = layout.getColumnBorder(columnCount - 1);
+//	    if (cb2 != null) {
+//		c2 = cb2.getNextWidth();
+//	    }
+//	    c = c1 + c2;
+//	    rowOffsetX += c1;
+//	    rowWidth -= c;
+	    
 	    
 	    // row: parent gc
 	    parentBackground = getColor(gridBackground, contextBackground);
@@ -241,7 +273,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    font = rowFont;
 		
 	    // row: background
-	    fillBackground(gc, offsetX, offsetY, gridWidth, row.getHeight(), background);
+	    fillBackground(gc, rowOffsetX, rowOffsetY, rowWidth, rowHeight, background);
 	    
 	    // row: normalize current gc
 	    normalizeCurrentStyle();
@@ -252,8 +284,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    columnIndex = 0;
 	    //rowIndex = 0;
 	    
-	    int cellX = offsetX;
-	    int cellY = offsetY;
+	    int cellX = rowOffsetX;
+	    int cellY = rowOffsetY;
 	    int cellWidth = 0;
 	    int cellHeight = 0;
 	    int colspan = 0;
@@ -267,6 +299,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    int cellCount = row.getCellCount();
  	    List<Cell> cells = row.getCells();
 	    
+ 	   cellY += rowBorderTop;
+ 	   
 	    for (int j = 0; j < cellCount; j++) {
 		cellIndex = j;
 		cell = cells.get(cellIndex);
@@ -290,6 +324,19 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
 		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
 		
+		    int columnBorderLeft = 0;
+		    int columnBorderRight = 0;
+		    BorderRegion columnBorder1 = layout.getColumnBorder(columnIndex);
+		    if (columnBorder1 != null) {
+			columnBorderLeft = columnBorder1.getPrevWidth();
+		    }
+		    BorderRegion columnBorder2 = layout.getColumnBorder(nextColumnIndex - 1);
+		    if (columnBorder2 != null) {
+			columnBorderRight = columnBorder2.getNextWidth();
+		    }
+		  
+		    cellX += columnBorderLeft;
+		    //cellY += rowBorderTop;
 		
 		// cell: parent gc
 		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
@@ -345,13 +392,16 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		
 		columnIndex = nextColumnIndex;
 		cellX += cellWidth;
+		//cellX += columnBorderLeft;
+		cellX += columnBorderRight;
 		
 	    }
 	    
 
 	    rowIndex++;
 	    offsetY += row.getHeight();
-	    
+	    offsetY += rowBorderTop;
+	    offsetY += rowBorderBottom;
 	    
 	    // row: parent gc
 	    parentBackground = getColor(gridBackground, contextBackground);
@@ -376,7 +426,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    
 	    //TODO
 	    // row: bottom border
-	    gc.drawLine(offsetX, offsetY - 1, offsetX + gridWidth, offsetY - 1);
+	    gc.drawLine(rowOffsetX, rowOffsetY - 1, rowOffsetX + gridWidth, rowOffsetY - 1);
 
 	}
 	
