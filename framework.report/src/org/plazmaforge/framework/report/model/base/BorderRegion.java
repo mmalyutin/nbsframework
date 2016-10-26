@@ -29,68 +29,42 @@ import java.io.Serializable;
  * @author ohapon
  *
  */
-public class BorderNode implements Serializable  {
+public class BorderRegion implements Serializable  {
 
     private static final long serialVersionUID = -5401329918130048093L;
     
 
-    private Pen beforePen;
+    private int prevWidth;
     
-    private Pen afterPen;
-
-    public BorderNode() {
+    private int nextWidth;
+    
+    public BorderRegion() {
 	super();
     }
-
-    public Pen getBeforePen() {
-	if (beforePen == null) {
-	    beforePen = new Pen();
-	}
-        return beforePen;
-    }
-
-    public void setBeforePen(Pen beforePen) {
-        this.beforePen = beforePen;
-    }
-
-    public Pen getAfterPen() {
-	if (afterPen == null) {
-	    afterPen = new Pen();
-	}
-        return afterPen;
-    }
-
-    public void setAfterPen(Pen afterPen) {
-        this.afterPen = afterPen;
-    }
-
-    ////
     
-    protected boolean hasPen(Pen pen) {
-	return !isEmpty(pen);
+    public int getPrevWidth() {
+        return prevWidth;
     }
-    
-    protected boolean isEmpty(Pen pen) {
-	return pen == null || pen.isEmpty();
-    }
-    
-    ////
 
-    public boolean hasBeforePen() {
-	return hasPen(beforePen);
+    public void setPrevWidth(int prevWidth) {
+        this.prevWidth = prevWidth < 0 ? 0 : prevWidth;
     }
-    
-    public boolean hasAfterPen() {
-	return hasPen(afterPen);
+
+    public int getNextWidth() {
+        return nextWidth;
     }
-    
+
+    public void setNextWidth(int nextWidth) {
+        this.nextWidth = nextWidth < 0 ? 0 : nextWidth;
+    }
+
     public boolean isEmpty() {
-	return isEmpty(beforePen) && isEmpty(afterPen);
+	return prevWidth == 0 && nextWidth == 0;
     }
 
     @Override
     public String toString() {
-	return "BorderNode[beforePen=" + beforePen + ", afterPen="  + afterPen + "]";
+	return "BorderRegion[prevWidth=" + prevWidth + ", nextWidth="  + nextWidth + "]";
     }
     
 }
