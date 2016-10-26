@@ -248,15 +248,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		rowBorderBottom = rowBorder.getNextWidth();
 	    }
 	    
-//	    BorderRegion cb2 = layout.getColumnBorder(columnCount - 1);
-//	    if (cb2 != null) {
-//		c2 = cb2.getNextWidth();
-//	    }
-//	    c = c1 + c2;
-//	    rowOffsetX += c1;
-//	    rowWidth -= c;
-	    
-	    
 	    // row: parent gc
 	    parentBackground = getColor(gridBackground, contextBackground);
 	    parentForeground = getColor(gridForeground, contextForeground);
@@ -321,8 +312,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		    break;
 		}
 		
-		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
-		cellHeight = ExportHelper.calculateCellHeight(cell, rows, rowIndex);
+		cellWidth = ExportHelper.calculateCellWidth(layout, cell, columns, columnIndex);
+		cellHeight = ExportHelper.calculateCellHeight(layout, cell, rows, rowIndex);
 		
 		    int columnBorderLeft = 0;
 		    int columnBorderRight = 0;

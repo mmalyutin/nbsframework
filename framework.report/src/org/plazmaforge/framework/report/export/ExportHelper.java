@@ -95,10 +95,59 @@ public class ExportHelper {
     }
     
     public static int calculateCellHeight(Cell cell, List<Row> rows, int rowIndex) {
+	if (cell == null || rows == null) {
+	    return 0;
+	}	
 	int height = 0;
 	int nextRowIndex = rowIndex + cell.getRowspan();
 	for (int i = rowIndex; i < nextRowIndex; i++) {
 	    height += rows.get(i).getHeight();
+	}
+	return height;
+    }
+    
+    public static int calculateCellWidth(BorderLayout layout, Cell cell, List<Column> columns, int columnIndex) {
+	if (cell == null || columns == null) {
+	    return 0;
+	}
+	int width = 0;
+	int nextColumnIndex = columnIndex + cell.getColspan();
+	for (int i = columnIndex; i < nextColumnIndex; i++) {
+	    width += columns.get(i).getWidth();
+	    if (layout != null && cell.getColspan() > 0) {
+		BorderRegion border = layout.getColumnBorder(i);
+		if (border != null) {
+		    if (i > columnIndex) {
+			width += border.getPrevWidth();
+		    }
+		    if (i < nextColumnIndex - 1) {
+			width += border.getNextWidth();
+		    }
+		}
+	    }
+	}
+	return width;
+    }
+
+    public static int calculateCellHeight(BorderLayout layout, Cell cell, List<Row> rows, int rowIndex) {
+	if (cell == null || rows == null) {
+	    return 0;
+	}	
+	int height = 0;
+	int nextRowIndex = rowIndex + cell.getRowspan();
+	for (int i = rowIndex; i < nextRowIndex; i++) {
+	    height += rows.get(i).getHeight();
+	    if (layout != null && cell.getRowspan() > 0) {
+		BorderRegion border = layout.getRowBorder(i);
+		if (border != null) {
+		    if (i > rowIndex) {
+			height += border.getPrevWidth();
+		    }
+		    if (i < nextRowIndex - 1) {
+			height += border.getNextWidth();
+		    }
+		}
+	    }
 	}
 	return height;
     }
