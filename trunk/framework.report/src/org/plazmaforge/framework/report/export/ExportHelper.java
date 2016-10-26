@@ -25,12 +25,19 @@
  */
 package org.plazmaforge.framework.report.export;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.BorderRegion;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
+import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
  * @author ohapon
@@ -93,5 +100,132 @@ public class ExportHelper {
 	    height += rows.get(i).getHeight();
 	}
 	return height;
+    }
+    
+    
+    public static BorderLayout getBorderLayout(Grid grid, Pen pen) {
+	if (grid == null) {
+	    return null;
+	}
+	
+	if (pen == null) {
+	    pen = new Pen(1, Pen.LINE_STYLE_SOLID, Color.BLACK); 
+	}
+	
+	BorderLayout borderLayout = new BorderLayout();
+	Map<String, Border> cellBorders = new HashMap<String, Border>();
+	List<BorderRegion> columnBorders = new ArrayList<BorderRegion>();
+	List<BorderRegion> rowBorders = new ArrayList<BorderRegion>();
+	
+	borderLayout.setCellBorders(cellBorders);
+	borderLayout.setColumnBorders(columnBorders);
+	borderLayout.setRowBorders(rowBorders);
+	
+	int columnCount = grid.getColumnCount();
+	int rowCount = grid.getRowCount();
+	
+	List<Column> columns = grid.getColumns();
+	List<Row> rows = grid.getRows();
+	
+	Column column = null;
+	Row row = null;
+	Cell cell = null;
+	
+	int columnIndex = 0;
+	int colspan = 0;
+	int rowspan = 0;
+	
+	for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+	    
+	    row = rows.get(rowIndex);
+	    
+	    int cellCount = row.getCellCount();
+ 	    List<Cell> cells = row.getCells();
+	    
+ 	    columnIndex = 0;
+ 	   
+	    for (int cellIndex = 0; cellIndex < cellCount; cellIndex++) {
+		
+		cell = cells.get(cellIndex);
+		
+		colspan = cell.getColspan();
+		rowspan = cell.getRowspan();
+		int nextColumnIndex = columnIndex + colspan;
+		int nextRowIndex = rowIndex + rowspan;
+		
+		if (nextColumnIndex > columnCount) {
+		    // overflow columns
+		    break;
+		}
+		if (nextRowIndex > rowCount) {
+		    // overflow rows
+		    break;
+		}
+		
+		// TODO: cell: 4 borders: _|
+		Border cellBorder = new Border();
+		
+		cellBorder.setBottomPen(pen);
+		cellBorder.setRightPen(pen);
+		
+		if (columnIndex == 0) {
+		    cellBorder.setLeftPen(pen);
+		}
+		if (rowIndex == 0) {
+		    cellBorder.setTopPen(pen);
+		}
+		
+		String cellKey = borderLayout.getCellKey(columnIndex, rowIndex);
+		cellBorders.put(cellKey, cellBorder);
+		
+		columnIndex = nextColumnIndex;
+	    }
+	}
+	
+	return borderLayout;
+    }
+    
+    
+    public static class BorderLayout {
+	
+	private Map<String, Border> cellBorders;
+	
+	private List<BorderRegion> columnBorders;
+	
+	private List<BorderRegion> rowBorders;
+
+	public BorderLayout() {
+	    super();
+	}
+
+	public Map<String, Border> getCellBorders() {
+	    return cellBorders;
+	}
+
+	public void setCellBorders(Map<String, Border> cellBorders) {
+	    this.cellBorders = cellBorders;
+	}
+
+	public List<BorderRegion> getColumnBorders() {
+	    return columnBorders;
+	}
+
+	public void setColumnBorders(List<BorderRegion> columnBorders) {
+	    this.columnBorders = columnBorders;
+	}
+
+	public List<BorderRegion> getRowBorders() {
+	    return rowBorders;
+	}
+
+	public void setRowBorders(List<BorderRegion> rowBorders) {
+	    this.rowBorders = rowBorders;
+	}
+
+	public String getCellKey(int columnIndex, int rowIndex) {
+	    return "" + columnIndex + ":" + rowIndex;
+	}
+	
+	
     }
 }
