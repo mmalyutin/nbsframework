@@ -36,13 +36,13 @@
 							<rows>
 								<row height="20">
 									<cells>
-										<cell colspan="3" font="11, underline"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
+										<cell colspan="4" font="11, underline"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
 									</cells>
 								</row>
 								<row height="20">
 									<cells>
 										<cell colspan="2"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
-										<cell colspan="1" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
+										<cell colspan="2" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
 									</cells>
 								</row>
 							</rows>
@@ -51,7 +51,7 @@
 							<rows>
 								<row height="20">
 									<cells>
-										<cell colspan="3"><value>GroupFooter</value></cell>
+										<cell colspan="4"><value>GroupFooter</value></cell>
 									</cells>
 								</row>
 							</rows>
@@ -69,12 +69,12 @@
 						</row>
 						<row height="15">
 							<cells>
-								<cell font="bold|italic"><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
+								<cell colspan="4" font="bold|italic"><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
 							</cells>
 						</row>
 						<row height="15">
 							<cells>
-								<cell foreground="green"><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
+								<cell colspan="4" foreground="green"><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
 							</cells>
 						</row>
 					</rows>
