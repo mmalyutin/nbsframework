@@ -31,8 +31,10 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.export.ExportHelper.BorderLayout;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -147,6 +149,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    return;
 	}
 
+	boolean isCollapsedBorder = true; 
+	
 	int columnCount = grid.getColumnCount();
 	int rowCount = grid.getRowCount();
 	
@@ -216,7 +220,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	setCurrentStyle(gc);
 	
 	// grid: border
-	gc.drawRectangle(gridOffsetX, gridOffsetY, gridWidth, gridHeight);
+	//gc.drawRectangle(gridOffsetX, gridOffsetY, gridWidth, gridHeight);
 
 
 	int columnIndex = 0;
@@ -290,11 +294,14 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    int cellCount = row.getCellCount();
  	    List<Cell> cells = row.getCells();
 	    
- 	   cellY += rowBorderTop;
+ 	    // shift cellY (row-border-top)
+ 	    cellY += rowBorderTop;
  	   
 	    for (int j = 0; j < cellCount; j++) {
 		cellIndex = j;
 		cell = cells.get(cellIndex);
+		
+		
 		
 		cellWidth = 0;
 		cellHeight = 0;
@@ -315,19 +322,20 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		cellWidth = ExportHelper.calculateCellWidth(layout, cell, columns, columnIndex);
 		cellHeight = ExportHelper.calculateCellHeight(layout, cell, rows, rowIndex);
 		
-		    int columnBorderLeft = 0;
-		    int columnBorderRight = 0;
-		    BorderRegion columnBorder1 = layout.getColumnBorder(columnIndex);
-		    if (columnBorder1 != null) {
-			columnBorderLeft = columnBorder1.getPrevWidth();
-		    }
-		    BorderRegion columnBorder2 = layout.getColumnBorder(nextColumnIndex - 1);
-		    if (columnBorder2 != null) {
-			columnBorderRight = columnBorder2.getNextWidth();
-		    }
-		  
-		    cellX += columnBorderLeft;
-		    //cellY += rowBorderTop;
+		int columnBorderLeft = 0;
+		int columnBorderRight = 0;
+		
+		BorderRegion columnBorder1 = layout.getColumnBorder(columnIndex);
+		if (columnBorder1 != null) {
+		    columnBorderLeft = columnBorder1.getPrevWidth();
+		}
+		BorderRegion columnBorder2 = layout.getColumnBorder(nextColumnIndex - 1);
+		if (columnBorder2 != null) {
+		    columnBorderRight = columnBorder2.getNextWidth();
+		}
+
+		// shift cellX (column-border-left)
+		cellX += columnBorderLeft;		  
 		
 		// cell: parent gc
 		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
@@ -344,11 +352,25 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		foreground = cellForeground;
 		font = cellFont;
 		
+		int outCellX = cellX - columnBorderLeft;
+		int outCellY = cellY - rowBorderTop;
+		int outCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
+		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
+		
 		// cell: background
-		fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
+		if (isCollapsedBorder) {
+		    fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
+		} else {
+		    fillBackground(gc, outCellX, outCellY, outCellWidth, outCellHeight, background);
+		}
+		
 		
 		// cell: normalize current gc
 		normalizeCurrentStyle();
+		
+		Border border = layout.getCellBorder(columnIndex, rowIndex);
+		
+		drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, true);
 		
 		// cell: init gc
 		setCurrentStyle(gc);
@@ -417,7 +439,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    
 	    //TODO
 	    // row: bottom border
-	    gc.drawLine(rowOffsetX, rowOffsetY - 1, rowOffsetX + gridWidth, rowOffsetY - 1);
+	    //gc.drawLine(rowOffsetX, rowOffsetY - 1, rowOffsetX + gridWidth, rowOffsetY - 1);
 
 	}
 	
@@ -432,7 +454,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	gc.fillRectangle(x, y, width, height);
     }
     
-    
     protected void drawText(GC gc, String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) {
 	if (text == null) {
 	    return;
@@ -446,4 +467,102 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	//gc.drawText(text, x, y);
 	gc.drawTextBox(text, x, y, width, height, horizontalAlign, verticalAlign);
     }
+    
+    protected void drawBorder(GC gc, Border border, int x, int y, int width, int height, boolean outline) {
+	if (border == null || border.isEmpty()) {
+	    return;
+	}
+
+	int w;
+	int rx;
+	int ry;
+	
+	int rwidth;
+	int rheight;
+
+	Pen pen;
+	Color color;
+	Color defaultColor = Color.BLACK;
+	
+	
+	int leftW = 0;
+	int rightW = 0;
+	
+	// Left
+	if (border.hasLeftPen() && !border.getLeftPen().isEmpty()) {
+	    pen = border.getLeftPen();
+	    w = pen.getLineWidth();
+	    if (w <= 0) {
+		w = 1;
+	    }
+	    leftW = w;
+	    color = pen.getLineColor();
+	    gc.setBackground(color == null ? defaultColor : color);
+
+	    rx = x - w;
+	    ry = y;
+	    rwidth = w;
+	    rheight = height;
+	    
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	}
+	
+	// Right
+	if (border.hasRightPen() && !border.getRightPen().isEmpty()) {
+	    pen = border.getRightPen();
+	    w = pen.getLineWidth();
+	    if (w <= 0) {
+		w = 1;
+	    }
+	    rightW = w;
+	    color = pen.getLineColor();
+	    gc.setBackground(color == null ? defaultColor : color);
+	    
+	    rx = x + width;
+	    ry = y;
+	    rwidth = w;
+	    rheight = height;
+	    
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	}
+
+	// Top
+	if (border.hasTopPen() && !border.getTopPen().isEmpty()) {
+	    pen = border.getTopPen();
+	    w = pen.getLineWidth();
+	    if (w <= 0) {
+		w = 1;
+	    }
+	    color = pen.getLineColor();
+	    gc.setBackground(color == null ? defaultColor : color);
+	    
+	    rx = x - leftW;
+	    ry = y - w;
+	    rwidth = width + leftW + rightW;
+	    rheight = w;
+	    
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	}
+
+	// Bottom
+	if (border.hasBottomPen() && !border.getBottomPen().isEmpty()) {
+	    pen = border.getBottomPen();
+	    w = pen.getLineWidth();
+	    if (w <= 0) {
+		w = 1;
+	    }
+	    color = pen.getLineColor();
+	    gc.setBackground(color == null ? defaultColor : color);
+	    
+	    rx = x - leftW;
+	    ry = y + height;
+	    rwidth = width + leftW + rightW;
+	    rheight = w;
+	    
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	}
+	
+    }
+    
+ 
 }
