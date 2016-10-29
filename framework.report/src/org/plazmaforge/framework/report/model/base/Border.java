@@ -33,6 +33,8 @@ public class Border implements Serializable  {
 
     private static final long serialVersionUID = -9119801104835934766L;
     
+    public static final Border NONE = new Border(Pen.NONE);
+    
     private Pen topPen;
     
     private Pen rightPen;
@@ -45,6 +47,9 @@ public class Border implements Serializable  {
 	super();
     }
 
+    public Border(Pen pen) {
+	this(pen, pen, pen, pen);
+    }
 
     public Border(Pen topPen, Pen rightPen, Pen bottomPen, Pen leftPen) {
 	super();
