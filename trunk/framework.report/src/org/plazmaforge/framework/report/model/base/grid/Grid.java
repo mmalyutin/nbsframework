@@ -39,6 +39,8 @@ public class Grid extends Element implements HasExpressionBuilder {
 
     private static final long serialVersionUID = -6413187521200757054L;
     
+    private CellBorderType cellBorderType;
+    
 
     private ColumnModel columnModel;
     
@@ -189,6 +191,15 @@ public class Grid extends Element implements HasExpressionBuilder {
 	    }
 	}
 	
+    }
+
+    
+    public CellBorderType getCellBorderType() {
+        return cellBorderType;
+    }
+
+    public void setCellBorderType(CellBorderType cellBorderType) {
+        this.cellBorderType = cellBorderType;
     }
 
     @Override

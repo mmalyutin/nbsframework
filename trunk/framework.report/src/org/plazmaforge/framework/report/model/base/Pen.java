@@ -35,6 +35,8 @@ public class Pen implements Serializable {
 
     private static final long serialVersionUID = -5276236458876261037L;
     
+    public static final Pen NONE = new Pen();
+    
     public static final byte LINE_STYLE_SOLID = 0;
 
     public static final byte LINE_STYLE_DASHED = 1;
