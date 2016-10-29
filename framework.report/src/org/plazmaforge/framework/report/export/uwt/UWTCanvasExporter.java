@@ -30,7 +30,6 @@ import java.util.List;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
 import org.plazmaforge.framework.report.export.ExportHelper;
-import org.plazmaforge.framework.report.export.ExportHelper.BorderLayout;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
@@ -38,6 +37,7 @@ import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
+import org.plazmaforge.framework.report.model.base.grid.GridLayout;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
@@ -160,7 +160,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	//int gridWidth = ExportHelper.calculateWidth(columns);
 	//int gridHeight = ExportHelper.calculateHeight(rows);
 
-	BorderLayout layout = ExportHelper.getBorderLayout(grid, null);
+	GridLayout layout = ExportHelper.getGridLayout(grid, null);
 	int gridWidth = layout.getAreaWidth();
 	int gridHeight = layout.getAreaHeight();
 

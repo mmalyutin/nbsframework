@@ -25,8 +25,6 @@
  */
 package org.plazmaforge.framework.report.export;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +35,7 @@ import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
+import org.plazmaforge.framework.report.model.base.grid.GridLayout;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
@@ -106,7 +105,7 @@ public class ExportHelper {
 	return height;
     }
     
-    public static int calculateCellWidth(BorderLayout layout, Cell cell, List<Column> columns, int columnIndex) {
+    public static int calculateCellWidth(GridLayout layout, Cell cell, List<Column> columns, int columnIndex) {
 	if (cell == null || columns == null) {
 	    return 0;
 	}
@@ -129,7 +128,7 @@ public class ExportHelper {
 	return width;
     }
 
-    public static int calculateCellHeight(BorderLayout layout, Cell cell, List<Row> rows, int rowIndex) {
+    public static int calculateCellHeight(GridLayout layout, Cell cell, List<Row> rows, int rowIndex) {
 	if (cell == null || rows == null) {
 	    return 0;
 	}	
@@ -153,7 +152,7 @@ public class ExportHelper {
     }
     
     
-    public static BorderLayout getBorderLayout(Grid grid, Pen pen) {
+    public static GridLayout getGridLayout(Grid grid, Pen pen) {
 	if (grid == null) {
 	    return null;
 	}
@@ -162,14 +161,14 @@ public class ExportHelper {
 	    pen = new Pen(1, Pen.LINE_STYLE_SOLID, Color.BLACK); 
 	}
 	
-	BorderLayout borderLayout = new BorderLayout();
+	GridLayout layout = new GridLayout();
 	Map<String, Border> cellBorders = new HashMap<String, Border>();
 	Map<Integer, BorderRegion> columnBorders = new HashMap<Integer, BorderRegion>();
 	Map<Integer, BorderRegion> rowBorders = new HashMap<Integer, BorderRegion>();
 	
-	borderLayout.setCellBorders(cellBorders);
-	borderLayout.setColumnBorders(columnBorders);
-	borderLayout.setRowBorders(rowBorders);
+	layout.setCellBorders(cellBorders);
+	layout.setColumnBorders(columnBorders);
+	layout.setRowBorders(rowBorders);
 	
 	int columnCount = grid.getColumnCount();
 	int rowCount = grid.getRowCount();
@@ -230,7 +229,7 @@ public class ExportHelper {
 		if (cellBorder != null) {
 		    
 		    // Add cell border
-		    String cellKey = borderLayout.getCellKey(columnIndex, rowIndex);
+		    String cellKey = layout.getCellKey(columnIndex, rowIndex);
 		    cellBorders.put(cellKey, cellBorder);
 		    
 		    // Add column border (left, right)
@@ -262,19 +261,19 @@ public class ExportHelper {
 	int gridWidthByColumns = calculateWidth(columns);
 	int gridHeightByRows = calculateHeight(rows);
 	
-	int gridBorderWidth = borderLayout.calculateValue(columnBorders);
-	int gridBorderHeight = borderLayout.calculateValue(rowBorders);
+	int gridBorderWidth = layout.calculateValue(columnBorders);
+	int gridBorderHeight = layout.calculateValue(rowBorders);
 
 	int gridWidth = gridWidthByColumns + gridBorderWidth;
 	int gridHeight = gridHeightByRows + gridBorderHeight;
 
-	borderLayout.setWidthByColumns(gridWidthByColumns);
-	borderLayout.setHeightByRows(gridHeightByRows);
+	layout.setWidthByColumns(gridWidthByColumns);
+	layout.setHeightByRows(gridHeightByRows);
 
-	borderLayout.setAreaWidth(gridWidth);
-	borderLayout.setAreaHeight(gridHeight);
+	layout.setAreaWidth(gridWidth);
+	layout.setAreaHeight(gridHeight);
 
-	return borderLayout;
+	return layout;
     }
     
     
@@ -310,118 +309,5 @@ public class ExportHelper {
 	}
     }
     
-    public static class BorderLayout {
-	
-	private Map<String, Border> cellBorders;
-	
-	private Map<Integer, BorderRegion> columnBorders;
-	
-	private Map<Integer, BorderRegion> rowBorders;
-
-	private int widthByColumns;
-	
-	private int heightByRows;
-
-	private int areaWidth;
-	
-	private int areaHeight;
-	
-	public BorderLayout() {
-	    super();
-	}
-
-	public Map<String, Border> getCellBorders() {
-	    return cellBorders;
-	}
-
-	public void setCellBorders(Map<String, Border> cellBorders) {
-	    this.cellBorders = cellBorders;
-	}
-
-	public Map<Integer, BorderRegion> getColumnBorders() {
-	    return columnBorders;
-	}
-
-	public void setColumnBorders(Map<Integer, BorderRegion> columnBorders) {
-	    this.columnBorders = columnBorders;
-	}
-
-	public Map<Integer, BorderRegion> getRowBorders() {
-	    return rowBorders;
-	}
-
-	public void setRowBorders(Map<Integer, BorderRegion> rowBorders) {
-	    this.rowBorders = rowBorders;
-	}
-
-	public int getWidthByColumns() {
-	    return widthByColumns;
-	}
-
-	public void setWidthByColumns(int widthByColumns) {
-	    this.widthByColumns = widthByColumns < 0 ? 0: widthByColumns;
-	}
-
-	public int getHeightByRows() {
-	    return heightByRows;
-	}
-
-	public void setHeightByRows(int heightByRows) {
-	    this.heightByRows = heightByRows < 0 ? 0 : heightByRows;
-	}
-
-	public int getAreaWidth() {
-	    return areaWidth;
-	}
-
-	public void setAreaWidth(int areaWidth) {
-	    this.areaWidth = areaWidth;
-	}
-
-	public int getAreaHeight() {
-	    return areaHeight;
-	}
-
-	public void setAreaHeight(int areaHeight) {
-	    this.areaHeight = areaHeight;
-	}
-
-	public String getCellKey(int columnIndex, int rowIndex) {
-	    return "" + columnIndex + ":" + rowIndex;
-	}
-	
-	////
-	
-	public Border getCellBorder(String cellKey) {
-	    return cellKey == null ? null : cellBorders.get(cellKey); 
-	}
-	
-	public Border getCellBorder(int columnIndex, int rowIndex) {
-	    String cellKey = getCellKey(columnIndex, rowIndex);
-	    return getCellBorder(cellKey); 
-	}
-	
-	public BorderRegion getColumnBorder(int columnIndex) {
-	    return columnBorders.get(columnIndex);
-	}
-
-	public BorderRegion getRowBorder(int rowIndex) {
-	    return rowBorders.get(rowIndex);
-	}
-	
-
-	////
-	
-	public int calculateValue(Map<Integer, BorderRegion> borders) {
-	    if (borders == null) {
-		return 0;
-	    }
-	    int width = 0;
-	    Collection<BorderRegion> values = borders.values();
-	    for (BorderRegion value : values) {
-		width += (value.getPrevWidth() + value.getNextWidth());
-	    }
-	    return width;
-	}
-    }
+    
 }
