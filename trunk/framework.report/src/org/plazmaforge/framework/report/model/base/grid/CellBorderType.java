@@ -114,8 +114,6 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  *
  *
- *
- *
  * @author ohapon
  *
  */
@@ -129,4 +127,11 @@ public enum CellBorderType {
     COLUMN_ROW,
     ALL;
     
+    
+    public static CellBorderType getValue(String str) {
+	if (str == null) {
+	    return null;
+	}
+	return CellBorderType.valueOf(str.toUpperCase());
+    }
 }
