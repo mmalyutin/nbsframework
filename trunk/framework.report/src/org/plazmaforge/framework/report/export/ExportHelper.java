@@ -33,6 +33,7 @@ import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.GridLayout;
@@ -212,7 +213,7 @@ public class ExportHelper {
     }
     
     
-    public static GridLayout getGridLayout(Grid grid, Pen pen) {
+    public static GridLayout getGridLayout(Grid grid, CellBorderType cellBorderType, Pen pen) {
 	if (grid == null) {
 	    return null;
 	}
@@ -271,18 +272,51 @@ public class ExportHelper {
 		    break;
 		}
 		
-		// Create cell border by border strategy
-		// TODO: cell: 4 borders: _|
-		Border cellBorder = new Border();
-		
-		cellBorder.setBottomPen(pen);
-		cellBorder.setRightPen(pen);
-		
-		if (columnIndex == 0) {
-		    cellBorder.setLeftPen(pen);
-		}
-		if (rowIndex == 0) {
-		    cellBorder.setTopPen(pen);
+		Border cellBorder = null;
+		if (cellBorderType == null) {
+		    // Use original cell border
+		    cellBorder = cell.hasBorder() ? cell.getBorder() : null;
+		} else {
+
+		    // Create cell border by border type
+		    cellBorder = new Border();
+	
+		    //////////////////////////////////////////////////////////
+		    // General cell border: _| (bottom, right)
+		    //////////////////////////////////////////////////////////
+		    
+		    // bottom
+		    if (cellBorderType == CellBorderType.ROW 
+			    || cellBorderType == CellBorderType.ROW_ALL
+			    || cellBorderType == CellBorderType.ALL) {
+			cellBorder.setBottomPen(pen);
+		    }
+
+		    // right
+		    if (cellBorderType == CellBorderType.COLUMN 
+			    || cellBorderType == CellBorderType.COLUMN_ALL
+			    || cellBorderType == CellBorderType.ALL) {
+			cellBorder.setRightPen(pen);
+		    }
+
+		    // top: first row
+		    if (rowIndex == 0) {
+			if (cellBorderType == CellBorderType.ROW_ALL
+				|| cellBorderType == CellBorderType.ALL) {
+			    cellBorder.setTopPen(pen);
+			}			
+		    }
+
+		    // left: first column
+		    if (columnIndex == 0) {
+			if (cellBorderType == CellBorderType.COLUMN_ALL
+				|| cellBorderType == CellBorderType.ALL) {
+			    cellBorder.setLeftPen(pen);
+			}
+		    }
+		    
+		    
+		    // TODO: merge original cell border
 		}
 		
 		
@@ -292,24 +326,24 @@ public class ExportHelper {
 		    String cellKey = layout.getCellKey(columnIndex, rowIndex);
 		    cellBorders.put(cellKey, cellBorder);
 		    
-		    // Add column border (left, right)
+		    // Add column border region (left, right)
 		    Pen leftPen = normalizePen(cellBorder.hasLeftPen() ? cellBorder.getLeftPen() : null);
 		    Pen rightPen = normalizePen(cellBorder.hasRightPen() ? cellBorder.getRightPen() : null);
 		    if (leftPen != null) {
-			mergeBorder(columnBorders, columnIndex, leftPen.getLineWidth(), false); // column: prev border 
+			mergeBorderRegion(columnBorders, columnIndex, leftPen.getLineWidth(), false); // column: prev border 
 		    }
 		    if (rightPen != null) {
-			mergeBorder(columnBorders, nextColumnIndex - 1, rightPen.getLineWidth(), true); // column: next border 
+			mergeBorderRegion(columnBorders, nextColumnIndex - 1, rightPen.getLineWidth(), true); // column: next border 
 		    }
 
-		    // Add row border (top, bottom)
+		    // Add row border region (top, bottom)
 		    Pen topPen = normalizePen(cellBorder.hasTopPen() ? cellBorder.getTopPen() : null);
 		    Pen bottomPen = normalizePen(cellBorder.hasBottomPen() ? cellBorder.getBottomPen() : null);
 		    if (topPen != null) {
-			mergeBorder(rowBorders, rowIndex, topPen.getLineWidth(), false); // row: prev border 
+			mergeBorderRegion(rowBorders, rowIndex, topPen.getLineWidth(), false); // row: prev border 
 		    }
 		    if (bottomPen != null) {
-			mergeBorder(rowBorders, nextRowIndex - 1, bottomPen.getLineWidth(), true); // row: next border 
+			mergeBorderRegion(rowBorders, nextRowIndex - 1, bottomPen.getLineWidth(), true); // row: next border 
 		    }
 		    
 		}
@@ -344,7 +378,7 @@ public class ExportHelper {
 	return pen.isEmpty() ? null : pen;
     }
     
-    private static void mergeBorder(Map<Integer, BorderRegion> borders, int index, int width, boolean next) {
+    private static void mergeBorderRegion(Map<Integer, BorderRegion> borders, int index, int width, boolean next) {
 	if (width <= 0) {
 	    return;
 	}
