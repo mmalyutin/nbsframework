@@ -35,6 +35,7 @@ import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.grid.BaseColumnModel;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.ColumnModel;
 
@@ -85,10 +86,16 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
      */
     private List<ReportGroup> groups;
 
+    
     /**
      * Own ColumnModel. Only for TableReport
      */
     private ColumnModel columnModel;
+
+    /**
+     * Border type of cell: column, column_all, row, row_all, column_row, all
+     */
+    private CellBorderType cellBorderType; 
     
     /**
      * Page Setup
@@ -255,6 +262,14 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     @Override
     public int getColumnCount() {
 	return columnModel.getColumnCount();
+    }
+    
+    public CellBorderType getCellBorderType() {
+        return cellBorderType;
+    }
+
+    public void setCellBorderType(CellBorderType cellBorderType) {
+        this.cellBorderType = cellBorderType;
     }
 
     public ReportGroup getGroup(int index) {

@@ -29,6 +29,7 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.ReportGroup;
@@ -70,11 +71,16 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    template.setType(value);
 	}
 	
+	// cell-border-type: ONLY FOR Table report
+	CellBorderType cellBorderType = getCellBorderType(element, XML_ATTR_CELL_BORDER_TYPE);
+	if (cellBorderType != null) {
+	    template.setCellBorderType(cellBorderType);
+	}
     }
     
     protected void readTemplateContent(Element element, Template template) {
 	readPageSetup(element, template);
-	readColumns(element, template);
+	readColumns(element, template); // ONLY FOR Table report 
 	readGroups(element, template);
 	readBands(element, template);
     }

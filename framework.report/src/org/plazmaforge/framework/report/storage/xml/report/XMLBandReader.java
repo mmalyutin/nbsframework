@@ -79,7 +79,7 @@ public class XMLBandReader extends XMLAbstractReportReader {
     }
     
     protected void readBandContent(Element element, Band band) {
-	readBandRows(element, band);
+	readBandRows(element, band); // ONLY FOR Table report
     }
     
     

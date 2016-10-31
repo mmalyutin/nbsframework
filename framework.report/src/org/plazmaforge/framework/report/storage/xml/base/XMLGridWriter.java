@@ -38,11 +38,18 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 public class XMLGridWriter extends XMLAbstractWriter {
 
     public void writeGrid(Grid grid, Element node) {
-	writeElementAttributes(grid, node);
+	writeGridAttributes(grid, node);
 	writeColumns(grid, node);
 	writeRows(grid, node);
     }
 
+    protected void writeGridAttributes(Grid grid, Element node) {
+	writeElementAttributes(grid, node);
+	if (grid.getCellBorderType() != null) {
+	    setCellBorderType(node, XML_ATTR_CELL_BORDER_TYPE, grid.getCellBorderType());
+	}
+    }
+    
     //COLUMNS
     protected void writeColumns(Grid grid, Element node) {
 	Element columnsNode = buildColumnsNode(grid);
