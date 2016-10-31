@@ -43,9 +43,9 @@ public class GridLayout {
 
     private Map<Integer, BorderRegion> rowBorders;
 
-    private int widthByColumns;
+    private int columnsWidth;
 
-    private int heightByRows;
+    private int rowsHeight;
 
     private int areaWidth;
 
@@ -79,20 +79,20 @@ public class GridLayout {
 	this.rowBorders = rowBorders;
     }
 
-    public int getWidthByColumns() {
-	return widthByColumns;
+    public int getColumnsWidth() {
+	return columnsWidth;
     }
 
-    public void setWidthByColumns(int widthByColumns) {
-	this.widthByColumns = widthByColumns < 0 ? 0 : widthByColumns;
+    public void setColumnsWidth(int columnsWidth) {
+	this.columnsWidth = columnsWidth < 0 ? 0 : columnsWidth;
     }
 
-    public int getHeightByRows() {
-	return heightByRows;
+    public int getRowsHeight() {
+	return rowsHeight;
     }
 
-    public void setHeightByRows(int heightByRows) {
-	this.heightByRows = heightByRows < 0 ? 0 : heightByRows;
+    public void setRowsHeight(int rowsHeight) {
+	this.rowsHeight = rowsHeight < 0 ? 0 : rowsHeight;
     }
 
     public int getAreaWidth() {
