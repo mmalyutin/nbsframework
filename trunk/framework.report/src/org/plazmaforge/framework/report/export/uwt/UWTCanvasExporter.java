@@ -157,10 +157,9 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	List<Column> columns = grid.getColumns();
 	List<Row> rows = grid.getRows();
 	
-	//int gridWidth = ExportHelper.calculateWidth(columns);
-	//int gridHeight = ExportHelper.calculateHeight(rows);
-
 	GridLayout layout = ExportHelper.getGridLayout(grid, null);
+	
+	// Get grid size without grid border
 	int gridWidth = layout.getAreaWidth();
 	int gridHeight = layout.getAreaHeight();
 

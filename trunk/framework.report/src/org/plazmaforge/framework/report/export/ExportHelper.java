@@ -51,14 +51,24 @@ public class ExportHelper {
     
     
     //////////////////////////////////////////////////////////////////////////////////////////////
-    // GRID
+    // COLUMNS
     //////////////////////////////////////////////////////////////////////////////////////////////
     
-    public int calculateWidth(Grid grid) {
-	return calculateWidth(grid == null ? null : grid.getColumns());
+    /**
+     * Calculate with of columns
+     * @param grid
+     * @return
+     */
+    public int calculateColumnsWidth(Grid grid) {
+	return calculateColumnsWidth(grid == null ? null : grid.getColumns());
     }
     
-    public static int calculateWidth(List<Column> columns) {
+    /**
+     * Calculate with of columns
+     * @param columns
+     * @return
+     */
+    public static int calculateColumnsWidth(List<Column> columns) {
 	if (columns == null) {
 	    return 0;
 	}
@@ -69,18 +79,45 @@ public class ExportHelper {
 	return width;
     }
 
-    public static int calculateHeight(Grid grid) {
-	return calculateHeight(grid == null ? null : grid.getRows());
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // ROWS
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Calculate height of rows
+     * @param grid
+     * @return
+     */
+    public static int calculateRowsHeight(Grid grid) {
+	return calculateRowsHeight(grid == null ? null : grid.getRows());
     }
     
-    public static int calculateHeight(List<Row> rows) {
+    /**
+     * Calculate height of rows
+     * @param rows
+     * @return
+     */
+    public static int calculateRowsHeight(List<Row> rows) {
 	int height = 0;
 	for (Row row : rows) {
 	    height += row.getHeight();
 	}
 	return height;
     }
+
     
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // CELLS
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Calculate width of cell by column span (without border)
+     * @param cell
+     * @param columns
+     * @param columnIndex
+     * @return
+     */
     public static int calculateCellWidth(Cell cell, List<Column> columns, int columnIndex) {
 	if (cell == null || columns == null) {
 	    return 0;
@@ -93,6 +130,13 @@ public class ExportHelper {
 	return width;
     }
     
+    /**
+     * Calculate height of cell by row span (without border)
+     * @param cell
+     * @param rows
+     * @param rowIndex
+     * @return
+     */
     public static int calculateCellHeight(Cell cell, List<Row> rows, int rowIndex) {
 	if (cell == null || rows == null) {
 	    return 0;
@@ -105,6 +149,14 @@ public class ExportHelper {
 	return height;
     }
     
+    /**
+     * Calculate width of cell by column span with border
+     * @param layout
+     * @param cell
+     * @param columns
+     * @param columnIndex
+     * @return
+     */
     public static int calculateCellWidth(GridLayout layout, Cell cell, List<Column> columns, int columnIndex) {
 	if (cell == null || columns == null) {
 	    return 0;
@@ -128,6 +180,14 @@ public class ExportHelper {
 	return width;
     }
 
+    /**
+     * Calculate height of cell by row span with border
+     * @param layout
+     * @param cell
+     * @param rows
+     * @param rowIndex
+     * @return
+     */
     public static int calculateCellHeight(GridLayout layout, Cell cell, List<Row> rows, int rowIndex) {
 	if (cell == null || rows == null) {
 	    return 0;
@@ -258,17 +318,17 @@ public class ExportHelper {
 	    }
 	}
 	
-	int gridWidthByColumns = calculateWidth(columns);
-	int gridHeightByRows = calculateHeight(rows);
+	int gridColumnsWidth = calculateColumnsWidth(columns);
+	int gridRowsHeight = calculateRowsHeight(rows);
 	
 	int gridBorderWidth = layout.calculateValue(columnBorders);
 	int gridBorderHeight = layout.calculateValue(rowBorders);
 
-	int gridWidth = gridWidthByColumns + gridBorderWidth;
-	int gridHeight = gridHeightByRows + gridBorderHeight;
+	int gridWidth = gridColumnsWidth + gridBorderWidth;
+	int gridHeight = gridRowsHeight + gridBorderHeight;
 
-	layout.setWidthByColumns(gridWidthByColumns);
-	layout.setHeightByRows(gridHeightByRows);
+	layout.setColumnsWidth(gridColumnsWidth);
+	layout.setRowsHeight(gridRowsHeight);
 
 	layout.setAreaWidth(gridWidth);
 	layout.setAreaHeight(gridHeight);
