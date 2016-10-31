@@ -286,16 +286,29 @@ public class ExportHelper {
 		    //////////////////////////////////////////////////////////
 		    
 		    // bottom
-		    if (cellBorderType == CellBorderType.ROW 
+		    if (cellBorderType == CellBorderType.COLUMN_ROW 
+			    || cellBorderType == CellBorderType.ROW
 			    || cellBorderType == CellBorderType.ROW_ALL
 			    || cellBorderType == CellBorderType.ALL) {
-			cellBorder.setBottomPen(pen);
+			
+			if ( rowIndex != rowCount - 1 
+				|| (rowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
+			    cellBorder.setBottomPen(pen);
+			}
+			
+			
 		    }
 
 		    // right
-		    if (cellBorderType == CellBorderType.COLUMN 
+		    if (cellBorderType == CellBorderType.COLUMN_ROW
+			    || cellBorderType == CellBorderType.COLUMN
 			    || cellBorderType == CellBorderType.COLUMN_ALL
 			    || cellBorderType == CellBorderType.ALL) {
+			
+			if ((columnIndex != columnCount - 1)
+				|| (columnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
+			    
+			}
 			cellBorder.setRightPen(pen);
 		    }
 
