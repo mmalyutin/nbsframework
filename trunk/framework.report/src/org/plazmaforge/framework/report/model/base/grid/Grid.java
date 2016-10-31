@@ -121,6 +121,11 @@ public class Grid extends Element implements HasExpressionBuilder {
     public String toString() {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Grid[");
+	
+	if (getCellBorderType() != null) {
+	    buf.append("cellBorderType=" + getCellBorderType() + ", ");
+	}
+	
 	List<Column> columns = getColumns();
 	buf.append("columns=[");
 	boolean first = true;	
@@ -155,6 +160,10 @@ public class Grid extends Element implements HasExpressionBuilder {
     public String toStringModel() {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Grid[");
+
+	if (getCellBorderType() != null) {
+	    buf.append("cellBorderType=" + getCellBorderType() + ", ");
+	}
 	
 	List<Column> columns = getColumns();
 	buf.append("\n  columns=[");

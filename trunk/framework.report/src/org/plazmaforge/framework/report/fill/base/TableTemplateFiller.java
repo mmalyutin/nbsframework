@@ -43,17 +43,22 @@ import org.plazmaforge.framework.report.model.document.Page;
  */
 public class TableTemplateFiller extends BaseTemplateFiller {
 
-    
+    @Override
     protected void prepareNewPage(ReportContext context) {
 	Template template = context.getTemplate();
 	Page page = context.getPage();
 
-	// TableReport
+	// New Page: Create grid by table template
 	Grid grid = new Grid(template, null);
+	
+	// Initialize grid
+	grid.setCellBorderType(template.getCellBorderType());
+	
 	page.addChild(grid);
 	context.setGrid(grid);
     }
     
+    @Override
     protected void preparePageFooter(ReportContext context, Band band) {
 
 	int offsetY = context.getEndY() - context.getPageFooterHeight();
@@ -79,6 +84,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
     }    
     
+    @Override
     protected void fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging) {
 
 	List<Row> rows = fillContainer.getRows();
@@ -124,6 +130,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
     }    
     
+    @Override
     protected Band createFillContainer(ReportContext context, int evaluation, Band band) {
 	if (band == null) {
 	    return null;

@@ -20,7 +20,7 @@
 		</data-source>
 	</data-sources>
 	<templates>
-		<template type="Table">
+		<template type="Table" cell-border-type="all">
 			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
 				<column width="100" />

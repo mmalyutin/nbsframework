@@ -25,6 +25,7 @@ package org.plazmaforge.framework.report.storage.xml;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.data.formatter.RWFormatterManager;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
@@ -140,6 +141,17 @@ public class XMLWorker {
     protected VerticalAlign getVerticalAlign(Element element, String name) {
  	return (VerticalAlign) VERTICAL_ALIGN_FORMATTER.parse(getStringValue(element, name));
    }
+
+    protected CellBorderType getCellBorderType(Element element, String name) {
+	// restore to upper case 
+	String value = getStringValue(element, name);
+	return value == null ? null : CellBorderType.getValue(value.toUpperCase());
+    }
+
+    protected void setCellBorderType(Element element, String name, CellBorderType cellBorderType) {
+	// save to lower case
+	setStringValue(element, name, cellBorderType == null ? null : cellBorderType.name().toLowerCase());
+    }
     
     protected String getContentValue(Element element) {
 	if (element == null) {
