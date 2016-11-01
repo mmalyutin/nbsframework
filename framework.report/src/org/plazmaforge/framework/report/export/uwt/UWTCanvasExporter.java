@@ -35,7 +35,6 @@ import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.GridLayout;
@@ -158,7 +157,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	List<Column> columns = grid.getColumns();
 	List<Row> rows = grid.getRows();
 	
-	GridLayout layout = ExportHelper.getGridLayout(grid, grid.getCellBorderType(), grid.hasCellBorder() ? grid.getCellBorder() : null);
+	GridLayout layout = ExportHelper.getGridLayout(grid);
 	
 	// Get grid size without grid border
 	int gridWidth = layout.getAreaWidth();

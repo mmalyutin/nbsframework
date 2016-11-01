@@ -28,8 +28,8 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.util.List;
 
 import org.jdom.Element;
-import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.design.Band;
@@ -78,10 +78,24 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    template.setCellBorderType(cellBorderType);
 	}
 	
-	Border cellBorder = getBorder(element, "cell");
+	// cell-border: ONLY FOR Table report
+	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
 	if (cellBorder != null) {
 	    template.setCellBorder(cellBorder);
 	}
+
+	// column-border: ONLY FOR Table report
+	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
+	if (columnBorder != null) {
+	    template.setColumnBorder(columnBorder);
+	}
+
+	// row-border: ONLY FOR Table report
+	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
+	if (rowBorder != null) {
+	    template.setRowBorder(rowBorder);
+	}
+	
     }
     
     protected void readTemplateContent(Element element, Template template) {

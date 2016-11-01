@@ -29,8 +29,8 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
-import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.Pen;
 
 /**
  * @author ohapon
@@ -42,7 +42,11 @@ public class Grid extends Element implements HasExpressionBuilder {
     
     private CellBorderType cellBorderType;
     
-    private Border cellBorder;
+    private Pen cellBorder;
+    
+    private Pen columnBorder;
+    
+    private Pen rowBorder;
 
     private ColumnModel columnModel;
     
@@ -130,6 +134,12 @@ public class Grid extends Element implements HasExpressionBuilder {
 	if (cellBorder != null) {
 	    buf.append("cellBorder=" + cellBorder + ", ");
 	}
+	if (columnBorder != null) {
+	    buf.append("columnBorder=" + columnBorder + ", ");
+	}
+	if (rowBorder != null) {
+	    buf.append("rowBorder=" + rowBorder + ", ");
+	}
 	
 	List<Column> columns = getColumns();
 	buf.append("columns=[");
@@ -172,6 +182,12 @@ public class Grid extends Element implements HasExpressionBuilder {
 	if (cellBorder != null) {
 	    buf.append("cellBorder=" + cellBorder + ", ");
 	}
+	if (columnBorder != null) {
+	    buf.append("columnBorder=" + columnBorder + ", ");
+	}
+	if (rowBorder != null) {
+	    buf.append("rowBorder=" + rowBorder + ", ");
+	}
 	
 	List<Column> columns = getColumns();
 	buf.append("\n  columns=[");
@@ -210,6 +226,7 @@ public class Grid extends Element implements HasExpressionBuilder {
 	
     }
 
+    ////
     
     public CellBorderType getCellBorderType() {
         return cellBorderType;
@@ -219,14 +236,14 @@ public class Grid extends Element implements HasExpressionBuilder {
         this.cellBorderType = cellBorderType;
     }
 
-    public Border getCellBorder() {
+    public Pen getCellBorder() {
 	if (cellBorder == null) {
-	    cellBorder = new Border();
+	    cellBorder = new Pen();
 	}
         return cellBorder;
     }
 
-    public void setCellBorder(Border cellBorder) {
+    public void setCellBorder(Pen cellBorder) {
         this.cellBorder = cellBorder;
     }
 
@@ -236,6 +253,54 @@ public class Grid extends Element implements HasExpressionBuilder {
 
     public boolean isEmptyCellBorder() {
 	return cellBorder == null || cellBorder.isEmpty();
+    }
+
+    public Pen getColumnBorder() {
+	if (columnBorder == null) {
+	    columnBorder = new Pen();
+	}
+        return columnBorder;
+    }
+
+    public void setColumnBorder(Pen columnBorder) {
+        this.columnBorder = columnBorder;
+    }
+
+    public boolean hasColumnBorder() {
+	return columnBorder != null;
+    }
+
+    public boolean isEmptyColumnBorder() {
+	return columnBorder == null || columnBorder.isEmpty();
+    }
+    
+    public Pen getRowBorder() {
+	if (rowBorder == null) {
+	    rowBorder = new Pen();
+	}
+        return rowBorder;
+    }
+
+    public void setRowBorder(Pen rowBorder) {
+        this.rowBorder = rowBorder;
+    }
+
+    public boolean hasRowBorder() {
+	return rowBorder != null;
+    }
+
+    public boolean isEmptyRowBorder() {
+	return rowBorder == null || rowBorder.isEmpty();
+    }
+    
+    ////
+    
+    public void setColumnModel(ColumnModel columnModel) {
+        this.columnModel = columnModel;
+    }
+
+    public void setRowModel(RowModel rowModel) {
+        this.rowModel = rowModel;
     }
 
     @Override

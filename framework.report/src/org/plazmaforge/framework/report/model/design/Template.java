@@ -32,9 +32,9 @@ import java.util.List;
 import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
-import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.BaseColumnModel;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -100,9 +100,19 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     
     
     /**
-     * Border type of cell. Only for TableReport
+     * Border of cell. Only for TableReport
      */
-    private Border cellBorder;
+    private Pen cellBorder;
+    
+    /**
+     * Border of column. Only for TableReport
+     */
+    private Pen columnBorder;
+    
+    /**
+     * Border of row. Only for TableReport
+     */
+    private Pen rowBorder;
     
     /**
      * Page Setup
@@ -270,6 +280,8 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     public int getColumnCount() {
 	return columnModel.getColumnCount();
     }
+
+    ////
     
     public CellBorderType getCellBorderType() {
         return cellBorderType;
@@ -279,14 +291,14 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.cellBorderType = cellBorderType;
     }
 
-    public Border getCellBorder() {
+    public Pen getCellBorder() {
 	if (cellBorder == null) {
-	    cellBorder = new Border();
+	    cellBorder = new Pen();
 	}
         return cellBorder;
     }
 
-    public void setCellBorder(Border cellBorder) {
+    public void setCellBorder(Pen cellBorder) {
         this.cellBorder = cellBorder;
     }
 
@@ -297,6 +309,46 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     public boolean isEmptyCellBorder() {
 	return cellBorder == null || cellBorder.isEmpty();
     }
+    
+    public Pen getColumnBorder() {
+	if (columnBorder == null) {
+	    columnBorder = new Pen();
+	}
+        return columnBorder;
+    }
+
+    public void setColumnBorder(Pen columnBorder) {
+        this.columnBorder = columnBorder;
+    }
+
+    public boolean hasColumnBorder() {
+	return columnBorder != null;
+    }
+
+    public boolean isEmptyColumnBorder() {
+	return columnBorder == null || columnBorder.isEmpty();
+    }
+    
+    public Pen getRowBorder() {
+	if (rowBorder == null) {
+	    rowBorder = new Pen();
+	}
+        return rowBorder;
+    }
+
+    public void setRowBorder(Pen rowBorder) {
+        this.rowBorder = rowBorder;
+    }
+
+    public boolean hasRowBorder() {
+	return rowBorder != null;
+    }
+
+    public boolean isEmptyRowBorder() {
+	return rowBorder == null || rowBorder.isEmpty();
+    }
+
+    ////
     
     public ReportGroup getGroup(int index) {
         return getGroups().get(index);

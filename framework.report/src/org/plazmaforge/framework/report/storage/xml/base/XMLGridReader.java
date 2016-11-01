@@ -25,7 +25,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 import java.util.List;
 
 import org.jdom.Element;
-import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -55,11 +55,24 @@ public class XMLGridReader extends XMLAbstractReader {
 	    grid.setCellBorderType(cellBorderType);
 	}
 	
-	// cell-border
-	Border cellBorder = getBorder(element, "cell");
+	// cell-border	
+	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
 	if (cellBorder != null) {
 	    grid.setCellBorder(cellBorder);
 	}
+
+	// column-border	
+	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
+	if (columnBorder != null) {
+	    grid.setColumnBorder(columnBorder);
+	}
+
+	// row-border	
+	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
+	if (rowBorder != null) {
+	    grid.setRowBorder(rowBorder);
+	}
+	
     }
     
     protected void readGridContent(Element element, Grid grid) {
