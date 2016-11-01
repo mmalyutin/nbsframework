@@ -28,6 +28,7 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -75,6 +76,11 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	CellBorderType cellBorderType = getCellBorderType(element, XML_ATTR_CELL_BORDER_TYPE);
 	if (cellBorderType != null) {
 	    template.setCellBorderType(cellBorderType);
+	}
+	
+	Border cellBorder = getBorder(element, "cell");
+	if (cellBorder != null) {
+	    template.setCellBorder(cellBorder);
 	}
     }
     
