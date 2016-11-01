@@ -271,6 +271,8 @@ public class ExportHelper {
 		    // overflow rows
 		    break;
 		}
+		int lastColumnIndex = nextColumnIndex - 1;
+		int lastRowIndex = nextRowIndex - 1;
 		
 		Border cellBorder = null;
 		if (cellBorderType == null) {
@@ -291,12 +293,10 @@ public class ExportHelper {
 			    || cellBorderType == CellBorderType.ROW_ALL
 			    || cellBorderType == CellBorderType.ALL) {
 			
-			if ( rowIndex != rowCount - 1 
-				|| (rowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
+			if ( lastRowIndex != rowCount - 1 
+				|| (lastRowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
 			    cellBorder.setBottomPen(pen);
 			}
-			
-			
 		    }
 
 		    // right
@@ -305,11 +305,10 @@ public class ExportHelper {
 			    || cellBorderType == CellBorderType.COLUMN_ALL
 			    || cellBorderType == CellBorderType.ALL) {
 			
-			if ((columnIndex != columnCount - 1)
-				|| (columnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
-			    
+			if ((lastColumnIndex != columnCount - 1)
+				|| (lastColumnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
+			    cellBorder.setRightPen(pen);
 			}
-			cellBorder.setRightPen(pen);
 		    }
 
 		    // top: first row
