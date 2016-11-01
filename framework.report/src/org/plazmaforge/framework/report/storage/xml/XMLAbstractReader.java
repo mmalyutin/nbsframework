@@ -282,12 +282,17 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     }
     
     protected Border getBorderByAttributes(Element element) {
+	return getBorderByAttributes(element, null);
+    }
+    
+    protected Border getBorderByAttributes(Element element, String prefixAttribute) {
+	prefixAttribute = prefixAttribute == null ? "" : (prefixAttribute  + "-");
 	
-	Pen pen = getBorderPenByAttributes(element, XML_ATTR_BORDER);
-	Pen leftPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_LEFT);
-	Pen topPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_TOP);
-	Pen rightPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_RIGHT);
-	Pen bottomPen = getBorderPenByAttributes(element, XML_ATTR_BORDER_BOTTOM);
+	Pen pen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER);
+	Pen leftPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_LEFT);
+	Pen topPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_TOP);
+	Pen rightPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_RIGHT);
+	Pen bottomPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_BOTTOM);
 	
 	if (pen == null && leftPen == null && topPen == null && rightPen == null && bottomPen == null) {
 	    return null;
@@ -321,7 +326,11 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     }
     
     protected Border getBorder(Element element) {
-	return getBorderByAttributes(element);
+	return getBorder(element, null);
+    }
+    
+    protected Border getBorder(Element element, String prefixAttribute) {
+	return getBorderByAttributes(element, prefixAttribute);
     }
     
     protected void readInsets(Element element, Insets margin) {

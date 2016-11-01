@@ -24,6 +24,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 
 
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -60,6 +61,12 @@ public class XMLCellWriter extends XMLAbstractWriter {
 	VerticalAlign verticalAlign = cell.getVerticalAlign();
 	if (verticalAlign != null) {
 	    setVerticalAlign(node, XML_ATTR_VERTICAL_ALIGN, verticalAlign);
+	}
+	
+	// border
+	Border border = cell.hasBorder() ? cell.getBorder() : null;
+	if (border != null) {
+	    setBorder(border, node);
 	}
 	
 	// dataType
