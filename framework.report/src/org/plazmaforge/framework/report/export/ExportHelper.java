@@ -226,7 +226,7 @@ public class ExportHelper {
 	
 	// Override column border
 	if (!grid.isEmptyColumnBorder()) {
-	    defCellBorder  = grid.getColumnBorder();
+	    defColumnBorder  = grid.getColumnBorder();
 	}
 	
 	// Override row border
@@ -246,15 +246,8 @@ public class ExportHelper {
 	Pen defTopPen = null;
 	Pen defRightPen = null;
 	Pen defBottomPen = null;
-	
-//	// Transfer default pens
-//	if (defCellBorder != null) {
-//	    defLeftPen = defCellBorder.hasLeftPen() ? defCellBorder.getLeftPen() : null;
-//	    defTopPen = defCellBorder.hasTopPen() ? defCellBorder.getTopPen() : null;
-//	    defRightPen = defCellBorder.hasRightPen() ? defCellBorder.getRightPen() : null;
-//	    defBottomPen = defCellBorder.hasBottomPen() ? defCellBorder.getBottomPen() : null;
-//	}
 
+	
 	// Transfer default column border
 	if (defColumnBorder != null && !defColumnBorder.isEmpty()) {
 	    defLeftPen = defColumnBorder.clone();
