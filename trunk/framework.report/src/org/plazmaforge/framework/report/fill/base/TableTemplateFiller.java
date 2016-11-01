@@ -30,7 +30,7 @@ import java.util.List;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
-import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -58,10 +58,26 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	grid.setCellBorderType(template.getCellBorderType());
 	
 	// cell-border
-	if (template.hasCellBorder()){
-	    Border cellBorder = template.getCellBorder();
+	if (template.hasCellBorder()) {
+	    Pen cellBorder = template.getCellBorder();
 	    if (!cellBorder.isEmpty()) {
 		grid.setCellBorder(cellBorder.clone());
+	    }
+	}
+	
+	// column-border
+	if (template.hasColumnBorder()) {
+	    Pen columnBorder = template.getColumnBorder();
+	    if (!columnBorder.isEmpty()) {
+		grid.setColumnBorder(columnBorder.clone());
+	    }
+	}
+
+	// row-border
+	if (template.hasRowBorder()) {
+	    Pen rowBorder = template.getRowBorder();
+	    if (!rowBorder.isEmpty()) {
+		grid.setRowBorder(rowBorder.clone());
 	    }
 	}
 	

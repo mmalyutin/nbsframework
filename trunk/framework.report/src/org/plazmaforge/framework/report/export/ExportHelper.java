@@ -213,7 +213,31 @@ public class ExportHelper {
     }
     
     
-    public static GridLayout getGridLayout(Grid grid, CellBorderType cellBorderType, Border defCellBorder) {
+    public static GridLayout getGridLayout(Grid grid) {
+	if (grid == null) {
+	    return null;
+	}
+	
+	CellBorderType cellBorderType = grid.getCellBorderType();
+	
+	Pen defCellBorder = grid.hasCellBorder() ? grid.getCellBorder() : null;
+	Pen defColumnBorder = defCellBorder;
+	Pen defRowBorder = defCellBorder;
+	
+	// Override column border
+	if (!grid.isEmptyColumnBorder()) {
+	    defCellBorder  = grid.getColumnBorder();
+	}
+	
+	// Override row border
+	if (!grid.isEmptyRowBorder()) {
+	    defRowBorder  = grid.getRowBorder();
+	}
+	
+	return getGridLayout(grid, cellBorderType, defColumnBorder, defRowBorder); 
+    }
+    
+    public static GridLayout getGridLayout(Grid grid, CellBorderType cellBorderType, Pen defColumnBorder, Pen defRowBorder) {
 	if (grid == null) {
 	    return null;
 	}
@@ -223,13 +247,26 @@ public class ExportHelper {
 	Pen defRightPen = null;
 	Pen defBottomPen = null;
 	
-	// Transfer default pens
-	if (defCellBorder != null) {
-	    defLeftPen = defCellBorder.hasLeftPen() ? defCellBorder.getLeftPen() : null;
-	    defTopPen = defCellBorder.hasTopPen() ? defCellBorder.getTopPen() : null;
-	    defRightPen = defCellBorder.hasRightPen() ? defCellBorder.getRightPen() : null;
-	    defBottomPen = defCellBorder.hasBottomPen() ? defCellBorder.getBottomPen() : null;
+//	// Transfer default pens
+//	if (defCellBorder != null) {
+//	    defLeftPen = defCellBorder.hasLeftPen() ? defCellBorder.getLeftPen() : null;
+//	    defTopPen = defCellBorder.hasTopPen() ? defCellBorder.getTopPen() : null;
+//	    defRightPen = defCellBorder.hasRightPen() ? defCellBorder.getRightPen() : null;
+//	    defBottomPen = defCellBorder.hasBottomPen() ? defCellBorder.getBottomPen() : null;
+//	}
+
+	// Transfer default column border
+	if (defColumnBorder != null && !defColumnBorder.isEmpty()) {
+	    defLeftPen = defColumnBorder.clone();
+	    defRightPen = defColumnBorder.clone();
 	}
+	
+	// Transfer default row border
+	if (defRowBorder != null && !defRowBorder.isEmpty()) {
+	    defTopPen = defRowBorder.clone();
+	    defBottomPen = defRowBorder.clone();
+	}
+	
 	
 	defLeftPen = defaultPen(defLeftPen);
 	defTopPen = defaultPen(defTopPen);

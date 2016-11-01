@@ -106,6 +106,13 @@ public interface XMLInfo {
 
     String XML_ATTR_CELL_BORDER_TYPE = "cell-border-type";
     
+    String XML_ATTR_CELL_BORDER = "cell-border";
+    
+    String XML_ATTR_COLUMN_BORDER = "column-border";
+    
+    String XML_ATTR_ROW_BORDER = "row-border";
+    
+    
     String XML_ATTR_BORDER = "border";
     
     String XML_ATTR_BORDER_STYLE = "border-style";
