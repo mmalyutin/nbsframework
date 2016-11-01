@@ -213,14 +213,28 @@ public class ExportHelper {
     }
     
     
-    public static GridLayout getGridLayout(Grid grid, CellBorderType cellBorderType, Pen pen) {
+    public static GridLayout getGridLayout(Grid grid, CellBorderType cellBorderType, Border defCellBorder) {
 	if (grid == null) {
 	    return null;
 	}
 	
-	if (pen == null) {
-	    pen = new Pen(1, Pen.LINE_STYLE_SOLID, Color.BLACK); 
+	Pen defLeftPen = null;
+	Pen defTopPen = null;
+	Pen defRightPen = null;
+	Pen defBottomPen = null;
+	
+	// Transfer default pens
+	if (defCellBorder != null) {
+	    defLeftPen = defCellBorder.hasLeftPen() ? defCellBorder.getLeftPen() : null;
+	    defTopPen = defCellBorder.hasTopPen() ? defCellBorder.getTopPen() : null;
+	    defRightPen = defCellBorder.hasRightPen() ? defCellBorder.getRightPen() : null;
+	    defBottomPen = defCellBorder.hasBottomPen() ? defCellBorder.getBottomPen() : null;
 	}
+	
+	defLeftPen = defaultPen(defLeftPen);
+	defTopPen = defaultPen(defTopPen);
+	defRightPen = defaultPen(defRightPen);
+	defBottomPen = defaultPen(defBottomPen);
 	
 	GridLayout layout = new GridLayout();
 	Map<String, Border> cellBorders = new HashMap<String, Border>();
@@ -295,7 +309,7 @@ public class ExportHelper {
 			
 			if ( lastRowIndex != rowCount - 1 
 				|| (lastRowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
-			    cellBorder.setBottomPen(pen);
+			    cellBorder.setBottomPen(defBottomPen);
 			}
 		    }
 
@@ -307,7 +321,7 @@ public class ExportHelper {
 			
 			if ((lastColumnIndex != columnCount - 1)
 				|| (lastColumnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
-			    cellBorder.setRightPen(pen);
+			    cellBorder.setRightPen(defRightPen);
 			}
 		    }
 
@@ -315,7 +329,7 @@ public class ExportHelper {
 		    if (rowIndex == 0) {
 			if (cellBorderType == CellBorderType.ROW_ALL
 				|| cellBorderType == CellBorderType.ALL) {
-			    cellBorder.setTopPen(pen);
+			    cellBorder.setTopPen(defTopPen);
 			}			
 		    }
 
@@ -323,7 +337,7 @@ public class ExportHelper {
 		    if (columnIndex == 0) {
 			if (cellBorderType == CellBorderType.COLUMN_ALL
 				|| cellBorderType == CellBorderType.ALL) {
-			    cellBorder.setLeftPen(pen);
+			    cellBorder.setLeftPen(defLeftPen);
 			}
 		    }
 		    
@@ -388,6 +402,15 @@ public class ExportHelper {
 	    return null;
 	}
 	return pen.isEmpty() ? null : pen;
+    }
+    
+    private static Pen createDefaultPen() {
+	return new Pen(1, Pen.LINE_STYLE_SOLID, Color.BLACK);
+    }
+
+    private static Pen defaultPen(Pen pen) {
+	pen = normalizePen(pen);
+	return pen == null ? createDefaultPen() : pen;
     }
     
     private static void mergeBorderRegion(Map<Integer, BorderRegion> borders, int index, int width, boolean next) {
