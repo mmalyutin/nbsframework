@@ -32,6 +32,7 @@ import java.util.List;
 import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.grid.BaseColumnModel;
@@ -93,9 +94,15 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     private ColumnModel columnModel;
 
     /**
-     * Border type of cell: column, column_all, row, row_all, column_row, all
+     * Border type of cell: column, column_all, row, row_all, column_row, all. Only for TableReport
      */
-    private CellBorderType cellBorderType; 
+    private CellBorderType cellBorderType;
+    
+    
+    /**
+     * Border type of cell. Only for TableReport
+     */
+    private Border cellBorder;
     
     /**
      * Page Setup
@@ -272,6 +279,25 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.cellBorderType = cellBorderType;
     }
 
+    public Border getCellBorder() {
+	if (cellBorder == null) {
+	    cellBorder = new Border();
+	}
+        return cellBorder;
+    }
+
+    public void setCellBorder(Border cellBorder) {
+        this.cellBorder = cellBorder;
+    }
+
+    public boolean hasCellBorder() {
+	return cellBorder != null;
+    }
+
+    public boolean isEmptyCellBorder() {
+	return cellBorder == null || cellBorder.isEmpty();
+    }
+    
     public ReportGroup getGroup(int index) {
         return getGroups().get(index);
     }
