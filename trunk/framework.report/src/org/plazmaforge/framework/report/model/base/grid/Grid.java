@@ -29,6 +29,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Element;
 
 /**
@@ -41,6 +42,7 @@ public class Grid extends Element implements HasExpressionBuilder {
     
     private CellBorderType cellBorderType;
     
+    private Border cellBorder;
 
     private ColumnModel columnModel;
     
@@ -122,8 +124,11 @@ public class Grid extends Element implements HasExpressionBuilder {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Grid[");
 	
-	if (getCellBorderType() != null) {
-	    buf.append("cellBorderType=" + getCellBorderType() + ", ");
+	if (cellBorderType != null) {
+	    buf.append("cellBorderType=" + cellBorderType + ", ");
+	}
+	if (cellBorder != null) {
+	    buf.append("cellBorder=" + cellBorder + ", ");
 	}
 	
 	List<Column> columns = getColumns();
@@ -161,8 +166,11 @@ public class Grid extends Element implements HasExpressionBuilder {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Grid[");
 
-	if (getCellBorderType() != null) {
-	    buf.append("cellBorderType=" + getCellBorderType() + ", ");
+	if (cellBorderType != null) {
+	    buf.append("cellBorderType=" + cellBorderType + ", ");
+	}
+	if (cellBorder != null) {
+	    buf.append("cellBorder=" + cellBorder + ", ");
 	}
 	
 	List<Column> columns = getColumns();
@@ -209,6 +217,25 @@ public class Grid extends Element implements HasExpressionBuilder {
 
     public void setCellBorderType(CellBorderType cellBorderType) {
         this.cellBorderType = cellBorderType;
+    }
+
+    public Border getCellBorder() {
+	if (cellBorder == null) {
+	    cellBorder = new Border();
+	}
+        return cellBorder;
+    }
+
+    public void setCellBorder(Border cellBorder) {
+        this.cellBorder = cellBorder;
+    }
+
+    public boolean hasCellBorder() {
+	return cellBorder != null;
+    }
+
+    public boolean isEmptyCellBorder() {
+	return cellBorder == null || cellBorder.isEmpty();
     }
 
     @Override

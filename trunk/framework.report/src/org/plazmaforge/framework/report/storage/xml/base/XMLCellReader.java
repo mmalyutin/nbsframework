@@ -71,6 +71,7 @@ public class XMLCellReader extends XMLAbstractReader {
    	    cell.setVerticalAlign(verticalAlign);
    	}
    	
+   	// border
    	Border border = getBorder(element);
    	if (border != null) {
    	    cell.setBorder(border);

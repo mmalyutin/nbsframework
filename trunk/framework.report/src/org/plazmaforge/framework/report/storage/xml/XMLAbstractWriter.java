@@ -37,7 +37,9 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
@@ -159,7 +161,64 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     }
     
     ////
+
+    protected void setBorder(Border border, Element node) {
+	setBorder(border, node, null);
+    }
     
+    protected void setBorder(Border border, Element node, String prefixAttribute) {
+	setBorderByAttributes(border, node, prefixAttribute);
+    }
+    
+    
+    protected void setBorderByAttributes(Border border, Element node) {
+	setBorderByAttributes(border, node, null);
+    }
+	
+    protected void setBorderByAttributes(Border border, Element node, String prefixAttribute) {
+   	if (border == null || border.isEmpty()) {
+   	    return;
+   	}
+   	prefixAttribute = prefixAttribute == null ? "" : (prefixAttribute  + "-");
+   	
+   	if (border.hasLeftPen()) {
+   	    setBorderPenByAttributes(border.getLeftPen(), node, prefixAttribute + XML_ATTR_BORDER_LEFT);
+   	}
+   	if (border.hasTopPen()) {
+   	    setBorderPenByAttributes(border.getTopPen(), node, prefixAttribute + XML_ATTR_BORDER_TOP);
+   	}
+   	if (border.hasRightPen()) {
+   	    setBorderPenByAttributes(border.getRightPen(), node, prefixAttribute + XML_ATTR_BORDER_RIGHT);
+   	}
+   	if (border.hasBottomPen()) {
+   	    setBorderPenByAttributes(border.getBottomPen(), node, prefixAttribute + XML_ATTR_BORDER_BOTTOM);
+   	}
+    }
+    
+    protected void setBorderPenByAttributes(Pen pen, Element element, String borderAttribute) {
+	if (pen == null || pen.isEmpty()) {
+	    return;
+	}
+	
+	if (borderAttribute == null) {
+   	    borderAttribute = XML_ATTR_BORDER;
+   	}
+	
+	// width
+	int width = pen.getLineWidth() <= 0 ? 1: pen.getLineWidth();
+   	setIntegerValue(element, borderAttribute, width);
+   	
+  	// style
+  	int lineStyle = pen.getLineStyle();
+  	//TODO
+  	//setStringValue(element, borderAttribute + "-style", style);
+  	
+  	// color
+  	Color color = pen.getLineColor();
+  	setColor(element, borderAttribute + "-color", color);
+    }
+    
+    ////
 
     protected void setExpression(DSExpression expression, Element node) {
    	setExpression(expression, node, true);
