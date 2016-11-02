@@ -339,7 +339,7 @@ public class ExportHelper {
 			
 			if ( lastRowIndex != rowCount - 1 
 				|| (lastRowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
-			    cellBorder.setBottomPen(defBottomPen);
+			    cellBorder.setBottom(defBottomPen);
 			}
 		    }
 
@@ -351,7 +351,7 @@ public class ExportHelper {
 			
 			if ((lastColumnIndex != columnCount - 1)
 				|| (lastColumnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
-			    cellBorder.setRightPen(defRightPen);
+			    cellBorder.setRight(defRightPen);
 			}
 		    }
 
@@ -359,7 +359,7 @@ public class ExportHelper {
 		    if (rowIndex == 0) {
 			if (cellBorderType == CellBorderType.ROW_ALL
 				|| cellBorderType == CellBorderType.ALL) {
-			    cellBorder.setTopPen(defTopPen);
+			    cellBorder.setTop(defTopPen);
 			}			
 		    }
 
@@ -367,7 +367,7 @@ public class ExportHelper {
 		    if (columnIndex == 0) {
 			if (cellBorderType == CellBorderType.COLUMN_ALL
 				|| cellBorderType == CellBorderType.ALL) {
-			    cellBorder.setLeftPen(defLeftPen);
+			    cellBorder.setLeft(defLeftPen);
 			}
 		    }
 		    
@@ -383,8 +383,8 @@ public class ExportHelper {
 		    cellBorders.put(cellKey, cellBorder);
 		    
 		    // Add column border region (left, right)
-		    Pen leftPen = normalizePen(cellBorder.hasLeftPen() ? cellBorder.getLeftPen() : null);
-		    Pen rightPen = normalizePen(cellBorder.hasRightPen() ? cellBorder.getRightPen() : null);
+		    Pen leftPen = normalizePen(cellBorder.hasLeft() ? cellBorder.getLeft() : null);
+		    Pen rightPen = normalizePen(cellBorder.hasRight() ? cellBorder.getRight() : null);
 		    if (leftPen != null) {
 			mergeBorderRegion(columnBorders, columnIndex, leftPen.getLineWidth(), false); // column: prev border 
 		    }
@@ -393,8 +393,8 @@ public class ExportHelper {
 		    }
 
 		    // Add row border region (top, bottom)
-		    Pen topPen = normalizePen(cellBorder.hasTopPen() ? cellBorder.getTopPen() : null);
-		    Pen bottomPen = normalizePen(cellBorder.hasBottomPen() ? cellBorder.getBottomPen() : null);
+		    Pen topPen = normalizePen(cellBorder.hasTop() ? cellBorder.getTop() : null);
+		    Pen bottomPen = normalizePen(cellBorder.hasBottom() ? cellBorder.getBottom() : null);
 		    if (topPen != null) {
 			mergeBorderRegion(rowBorders, rowIndex, topPen.getLineWidth(), false); // row: prev border 
 		    }

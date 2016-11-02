@@ -181,17 +181,17 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
    	}
    	prefixAttribute = prefixAttribute == null ? "" : (prefixAttribute  + "-");
    	
-   	if (border.hasLeftPen()) {
-   	    setBorderPenByAttributes(border.getLeftPen(), node, prefixAttribute + XML_ATTR_BORDER_LEFT);
+   	if (border.hasLeft()) {
+   	    setBorderPenByAttributes(border.getLeft(), node, prefixAttribute + XML_ATTR_BORDER_LEFT);
    	}
-   	if (border.hasTopPen()) {
-   	    setBorderPenByAttributes(border.getTopPen(), node, prefixAttribute + XML_ATTR_BORDER_TOP);
+   	if (border.hasTop()) {
+   	    setBorderPenByAttributes(border.getTop(), node, prefixAttribute + XML_ATTR_BORDER_TOP);
    	}
-   	if (border.hasRightPen()) {
-   	    setBorderPenByAttributes(border.getRightPen(), node, prefixAttribute + XML_ATTR_BORDER_RIGHT);
+   	if (border.hasRight()) {
+   	    setBorderPenByAttributes(border.getRight(), node, prefixAttribute + XML_ATTR_BORDER_RIGHT);
    	}
-   	if (border.hasBottomPen()) {
-   	    setBorderPenByAttributes(border.getBottomPen(), node, prefixAttribute + XML_ATTR_BORDER_BOTTOM);
+   	if (border.hasBottom()) {
+   	    setBorderPenByAttributes(border.getBottom(), node, prefixAttribute + XML_ATTR_BORDER_BOTTOM);
    	}
     }
     
