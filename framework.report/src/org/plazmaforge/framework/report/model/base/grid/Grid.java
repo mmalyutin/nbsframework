@@ -308,7 +308,15 @@ public class Grid extends Element implements HasExpressionBuilder {
 	final int prime = 31;
 	int result = super.hashCode();
 	result = prime * result
+		+ ((cellBorder == null) ? 0 : cellBorder.hashCode());
+	result = prime * result
+		+ ((cellBorderType == null) ? 0 : cellBorderType.hashCode());
+	result = prime * result
+		+ ((columnBorder == null) ? 0 : columnBorder.hashCode());
+	result = prime * result
 		+ ((columnModel == null) ? 0 : columnModel.hashCode());
+	result = prime * result
+		+ ((rowBorder == null) ? 0 : rowBorder.hashCode());
 	result = prime * result
 		+ ((rowModel == null) ? 0 : rowModel.hashCode());
 	return result;
@@ -323,10 +331,27 @@ public class Grid extends Element implements HasExpressionBuilder {
 	if (getClass() != obj.getClass())
 	    return false;
 	Grid other = (Grid) obj;
+	if (cellBorder == null) {
+	    if (other.cellBorder != null)
+		return false;
+	} else if (!cellBorder.equals(other.cellBorder))
+	    return false;
+	if (cellBorderType != other.cellBorderType)
+	    return false;
+	if (columnBorder == null) {
+	    if (other.columnBorder != null)
+		return false;
+	} else if (!columnBorder.equals(other.columnBorder))
+	    return false;
 	if (columnModel == null) {
 	    if (other.columnModel != null)
 		return false;
 	} else if (!columnModel.equals(other.columnModel))
+	    return false;
+	if (rowBorder == null) {
+	    if (other.rowBorder != null)
+		return false;
+	} else if (!rowBorder.equals(other.rowBorder))
 	    return false;
 	if (rowModel == null) {
 	    if (other.rowModel != null)
