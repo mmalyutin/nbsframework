@@ -35,13 +35,13 @@ public class Border implements Serializable  {
     
     public static final Border NONE = new Border(Pen.NONE);
     
-    private Pen topPen;
+    private Pen top;
     
-    private Pen rightPen;
+    private Pen right;
     
-    private Pen bottomPen;
+    private Pen bottom;
 
-    private Pen leftPen;
+    private Pen left;
     
     public Border() {
 	super();
@@ -51,57 +51,57 @@ public class Border implements Serializable  {
 	this(pen, pen, pen, pen);
     }
 
-    public Border(Pen topPen, Pen rightPen, Pen bottomPen, Pen leftPen) {
+    public Border(Pen top, Pen right, Pen bottom, Pen left) {
 	super();
-	this.topPen = topPen;
-	this.rightPen = rightPen;
-	this.bottomPen = bottomPen;
-	this.leftPen = leftPen;
+	this.top = top;
+	this.right = right;
+	this.bottom = bottom;
+	this.left = left;
     }
 
 
-    public Pen getTopPen() {
-	if (topPen == null) {
-	    topPen = new Pen();
+    public Pen getTop() {
+	if (top == null) {
+	    top = new Pen();
 	}
-        return topPen;
+        return top;
     }
 
-    public void setTopPen(Pen topPen) {
-        this.topPen = topPen;
+    public void setTop(Pen top) {
+        this.top = top;
     }
     
-    public Pen getRightPen() {
-	if (rightPen == null) {
-	    rightPen = new Pen();
+    public Pen getRight() {
+	if (right == null) {
+	    right = new Pen();
 	}
-        return rightPen;
+        return right;
     }
 
-    public void setRightPen(Pen rightPen) {
-        this.rightPen = rightPen;
+    public void setRight(Pen right) {
+        this.right = right;
     }
 
-    public Pen getBottomPen() {
-	if (bottomPen == null) {
-	    bottomPen = new Pen();
+    public Pen getBottom() {
+	if (bottom == null) {
+	    bottom = new Pen();
 	}
-        return bottomPen;
+        return bottom;
     }
 
-    public void setBottomPen(Pen bottomPen) {
-        this.bottomPen = bottomPen;
+    public void setBottom(Pen bottom) {
+        this.bottom = bottom;
     }
 
-    public Pen getLeftPen() {
-	if (leftPen == null) {
-	    leftPen = new Pen();
+    public Pen getLeft() {
+	if (left == null) {
+	    left = new Pen();
 	}
-        return leftPen;
+        return left;
     }
 
-    public void setLeftPen(Pen leftPen) {
-        this.leftPen = leftPen;
+    public void setLeft(Pen left) {
+        this.left = left;
     }
     
     
@@ -117,34 +117,37 @@ public class Border implements Serializable  {
     
     ////
 
-    public boolean hasTopPen() {
-	return hasPen(topPen);
+    public boolean hasTop() {
+	return hasPen(top);
     }
     
-    public boolean hasRightPen() {
-	return hasPen(rightPen);
+    public boolean hasRight() {
+	return hasPen(right);
     }
     
-    public boolean hasBottomPen() {
-	return hasPen(bottomPen);
+    public boolean hasBottom() {
+	return hasPen(bottom);
     }
     
-    public boolean hasLeftPen() {
-	return hasPen(leftPen);
+    public boolean hasLeft() {
+	return hasPen(left);
     }
     
     public boolean isEmpty() {
-	return isEmpty(topPen) && isEmpty(rightPen) && isEmpty(bottomPen) && isEmpty(leftPen);
+	return isEmpty(top) && isEmpty(right) && isEmpty(bottom) && isEmpty(left);
     }
 
     @Override
     public String toString() {
-	return "Border[topPen=" + topPen + ", rightPen="  + rightPen + ", bottomPen="  + bottomPen + ", leftPen=" + leftPen +  "]";
+	return "Border[top=" + top + ", right="  + right + ", bottom="  + bottom + ", left=" + left +  "]";
     }
     
     @Override
     public Border clone() {
-	return new Border(topPen, rightPen, bottomPen, leftPen);
+	return new Border(top == null ? null : top.clone(),
+		right == null ? null : right.clone(),
+		bottom == null ? null : bottom.clone(),
+		left == null ? null : left.clone());
     }
 
 
@@ -153,11 +156,11 @@ public class Border implements Serializable  {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result
-		+ ((bottomPen == null) ? 0 : bottomPen.hashCode());
-	result = prime * result + ((leftPen == null) ? 0 : leftPen.hashCode());
+		+ ((bottom == null) ? 0 : bottom.hashCode());
+	result = prime * result + ((left == null) ? 0 : left.hashCode());
 	result = prime * result
-		+ ((rightPen == null) ? 0 : rightPen.hashCode());
-	result = prime * result + ((topPen == null) ? 0 : topPen.hashCode());
+		+ ((right == null) ? 0 : right.hashCode());
+	result = prime * result + ((top == null) ? 0 : top.hashCode());
 	return result;
     }
 
@@ -171,25 +174,25 @@ public class Border implements Serializable  {
 	if (getClass() != obj.getClass())
 	    return false;
 	Border other = (Border) obj;
-	if (bottomPen == null) {
-	    if (other.bottomPen != null)
+	if (bottom == null) {
+	    if (other.bottom != null)
 		return false;
-	} else if (!bottomPen.equals(other.bottomPen))
+	} else if (!bottom.equals(other.bottom))
 	    return false;
-	if (leftPen == null) {
-	    if (other.leftPen != null)
+	if (left == null) {
+	    if (other.left != null)
 		return false;
-	} else if (!leftPen.equals(other.leftPen))
+	} else if (!left.equals(other.left))
 	    return false;
-	if (rightPen == null) {
-	    if (other.rightPen != null)
+	if (right == null) {
+	    if (other.right != null)
 		return false;
-	} else if (!rightPen.equals(other.rightPen))
+	} else if (!right.equals(other.right))
 	    return false;
-	if (topPen == null) {
-	    if (other.topPen != null)
+	if (top == null) {
+	    if (other.top != null)
 		return false;
-	} else if (!topPen.equals(other.topPen))
+	} else if (!top.equals(other.top))
 	    return false;
 	return true;
     }

@@ -488,8 +488,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	int rightW = 0;
 	
 	// Left
-	if (border.hasLeftPen() && !border.getLeftPen().isEmpty()) {
-	    pen = border.getLeftPen();
+	if (border.hasLeft() && !border.getLeft().isEmpty()) {
+	    pen = border.getLeft();
 	    w = pen.getLineWidth();
 	    if (w <= 0) {
 		w = 1;
@@ -507,8 +507,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	}
 	
 	// Right
-	if (border.hasRightPen() && !border.getRightPen().isEmpty()) {
-	    pen = border.getRightPen();
+	if (border.hasRight() && !border.getRight().isEmpty()) {
+	    pen = border.getRight();
 	    w = pen.getLineWidth();
 	    if (w <= 0) {
 		w = 1;
@@ -526,8 +526,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	}
 
 	// Top
-	if (border.hasTopPen() && !border.getTopPen().isEmpty()) {
-	    pen = border.getTopPen();
+	if (border.hasTop() && !border.getTop().isEmpty()) {
+	    pen = border.getTop();
 	    w = pen.getLineWidth();
 	    if (w <= 0) {
 		w = 1;
@@ -544,8 +544,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	}
 
 	// Bottom
-	if (border.hasBottomPen() && !border.getBottomPen().isEmpty()) {
-	    pen = border.getBottomPen();
+	if (border.hasBottom() && !border.getBottom().isEmpty()) {
+	    pen = border.getBottom();
 	    w = pen.getLineWidth();
 	    if (w <= 0) {
 		w = 1;

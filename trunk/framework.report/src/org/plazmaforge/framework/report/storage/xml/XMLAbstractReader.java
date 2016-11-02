@@ -300,26 +300,26 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	
 	Border border = new Border();
 	if (pen != null) {
-	    border.setLeftPen(pen.clone());
-	    border.setTopPen(pen.clone());
-	    border.setRightPen(pen.clone());
-	    border.setBottomPen(pen.clone());
+	    border.setLeft(pen.clone());
+	    border.setTop(pen.clone());
+	    border.setRight(pen.clone());
+	    border.setBottom(pen.clone());
 	}
 	
 	if (leftPen != null) {
-	    border.setLeftPen(leftPen);
+	    border.setLeft(leftPen);
 	}
 	
 	if (topPen != null) {
-	    border.setTopPen(topPen);
+	    border.setTop(topPen);
 	}
 	
 	if (rightPen != null) {
-	    border.setRightPen(rightPen);
+	    border.setRight(rightPen);
 	}
 	
 	if (bottomPen != null) {
-	    border.setBottomPen(bottomPen);
+	    border.setBottom(bottomPen);
 	}
 	
 	return border;
