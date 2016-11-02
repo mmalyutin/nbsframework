@@ -178,6 +178,34 @@ public class Cell extends Container implements HasExpression {
 	    b.append("verticalAlign=" + verticalAlign);
 	    flag = true;
 	}
+	if (hasBorder()) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("border=" + getBorder());
+	    flag = true;
+	}
+	if (hasBackground()) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("background=" + getBackground());
+	    flag = true;
+	}	
+	if (hasForeground()) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("foreground=" + getForeground());
+	    flag = true;
+	}	
+	if (hasFont()) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("font=" + getFont());
+	    flag = true;
+	}	
 	if (dataType != null) {
 	    if (flag) {
 		b.append(", ");

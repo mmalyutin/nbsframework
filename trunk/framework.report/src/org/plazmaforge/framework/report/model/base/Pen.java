@@ -126,7 +126,7 @@ public class Pen implements Serializable {
     
     @Override
     public String toString() {
-	return "Pen[lineWidth=" + lineWidth + ", lineStyle=" + lineStyle + ", lineColor="  + lineColor + "]";
+	return "Pen[" + lineWidth + ", " + lineStyle + ", "  + lineColor + "]";
     }
     
     @Override
