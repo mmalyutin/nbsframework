@@ -319,9 +319,11 @@ public class ExportHelper {
 		int lastRowIndex = nextRowIndex - 1;
 		
 		Border cellBorder = null;
+		Border orgBorder = cell.hasBorder() ? cell.getBorder() : null;
+		
 		if (cellBorderType == null) {
 		    // Use original cell border
-		    cellBorder = cell.hasBorder() ? cell.getBorder() : null;
+		    cellBorder = orgBorder;
 		} else {
 
 		    // Create cell border by border type
@@ -371,8 +373,42 @@ public class ExportHelper {
 			}
 		    }
 		    
+		    if (cell.hasBorder()) {
+			if (orgBorder == Border.NONE) {
+			    cellBorder = null;
+			} else {
+			    if (!orgBorder.isEmpty()) {
+				Pen orgLeftPen = orgBorder.hasLeft() ? orgBorder.getLeft() : null;
+				Pen orgTopPen = orgBorder.hasTop() ? orgBorder.getTop() : null;
+				Pen orgRightPen = orgBorder.hasRight() ? orgBorder.getRight() : null;
+				Pen orgBottomPen = orgBorder.hasBottom() ? orgBorder.getBottom() : null;
+				
+				orgLeftPen = normalizeNonePen(orgLeftPen);
+				orgTopPen = normalizeNonePen(orgTopPen);
+				orgRightPen = normalizeNonePen(orgRightPen);
+				orgBottomPen = normalizeNonePen(orgBottomPen);
+				
+				if (orgLeftPen != null) {
+				    cellBorder.setLeft(orgLeftPen == Pen.NONE ? null : orgLeftPen);
+				}
+				if (orgTopPen != null) {
+				    cellBorder.setTop(orgTopPen == Pen.NONE ? null : orgTopPen);
+				}
+				if (orgRightPen != null) {
+				    cellBorder.setRight(orgRightPen == Pen.NONE ? null : orgRightPen);
+				}
+				if (orgBottomPen != null) {
+				    cellBorder.setBottom(orgBottomPen == Pen.NONE ? null : orgBottomPen);
+				}
+				
+				if (cellBorder.isEmpty()) {
+				    cellBorder = null;
+				}
+				
+			    }
+			}
+		    }
 		    
-		    // TODO: merge original cell border
 		}
 		
 		
@@ -426,6 +462,13 @@ public class ExportHelper {
 	return layout;
     }
     
+    
+    private static Pen normalizeNonePen(Pen pen) {
+	if (pen == Pen.NONE) {
+	    return pen;
+	}
+	return normalizePen(pen);
+    }
     
     private static Pen normalizePen(Pen pen) {
 	if (pen == null) {
