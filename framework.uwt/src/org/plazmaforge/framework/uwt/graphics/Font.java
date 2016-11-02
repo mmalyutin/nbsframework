@@ -164,6 +164,68 @@ public class Font extends PathResource {
 	return key;
     }
     
+    public String toString() {
+	StringBuffer buf = new StringBuffer();
+	boolean flag = false;
+	buf.append("Font[");
+	
+	if (name != null && !name.isEmpty() ) {
+	    buf.append(name);
+	    flag = true;
+	}
+	if (size > 0) {
+	    if (flag) {
+		buf.append(", ");
+	    }
+	    buf.append(size);
+	    flag = true;
+	}
+	if (style != NORMAL) {
+	    if (flag) {
+		buf.append(", ");
+	    }
+	    buf.append(getStyleString());
+	}
+	
+	buf.append("]");
+
+	return buf.toString();
+    }
+    
+    private String getStyleString() {
+	if (style == NORMAL) {
+	    return "";
+	}
+	StringBuffer buf = new StringBuffer();
+	boolean flag = false;
+	if (isBold()) {
+	    buf.append("bold");
+	    flag = true;
+	}
+	if (isItalic()) {
+	    if (flag) {
+		buf.append("|");
+	    }
+	    buf.append("italic");
+	    flag = true;
+	}
+	if (isUnderline()) {
+	    if (flag) {
+		buf.append("|");
+	    }
+	    buf.append("underline");
+	    flag = true;
+	}
+	if (isStrikeout()) {
+	    if (flag) {
+		buf.append("|");
+	    }
+	    buf.append("strikeout");
+	    flag = true;
+	}
+	return buf.toString();
+    }
+    
     private String normalizeName(String name) {
 	name = normalizeString(name);
 	return name == null ? "" : name;
