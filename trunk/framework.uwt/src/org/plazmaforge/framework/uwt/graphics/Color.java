@@ -144,6 +144,9 @@ public class Color extends Resource {
 	return key;
     }
     
+    public String toString() {
+	return "Color[" + key + "]";
+    }
 
     /**
      * Return hex presentation of color
