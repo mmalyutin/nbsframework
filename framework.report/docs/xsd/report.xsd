@@ -19,8 +19,8 @@
 			<attribute name="name" type="string" use="required"/>
 			<attribute name="caption" type="string"/>
 			<attribute name="description" type="string"/>
-			<attribute name="type" type="string"/> <!--  TableReport, CrosstabReport -->
-			<attribute name="language" type="string"/> <!--  Expression/Script language -->
+			<attribute name="type" type="string"/>			<!--  TableReport, CrosstabReport -->
+			<attribute name="language" type="string"/>		<!--  Expression/Script language  -->
 			<attribute name="data-connector" type="string"/>			
 			<attribute name="data-source" type="string"/>
 		</complexType>
