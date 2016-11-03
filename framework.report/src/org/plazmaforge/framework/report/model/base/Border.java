@@ -144,10 +144,7 @@ public class Border implements Serializable  {
     
     @Override
     public Border clone() {
-	return new Border(top == null ? null : top.clone(),
-		right == null ? null : right.clone(),
-		bottom == null ? null : bottom.clone(),
-		left == null ? null : left.clone());
+	return new Border(clonePen(top), clonePen(right), clonePen(bottom), clonePen(left));
     }
 
 
@@ -196,6 +193,28 @@ public class Border implements Serializable  {
 	    return false;
 	return true;
     }
+
+    // Temporarily method
+    public static Pen clonePen(Pen pen) {
+	return (pen == null || pen == Pen.NONE) ? pen : pen.clone();
+    }
+
+    // Temporarily method
+    public static Border cloneBorder(Border border) {
+	return (border == null || border == Border.NONE) ? border : border.clone();
+    }
     
+    public boolean isNormalize() {
+	if (this == Border.NONE) {
+	    return true;
+	}
+	 if (top == null && right == null && bottom == null && left == null) {
+	     return true;
+	 }
+	 if (top == null || right == null || bottom == null || left == null) {
+	     return false;
+	 }
+	 return top.equals(right) && right.equals(bottom);
+    }
     
 }
