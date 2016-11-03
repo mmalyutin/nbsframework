@@ -32,6 +32,7 @@ import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.storage.xml.base.XMLRowReader;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 /**
  * @author ohapon
@@ -75,6 +76,12 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	if (foreground != null) {
 	    band.setForeground(foreground);
 	}
+	
+	// font
+	Font font = getFont(element, XML_ATTR_FONT);
+	if (font != null) {
+	    band.setFont(font);
+	}   		
 
     }
     
