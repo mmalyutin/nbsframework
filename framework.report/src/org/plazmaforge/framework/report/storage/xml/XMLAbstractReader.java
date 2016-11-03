@@ -293,12 +293,28 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     
     protected Border getBorderByAttributes(Element element, String prefixAttribute) {
 	prefixAttribute = prefixAttribute == null ? "" : (prefixAttribute  + "-");
+
+	Pen pen = null;
+	Pen leftPen = null;
+	Pen topPen = null;
+	Pen rightPen = null;
+	Pen bottomPen = null;
+
+	// general
+	pen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER);
 	
-	Pen pen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER);
-	Pen leftPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_LEFT);
-	Pen topPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_TOP);
-	Pen rightPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_RIGHT);
-	Pen bottomPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_BOTTOM);
+	// left
+	leftPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_LEFT);
+	
+	// top
+	topPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_TOP);
+
+	// right
+	rightPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_RIGHT);
+	
+	// bottom
+	bottomPen = getBorderPenByAttributes(element, prefixAttribute + XML_ATTR_BORDER_BOTTOM);
+	
 	
 	if (pen == null && leftPen == null && topPen == null && rightPen == null && bottomPen == null) {
 	    return null;
@@ -307,40 +323,41 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	if (pen == Pen.NONE && leftPen == null && topPen == null && rightPen == null && bottomPen == null) {
 	    return Border.NONE;
 	}
+
+	if (leftPen == Pen.NONE	&& topPen == Pen.NONE && rightPen == Pen.NONE && bottomPen == Pen.NONE) {
+	    return Border.NONE;
+	}
+	
+	if (pen != null) {
+	    if (leftPen == null) {
+		leftPen = clonePen(pen);
+	    }
+	    if (topPen == null) {
+		topPen = clonePen(pen);
+	    }
+	    if (rightPen == null) {
+		rightPen = clonePen(pen);
+	    }
+	    if (bottomPen == null) {
+		bottomPen = clonePen(pen);
+	    }
+	}
+	
+	if (leftPen == Pen.NONE	&& topPen == Pen.NONE && rightPen == Pen.NONE && bottomPen == Pen.NONE) {
+	    return Border.NONE;
+	}
 	
 	Border border = new Border();
-	if (pen != null) {
-	    border.setLeft(pen == Pen.NONE ? Pen.NONE : pen.clone());
-	    border.setTop(pen == Pen.NONE ? Pen.NONE : pen.clone());
-	    border.setRight(pen == Pen.NONE ? Pen.NONE : pen.clone());
-	    border.setBottom(pen == Pen.NONE ? Pen.NONE : pen.clone());
-	}
-	
-	if (leftPen != null) {
-	    border.setLeft(leftPen);
-	}
-	
-	if (topPen != null) {
-	    border.setTop(topPen);
-	}
-	
-	if (rightPen != null) {
-	    border.setRight(rightPen);
-	}
-	
-	if (bottomPen != null) {
-	    border.setBottom(bottomPen);
-	}
-	
-	if (border.hasLeft() && border.getLeft() == Pen.NONE
-		&& border.hasTop() && border.getTop() == Pen.NONE
-		&& border.hasRight() && border.getRight() == Pen.NONE
-		&& border.hasBottom() && border.getBottom() == Pen.NONE
-		) {
-	    return Border.NONE;
-	    
-	}
+	border.setLeft(leftPen);
+	border.setTop(topPen);
+	border.setRight(rightPen);
+	border.setBottom(bottomPen);
+		
 	return border;
+    }
+    
+    protected Pen clonePen(Pen pen) {
+	return (pen == null || pen == Pen.NONE) ? pen : pen.clone();
     }
     
     protected Border getBorder(Element element) {
