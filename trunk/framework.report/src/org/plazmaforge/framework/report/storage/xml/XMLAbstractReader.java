@@ -330,16 +330,16 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	
 	if (pen != null) {
 	    if (leftPen == null) {
-		leftPen = clonePen(pen);
+		leftPen = Border.clonePen(pen);
 	    }
 	    if (topPen == null) {
-		topPen = clonePen(pen);
+		topPen = Border.clonePen(pen);
 	    }
 	    if (rightPen == null) {
-		rightPen = clonePen(pen);
+		rightPen = Border.clonePen(pen);
 	    }
 	    if (bottomPen == null) {
-		bottomPen = clonePen(pen);
+		bottomPen = Border.clonePen(pen);
 	    }
 	}
 	
@@ -354,10 +354,6 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	border.setBottom(bottomPen);
 		
 	return border;
-    }
-    
-    protected Pen clonePen(Pen pen) {
-	return (pen == null || pen == Pen.NONE) ? pen : pen.clone();
     }
     
     protected Border getBorder(Element element) {

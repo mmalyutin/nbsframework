@@ -176,10 +176,19 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     }
 	
     protected void setBorderByAttributes(Border border, Element node, String prefixAttribute) {
-   	if (border == null || border.isEmpty()) {
+   	if (border == null) {
    	    return;
    	}
    	prefixAttribute = prefixAttribute == null ? "" : (prefixAttribute  + "-");
+   	
+   	if (border.isNormalize()) {
+   	    setBorderPenByAttributes(border.getLeft(), node, prefixAttribute + XML_ATTR_BORDER);
+   	    return;
+   	}
+   	
+   	if (border.isEmpty() ) {
+   	    return;
+   	}
    	
    	if (border.hasLeft()) {
    	    setBorderPenByAttributes(border.getLeft(), node, prefixAttribute + XML_ATTR_BORDER_LEFT);
@@ -196,7 +205,7 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     }
     
     protected void setBorderPenByAttributes(Pen pen, Element element, String borderAttribute) {
-	if (pen == null || pen.isEmpty()) {
+	if (pen == null) {
 	    return;
 	}
 	
@@ -204,6 +213,15 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
    	    borderAttribute = XML_ATTR_BORDER;
    	}
 	
+	if (pen == Pen.NONE) {
+	    setStringValue(element, borderAttribute, NONE);
+	    return;
+	}
+	
+	if (pen.isEmpty()) {
+	    return;
+	}
+	 
 	// width
 	int width = pen.getLineWidth() <= 0 ? 1: pen.getLineWidth();
    	setIntegerValue(element, borderAttribute, width);
