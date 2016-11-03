@@ -38,6 +38,8 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 public class XMLWorker {
 
+    public static final String NONE = "none"; 
+    
     protected static final ColorFormatter COLOR_FORMATTER = new ColorFormatter();
     protected static final FontFormatter FONT_FORMATTER = new FontFormatter();
     protected static final HorizontalAlignFormatter HORIZONTAL_ALIGN_FORMATTER = new HorizontalAlignFormatter();
@@ -109,6 +111,14 @@ public class XMLWorker {
     
     protected Integer getIntegerValue(Element element, String name, Integer def) {
 	String value = getStringValue(element, name);
+	return getIntegerValue(value, def);
+    }
+    
+    protected Integer getIntegerValue(String value) {
+	return getIntegerValue(value, null);
+    }
+    
+    protected Integer getIntegerValue(String value, Integer def) {
 	if (value == null) {
 	    return def;
 	}
@@ -210,5 +220,8 @@ public class XMLWorker {
  	element.setText(str);
      }
      
-    
+     protected boolean isNone(String value) {
+	 return value == null ? false: value.equalsIgnoreCase(NONE); 
+     }
+     
 }

@@ -253,8 +253,13 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
    	    borderAttribute = XML_ATTR_BORDER;
    	}
 
+   	String value = getStringValue(element, borderAttribute);
+   	if (isNone(value)) {
+   	    return Pen.NONE;
+   	}
+   	
    	// width
-   	Integer width = getIntegerValue(element, borderAttribute);
+   	Integer width = getIntegerValue(value);
    	
    	 // style
    	String style = getStringValue(element, borderAttribute + "-style");
@@ -278,6 +283,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
    	    pen.setLineColor(color);
    	}
    	
+   	// Normalize pen
    	return pen.isEmpty() ? null : pen;
     }
     
@@ -297,13 +303,17 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	if (pen == null && leftPen == null && topPen == null && rightPen == null && bottomPen == null) {
 	    return null;
 	}
+
+	if (pen == Pen.NONE && leftPen == null && topPen == null && rightPen == null && bottomPen == null) {
+	    return Border.NONE;
+	}
 	
 	Border border = new Border();
 	if (pen != null) {
-	    border.setLeft(pen.clone());
-	    border.setTop(pen.clone());
-	    border.setRight(pen.clone());
-	    border.setBottom(pen.clone());
+	    border.setLeft(pen == Pen.NONE ? Pen.NONE : pen.clone());
+	    border.setTop(pen == Pen.NONE ? Pen.NONE : pen.clone());
+	    border.setRight(pen == Pen.NONE ? Pen.NONE : pen.clone());
+	    border.setBottom(pen == Pen.NONE ? Pen.NONE : pen.clone());
 	}
 	
 	if (leftPen != null) {
@@ -322,6 +332,14 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	    border.setBottom(bottomPen);
 	}
 	
+	if (border.hasLeft() && border.getLeft() == Pen.NONE
+		&& border.hasTop() && border.getTop() == Pen.NONE
+		&& border.hasRight() && border.getRight() == Pen.NONE
+		&& border.hasBottom() && border.getBottom() == Pen.NONE
+		) {
+	    return Border.NONE;
+	    
+	}
 	return border;
     }
     
