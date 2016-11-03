@@ -24,7 +24,22 @@
 			<attribute name="caption" type="string"/>
 			<attribute name="description" type="string"/>
 			<attribute name="type" type="string"/> <!--  TableTemplate -->
-			<attribute name="paging" type="boolean"/>			
+			<attribute name="paging" type="boolean"/>
+			
+			<attribute name="cell-border-type" type="string"/>
+			
+			<attribute name="cell-border" type="string"/>
+			<attribute name="cell-border-style" type="string"/>
+			<attribute name="cell-border-color" type="string"/>
+
+			<attribute name="column-border" type="string"/>
+			<attribute name="column-border-style" type="string"/>
+			<attribute name="column-border-color" type="string"/>
+
+			<attribute name="row-border" type="string"/>
+			<attribute name="row-border-style" type="string"/>
+			<attribute name="row-border-color" type="string"/>
+						
 		</complexType>
 	</element>
 
@@ -73,6 +88,10 @@
 		<attribute name="name" type="string" />
 		<attribute name="type" type="string" />
 		<attribute name="height" type="string" />
+		
+		<attribute name="background" type="string" />
+		<attribute name="foreground" type="string" />
+		<attribute name="font" type="string" />
 	</complexType>
 
 	

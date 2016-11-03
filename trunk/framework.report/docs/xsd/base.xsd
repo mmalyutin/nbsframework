@@ -172,6 +172,37 @@
 			<attribute name="y" type="string"/>
 			<attribute name="width" type="string"/>
 			<attribute name="height" type="string"/>
+			
+			<attribute name="background" type="string" />
+			<attribute name="foreground" type="string" />
+			<attribute name="font" type="string" />
+			
+			<attribute name="margin" type="string" />
+			<attribute name="margin-left" type="string" />
+			<attribute name="margin-right" type="string" />
+			<attribute name="margin-top" type="string" />
+			<attribute name="margin-bottom" type="string" />
+			
+			<attribute name="border" type="string" />
+			<attribute name="border-style" type="string" />
+			<attribute name="border-color" type="string" />
+
+			<attribute name="border-left" type="string" />
+			<attribute name="border-left-style" type="string" />
+			<attribute name="border-left-color" type="string" />
+
+			<attribute name="border-top" type="string" />
+			<attribute name="border-top-style" type="string" />
+			<attribute name="border-top-color" type="string" />
+
+			<attribute name="border-right" type="string" />
+			<attribute name="border-right-style" type="string" />
+			<attribute name="border-right-color" type="string" />
+
+			<attribute name="border-bottom" type="string" />
+			<attribute name="border-bottom-style" type="string" />
+			<attribute name="border-bottom-color" type="string" />
+			
 		</complexType>
 	</element>
 	
@@ -233,6 +264,39 @@
 			<attribute name="id" type="string" />
 			<attribute name="colspan" type="string" />
 			<attribute name="rowspan" type="string" />
+			
+			<attribute name="horizontal-align" type="string" />
+			<attribute name="vertical-align" type="string" />
+			<attribute name="background" type="string" />
+			<attribute name="foreground" type="string" />
+			<attribute name="font" type="string" />
+			
+			<attribute name="padding" type="string" />
+			<attribute name="padding-left" type="string" />
+			<attribute name="padding-right" type="string" />
+			<attribute name="padding-top" type="string" />
+			<attribute name="padding-bottom" type="string" />
+			
+			<attribute name="border" type="string" />
+			<attribute name="border-style" type="string" />
+			<attribute name="border-color" type="string" />
+
+			<attribute name="border-left" type="string" />
+			<attribute name="border-left-style" type="string" />
+			<attribute name="border-left-color" type="string" />
+
+			<attribute name="border-top" type="string" />
+			<attribute name="border-top-style" type="string" />
+			<attribute name="border-top-color" type="string" />
+
+			<attribute name="border-right" type="string" />
+			<attribute name="border-right-style" type="string" />
+			<attribute name="border-right-color" type="string" />
+
+			<attribute name="border-bottom" type="string" />
+			<attribute name="border-bottom-style" type="string" />
+			<attribute name="border-bottom-color" type="string" />
+			
 			<attribute name="data-type" type="string" />
 			<attribute name="format" type="string" />
 		</complexType>
@@ -247,7 +311,27 @@
 			</sequence>		
 			<attribute name="id" type="string"/>
 			<attribute name="width" type="string"/>
-			<attribute name="height" type="string"/>			
+			<attribute name="height" type="string"/>
+			
+			<attribute name="margin" type="string" />
+			<attribute name="margin-left" type="string" />
+			<attribute name="margin-right" type="string" />
+			<attribute name="margin-top" type="string" />
+			<attribute name="margin-bottom" type="string" />
+			
+			<attribute name="cell-border-type" type="string"/>
+			
+			<attribute name="cell-border" type="string"/>
+			<attribute name="cell-border-style" type="string"/>
+			<attribute name="cell-border-color" type="string"/>
+
+			<attribute name="column-border" type="string"/>
+			<attribute name="column-border-style" type="string"/>
+			<attribute name="column-border-color" type="string"/>
+
+			<attribute name="row-border" type="string"/>
+			<attribute name="row-border-style" type="string"/>
+			<attribute name="row-border-color" type="string"/>
 		</complexType>
 	</element>
 
@@ -294,7 +378,7 @@
 			<attribute name="description" type="string"/>
 			<attribute name="data-type" type="string"/>
 			<attribute name="reset-type" type="string"/>
-			<attribute name="reset-value" type="string"/>
+			<attribute name="reset-name" type="string"/>
 			<attribute name="aggregation" type="string"/>
 		</complexType>
 	</element>
