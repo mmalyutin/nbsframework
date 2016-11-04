@@ -35,7 +35,7 @@ public class Pen implements Serializable {
 
     private static final long serialVersionUID = -5276236458876261037L;
     
-    public static final Pen NONE = new Pen();
+    public static final Pen NONE = new NonePen();
     
     public static final byte LINE_STYLE_SOLID = 0;
 
@@ -132,5 +132,53 @@ public class Pen implements Serializable {
     @Override
     public Pen clone() {
 	return new Pen(lineWidth, lineStyle, lineColor);
+    }
+    
+    private static final class NonePen extends Pen {
+
+	private static final long serialVersionUID = 4901311596839022327L;
+	
+	private NonePen() {
+	    super();
+	}
+
+	@Override
+	public int getLineWidth() {
+	    return 0;
+	}
+
+	@Override
+	public void setLineWidth(int lineWidth) {}
+
+	@Override
+	public byte getLineStyle() {
+	    return 0;
+	}
+
+	@Override
+	public void setLineStyle(byte lineStyle) {}
+
+	@Override
+	public Color getLineColor() {
+	    return null;
+	}
+
+	@Override
+	public void setLineColor(Color lineColor) {}
+
+	@Override
+	public boolean isEmpty() {
+	    return true;
+	}
+	
+	@Override
+	public Pen clone() {
+	    return this;
+	}	
+
+	@Override
+	public String toString() {
+	    return "Pen[none]";
+	}
     }
 }

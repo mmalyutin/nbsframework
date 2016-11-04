@@ -33,7 +33,7 @@ public class Border implements Serializable  {
 
     private static final long serialVersionUID = -9119801104835934766L;
     
-    public static final Border NONE = new Border(Pen.NONE);
+    public static final Border NONE = new NoneBorder();
     
     private Pen top;
     
@@ -53,10 +53,10 @@ public class Border implements Serializable  {
 
     public Border(Pen top, Pen right, Pen bottom, Pen left) {
 	super();
-	this.top = top;
-	this.right = right;
-	this.bottom = bottom;
-	this.left = left;
+	this.top = clonePen(top);
+	this.right = clonePen(right);
+	this.bottom = clonePen(bottom);
+	this.left = clonePen(left);
     }
 
 
@@ -139,6 +139,9 @@ public class Border implements Serializable  {
 
     @Override
     public String toString() {
+	if (isNormalize()) {
+	    return "Border[" + left +  "]";
+	}
 	return "Border[top=" + top + ", right="  + right + ", bottom="  + bottom + ", left=" + left +  "]";
     }
     
@@ -205,16 +208,99 @@ public class Border implements Serializable  {
     }
     
     public boolean isNormalize() {
-	if (this == Border.NONE) {
+	if (top == null && right == null && bottom == null && left == null) {
 	    return true;
 	}
-	 if (top == null && right == null && bottom == null && left == null) {
-	     return true;
-	 }
-	 if (top == null || right == null || bottom == null || left == null) {
-	     return false;
-	 }
-	 return top.equals(right) && right.equals(bottom);
-    }
+	if (top == null || right == null || bottom == null || left == null) {
+	    return false;
+	}
+	return top.equals(right) && right.equals(bottom);
+    }    
     
+    private static final class NoneBorder extends Border {
+
+	private static final long serialVersionUID = 5955160718224198038L;
+
+	private final Pen pen;
+	
+	private NoneBorder() {
+	    super();
+	    pen = Pen.NONE;
+	}
+
+	@Override
+	public Pen getTop() {
+	    return pen;
+	}
+
+	@Override
+	public void setTop(Pen top) {
+	}
+
+	@Override
+	public Pen getRight() {
+	    return pen;
+	}
+
+	@Override
+	public void setRight(Pen right) {
+	}
+
+	@Override
+	public Pen getBottom() {
+	    return pen;
+	}
+
+	@Override
+	public void setBottom(Pen bottom) {}
+
+	@Override
+	public Pen getLeft() {
+	    return pen;
+	}
+
+	@Override
+	public void setLeft(Pen left) {}	    
+	    
+	@Override
+	public boolean hasTop() {
+	    return true;
+	}
+
+	@Override
+	public boolean hasRight() {
+	    return true;
+	}
+	    
+	@Override
+	public boolean hasBottom() {
+	    return true;
+	}
+
+	@Override
+	public boolean hasLeft() {
+	    return true;
+	}
+	
+	@Override
+	public boolean isEmpty() {
+	    return true;
+	}
+
+	@Override
+	public String toString() {
+	    return "Border[none]";
+	}
+	    
+	@Override
+	public Border clone() {
+	    return this;
+	}
+	
+	@Override
+	public boolean isNormalize() {
+	    return true;
+	}
+	
+    }
 }
