@@ -186,9 +186,9 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
    	    return;
    	}
    	
-   	if (border.isEmpty() ) {
-   	    return;
-   	}
+   	//if (border.isEmpty()) {
+   	//    return;
+   	//}
    	
    	if (border.hasLeft()) {
    	    setBorderPenByAttributes(border.getLeft(), node, prefixAttribute + XML_ATTR_BORDER_LEFT);

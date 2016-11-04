@@ -108,7 +108,7 @@ public class Border implements Serializable  {
     ////
     
     protected boolean hasPen(Pen pen) {
-	return !isEmpty(pen);
+	return pen != null;
     }
     
     protected boolean isEmpty(Pen pen) {
