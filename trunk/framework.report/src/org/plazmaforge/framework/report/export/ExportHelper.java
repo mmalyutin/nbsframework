@@ -373,11 +373,11 @@ public class ExportHelper {
 			}
 		    }
 		    
-		    if (cell.hasBorder()) {
+		    if (orgBorder != null) {
 			if (orgBorder == Border.NONE) {
 			    cellBorder = null;
 			} else {
-			    if (!orgBorder.isEmpty()) {
+			    //if (!orgBorder.isEmpty()) {
 				Pen orgLeftPen = orgBorder.hasLeft() ? orgBorder.getLeft() : null;
 				Pen orgTopPen = orgBorder.hasTop() ? orgBorder.getTop() : null;
 				Pen orgRightPen = orgBorder.hasRight() ? orgBorder.getRight() : null;
@@ -401,16 +401,20 @@ public class ExportHelper {
 				    cellBorder.setBottom(orgBottomPen == Pen.NONE ? null : orgBottomPen);
 				}
 				
-				if (cellBorder.isEmpty()) {
-				    cellBorder = null;
-				}
+				//if (cellBorder.isEmpty()) {
+				//    cellBorder = null;
+				//}
 				
-			    }
+			    //}
 			}
 		    }
 		    
 		}
-		
+
+		if (cellBorder != null && cellBorder.isEmpty()) {
+		    cellBorder = null;
+		}
+
 		
 		if (cellBorder != null) {
 		    
