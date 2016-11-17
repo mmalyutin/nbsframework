@@ -72,8 +72,8 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    template.setType(value);
 	}
 	
-	// cell-border-type: ONLY FOR Table report
-	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_TYPE);
+	// cell-border-rule: ONLY FOR Table report
+	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_RULE);
 	if (cellBorderRule != null) {
 	    template.setCellBorderRule(cellBorderRule);
 	}

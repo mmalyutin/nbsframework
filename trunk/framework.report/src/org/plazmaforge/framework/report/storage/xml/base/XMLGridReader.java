@@ -49,8 +49,8 @@ public class XMLGridReader extends XMLAbstractReader {
     protected void readGridAttributes(Element element, Grid grid) {
 	readElementAttributes(element, grid);
 	
-	// cell-border-type
-	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_TYPE);
+	// cell-border-rule
+	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_RULE);
 	if (cellBorderRule != null) {
 	    grid.setCellBorderRule(cellBorderRule);
 	}

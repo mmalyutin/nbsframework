@@ -47,9 +47,9 @@ public class XMLGridWriter extends XMLAbstractWriter {
     protected void writeGridAttributes(Grid grid, Element node) {
 	writeElementAttributes(grid, node);
 	
-	// cell-border-type
+	// cell-border-rule
 	if (grid.getCellBorderRule() != null) {
-	    setCellBorderRule(node, XML_ATTR_CELL_BORDER_TYPE, grid.getCellBorderRule());
+	    setCellBorderRule(node, XML_ATTR_CELL_BORDER_RULE, grid.getCellBorderRule());
 	}
 	
 	// cell-border

@@ -86,8 +86,8 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	}   		
 
 	
-	// cell-border-type
-	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_TYPE);
+	// cell-border-rule
+	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_RULE);
 	if (cellBorderRule != null) {
 	    band.setCellBorderRule(cellBorderRule);
 	}
