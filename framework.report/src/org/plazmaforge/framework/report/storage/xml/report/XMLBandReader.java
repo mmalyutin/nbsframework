@@ -28,6 +28,8 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Pen;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.storage.xml.base.XMLRowReader;
@@ -83,6 +85,31 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	    band.setFont(font);
 	}   		
 
+	
+	// cell-border-type
+	CellBorderType cellBorderType = getCellBorderType(element, XML_ATTR_CELL_BORDER_TYPE);
+	if (cellBorderType != null) {
+	    band.setCellBorderType(cellBorderType);
+	}
+	
+	// cell-border	
+	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
+	if (cellBorder != null) {
+	    band.setCellBorder(cellBorder);
+	}
+
+	// column-border	
+	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
+	if (columnBorder != null) {
+	    band.setColumnBorder(columnBorder);
+	}
+
+	// row-border	
+	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
+	if (rowBorder != null) {
+	    band.setRowBorder(rowBorder);
+	}
+	
     }
     
     protected void readBandContent(Element element, Band band) {

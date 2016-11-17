@@ -242,19 +242,36 @@ public class ExportHelper {
 	    return null;
 	}
 	
+	// Default borders (pen)
 	Pen defLeftPen = null;
 	Pen defTopPen = null;
 	Pen defRightPen = null;
 	Pen defBottomPen = null;
 
+	// Current borders (pen)
+	Pen leftPen = null;
+	Pen topPen = null;
+	Pen rightPen = null;
+	Pen bottomPen = null;
+
+	// Default R (from row) borders (pen) 
+	Pen defRLeftPen = null;
+	Pen defRTopPen = null;
+	Pen defRRightPen = null;
+	Pen defRBottomPen = null;
 	
-	// Transfer default column border
+	// Default R (from row) borders
+	Pen defRCellBorder = null;
+	Pen defRColumnBorder = null;
+	Pen defRRowBorder = null;
+	
+	// Transfer default column border (left, right)
 	if (defColumnBorder != null && !defColumnBorder.isEmpty()) {
 	    defLeftPen = defColumnBorder.clone();
 	    defRightPen = defColumnBorder.clone();
 	}
 	
-	// Transfer default row border
+	// Transfer default row border (top, bottom)
 	if (defRowBorder != null && !defRowBorder.isEmpty()) {
 	    defTopPen = defRowBorder.clone();
 	    defBottomPen = defRowBorder.clone();
@@ -289,6 +306,7 @@ public class ExportHelper {
 	int colspan = 0;
 	int rowspan = 0;
 	
+	
 	for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
 	    
 	    row = rows.get(rowIndex);
@@ -297,6 +315,41 @@ public class ExportHelper {
  	    List<Cell> cells = row.getCells();
 	    
  	    columnIndex = 0;
+ 	    
+ 	    defRLeftPen = null;
+ 	    defRTopPen = null;
+ 	    defRRightPen = null;
+ 	    defRBottomPen = null;
+ 		
+ 	    
+ 	    defRCellBorder = row.hasCellBorder() ? row.getCellBorder() : null;
+ 	    defRCellBorder = normalizeNonePen(defRCellBorder);
+ 	   
+ 	    defRColumnBorder = defRCellBorder;
+ 	    defRRowBorder = defRCellBorder;
+ 	
+ 	    // Override column (R) border
+ 	    if (row.hasColumnBorder()) {
+ 		defRColumnBorder = normalizeNonePen(row.getColumnBorder());
+ 	    }
+
+ 	    // Override row (R) border
+ 	    if (row.hasRowBorder()) {
+ 		defRowBorder = normalizeNonePen(row.getRowBorder());
+ 	    }
+
+ 	    // Transfer default column border (left, right)
+ 	    if (defRColumnBorder != null) {
+ 		defRLeftPen = defRColumnBorder.clone();
+ 		defRRightPen = defRColumnBorder.clone();
+ 	    }
+		
+ 	    // Transfer default row border (top, bottom)
+ 	    if (defRRowBorder != null) {
+ 		defRTopPen = defRRowBorder.clone();
+ 		defRBottomPen = defRRowBorder.clone();
+ 	    }
+		
  	   
 	    for (int cellIndex = 0; cellIndex < cellCount; cellIndex++) {
 		
@@ -317,6 +370,28 @@ public class ExportHelper {
 		}
 		int lastColumnIndex = nextColumnIndex - 1;
 		int lastRowIndex = nextRowIndex - 1;
+		
+		
+		// Transfer default to current borders 
+		leftPen = defLeftPen;
+		topPen = defTopPen;
+		rightPen = defRightPen;
+		bottomPen = defBottomPen;
+		
+		// Transfer R (from row) to current borders 
+		if (defRLeftPen != null ) {
+		    leftPen = defRLeftPen;
+		}
+		if (defRTopPen != null ) {
+		    topPen = defRTopPen;
+		}
+		if (defRRightPen != null ) {
+		    rightPen = defRRightPen;
+		}
+		if (defRBottomPen != null ) {
+		    bottomPen = defRBottomPen;
+		}
+		
 		
 		Border cellBorder = null;
 		Border orgBorder = cell.hasBorder() ? cell.getBorder() : null;
@@ -341,7 +416,7 @@ public class ExportHelper {
 			
 			if ( lastRowIndex != rowCount - 1 
 				|| (lastRowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
-			    cellBorder.setBottom(defBottomPen);
+			    cellBorder.setBottom(bottomPen);
 			}
 		    }
 
@@ -353,7 +428,7 @@ public class ExportHelper {
 			
 			if ((lastColumnIndex != columnCount - 1)
 				|| (lastColumnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
-			    cellBorder.setRight(defRightPen);
+			    cellBorder.setRight(rightPen);
 			}
 		    }
 
@@ -361,7 +436,7 @@ public class ExportHelper {
 		    if (rowIndex == 0) {
 			if (cellBorderType == CellBorderType.ROW_ALL
 				|| cellBorderType == CellBorderType.ALL) {
-			    cellBorder.setTop(defTopPen);
+			    cellBorder.setTop(topPen);
 			}			
 		    }
 
@@ -369,7 +444,7 @@ public class ExportHelper {
 		    if (columnIndex == 0) {
 			if (cellBorderType == CellBorderType.COLUMN_ALL
 				|| cellBorderType == CellBorderType.ALL) {
-			    cellBorder.setLeft(defLeftPen);
+			    cellBorder.setLeft(leftPen);
 			}
 		    }
 		    
@@ -423,8 +498,8 @@ public class ExportHelper {
 		    cellBorders.put(cellKey, cellBorder);
 		    
 		    // Add column border region (left, right)
-		    Pen leftPen = normalizePen(cellBorder.hasLeft() ? cellBorder.getLeft() : null);
-		    Pen rightPen = normalizePen(cellBorder.hasRight() ? cellBorder.getRight() : null);
+		    leftPen = normalizePen(cellBorder.hasLeft() ? cellBorder.getLeft() : null);
+		    rightPen = normalizePen(cellBorder.hasRight() ? cellBorder.getRight() : null);
 		    if (leftPen != null) {
 			mergeBorderRegion(columnBorders, columnIndex, leftPen.getLineWidth(), false); // column: prev border 
 		    }
@@ -433,8 +508,8 @@ public class ExportHelper {
 		    }
 
 		    // Add row border region (top, bottom)
-		    Pen topPen = normalizePen(cellBorder.hasTop() ? cellBorder.getTop() : null);
-		    Pen bottomPen = normalizePen(cellBorder.hasBottom() ? cellBorder.getBottom() : null);
+		    topPen = normalizePen(cellBorder.hasTop() ? cellBorder.getTop() : null);
+		    bottomPen = normalizePen(cellBorder.hasBottom() ? cellBorder.getBottom() : null);
 		    if (topPen != null) {
 			mergeBorderRegion(rowBorders, rowIndex, topPen.getLineWidth(), false); // row: prev border 
 		    }
