@@ -104,7 +104,7 @@ public interface XMLInfo {
     String XML_ATTR_PADDING_BOTTOM = "padding-bottom";
     
 
-    String XML_ATTR_CELL_BORDER_TYPE = "cell-border-type";
+    String XML_ATTR_CELL_BORDER_RULE = "cell-border-rule";
     
     String XML_ATTR_CELL_BORDER = "cell-border";
     
