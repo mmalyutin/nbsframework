@@ -409,41 +409,32 @@ public class ExportHelper {
 		    //////////////////////////////////////////////////////////
 		    
 		    // bottom
-		    if (cellBorderRule == CellBorderRule.COLUMN_ROW 
-			    || cellBorderRule == CellBorderRule.ROW
-			    || cellBorderRule == CellBorderRule.ROW_ALL
-			    || cellBorderRule == CellBorderRule.ALL) {
-			
+		    if (CellBorderRule.isBottom(cellBorderRule)) {
 			if ( lastRowIndex != rowCount - 1 
-				|| (lastRowIndex == rowCount - 1 && (cellBorderRule == CellBorderRule.ROW_ALL || cellBorderRule == CellBorderRule.ALL))) {
+				|| (lastRowIndex == rowCount - 1 && CellBorderRule.isLastBottom(cellBorderRule))) {
 			    cellBorder.setBottom(bottomPen);
 			}
 		    }
 
 		    // right
-		    if (cellBorderRule == CellBorderRule.COLUMN_ROW
-			    || cellBorderRule == CellBorderRule.COLUMN
-			    || cellBorderRule == CellBorderRule.COLUMN_ALL
-			    || cellBorderRule == CellBorderRule.ALL) {
+		    if (CellBorderRule.isRight(cellBorderRule)) {
 			
 			if ((lastColumnIndex != columnCount - 1)
-				|| (lastColumnIndex == columnCount - 1 && (cellBorderRule == CellBorderRule.COLUMN_ALL || cellBorderRule == CellBorderRule.ALL))) {
+				|| (lastColumnIndex == columnCount - 1 && CellBorderRule.isLastRight(cellBorderRule))) {
 			    cellBorder.setRight(rightPen);
 			}
 		    }
 
 		    // top: first row
 		    if (rowIndex == 0) {
-			if (cellBorderRule == CellBorderRule.ROW_ALL
-				|| cellBorderRule == CellBorderRule.ALL) {
+			if (CellBorderRule.isFirstTop(cellBorderRule)) {
 			    cellBorder.setTop(topPen);
 			}			
 		    }
 
 		    // left: first column
 		    if (columnIndex == 0) {
-			if (cellBorderRule == CellBorderRule.COLUMN_ALL
-				|| cellBorderRule == CellBorderRule.ALL) {
+			if (CellBorderRule.isFirstLeft(cellBorderRule)) {
 			    cellBorder.setLeft(leftPen);
 			}
 		    }
