@@ -29,10 +29,12 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.type.TypeUtils;
+import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
@@ -48,38 +50,47 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     @Override
     protected void prepareNewPage(ReportContext context) {
 	Template template = context.getTemplate();
+	//Band band = context.getBand();
 	Page page = context.getPage();
 
 	// New Page: Create grid by table template
 	Grid grid = new Grid(template, null);
 	
-	// Initialize grid
 	
-	// cell-border-type
-	grid.setCellBorderRule(template.getCellBorderRule());
+	//////////////////////////////////////////////////////////////////////
+	//
+	// Initialize grid
+	//
+	//////////////////////////////////////////////////////////////////////
+	
+	// Template border rule
+	CellBorderRule cellBorderRule = template.getCellBorderRule();
+	Pen cellBorder = ExportHelper.normalizeNonePen(template.hasCellBorder() ? template.getCellBorder() : null);
+	Pen columnBorder = ExportHelper.normalizeNonePen(template.hasColumnBorder() ? template.getColumnBorder() : null);
+	Pen rowBorder = ExportHelper.normalizeNonePen(template.hasRowBorder() ? template.getRowBorder() : null);
+
+	// Band border rule
+	//CellBorderRule cellBorderRuleB = band.getCellBorderRule();
+	//Pen cellBorderB = ExportHelper.normalizeNonePen(band.hasCellBorder() ? band.getCellBorder() : null);
+	//Pen columnBorderB = ExportHelper.normalizeNonePen(band.hasColumnBorder() ? band.getColumnBorder() : null);
+	//Pen rowBorderB = ExportHelper.normalizeNonePen(band.hasRowBorder() ? band.getRowBorder() : null);
+
+	// cell-border-rule
+	grid.setCellBorderRule(cellBorderRule);
 	
 	// cell-border
-	if (template.hasCellBorder()) {
-	    Pen cellBorder = template.getCellBorder();
-	    if (!cellBorder.isEmpty()) {
-		grid.setCellBorder(cellBorder.clone());
-	    }
+	if (cellBorder != null) {
+	    grid.setCellBorder(cellBorder.clone());
 	}
 	
 	// column-border
-	if (template.hasColumnBorder()) {
-	    Pen columnBorder = template.getColumnBorder();
-	    if (!columnBorder.isEmpty()) {
-		grid.setColumnBorder(columnBorder.clone());
-	    }
+	if (columnBorder != null) {
+	    grid.setColumnBorder(columnBorder.clone());
 	}
 
 	// row-border
-	if (template.hasRowBorder()) {
-	    Pen rowBorder = template.getRowBorder();
-	    if (!rowBorder.isEmpty()) {
-		grid.setRowBorder(rowBorder.clone());
-	    }
+	if (rowBorder != null) {
+	    grid.setRowBorder(rowBorder.clone());
 	}
 	
 	page.addChild(grid);

@@ -542,25 +542,25 @@ public class ExportHelper {
     }
     
     
-    private static Pen normalizeNonePen(Pen pen) {
+    public static Pen normalizeNonePen(Pen pen) {
 	if (pen == Pen.NONE) {
 	    return pen;
 	}
 	return normalizePen(pen);
     }
     
-    private static Pen normalizePen(Pen pen) {
+    public static Pen normalizePen(Pen pen) {
 	if (pen == null) {
 	    return null;
 	}
 	return pen.isEmpty() ? null : pen;
     }
     
-    private static Pen createDefaultPen() {
+    public static Pen createDefaultPen() {
 	return new Pen(1, Pen.LINE_STYLE_SOLID, Color.BLACK);
     }
 
-    private static Pen defaultPen(Pen pen) {
+    public static Pen defaultPen(Pen pen) {
 	pen = normalizePen(pen);
 	return pen == null ? createDefaultPen() : pen;
     }
