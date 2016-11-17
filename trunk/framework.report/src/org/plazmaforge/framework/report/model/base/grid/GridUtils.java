@@ -23,7 +23,7 @@
 /**
  * 
  */
-package org.plazmaforge.framework.report.export;
+package org.plazmaforge.framework.report.model.base.grid;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,21 +32,15 @@ import java.util.Map;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Pen;
-import org.plazmaforge.framework.report.model.base.grid.Cell;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
-import org.plazmaforge.framework.report.model.base.grid.Column;
-import org.plazmaforge.framework.report.model.base.grid.Grid;
-import org.plazmaforge.framework.report.model.base.grid.GridLayout;
-import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.uwt.graphics.Color;
 
 /**
  * @author ohapon
  *
  */
-public class ExportHelper {
+public class GridUtils {
 
-    private ExportHelper() {
+    private GridUtils() {
     }
     
     
