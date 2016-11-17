@@ -26,7 +26,7 @@
 			<attribute name="type" type="string"/> <!--  TableTemplate -->
 			<attribute name="paging" type="boolean"/>
 			
-			<attribute name="cell-border-type" type="string"/>
+			<attribute name="cell-border-rule" type="string"/>
 			
 			<attribute name="cell-border" type="string"/>
 			<attribute name="cell-border-style" type="string"/>

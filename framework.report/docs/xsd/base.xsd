@@ -319,7 +319,7 @@
 			<attribute name="margin-top" type="string" />
 			<attribute name="margin-bottom" type="string" />
 			
-			<attribute name="cell-border-type" type="string"/>
+			<attribute name="cell-border-rule" type="string"/>
 			
 			<attribute name="cell-border" type="string"/>
 			<attribute name="cell-border-style" type="string"/>
