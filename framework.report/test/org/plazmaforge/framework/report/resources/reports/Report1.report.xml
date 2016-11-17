@@ -20,7 +20,7 @@
 		</data-source>
 	</data-sources>
 	<templates>
-		<template type="Table" cell-border-type="all">
+		<template type="Table" cell-border-rule="all" column-border-color="green" row-border-color="red">
 			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
 				<column width="100" />
@@ -36,13 +36,14 @@
 							<rows>
 								<row height="20">
 									<cells>
-										<cell background="yellow" colspan="4" font="11, underline" border="2" border-color="blue"><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
+									<!-- border="2" border-color="blue" -->
+										<cell background="yellow" colspan="4" font="11, underline" ><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
 									</cells>
 								</row>
 								<row height="20">
 									<cells>
-										<cell colspan="2"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
-										<cell colspan="2" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
+										<cell border-right="none" colspan="2"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
+										<cell border-left="none" colspan="2" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
 									</cells>
 								</row>
 							</rows>
