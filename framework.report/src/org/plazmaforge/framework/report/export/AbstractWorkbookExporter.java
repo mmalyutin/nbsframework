@@ -34,6 +34,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
+import org.plazmaforge.framework.report.model.base.grid.GridUtils;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
@@ -292,8 +293,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		    break;
  		}
  		
- 		cellWidth = ExportHelper.calculateCellWidth(cell, columns, columnIndex);
- 		cellHeight = ExportHelper.calculateCellHeight(cell, rows, i);
+ 		cellWidth = GridUtils.calculateCellWidth(cell, columns, columnIndex);
+ 		cellHeight = GridUtils.calculateCellHeight(cell, rows, i);
 
  		// cell: parent gc
  		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);

@@ -29,13 +29,13 @@ import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
-import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
+import org.plazmaforge.framework.report.model.base.grid.GridUtils;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.GridLayout;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -157,7 +157,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	List<Column> columns = grid.getColumns();
 	List<Row> rows = grid.getRows();
 	
-	GridLayout layout = ExportHelper.getGridLayout(grid);
+	GridLayout layout = GridUtils.getGridLayout(grid);
 	
 	// Get grid size without grid border
 	int gridWidth = layout.getAreaWidth();
@@ -318,8 +318,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		    break;
 		}
 		
-		cellWidth = ExportHelper.calculateCellWidth(layout, cell, columns, columnIndex);
-		cellHeight = ExportHelper.calculateCellHeight(layout, cell, rows, rowIndex);
+		cellWidth = GridUtils.calculateCellWidth(layout, cell, columns, columnIndex);
+		cellHeight = GridUtils.calculateCellHeight(layout, cell, rows, rowIndex);
 		
 		int columnBorderLeft = 0;
 		int columnBorderRight = 0;

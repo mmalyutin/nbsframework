@@ -29,12 +29,12 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.type.TypeUtils;
-import org.plazmaforge.framework.report.export.ExportHelper;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
+import org.plazmaforge.framework.report.model.base.grid.GridUtils;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
@@ -65,9 +65,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	
 	// Template border rule
 	CellBorderRule cellBorderRule = template.getCellBorderRule();
-	Pen cellBorder = ExportHelper.normalizeNonePen(template.hasCellBorder() ? template.getCellBorder() : null);
-	Pen columnBorder = ExportHelper.normalizeNonePen(template.hasColumnBorder() ? template.getColumnBorder() : null);
-	Pen rowBorder = ExportHelper.normalizeNonePen(template.hasRowBorder() ? template.getRowBorder() : null);
+	Pen cellBorder = GridUtils.normalizeNonePen(template.hasCellBorder() ? template.getCellBorder() : null);
+	Pen columnBorder = GridUtils.normalizeNonePen(template.hasColumnBorder() ? template.getColumnBorder() : null);
+	Pen rowBorder = GridUtils.normalizeNonePen(template.hasRowBorder() ? template.getRowBorder() : null);
 
 	// Band border rule
 	//CellBorderRule cellBorderRuleB = band.getCellBorderRule();
