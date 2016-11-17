@@ -30,7 +30,7 @@ package org.plazmaforge.framework.report.model.base.grid;
  * Cell border rules.
  * 
  * 
- * - COLUMN:
+ * - COLUMN_INNER:
  * 
  *     |   |
  *   1 | 2 | 3
@@ -44,7 +44,7 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  *
  *
- * - COLUMN_ALL:
+ * - COLUMN:
  * 
  * |   |   |   |
  * | 1 | 2 | 3 |
@@ -58,7 +58,7 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  *
  *         
- * - ROW:
+ * - ROW_INNER:
  * 
  *         
  *   1   2   3
@@ -71,7 +71,7 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  *
  *
- *  - ROW_ALL:
+ *  - ROW:
  *  ___________ 
  *       
  *   1   2   3
@@ -85,7 +85,7 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  * 
  * 
- * - COLUMN_ROW:
+ * - INNER:
  * 
  *    |   |
  *  1 | 2 | 3
@@ -118,13 +118,18 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  */
 
+
+//////////////////////////////////////////////////////////
+// General cell border: _| (bottom, right)
+//////////////////////////////////////////////////////////
+
 public enum CellBorderRule {
 
+    COLUMN_INNER,
     COLUMN,
-    COLUMN_ALL,
+    ROW_INNER,
     ROW,
-    ROW_ALL,
-    COLUMN_ROW,
+    INNER,
     ALL;
     
     
@@ -134,4 +139,62 @@ public enum CellBorderRule {
 	}
 	return CellBorderRule.valueOf(str.toUpperCase());
     }
+
+    //
+    
+    public static boolean isBottom(CellBorderRule rule) {
+	if (rule == null) {
+	    return false;
+	}
+	return rule == CellBorderRule.INNER 
+		    || rule == CellBorderRule.ROW_INNER
+		    || rule == CellBorderRule.ROW
+		    || rule == CellBorderRule.ALL;
+    }
+    
+    public static boolean isRight(CellBorderRule rule) {
+	if (rule == null) {
+	    return false;
+	}
+	return rule == CellBorderRule.INNER
+		    || rule == CellBorderRule.COLUMN_INNER
+		    || rule == CellBorderRule.COLUMN
+		    || rule == CellBorderRule.ALL;
+    }
+    
+    //
+    
+    public static boolean isFirstTop(CellBorderRule rule) {
+	if (rule == null) {
+	    return false;
+	}
+	return rule == CellBorderRule.ROW
+		|| rule == CellBorderRule.ALL;
+    }
+    
+    public static boolean isFirstLeft(CellBorderRule rule) {
+	if (rule == null) {
+	    return false;
+	}
+	return rule == CellBorderRule.COLUMN
+		|| rule == CellBorderRule.ALL;
+    }
+
+    public static boolean isLastBottom(CellBorderRule rule) {
+	if (rule == null) {
+	    return false;
+	}
+	return rule == CellBorderRule.ROW 
+		|| rule == CellBorderRule.ALL;
+    }
+
+    public static boolean isLastRight(CellBorderRule rule) {
+	if (rule == null) {
+	    return false;
+	}
+	return rule == CellBorderRule.COLUMN 
+		|| rule == CellBorderRule.ALL;
+    }
+
+    
 }
