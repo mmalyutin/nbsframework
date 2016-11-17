@@ -92,6 +92,13 @@ public class Pen implements Serializable {
 	return lineWidth == 0 && lineStyle == 0 && lineColor == null;
     }
 
+    public boolean hasValue() {
+	if (this == Pen.NONE) {
+	    return true;
+	}
+	return !isEmpty();
+    }
+    
     @Override
     public int hashCode() {
 	final int prime = 31;

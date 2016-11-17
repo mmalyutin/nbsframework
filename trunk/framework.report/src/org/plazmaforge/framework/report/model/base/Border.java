@@ -115,6 +115,10 @@ public class Border implements Serializable  {
 	return pen == null || pen.isEmpty();
     }
     
+    protected boolean hasValue(Pen pen) {
+	return pen != null && pen.hasValue();
+    }
+    
     ////
 
     public boolean hasTop() {
@@ -136,6 +140,14 @@ public class Border implements Serializable  {
     public boolean isEmpty() {
 	return isEmpty(top) && isEmpty(right) && isEmpty(bottom) && isEmpty(left);
     }
+    
+    public boolean hasValue() {
+	if (this == Border.NONE) {
+	    return true;
+	}
+	return !isEmpty();
+    }
+    
 
     @Override
     public String toString() {
