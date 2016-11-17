@@ -31,7 +31,7 @@ import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Container;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.BaseRowModel;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.base.grid.RowModel;
 
@@ -50,7 +50,7 @@ public class Band extends Container implements RowModel {
     private String type;
     
     
-    private CellBorderType cellBorderType;
+    private CellBorderRule cellBorderRule;
     
     private Pen cellBorder;
     
@@ -78,12 +78,12 @@ public class Band extends Container implements RowModel {
 
     ////
     
-    public CellBorderType getCellBorderType() {
-        return cellBorderType;
+    public CellBorderRule getCellBorderRule() {
+        return cellBorderRule;
     }
 
-    public void setCellBorderType(CellBorderType cellBorderType) {
-        this.cellBorderType = cellBorderType;
+    public void setCellBorderRule(CellBorderRule cellBorderRule) {
+        this.cellBorderRule = cellBorderRule;
     }
 
     public Pen getCellBorder() {

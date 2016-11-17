@@ -27,7 +27,7 @@ package org.plazmaforge.framework.report.model.base.grid;
 
 /**
  * 
- * Cell border types.
+ * Cell border rules.
  * 
  * 
  * - COLUMN:
@@ -118,7 +118,7 @@ package org.plazmaforge.framework.report.model.base.grid;
  *
  */
 
-public enum CellBorderType {
+public enum CellBorderRule {
 
     COLUMN,
     COLUMN_ALL,
@@ -128,10 +128,10 @@ public enum CellBorderType {
     ALL;
     
     
-    public static CellBorderType getValue(String str) {
+    public static CellBorderRule getValue(String str) {
 	if (str == null) {
 	    return null;
 	}
-	return CellBorderType.valueOf(str.toUpperCase());
+	return CellBorderRule.valueOf(str.toUpperCase());
     }
 }

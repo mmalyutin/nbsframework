@@ -25,7 +25,7 @@ package org.plazmaforge.framework.report.storage.xml;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.data.formatter.RWFormatterManager;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
 import org.plazmaforge.framework.uwt.builder.formatter.type.FontFormatter;
@@ -152,15 +152,15 @@ public class XMLWorker {
  	return (VerticalAlign) VERTICAL_ALIGN_FORMATTER.parse(getStringValue(element, name));
    }
 
-    protected CellBorderType getCellBorderType(Element element, String name) {
+    protected CellBorderRule getCellBorderRule(Element element, String name) {
 	// restore to upper case 
 	String value = getStringValue(element, name);
-	return value == null ? null : CellBorderType.getValue(value.toUpperCase());
+	return value == null ? null : CellBorderRule.getValue(value.toUpperCase());
     }
 
-    protected void setCellBorderType(Element element, String name, CellBorderType cellBorderType) {
+    protected void setCellBorderRule(Element element, String name, CellBorderRule cellBorderRule) {
 	// save to lower case
-	setStringValue(element, name, cellBorderType == null ? null : cellBorderType.name().toLowerCase());
+	setStringValue(element, name, cellBorderRule == null ? null : cellBorderRule.name().toLowerCase());
     }
     
     protected String getContentValue(Element element) {

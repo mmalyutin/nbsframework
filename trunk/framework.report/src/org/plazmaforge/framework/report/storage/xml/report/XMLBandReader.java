@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.Pen;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.storage.xml.base.XMLRowReader;
@@ -87,9 +87,9 @@ public class XMLBandReader extends XMLAbstractReportReader {
 
 	
 	// cell-border-type
-	CellBorderType cellBorderType = getCellBorderType(element, XML_ATTR_CELL_BORDER_TYPE);
-	if (cellBorderType != null) {
-	    band.setCellBorderType(cellBorderType);
+	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_TYPE);
+	if (cellBorderRule != null) {
+	    band.setCellBorderRule(cellBorderRule);
 	}
 	
 	// cell-border	

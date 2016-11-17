@@ -33,7 +33,7 @@ import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.GridLayout;
@@ -218,7 +218,7 @@ public class ExportHelper {
 	    return null;
 	}
 	
-	CellBorderType cellBorderType = grid.getCellBorderType();
+	CellBorderRule cellBorderRule = grid.getCellBorderRule();
 	
 	Pen defCellBorder = grid.hasCellBorder() ? grid.getCellBorder() : null;
 	Pen defColumnBorder = defCellBorder;
@@ -234,10 +234,10 @@ public class ExportHelper {
 	    defRowBorder  = grid.getRowBorder();
 	}
 	
-	return getGridLayout(grid, cellBorderType, defColumnBorder, defRowBorder); 
+	return getGridLayout(grid, cellBorderRule, defColumnBorder, defRowBorder); 
     }
     
-    public static GridLayout getGridLayout(Grid grid, CellBorderType cellBorderType, Pen defColumnBorder, Pen defRowBorder) {
+    public static GridLayout getGridLayout(Grid grid, CellBorderRule cellBorderRule, Pen defColumnBorder, Pen defRowBorder) {
 	if (grid == null) {
 	    return null;
 	}
@@ -396,7 +396,7 @@ public class ExportHelper {
 		Border cellBorder = null;
 		Border orgBorder = cell.hasBorder() ? cell.getBorder() : null;
 		
-		if (cellBorderType == null) {
+		if (cellBorderRule == null) {
 		    // Use original cell border
 		    cellBorder = orgBorder;
 		} else {
@@ -409,41 +409,41 @@ public class ExportHelper {
 		    //////////////////////////////////////////////////////////
 		    
 		    // bottom
-		    if (cellBorderType == CellBorderType.COLUMN_ROW 
-			    || cellBorderType == CellBorderType.ROW
-			    || cellBorderType == CellBorderType.ROW_ALL
-			    || cellBorderType == CellBorderType.ALL) {
+		    if (cellBorderRule == CellBorderRule.COLUMN_ROW 
+			    || cellBorderRule == CellBorderRule.ROW
+			    || cellBorderRule == CellBorderRule.ROW_ALL
+			    || cellBorderRule == CellBorderRule.ALL) {
 			
 			if ( lastRowIndex != rowCount - 1 
-				|| (lastRowIndex == rowCount - 1 && (cellBorderType == CellBorderType.ROW_ALL || cellBorderType == CellBorderType.ALL))) {
+				|| (lastRowIndex == rowCount - 1 && (cellBorderRule == CellBorderRule.ROW_ALL || cellBorderRule == CellBorderRule.ALL))) {
 			    cellBorder.setBottom(bottomPen);
 			}
 		    }
 
 		    // right
-		    if (cellBorderType == CellBorderType.COLUMN_ROW
-			    || cellBorderType == CellBorderType.COLUMN
-			    || cellBorderType == CellBorderType.COLUMN_ALL
-			    || cellBorderType == CellBorderType.ALL) {
+		    if (cellBorderRule == CellBorderRule.COLUMN_ROW
+			    || cellBorderRule == CellBorderRule.COLUMN
+			    || cellBorderRule == CellBorderRule.COLUMN_ALL
+			    || cellBorderRule == CellBorderRule.ALL) {
 			
 			if ((lastColumnIndex != columnCount - 1)
-				|| (lastColumnIndex == columnCount - 1 && (cellBorderType == CellBorderType.COLUMN_ALL || cellBorderType == CellBorderType.ALL))) {
+				|| (lastColumnIndex == columnCount - 1 && (cellBorderRule == CellBorderRule.COLUMN_ALL || cellBorderRule == CellBorderRule.ALL))) {
 			    cellBorder.setRight(rightPen);
 			}
 		    }
 
 		    // top: first row
 		    if (rowIndex == 0) {
-			if (cellBorderType == CellBorderType.ROW_ALL
-				|| cellBorderType == CellBorderType.ALL) {
+			if (cellBorderRule == CellBorderRule.ROW_ALL
+				|| cellBorderRule == CellBorderRule.ALL) {
 			    cellBorder.setTop(topPen);
 			}			
 		    }
 
 		    // left: first column
 		    if (columnIndex == 0) {
-			if (cellBorderType == CellBorderType.COLUMN_ALL
-				|| cellBorderType == CellBorderType.ALL) {
+			if (cellBorderRule == CellBorderRule.COLUMN_ALL
+				|| cellBorderRule == CellBorderRule.ALL) {
 			    cellBorder.setLeft(leftPen);
 			}
 		    }

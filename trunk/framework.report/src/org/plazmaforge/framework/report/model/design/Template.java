@@ -36,7 +36,7 @@ import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.BaseColumnModel;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.ColumnModel;
 
@@ -94,9 +94,9 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     private ColumnModel columnModel;
 
     /**
-     * Border type of cell: column, column_all, row, row_all, column_row, all. Only for TableReport
+     * Border rule of cell: column, column_all, row, row_all, column_row, all. Only for TableReport
      */
-    private CellBorderType cellBorderType;
+    private CellBorderRule cellBorderRule;
     
     
     /**
@@ -283,12 +283,12 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 
     ////
     
-    public CellBorderType getCellBorderType() {
-        return cellBorderType;
+    public CellBorderRule getCellBorderRule() {
+        return cellBorderRule;
     }
 
-    public void setCellBorderType(CellBorderType cellBorderType) {
-        this.cellBorderType = cellBorderType;
+    public void setCellBorderRule(CellBorderRule cellBorderRule) {
+        this.cellBorderRule = cellBorderRule;
     }
 
     public Pen getCellBorder() {

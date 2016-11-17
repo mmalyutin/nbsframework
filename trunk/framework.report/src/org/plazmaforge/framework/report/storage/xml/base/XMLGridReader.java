@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.Pen;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderType;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -50,9 +50,9 @@ public class XMLGridReader extends XMLAbstractReader {
 	readElementAttributes(element, grid);
 	
 	// cell-border-type
-	CellBorderType cellBorderType = getCellBorderType(element, XML_ATTR_CELL_BORDER_TYPE);
-	if (cellBorderType != null) {
-	    grid.setCellBorderType(cellBorderType);
+	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_TYPE);
+	if (cellBorderRule != null) {
+	    grid.setCellBorderRule(cellBorderRule);
 	}
 	
 	// cell-border	
