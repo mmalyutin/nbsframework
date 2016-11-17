@@ -56,7 +56,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	// Initialize grid
 	
 	// cell-border-type
-	grid.setCellBorderType(template.getCellBorderType());
+	grid.setCellBorderRule(template.getCellBorderRule());
 	
 	// cell-border
 	if (template.hasCellBorder()) {

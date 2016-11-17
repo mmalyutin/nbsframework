@@ -40,7 +40,7 @@ public class Grid extends Element implements HasExpressionBuilder {
 
     private static final long serialVersionUID = -6413187521200757054L;
     
-    private CellBorderType cellBorderType;
+    private CellBorderRule cellBorderRule;
     
     private Pen cellBorder;
     
@@ -128,8 +128,8 @@ public class Grid extends Element implements HasExpressionBuilder {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Grid[");
 	
-	if (cellBorderType != null) {
-	    buf.append("cellBorderType=" + cellBorderType + ", ");
+	if (cellBorderRule != null) {
+	    buf.append("cellBorderRule=" + cellBorderRule + ", ");
 	}
 	if (cellBorder != null) {
 	    buf.append("cellBorder=" + cellBorder + ", ");
@@ -176,8 +176,8 @@ public class Grid extends Element implements HasExpressionBuilder {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Grid[");
 
-	if (cellBorderType != null) {
-	    buf.append("cellBorderType=" + cellBorderType + ", ");
+	if (cellBorderRule != null) {
+	    buf.append("cellBorderRule=" + cellBorderRule + ", ");
 	}
 	if (cellBorder != null) {
 	    buf.append("cellBorder=" + cellBorder + ", ");
@@ -228,12 +228,12 @@ public class Grid extends Element implements HasExpressionBuilder {
 
     ////
     
-    public CellBorderType getCellBorderType() {
-        return cellBorderType;
+    public CellBorderRule getCellBorderRule() {
+        return cellBorderRule;
     }
 
-    public void setCellBorderType(CellBorderType cellBorderType) {
-        this.cellBorderType = cellBorderType;
+    public void setCellBorderRule(CellBorderRule cellBorderRule) {
+        this.cellBorderRule = cellBorderRule;
     }
 
     public Pen getCellBorder() {
@@ -310,7 +310,7 @@ public class Grid extends Element implements HasExpressionBuilder {
 	result = prime * result
 		+ ((cellBorder == null) ? 0 : cellBorder.hashCode());
 	result = prime * result
-		+ ((cellBorderType == null) ? 0 : cellBorderType.hashCode());
+		+ ((cellBorderRule == null) ? 0 : cellBorderRule.hashCode());
 	result = prime * result
 		+ ((columnBorder == null) ? 0 : columnBorder.hashCode());
 	result = prime * result
@@ -336,7 +336,7 @@ public class Grid extends Element implements HasExpressionBuilder {
 		return false;
 	} else if (!cellBorder.equals(other.cellBorder))
 	    return false;
-	if (cellBorderType != other.cellBorderType)
+	if (cellBorderRule != other.cellBorderRule)
 	    return false;
 	if (columnBorder == null) {
 	    if (other.columnBorder != null)
