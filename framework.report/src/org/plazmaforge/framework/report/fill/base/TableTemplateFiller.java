@@ -100,22 +100,37 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     @Override
     protected void preparePageFooter(ReportContext context, Band band) {
 
-	int offsetY = context.getEndY() - context.getPageFooterHeight();
+	Band pageFooter = context.getTemplateStructure().getPageFooter();
+	Grid grid = context.getGrid();
+	int pageFooterHeight = calculateNewBandHeight(grid, pageFooter);
+	//int pageFooterHeight = context.getPageFooterHeight();
+	
+	int offsetY = context.getEndY() - pageFooterHeight;
 
 	if (offsetY > context.getOffsetY()) {
-	    Grid grid = context.getGrid();
+	    //Grid grid = context.getGrid();
 
 	    // Add blank row with rest height
-	    Row row = createRow(context);
+	    Row row = createBlankRow(context);
 	    row.setHeight(offsetY - context.getOffsetY());
-	    int columnCount = grid.getColumnCount();
-	    if (columnCount > 0) {
-		// Add blank cell
-		Cell cell = new Cell();
+	    
+	    // Add blank cell
+	    Cell cell = createBlankCell(context);
+	    if (cell != null) {
 		row.addCell(cell);
-		cell.setColspan(columnCount);
 	    }
 	    grid.addRow(row);
+	    
+	    
+//	    int columnCount = grid.getColumnCount();
+//	    if (columnCount > 0) {
+//		// Add blank cell
+//		Cell cell = new Cell();
+//		row.addCell(cell);
+//		cell.setColspan(columnCount);
+//	    }
+	    
+	    
 	}
 
 	// Set current Y
@@ -129,20 +144,27 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	List<Row> rows = fillContainer.getRows();
 	if (rows != null) {
 
-	    int height = 0;
-	    for (Row row : rows) {
-		height += row.getHeight();
-	    }
+	    Grid grid = context.getGrid();
+	    int height = calculateNewBandHeight(grid, fillContainer);
+	    
+	    //for (Row row : rows) {
+		//height += row.getHeight();
+	    //}
 
 	    if (paging /* && !force */) {
 		int offsetY = context.getOffsetY() + height; // calculate new offesetY
 		// System.out.println("New offsetY =" + offsetY);
 		int endY = context.getEndY();
-		int pageFooterHeight = context.getPageFooterHeight();
+		
+		
+		//int pageFooterHeight = context.getPageFooterHeight();
+		
+		Band pageFooter = context.getTemplateStructure().getPageFooter();
+		int pageFooterHeight = calculateNewBandHeight(grid, pageFooter);
 
 		if (pageFooterHeight > 0) {
 		    if (offsetY >= endY - pageFooterHeight) {
-			boolean isPrintPageFooter = evaluatePrintExpression(context, evaluation, context.getTemplateStructure().getPageFooter());
+			boolean isPrintPageFooter = evaluatePrintExpression(context, evaluation, pageFooter);
 			if (isPrintPageFooter) {
 			    startNewPage(context, true); // without evaluate print expression (force=true)
 			} else {
@@ -161,7 +183,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    // Shift Y position
 	    context.setOffsetY(context.getOffsetY() + height);
 
-	    Grid grid = context.getGrid();
+	    //Grid grid = context.getGrid();
 	    for (Row row : rows) {
 		grid.addRow(row);
 	    }
@@ -247,5 +269,74 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	}
 	return cell.getValue();
     }
+ 
+    protected Row createRow(ReportContext context) {
+	return createRow(context, false);
+    }
+
+    protected Row createBlankRow(ReportContext context) {
+	return createRow(context, true);
+    }
     
+    protected Row createRow(ReportContext context, boolean blank) {
+	
+	// TODO: blank - no border
+	
+	Row row = new Row();
+	Band band = context.getBand();
+	if (band == null) {
+	    return row;
+	}
+	
+	// Transfer band attributes to row
+	if (band.getBackground() != null) {
+	    row.setBackground(band.getBackground());
+	}
+	if (band.getForeground() != null) {
+	    row.setForeground(band.getForeground());
+	}
+	if (band.getFont() != null) {
+	    row.setFont(band.getFont());
+	}
+	
+	return row;
+    }
+
+    protected Cell createCell(ReportContext context) {
+	return createCell(context, false);
+    }
+
+    protected Cell createBlankCell(ReportContext context) {
+	return createCell(context, true);
+    }
+    
+    protected Cell createCell(ReportContext context, boolean blank) {
+	
+	if (blank) {
+	    
+	    // blank cell
+	    Grid grid = context.getGrid();
+	    if (grid == null) {
+		return null;
+	    }
+	    int columnCount = grid.getColumnCount();
+	    if (columnCount == 0) {
+		return null;
+	    }
+	    Cell cell = new Cell();
+	    cell.setColspan(columnCount);
+	    return cell;
+	}
+
+	Cell cell = new Cell();
+	return cell;
+    }
+    
+    protected int calculateNewBandHeight(Grid grid, Band band) {
+	if (band == null) {
+	    return 0;
+	}
+	//TODO
+	return calculateBandHeight(band, true);
+    }
 }
