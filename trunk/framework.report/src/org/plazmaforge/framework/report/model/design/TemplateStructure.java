@@ -27,7 +27,9 @@ package org.plazmaforge.framework.report.model.design;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.plazmaforge.framework.report.model.base.grid.Row;
 
@@ -76,7 +78,11 @@ public class TemplateStructure implements Serializable {
 
     private List<GroupSection> groups;
     
+    private Map<BandType, BandLayout> bandLayouts;
+    
+    
     public TemplateStructure() {
+	bandLayouts = new HashMap<BandType, BandLayout>();
     }
 
     
@@ -204,6 +210,16 @@ public class TemplateStructure implements Serializable {
 	return bands.isEmpty() ? null : bands;
     }
     
+    public BandLayout getBandLayout(BandType bandType) {
+        return bandLayouts.get(bandType);
+    }
+
+
+    public void setBandLayout(BandType bandType, BandLayout bandlayout) {
+        bandLayouts.put(bandType, bandlayout);
+    }
+
+
     public static TemplateStructure create(Template template) {
 	if (template == null) {
 	    return null;
@@ -247,6 +263,7 @@ public class TemplateStructure implements Serializable {
 	return (band == null || !band.isVisible()) ? null : band;
     }
 
+    /*
     public static int calculateTemplateHeight(TemplateStructure structure) {
 	if (structure == null) {
 	    return 0;
@@ -304,5 +321,6 @@ public class TemplateStructure implements Serializable {
 	}
 	return height;
     }
+    */
     
 }

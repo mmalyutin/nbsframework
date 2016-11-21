@@ -45,6 +45,7 @@ import org.plazmaforge.framework.report.fill.process.ReportScope;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
+import org.plazmaforge.framework.report.model.design.BandType;
 import org.plazmaforge.framework.report.model.design.GroupSection;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.ReportGroup;
@@ -85,7 +86,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	// Get report template structure
 	TemplateStructure structure = TemplateStructure.create(template); 
 	
-	int templateHeight = TemplateStructure.calculateTemplateHeight(structure);
+	int templateHeight = calculateTemplateHeight(structure);
 	if (templateHeight > context.getPageAreaHeight()) {
 	    throw new RuntimeException("TemplateHeight > PageAreaHeight");
 	}
@@ -104,8 +105,8 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	List<GroupSection> groupSections = structure.getGroups();
 	
-	context.setPageHeaderHeight(pageHeader == null ? 0 : TemplateStructure.calculateBandHeight(pageHeader, true));
-	context.setPageFooterHeight(pageFooter == null ? 0 : TemplateStructure.calculateBandHeight(pageFooter, true));
+	context.setPageHeaderHeight(pageHeader == null ? 0 : calculateBandHeight(pageHeader, true));
+	context.setPageFooterHeight(pageFooter == null ? 0 : calculateBandHeight(pageFooter, true));
 	
 	// Get report data
 	DSResultSet reportData = context.getMainData();
@@ -442,27 +443,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     protected abstract void fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging);
     
     
-    protected Row createRow(ReportContext context) {
-	Row row = new Row();
-	Band band = context.getBand();
-	if (band == null) {
-	    return row;
-	}
-	
-	// Transfer band attributes to row
-	if (band.getBackground() != null) {
-	    row.setBackground(band.getBackground());
-	}
-	if (band.getForeground() != null) {
-	    row.setForeground(band.getForeground());
-	}
-	if (band.getFont() != null) {
-	    row.setFont(band.getFont());
-	}
-	
-	return row;
-    }
-    
+
     
 
     protected void fillGroupHeaders(ReportContext context, List<GroupSection> groupSections) {
@@ -753,6 +734,67 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 
 	}
     }
+    
+    ////
+    
+    protected int calculateTemplateHeight(TemplateStructure structure) {
+	if (structure == null) {
+	    return 0;
+	}
+	int height = 0;
+	List<Band> bands = structure.getBands();
+	if (bands != null) {
+	    for (Band band: bands) {
+		BandType type = BandType.find(band.getType());
+		if (type != null && type.isStructured()) {
+		    height += calculateBandHeight(band, true);
+		}
+	    }
+	}
+	List<GroupSection> groupSections = structure.getGroups();
+	if (groupSections != null) {
+	    for (GroupSection groupSection : groupSections) {
+		bands = groupSection.getBands();
+		for (Band band : bands) {
+		    BandType type = BandType.find(band.getType());
+		    if (type != null && type.isStructured()) {
+			height += calculateBandHeight(band, true);
+		    }
+		}
+	    }
+	}
+	return height;
+    }    
+    
+    protected int calculateBandHeight(Band band, boolean force) {
+	if (band == null) {
+	    return 0;
+	}
+	int height = band.getHeight();
+	if (!force) {
+	    return height;
+	}
+	
+	// TODO: Only for Table report
+	height = calculateBandHeightByRows(band);
+	return height;
+	
+	//TODO: Get children band
+	//return band.getHeight();
+    }
+    
+    protected int calculateBandHeightByRows(Band band) {
+	if (!band.hasRows()) {
+	    return 0;
+	}
+	int height = 0;
+	List<Row> rows = band.getRows();
+	for (Row row : rows) {
+	    height += row.getHeight();
+	}
+	return height;
+    }
+    
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
