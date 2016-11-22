@@ -36,7 +36,7 @@ import org.plazmaforge.framework.report.model.base.Pen;
  * @author ohapon
  *
  */
-public class Grid extends Element implements HasExpressionBuilder {
+public class Grid extends Element implements HasExpressionBuilder, ColumnModel, RowModel {
 
     private static final long serialVersionUID = -6413187521200757054L;
     
@@ -359,6 +359,16 @@ public class Grid extends Element implements HasExpressionBuilder {
 	} else if (!rowModel.equals(other.rowModel))
 	    return false;
 	return true;
+    }
+
+    @Override
+    public Column getColumn(int index) {
+	return getColumnModel().getColumn(index);
+    }
+
+    @Override
+    public Row getRow(int index) {
+	return getRowModel().getRow(index);
     }
     
     

@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.plazmaforge.framework.report.model.base.grid.Row;
 
 /**
  * @author ohapon
@@ -220,6 +219,12 @@ public class TemplateStructure implements Serializable {
     }
 
 
+    /**
+     * Create <code>TemplateStructure</code> by <code>Template</code>
+     *  
+     * @param template
+     * @return
+     */
     public static TemplateStructure create(Template template) {
 	if (template == null) {
 	    return null;
@@ -255,6 +260,13 @@ public class TemplateStructure implements Serializable {
 	
     }
     
+    /**
+     * Find only visible band by type
+     * 
+     * @param template
+     * @param type
+     * @return
+     */
     public static Band findBand(HasBands template, BandType type) {
 	if (template == null || type == null) {
 	    return null;
@@ -263,64 +275,5 @@ public class TemplateStructure implements Serializable {
 	return (band == null || !band.isVisible()) ? null : band;
     }
 
-    /*
-    public static int calculateTemplateHeight(TemplateStructure structure) {
-	if (structure == null) {
-	    return 0;
-	}
-	int height = 0;
-	List<Band> bands = structure.getBands();
-	if (bands != null) {
-	    for (Band band: bands) {
-		BandType type = BandType.find(band.getType());
-		if (type != null && type.isStructured()) {
-		    height += calculateBandHeight(band, true);
-		}
-	    }
-	}
-	List<GroupSection> groupSections = structure.getGroups();
-	if (groupSections != null) {
-	    for (GroupSection groupSection : groupSections) {
-		bands = groupSection.getBands();
-		for (Band band : bands) {
-		    BandType type = BandType.find(band.getType());
-		    if (type != null && type.isStructured()) {
-			height += calculateBandHeight(band, true);
-		    }
-		}
-	    }
-	}
-	return height;
-    }
-    
-    public static int calculateBandHeight(Band band, boolean force) {
-	if (band == null) {
-	    return 0;
-	}
-	int height = band.getHeight();
-	if (!force) {
-	    return height;
-	}
-	
-	// TODO: Only for Table report
-	height = calculateBandHeightByRows(band);
-	return height;
-	
-	//TODO: Get children band
-	//return band.getHeight();
-    }
-    
-    public static int calculateBandHeightByRows(Band band) {
-	if (!band.hasRows()) {
-	    return 0;
-	}
-	int height = 0;
-	List<Row> rows = band.getRows();
-	for (Row row : rows) {
-	    height += row.getHeight();
-	}
-	return height;
-    }
-    */
     
 }
