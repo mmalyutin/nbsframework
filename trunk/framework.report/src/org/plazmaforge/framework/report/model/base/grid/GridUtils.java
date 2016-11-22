@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.model.RowBlocksReader;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Pen;
@@ -232,7 +233,37 @@ public class GridUtils {
     }
     
     public static GridLayout getGridLayout(Grid grid, CellBorderRule cellBorderRule, Pen defColumnBorder, Pen defRowBorder) {
-	if (grid == null) {
+	return getGridLayout(grid, grid, cellBorderRule, defColumnBorder, defRowBorder);
+    }
+    
+    public static GridLayout getGridLayout(Grid grid, RowModel rowModel) {
+
+	if (grid == null || rowModel == null) {
+	    return null;
+	}
+	
+	CellBorderRule cellBorderRule = grid.getCellBorderRule();
+	
+	Pen defCellBorder = grid.hasCellBorder() ? grid.getCellBorder() : null;
+	Pen defColumnBorder = defCellBorder;
+	Pen defRowBorder = defCellBorder;
+	
+	// Override column border
+	if (!grid.isEmptyColumnBorder()) {
+	    defColumnBorder  = grid.getColumnBorder();
+	}
+	
+	// Override row border
+	if (!grid.isEmptyRowBorder()) {
+	    defRowBorder  = grid.getRowBorder();
+	}
+	
+	return getGridLayout(grid, rowModel, cellBorderRule, defColumnBorder, defRowBorder);
+    }
+    
+    
+    public static GridLayout getGridLayout(ColumnModel columnModel, RowModel rowModel, CellBorderRule cellBorderRule, Pen defColumnBorder, Pen defRowBorder) {
+	if (columnModel == null || rowModel == null) {
 	    return null;
 	}
 	
@@ -286,11 +317,11 @@ public class GridUtils {
 	layout.setColumnBorders(columnBorders);
 	layout.setRowBorders(rowBorders);
 	
-	int columnCount = grid.getColumnCount();
-	int rowCount = grid.getRowCount();
+	int columnCount = columnModel.getColumnCount();
+	int rowCount = rowModel.getRowCount();
 	
-	List<Column> columns = grid.getColumns();
-	List<Row> rows = grid.getRows();
+	List<Column> columns = columnModel.getColumns();
+	List<Row> rows = rowModel.getRows();
 	
 	Column column = null;
 	Row row = null;

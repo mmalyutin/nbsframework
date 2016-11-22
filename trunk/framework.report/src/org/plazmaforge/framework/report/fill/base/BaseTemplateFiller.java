@@ -43,7 +43,6 @@ import org.plazmaforge.framework.report.fill.TemplateFiller;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.fill.process.ReportScope;
 import org.plazmaforge.framework.report.model.base.PageSetup;
-import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.BandType;
 import org.plazmaforge.framework.report.model.design.GroupSection;
@@ -771,29 +770,17 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    return 0;
 	}
 	int height = band.getHeight();
-	if (!force) {
-	    return height;
-	}
-	
-	// TODO: Only for Table report
-	height = calculateBandHeightByRows(band);
 	return height;
 	
+	//if (!force) {
+	//    return height;
+	//}
+
 	//TODO: Get children band
 	//return band.getHeight();
     }
     
-    protected int calculateBandHeightByRows(Band band) {
-	if (!band.hasRows()) {
-	    return 0;
-	}
-	int height = 0;
-	List<Row> rows = band.getRows();
-	for (Row row : rows) {
-	    height += row.getHeight();
-	}
-	return height;
-    }
+  
     
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

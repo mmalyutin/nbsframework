@@ -36,6 +36,15 @@ public class BaseRowModel implements RowModel {
 
     private List<Row> rows;
 
+    public BaseRowModel() {
+	super();
+    }
+
+    public BaseRowModel(List<Row> rows) {
+	super();
+	this.rows = rows;
+    }
+
     @Override
     public List<Row> getRows() {
 	if (rows == null) {
