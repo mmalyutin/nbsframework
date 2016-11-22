@@ -43,6 +43,7 @@ import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.base.grid.RowModel;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.Template;
+import org.plazmaforge.framework.report.model.design.TemplateStructure;
 import org.plazmaforge.framework.report.model.document.Page;
 
 /**
@@ -105,11 +106,11 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     protected void preparePageFooter(ReportContext context, Band band) {
 
 	Band pageFooter = context.getTemplateStructure().getPageFooter();
-	Grid grid = context.getGrid();
-	int pageFooterHeight = calculateNewBandHeight(grid, pageFooter);
-	//int pageFooterHeight = context.getPageFooterHeight();
-	
+	int pageFooterHeight = context.getPageFooterHeight();
+	//int pageFooterHeight = calculateNewBandHeight(context, pageFooter);	
 	int offsetY = context.getEndY() - pageFooterHeight;
+	
+	Grid grid = context.getGrid();
 
 	if (offsetY > context.getOffsetY()) {
 	    //Grid grid = context.getGrid();
@@ -137,8 +138,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    
 	}
 
-	// Set current Y
-	context.setOffsetY(offsetY);
+	//Set current Y
+	//TODO: OFFSET-Y
+	//context.setOffsetY(offsetY);
 
     }    
     
@@ -148,29 +150,31 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	List<Row> rows = fillContainer.getRows();
 	if (rows != null) {
 
-	    Grid grid = context.getGrid();
-	    
 	    //TODO: OFFSET-Y
-	    //int height = calculateNewBandHeight(grid, fillContainer);
+	    //int height = calculateNewBandHeight(context, fillContainer);
+	    
+	    //TODO: POINT-1: OLD GRID
+	    //Grid grid = context.getGrid();
 	    
 	    if (paging /* && !force */) {
 		
 		//TODO: OFFSET-Y
 		//int offsetY = context.getOffsetY() + height; // calculate new offesetY
 		
-		int offsetY = context.getOffsetY() + calculateTotalHeight(grid, fillContainer); // calculate new offesetY
+		int offsetY = context.getOffsetY() + calculateTotalHeight(context, fillContainer); // calculate new offesetY
 		
 		// System.out.println("New offsetY =" + offsetY);
 		int endY = context.getEndY();
 		
-		
-		//int pageFooterHeight = context.getPageFooterHeight();
 		Band pageFooter = context.getTemplateStructure().getPageFooter();
-		int pageFooterHeight = calculateNewBandHeight(grid, pageFooter);
+		int pageFooterHeight = context.getPageFooterHeight();
+		//int pageFooterHeight = calculateNewBandHeight(context, pageFooter);
 
 		if (pageFooterHeight > 0) {
 		    
 		    int offsetY2 = offsetY + pageFooterHeight;
+		    //int offsetY2 = context.getOffsetY() + calculateTotalHeight(context, fillContainer, pageFooter); // calculate new offesetY2 (with pageFooter)
+		    
 		    //if (offsetY >= endY - pageFooterHeight) {
 		    if (offsetY2 >= endY) {
 			boolean isPrintPageFooter = evaluatePrintExpression(context, evaluation, pageFooter);
@@ -194,7 +198,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    //TODO: OFFSET-Y
 	    //context.setOffsetY(context.getOffsetY() + height);
 
-	    //Grid grid = context.getGrid();
+	    //TODO: POINT-2: NEW GRID when start new page
+	    Grid grid = context.getGrid();
 	    for (Row row : rows) {
 		grid.addRow(row);
 	    }
@@ -290,10 +295,12 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     }
     
     protected Row createRow(ReportContext context, boolean blank) {
-	
-	// TODO: blank - no border
-	
 	Row row = new Row();
+	if (blank) {
+	    row.setRowBorder(Pen.NONE);
+	    row.setCellBorder(Pen.NONE);
+	}
+	
 	Band band = context.getBand();
 	if (band == null) {
 	    return row;
@@ -336,6 +343,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    }
 	    Cell cell = new Cell();
 	    cell.setColspan(columnCount);
+	    cell.setBorder(Border.NONE);
+	    
 	    return cell;
 	}
 
@@ -343,7 +352,15 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	return cell;
     }
     
-    protected int calculateBandHeight(Band band, boolean force) {
+    @Override
+    protected int calculateTemplateHeight(Template template, TemplateStructure structure) {
+	int height = super.calculateTemplateHeight(template, structure);
+	// TODO: GRID BORDER: top, bottom
+	return height;
+    }
+    
+    @Override
+    protected int calculateBandHeight(Template template, Band band, boolean force) {
   	if (band == null) {
   	    return 0;
   	}
@@ -352,9 +369,30 @@ public class TableTemplateFiller extends BaseTemplateFiller {
   	    return height;
   	}
   	
+  	
+  	CellBorderRule cellBorderRule = template.getCellBorderRule();
+	
+	Pen defCellBorder = template.hasCellBorder() ? template.getCellBorder() : null;
+	Pen defColumnBorder = defCellBorder;
+	Pen defRowBorder = defCellBorder;
+	
+	// Override column border
+	if (!template.isEmptyColumnBorder()) {
+	    defColumnBorder  = template.getColumnBorder();
+	}
+	
+	// Override row border
+	if (!template.isEmptyRowBorder()) {
+	    defRowBorder  = template.getRowBorder();
+	}
+	
+	GridLayout layout = GridUtils.getGridLayout(template, band, cellBorderRule, defColumnBorder, defRowBorder);
+	return layout.getAreaHeight();
+	
+  	
   	// TODO: Only for Table report
-  	height = calculateBandHeightByRows(band);
-  	return height;
+  	//height = calculateBandHeightByRows(band);
+  	//return height;
   	
   	//TODO: Get children band
   	//return band.getHeight();
@@ -372,13 +410,13 @@ public class TableTemplateFiller extends BaseTemplateFiller {
   	return height;
     }
     
-    protected int calculateNewBandHeight(Grid grid, Band band) {
+    protected int calculateNewBandHeight(ReportContext context, Band band) {
 	if (band == null) {
 	    return 0;
 	}
-	//TODO
+	Grid grid = context.getGrid();
 	GridLayout layout = GridUtils.getGridLayout(grid);
-	int heightBefore = layout.getAreaHeight();
+	int heightOld = layout.getAreaHeight();
 	
 	List<Row> rows = new ArrayList<Row>();
 	if (grid.hasRows()) {
@@ -390,39 +428,69 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	RowModel rowModel = new BaseRowModel(rows);
 	layout = GridUtils.getGridLayout(grid, rowModel);
 	
-	int heightAfter = layout.getAreaHeight();
+	int heightNew = layout.getAreaHeight();
 	
-	//return heightAfter - heightBefore;
-	
-	int height1 = calculateBandHeight(band, true);
-	int height2 = heightAfter - heightBefore;
-	
-	//System.out.println("height1=" + height1 + ", height2=" + height2);
-	//return calculateBandHeight(band, true);
-	
-	return height2;
+	return heightNew - heightOld;
     }
     
-    protected int calculateTotalHeight(Grid grid, Band band) {
+    
+    /**
+     * Calculate total height:
+     * - grid
+     * - band
+     * 
+     * @param context
+     * @param band
+     * @return
+     */
+    protected int calculateTotalHeight(ReportContext context, Band band) {
+	return calculateTotalHeight(context, band, null);
+    }
+    
+    
+    /**
+     * Calculate total height:
+     * - grid
+     * - band1
+     * - band2
+     *  
+     * @param context
+     * @param band1
+     * @param band2
+     * @return
+     */
+    protected int calculateTotalHeight(ReportContext context, Band band1, Band band2) {
+	Grid grid = context.getGrid();
 	GridLayout layout = null;
 	int height = 0;
 	
-	if (band == null) {
+	if (band1 == null && band2 == null) {
 	    layout = GridUtils.getGridLayout(grid);
 	    height = layout.getAreaHeight();
+	    // TODO: GRID BORDER: top, bottom?
 	    return height;
 	}
 	
+	// grid
 	List<Row> rows = new ArrayList<Row>();
 	if (grid.hasRows()) {
 	    rows.addAll(grid.getRows());
 	}
-	if (band.hasRows()) {
-	    rows.addAll(band.getRows());
+	
+	// band1
+	if (band1 != null && band1.hasRows()) {
+	    rows.addAll(band1.getRows());
 	}
+	
+	// band2
+	if (band2 != null && band2.hasRows()) {
+	    rows.addAll(band2.getRows());
+	}
+	
 	RowModel rowModel = new BaseRowModel(rows);
 	layout = GridUtils.getGridLayout(grid, rowModel);
 	height = layout.getAreaHeight();
+	// TODO: GRID BORDER: top, bottom?
 	return height;
     }
     
