@@ -85,7 +85,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	// Get report template structure
 	TemplateStructure structure = TemplateStructure.create(template); 
 	
-	int templateHeight = calculateTemplateHeight(structure);
+	int templateHeight = calculateTemplateHeight(template, structure);
 	if (templateHeight > context.getPageAreaHeight()) {
 	    throw new RuntimeException("TemplateHeight > PageAreaHeight");
 	}
@@ -104,8 +104,8 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	List<GroupSection> groupSections = structure.getGroups();
 	
-	context.setPageHeaderHeight(pageHeader == null ? 0 : calculateBandHeight(pageHeader, true));
-	context.setPageFooterHeight(pageFooter == null ? 0 : calculateBandHeight(pageFooter, true));
+	context.setPageHeaderHeight(pageHeader == null ? 0 : calculateBandHeight(template, pageHeader, true));
+	context.setPageFooterHeight(pageFooter == null ? 0 : calculateBandHeight(template, pageFooter, true));
 	
 	// Get report data
 	DSResultSet reportData = context.getMainData();
@@ -736,7 +736,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     
     ////
     
-    protected int calculateTemplateHeight(TemplateStructure structure) {
+    protected int calculateTemplateHeight(Template template, TemplateStructure structure) {
 	if (structure == null) {
 	    return 0;
 	}
@@ -746,7 +746,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    for (Band band: bands) {
 		BandType type = BandType.find(band.getType());
 		if (type != null && type.isStructured()) {
-		    height += calculateBandHeight(band, true);
+		    height += calculateBandHeight(template, band, true);
 		}
 	    }
 	}
@@ -757,7 +757,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 		for (Band band : bands) {
 		    BandType type = BandType.find(band.getType());
 		    if (type != null && type.isStructured()) {
-			height += calculateBandHeight(band, true);
+			height += calculateBandHeight(template, band, true);
 		    }
 		}
 	    }
@@ -765,7 +765,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	return height;
     }    
     
-    protected int calculateBandHeight(Band band, boolean force) {
+//    protected int calculateBandHeight(Band band, boolean force) {
+//	return calculateBandHeight(null, band, force);
+//    }
+    
+    protected int calculateBandHeight(Template template, Band band, boolean force) {
 	if (band == null) {
 	    return 0;
 	}
@@ -779,7 +783,6 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	//TODO: Get children band
 	//return band.getHeight();
     }
-    
   
     
     
