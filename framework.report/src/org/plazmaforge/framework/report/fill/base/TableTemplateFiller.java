@@ -317,6 +317,18 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    row.setFont(band.getFont());
 	}
 	
+	// Transfer band borders to row
+	if (band.hasCellBorder()) {
+	    row.setCellBorder(band.getCellBorder().clone());
+	}
+	if (band.hasColumnBorder()) {
+	    row.setColumnBorder(band.getColumnBorder().clone());
+	}
+	if (band.hasRowBorder()) {
+	    row.setRowBorder(band.getRowBorder().clone());
+	}
+	
+	
 	return row;
     }
 
