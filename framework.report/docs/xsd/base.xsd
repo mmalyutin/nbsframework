@@ -239,7 +239,20 @@
 			<attribute name="id" type="string"/>
 			<attribute name="name" type="string"/>
 			<attribute name="text" type="string"/>
-			<attribute name="height" type="string"/>			
+			<attribute name="height" type="string"/>
+			
+			<attribute name="cell-line" type="string"/>
+			<attribute name="cell-line-style" type="string"/>
+			<attribute name="cell-line-color" type="string"/>
+
+			<attribute name="column-line" type="string"/>
+			<attribute name="column-line-style" type="string"/>
+			<attribute name="column-line-color" type="string"/>
+
+			<attribute name="row-line" type="string"/>
+			<attribute name="row-line-style" type="string"/>
+			<attribute name="row-line-color" type="string"/>
+						
 		</complexType>
 	</element>
 
@@ -321,17 +334,17 @@
 			
 			<attribute name="cell-border-rule" type="string"/>
 			
-			<attribute name="cell-border" type="string"/>
-			<attribute name="cell-border-style" type="string"/>
-			<attribute name="cell-border-color" type="string"/>
+			<attribute name="cell-line" type="string"/>
+			<attribute name="cell-line-style" type="string"/>
+			<attribute name="cell-line-color" type="string"/>
 
-			<attribute name="column-border" type="string"/>
-			<attribute name="column-border-style" type="string"/>
-			<attribute name="column-border-color" type="string"/>
+			<attribute name="column-line" type="string"/>
+			<attribute name="column-line-style" type="string"/>
+			<attribute name="column-line-color" type="string"/>
 
-			<attribute name="row-border" type="string"/>
-			<attribute name="row-border-style" type="string"/>
-			<attribute name="row-border-color" type="string"/>
+			<attribute name="row-line" type="string"/>
+			<attribute name="row-line-style" type="string"/>
+			<attribute name="row-line-color" type="string"/>
 		</complexType>
 	</element>
 
