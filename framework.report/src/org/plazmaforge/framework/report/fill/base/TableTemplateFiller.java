@@ -70,9 +70,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	
 	// Template border rule
 	CellBorderRule cellBorderRule = template.getCellBorderRule();
-	Pen cellBorder = GridUtils.normalizeNonePen(template.hasCellBorder() ? template.getCellBorder() : null);
-	Pen columnBorder = GridUtils.normalizeNonePen(template.hasColumnBorder() ? template.getColumnBorder() : null);
-	Pen rowBorder = GridUtils.normalizeNonePen(template.hasRowBorder() ? template.getRowBorder() : null);
+	Pen cellBorder = GridUtils.normalizeNonePen(template.hasCellLine() ? template.getCellLine() : null);
+	Pen columnBorder = GridUtils.normalizeNonePen(template.hasColumnLine() ? template.getColumnLine() : null);
+	Pen rowBorder = GridUtils.normalizeNonePen(template.hasRowLine() ? template.getRowLine() : null);
 
 	// Band border rule
 	//CellBorderRule cellBorderRuleB = band.getCellBorderRule();
@@ -384,18 +384,18 @@ public class TableTemplateFiller extends BaseTemplateFiller {
   	
   	CellBorderRule cellBorderRule = template.getCellBorderRule();
 	
-	Pen defCellBorder = template.hasCellBorder() ? template.getCellBorder() : null;
+	Pen defCellBorder = template.hasCellLine() ? template.getCellLine() : null;
 	Pen defColumnBorder = defCellBorder;
 	Pen defRowBorder = defCellBorder;
 	
 	// Override column border
-	if (!template.isEmptyColumnBorder()) {
-	    defColumnBorder  = template.getColumnBorder();
+	if (!template.isEmptyColumnLine()) {
+	    defColumnBorder  = template.getColumnLine();
 	}
 	
 	// Override row border
-	if (!template.isEmptyRowBorder()) {
-	    defRowBorder  = template.getRowBorder();
+	if (!template.isEmptyRowLine()) {
+	    defRowBorder  = template.getRowLine();
 	}
 	
 	GridLayout layout = GridUtils.getGridLayout(template, band, cellBorderRule, defColumnBorder, defRowBorder);
