@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -65,6 +66,8 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
     private Pen columnLine;
     
     private Pen rowLine;
+    
+    private Border cellBorder;
     
     private List<Cell> cells;
 
@@ -195,7 +198,25 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
 	return rowLine == null || rowLine.isEmpty();
     }
     
+    public Border getCellBorder() {
+	if (cellBorder == null) {
+	    cellBorder = new Border();
+	}
+        return cellBorder;
+    }
 
+    public void setCellBorder(Border cellBorder) {
+        this.cellBorder = cellBorder;
+    }
+
+    public boolean hasCellBorder() {
+	return cellBorder != null;
+    }
+
+    public boolean isEmptyCellBorder() {
+	return cellBorder == null || cellBorder.isEmpty();
+    }     
+     
     public String toString( ){
 	StringBuffer buf = new StringBuffer();
 	buf.append("Row[height=" + height);

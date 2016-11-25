@@ -283,6 +283,9 @@ public class GridUtils {
 	Pen defRTopPen = null;
 	Pen defRRightPen = null;
 	Pen defRBottomPen = null;
+
+	// Default X (cross row/cell) border 
+	Border defXBorder = null;
 	
 	// Default R (from row) borders
 	Pen defRCellLine = null;
@@ -344,22 +347,21 @@ public class GridUtils {
  	    defRTopPen = null;
  	    defRRightPen = null;
  	    defRBottomPen = null;
- 		
- 	    
+
  	    defRCellLine = row.hasCellLine() ? row.getCellLine() : null;
- 	    defRCellLine = normalizeNonePen(defRCellLine);
+ 	    defRCellLine = normalizePen(defRCellLine);
  	   
  	    defRColumnLine = defRCellLine;
  	    defRRowLine = defRCellLine;
  	
  	    // Override column (R) border
  	    if (row.hasColumnLine()) {
- 		defRColumnLine = normalizeNonePen(row.getColumnLine());
+ 		defRColumnLine = normalizePen(row.getColumnLine());
  	    }
 
  	    // Override row (R) border line
  	    if (row.hasRowLine()) {
- 		defRowLine = normalizeNonePen(row.getRowLine());
+ 		defRowLine = normalizePen(row.getRowLine());
  	    }
 
  	    // Transfer default column border line (left, right)
@@ -373,7 +375,12 @@ public class GridUtils {
  		defRTopPen = defRRowLine.clone();
  		defRBottomPen = defRRowLine.clone();
  	    }
-		
+
+ 	    defXBorder = normalizeBorder(row.hasCellBorder() ? row.getCellBorder() : null);
+ 	    
+ 	    if (defXBorder != null ){
+ 		System.out.print("x");
+ 	    }
  	   
 	    for (int cellIndex = 0; cellIndex < cellCount; cellIndex++) {
 		
@@ -418,7 +425,10 @@ public class GridUtils {
 		
 		
 		Border cellBorder = null;
-		Border orgBorder = cell.hasBorder() ? cell.getBorder() : null;
+		
+		Border orgBorder = normalizeBorder(cell.hasBorder() ? cell.getBorder() : null);
+		orgBorder = mergeBorder(orgBorder, (defXBorder == null ? null : defXBorder.clone()));
+		//orgBorder = (defXBorder == null ? null : defXBorder.clone());
 		
 		if (cellBorderRule == null) {
 		    // Use original cell border
@@ -473,10 +483,10 @@ public class GridUtils {
 				Pen orgRightPen = orgBorder.hasRight() ? orgBorder.getRight() : null;
 				Pen orgBottomPen = orgBorder.hasBottom() ? orgBorder.getBottom() : null;
 				
-				orgLeftPen = normalizeNonePen(orgLeftPen);
-				orgTopPen = normalizeNonePen(orgTopPen);
-				orgRightPen = normalizeNonePen(orgRightPen);
-				orgBottomPen = normalizeNonePen(orgBottomPen);
+				orgLeftPen = normalizePen(orgLeftPen);
+				orgTopPen = normalizePen(orgTopPen);
+				orgRightPen = normalizePen(orgRightPen);
+				orgBottomPen = normalizePen(orgBottomPen);
 				
 				if (orgLeftPen != null) {
 				    cellBorder.setLeft(orgLeftPen == Pen.NONE ? null : orgLeftPen);
@@ -501,7 +511,7 @@ public class GridUtils {
 		    
 		}
 
-		if (cellBorder != null && cellBorder.isEmpty()) {
+		if (cellBorder != null && !hasValue(cellBorder)) {
 		    cellBorder = null;
 		}
 
@@ -557,16 +567,19 @@ public class GridUtils {
     }
     
     
-    public static Pen normalizeNonePen(Pen pen) {
-	if (pen == Pen.NONE) {
-	    return pen;
-	}
-	return normalizePen(pen);
-    }
+//    public static Pen normalizeNonePen(Pen pen) {
+//	if (pen == Pen.NONE) {
+//	    return pen;
+//	}
+//	return normalizePen(pen);
+//    }
     
     public static Pen normalizePen(Pen pen) {
 	if (pen == null) {
 	    return null;
+	}
+	if (pen == Pen.NONE) {
+	    return pen;
 	}
 	return pen.isEmpty() ? null : pen;
     }
@@ -578,6 +591,81 @@ public class GridUtils {
     public static Pen defaultPen(Pen pen) {
 	pen = normalizePen(pen);
 	return pen == null ? createDefaultPen() : pen;
+    }
+    
+    public static Border normalizeBorder(Border border) {
+	if (border == null) {
+	    return null;
+	}
+	if (border == Border.NONE) {
+	    return border;
+	}
+	
+	Pen left = border.hasLeft() ? border.getLeft() : null;
+	Pen top = border.hasTop() ? border.getTop() : null;
+	Pen right = border.hasRight() ? border.getRight() : null;
+	Pen bottom = border.hasBottom() ? border.getBottom() : null;
+
+	if (left == Pen.NONE || right == Pen.NONE || top == Pen.NONE || bottom == Pen.NONE ) {
+	    return border;
+	}
+	
+	
+	return border.isEmpty() ? null : border;
+    }
+    
+    public static boolean hasValue (Border border) {
+	if (border == null) {
+	    return false;
+	}
+	if (border == Border.NONE) {
+	    return true;
+	}
+	Pen left = border.hasLeft() ? border.getLeft() : null;
+	Pen top = border.hasTop() ? border.getTop() : null;
+	Pen right = border.hasRight() ? border.getRight() : null;
+	Pen bottom = border.hasBottom() ? border.getBottom() : null;
+
+	if (left == Pen.NONE || right == Pen.NONE || top == Pen.NONE || bottom == Pen.NONE ) {
+	    return true;
+	}
+	
+	return !border.isEmpty();
+	
+    }
+    public static Border mergeBorder(Border border, Border parentBorder) {
+	if (border == null && parentBorder == null) {
+	    return null;		// NULL
+	}
+	if (border == null) {
+	    return parentBorder;	// PARENT
+	}
+	if (border == Border.NONE || parentBorder == null) {
+	    return border;		// THIS
+	}
+	if (border.isEmpty() && parentBorder == Border.NONE) {
+	    return parentBorder;	// PARENT
+	}
+	if (parentBorder.isEmpty()) {
+	    return border;		// THIS
+	}
+	
+	
+	return border;
+	
+	//TODO
+	/*
+	Pen left = border.hasLeft() ? border.getLeft() : null;
+	Pen top = border.hasTop() ? border.getTop() : null;
+	Pen right = border.hasRight() ? border.getRight() : null;
+	Pen bottom = border.hasBottom() ? border.getBottom() : null;
+	
+	if (left != null) {
+	    if (left.isIncomplete()) {
+		
+	    }
+	}
+	*/
     }
     
     private static void mergeBorderRegion(Map<Integer, BorderRegion> borders, int index, int width, boolean next) {

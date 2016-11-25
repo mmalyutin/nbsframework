@@ -25,6 +25,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -86,6 +87,12 @@ public class XMLRowReader extends XMLAbstractReader {
 	    row.setRowLine(rowLine);
 	}
 	
+	
+	// border
+   	Border border = getBorder(element, "cell");
+   	if (border != null) {
+   	    row.setCellBorder(border);
+   	}
 	
 	// Get cells
 	readCells(element, row);
