@@ -92,22 +92,22 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	    band.setCellBorderRule(cellBorderRule);
 	}
 	
-	// cell-border	
-	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
-	if (cellBorder != null) {
-	    band.setCellLine(cellBorder);
+	// cell-line	
+	Pen cellLine = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
+	if (cellLine != null) {
+	    band.setCellLine(cellLine);
 	}
 
-	// column-border	
-	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
-	if (columnBorder != null) {
-	    band.setColumnLine(columnBorder);
+	// column-line	
+	Pen columnLine = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
+	if (columnLine != null) {
+	    band.setColumnLine(columnLine);
 	}
 
-	// row-border	
-	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
-	if (rowBorder != null) {
-	    band.setRowLine(rowBorder);
+	// row-line	
+	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
+	if (rowLine != null) {
+	    band.setRowLine(rowLine);
 	}
 	
     }

@@ -79,19 +79,19 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	}
 	
 	// cell-border: ONLY FOR Table report
-	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
+	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
 	if (cellBorder != null) {
 	    template.setCellBorder(cellBorder);
 	}
 
 	// column-border: ONLY FOR Table report
-	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
+	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
 	if (columnBorder != null) {
 	    template.setColumnBorder(columnBorder);
 	}
 
 	// row-border: ONLY FOR Table report
-	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
+	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
 	if (rowBorder != null) {
 	    template.setRowBorder(rowBorder);
 	}

@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.model.RowBlocksReader;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Pen;
@@ -358,18 +357,18 @@ public class GridUtils {
  		defRColumnLine = normalizeNonePen(row.getColumnLine());
  	    }
 
- 	    // Override row (R) border
+ 	    // Override row (R) border line
  	    if (row.hasRowLine()) {
  		defRowLine = normalizeNonePen(row.getRowLine());
  	    }
 
- 	    // Transfer default column border (left, right)
+ 	    // Transfer default column border line (left, right)
  	    if (defRColumnLine != null) {
  		defRLeftPen = defRColumnLine.clone();
  		defRRightPen = defRColumnLine.clone();
  	    }
 		
- 	    // Transfer default row border (top, bottom)
+ 	    // Transfer default row border line (top, bottom)
  	    if (defRRowLine != null) {
  		defRTopPen = defRRowLine.clone();
  		defRBottomPen = defRRowLine.clone();
