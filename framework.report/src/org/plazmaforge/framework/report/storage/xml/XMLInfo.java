@@ -106,11 +106,11 @@ public interface XMLInfo {
 
     String XML_ATTR_CELL_BORDER_RULE = "cell-border-rule";
     
-    String XML_ATTR_CELL_BORDER = "cell-border";
+    String XML_ATTR_CELL_LINE = "cell-line";
     
-    String XML_ATTR_COLUMN_BORDER = "column-border";
+    String XML_ATTR_COLUMN_LINE = "column-line";
     
-    String XML_ATTR_ROW_BORDER = "row-border";
+    String XML_ATTR_ROW_LINE = "row-line";
     
     
     String XML_ATTR_BORDER = "border";

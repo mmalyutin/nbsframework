@@ -52,22 +52,22 @@ public class XMLGridWriter extends XMLAbstractWriter {
 	    setCellBorderRule(node, XML_ATTR_CELL_BORDER_RULE, grid.getCellBorderRule());
 	}
 	
-	// cell-border
-	Pen cellBorder = grid.hasCellLine() ? grid.getCellLine() : null;
-	if (cellBorder != null) {
-	    setBorderPenByAttributes(cellBorder, node, XML_ATTR_CELL_BORDER);
+	// cell-line
+	Pen cellLine = grid.hasCellLine() ? grid.getCellLine() : null;
+	if (cellLine != null) {
+	    setBorderPenByAttributes(cellLine, node, XML_ATTR_CELL_LINE);
 	}
 
-	// column-border
-	Pen columnBorder = grid.hasColumnLine() ? grid.getColumnLine() : null;
-	if (columnBorder != null) {
-	    setBorderPenByAttributes(columnBorder, node, XML_ATTR_COLUMN_BORDER);
+	// column-line
+	Pen columnLine = grid.hasColumnLine() ? grid.getColumnLine() : null;
+	if (columnLine != null) {
+	    setBorderPenByAttributes(columnLine, node, XML_ATTR_COLUMN_LINE);
 	}
 
-	// row-border
-	Pen rowBorder = grid.hasRowLine() ? grid.getRowLine() : null;
-	if (rowBorder != null) {
-	    setBorderPenByAttributes(rowBorder, node, XML_ATTR_ROW_BORDER);
+	// row-line
+	Pen rowLine = grid.hasRowLine() ? grid.getRowLine() : null;
+	if (rowLine != null) {
+	    setBorderPenByAttributes(rowLine, node, XML_ATTR_ROW_LINE);
 	}
 	
     }

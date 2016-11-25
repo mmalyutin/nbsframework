@@ -63,22 +63,22 @@ public class XMLRowWriter extends XMLAbstractWriter {
 	    setFont(node, XML_ATTR_FONT, font);
 	}	
 	
-	// cell-border
-	Pen cellBorder = row.hasCellLine() ? row.getCellLine() : null;
-	if (cellBorder != null) {
-	    setBorderPenByAttributes(cellBorder, node, XML_ATTR_CELL_BORDER);
+	// cell-line
+	Pen cellLine = row.hasCellLine() ? row.getCellLine() : null;
+	if (cellLine != null) {
+	    setBorderPenByAttributes(cellLine, node, XML_ATTR_CELL_LINE);
 	}
 
-	// column-border
-	Pen columnBorder = row.hasColumnLine() ? row.getColumnLine() : null;
-	if (columnBorder != null) {
-	    setBorderPenByAttributes(columnBorder, node, XML_ATTR_COLUMN_BORDER);
+	// column-line
+	Pen columnLine = row.hasColumnLine() ? row.getColumnLine() : null;
+	if (columnLine != null) {
+	    setBorderPenByAttributes(columnLine, node, XML_ATTR_COLUMN_LINE);
 	}
 
-	// row-border
-	Pen rowBorder = row.hasRowLine() ? row.getRowLine() : null;
-	if (rowBorder != null) {
-	    setBorderPenByAttributes(rowBorder, node, XML_ATTR_ROW_BORDER);
+	// row-line
+	Pen rowLine = row.hasRowLine() ? row.getRowLine() : null;
+	if (rowLine != null) {
+	    setBorderPenByAttributes(rowLine, node, XML_ATTR_ROW_LINE);
 	}
 	
 	// cells
