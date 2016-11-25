@@ -39,6 +39,7 @@ import org.plazmaforge.framework.report.model.base.grid.BaseColumnModel;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.ColumnModel;
+import org.plazmaforge.framework.report.model.base.grid.HasCellBorderRule;
 
 /**
  * @author ohapon
@@ -46,7 +47,7 @@ import org.plazmaforge.framework.report.model.base.grid.ColumnModel;
  * The Report Template has bands
  *
  */
-public class Template implements Serializable, LocalizedIdentifier, ColumnModel, HasBands, HasExpressionBuilder {
+public class Template implements Serializable, LocalizedIdentifier, ColumnModel, HasBands, HasExpressionBuilder, HasCellBorderRule {
 
     private static final long serialVersionUID = 5671682441505999936L;
     
@@ -94,25 +95,25 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     private ColumnModel columnModel;
 
     /**
-     * Border rule of cell: column, column_all, row, row_all, column_row, all. Only for TableReport
+     * Border rule of cell: column, column_inner, row, row_inner, inner, all. Only for TableReport
      */
     private CellBorderRule cellBorderRule;
     
     
     /**
-     * Border of cell. Only for TableReport
+     * Cell border line. Only for cell border rule and TableReport
      */
-    private Pen cellBorder;
+    private Pen cellLine;
     
     /**
-     * Border of column. Only for TableReport
+     * Column border line. Only for cell border rule and TableReport
      */
-    private Pen columnBorder;
+    private Pen columnLine;
     
     /**
-     * Border of row. Only for TableReport
+     * Row border line. Only for cell border rule and TableReport
      */
-    private Pen rowBorder;
+    private Pen rowLine;
     
     /**
      * Page Setup
@@ -291,61 +292,61 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.cellBorderRule = cellBorderRule;
     }
 
-    public Pen getCellBorder() {
-	if (cellBorder == null) {
-	    cellBorder = new Pen();
+    public Pen getCellLine() {
+	if (cellLine == null) {
+	    cellLine = new Pen();
 	}
-        return cellBorder;
+        return cellLine;
     }
 
-    public void setCellBorder(Pen cellBorder) {
-        this.cellBorder = cellBorder;
+    public void setCellLine(Pen cellLine) {
+        this.cellLine = cellLine;
     }
 
-    public boolean hasCellBorder() {
-	return cellBorder != null;
+    public boolean hasCellLine() {
+	return cellLine != null;
     }
 
-    public boolean isEmptyCellBorder() {
-	return cellBorder == null || cellBorder.isEmpty();
+    public boolean isEmptyCellLine() {
+	return cellLine == null || cellLine.isEmpty();
     }
     
-    public Pen getColumnBorder() {
-	if (columnBorder == null) {
-	    columnBorder = new Pen();
+    public Pen getColumnLine() {
+	if (columnLine == null) {
+	    columnLine = new Pen();
 	}
-        return columnBorder;
+        return columnLine;
     }
 
-    public void setColumnBorder(Pen columnBorder) {
-        this.columnBorder = columnBorder;
+    public void setColumnLine(Pen columnLine) {
+        this.columnLine = columnLine;
     }
 
-    public boolean hasColumnBorder() {
-	return columnBorder != null;
+    public boolean hasColumnLine() {
+	return columnLine != null;
     }
 
-    public boolean isEmptyColumnBorder() {
-	return columnBorder == null || columnBorder.isEmpty();
+    public boolean isEmptyColumnLine() {
+	return columnLine == null || columnLine.isEmpty();
     }
     
-    public Pen getRowBorder() {
-	if (rowBorder == null) {
-	    rowBorder = new Pen();
+    public Pen getRowLine() {
+	if (rowLine == null) {
+	    rowLine = new Pen();
 	}
-        return rowBorder;
+        return rowLine;
     }
 
-    public void setRowBorder(Pen rowBorder) {
-        this.rowBorder = rowBorder;
+    public void setRowLine(Pen rowLine) {
+        this.rowLine = rowLine;
     }
 
-    public boolean hasRowBorder() {
-	return rowBorder != null;
+    public boolean hasRowLine() {
+	return rowLine != null;
     }
 
-    public boolean isEmptyRowBorder() {
-	return rowBorder == null || rowBorder.isEmpty();
+    public boolean isEmptyRowLine() {
+	return rowLine == null || rowLine.isEmpty();
     }
 
     ////

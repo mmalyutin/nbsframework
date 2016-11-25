@@ -78,22 +78,22 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    template.setCellBorderRule(cellBorderRule);
 	}
 	
-	// cell-border: ONLY FOR Table report
-	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
-	if (cellBorder != null) {
-	    template.setCellBorder(cellBorder);
+	// cell-line: ONLY FOR Table report
+	Pen cellLine = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
+	if (cellLine != null) {
+	    template.setCellLine(cellLine);
 	}
 
-	// column-border: ONLY FOR Table report
-	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
-	if (columnBorder != null) {
-	    template.setColumnBorder(columnBorder);
+	// column-line: ONLY FOR Table report
+	Pen columnLine = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
+	if (columnLine != null) {
+	    template.setColumnLine(columnLine);
 	}
 
-	// row-border: ONLY FOR Table report
-	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
-	if (rowBorder != null) {
-	    template.setRowBorder(rowBorder);
+	// row-line: ONLY FOR Table report
+	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
+	if (rowLine != null) {
+	    template.setRowLine(rowLine);
 	}
 	
     }
