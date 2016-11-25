@@ -64,19 +64,19 @@ public class XMLRowWriter extends XMLAbstractWriter {
 	}	
 	
 	// cell-border
-	Pen cellBorder = row.hasCellBorder() ? row.getCellBorder() : null;
+	Pen cellBorder = row.hasCellLine() ? row.getCellLine() : null;
 	if (cellBorder != null) {
 	    setBorderPenByAttributes(cellBorder, node, XML_ATTR_CELL_BORDER);
 	}
 
 	// column-border
-	Pen columnBorder = row.hasColumnBorder() ? row.getColumnBorder() : null;
+	Pen columnBorder = row.hasColumnLine() ? row.getColumnLine() : null;
 	if (columnBorder != null) {
 	    setBorderPenByAttributes(columnBorder, node, XML_ATTR_COLUMN_BORDER);
 	}
 
 	// row-border
-	Pen rowBorder = row.hasRowBorder() ? row.getRowBorder() : null;
+	Pen rowBorder = row.hasRowLine() ? row.getRowLine() : null;
 	if (rowBorder != null) {
 	    setBorderPenByAttributes(rowBorder, node, XML_ATTR_ROW_BORDER);
 	}

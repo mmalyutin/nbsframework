@@ -95,19 +95,19 @@ public class XMLBandReader extends XMLAbstractReportReader {
 	// cell-border	
 	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
 	if (cellBorder != null) {
-	    band.setCellBorder(cellBorder);
+	    band.setCellLine(cellBorder);
 	}
 
 	// column-border	
 	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
 	if (columnBorder != null) {
-	    band.setColumnBorder(columnBorder);
+	    band.setColumnLine(columnBorder);
 	}
 
 	// row-border	
 	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
 	if (rowBorder != null) {
-	    band.setRowBorder(rowBorder);
+	    band.setRowLine(rowBorder);
 	}
 	
     }
