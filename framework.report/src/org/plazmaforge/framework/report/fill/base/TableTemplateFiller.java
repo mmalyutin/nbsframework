@@ -70,9 +70,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	
 	// Template border rule
 	CellBorderRule cellBorderRule = template.getCellBorderRule();
-	Pen cellBorder = GridUtils.normalizeNonePen(template.hasCellLine() ? template.getCellLine() : null);
-	Pen columnBorder = GridUtils.normalizeNonePen(template.hasColumnLine() ? template.getColumnLine() : null);
-	Pen rowBorder = GridUtils.normalizeNonePen(template.hasRowLine() ? template.getRowLine() : null);
+	Pen cellBorder = GridUtils.normalizePen(template.hasCellLine() ? template.getCellLine() : null);
+	Pen columnBorder = GridUtils.normalizePen(template.hasColumnLine() ? template.getColumnLine() : null);
+	Pen rowBorder = GridUtils.normalizePen(template.hasRowLine() ? template.getRowLine() : null);
 
 	// Band border rule
 	//CellBorderRule cellBorderRuleB = band.getCellBorderRule();
