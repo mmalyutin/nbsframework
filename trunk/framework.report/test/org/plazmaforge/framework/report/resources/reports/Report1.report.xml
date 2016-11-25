@@ -20,7 +20,7 @@
 		</data-source>
 	</data-sources>
 	<templates>
-		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-border="1">
+		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-line="1">
 			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
 				<column width="100" />
@@ -61,7 +61,7 @@
 				</report-group>
 			</report-groups>
 			<bands>
-				<band type="ReportHeader" cell-border="none">
+				<band type="ReportHeader" cell-line="none">
 					<rows>
 						<row height="20">
 							<cells>
