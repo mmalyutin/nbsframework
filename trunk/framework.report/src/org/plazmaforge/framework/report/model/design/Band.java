@@ -32,6 +32,7 @@ import org.plazmaforge.framework.report.model.base.Container;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.BaseRowModel;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
+import org.plazmaforge.framework.report.model.base.grid.HasCellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.base.grid.RowModel;
 
@@ -39,7 +40,7 @@ import org.plazmaforge.framework.report.model.base.grid.RowModel;
  * @author ohapon
  *
  */
-public class Band extends Container implements RowModel {
+public class Band extends Container implements HasCellBorderRule, RowModel {
 
     private static final long serialVersionUID = -5843743940302794344L;
     
@@ -49,14 +50,25 @@ public class Band extends Container implements RowModel {
      */
     private String type;
     
-    
+    /**
+     * Rule for generation cell border
+     */
     private CellBorderRule cellBorderRule;
     
-    private Pen cellBorder;
+    /**
+     * Cell border line. Only for cell border rule
+     */
+    private Pen cellLine;
+
+    /**
+     * Column border line. Only for cell border rule
+     */
+    private Pen columnLine;
     
-    private Pen columnBorder;
-    
-    private Pen rowBorder;
+    /**
+     * Row border line. Only for cell border rule
+     */
+    private Pen rowLine;
     
 
     /**
@@ -86,61 +98,61 @@ public class Band extends Container implements RowModel {
         this.cellBorderRule = cellBorderRule;
     }
 
-    public Pen getCellBorder() {
-	if (cellBorder == null) {
-	    cellBorder = new Pen();
+    public Pen getCellLine() {
+	if (cellLine == null) {
+	    cellLine = new Pen();
 	}
-        return cellBorder;
+        return cellLine;
     }
 
-    public void setCellBorder(Pen cellBorder) {
-        this.cellBorder = cellBorder;
+    public void setCellLine(Pen cellLine) {
+        this.cellLine = cellLine;
     }
 
-    public boolean hasCellBorder() {
-	return cellBorder != null;
+    public boolean hasCellLine() {
+	return cellLine != null;
     }
 
-    public boolean isEmptyCellBorder() {
-	return cellBorder == null || cellBorder.isEmpty();
+    public boolean isEmptyCellLine() {
+	return cellLine == null || cellLine.isEmpty();
     }
 
-    public Pen getColumnBorder() {
-	if (columnBorder == null) {
-	    columnBorder = new Pen();
+    public Pen getColumnLine() {
+	if (columnLine == null) {
+	    columnLine = new Pen();
 	}
-        return columnBorder;
+        return columnLine;
     }
 
-    public void setColumnBorder(Pen columnBorder) {
-        this.columnBorder = columnBorder;
+    public void setColumnLine(Pen columnLine) {
+        this.columnLine = columnLine;
     }
 
-    public boolean hasColumnBorder() {
-	return columnBorder != null;
+    public boolean hasColumnLine() {
+	return columnLine != null;
     }
 
-    public boolean isEmptyColumnBorder() {
-	return columnBorder == null || columnBorder.isEmpty();
+    public boolean isEmptyColumnLine() {
+	return columnLine == null || columnLine.isEmpty();
     }
     
-    public Pen getRowBorder() {
-	if (rowBorder == null) {
-	    rowBorder = new Pen();
+    public Pen getRowLine() {
+	if (rowLine == null) {
+	    rowLine = new Pen();
 	}
-        return rowBorder;
+        return rowLine;
     }
 
-    public void setRowBorder(Pen rowBorder) {
-        this.rowBorder = rowBorder;
+    public void setRowLine(Pen rowLine) {
+        this.rowLine = rowLine;
     }
 
-    public boolean hasRowBorder() {
-	return rowBorder != null;
+    public boolean hasRowLine() {
+	return rowLine != null;
     }
 
-    public boolean isEmptyRowBorder() {
-	return rowBorder == null || rowBorder.isEmpty();
+    public boolean isEmptyRowLine() {
+	return rowLine == null || rowLine.isEmpty();
     }
     
     ////

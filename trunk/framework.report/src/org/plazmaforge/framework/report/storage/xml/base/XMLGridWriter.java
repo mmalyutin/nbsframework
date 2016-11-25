@@ -53,19 +53,19 @@ public class XMLGridWriter extends XMLAbstractWriter {
 	}
 	
 	// cell-border
-	Pen cellBorder = grid.hasCellBorder() ? grid.getCellBorder() : null;
+	Pen cellBorder = grid.hasCellLine() ? grid.getCellLine() : null;
 	if (cellBorder != null) {
 	    setBorderPenByAttributes(cellBorder, node, XML_ATTR_CELL_BORDER);
 	}
 
 	// column-border
-	Pen columnBorder = grid.hasColumnBorder() ? grid.getColumnBorder() : null;
+	Pen columnBorder = grid.hasColumnLine() ? grid.getColumnLine() : null;
 	if (columnBorder != null) {
 	    setBorderPenByAttributes(columnBorder, node, XML_ATTR_COLUMN_BORDER);
 	}
 
 	// row-border
-	Pen rowBorder = grid.hasRowBorder() ? grid.getRowBorder() : null;
+	Pen rowBorder = grid.hasRowLine() ? grid.getRowLine() : null;
 	if (rowBorder != null) {
 	    setBorderPenByAttributes(rowBorder, node, XML_ATTR_ROW_BORDER);
 	}

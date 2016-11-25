@@ -85,17 +85,17 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	
 	// cell-border
 	if (cellBorder != null) {
-	    grid.setCellBorder(cellBorder.clone());
+	    grid.setCellLine(cellBorder.clone());
 	}
 	
 	// column-border
 	if (columnBorder != null) {
-	    grid.setColumnBorder(columnBorder.clone());
+	    grid.setColumnLine(columnBorder.clone());
 	}
 
 	// row-border
 	if (rowBorder != null) {
-	    grid.setRowBorder(rowBorder.clone());
+	    grid.setRowLine(rowBorder.clone());
 	}
 	
 	page.addChild(grid);
@@ -297,8 +297,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     protected Row createRow(ReportContext context, boolean blank) {
 	Row row = new Row();
 	if (blank) {
-	    row.setRowBorder(Pen.NONE);
-	    row.setCellBorder(Pen.NONE);
+	    row.setRowLine(Pen.NONE);
+	    row.setCellLine(Pen.NONE);
 	}
 	
 	Band band = context.getBand();
@@ -318,14 +318,14 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	}
 	
 	// Transfer band borders to row
-	if (band.hasCellBorder()) {
-	    row.setCellBorder(band.getCellBorder().clone());
+	if (band.hasCellLine()) {
+	    row.setCellLine(band.getCellLine().clone());
 	}
-	if (band.hasColumnBorder()) {
-	    row.setColumnBorder(band.getColumnBorder().clone());
+	if (band.hasColumnLine()) {
+	    row.setColumnLine(band.getColumnLine().clone());
 	}
-	if (band.hasRowBorder()) {
-	    row.setRowBorder(band.getRowBorder().clone());
+	if (band.hasRowLine()) {
+	    row.setRowLine(band.getRowLine().clone());
 	}
 	
 	

@@ -58,19 +58,19 @@ public class XMLGridReader extends XMLAbstractReader {
 	// cell-border	
 	Pen cellBorder = getBorderPenByAttributes(element, XML_ATTR_CELL_BORDER);
 	if (cellBorder != null) {
-	    grid.setCellBorder(cellBorder);
+	    grid.setCellLine(cellBorder);
 	}
 
 	// column-border	
 	Pen columnBorder = getBorderPenByAttributes(element, XML_ATTR_COLUMN_BORDER);
 	if (columnBorder != null) {
-	    grid.setColumnBorder(columnBorder);
+	    grid.setColumnLine(columnBorder);
 	}
 
 	// row-border	
 	Pen rowBorder = getBorderPenByAttributes(element, XML_ATTR_ROW_BORDER);
 	if (rowBorder != null) {
-	    grid.setRowBorder(rowBorder);
+	    grid.setRowLine(rowBorder);
 	}
 	
     }

@@ -39,7 +39,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  * @author ohapon
  *
  */
-public class Row implements HasExpressionBuilder {
+public class Row implements HasExpressionBuilder, HasCellBorder {
 
     /**
      * Background color
@@ -60,11 +60,11 @@ public class Row implements HasExpressionBuilder {
     
     private int height;
     
-    private Pen cellBorder;
+    private Pen cellLine;
     
-    private Pen columnBorder;
+    private Pen columnLine;
     
-    private Pen rowBorder;
+    private Pen rowLine;
     
     private List<Cell> cells;
 
@@ -138,61 +138,61 @@ public class Row implements HasExpressionBuilder {
         this.font = font;
     }
     
-    public Pen getCellBorder() {
-	if (cellBorder == null) {
-	    cellBorder = new Pen();
+    public Pen getCellLine() {
+	if (cellLine == null) {
+	    cellLine = new Pen();
 	}
-        return cellBorder;
+        return cellLine;
     }
 
-    public void setCellBorder(Pen cellBorder) {
-        this.cellBorder = cellBorder;
+    public void setCellLine(Pen cellLine) {
+        this.cellLine = cellLine;
     }
 
-    public boolean hasCellBorder() {
-	return cellBorder != null;
+    public boolean hasCellLine() {
+	return cellLine != null;
     }
 
-    public boolean isEmptyCellBorder() {
-	return cellBorder == null || cellBorder.isEmpty();
+    public boolean isEmptyCellLine() {
+	return cellLine == null || cellLine.isEmpty();
     }
 
-    public Pen getColumnBorder() {
-	if (columnBorder == null) {
-	    columnBorder = new Pen();
+    public Pen getColumnLine() {
+	if (columnLine == null) {
+	    columnLine = new Pen();
 	}
-        return columnBorder;
+        return columnLine;
     }
 
-    public void setColumnBorder(Pen columnBorder) {
-        this.columnBorder = columnBorder;
+    public void setColumnLine(Pen columnLine) {
+        this.columnLine = columnLine;
     }
 
-    public boolean hasColumnBorder() {
-	return columnBorder != null;
+    public boolean hasColumnLine() {
+	return columnLine != null;
     }
 
-    public boolean isEmptyColumnBorder() {
-	return columnBorder == null || columnBorder.isEmpty();
+    public boolean isEmptyColumnLine() {
+	return columnLine == null || columnLine.isEmpty();
     }
     
-    public Pen getRowBorder() {
-	if (rowBorder == null) {
-	    rowBorder = new Pen();
+    public Pen getRowLine() {
+	if (rowLine == null) {
+	    rowLine = new Pen();
 	}
-        return rowBorder;
+        return rowLine;
     }
 
-    public void setRowBorder(Pen rowBorder) {
-        this.rowBorder = rowBorder;
+    public void setRowLine(Pen rowLine) {
+        this.rowLine = rowLine;
     }
 
-    public boolean hasRowBorder() {
-	return rowBorder != null;
+    public boolean hasRowLine() {
+	return rowLine != null;
     }
 
-    public boolean isEmptyRowBorder() {
-	return rowBorder == null || rowBorder.isEmpty();
+    public boolean isEmptyRowLine() {
+	return rowLine == null || rowLine.isEmpty();
     }
     
 
@@ -200,14 +200,14 @@ public class Row implements HasExpressionBuilder {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Row[height=" + height);
 	
-	if (cellBorder != null) {
-	    buf.append("cellBorder=" + cellBorder + ", ");
+	if (cellLine != null) {
+	    buf.append("cellLine=" + cellLine + ", ");
 	}
-	if (columnBorder != null) {
-	    buf.append("columnBorder=" + columnBorder + ", ");
+	if (columnLine != null) {
+	    buf.append("columnLine=" + columnLine + ", ");
 	}
-	if (rowBorder != null) {
-	    buf.append("rowBorder=" + rowBorder + ", ");
+	if (rowLine != null) {
+	    buf.append("rowLine=" + rowLine + ", ");
 	}
 	
 	List<Cell> cells = getCells();
@@ -247,16 +247,16 @@ public class Row implements HasExpressionBuilder {
 	result = prime * result
 		+ ((background == null) ? 0 : background.hashCode());
 	result = prime * result
-		+ ((cellBorder == null) ? 0 : cellBorder.hashCode());
+		+ ((cellLine == null) ? 0 : cellLine.hashCode());
 	result = prime * result + ((cells == null) ? 0 : cells.hashCode());
 	result = prime * result
-		+ ((columnBorder == null) ? 0 : columnBorder.hashCode());
+		+ ((columnLine == null) ? 0 : columnLine.hashCode());
 	result = prime * result + ((font == null) ? 0 : font.hashCode());
 	result = prime * result
 		+ ((foreground == null) ? 0 : foreground.hashCode());
 	result = prime * result + height;
 	result = prime * result
-		+ ((rowBorder == null) ? 0 : rowBorder.hashCode());
+		+ ((rowLine == null) ? 0 : rowLine.hashCode());
 	return result;
     }
 
@@ -274,20 +274,20 @@ public class Row implements HasExpressionBuilder {
 		return false;
 	} else if (!background.equals(other.background))
 	    return false;
-	if (cellBorder == null) {
-	    if (other.cellBorder != null)
+	if (cellLine == null) {
+	    if (other.cellLine != null)
 		return false;
-	} else if (!cellBorder.equals(other.cellBorder))
+	} else if (!cellLine.equals(other.cellLine))
 	    return false;
 	if (cells == null) {
 	    if (other.cells != null)
 		return false;
 	} else if (!cells.equals(other.cells))
 	    return false;
-	if (columnBorder == null) {
-	    if (other.columnBorder != null)
+	if (columnLine == null) {
+	    if (other.columnLine != null)
 		return false;
-	} else if (!columnBorder.equals(other.columnBorder))
+	} else if (!columnLine.equals(other.columnLine))
 	    return false;
 	if (font == null) {
 	    if (other.font != null)
@@ -301,12 +301,14 @@ public class Row implements HasExpressionBuilder {
 	    return false;
 	if (height != other.height)
 	    return false;
-	if (rowBorder == null) {
-	    if (other.rowBorder != null)
+	if (rowLine == null) {
+	    if (other.rowLine != null)
 		return false;
-	} else if (!rowBorder.equals(other.rowBorder))
+	} else if (!rowLine.equals(other.rowLine))
 	    return false;
 	return true;
     }
+
+
     
 }

@@ -215,25 +215,25 @@ public class GridUtils {
 	
 	CellBorderRule cellBorderRule = grid.getCellBorderRule();
 	
-	Pen defCellBorder = grid.hasCellBorder() ? grid.getCellBorder() : null;
-	Pen defColumnBorder = defCellBorder;
-	Pen defRowBorder = defCellBorder;
+	Pen defCellLine = grid.hasCellLine() ? grid.getCellLine() : null;
+	Pen defColumnLine = defCellLine;
+	Pen defRowLine = defCellLine;
 	
-	// Override column border
-	if (!grid.isEmptyColumnBorder()) {
-	    defColumnBorder  = grid.getColumnBorder();
+	// Override column border line
+	if (!grid.isEmptyColumnLine()) {
+	    defColumnLine  = grid.getColumnLine();
 	}
 	
-	// Override row border
-	if (!grid.isEmptyRowBorder()) {
-	    defRowBorder  = grid.getRowBorder();
+	// Override row border line
+	if (!grid.isEmptyRowLine()) {
+	    defRowLine  = grid.getRowLine();
 	}
 	
-	return getGridLayout(grid, cellBorderRule, defColumnBorder, defRowBorder); 
+	return getGridLayout(grid, cellBorderRule, defColumnLine, defRowLine); 
     }
     
-    public static GridLayout getGridLayout(Grid grid, CellBorderRule cellBorderRule, Pen defColumnBorder, Pen defRowBorder) {
-	return getGridLayout(grid, grid, cellBorderRule, defColumnBorder, defRowBorder);
+    public static GridLayout getGridLayout(Grid grid, CellBorderRule cellBorderRule, Pen defColumnLine, Pen defRowLine) {
+	return getGridLayout(grid, grid, cellBorderRule, defColumnLine, defRowLine);
     }
     
     public static GridLayout getGridLayout(Grid grid, RowModel rowModel) {
@@ -244,25 +244,25 @@ public class GridUtils {
 	
 	CellBorderRule cellBorderRule = grid.getCellBorderRule();
 	
-	Pen defCellBorder = grid.hasCellBorder() ? grid.getCellBorder() : null;
-	Pen defColumnBorder = defCellBorder;
-	Pen defRowBorder = defCellBorder;
+	Pen defCellLine = grid.hasCellLine() ? grid.getCellLine() : null;
+	Pen defColumnLine = defCellLine;
+	Pen defRowLine = defCellLine;
 	
-	// Override column border
-	if (!grid.isEmptyColumnBorder()) {
-	    defColumnBorder  = grid.getColumnBorder();
+	// Override column border line
+	if (!grid.isEmptyColumnLine()) {
+	    defColumnLine  = grid.getColumnLine();
 	}
 	
-	// Override row border
-	if (!grid.isEmptyRowBorder()) {
-	    defRowBorder  = grid.getRowBorder();
+	// Override row border line
+	if (!grid.isEmptyRowLine()) {
+	    defRowLine  = grid.getRowLine();
 	}
 	
-	return getGridLayout(grid, rowModel, cellBorderRule, defColumnBorder, defRowBorder);
+	return getGridLayout(grid, rowModel, cellBorderRule, defColumnLine, defRowLine);
     }
     
     
-    public static GridLayout getGridLayout(ColumnModel columnModel, RowModel rowModel, CellBorderRule cellBorderRule, Pen defColumnBorder, Pen defRowBorder) {
+    public static GridLayout getGridLayout(ColumnModel columnModel, RowModel rowModel, CellBorderRule cellBorderRule, Pen defColumnLine, Pen defRowLine) {
 	if (columnModel == null || rowModel == null) {
 	    return null;
 	}
@@ -286,20 +286,20 @@ public class GridUtils {
 	Pen defRBottomPen = null;
 	
 	// Default R (from row) borders
-	Pen defRCellBorder = null;
-	Pen defRColumnBorder = null;
-	Pen defRRowBorder = null;
+	Pen defRCellLine = null;
+	Pen defRColumnLine = null;
+	Pen defRRowLine = null;
 	
 	// Transfer default column border (left, right)
-	if (defColumnBorder != null && !defColumnBorder.isEmpty()) {
-	    defLeftPen = defColumnBorder.clone();
-	    defRightPen = defColumnBorder.clone();
+	if (defColumnLine != null && !defColumnLine.isEmpty()) {
+	    defLeftPen = defColumnLine.clone();
+	    defRightPen = defColumnLine.clone();
 	}
 	
 	// Transfer default row border (top, bottom)
-	if (defRowBorder != null && !defRowBorder.isEmpty()) {
-	    defTopPen = defRowBorder.clone();
-	    defBottomPen = defRowBorder.clone();
+	if (defRowLine != null && !defRowLine.isEmpty()) {
+	    defTopPen = defRowLine.clone();
+	    defBottomPen = defRowLine.clone();
 	}
 	
 	
@@ -347,32 +347,32 @@ public class GridUtils {
  	    defRBottomPen = null;
  		
  	    
- 	    defRCellBorder = row.hasCellBorder() ? row.getCellBorder() : null;
- 	    defRCellBorder = normalizeNonePen(defRCellBorder);
+ 	    defRCellLine = row.hasCellLine() ? row.getCellLine() : null;
+ 	    defRCellLine = normalizeNonePen(defRCellLine);
  	   
- 	    defRColumnBorder = defRCellBorder;
- 	    defRRowBorder = defRCellBorder;
+ 	    defRColumnLine = defRCellLine;
+ 	    defRRowLine = defRCellLine;
  	
  	    // Override column (R) border
- 	    if (row.hasColumnBorder()) {
- 		defRColumnBorder = normalizeNonePen(row.getColumnBorder());
+ 	    if (row.hasColumnLine()) {
+ 		defRColumnLine = normalizeNonePen(row.getColumnLine());
  	    }
 
  	    // Override row (R) border
- 	    if (row.hasRowBorder()) {
- 		defRowBorder = normalizeNonePen(row.getRowBorder());
+ 	    if (row.hasRowLine()) {
+ 		defRowLine = normalizeNonePen(row.getRowLine());
  	    }
 
  	    // Transfer default column border (left, right)
- 	    if (defRColumnBorder != null) {
- 		defRLeftPen = defRColumnBorder.clone();
- 		defRRightPen = defRColumnBorder.clone();
+ 	    if (defRColumnLine != null) {
+ 		defRLeftPen = defRColumnLine.clone();
+ 		defRRightPen = defRColumnLine.clone();
  	    }
 		
  	    // Transfer default row border (top, bottom)
- 	    if (defRRowBorder != null) {
- 		defRTopPen = defRRowBorder.clone();
- 		defRBottomPen = defRRowBorder.clone();
+ 	    if (defRRowLine != null) {
+ 		defRTopPen = defRRowLine.clone();
+ 		defRBottomPen = defRRowLine.clone();
  	    }
 		
  	   
