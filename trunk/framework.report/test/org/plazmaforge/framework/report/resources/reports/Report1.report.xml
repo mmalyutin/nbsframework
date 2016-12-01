@@ -37,7 +37,7 @@
 								<row height="20">
 									<cells>
 									<!-- border="2" border-color="blue" -->
-										<cell background="yellow" colspan="4" font="11, underline" ><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
+										<cell background="yellow" foreground="blue" colspan="4" font="11, underline|bold" ><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
 									</cells>
 								</row>
 								<row height="20">
@@ -63,9 +63,9 @@
 			<bands>
 				<band type="ReportHeader" cell-line="none">
 					<rows>
-						<row height="20" background="red">
+						<row height="30" background="red">
 							<cells>
-								<cell colspan="4" font="16"><value>My Report</value></cell>
+								<cell colspan="4" horizontal-align="center" vertical-align="middle" font="16"><value>My Report</value></cell>
 							</cells>
 						</row>
 						<row height="15">
