@@ -219,37 +219,14 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	for (Row row : rows) {
 
 	    iRow = cloneRow(context, row);
-	    iRow.setHeight(row.getHeight());
+	    
 
 	    fillContainer.addRow(iRow);
 
 	    List<Cell> cells = row.getCells();
 	    for (Cell cell : cells) {
 
-		iCell = new Cell();
-		iCell.setColspan(cell.getColspan());
-		iCell.setRowspan(cell.getRowspan());
-		
-		if (cell.getBackground() != null) {
-		    iCell.setBackground(cell.getBackground());
-		}
-		if (cell.getForeground() != null) {
-		    iCell.setForeground(cell.getForeground());
-		}
-		if (cell.getFont() != null) {
-		    iCell.setFont(cell.getFont());
-		}
-		if (cell.getHorizontalAlign() != null) {
-		    iCell.setHorizontalAlign(cell.getHorizontalAlign());
-		}
-		if (cell.getVerticalAlign() != null) {
-		    iCell.setVerticalAlign(cell.getVerticalAlign());
-		}
-		
-		if (cell.hasBorder()) {
-		    iCell.setBorder(Border.cloneBorder(cell.getBorder()));
-		}
-		
+		iCell = cloneCell(context, cell);
 		iRow.addCell(iCell);
 
 		
@@ -261,7 +238,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		}
 		iCell.setDataType(dataType);
 		iCell.setValue(value);
-		iCell.setFormat(cell.getFormat());
+		
 		
 	    }
 	}
@@ -331,6 +308,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    return row;
 	}
 
+	row.setHeight(oRow.getHeight());
+	
 	// Transfer original row attributes to row
 	if (oRow.getBackground() != null) {
 	    row.setBackground(oRow.getBackground());
@@ -390,6 +369,43 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
 	Cell cell = new Cell();
 	return cell;
+    }
+    
+    protected Cell cloneCell(ReportContext context, Cell oCell) {
+	Cell cell = createCell(context);
+	if (oCell == null) {
+	    return cell;
+	}
+	
+	cell.setColspan(oCell.getColspan());
+	cell.setRowspan(oCell.getRowspan());
+	
+	if (oCell.getBackground() != null) {
+	    cell.setBackground(oCell.getBackground());
+	}
+	if (oCell.getForeground() != null) {
+	    cell.setForeground(oCell.getForeground());
+	}
+	if (oCell.getFont() != null) {
+	    cell.setFont(oCell.getFont());
+	}
+	if (oCell.getHorizontalAlign() != null) {
+	    cell.setHorizontalAlign(oCell.getHorizontalAlign());
+	}
+	if (oCell.getVerticalAlign() != null) {
+	    cell.setVerticalAlign(oCell.getVerticalAlign());
+	}
+	
+	if (oCell.hasBorder()) {
+	    cell.setBorder(Border.cloneBorder(oCell.getBorder()));
+	}
+	
+	cell.setFormat(oCell.getFormat());
+
+	
+	
+	return cell;
+	
     }
     
     @Override
