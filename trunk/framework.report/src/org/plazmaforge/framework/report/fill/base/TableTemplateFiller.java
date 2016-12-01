@@ -70,32 +70,27 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	
 	// Template border rule
 	CellBorderRule cellBorderRule = template.getCellBorderRule();
-	Pen cellBorder = GridUtils.normalizePen(template.hasCellLine() ? template.getCellLine() : null);
-	Pen columnBorder = GridUtils.normalizePen(template.hasColumnLine() ? template.getColumnLine() : null);
-	Pen rowBorder = GridUtils.normalizePen(template.hasRowLine() ? template.getRowLine() : null);
+	Pen cellLine = GridUtils.normalizePen(template.hasCellLine() ? template.getCellLine() : null);
+	Pen columnLine = GridUtils.normalizePen(template.hasColumnLine() ? template.getColumnLine() : null);
+	Pen rowLine = GridUtils.normalizePen(template.hasRowLine() ? template.getRowLine() : null);
 
-	// Band border rule
-	//CellBorderRule cellBorderRuleB = band.getCellBorderRule();
-	//Pen cellBorderB = ExportHelper.normalizeNonePen(band.hasCellBorder() ? band.getCellBorder() : null);
-	//Pen columnBorderB = ExportHelper.normalizeNonePen(band.hasColumnBorder() ? band.getColumnBorder() : null);
-	//Pen rowBorderB = ExportHelper.normalizeNonePen(band.hasRowBorder() ? band.getRowBorder() : null);
 
 	// cell-border-rule
 	grid.setCellBorderRule(cellBorderRule);
 	
-	// cell-border
-	if (cellBorder != null) {
-	    grid.setCellLine(cellBorder.clone());
+	// cell-line
+	if (cellLine != null) {
+	    grid.setCellLine(cellLine.clone());
 	}
 	
-	// column-border
-	if (columnBorder != null) {
-	    grid.setColumnLine(columnBorder.clone());
+	// column-line
+	if (columnLine != null) {
+	    grid.setColumnLine(columnLine.clone());
 	}
 
-	// row-border
-	if (rowBorder != null) {
-	    grid.setRowLine(rowBorder.clone());
+	// row-line
+	if (rowLine != null) {
+	    grid.setRowLine(rowLine.clone());
 	}
 	
 	page.addChild(grid);
@@ -218,46 +213,44 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	}
 	fillContainer = new Band();
 
-	// Grid grid = context.getGrid();
 	List<Row> rows = band.getRows();
-	Row oRow = null;
-	Cell oCell = null;
+	Row iRow = null;
+	Cell iCell = null;
 	for (Row row : rows) {
 
-	    oRow = cloneRow(context, row);
-	    oRow.setHeight(row.getHeight());
+	    iRow = cloneRow(context, row);
+	    iRow.setHeight(row.getHeight());
 
-	    fillContainer.addRow(oRow);
-	    // grid.addRow(oRow);
+	    fillContainer.addRow(iRow);
 
 	    List<Cell> cells = row.getCells();
 	    for (Cell cell : cells) {
 
-		oCell = new Cell();
-		oCell.setColspan(cell.getColspan());
-		oCell.setRowspan(cell.getRowspan());
+		iCell = new Cell();
+		iCell.setColspan(cell.getColspan());
+		iCell.setRowspan(cell.getRowspan());
 		
 		if (cell.getBackground() != null) {
-		    oCell.setBackground(cell.getBackground());
+		    iCell.setBackground(cell.getBackground());
 		}
 		if (cell.getForeground() != null) {
-		    oCell.setForeground(cell.getForeground());
+		    iCell.setForeground(cell.getForeground());
 		}
 		if (cell.getFont() != null) {
-		    oCell.setFont(cell.getFont());
+		    iCell.setFont(cell.getFont());
 		}
 		if (cell.getHorizontalAlign() != null) {
-		    oCell.setHorizontalAlign(cell.getHorizontalAlign());
+		    iCell.setHorizontalAlign(cell.getHorizontalAlign());
 		}
 		if (cell.getVerticalAlign() != null) {
-		    oCell.setVerticalAlign(cell.getVerticalAlign());
+		    iCell.setVerticalAlign(cell.getVerticalAlign());
 		}
 		
 		if (cell.hasBorder()) {
-		    oCell.setBorder(Border.cloneBorder(cell.getBorder()));
+		    iCell.setBorder(Border.cloneBorder(cell.getBorder()));
 		}
 		
-		oRow.addCell(oCell);
+		iRow.addCell(iCell);
 
 		
 		Object value = evaluateCellValue(context, evaluation, cell);
@@ -266,9 +259,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		    // Auto set data type by class
 		    dataType = TypeUtils.getType(value == null ? null : value.getClass());
 		}
-		oCell.setDataType(dataType);
-		oCell.setValue(value);
-		oCell.setFormat(cell.getFormat());
+		iCell.setDataType(dataType);
+		iCell.setValue(value);
+		iCell.setFormat(cell.getFormat());
 		
 	    }
 	}
@@ -349,7 +342,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    row.setFont(oRow.getFont());
 	}
 
-	// Transfer band borders to row
+	// Transfer original row borders to row
 	if (oRow.hasCellLine()) {
 	    row.setCellLine(oRow.getCellLine().clone());
 	}
