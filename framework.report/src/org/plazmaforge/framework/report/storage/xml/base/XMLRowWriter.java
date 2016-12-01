@@ -25,6 +25,7 @@ package org.plazmaforge.framework.report.storage.xml.base;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -79,6 +80,12 @@ public class XMLRowWriter extends XMLAbstractWriter {
 	Pen rowLine = row.hasRowLine() ? row.getRowLine() : null;
 	if (rowLine != null) {
 	    setBorderPenByAttributes(rowLine, node, XML_ATTR_ROW_LINE);
+	}
+	
+	// border
+	Border border = row.hasCellBorder() ? row.getCellBorder() : null;
+	if (border != null) {
+	    setBorder(border, node, "cell");
 	}
 	
 	// cells

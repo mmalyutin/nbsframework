@@ -378,9 +378,6 @@ public class GridUtils {
 
  	    defXBorder = normalizeBorder(row.hasCellBorder() ? row.getCellBorder() : null);
  	    
- 	    if (defXBorder != null ){
- 		System.out.print("x");
- 	    }
  	   
 	    for (int cellIndex = 0; cellIndex < cellCount; cellIndex++) {
 		
