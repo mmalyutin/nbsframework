@@ -63,9 +63,9 @@
 			<bands>
 				<band type="ReportHeader" cell-line="none">
 					<rows>
-						<row height="20">
+						<row height="20" background="red">
 							<cells>
-								<cell colspan="4" background="red" font="16"><value>My Report</value></cell>
+								<cell colspan="4" font="16"><value>My Report</value></cell>
 							</cells>
 						</row>
 						<row height="15">
@@ -82,11 +82,10 @@
 				</band>
 				<band type="ColumnHeader">
 					<rows>
-						<row height="30" cell-border-top="3" cell-border-top-color="green">
+						<row height="30" cell-border-top="1" cell-border-top-color="green">
 							<cells>
-							 <!--  border-top="1" border-top-color="green" -->
-								<cell  border-top="1" font="bold"><value>Product ID</value></cell>
-								<cell  font="bold"><value>Product Name</value></cell>
+								<cell font="bold"><value>Product ID</value></cell>
+								<cell font="bold"><value>Product Name</value></cell>
 								<cell font="bold"><value>Price</value></cell>
 								<cell font="bold"><value>Full Name</value></cell>
 							</cells>

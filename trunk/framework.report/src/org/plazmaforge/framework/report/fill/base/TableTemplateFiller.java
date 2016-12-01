@@ -224,7 +224,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	Cell oCell = null;
 	for (Row row : rows) {
 
-	    oRow = createRow(context);
+	    oRow = cloneRow(context, row);
 	    oRow.setHeight(row.getHeight());
 
 	    fillContainer.addRow(oRow);
@@ -332,6 +332,41 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	return row;
     }
 
+    protected Row cloneRow(ReportContext context, Row oRow) {
+	Row row = createRow(context);
+	if (oRow == null) {
+	    return row;
+	}
+
+	// Transfer original row attributes to row
+	if (oRow.getBackground() != null) {
+	    row.setBackground(oRow.getBackground());
+	}
+	if (oRow.getForeground() != null) {
+	    row.setForeground(oRow.getForeground());
+	}
+	if (oRow.getFont() != null) {
+	    row.setFont(oRow.getFont());
+	}
+
+	// Transfer band borders to row
+	if (oRow.hasCellLine()) {
+	    row.setCellLine(oRow.getCellLine().clone());
+	}
+	if (oRow.hasColumnLine()) {
+	    row.setColumnLine(oRow.getColumnLine().clone());
+	}
+	if (oRow.hasRowLine()) {
+	    row.setRowLine(oRow.getRowLine().clone());
+	}
+	if (oRow.hasCellBorder()) {
+	    row.setCellBorder(oRow.getCellBorder().clone());
+	}
+
+	
+	return row;
+    }
+    
     protected Cell createCell(ReportContext context) {
 	return createCell(context, false);
     }
