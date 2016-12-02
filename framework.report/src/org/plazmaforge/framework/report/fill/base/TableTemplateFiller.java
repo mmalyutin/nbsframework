@@ -70,9 +70,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	
 	// Template border rule
 	CellBorderRule cellBorderRule = template.getCellBorderRule();
-	Pen cellLine = GridUtils.normalizePen(template.hasCellLine() ? template.getCellLine() : null);
-	Pen columnLine = GridUtils.normalizePen(template.hasColumnLine() ? template.getColumnLine() : null);
-	Pen rowLine = GridUtils.normalizePen(template.hasRowLine() ? template.getRowLine() : null);
+	Pen cellLine = GridUtils.normalizePen(template.getCellLine());
+	Pen columnLine = GridUtils.normalizePen(template.getColumnLine());
+	Pen rowLine = GridUtils.normalizePen(template.getRowLine());
 
 
 	// cell-border-rule
@@ -288,13 +288,13 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	}
 	
 	// Transfer band borders to row
-	if (band.hasCellLine()) {
+	if (band.getCellLine() != null) {
 	    row.setCellLine(band.getCellLine().clone());
 	}
-	if (band.hasColumnLine()) {
+	if (band.getColumnLine() != null) {
 	    row.setColumnLine(band.getColumnLine().clone());
 	}
-	if (band.hasRowLine()) {
+	if (band.getRowLine() != null) {
 	    row.setRowLine(band.getRowLine().clone());
 	}
 	
@@ -322,16 +322,16 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	}
 
 	// Transfer original row borders to row
-	if (oRow.hasCellLine()) {
+	if (oRow.getCellLine() != null) {
 	    row.setCellLine(oRow.getCellLine().clone());
 	}
-	if (oRow.hasColumnLine()) {
+	if (oRow.getColumnLine() != null) {
 	    row.setColumnLine(oRow.getColumnLine().clone());
 	}
-	if (oRow.hasRowLine()) {
+	if (oRow.getRowLine() != null) {
 	    row.setRowLine(oRow.getRowLine().clone());
 	}
-	if (oRow.hasCellBorder()) {
+	if (oRow.getCellBorder() != null) {
 	    row.setCellBorder(oRow.getCellBorder().clone());
 	}
 
@@ -428,7 +428,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
   	
   	CellBorderRule cellBorderRule = template.getCellBorderRule();
 	
-	Pen defCellBorder = template.hasCellLine() ? template.getCellLine() : null;
+	Pen defCellBorder = template.getCellLine();
 	Pen defColumnBorder = defCellBorder;
 	Pen defRowBorder = defCellBorder;
 	

@@ -99,9 +99,6 @@ public class Band extends Container implements HasCellBorderRule, RowModel {
     }
 
     public Pen getCellLine() {
-	if (cellLine == null) {
-	    cellLine = new Pen();
-	}
         return cellLine;
     }
 
@@ -109,18 +106,11 @@ public class Band extends Container implements HasCellBorderRule, RowModel {
         this.cellLine = cellLine;
     }
 
-    public boolean hasCellLine() {
-	return cellLine != null;
-    }
-
     public boolean isEmptyCellLine() {
 	return cellLine == null || cellLine.isEmpty();
     }
 
     public Pen getColumnLine() {
-	if (columnLine == null) {
-	    columnLine = new Pen();
-	}
         return columnLine;
     }
 
@@ -128,27 +118,16 @@ public class Band extends Container implements HasCellBorderRule, RowModel {
         this.columnLine = columnLine;
     }
 
-    public boolean hasColumnLine() {
-	return columnLine != null;
-    }
-
     public boolean isEmptyColumnLine() {
 	return columnLine == null || columnLine.isEmpty();
     }
     
     public Pen getRowLine() {
-	if (rowLine == null) {
-	    rowLine = new Pen();
-	}
         return rowLine;
     }
 
     public void setRowLine(Pen rowLine) {
         this.rowLine = rowLine;
-    }
-
-    public boolean hasRowLine() {
-	return rowLine != null;
     }
 
     public boolean isEmptyRowLine() {
