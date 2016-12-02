@@ -226,7 +226,8 @@ public class FontFormatter extends AbstractFormatter<Font> {
 	if (name == null) {
 	    return null; 
 	}
-	return  name.trim();
+	name = name.trim();
+	return name.isEmpty() ? null : name;
     }
     
     protected String toFontSize(Font font) {
