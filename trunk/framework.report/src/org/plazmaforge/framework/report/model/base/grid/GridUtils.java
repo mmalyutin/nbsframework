@@ -214,7 +214,7 @@ public class GridUtils {
 	
 	CellBorderRule cellBorderRule = grid.getCellBorderRule();
 	
-	Pen defCellLine = grid.hasCellLine() ? grid.getCellLine() : null;
+	Pen defCellLine = grid.getCellLine();
 	Pen defColumnLine = defCellLine;
 	Pen defRowLine = defCellLine;
 	
@@ -243,7 +243,7 @@ public class GridUtils {
 	
 	CellBorderRule cellBorderRule = grid.getCellBorderRule();
 	
-	Pen defCellLine = grid.hasCellLine() ? grid.getCellLine() : null;
+	Pen defCellLine = grid.getCellLine();
 	Pen defColumnLine = defCellLine;
 	Pen defRowLine = defCellLine;
 	
@@ -348,19 +348,19 @@ public class GridUtils {
  	    defRRightPen = null;
  	    defRBottomPen = null;
 
- 	    defRCellLine = row.hasCellLine() ? row.getCellLine() : null;
+ 	    defRCellLine = row.getCellLine();
  	    defRCellLine = normalizePen(defRCellLine);
  	   
  	    defRColumnLine = defRCellLine;
  	    defRRowLine = defRCellLine;
  	
  	    // Override column (R) border
- 	    if (row.hasColumnLine()) {
+ 	    if (row.getColumnLine() != null) {
  		defRColumnLine = normalizePen(row.getColumnLine());
  	    }
 
  	    // Override row (R) border line
- 	    if (row.hasRowLine()) {
+ 	    if (row.getRowLine() != null) {
  		defRowLine = normalizePen(row.getRowLine());
  	    }
 
@@ -376,7 +376,7 @@ public class GridUtils {
  		defRBottomPen = defRRowLine.clone();
  	    }
 
- 	    defXBorder = normalizeBorder(row.hasCellBorder() ? row.getCellBorder() : null);
+ 	    defXBorder = normalizeBorder(row.getCellBorder());
  	    
  	   
 	    for (int cellIndex = 0; cellIndex < cellCount; cellIndex++) {

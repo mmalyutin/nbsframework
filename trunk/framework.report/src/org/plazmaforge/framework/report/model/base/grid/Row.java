@@ -142,9 +142,6 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
     }
     
     public Pen getCellLine() {
-	if (cellLine == null) {
-	    cellLine = new Pen();
-	}
         return cellLine;
     }
 
@@ -152,18 +149,11 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
         this.cellLine = cellLine;
     }
 
-    public boolean hasCellLine() {
-	return cellLine != null;
-    }
-
     public boolean isEmptyCellLine() {
 	return cellLine == null || cellLine.isEmpty();
     }
 
     public Pen getColumnLine() {
-	if (columnLine == null) {
-	    columnLine = new Pen();
-	}
         return columnLine;
     }
 
@@ -171,18 +161,11 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
         this.columnLine = columnLine;
     }
 
-    public boolean hasColumnLine() {
-	return columnLine != null;
-    }
-
     public boolean isEmptyColumnLine() {
 	return columnLine == null || columnLine.isEmpty();
     }
     
     public Pen getRowLine() {
-	if (rowLine == null) {
-	    rowLine = new Pen();
-	}
         return rowLine;
     }
 
@@ -190,18 +173,11 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
         this.rowLine = rowLine;
     }
 
-    public boolean hasRowLine() {
-	return rowLine != null;
-    }
-
     public boolean isEmptyRowLine() {
 	return rowLine == null || rowLine.isEmpty();
     }
     
     public Border getCellBorder() {
-	if (cellBorder == null) {
-	    cellBorder = new Border();
-	}
         return cellBorder;
     }
 
@@ -209,15 +185,11 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
         this.cellBorder = cellBorder;
     }
 
-    public boolean hasCellBorder() {
-	return cellBorder != null;
-    }
-
     public boolean isEmptyCellBorder() {
 	return cellBorder == null || cellBorder.isEmpty();
     }     
      
-    public String toString( ){
+    public String toString() {
 	StringBuffer buf = new StringBuffer();
 	buf.append("Row[height=" + height);
 	

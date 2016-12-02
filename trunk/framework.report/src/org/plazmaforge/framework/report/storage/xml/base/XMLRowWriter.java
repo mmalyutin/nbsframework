@@ -65,25 +65,25 @@ public class XMLRowWriter extends XMLAbstractWriter {
 	}	
 	
 	// cell-line
-	Pen cellLine = row.hasCellLine() ? row.getCellLine() : null;
+	Pen cellLine = row.getCellLine();
 	if (cellLine != null) {
 	    setBorderPenByAttributes(cellLine, node, XML_ATTR_CELL_LINE);
 	}
 
 	// column-line
-	Pen columnLine = row.hasColumnLine() ? row.getColumnLine() : null;
+	Pen columnLine = row.getColumnLine();
 	if (columnLine != null) {
 	    setBorderPenByAttributes(columnLine, node, XML_ATTR_COLUMN_LINE);
 	}
 
 	// row-line
-	Pen rowLine = row.hasRowLine() ? row.getRowLine() : null;
+	Pen rowLine = row.getRowLine();
 	if (rowLine != null) {
 	    setBorderPenByAttributes(rowLine, node, XML_ATTR_ROW_LINE);
 	}
 	
 	// border
-	Border border = row.hasCellBorder() ? row.getCellBorder() : null;
+	Border border = row.getCellBorder();
 	if (border != null) {
 	    setBorder(border, node, "cell");
 	}

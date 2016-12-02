@@ -36,24 +36,18 @@ public interface HasCellBorder {
 
     void setCellLine(Pen cellLine);
 
-    boolean hasCellLine();
-    
     boolean isEmptyCellLine();
     
     Pen getColumnLine();
 
     void setColumnLine(Pen columnLine);
     
-    boolean hasColumnLine();
-
     boolean isEmptyColumnLine();    
     
     Pen getRowLine();
 
     void setRowLine(Pen rowLine);
     
-    boolean hasRowLine();
-
     boolean isEmptyRowLine();
 
 }
