@@ -102,17 +102,21 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
 	Band pageFooter = context.getTemplateStructure().getPageFooter();
 	int pageFooterHeight = context.getPageFooterHeight();
-	//int pageFooterHeight = calculateNewBandHeight(context, pageFooter);	
-	int offsetY = context.getEndY() - pageFooterHeight;
+	//int pageFooterHeight = calculateNewBandHeight(context, pageFooter);
+	
+	int pageFooterY = context.getEndY() - pageFooterHeight;
+	int offsetY = context.getOffsetY() + calculateTotalHeight(context, null);
 	
 	Grid grid = context.getGrid();
 
-	if (offsetY > context.getOffsetY()) {
+	
+	// Add blank space with rest height
+	if (pageFooterY > offsetY) {
 	    //Grid grid = context.getGrid();
 
 	    // Add blank row with rest height
 	    Row row = createBlankRow(context);
-	    row.setHeight(offsetY - context.getOffsetY());
+	    row.setHeight(pageFooterY - offsetY);
 	    
 	    // Add blank cell
 	    Cell cell = createBlankCell(context);
@@ -120,16 +124,6 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		row.addCell(cell);
 	    }
 	    grid.addRow(row);
-	    
-	    
-//	    int columnCount = grid.getColumnCount();
-//	    if (columnCount > 0) {
-//		// Add blank cell
-//		Cell cell = new Cell();
-//		row.addCell(cell);
-//		cell.setColspan(columnCount);
-//	    }
-	    
 	    
 	}
 
