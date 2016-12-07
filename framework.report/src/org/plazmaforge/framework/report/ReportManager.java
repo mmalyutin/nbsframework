@@ -40,7 +40,9 @@ import org.plazmaforge.framework.report.export.xml.XMLExporter;
 import org.plazmaforge.framework.report.fill.ReportFiller;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
+import org.plazmaforge.framework.report.storage.DocumentReader;
 import org.plazmaforge.framework.report.storage.ReportReader;
+import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
 import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 /**
@@ -172,14 +174,39 @@ public class ReportManager {
 	reportExporter.exportDocument(document);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // READ DOCUMENT
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    public Document readDocument(String fileName) throws RTException {
+	return createDocumentReader().readDocument(fileName);
+    }
+
+    public Document readDocument(File file) throws RTException {
+	return createDocumentReader().readDocument(file);
+    }
+
+    public Document readDocument(InputStream is) throws RTException {
+	return createDocumentReader().readDocument(is);
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     protected String getReportType(Report report) {
 	return report == null ? null : report.getType();
     }
     
-    protected ReportReader createReportReader(){
+    protected ReportReader createReportReader() {
 	return new XMLReportReader();	
+    }
+
+    protected DocumentReader createDocumentReader() {
+	return new XMLDocumentReader();	
     }
     
 }

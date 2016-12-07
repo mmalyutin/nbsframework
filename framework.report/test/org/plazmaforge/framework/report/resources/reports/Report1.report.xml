@@ -114,6 +114,16 @@
 						</row>
 					</rows>
 				</band>
+
+				<band type="PageFooter" cell-line="none">
+					<rows>
+						<row height="15">
+							<cells>
+								<cell colspan="4" background="gray" horizontal-align="right"><expression>"Page: " + $V{PAGE_NO}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
 				
 			</bands>
 		</template>

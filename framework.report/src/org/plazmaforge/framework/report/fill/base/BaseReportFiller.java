@@ -69,6 +69,17 @@ import org.plazmaforge.framework.report.model.document.Document;
  */
 public class BaseReportFiller implements ReportFiller {
 
+    private boolean trace;
+    
+    
+    public boolean isTrace() {
+        return trace;
+    }
+
+    public void setTrace(boolean trace) {
+        this.trace = trace;
+    }
+
     // By ResultSet
     public Document fillReport(Report report, DSResultSet resultSet) throws RTException {
 	return fillReport(report, resultSet, null);
@@ -340,7 +351,9 @@ public class BaseReportFiller implements ReportFiller {
 	ScriptInfo scriptInfo = new ScriptInfo();
 	scriptInfo.setSourceCode(sourceCode);
 	
-	System.out.println("Script: " + sourceCode);
+	if (isTrace()) {
+	    trace("Script: " + sourceCode);
+	}
 	
 	ExpressionEvaluator expressionEvaluator = context.getExpressionEvaluator();
 	if (expressionEvaluator == null) {
@@ -416,4 +429,8 @@ public class BaseReportFiller implements ReportFiller {
 	return scriptProvider;
     }
     
+    protected void trace(String message) {
+	//TODO
+	System.out.println(message);
+    }
 }

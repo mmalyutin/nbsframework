@@ -25,6 +25,9 @@
  */
 package org.plazmaforge.framework.report.storage;
 
+import java.io.File;
+import java.io.InputStream;
+
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.document.Document;
 
@@ -35,5 +38,10 @@ import org.plazmaforge.framework.report.model.document.Document;
 public interface DocumentReader {
 
     Document readDocument(String fileName) throws RTException;
+    
+    Document readDocument(File file) throws RTException;
+
+    Document readDocument(InputStream is) throws RTException;
+    
     
 }
