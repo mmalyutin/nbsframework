@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/jasperreports/jasperreports-3.7.6-fix.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/commons-digester-1.7.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/commons-logging.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/commons-collections-3.1.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/commons-beanutils-1.7.jar"/>
+	<classpathentry kind="var" path="PLAZMA_LIB/hsqldb.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
