@@ -40,6 +40,8 @@ import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
+import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentWriter;
 import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 
@@ -50,6 +52,7 @@ import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 public class ReportManagerTest extends DataTestCase {
 
 
+    /*
     public void testFillNullReport() throws Exception {
 	System.out.println("Test fill NullReport");
 	ReportManager manager = new ReportManager();
@@ -120,21 +123,57 @@ public class ReportManagerTest extends DataTestCase {
 	Document document = manager.fillReport(report, getConnection());
 	printDocument(document);
     }
+    */
 
     public void testFillReportFromFile() throws Exception {
-	String fileName = "resources/reports/Report1.report.xml";
-   	System.out.println("Test fill Report form file: '" + fileName + "'");
-
-	XMLReportReader reader = new XMLReportReader();
-	InputStream is = ReportEngine.class.getResourceAsStream(fileName);
-	Report report = reader.readReport(is);
 	
-	assertNotNull(report);
-   	
+	String storage = "test.storage";
+	
+	String reportFile = "resources/reports/Report1.report.xml";
+	String documentFile = storage = "/Document3.document.xml";
+	
+   	//System.out.println("Test fill Report form file: '" + reportFile + "'");
+
    	ReportManager manager = new ReportManager();
+   	
+   	long start = System.currentTimeMillis();
+	InputStream is = ReportEngine.class.getResourceAsStream(reportFile);
+	Report report = manager.readReport(is);
+	logDeltaTime("Read report time     ", start);
+	assertNotNull(report);
+	
+	start = System.currentTimeMillis();
    	Document document = manager.fillReport(report, getConnection());
-   	printDocument(document);
+   	logDeltaTime("Fill report time     ", start);
+   	assertNotNull(document);
+   	
+   	//printDocument(document);
+   	start = System.currentTimeMillis();
+   	manager.exportDocumentToFile(document, "xml", documentFile, null);
+   	logDeltaTime("Export document time ", start);
+   	
+   	start = System.currentTimeMillis();
+   	document = manager.readDocument(documentFile);
+   	logDeltaTime("Read document time   ", start);
+   	assertNotNull(document);
+   	
+   	//manager.exportDocumentToFile(document, "xls", storage + "/Document3.xls", null);
+   	//XMLDocumentWriter w = new XMLDocumentWriter();
+   	//w.writeDocument(document, storage + "/Document3.document.xml");
     }
+    
+    private float timeMs(long time ) {
+	return (float) time / 1000;
+    }
+    
+    private float timeDeltaMs(long start) {
+	return timeMs(System.currentTimeMillis() - start);
+    }
+ 
+    private void logDeltaTime(String text, long start) {
+	System.out.println(text + ": " + timeDeltaMs(start)  + " s");
+    }
+
     
     private void printDocument(Document document) {
 	if (document == null) {
@@ -154,6 +193,8 @@ public class ReportManagerTest extends DataTestCase {
 	System.out.println("Start print document...");
 	System.out.println("=======================");
 
+	System.out.println(document);
+	
 	List<Page> pages = document.getPages();
 	int pageNo = 0;
 	for (Page page: pages) {
