@@ -12,9 +12,11 @@
 -->
 
 
-
+	<parameter name="PRICE_LIMIT" class="java.lang.Float">
+		<defaultValueExpression>150.0F</defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > 150.00]]>
+		<![CDATA[SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > $P{PRICE_LIMIT}]]>
 	</queryString>
 
 
