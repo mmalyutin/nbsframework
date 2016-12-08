@@ -130,7 +130,7 @@ public class ReportManagerTest extends DataTestCase {
 	String storage = "test.storage";
 	
 	String reportFile = "resources/reports/Report1.report.xml";
-	String documentFile = storage = "/Document3.document.xml";
+	String documentFile = storage + "/Document3.document.xml";
 	
    	//System.out.println("Test fill Report form file: '" + reportFile + "'");
 
