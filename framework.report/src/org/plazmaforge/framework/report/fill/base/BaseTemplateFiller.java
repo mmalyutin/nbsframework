@@ -104,8 +104,14 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	List<GroupSection> groupSections = structure.getGroups();
 	
+	// Page header/footer
 	context.setPageHeaderHeight(pageHeader == null ? 0 : calculateBandHeight(template, pageHeader, true));
 	context.setPageFooterHeight(pageFooter == null ? 0 : calculateBandHeight(template, pageFooter, true));
+	
+	// Column header/footer
+	context.setColumnHeaderHeight(columnHeader == null ? 0 : calculateBandHeight(template, columnHeader, true));
+	context.setColumnFooterHeight(columnFooter == null ? 0 : calculateBandHeight(template, columnFooter, true));
+
 	
 	// Get report data
 	DSResultSet reportData = context.getMainData();
@@ -279,6 +285,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	// Fill footer of old page
 	if (!isFirstPage) {
+	    fillColumnFooter(context, context.getTemplateStructure().getColumnFooter());
 	    fillPageFooter(context, context.getTemplateStructure().getPageFooter(), forcePageFooter);
 	}
 	
@@ -331,11 +338,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	// Reset offsetY
 	context.setOffsetY(context.getStartY());
 	
-	fillBand(context, band, force, false);
+	fillBand(context, band, force, false);  // NO PAGING BAND
     }
 
     protected void fillPageFooter(ReportContext context, Band band) {
-	fillPageFooter(context, band, false);
+	fillPageFooter(context, band, false);  // NO PAGING BAND
     }
 	
     protected void fillPageFooter(ReportContext context, Band band, boolean force) {
@@ -357,7 +364,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	preparePageFooter(context, band);
 	
 	
-	fillBand(context, band, isPrint, false);
+	fillBand(context, band, isPrint, false);  // NO PAGING BAND
     }
 
     protected abstract void preparePageFooter(ReportContext context, Band band);
@@ -371,13 +378,18 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
 
     protected void fillColumnHeader(ReportContext context, Band band) {
-	fillBand(context, band);
+	fillBand(context, band);  // NO PAGING BAND ?
     }
+
+    //protected void fillColumnFooter(ReportContext context, Band band) {
+//	fillBand(context, band);
+ //   }
 
     protected void fillColumnFooter(ReportContext context, Band band) {
-	fillBand(context, band);
+	fillBand(context, band,  true, false); // NO PAGING BAND
     }
 
+    
     protected void fillDetail(ReportContext context, Band band) {
 	
 	if (band == null) {
