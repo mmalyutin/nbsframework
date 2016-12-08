@@ -157,6 +157,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		
 		Band pageFooter = context.getTemplateStructure().getPageFooter();
 		int pageFooterHeight = context.getPageFooterHeight();
+		pageFooterHeight += context.getColumnFooterHeight(); // TODO: CHECK ? 
+		
 		//int pageFooterHeight = calculateNewBandHeight(context, pageFooter);
 
 		if (pageFooterHeight > 0) {

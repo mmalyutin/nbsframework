@@ -114,6 +114,12 @@ public class ReportContext {
     private int pageFooterHeight;
     
     
+    private int columnHeaderHeight;
+    
+    
+    private int columnFooterHeight;
+
+    
     private ReportScope reportScope;
     
     private boolean newPage;
@@ -290,6 +296,22 @@ public class ReportContext {
 
     public void setPageFooterHeight(int pageFooterHeight) {
         this.pageFooterHeight = pageFooterHeight;
+    }
+
+    public int getColumnHeaderHeight() {
+        return columnHeaderHeight;
+    }
+
+    public void setColumnHeaderHeight(int columnHeaderHeight) {
+        this.columnHeaderHeight = columnHeaderHeight;
+    }
+
+    public int getColumnFooterHeight() {
+        return columnFooterHeight;
+    }
+
+    public void setColumnFooterHeight(int columnFooterHeight) {
+        this.columnFooterHeight = columnFooterHeight;
     }
 
     public ReportScope getReportScope() {
