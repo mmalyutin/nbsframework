@@ -275,8 +275,10 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     
     protected void startNewPage(ReportContext context, boolean forcePageFooter) {
 
+	boolean isFirstPage = context.isFirstPage();  
+	
 	// Fill footer of old page
-	if (!context.isFirstPage()) {
+	if (!isFirstPage) {
 	    fillPageFooter(context, context.getTemplateStructure().getPageFooter(), forcePageFooter);
 	}
 	
@@ -308,6 +310,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	// Fill header of new page
 	fillPageHeader(context, context.getTemplateStructure().getPageHeader());
+	
+	// Fill column header of new page
+	if (!isFirstPage) {
+	    fillColumnHeader(context, context.getTemplateStructure().getColumnHeader());
+	}
     }
     
     protected abstract void prepareNewPage(ReportContext context);
