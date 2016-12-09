@@ -136,6 +136,13 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, pageHeader);
 	fillReportHeader(context, reportHeader);
 	
+	boolean reportHeaderOnPage = false;
+	
+	if (reportHeaderOnPage) {
+	    context.setColumnFoterOnPage(true);
+	    startNewPage(context);
+	}
+	
 	if (!isEmptyData) {
 	
 	    // Evaluate
@@ -178,13 +185,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    
 	    // Fill group footers
 	    fillGroupFooters(context, groupSections, true);
-	    
-	    if (true) {
-		fillColumnFooter(context, columnFooter);		
-	    }
+
+	    fillColumnFooter(context, columnFooter);		
 	    
 	}
-	
+	context.setEndData(true);
 	fillReportFooter(context, reportFooter);
 	fillPageFooter(context, pageFooter);	
 	
@@ -381,7 +386,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
 
     protected void fillColumnHeader(ReportContext context, Band band) {
+	if (context.isColumnHeaderOnPage() || context.isEndData()) {
+	    return;
+	}
 	fillBand(context, band);  // NO PAGING BAND ?
+	context.setColumnHeaderOnPage(true);
     }
 
     //protected void fillColumnFooter(ReportContext context, Band band) {

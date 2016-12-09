@@ -60,6 +60,8 @@ public class ReportContext {
     
     private boolean paging;
     
+    private boolean endData;
+    
     //Only for Table and Crosstab report
     private Grid grid;
     
@@ -127,6 +129,9 @@ public class ReportContext {
     private boolean newColumn;
     
     private boolean firstPage;
+    
+    
+    private boolean columnHeaderOnPage;
     
     private boolean columnFoterOnPage;
     
@@ -201,6 +206,14 @@ public class ReportContext {
 
     public void setPaging(boolean paging) {
         this.paging = paging;
+    }
+
+    public boolean isEndData() {
+        return endData;
+    }
+
+    public void setEndData(boolean endData) {
+        this.endData = endData;
     }
 
     public Grid getGrid() {
@@ -332,6 +345,7 @@ public class ReportContext {
 
     public void setNewPage(boolean newPage) {
         this.newPage = newPage;
+        this.columnHeaderOnPage = false;
         this.columnFoterOnPage = false;
     }
 
@@ -349,6 +363,14 @@ public class ReportContext {
 
     public void setFirstPage(boolean firstPage) {
         this.firstPage = firstPage;
+    }
+
+    public boolean isColumnHeaderOnPage() {
+        return columnHeaderOnPage;
+    }
+
+    public void setColumnHeaderOnPage(boolean columnHeaderOnPage) {
+        this.columnHeaderOnPage = columnHeaderOnPage;
     }
 
     public boolean isColumnFoterOnPage() {
