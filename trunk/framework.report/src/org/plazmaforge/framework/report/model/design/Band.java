@@ -31,8 +31,7 @@ import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Container;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.BaseRowModel;
-import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
-import org.plazmaforge.framework.report.model.base.grid.HasCellBorderRule;
+import org.plazmaforge.framework.report.model.base.grid.HasCellBorder;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.base.grid.RowModel;
 
@@ -40,7 +39,7 @@ import org.plazmaforge.framework.report.model.base.grid.RowModel;
  * @author ohapon
  *
  */
-public class Band extends Container implements HasCellBorderRule, RowModel {
+public class Band extends Container implements HasCellBorder, RowModel {
 
     private static final long serialVersionUID = -5843743940302794344L;
     
@@ -50,10 +49,6 @@ public class Band extends Container implements HasCellBorderRule, RowModel {
      */
     private String type;
     
-    /**
-     * Rule for generation cell border
-     */
-    private CellBorderRule cellBorderRule;
     
     /**
      * Cell border line. Only for cell border rule
@@ -89,14 +84,6 @@ public class Band extends Container implements HasCellBorderRule, RowModel {
     }
 
     ////
-    
-    public CellBorderRule getCellBorderRule() {
-        return cellBorderRule;
-    }
-
-    public void setCellBorderRule(CellBorderRule cellBorderRule) {
-        this.cellBorderRule = cellBorderRule;
-    }
 
     public Pen getCellLine() {
         return cellLine;
