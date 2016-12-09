@@ -125,6 +125,12 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
      */
     private boolean paging;
     
+    
+    private boolean reportHeaderOnPage;
+    
+    private boolean reportFooterOnPage;
+    
+    
     public Template() {
 	columnModel = new BaseColumnModel();
 	paging = true;
@@ -401,6 +407,21 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.paging = paging;
     }
 
+    public boolean isReportHeaderOnPage() {
+        return reportHeaderOnPage;
+    }
+
+    public void setReportHeaderOnPage(boolean reportHeaderOnPage) {
+        this.reportHeaderOnPage = reportHeaderOnPage;
+    }
+
+    public boolean isReportFooterOnPage() {
+        return reportFooterOnPage;
+    }
+
+    public void setReportFooterOnPage(boolean reportFooterOnPage) {
+        this.reportFooterOnPage = reportFooterOnPage;
+    }
 
     @Override
     public List<DSExpression> buildExpressions() {

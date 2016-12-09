@@ -93,5 +93,8 @@ public interface XMLReportInfo extends XMLInfo {
     String XML_FILTER = "filter";
 
 
+    String XML_ATTR_REPORT_HEADER_ON_PAGE = "report-header-on-page";
+    
+    String XML_ATTR_REPORT_FOOTER_ON_PAGE = "report-footer-on-page";
     
 }
