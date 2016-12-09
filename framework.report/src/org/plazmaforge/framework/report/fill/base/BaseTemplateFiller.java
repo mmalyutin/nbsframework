@@ -136,8 +136,8 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, pageHeader);
 	fillReportHeader(context, reportHeader);
 	
-	boolean reportHeaderOnPage = false;
-	boolean reportFooterOnPage = false;
+	boolean reportHeaderOnPage = template.isReportHeaderOnPage();
+	boolean reportFooterOnPage = template.isReportFooterOnPage();
 	
 	if (context.isFillBand(BandType.ReportHeader) && reportHeaderOnPage) {
 	    context.pushBand(BandType.ColumnFooter);

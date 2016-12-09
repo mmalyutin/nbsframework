@@ -100,7 +100,7 @@ public class XMLWorker {
     
     ////GET-VALUE
     
-    
+    // Integer
     protected int intValue(Element element, String name) {
 	return getIntegerValue(element, name, 0);
     }
@@ -124,7 +124,29 @@ public class XMLWorker {
 	}
 	return (Integer) getTValue("Integer", value);
     }
+
+    // Boolean
+    protected Boolean getBooleanValue(Element element, String name) {
+	return getBooleanValue(element, name, null);
+    }
     
+    protected Boolean getBooleanValue(Element element, String name, Boolean def) {
+	String value = getStringValue(element, name);
+	return getBooleanValue(value, def);
+    }
+    
+    protected Boolean getBooleanValue(String value) {
+	return getBooleanValue(value, null);
+    }
+    
+    protected Boolean getBooleanValue(String value, Boolean def) {
+	if (value == null) {
+	    return def;
+	}
+	return (Boolean) getTValue("Boolean", value);
+    }
+    
+    // String
     protected String getStringValue(Element element, String name) {
 	if(element == null || name == null) {
 	    return null;

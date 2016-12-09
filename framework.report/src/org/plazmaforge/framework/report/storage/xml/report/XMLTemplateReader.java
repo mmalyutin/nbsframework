@@ -65,6 +65,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	readIdentifier(element, template);
 	
 	String value = null;
+	Boolean booleanValue = null;
 	
 	// type
 	value = getStringValue(element, XML_ATTR_TYPE);
@@ -94,6 +95,18 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
 	if (rowLine != null) {
 	    template.setRowLine(rowLine);
+	}
+	
+	// report-header-on-page
+	booleanValue = getBooleanValue(element, XML_ATTR_REPORT_HEADER_ON_PAGE);
+	if (booleanValue != null) {
+	    template.setReportHeaderOnPage(booleanValue);
+	}
+	
+	// report-footer-on-page
+	booleanValue = getBooleanValue(element, XML_ATTR_REPORT_FOOTER_ON_PAGE);
+	if (booleanValue != null) {
+	    template.setReportFooterOnPage(booleanValue);
 	}
 	
     }
