@@ -150,21 +150,33 @@ public class ReportContext {
     /**
      * Push flag of bands. True if band was pushed.
      */
-    private Map<BandType, Boolean> pushMap; 
+    private Map<BandType, Boolean> pushBandMap; 
     
     /**
      * Fill flag of bands. True if band was filled.
      */
-    private Map<BandType, Boolean> fillMap;
+    private Map<BandType, Boolean> fillBandMap;
     
+
+    /**
+     * Push flag of bands. True if band was pushed.
+     */
+    private Map<BandType, Boolean> pushBandInTemplateMap; 
+
+    /**
+     * True if ColumnHeader on first page only
+     */
+    private boolean columnHeaderOnFirstPage;
     
     
     public ReportContext() {
 	// Set first page by default
 	firstPage = true;
 	forcePage = false;
-	pushMap = new HashMap<BandType, Boolean>();
-	fillMap = new HashMap<BandType, Boolean>();
+	pushBandMap = new HashMap<BandType, Boolean>();
+	fillBandMap = new HashMap<BandType, Boolean>();
+	
+	pushBandInTemplateMap = new HashMap<BandType, Boolean>();
     }
 
     public Report getReport() {
@@ -370,7 +382,7 @@ public class ReportContext {
         this.newPage = newPage;
         this.forcePage = false;
         this.forcePageBand = null;
-        this.pushMap.clear(); // TODO: Maybe only for page bands (PageHeader/Footer, ColumnHeader/Footer)
+        this.pushBandMap.clear(); // TODO: Maybe only for page bands (PageHeader/Footer, ColumnHeader/Footer)
         
     }
 
@@ -427,6 +439,8 @@ public class ReportContext {
 	this.firstPage = true; // Set first page by default
 	this.forcePage = false;
 	
+	columnHeaderOnFirstPage = false;
+	
 	resetPage();
 	resetBands();
     }
@@ -437,8 +451,10 @@ public class ReportContext {
     }
     
     private void resetBands() {
-	pushMap.clear();
-	fillMap.clear();
+	pushBandMap.clear();
+	fillBandMap.clear();
+	
+	pushBandInTemplateMap.clear();
     }
     
     public Object getScopeValue(String context, String name, int evaluation) {
@@ -464,8 +480,17 @@ public class ReportContext {
         this.aggregationCalculator = aggregationCalculator;
     }
 
+    public boolean isColumnHeaderOnFirstPage() {
+        return columnHeaderOnFirstPage;
+    }
+
+    public void setColumnHeaderOnFirstPage(boolean columnHeaderOnFirstPage) {
+        this.columnHeaderOnFirstPage = columnHeaderOnFirstPage;
+    }
+
     public void pushBand(BandType type, boolean flag) {
-	pushMap.put(type, flag);
+	pushBandMap.put(type, flag);
+	pushBandInTemplateMap.put(type, flag);
     }
     
     public void pushBand(BandType type) {
@@ -473,12 +498,17 @@ public class ReportContext {
     }
     
     public boolean isPushBand(BandType type) {
-	Boolean flag = pushMap.get(type);
+	Boolean flag = pushBandMap.get(type);
 	return flag == null ? false: flag;
     }
 
+    public boolean isPushBandInTemplate(BandType type) {
+	Boolean flag = pushBandInTemplateMap.get(type);
+	return flag == null ? false: flag;
+    }
+    
     public void fillBand(BandType type, boolean flag) {
-	fillMap.put(type, flag);
+	fillBandMap.put(type, flag);
     }
     
     public void fillBand(BandType type) {
@@ -486,7 +516,7 @@ public class ReportContext {
     }
     
     public boolean isFillBand(BandType type) {
-	Boolean flag = fillMap.get(type);
+	Boolean flag = fillBandMap.get(type);
 	return flag == null ? false: flag;
     }
     
