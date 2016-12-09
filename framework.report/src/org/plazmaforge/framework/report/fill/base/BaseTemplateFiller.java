@@ -144,6 +144,9 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    context.setForcePage(true);
 	}
 	
+	//TODO
+	//context.setColumnHeaderOnFirstPage(true);
+	
 	if (!isEmptyData) {
 	
 	    // Evaluate
@@ -408,7 +411,9 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
 
     protected void fillColumnHeader(ReportContext context, Band band) {
-	if (context.isPushBand(BandType.ColumnHeader) || context.isEndData()) {
+	if (context.isPushBand(BandType.ColumnHeader) 
+		|| context.isEndData() 
+		|| (context.isColumnHeaderOnFirstPage() && context.isPushBandInTemplate(BandType.ColumnHeader))) {
 	    return;
 	}
 	context.pushBand(BandType.ColumnHeader);
