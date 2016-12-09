@@ -134,10 +134,13 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     }    
     
     @Override
-    protected void fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging) {
+    protected boolean fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging) {
 
 	List<Row> rows = fillContainer.getRows();
-	if (rows != null) {
+	if (rows == null || rows.isEmpty()) {
+	    return false;
+	}
+	
 
 	    //TODO: OFFSET-Y
 	    //int height = calculateNewBandHeight(context, fillContainer);
@@ -194,7 +197,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    for (Row row : rows) {
 		grid.addRow(row);
 	    }
-	}
+
+	    return true;
 
     }    
     
