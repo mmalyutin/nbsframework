@@ -136,11 +136,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, pageHeader);
 	fillReportHeader(context, reportHeader);
 	
-	boolean reportHeaderOnOwnPage = true;
+	boolean reportHeaderOnOwnPage = false;
 	boolean reportFooterOnOwnPage = true;
 	
 	if (context.isFillBand(BandType.ReportHeader) && reportHeaderOnOwnPage) {
-	    context.pushColumnFoterOnPage();
+	    context.pushBand(BandType.ColumnFooter);
 	    context.setForcePage(true);
 	}
 	
@@ -403,19 +403,19 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
 
     protected void fillColumnHeader(ReportContext context, Band band) {
-	if (context.isPushColumnHeaderOnPage() || context.isEndData()) {
+	if (context.isPushBand(BandType.ColumnHeader) || context.isEndData()) {
 	    return;
 	}
-	context.pushColumnHeaderOnPage();
+	context.pushBand(BandType.ColumnHeader);
 	fillBand(context, band);  // NO PAGING BAND ?
     }
 
     protected void fillColumnFooter(ReportContext context, Band band) {
-	if (context.isPushColumnFooterOnPage()) {
+	if (context.isPushBand(BandType.ColumnFooter)) {
 	    return;
 	}
 	fillBand(context, band, true, false); // NO PAGING BAND
-	context.pushColumnFoterOnPage();
+	context.pushBand(BandType.ColumnFooter);
     }
     
     protected void fillDetail(ReportContext context, Band band) {

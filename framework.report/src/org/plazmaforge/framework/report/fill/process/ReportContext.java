@@ -142,20 +142,28 @@ public class ReportContext {
      */
     private BandType forcePageBand;
     
-    private boolean pushColumnHeaderOnPage;
-    
-    private boolean pushColumnFoterOnPage;
     
     private ExpressionEvaluator expressionEvaluator;
     
     private AggregationCalculator aggregationCalculator;
+
+    /**
+     * Push flag of bands. True if band was pushed.
+     */
+    private Map<BandType, Boolean> pushMap; 
     
-    private Map<BandType, Boolean> fillMap; 
+    /**
+     * Fill flag of bands. True if band was filled.
+     */
+    private Map<BandType, Boolean> fillMap;
+    
+    
     
     public ReportContext() {
 	// Set first page by default
 	firstPage = true;
 	forcePage = false;
+	pushMap = new HashMap<BandType, Boolean>();
 	fillMap = new HashMap<BandType, Boolean>();
     }
 
@@ -362,8 +370,8 @@ public class ReportContext {
         this.newPage = newPage;
         this.forcePage = false;
         this.forcePageBand = null;
-        this.pushColumnHeaderOnPage = false;
-        this.pushColumnFoterOnPage = false;
+        this.pushMap.clear(); // TODO: Maybe only for page bands (PageHeader/Footer, ColumnHeader/Footer)
+        
     }
 
     public boolean isNewColumn() {
@@ -398,22 +406,6 @@ public class ReportContext {
         this.forcePageBand = forcePageBand;
     }
 
-    public boolean isPushColumnHeaderOnPage() {
-        return pushColumnHeaderOnPage;
-    }
-
-    public void pushColumnHeaderOnPage() {
-        this.pushColumnHeaderOnPage = true;
-    }
-
-    public boolean isPushColumnFooterOnPage() {
-        return pushColumnFoterOnPage;
-    }
-
-    public void pushColumnFoterOnPage() {
-        this.pushColumnFoterOnPage = true;
-    }
-
     public void resetTemplate() {
 	this.template = null;
 	this.templateStructure = null;
@@ -445,10 +437,8 @@ public class ReportContext {
     }
     
     private void resetBands() {
+	pushMap.clear();
 	fillMap.clear();
-	
-        this.pushColumnHeaderOnPage = false;
-        this.pushColumnFoterOnPage = false;
     }
     
     public Object getScopeValue(String context, String name, int evaluation) {
@@ -472,6 +462,19 @@ public class ReportContext {
 
     public void setAggregationCalculator(AggregationCalculator aggregationCalculator) {
         this.aggregationCalculator = aggregationCalculator;
+    }
+
+    public void pushBand(BandType type, boolean flag) {
+	pushMap.put(type, flag);
+    }
+    
+    public void pushBand(BandType type) {
+	pushBand(type, true);
+    }
+    
+    public boolean isPushBand(BandType type) {
+	Boolean flag = pushMap.get(type);
+	return flag == null ? false: flag;
     }
 
     public void fillBand(BandType type, boolean flag) {
