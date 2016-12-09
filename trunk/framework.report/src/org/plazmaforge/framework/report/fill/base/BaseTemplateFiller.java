@@ -179,7 +179,10 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    // Fill group footers
 	    fillGroupFooters(context, groupSections, true);
 	    
-	    fillColumnFooter(context, columnFooter);
+	    if (true) {
+		fillColumnFooter(context, columnFooter);		
+	    }
+	    
 	}
 	
 	fillReportFooter(context, reportFooter);
@@ -386,7 +389,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
  //   }
 
     protected void fillColumnFooter(ReportContext context, Band band) {
+	if (context.isColumnFoterOnPage()) {
+	    return;
+	}
 	fillBand(context, band,  true, false); // NO PAGING BAND
+	context.setColumnFoterOnPage(true);
     }
 
     
