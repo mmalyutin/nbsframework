@@ -128,6 +128,7 @@ public class ReportContext {
     
     private boolean firstPage;
     
+    private boolean columnFoterOnPage;
     
     private ExpressionEvaluator expressionEvaluator;
     
@@ -331,6 +332,7 @@ public class ReportContext {
 
     public void setNewPage(boolean newPage) {
         this.newPage = newPage;
+        this.columnFoterOnPage = false;
     }
 
     public boolean isNewColumn() {
@@ -347,6 +349,14 @@ public class ReportContext {
 
     public void setFirstPage(boolean firstPage) {
         this.firstPage = firstPage;
+    }
+
+    public boolean isColumnFoterOnPage() {
+        return columnFoterOnPage;
+    }
+
+    public void setColumnFoterOnPage(boolean columnFoterOnPage) {
+        this.columnFoterOnPage = columnFoterOnPage;
     }
 
     public void resetTemplate() {
