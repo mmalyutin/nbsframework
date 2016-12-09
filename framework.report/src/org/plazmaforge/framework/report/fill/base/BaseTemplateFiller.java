@@ -136,10 +136,10 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, pageHeader);
 	fillReportHeader(context, reportHeader);
 	
-	boolean reportHeaderOnOwnPage = false;
-	boolean reportFooterOnOwnPage = true;
+	boolean reportHeaderOnPage = false;
+	boolean reportFooterOnPage = false;
 	
-	if (context.isFillBand(BandType.ReportHeader) && reportHeaderOnOwnPage) {
+	if (context.isFillBand(BandType.ReportHeader) && reportHeaderOnPage) {
 	    context.pushBand(BandType.ColumnFooter);
 	    context.setForcePage(true);
 	}
@@ -191,6 +191,11 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    
 	}
 	context.setEndData(true);
+	
+	if (reportFooterOnPage) {
+	    context.setForcePage(true);
+	}
+
 	fillReportFooter(context, reportFooter);
 	fillPageFooter(context, pageFooter);	
 	
