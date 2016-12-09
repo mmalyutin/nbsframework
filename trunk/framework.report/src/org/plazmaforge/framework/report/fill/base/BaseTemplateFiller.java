@@ -136,11 +136,12 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, pageHeader);
 	fillReportHeader(context, reportHeader);
 	
-	boolean reportHeaderOnPage = false;
+	boolean reportHeaderOnOwnPage = true;
+	boolean reportFooterOnOwnPage = true;
 	
-	if (reportHeaderOnPage) {
-	    context.setColumnFoterOnPage(true);
-	    startNewPage(context);
+	if (context.isFillBand(BandType.ReportHeader) && reportHeaderOnOwnPage) {
+	    context.pushColumnFoterOnPage();
+	    context.setForcePage(true);
 	}
 	
 	if (!isEmptyData) {
@@ -290,6 +291,20 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     protected void startNewPage(ReportContext context, boolean forcePageFooter) {
 
 	boolean isFirstPage = context.isFirstPage();  
+	boolean isForcePage = context.isForcePage();
+	BandType forcePageBand = context.getForcePageBand();
+	boolean isForcePageByColumnHeader = false;
+	
+	
+	// Special mode when need start new page
+	if (isForcePage) {
+	    context.setForcePage(false);
+	    context.setForcePageBand(null);
+	    
+	    // In column header was initiate force page 
+	    // In this case we don't fill ColumnHeader because ColumnHeader was filled before
+	    isForcePageByColumnHeader = forcePageBand == BandType.ColumnHeader;
+	}
 	
 	// Fill footer of old page
 	if (!isFirstPage) {
@@ -327,7 +342,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, context.getTemplateStructure().getPageHeader());
 	
 	// Fill column header of new page
-	if (!isFirstPage) {
+	if (!isFirstPage && !isForcePageByColumnHeader) {
 	    fillColumnHeader(context, context.getTemplateStructure().getColumnHeader());
 	}
     }
@@ -378,33 +393,30 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     protected abstract void preparePageFooter(ReportContext context, Band band);
     
     protected void fillReportHeader(ReportContext context, Band band) {
-	fillBand(context, band);
+	boolean fill = fillBand(context, band);
+	fill(context, BandType.ReportHeader, fill);
     }
 
     protected void fillReportFooter(ReportContext context, Band band) {
-	fillBand(context, band);
+	boolean fill = fillBand(context, band);
+	fill(context, BandType.ReportFooter, fill);
     }
 
     protected void fillColumnHeader(ReportContext context, Band band) {
-	if (context.isColumnHeaderOnPage() || context.isEndData()) {
+	if (context.isPushColumnHeaderOnPage() || context.isEndData()) {
 	    return;
 	}
+	context.pushColumnHeaderOnPage();
 	fillBand(context, band);  // NO PAGING BAND ?
-	context.setColumnHeaderOnPage(true);
     }
-
-    //protected void fillColumnFooter(ReportContext context, Band band) {
-//	fillBand(context, band);
- //   }
 
     protected void fillColumnFooter(ReportContext context, Band band) {
-	if (context.isColumnFoterOnPage()) {
+	if (context.isPushColumnFooterOnPage()) {
 	    return;
 	}
-	fillBand(context, band,  true, false); // NO PAGING BAND
-	context.setColumnFoterOnPage(true);
+	fillBand(context, band, true, false); // NO PAGING BAND
+	context.pushColumnFoterOnPage();
     }
-
     
     protected void fillDetail(ReportContext context, Band band) {
 	
@@ -424,10 +436,9 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillBand(context, band, isPrint, context.isPaging());
     }
     
-    protected void fillBand(ReportContext context, Band band) {
-	fillBand(context, band, false, context.isPaging());
+    protected boolean fillBand(ReportContext context, Band band) {
+	return fillBand(context, band, false, context.isPaging());
     }
-    
     
     protected void fillGroupFooter(ReportContext context, int evaluation, Band band, boolean force, boolean paging) {
 	
@@ -447,13 +458,13 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillBand(context, evaluation, band, isPrint, context.isPaging());
     }
     
-    protected void fillBand(ReportContext context, Band band, boolean force, boolean paging) {
-	fillBand(context, DSExpression.EVALUATION_DEFAULT, band, force, paging);
+    protected boolean fillBand(ReportContext context, Band band, boolean force, boolean paging) {
+	return fillBand(context, DSExpression.EVALUATION_DEFAULT, band, force, paging);
     }
 	
-    protected void fillBand(ReportContext context, int evaluation, Band band, boolean force, boolean paging) {
+    protected boolean fillBand(ReportContext context, int evaluation, Band band, boolean force, boolean paging) {
 	if (band == null) {
-	    return;
+	    return false;
 	}
 	
 	context.setBand(band);
@@ -461,20 +472,25 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	boolean isPrint = force ? true : evaluatePrintExpression(context, evaluation, band);
 	
 	if (!isPrint) {
-	    return;
+	    return false;
 	}
 		
 	Band fillContainer = createFillContainer(context, evaluation, band);
 	if (fillContainer == null) {
-	    return;
+	    return false;
 	}
 	
-	fillContainer(context, evaluation, fillContainer, paging);
+	if (context.isForcePage()) {
+	    context.setForcePageBand(BandType.find(band.getType()));
+	    startNewPage(context);
+	}
+	
+	return fillContainer(context, evaluation, fillContainer, paging);
     }
     
     protected abstract Band createFillContainer(ReportContext context, int evaluation, Band band);
     
-    protected abstract void fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging);
+    protected abstract boolean fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging);
     
     
 
@@ -819,7 +835,13 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	//return band.getHeight();
     }
   
+    protected void fill(ReportContext context, BandType type, boolean fill) {
+	context.fillBand(type, fill);
+    }
     
+    protected boolean isFill(ReportContext context, BandType type) {
+	return context.isFillBand(type);
+    }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

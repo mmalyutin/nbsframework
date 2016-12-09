@@ -51,8 +51,9 @@ public class SimpleTemplateFiller extends BaseTemplateFiller {
     }
     
     @Override
-    protected void fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging) {
+    protected boolean fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging) {
 	// TODO
+	return false;
     }
     
 

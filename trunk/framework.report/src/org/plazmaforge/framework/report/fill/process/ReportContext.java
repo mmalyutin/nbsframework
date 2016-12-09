@@ -25,6 +25,7 @@
  */
 package org.plazmaforge.framework.report.fill.process;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
@@ -32,6 +33,7 @@ import org.plazmaforge.framework.core.datastorage.data.AggregationCalculator;
 import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.design.Band;
+import org.plazmaforge.framework.report.model.design.BandType;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.model.design.TemplateStructure;
@@ -130,18 +132,31 @@ public class ReportContext {
     
     private boolean firstPage;
     
+    /**
+     * True if need force new page
+     */
+    private boolean forcePage;
     
-    private boolean columnHeaderOnPage;
+    /**
+     * Band where new page was forced 
+     */
+    private BandType forcePageBand;
     
-    private boolean columnFoterOnPage;
+    private boolean pushColumnHeaderOnPage;
+    
+    private boolean pushColumnFoterOnPage;
     
     private ExpressionEvaluator expressionEvaluator;
     
     private AggregationCalculator aggregationCalculator;
     
+    private Map<BandType, Boolean> fillMap; 
+    
     public ReportContext() {
 	// Set first page by default
 	firstPage = true;
+	forcePage = false;
+	fillMap = new HashMap<BandType, Boolean>();
     }
 
     public Report getReport() {
@@ -345,8 +360,10 @@ public class ReportContext {
 
     public void setNewPage(boolean newPage) {
         this.newPage = newPage;
-        this.columnHeaderOnPage = false;
-        this.columnFoterOnPage = false;
+        this.forcePage = false;
+        this.forcePageBand = null;
+        this.pushColumnHeaderOnPage = false;
+        this.pushColumnFoterOnPage = false;
     }
 
     public boolean isNewColumn() {
@@ -365,20 +382,36 @@ public class ReportContext {
         this.firstPage = firstPage;
     }
 
-    public boolean isColumnHeaderOnPage() {
-        return columnHeaderOnPage;
+    public boolean isForcePage() {
+        return forcePage;
     }
 
-    public void setColumnHeaderOnPage(boolean columnHeaderOnPage) {
-        this.columnHeaderOnPage = columnHeaderOnPage;
+    public void setForcePage(boolean forcePage) {
+        this.forcePage = forcePage;
     }
 
-    public boolean isColumnFoterOnPage() {
-        return columnFoterOnPage;
+    public BandType getForcePageBand() {
+        return forcePageBand;
     }
 
-    public void setColumnFoterOnPage(boolean columnFoterOnPage) {
-        this.columnFoterOnPage = columnFoterOnPage;
+    public void setForcePageBand(BandType forcePageBand) {
+        this.forcePageBand = forcePageBand;
+    }
+
+    public boolean isPushColumnHeaderOnPage() {
+        return pushColumnHeaderOnPage;
+    }
+
+    public void pushColumnHeaderOnPage() {
+        this.pushColumnHeaderOnPage = true;
+    }
+
+    public boolean isPushColumnFooterOnPage() {
+        return pushColumnFoterOnPage;
+    }
+
+    public void pushColumnFoterOnPage() {
+        this.pushColumnFoterOnPage = true;
     }
 
     public void resetTemplate() {
@@ -400,12 +433,22 @@ public class ReportContext {
 	this.newPage = false;
 	this.newColumn = false;
 	this.firstPage = true; // Set first page by default
+	this.forcePage = false;
+	
 	resetPage();
+	resetBands();
     }
 
     private void resetPage() {
 	this.offsetX = 0;
 	this.offsetY = 0;
+    }
+    
+    private void resetBands() {
+	fillMap.clear();
+	
+        this.pushColumnHeaderOnPage = false;
+        this.pushColumnFoterOnPage = false;
     }
     
     public Object getScopeValue(String context, String name, int evaluation) {
@@ -431,5 +474,17 @@ public class ReportContext {
         this.aggregationCalculator = aggregationCalculator;
     }
 
+    public void fillBand(BandType type, boolean flag) {
+	fillMap.put(type, flag);
+    }
+    
+    public void fillBand(BandType type) {
+	fillBand(type, true);
+    }
+    
+    public boolean isFillBand(BandType type) {
+	Boolean flag = fillMap.get(type);
+	return flag == null ? false: flag;
+    }
     
 }
