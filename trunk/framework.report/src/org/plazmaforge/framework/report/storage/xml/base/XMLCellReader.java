@@ -25,6 +25,8 @@ package org.plazmaforge.framework.report.storage.xml.base;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.Padding;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -130,7 +132,14 @@ public class XMLCellReader extends XMLAbstractReader {
 	if (font != null) {
 	    cell.setFont(font);
 	}   		
-   		   	
+   		
+	
+   	// padding
+   	Padding padding = getPaddingByAttributes(element);
+   	if (padding != null) {
+   	    cell.setPadding(padding);
+   	}
+
    	return cell;
 
     }

@@ -40,6 +40,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.Padding;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -243,6 +244,56 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	return margin.isEmpty() ? null : margin;
     }
 	
+    
+    protected Padding getPaddingByAttributes(Element element) {
+   	if(element == null) {
+   	    return null;
+   	}
+   	Padding padding = new Padding();
+   	Integer iValue = null;
+
+   	// margin
+   	iValue = getIntegerValue(element, XML_ATTR_PADDING);
+   	if (iValue != null) {
+   	    padding.setValue(iValue);
+   	}
+   	
+   	 // left
+   	iValue = getIntegerValue(element, XML_ATTR_PADDING_LEFT);
+   	if (iValue != null) {
+   	    padding.setLeft(iValue);
+   	}
+   	
+   	// top
+   	iValue = getIntegerValue(element, XML_ATTR_PADDING_TOP);
+   	if (iValue != null) {
+   	    padding.setTop(iValue);
+   	}
+   	
+   	// right
+   	iValue = getIntegerValue(element, XML_ATTR_PADDING_RIGHT);
+   	if (iValue != null) {
+   	    padding.setRight(iValue);
+   	}
+   	
+   	// bottom
+   	iValue = getIntegerValue(element, XML_ATTR_PADDING_BOTTOM);
+   	if (iValue != null) {
+   	    padding.setBottom(iValue);
+   	}
+   	    
+   	return padding.isEmpty() ? null : padding;
+       }    
+
+    protected Padding getPaddingByNode(Element element) {
+	if(element == null) {
+	    return null;
+	}
+	Padding padding = new Padding();
+	readInsets(element, padding);
+	return padding.isEmpty() ? null : padding;
+    }
+    
     protected Pen getBorderPenByAttributes(Element element, String borderAttribute) {
 	
    	if (element == null) {
@@ -422,6 +473,25 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	return margin.isEmpty() ? null : margin;
     }
 
+    protected Padding getPadding(Element element) {
+	if(element == null) {
+	    return null;
+	}
+	// Get padding by attributes
+	Padding padding = getPaddingByAttributes(element);
+	
+	// Get padding by node
+	Padding paddingByNode = getPaddingByNode(element.getChild(XML_PADDING));
+	if (paddingByNode == null) {
+	    return padding;
+	}
+	if (padding == null){
+	    return paddingByNode;
+	}
+	padding.merge(paddingByNode);
+	return padding.isEmpty() ? null : padding;
+    }
+    
     ////
     
     
