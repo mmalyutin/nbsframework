@@ -24,6 +24,7 @@ package org.plazmaforge.framework.reportviewer;
 
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.ReportExporter;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.widget.Canvas;
@@ -36,8 +37,9 @@ public class DocumentCanvas extends Canvas {
     private ReportExporter reportExporter;
 
     private int marginLeft = 20;
-    private int marginTop = 50;
+    private int marginTop = 20;
 
+    private boolean loading;
     
     public DocumentCanvas() {
 	super();
@@ -49,6 +51,7 @@ public class DocumentCanvas extends Canvas {
 
     public void setPage(Page page) {
         this.page = page;
+        this.loading = false;
     }
 
     public ReportExporter getReportExporter() {
@@ -63,10 +66,24 @@ public class DocumentCanvas extends Canvas {
 	paintCanvas(gc);
     }
     
+    public void startLoading() {
+        this.loading = true;
+        repaint();
+    }
+
+    public void stopLoading() {
+        this.loading = false;
+        repaint();
+    }
+    
     protected void paintCanvas(GC gc) {
 	
   	//if (fileName != null) {
   	//    gc.drawText("View Report: " + fileName, 10, 10);
+  	//}
+  	//if (loading) {
+  	//  gc.drawText("Loading...", 100, 100);
+  	//  return;
   	//}
   	
   	if (reportExporter == null || page == null) {
@@ -81,10 +98,19 @@ public class DocumentCanvas extends Canvas {
   	gc.drawRectangle(pageX - 1, pageY - 1, pageWidth + 1, pageHeight + 1);
   	gc.fillRectangle(pageX, pageY, pageWidth, pageHeight);
   	
+  	int pageLeftMargin = 0;
+  	int pageTopMargin = 0;
+  	
+  	PageSetup pageSetup = page.getPageSetup(); 
+  	if (pageSetup != null) {
+  	    pageLeftMargin = pageSetup.getMargin().getLeft();
+  	    pageTopMargin = pageSetup.getMargin().getTop();
+  	}
+  	
   	try {
   	    reportExporter.setData("gc", gc);
-  	    reportExporter.setData("offsetX", pageX);
-  	    reportExporter.setData("offsetY", pageY);
+  	    reportExporter.setData("offsetX", pageX + pageLeftMargin); // TODO
+  	    reportExporter.setData("offsetY", pageY + pageTopMargin); // TODO
   	    reportExporter.exportPage(page);
   	    reportExporter.setData("gc", null);
   	} catch (RTException ex) {

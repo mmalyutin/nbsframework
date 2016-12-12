@@ -79,7 +79,7 @@ public class ViewerApp extends AbstractDesktopApplication {
     private DocumentCanvas canvas;
 
     private int marginLeft = 20;
-    private int marginTop = 50;
+    private int marginTop = 20;
 
     
     
@@ -254,6 +254,14 @@ public class ViewerApp extends AbstractDesktopApplication {
 	if (fileName == null) {
 	    return;
 	}
+	//asyncExec(new Runnable() {
+	    
+	  //  @Override
+	  //  public void run() {
+	//	openDocument(fileName);
+		
+	 //   }
+	//});
 	openDocument(fileName);	
     }
     
@@ -263,6 +271,8 @@ public class ViewerApp extends AbstractDesktopApplication {
 	pageIndex = -1;
 	pageCount = 0;
 	
+	setPage(page);
+	
 	try {
 	    
 	    
@@ -270,6 +280,9 @@ public class ViewerApp extends AbstractDesktopApplication {
 	    //Map<String, Object> parameters = new HashMap<String, Object>();
 	    //parameters.put("PARAM1", "Today");
 	    //document = ReportSamples.createTableReportDocument(parameters);
+	    
+	    canvas.startLoading();
+	    canvas.repaint();
 	    
 	    XMLDocumentReader reader = new XMLDocumentReader();
 	    document = reader.readDocument(fileName);
@@ -280,6 +293,8 @@ public class ViewerApp extends AbstractDesktopApplication {
 		setPage(pageIndex);
 	    }
 	} catch (RTException ex) {
+	    canvas.stopLoading();
+	    canvas.repaint();
 	    logger.error("Open document error", ex);
 	}
 	
@@ -337,10 +352,14 @@ public class ViewerApp extends AbstractDesktopApplication {
     
     protected void setPage(int pageIndex) {
 	page = document.getPages().get(pageIndex);
-	
-	scrollPanel.setContentWidth(marginLeft * 2 + getPageWidth(page));
-	scrollPanel.setContentHeight(marginTop * 2 + getPageHeight(page));
-	
+	setPage(page);
+    }
+    
+    protected void setPage(Page page) {
+	if (page != null) {
+	    scrollPanel.setContentWidth(marginLeft * 2 + getPageWidth(page));
+	    scrollPanel.setContentHeight(marginTop * 2 + getPageHeight(page));
+	}
 	canvas.setPage(page);
 	canvas.repaint();
 	updateState();
