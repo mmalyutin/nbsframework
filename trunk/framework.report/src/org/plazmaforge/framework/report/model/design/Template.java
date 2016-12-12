@@ -299,9 +299,6 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     }
 
     public Pen getCellLine() {
-//	if (cellLine == null) {
-//	    cellLine = new Pen();
-//	}
         return cellLine;
     }
 
@@ -309,18 +306,11 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.cellLine = cellLine;
     }
 
-//    public boolean hasCellLine() {
-//	return cellLine != null;
-//    }
-
     public boolean isEmptyCellLine() {
 	return cellLine == null || cellLine.isEmpty();
     }
     
     public Pen getColumnLine() {
-//	if (columnLine == null) {
-//	    columnLine = new Pen();
-//	}
         return columnLine;
     }
 
@@ -337,19 +327,12 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     }
     
     public Pen getRowLine() {
-//	if (rowLine == null) {
-//	    rowLine = new Pen();
-//	}
         return rowLine;
     }
 
     public void setRowLine(Pen rowLine) {
         this.rowLine = rowLine;
     }
-
-//    public boolean hasRowLine() {
-//	return rowLine != null;
-//    }
 
     public boolean isEmptyRowLine() {
 	return rowLine == null || rowLine.isEmpty();
