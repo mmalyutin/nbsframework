@@ -98,19 +98,10 @@ public class DocumentCanvas extends Canvas {
   	gc.drawRectangle(pageX - 1, pageY - 1, pageWidth + 1, pageHeight + 1);
   	gc.fillRectangle(pageX, pageY, pageWidth, pageHeight);
   	
-  	int pageLeftMargin = 0;
-  	int pageTopMargin = 0;
-  	
-  	PageSetup pageSetup = page.getPageSetup(); 
-  	if (pageSetup != null) {
-  	    pageLeftMargin = pageSetup.getMargin().getLeft();
-  	    pageTopMargin = pageSetup.getMargin().getTop();
-  	}
-  	
   	try {
   	    reportExporter.setData("gc", gc);
-  	    reportExporter.setData("offsetX", pageX + pageLeftMargin); // TODO
-  	    reportExporter.setData("offsetY", pageY + pageTopMargin); // TODO
+  	    reportExporter.setData("offsetX", pageX);
+  	    reportExporter.setData("offsetY", pageY);
   	    reportExporter.exportPage(page);
   	    reportExporter.setData("gc", null);
   	} catch (RTException ex) {

@@ -32,6 +32,7 @@ import org.plazmaforge.framework.report.export.AbstractBaseExporter;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -126,8 +127,22 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	}
 
 	// shift offsets by margin
-	offsetX = offsetX + page.getMargin().getLeft();
-	offsetY = offsetY + page.getMargin().getTop();
+//	offsetX = offsetX + page.getMargin().getLeft();
+//	offsetY = offsetY + page.getMargin().getTop();
+	
+  	int marginLeft = 0;
+  	int marginTop = 0;
+  	
+  	PageSetup pageSetup = page.getPageSetup(); 
+  	if (pageSetup != null) {
+  	    marginLeft = pageSetup.getMargin().getLeft();
+  	    marginTop = pageSetup.getMargin().getTop();
+  	}
+  	
+  	// shift offsets by margin
+	offsetX = offsetX + marginLeft;
+	offsetY = offsetY + marginTop;
+  	
 	
 	List<Element> children = page.getChildren();
 
