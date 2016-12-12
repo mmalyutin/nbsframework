@@ -194,13 +194,13 @@ public class Row implements HasExpressionBuilder, HasCellBorder {
 	buf.append("Row[height=" + height);
 	
 	if (cellLine != null) {
-	    buf.append("cellLine=" + cellLine + ", ");
+	    buf.append(", cellLine=" + cellLine);
 	}
 	if (columnLine != null) {
-	    buf.append("columnLine=" + columnLine + ", ");
+	    buf.append(", columnLine=" + columnLine);
 	}
 	if (rowLine != null) {
-	    buf.append("rowLine=" + rowLine + ", ");
+	    buf.append(", rowLine=" + rowLine);
 	}
 	
 	List<Cell> cells = getCells();
