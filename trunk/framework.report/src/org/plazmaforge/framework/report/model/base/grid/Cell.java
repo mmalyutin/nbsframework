@@ -42,6 +42,7 @@ public class Cell extends Container implements HasExpression {
 
     private static final long serialVersionUID = 3370115024800401060L;
     
+    public static final int DEFAULT_PADDING = 2;
 
     private int colspan;
     
@@ -63,7 +64,7 @@ public class Cell extends Container implements HasExpression {
     public Cell() {
 	this.colspan = 1;
 	this.rowspan = 1;
-	setPadding(new Padding(2, 0, 0, 2));
+	setPadding(new Padding(DEFAULT_PADDING));
     }
 
     public int getColspan() {
@@ -185,6 +186,14 @@ public class Cell extends Container implements HasExpression {
 	    b.append("border=" + getBorder());
 	    flag = true;
 	}
+	if (hasPadding()) {
+	    if (flag) {
+		b.append(", ");
+	    }
+	    b.append("padding=" + getPadding());
+	    flag = true;
+	}
+	
 	if (hasBackground()) {
 	    if (flag) {
 		b.append(", ");
@@ -306,5 +315,23 @@ public class Cell extends Container implements HasExpression {
 	return true;
     }
 
-    
+    public static boolean isDefaultCellPadding(Padding padding) {
+	if (padding == null) {
+	    return false;
+	}
+	Integer top = padding.getTop();
+	Integer right = padding.getRight();
+	Integer bottom = padding.getBottom();
+	Integer left = padding.getLeft();
+	
+	if (top == null || right == null || bottom == null || left == null) {
+	    return false;
+	}
+	
+	if (top == DEFAULT_PADDING && right == DEFAULT_PADDING && bottom == DEFAULT_PADDING && left == DEFAULT_PADDING) {
+	    return true;
+	}
+	
+	return false;
+    }
 }
