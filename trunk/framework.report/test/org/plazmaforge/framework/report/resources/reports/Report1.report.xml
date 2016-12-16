@@ -21,13 +21,14 @@
 	</data-sources>
 	<templates>
 		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-line="1">
-			<page-setup margin-left="21" margin-top="22" margin-right="23" margin-bottom="24" />
+			<page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
 				<column width="100" />
 				<column width="150" />
 				<column width="150" />
 				<column width="150" />
 			</columns>
+			
 			<report-groups>
 				<report-group name="PRODUCT_GROUP">
 					<expression>$F{GROUP_NAME}</expression>
@@ -36,7 +37,6 @@
 							<rows>
 								<row height="20">
 									<cells>
-									<!-- border="2" border-color="blue" -->
 										<cell background="yellow" foreground="blue" colspan="4" font="11, underline|bold" ><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
 									</cells>
 								</row>
@@ -60,6 +60,7 @@
 					</bands>
 				</report-group>
 			</report-groups>
+			
 			<bands>
 				<band type="ReportHeader" cell-line="none">
 					<rows>
@@ -70,12 +71,12 @@
 						</row>
 						<row height="15">
 							<cells>
-								<cell colspan="4" font="bold|italic"><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
+								<cell padding-left="20" colspan="4" font="bold|italic"><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
 							</cells>
 						</row>
 						<row height="15">
 							<cells>
-								<cell colspan="4" foreground="green"><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
+								<cell padding-left="20" colspan="4" foreground="green"><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
 							</cells>
 						</row>
 					</rows>
@@ -108,7 +109,7 @@
 					<rows>
 						<row height="30" cell-border-top="1" cell-border-top-color="green">
 							<cells>
-								<cell font="bold"><value>Product ID---</value></cell>
+								<cell font="bold" padding="5"><value>Product ID---</value></cell>
 								<cell font="bold"><value>Product Name--</value></cell>
 								<cell format="#.00" data-type="Float" font="bold"><expression>$V{PRICE_AVG}</expression></cell>
 								<cell font="bold"><value>Full Name</value></cell>
