@@ -167,7 +167,32 @@ public class Insets implements Serializable {
     }
 
     public String toValuesString() {
- 	return "top=" + top + ", right=" + right +  ", bottom=" + bottom + ", left=" + left;
+	if (top == null && right == null && bottom == null && left == null) {
+	    return "";
+	}
+	StringBuffer buf = new StringBuffer();
+	if (top != null) {
+	    buf.append("top=" + top);
+	}
+	if (right != null) {
+	    if (buf.length() > 0) {
+		buf.append(", ");
+	    }
+	    buf.append("right=" + right);
+	}
+	if (bottom != null) {
+	    if (buf.length() > 0) {
+		buf.append(", ");
+	    }
+	    buf.append("bottom=" + bottom);
+	}
+	if (left != null) {
+	    if (buf.length() > 0) {
+		buf.append(", ");
+	    }
+	    buf.append("left=" + left);
+	}
+	return buf.toString();
     }
     
     protected int intValue(Integer value) {

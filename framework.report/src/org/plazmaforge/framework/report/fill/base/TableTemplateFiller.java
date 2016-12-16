@@ -399,6 +399,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	if (oCell.hasBorder()) {
 	    cell.setBorder(Border.cloneBorder(oCell.getBorder()));
 	}
+	if (oCell.hasPadding()) {
+	    cell.setPadding(oCell.getPadding().clone());
+	}
 	
 	cell.setFormat(oCell.getFormat());
 

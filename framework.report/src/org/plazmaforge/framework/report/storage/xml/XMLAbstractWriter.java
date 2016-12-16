@@ -39,6 +39,7 @@ import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Margin;
+import org.plazmaforge.framework.report.model.base.Padding;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -157,6 +158,24 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
    	}
    	if (margin.hasBottom()) {
    	    setIntegerValue(node, XML_ATTR_MARGIN_BOTTOM, margin.getBottom());
+   	}
+    }
+
+    protected void setPaddingByAttributes(Padding padding, Element node) {
+   	if (padding == null || padding.isEmpty()) {
+   	    return;
+   	}
+   	if (padding.hasLeft()) {
+   	    setIntegerValue(node, XML_ATTR_PADDING_LEFT, padding.getLeft());
+   	}
+   	if (padding.hasTop()) {
+   	    setIntegerValue(node, XML_ATTR_PADDING_TOP, padding.getTop());
+   	}
+   	if (padding.hasRight()) {
+   	    setIntegerValue(node, XML_ATTR_PADDING_RIGHT, padding.getRight());
+   	}
+   	if (padding.hasBottom()) {
+   	    setIntegerValue(node, XML_ATTR_PADDING_BOTTOM, padding.getBottom());
    	}
     }
     
