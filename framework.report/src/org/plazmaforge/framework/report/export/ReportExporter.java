@@ -57,7 +57,33 @@ public interface ReportExporter {
     
     String PROPERTY_WRITER = "writer";
     
+
+    String IO_TYPE_FILE_NAME = "fileName";
     
+    String IO_TYPE_FILE = "file";
+    
+    String IO_TYPE_STREAM = "stream";
+
+    
+    String INPUT_TYPE_FILE_NAME = IO_TYPE_FILE_NAME;
+    
+    String INPUT_TYPE_FILE = IO_TYPE_FILE;
+    
+    String INPUT_TYPE_STREAM = IO_TYPE_STREAM;
+    
+    String INPUT_TYPE_READER = "reader";
+
+
+    String OUTPUT_TYPE_FILE_NAME = IO_TYPE_FILE_NAME;
+    
+    String OUTPUT_TYPE_FILE = IO_TYPE_FILE;
+    
+    String OUTPUT_TYPE_STREAM = IO_TYPE_STREAM;
+    
+    String OUTPUT_TYPE_WRITER = "writer";
+    
+    
+
     /**
      * Set data to exporter
      * @param name

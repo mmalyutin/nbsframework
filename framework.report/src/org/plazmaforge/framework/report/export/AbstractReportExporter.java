@@ -68,15 +68,15 @@ public abstract class AbstractReportExporter implements ReportExporter {
 	if (outputType == null) {
 	    return false;
 	}
-	return outputType.equals("fileName") || outputType.equals("file") || outputType.equals("stream") || outputType.equals("writer");  
+	return outputType.equals(OUTPUT_TYPE_FILE_NAME) || outputType.equals(OUTPUT_TYPE_FILE) || outputType.equals(OUTPUT_TYPE_STREAM) || outputType.equals(OUTPUT_TYPE_WRITER);  
     }
     
     protected boolean isFileNameOutputType(String outputType) {
-	return (outputType == null ? false : outputType.equals("fileName"));
+	return (outputType == null ? false : outputType.equals(OUTPUT_TYPE_FILE_NAME));
     }
     
     protected boolean isFileOutputType(String outputType) {
-	return (outputType == null ? false : outputType.equals("file"));
+	return (outputType == null ? false : outputType.equals(OUTPUT_TYPE_FILE));
     }
 
     protected String formatCellValue(Cell cell) {
