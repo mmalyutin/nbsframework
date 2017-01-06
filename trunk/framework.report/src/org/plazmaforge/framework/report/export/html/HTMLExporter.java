@@ -26,13 +26,30 @@ import java.io.IOException;
 import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
+import org.plazmaforge.framework.report.model.base.grid.GridLayout;
+import org.plazmaforge.framework.report.model.base.grid.GridUtils;
+import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.graphics.GC;
 
 public class HTMLExporter extends AbstractHTMLExporter {
 
+    
+    protected int offsetX;
+    
+    protected int offsetY;
+    
+    
+    
     @Override
     public void exportDocument(Document document) throws RTException {
 	try {
@@ -155,4 +172,317 @@ public class HTMLExporter extends AbstractHTMLExporter {
     protected void writeGrid(Grid grid) throws RTException, IOException {
 	write("\nGrid");
     }
+    
+    
+    protected void writeGrid2(Grid grid) {
+   	if (!grid.hasRows()) {
+   	    return;
+   	}
+
+   	boolean isCollapsedBorder = true; 
+   	
+   	int columnCount = grid.getColumnCount();
+   	int rowCount = grid.getRowCount();
+   	
+   	List<Column> columns = grid.getColumns();
+   	List<Row> rows = grid.getRows();
+   	
+   	GridLayout layout = GridUtils.getGridLayout(grid);
+   	
+   	// Get grid size without grid border
+   	int gridWidth = layout.getAreaWidth();
+   	int gridHeight = layout.getAreaHeight();
+
+   	int gridOffsetX = offsetX;
+   	int gridOffsetY = offsetY;
+   	
+   	// TODO:GC
+   	Color contextBackground = null ;// gc.getBackground();
+   	Color contextForeground = null; //gc.getForeground();
+   	Font contextFont = null; //gc.getFont();
+   	// TODO:GC
+
+   	// Current parent: NOT NULL
+   	parentBackground = null;
+   	parentForeground = null;
+   	parentFont = null;
+   	
+   	// Current: NOT NULL
+   	background = null;
+   	foreground = null;
+   	font = null;
+
+   	
+   	Color gridBackground = null;
+   	Color gridForeground = null;
+   	Font gridFont = null;
+   	
+   	Color rowBackground = null;
+   	Color rowForeground = null;
+   	Font rowFont = null;
+
+   	Color cellBackground = null;
+   	Color cellForeground = null;
+   	Font cellFont = null;
+   	
+
+   	// grid: parent gc
+   	parentBackground = contextBackground;
+   	parentForeground = contextForeground;
+   	parentFont = contextFont;
+   	
+   	// grid: load gc
+   	gridBackground = grid.getBackground();
+   	gridForeground = grid.getForeground();
+   	gridFont = grid.getFont();
+
+   	// grid: current gc
+   	background = gridBackground;
+   	foreground = gridForeground;
+   	font = gridFont;
+   	
+   	// grid: background
+   	// TODO:GC
+   	//fillBackground(gc, gridOffsetX, gridOffsetY, gridWidth, gridHeight, background);
+
+   	// grid: normalize current gc
+   	normalizeCurrentStyle();
+
+   	// grid: init gc
+   	// TODO:GC
+   	//setCurrentStyle(gc);
+   	
+   	// grid: border
+   	//gc.drawRectangle(gridOffsetX, gridOffsetY, gridWidth, gridHeight);
+
+
+   	int columnIndex = 0;
+   	int rowIndex = 0;
+   	int cellIndex = 0;
+   	
+   	Row row = null;
+   	Cell cell = null;
+   	
+   	int rowOffsetX = 0;
+   	int rowOffsetY = 0;
+   	int rowWidth = 0;
+   	int rowHeight = 0;
+   		
+   	for (int i = 0; i < rowCount; i++) {
+   	    
+   	    row = rows.get(i);
+   	    
+   	    rowOffsetX = gridOffsetX;
+   	    rowOffsetY = offsetY;
+   	    rowWidth = gridWidth;
+   	    rowHeight = row.getHeight();
+   	    
+   	    int rowBorderTop = 0;
+   	    int rowBorderBottom = 0;
+   	    BorderRegion rowBorder = layout.getRowBorder(i);
+   	    if (rowBorder != null) {
+   		rowBorderTop = rowBorder.getPrevWidth();
+   		rowBorderBottom = rowBorder.getNextWidth();
+   	    }
+   	    
+   	    // row: parent gc
+   	    parentBackground = getColor(gridBackground, contextBackground);
+   	    parentForeground = getColor(gridForeground, contextForeground);
+   	    parentFont = getFont(gridFont, contextFont);
+   		
+   	    // row: load gc
+   	    rowBackground = row.getBackground();
+   	    rowForeground = row.getForeground();
+   	    rowFont = row.getFont();
+
+   	    // row: current gc
+   	    background = rowBackground;
+   	    foreground = rowForeground;
+   	    font = rowFont;
+   		
+   	    // row: background
+   	    // TODO:GC
+   	    //fillBackground(gc, rowOffsetX, rowOffsetY, rowWidth, rowHeight, background);
+   	    
+   	    // row: normalize current gc
+   	    normalizeCurrentStyle();
+   	    
+   	    // row: init gc
+   	    // TODO:GC
+   	    //setCurrentStyle(gc);
+   	    
+   	    columnIndex = 0;
+   	    //rowIndex = 0;
+   	    
+   	    int cellX = rowOffsetX;
+   	    int cellY = rowOffsetY;
+   	    int cellWidth = 0;
+   	    int cellHeight = 0;
+   	    int colspan = 0;
+   	    int rowspan = 0;
+   	    
+   	    int paddingLeft = 0;
+   	    int paddingTop = 0;
+   	    int paddingRight = 0;
+   	    int paddingBottom = 0;
+   	    
+   	    int cellCount = row.getCellCount();
+    	    List<Cell> cells = row.getCells();
+   	    
+    	    // shift cellY (row-border-top)
+    	    cellY += rowBorderTop;
+    	   
+   	    for (int j = 0; j < cellCount; j++) {
+   		cellIndex = j;
+   		cell = cells.get(cellIndex);
+   		
+   		
+   		
+   		cellWidth = 0;
+   		cellHeight = 0;
+   		colspan = cell.getColspan();
+   		rowspan = cell.getRowspan();
+   		int nextColumnIndex = columnIndex + colspan;
+   		int nextRowIndex = rowIndex + rowspan;
+   		
+   		if (nextColumnIndex > columnCount) {
+   		    // overflow columns
+   		    break;
+   		}
+   		if (nextRowIndex > rowCount) {
+   		    // overflow rows
+   		    break;
+   		}
+   		
+   		cellWidth = GridUtils.calculateCellWidth(layout, cell, columns, columnIndex);
+   		cellHeight = GridUtils.calculateCellHeight(layout, cell, rows, rowIndex);
+   		
+   		int columnBorderLeft = 0;
+   		int columnBorderRight = 0;
+   		
+   		BorderRegion columnBorder1 = layout.getColumnBorder(columnIndex);
+   		if (columnBorder1 != null) {
+   		    columnBorderLeft = columnBorder1.getPrevWidth();
+   		}
+   		BorderRegion columnBorder2 = layout.getColumnBorder(nextColumnIndex - 1);
+   		if (columnBorder2 != null) {
+   		    columnBorderRight = columnBorder2.getNextWidth();
+   		}
+
+   		// shift cellX (column-border-left)
+   		cellX += columnBorderLeft;		  
+   		
+   		// cell: parent gc
+   		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
+   		parentForeground = getColor(rowForeground, gridForeground != null ? gridForeground : contextForeground);
+   		parentFont = getFont(rowFont, gridFont != null ? gridFont: contextFont);
+   		
+   		// cell: load gc
+   		cellBackground = cell.getBackground();
+   		cellForeground = cell.getForeground();
+   		cellFont = cell.getFont();
+   		
+   		// cell: current gc
+   		background = cellBackground;
+   		foreground = cellForeground;
+   		font = cellFont;
+   		
+   		int outCellX = cellX - columnBorderLeft;
+   		int outCellY = cellY - rowBorderTop;
+   		int outCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
+   		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
+   		
+   		// cell: background
+   		// TODO:GC
+   		//if (isCollapsedBorder) {
+   		//    fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
+   		//} else {
+   		//    fillBackground(gc, outCellX, outCellY, outCellWidth, outCellHeight, background);
+   		//}
+   		
+   		
+   		// cell: normalize current gc
+   		normalizeCurrentStyle();
+   		
+   		Border border = layout.getCellBorder(columnIndex, rowIndex);
+   		
+   		// TODO:GC
+   		//drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, true);
+   		
+   		// cell: init gc
+   		//setCurrentStyle(gc);
+   		
+   		// cell: padding
+   		paddingLeft = 0;
+   		paddingTop = 0;
+   		paddingRight = 0;
+   		paddingBottom = 0;
+
+   		if (cell.hasPadding()) {
+   		    paddingLeft = cell.getPadding().getLeft();
+   		    paddingTop = cell.getPadding().getTop();
+   		    paddingRight = cell.getPadding().getRight();
+   		    paddingBottom = cell.getPadding().getBottom();
+   		}
+   		
+   		// cell: area
+   		int areaX = cellX + paddingLeft;
+   		int areaY = cellY + paddingTop;
+   		int areaWidth = cellWidth - paddingLeft - paddingRight;
+   		int areaHeight = cellHeight - paddingTop - paddingBottom;
+   		
+   		// cell: paint
+   		if (areaWidth > 0 && areaHeight > 0) {
+   		    Object value = cell.getValue();
+   		    if (value != null) {
+   			String text = formatCellValue(cell);
+   			// TODO:GC
+   			//drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
+   		    }
+   		}
+   		
+   		columnIndex = nextColumnIndex;
+   		cellX += cellWidth;
+   		//cellX += columnBorderLeft;
+   		cellX += columnBorderRight;
+   		
+   	    }
+   	    
+
+   	    rowIndex++;
+   	    offsetY += row.getHeight();
+   	    offsetY += rowBorderTop;
+   	    offsetY += rowBorderBottom;
+   	    
+   	    // row: parent gc
+   	    parentBackground = getColor(gridBackground, contextBackground);
+   	    parentForeground = getColor(gridForeground, contextForeground);
+   	    parentFont = getFont(gridFont, contextFont);
+   		
+   	    // row: load gc
+   	    rowBackground = row.getBackground();
+   	    rowForeground = row.getForeground();
+   	    rowFont = row.getFont();
+
+   	    // row: current gc
+   	    background = rowBackground;
+   	    foreground = rowForeground;
+   	    font = rowFont;
+   	    
+   	    // row: fix current gc
+   	    normalizeCurrentStyle();
+   	    
+   	    // row: init gc
+   	    // TODO:GC
+   	    //setCurrentStyle(gc);
+   	    
+   	    //TODO
+   	    // row: bottom border
+   	    //gc.drawLine(rowOffsetX, rowOffsetY - 1, rowOffsetX + gridWidth, rowOffsetY - 1);
+
+   	}
+   	
+   	//gc.drawRectangle(offsetX, offsetY, width, height);
+       }
+    
 }
