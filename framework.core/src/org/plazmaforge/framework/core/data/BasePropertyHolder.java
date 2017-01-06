@@ -34,20 +34,20 @@ public class BasePropertyHolder implements PropertyHolder {
     
     @Override
     public String getProperty(String property) {
-	return getDataProperty().get(property);
+	return getPropertyMap().get(property);
     }
 
     @Override
     public void setProperty(String property, String value) {
-	getDataProperty().put(property, value);
+	getPropertyMap().put(property, value);
     }
 
     @Override
     public List<String> getPropertyNames() {
-	return CoreUtils.toKeyList(getDataProperty());
+	return CoreUtils.toKeyList(getPropertyMap());
     }
 
-    private Map<String, String> getDataProperty() {
+    private Map<String, String> getPropertyMap() {
 	if (propertyMap == null) {
 	    propertyMap = new HashMap<String, String>();
 	}
