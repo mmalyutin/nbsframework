@@ -29,6 +29,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -39,6 +40,7 @@ import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.graphics.GC;
 
 public class HTMLExporter extends AbstractHTMLExporter {
 
@@ -423,13 +425,15 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		//    fillBackground(gc, outCellX, outCellY, outCellWidth, outCellHeight, background);
    		//}
    		
+   		Border border = layout.getCellBorder(columnIndex, rowIndex);
    		
    		// cell: start
    		styleAttributes = new Attributes();
    		setPosition(styleAttributes, cellX, cellY);
    		setSize(styleAttributes, cellWidth, cellHeight);
    		setBackground(styleAttributes, background);
-   	   	    
+   		setBorder(styleAttributes, border);
+   		
    		style = styleAttributes.toStyleAttribute("style");
    		level++;
    		write("<div " + style + ">\n");
@@ -438,7 +442,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		// cell: normalize current gc
    		normalizeCurrentStyle();
    		
-   		Border border = layout.getCellBorder(columnIndex, rowIndex);
+   		//Border border = layout.getCellBorder(columnIndex, rowIndex);
+   		//setBorder(styleAttributes, border);
    		
    		// TODO:GC
    		//drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, true);
@@ -528,8 +533,51 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	write("</div>\n");
 	
    	//gc.drawRectangle(offsetX, offsetY, width, height);
-       }
+    }
     
+    
+    protected void setBorder(Attributes styleAttributes, Border border) {
+	if (border == null || border.isEmpty()) {
+	    return;
+	}
+
+	// Left
+	if (border.hasLeft()) {
+	    setBorder(styleAttributes, "border-left", border.getLeft());
+	}
+	
+	// Right
+	if (border.hasRight()) {
+	    setBorder(styleAttributes, "border-right", border.getRight());
+	}
+
+	// Top
+	if (border.hasTop()) {
+	    setBorder(styleAttributes, "border-top", border.getTop());
+	}
+
+	// Bottom
+	if (border.hasBottom()) {
+	    setBorder(styleAttributes, "border-bottom", border.getBottom());
+	}
+	
+    }
+    
+    
+    protected void setBorder(Attributes styleAttributes, String name, Pen pen) {
+	if (pen == null || pen.isEmpty()) {
+	    return;
+	}
+	Color defaultColor = Color.BLACK;
+	int w = pen.getLineWidth();
+	if (w <= 0) {
+	    w = 1;
+	}
+	Color color = pen.getLineColor();
+	color = color == null ? defaultColor : color;
+	styleAttributes.addAttribute(name, "" + toPXString(w) + " solid " + toColorString(color));
+    }
+   
     protected String toColorString(Color color) {
 	return color == null ? null : ("#" + color.toHexString());
     }
