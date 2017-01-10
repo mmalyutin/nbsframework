@@ -46,7 +46,7 @@ public abstract class AbstractTextExporter extends AbstractBaseExporter {
 	//TODO
 	return "UTF-8";
     }
-    
+
     protected void write(String str) throws IOException {
 	writer.write(str);
     }
