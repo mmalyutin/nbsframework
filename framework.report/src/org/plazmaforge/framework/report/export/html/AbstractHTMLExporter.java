@@ -28,6 +28,8 @@ import org.plazmaforge.framework.report.export.AbstractTextExporter;
 
 public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 
+    protected int level;
+    
     protected void writeHeader() throws IOException {
 
 	String encoding = getEncoding();
@@ -55,4 +57,15 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	writer.write("</html>\n");
     }
     
+    protected void write(String str) throws IOException {
+	if (level > 0) {
+	    String tab = "  "; //"\t"
+	    for (int i = 0; i < level; i++) {
+		super.write(tab);
+	    }
+	}
+	super.write(str);
+    }
+
+
 }

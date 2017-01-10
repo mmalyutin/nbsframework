@@ -39,7 +39,6 @@ import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.graphics.GC;
 
 public class HTMLExporter extends AbstractHTMLExporter {
 
@@ -127,26 +126,35 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	if (document == null || !document.hasPages()) {
 	    return;
 	}
+	
 	int pageCount = document.getPageCount();
 	List<Page> pages = document.getPages();
+	level = 0;
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 	    Page page = pages.get(pageIndex);
 	    writePage(page, pageIndex);
 	}
+	level--;
     }
 
     protected void writePage(Page page, int pageIndex) throws RTException, IOException {
+	level++;
 	writePageStart(page);
-	write("Page " + (pageIndex + 1)); // TODO
 	writePageBody(page);
 	writePageEnd(page);
+	level--;
     }
     
     protected void writePageStart(Page page) throws RTException, IOException {
+	
 	int pageWidth = page.getDisplayWidth();
 	int pageHeight = page.getDisplayHeight();
 	
-	String style = "style='width: " + pageWidth + "px" + "; height: " + pageHeight + "px" + "'";
+	Attributes styleAttributes = new Attributes();
+	setPosition(styleAttributes, 0, 0);
+	setSize(styleAttributes, pageWidth, pageHeight);
+	
+	String style = styleAttributes.toStyleAttribute("style");
 	write("<div " + style + ">\n");
     }
     
@@ -158,23 +166,19 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	List<Element> children = page.getChildren();
 
 	for (Element element : children) {
+	    level++;
 	    if (element instanceof Grid) {
 		writeGrid((Grid) element);
 	    }
+	    level--;
 	}
     }
     
     protected void writePageEnd(Page page) throws RTException, IOException {
-	write("\n");
 	write("</div>\n");
     }
 
     protected void writeGrid(Grid grid) throws RTException, IOException {
-	write("\nGrid");
-    }
-    
-    
-    protected void writeGrid2(Grid grid) {
    	if (!grid.hasRows()) {
    	    return;
    	}
@@ -245,6 +249,16 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	// TODO:GC
    	//fillBackground(gc, gridOffsetX, gridOffsetY, gridWidth, gridHeight, background);
 
+   	// grid: start
+	Attributes styleAttributes = new Attributes();
+	setPosition(styleAttributes, gridOffsetX, gridOffsetY);
+	setSize(styleAttributes, gridWidth, gridHeight);
+	setBackground(styleAttributes, background);
+	
+	String style = styleAttributes.toStyleAttribute("style");
+	write("<div " + style + ">\n");
+
+	
    	// grid: normalize current gc
    	normalizeCurrentStyle();
 
@@ -303,6 +317,16 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    // row: background
    	    // TODO:GC
    	    //fillBackground(gc, rowOffsetX, rowOffsetY, rowWidth, rowHeight, background);
+
+   	    // row: start
+   	    styleAttributes = new Attributes();
+   	    setPosition(styleAttributes, rowOffsetX, rowOffsetY);
+   	    setSize(styleAttributes, rowWidth, rowHeight);
+   	    setBackground(styleAttributes, background);
+   	 
+   	    style = styleAttributes.toStyleAttribute("style");
+   	    level++;
+   	    write("<div " + style + ">\n");
    	    
    	    // row: normalize current gc
    	    normalizeCurrentStyle();
@@ -335,7 +359,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    for (int j = 0; j < cellCount; j++) {
    		cellIndex = j;
    		cell = cells.get(cellIndex);
-   		
    		
    		
    		cellWidth = 0;
@@ -401,6 +424,17 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		//}
    		
    		
+   		// cell: start
+   		styleAttributes = new Attributes();
+   		setPosition(styleAttributes, cellX, cellY);
+   		setSize(styleAttributes, cellWidth, cellHeight);
+   		setBackground(styleAttributes, background);
+   	   	    
+   		style = styleAttributes.toStyleAttribute("style");
+   		level++;
+   		write("<div " + style + ">\n");
+   		
+   		
    		// cell: normalize current gc
    		normalizeCurrentStyle();
    		
@@ -437,10 +471,15 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		    if (value != null) {
    			String text = formatCellValue(cell);
    			// TODO:GC
+   			write("" + text);
    			//drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
    		    }
    		}
    		
+   		// cell: end
+   		write("</div>\n");
+   		level--;
+   	   	    
    		columnIndex = nextColumnIndex;
    		cellX += cellWidth;
    		//cellX += columnBorderLeft;
@@ -448,6 +487,9 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		
    	    }
    	    
+   	    // row: end
+   	    write("</div>\n");
+   	    level--;
 
    	    rowIndex++;
    	    offsetY += row.getHeight();
@@ -482,7 +524,38 @@ public class HTMLExporter extends AbstractHTMLExporter {
 
    	}
    	
+   	// grid: end
+	write("</div>\n");
+	
    	//gc.drawRectangle(offsetX, offsetY, width, height);
        }
+    
+    protected String toColorString(Color color) {
+	return color == null ? null : ("#" + color.toHexString());
+    }
+    
+    protected String toPXString(int value) {
+	return "" + value + "px";
+    }
+    
+    protected void setPosition(Attributes styleAttributes, int x, int y) {
+	//styleAttributes.addAttribute("position", "relative");
+	styleAttributes.addAttribute("position", "absolute");
+	styleAttributes.addAttribute("left", toPXString(x));
+	styleAttributes.addAttribute("top", toPXString(y));
+    }
+    
+    protected void setSize(Attributes styleAttributes, int width, int height) {
+	styleAttributes.addAttribute("width", toPXString(width));
+	styleAttributes.addAttribute("height", toPXString(height));
+    }
+    
+    protected void setBackground(Attributes styleAttributes, Color background) {
+	if (background == null) {
+	    return;
+	}	
+	styleAttributes.addAttribute("background", toColorString(background));
+    }
+    
     
 }
