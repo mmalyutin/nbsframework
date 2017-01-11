@@ -40,7 +40,6 @@ import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.graphics.GC;
 
 public class HTMLExporter extends AbstractHTMLExporter {
 
@@ -48,7 +47,18 @@ public class HTMLExporter extends AbstractHTMLExporter {
     protected int offsetX;
     
     protected int offsetY;
+
+    protected int oldOffsetX;
     
+    protected int oldOffsetY;
+    
+//    protected int absoluteOffsetX;
+//    
+//    protected int absoluteOffsetY;
+//
+    protected int pageOffsetX;
+    
+    protected int pageOffsetY;
     
     
     @Override
@@ -131,20 +141,37 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	
 	int pageCount = document.getPageCount();
 	List<Page> pages = document.getPages();
+
+//	absoluteOffsetX = offsetX;
+//	absoluteOffsetY = offsetY;
+
+	pageOffsetX = offsetX;
+	pageOffsetY = offsetY;
+
+	//oldOffsetX = offsetX;
+	//oldOffsetY = offsetY;
+
 	level = 0;
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 	    Page page = pages.get(pageIndex);
 	    writePage(page, pageIndex);
 	}
 	level--;
+	
     }
 
     protected void writePage(Page page, int pageIndex) throws RTException, IOException {
+	offsetX = 0;
+	offsetY = 0;
+	
 	level++;
 	writePageStart(page);
 	writePageBody(page);
 	writePageEnd(page);
 	level--;
+	
+//	absoluteOffsetX += offsetX;
+//	absoluteOffsetY += offsetY;
     }
     
     protected void writePageStart(Page page) throws RTException, IOException {
@@ -152,12 +179,16 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	int pageWidth = page.getDisplayWidth();
 	int pageHeight = page.getDisplayHeight();
 	
+	
+	
 	Attributes styleAttributes = new Attributes();
-	setPosition(styleAttributes, 0, 0);
+	setPosition(styleAttributes, 0, pageOffsetY);
 	setSize(styleAttributes, pageWidth, pageHeight);
 	
 	String style = styleAttributes.toStyleAttribute("style");
 	write("<div " + style + ">\n");
+	
+	pageOffsetY += pageHeight;
     }
     
     protected void writePageBody(Page page) throws RTException, IOException {
@@ -251,7 +282,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	// TODO:GC
    	//fillBackground(gc, gridOffsetX, gridOffsetY, gridWidth, gridHeight, background);
 
-   	// grid: start
+   	// grid: start (position, size, background, border?)
 	Attributes styleAttributes = new Attributes();
 	setPosition(styleAttributes, gridOffsetX, gridOffsetY);
 	setSize(styleAttributes, gridWidth, gridHeight);
@@ -283,13 +314,19 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	int rowOffsetY = 0;
    	int rowWidth = 0;
    	int rowHeight = 0;
-   		
+
+   	// !NEW!
+   	rowOffsetX = gridOffsetX;
+   	rowOffsetY = gridOffsetY;
+
    	for (int i = 0; i < rowCount; i++) {
    	    
    	    row = rows.get(i);
    	    
+   	    // !NEW!
    	    rowOffsetX = gridOffsetX;
-   	    rowOffsetY = offsetY;
+   	    //rowOffsetY = offsetY;
+   	    
    	    rowWidth = gridWidth;
    	    rowHeight = row.getHeight();
    	    
@@ -341,7 +378,9 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    //rowIndex = 0;
    	    
    	    int cellX = rowOffsetX;
-   	    int cellY = rowOffsetY;
+   	    int cellY = 0; // !NEW!
+   	    //int cellY = rowOffsetY;
+   	    
    	    int cellWidth = 0;
    	    int cellHeight = 0;
    	    int colspan = 0;
@@ -497,9 +536,13 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    level--;
 
    	    rowIndex++;
-   	    offsetY += row.getHeight();
-   	    offsetY += rowBorderTop;
-   	    offsetY += rowBorderBottom;
+   	    int shiftY = row.getHeight() + rowBorderTop + rowBorderBottom;
+   	    rowOffsetY += shiftY;
+   	    offsetY += shiftY;
+   	 
+   	    //offsetY += row.getHeight();
+   	    //offsetY += rowBorderTop;
+   	    //offsetY += rowBorderBottom;
    	    
    	    // row: parent gc
    	    parentBackground = getColor(gridBackground, contextBackground);
