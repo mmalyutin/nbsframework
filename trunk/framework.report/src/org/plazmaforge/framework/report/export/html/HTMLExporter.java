@@ -52,10 +52,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
     
     protected int oldOffsetY;
     
-//    protected int absoluteOffsetX;
-//    
-//    protected int absoluteOffsetY;
-//
     protected int pageOffsetX;
     
     protected int pageOffsetY;
@@ -142,15 +138,9 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	int pageCount = document.getPageCount();
 	List<Page> pages = document.getPages();
 
-//	absoluteOffsetX = offsetX;
-//	absoluteOffsetY = offsetY;
-
 	pageOffsetX = offsetX;
 	pageOffsetY = offsetY;
-
-	//oldOffsetX = offsetX;
-	//oldOffsetY = offsetY;
-
+	
 	level = 0;
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 	    Page page = pages.get(pageIndex);
@@ -170,8 +160,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	writePageEnd(page);
 	level--;
 	
-//	absoluteOffsetX += offsetX;
-//	absoluteOffsetY += offsetY;
     }
     
     protected void writePageStart(Page page) throws RTException, IOException {
@@ -278,10 +266,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	foreground = gridForeground;
    	font = gridFont;
    	
-   	// grid: background
-   	// TODO:GC
-   	//fillBackground(gc, gridOffsetX, gridOffsetY, gridWidth, gridHeight, background);
-
    	// grid: start (position, size, background, border?)
 	Attributes styleAttributes = new Attributes();
 	setPosition(styleAttributes, gridOffsetX, gridOffsetY);
@@ -299,10 +283,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	// TODO:GC
    	//setCurrentStyle(gc);
    	
-   	// grid: border
-   	//gc.drawRectangle(gridOffsetX, gridOffsetY, gridWidth, gridHeight);
-
-
    	int columnIndex = 0;
    	int rowIndex = 0;
    	int cellIndex = 0;
@@ -353,11 +333,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    foreground = rowForeground;
    	    font = rowFont;
    		
-   	    // row: background
-   	    // TODO:GC
-   	    //fillBackground(gc, rowOffsetX, rowOffsetY, rowWidth, rowHeight, background);
-
-   	    // row: start
+   	    // row: start (position, size, background)
    	    styleAttributes = new Attributes();
    	    setPosition(styleAttributes, rowOffsetX, rowOffsetY);
    	    setSize(styleAttributes, rowWidth, rowHeight);
@@ -466,12 +442,13 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		
    		Border border = layout.getCellBorder(columnIndex, rowIndex);
    		
-   		// cell: start
+   		// cell: start (position, size, background, border)
    		styleAttributes = new Attributes();
    		setPosition(styleAttributes, cellX, cellY);
    		setSize(styleAttributes, cellWidth, cellHeight);
    		setBackground(styleAttributes, background);
    		setBorder(styleAttributes, border);
+   		setFont(styleAttributes, cellFont);
    		
    		style = styleAttributes.toStyleAttribute("style");
    		level++;
@@ -480,12 +457,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		
    		// cell: normalize current gc
    		normalizeCurrentStyle();
-   		
-   		//Border border = layout.getCellBorder(columnIndex, rowIndex);
-   		//setBorder(styleAttributes, border);
-   		
-   		// TODO:GC
-   		//drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, true);
    		
    		// cell: init gc
    		//setCurrentStyle(gc);
@@ -566,16 +537,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    // TODO:GC
    	    //setCurrentStyle(gc);
    	    
-   	    //TODO
-   	    // row: bottom border
-   	    //gc.drawLine(rowOffsetX, rowOffsetY - 1, rowOffsetX + gridWidth, rowOffsetY - 1);
-
    	}
    	
    	// grid: end
 	write("</div>\n");
-	
-   	//gc.drawRectangle(offsetX, offsetY, width, height);
     }
     
     
@@ -624,13 +589,89 @@ public class HTMLExporter extends AbstractHTMLExporter {
     protected String toColorString(Color color) {
 	return color == null ? null : ("#" + color.toHexString());
     }
+
+    protected String toFontString(Font font) {
+	if (font == null || font.isEmpty()) {
+	    return null;
+	}
+	StringBuffer buf = new StringBuffer();
+	String value = null;
+	
+	// name
+	if (!font.isEmptyName()) {
+	    buf.append(font.getName());
+	}
+	
+	// size
+	if (!font.isEmptySize()) {
+	    value = toFontSizeString(font);
+	    if (value != null) {
+		if (buf.length() > 0) {
+		    buf.append(" ");
+		}
+		buf.append(value);
+	    }
+	}
+
+	// style
+	if (!font.isEmptyStyle()) {
+	    value = toFontStyleString(font);
+	    if (value != null) {
+		if (buf.length() > 0) {
+		    buf.append(" ");
+		}
+		buf.append(value);
+	    }
+	}
+	
+	if (buf.length() == 0) {
+	    return null;
+	}
+	
+	return buf.toString();
+    }
     
     protected String toPXString(int value) {
 	return "" + value + "px";
     }
+
+    protected String toFontSizeString(Font font) {
+	if (font == null || font.isEmptySize()) {
+	    return null;
+	}
+	return "" + font.getSize() + "";
+    }
     
+    protected String toFontStyleString(Font font) {
+	if (font == null || font.isEmptyStyle()) {
+	    return null;
+	}
+	StringBuffer buf = new StringBuffer();
+	
+	// bold
+	if (font.isBold()) {
+	    buf.append("bold");
+	}
+	
+	// italic
+	if (font.isItalic()) {
+	    if (buf.length() > 0) {
+		buf.append(" ");
+	    }
+	    buf.append("italic");
+	}
+	
+	// TODO: underline, strikeout
+	
+	if (buf.length() == 0) {
+	    return null;
+	}
+	
+	return buf.toString();
+    }
+    
+
     protected void setPosition(Attributes styleAttributes, int x, int y) {
-	//styleAttributes.addAttribute("position", "relative");
 	styleAttributes.addAttribute("position", "absolute");
 	styleAttributes.addAttribute("left", toPXString(x));
 	styleAttributes.addAttribute("top", toPXString(y));
@@ -646,6 +687,44 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	    return;
 	}	
 	styleAttributes.addAttribute("background", toColorString(background));
+    }
+    
+    protected void setFont(Attributes styleAttributes, Font font) {
+	if (font == null || font.isEmpty()) {
+	    return;
+	}
+	
+	String value = null;
+	
+	// name
+   	if (!font.isEmptyName()) {
+   	    styleAttributes.addAttribute("font-family", font.getName());
+   	}
+
+   	// size
+   	if (!font.isEmptySize()) {
+   	    value = toFontSizeString(font);
+   	    if (value != null) {
+   		styleAttributes.addAttribute("font-size", value);
+   	    }
+   	}
+
+   	// style
+   	if (!font.isEmptyStyle()) {
+   	    
+	    // bold
+	    if (font.isBold()) {
+		styleAttributes.addAttribute("font-weight", "bold");
+	    }
+
+	    // italic
+	    if (font.isItalic()) {
+		styleAttributes.addAttribute("font-style", "italic");
+	    }
+   		
+   	}
+   	
+	//styleAttributes.addAttribute("font", toFontString(font));
     }
     
     
