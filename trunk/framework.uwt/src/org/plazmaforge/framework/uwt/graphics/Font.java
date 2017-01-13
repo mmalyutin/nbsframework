@@ -248,6 +248,7 @@ public class Font extends PathResource {
     }
     
     public boolean isIncomplete() {
+	// name or size only (style == 0 is complete)
 	return isEmptyName() || isEmptySize();
     }
 
@@ -262,6 +263,13 @@ public class Font extends PathResource {
     public boolean isEmptySize() {
 	return size == 0;
     }
+
+    public boolean isEmptyStyle() {
+	return style == 0;
+    }
     
+    public boolean isEmpty() {
+	return isEmptyName() && isEmptySize() && isEmptyStyle();
+    }
     
 }
