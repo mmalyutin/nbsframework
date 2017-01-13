@@ -114,6 +114,18 @@ public class FontFormatter extends AbstractFormatter<Font> {
 	
 	Map<String, Object> map = new HashMap<String, Object>();
 	
+	// V.1
+	FontAttribute fa = null;
+	for (String value: values) {
+	    fa = getFontAttribute(normalizeString(value));
+	    if (fa == null) {
+		continue;
+	    }
+	    addFontAttribute(map, fa);
+	}
+	
+	/*
+	// V.2
 	if (values.length == 3) {
 	    map.put(ATTR_NAME, parseName(normalizeString(values[0])));
 	    map.put(ATTR_SIZE, parseSize(normalizeString(values[1])));
@@ -136,6 +148,7 @@ public class FontFormatter extends AbstractFormatter<Font> {
 		addFontAttribute(map, fa);
 	    }
 	}
+	*/
 
 	
 	return createFont(map);
@@ -165,7 +178,7 @@ public class FontFormatter extends AbstractFormatter<Font> {
      * @return
      */
     protected FontAttribute getFontAttribute(String value) {
-	if (value == null ){
+	if (value == null) {
 	    return null;
 	}
 	value = value.trim();
