@@ -675,6 +675,37 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	return buf.toString();
     }
     
+    protected String toHorizontalAlign(HorizontalAlign horizontalAlign) {
+   	if (horizontalAlign == null) {
+   	    return null;
+   	}
+   	String value = null;
+   	if (horizontalAlign == HorizontalAlign.LEFT) {
+   	    value = "left";
+   	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
+   	    value = "right";
+   	} else if (horizontalAlign == HorizontalAlign.CENTER) {
+   	    value = "center";
+   	} else if (horizontalAlign == HorizontalAlign.FILL) {
+   	    value = "justify";
+   	}
+   	return value;
+    }
+    
+    protected String toVerticalAlignString(VerticalAlign verticalAlign) {
+	if (verticalAlign == null) {
+	    return null;
+	}
+	String value = null;
+	if (verticalAlign == VerticalAlign.TOP) {
+	    value = "top";
+	} else if (verticalAlign == VerticalAlign.BOTTOM) {
+	    value = "bottom";
+	} else if (verticalAlign == VerticalAlign.MIDDLE) {
+	    value = "middle";
+	}
+	return value;
+    }
 
     protected void setPosition(Attributes styleAttributes, int x, int y) {
 	styleAttributes.addAttribute("position", "absolute");
@@ -743,15 +774,9 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	if (horizontalAlign == null) {
 	    return;
 	}
-	String value = null;
-	if (horizontalAlign == HorizontalAlign.LEFT) {
-	    value = "left";
-	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
-	    value = "right";
-	} else if (horizontalAlign == HorizontalAlign.CENTER) {
-	    value = "center";
-	} else if (horizontalAlign == HorizontalAlign.FILL) {
-	    value = "justify";
+	String value = toHorizontalAlign(horizontalAlign);
+	if (value == null) {
+	    return;
 	}
 	styleAttributes.addAttribute("text-align", value); // TODO
     }
@@ -760,18 +785,13 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	if (verticalAlign == null) {
 	    return;
 	}
-	String value = null;
-	if (verticalAlign == VerticalAlign.TOP) {
-	    value = "top";
-	} else if (verticalAlign == VerticalAlign.BOTTOM) {
-	    value = "bottom";
-	} else if (verticalAlign == VerticalAlign.MIDDLE) {
-	    value = "middle";
-	} else if (verticalAlign == VerticalAlign.FILL) {
-	    value = "justify"; // TODO
+	String value = toVerticalAlignString(verticalAlign);
+	if (value == null) {
+	    return;
 	}
 	styleAttributes.addAttribute("vertical-align", value);
     }
+    
     
     protected void writeText(String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
 	if (text == null) {
