@@ -40,6 +40,8 @@ import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 public class HTMLExporter extends AbstractHTMLExporter {
 
@@ -271,6 +273,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	setPosition(styleAttributes, gridOffsetX, gridOffsetY);
 	setSize(styleAttributes, gridWidth, gridHeight);
 	setBackground(styleAttributes, background);
+	setForeground(styleAttributes, foreground);
+	setFont(styleAttributes, font);
 	
 	String style = styleAttributes.toStyleAttribute("style");
 	write("<div " + style + ">\n");
@@ -338,6 +342,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    setPosition(styleAttributes, rowOffsetX, rowOffsetY);
    	    setSize(styleAttributes, rowWidth, rowHeight);
    	    setBackground(styleAttributes, background);
+   	    setForeground(styleAttributes, foreground);
+   	    setFont(styleAttributes, font);
    	 
    	    style = styleAttributes.toStyleAttribute("style");
    	    level++;
@@ -446,9 +452,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		styleAttributes = new Attributes();
    		setPosition(styleAttributes, cellX, cellY);
    		setSize(styleAttributes, cellWidth, cellHeight);
-   		setBackground(styleAttributes, background);
    		setBorder(styleAttributes, border);
-   		setFont(styleAttributes, cellFont);
+   		setBackground(styleAttributes, background);
+   		setForeground(styleAttributes, foreground);
+   		setFont(styleAttributes, font);
    		
    		style = styleAttributes.toStyleAttribute("style");
    		level++;
@@ -475,8 +482,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		}
    		
    		// cell: area
-   		int areaX = cellX + paddingLeft;
-   		int areaY = cellY + paddingTop;
+   		int areaX = /*cellX + */ paddingLeft; // #REL
+   		int areaY = /*cellY + */ paddingTop;  // #REL
    		int areaWidth = cellWidth - paddingLeft - paddingRight;
    		int areaHeight = cellHeight - paddingTop - paddingBottom;
    		
@@ -485,9 +492,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		    Object value = cell.getValue();
    		    if (value != null) {
    			String text = formatCellValue(cell);
-   			// TODO:GC
-   			write("" + text);
-   			//drawText(gc, text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
+   			writeText(text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
    		    }
    		}
    		
@@ -639,7 +644,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	if (font == null || font.isEmptySize()) {
 	    return null;
 	}
-	return "" + font.getSize() + "";
+	return "" + font.getSize() + "pt";
     }
     
     protected String toFontStyleString(Font font) {
@@ -688,6 +693,13 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	}	
 	styleAttributes.addAttribute("background", toColorString(background));
     }
+
+    protected void setForeground(Attributes styleAttributes, Color foreground) {
+	if (foreground == null) {
+	    return;
+	}	
+	styleAttributes.addAttribute("color", toColorString(foreground));
+    }
     
     protected void setFont(Attributes styleAttributes, Font font) {
 	if (font == null || font.isEmpty()) {
@@ -726,6 +738,60 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	
 	//styleAttributes.addAttribute("font", toFontString(font));
     }
+
+    protected void setHorizontalAlign(Attributes styleAttributes, HorizontalAlign horizontalAlign) {
+	if (horizontalAlign == null) {
+	    return;
+	}
+	String value = null;
+	if (horizontalAlign == HorizontalAlign.LEFT) {
+	    value = "left";
+	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
+	    value = "right";
+	} else if (horizontalAlign == HorizontalAlign.CENTER) {
+	    value = "center";
+	} else if (horizontalAlign == HorizontalAlign.FILL) {
+	    value = "justify";
+	}
+	styleAttributes.addAttribute("text-align", value); // TODO
+    }
+
+    protected void setVerticalAlign(Attributes styleAttributes, VerticalAlign verticalAlign) {
+	if (verticalAlign == null) {
+	    return;
+	}
+	String value = null;
+	if (verticalAlign == VerticalAlign.TOP) {
+	    value = "top";
+	} else if (verticalAlign == VerticalAlign.BOTTOM) {
+	    value = "bottom";
+	} else if (verticalAlign == VerticalAlign.MIDDLE) {
+	    value = "middle";
+	} else if (verticalAlign == VerticalAlign.FILL) {
+	    value = "justify"; // TODO
+	}
+	styleAttributes.addAttribute("vertical-align", value);
+    }
     
+    protected void writeText(String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
+	if (text == null) {
+	    return;
+	}
+	
+	Attributes styleAttributes = new Attributes();
+	setPosition(styleAttributes, x, y);
+	setSize(styleAttributes, width, height);
+	setHorizontalAlign(styleAttributes, horizontalAlign);
+	setVerticalAlign(styleAttributes, verticalAlign);
+	
+	String style = styleAttributes.toStyleAttribute("style");
+	level++;
+	write("<div " + style + ">\n");
+	write(text + "\n");
+	write("</div>\n");
+	level--;
+	
+    }
+
     
 }
