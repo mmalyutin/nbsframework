@@ -175,6 +175,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	setPosition(styleAttributes, 0, pageOffsetY);
 	setSize(styleAttributes, pageWidth, pageHeight);
 	
+	styleAttributes.addAttribute("font-family", "Arial, Helvetica, sans-serif");
+	styleAttributes.addAttribute("font-size", toPXString(12));
+	
+	
 	String style = styleAttributes.toStyleAttribute("style");
 	write("<div " + style + ">\n");
 	
@@ -644,7 +648,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	if (font == null || font.isEmptySize()) {
 	    return null;
 	}
-	return "" + font.getSize() + "pt";
+	return "" + font.getSize() + "px";
     }
     
     protected String toFontStyleString(Font font) {
