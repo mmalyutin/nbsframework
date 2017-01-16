@@ -98,14 +98,22 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	setVerticalAlign(styleAttributes, verticalAlign);
 	
 	String style = styleAttributes.toStyleAttribute("style");
-	level++;
+	
+	levelInc();
 	write("<div " + style + ">\n");
 	write(text + "\n");
 	write("</div>\n");
-	level--;
+	levelDec();
 	
     }
     
+    protected void levelInc() {
+	level++;
+    }
+
+    protected void levelDec() {
+	level--;
+    }
     
     /////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -119,6 +127,10 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
     
     protected String toPXString(int value) {
 	return toUnitString(value, "px");
+    }
+
+    protected String toDimensionString(int value) {
+	return toPXString(value);
     }
     
     // font: size
@@ -312,14 +324,14 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
     // position
     protected void setPosition(Attributes styleAttributes, int x, int y) {
 	styleAttributes.addAttribute("position", "absolute");
-	styleAttributes.addAttribute("left", toPXString(x));
-	styleAttributes.addAttribute("top", toPXString(y));
+	styleAttributes.addAttribute("left", toDimensionString(x));
+	styleAttributes.addAttribute("top", toDimensionString(y));
     }
     
     // size
     protected void setSize(Attributes styleAttributes, int width, int height) {
-	styleAttributes.addAttribute("width", toPXString(width));
-	styleAttributes.addAttribute("height", toPXString(height));
+	styleAttributes.addAttribute("width", toDimensionString(width));
+	styleAttributes.addAttribute("height", toDimensionString(height));
     }
 
     // border (left, top, right, bottom)
@@ -362,7 +374,7 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	}
 	Color color = pen.getLineColor();
 	color = color == null ? defaultColor : color;
-	styleAttributes.addAttribute(name, "" + toPXString(w) + " solid " + toColorString(color));
+	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
     }
     
     // horizontal align

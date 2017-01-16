@@ -145,12 +145,14 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	pageOffsetX = offsetX;
 	pageOffsetY = offsetY;
 	
-	level = 0;
+	level = -1;
+	
+	levelInc();
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 	    Page page = pages.get(pageIndex);
 	    writePage(page, pageIndex);
 	}
-	level--;
+	levelDec();
 	
     }
 
@@ -158,11 +160,11 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	offsetX = 0;
 	offsetY = 0;
 	
-	level++;
+	levelInc();
 	writePageStart(page);
 	writePageBody(page);
 	writePageEnd(page);
-	level--;
+	levelDec();
 	
     }
     
@@ -180,7 +182,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	styleAttributes.addAttribute("font-family", DEFAULT_FONT_FAMILY);
 	styleAttributes.addAttribute("font-size", toFontSizeString(DEFAULT_FONT_SIZE));
 	
-	
 	String style = styleAttributes.toStyleAttribute("style");
 	write("<div " + style + ">\n");
 	
@@ -195,11 +196,11 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	List<Element> children = page.getChildren();
 
 	for (Element element : children) {
-	    level++;
+	    levelInc();
 	    if (element instanceof Grid) {
 		writeGrid((Grid) element);
 	    }
-	    level--;
+	    levelDec();
 	}
     }
     
@@ -352,7 +353,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    setFont(styleAttributes, font);
    	 
    	    style = styleAttributes.toStyleAttribute("style");
-   	    level++;
+   	    
+   	    levelInc();
    	    write("<div " + style + ">\n");
    	    
    	    // row: normalize current gc
@@ -464,7 +466,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		setFont(styleAttributes, font);
    		
    		style = styleAttributes.toStyleAttribute("style");
-   		level++;
+   		
+   		levelInc();
    		write("<div " + style + ">\n");
    		
    		
@@ -504,7 +507,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		
    		// cell: end
    		write("</div>\n");
-   		level--;
+   		levelDec();
    	   	    
    		columnIndex = nextColumnIndex;
    		cellX += cellWidth;
@@ -515,7 +518,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    
    	    // row: end
    	    write("</div>\n");
-   	    level--;
+   	    levelDec();
 
    	    rowIndex++;
    	    int shiftY = row.getHeight() + rowBorderTop + rowBorderBottom;
