@@ -29,7 +29,6 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
-import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -40,12 +39,15 @@ import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
-import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
+
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class HTMLExporter extends AbstractHTMLExporter {
 
-    
     protected int offsetX;
     
     protected int offsetY;
@@ -175,8 +177,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	setPosition(styleAttributes, 0, pageOffsetY);
 	setSize(styleAttributes, pageWidth, pageHeight);
 	
-	styleAttributes.addAttribute("font-family", "Arial, Helvetica, sans-serif");
-	styleAttributes.addAttribute("font-size", toPXString(12));
+	styleAttributes.addAttribute("font-family", DEFAULT_FONT_FAMILY);
+	styleAttributes.addAttribute("font-size", toFontSizeString(DEFAULT_FONT_SIZE));
 	
 	
 	String style = styleAttributes.toStyleAttribute("style");
@@ -553,269 +555,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
     }
     
     
-    protected void setBorder(Attributes styleAttributes, Border border) {
-	if (border == null || border.isEmpty()) {
-	    return;
-	}
-
-	// Left
-	if (border.hasLeft()) {
-	    setBorder(styleAttributes, "border-left", border.getLeft());
-	}
-	
-	// Right
-	if (border.hasRight()) {
-	    setBorder(styleAttributes, "border-right", border.getRight());
-	}
-
-	// Top
-	if (border.hasTop()) {
-	    setBorder(styleAttributes, "border-top", border.getTop());
-	}
-
-	// Bottom
-	if (border.hasBottom()) {
-	    setBorder(styleAttributes, "border-bottom", border.getBottom());
-	}
-	
-    }
-    
-    
-    protected void setBorder(Attributes styleAttributes, String name, Pen pen) {
-	if (pen == null || pen.isEmpty()) {
-	    return;
-	}
-	Color defaultColor = Color.BLACK;
-	int w = pen.getLineWidth();
-	if (w <= 0) {
-	    w = 1;
-	}
-	Color color = pen.getLineColor();
-	color = color == null ? defaultColor : color;
-	styleAttributes.addAttribute(name, "" + toPXString(w) + " solid " + toColorString(color));
-    }
-   
-    protected String toColorString(Color color) {
-	return color == null ? null : ("#" + color.toHexString());
-    }
-
-    protected String toFontString(Font font) {
-	if (font == null || font.isEmpty()) {
-	    return null;
-	}
-	StringBuffer buf = new StringBuffer();
-	String value = null;
-	
-	// name
-	if (!font.isEmptyName()) {
-	    buf.append(font.getName());
-	}
-	
-	// size
-	if (!font.isEmptySize()) {
-	    value = toFontSizeString(font);
-	    if (value != null) {
-		if (buf.length() > 0) {
-		    buf.append(" ");
-		}
-		buf.append(value);
-	    }
-	}
-
-	// style
-	if (!font.isEmptyStyle()) {
-	    value = toFontStyleString(font);
-	    if (value != null) {
-		if (buf.length() > 0) {
-		    buf.append(" ");
-		}
-		buf.append(value);
-	    }
-	}
-	
-	if (buf.length() == 0) {
-	    return null;
-	}
-	
-	return buf.toString();
-    }
-    
-    protected String toPXString(int value) {
-	return "" + value + "px";
-    }
-
-    protected String toFontSizeString(Font font) {
-	if (font == null || font.isEmptySize()) {
-	    return null;
-	}
-	return "" + font.getSize() + "px";
-    }
-    
-    protected String toFontStyleString(Font font) {
-	if (font == null || font.isEmptyStyle()) {
-	    return null;
-	}
-	StringBuffer buf = new StringBuffer();
-	
-	// bold
-	if (font.isBold()) {
-	    buf.append("bold");
-	}
-	
-	// italic
-	if (font.isItalic()) {
-	    if (buf.length() > 0) {
-		buf.append(" ");
-	    }
-	    buf.append("italic");
-	}
-	
-	// TODO: underline, strikeout
-	
-	if (buf.length() == 0) {
-	    return null;
-	}
-	
-	return buf.toString();
-    }
-    
-    protected String toHorizontalAlign(HorizontalAlign horizontalAlign) {
-   	if (horizontalAlign == null) {
-   	    return null;
-   	}
-   	String value = null;
-   	if (horizontalAlign == HorizontalAlign.LEFT) {
-   	    value = "left";
-   	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
-   	    value = "right";
-   	} else if (horizontalAlign == HorizontalAlign.CENTER) {
-   	    value = "center";
-   	} else if (horizontalAlign == HorizontalAlign.FILL) {
-   	    value = "justify";
-   	}
-   	return value;
-    }
-    
-    protected String toVerticalAlignString(VerticalAlign verticalAlign) {
-	if (verticalAlign == null) {
-	    return null;
-	}
-	String value = null;
-	if (verticalAlign == VerticalAlign.TOP) {
-	    value = "top";
-	} else if (verticalAlign == VerticalAlign.BOTTOM) {
-	    value = "bottom";
-	} else if (verticalAlign == VerticalAlign.MIDDLE) {
-	    value = "middle";
-	}
-	return value;
-    }
-
-    protected void setPosition(Attributes styleAttributes, int x, int y) {
-	styleAttributes.addAttribute("position", "absolute");
-	styleAttributes.addAttribute("left", toPXString(x));
-	styleAttributes.addAttribute("top", toPXString(y));
-    }
-    
-    protected void setSize(Attributes styleAttributes, int width, int height) {
-	styleAttributes.addAttribute("width", toPXString(width));
-	styleAttributes.addAttribute("height", toPXString(height));
-    }
-    
-    protected void setBackground(Attributes styleAttributes, Color background) {
-	if (background == null) {
-	    return;
-	}	
-	styleAttributes.addAttribute("background", toColorString(background));
-    }
-
-    protected void setForeground(Attributes styleAttributes, Color foreground) {
-	if (foreground == null) {
-	    return;
-	}	
-	styleAttributes.addAttribute("color", toColorString(foreground));
-    }
-    
-    protected void setFont(Attributes styleAttributes, Font font) {
-	if (font == null || font.isEmpty()) {
-	    return;
-	}
-	
-	String value = null;
-	
-	// name
-   	if (!font.isEmptyName()) {
-   	    styleAttributes.addAttribute("font-family", font.getName());
-   	}
-
-   	// size
-   	if (!font.isEmptySize()) {
-   	    value = toFontSizeString(font);
-   	    if (value != null) {
-   		styleAttributes.addAttribute("font-size", value);
-   	    }
-   	}
-
-   	// style
-   	if (!font.isEmptyStyle()) {
-   	    
-	    // bold
-	    if (font.isBold()) {
-		styleAttributes.addAttribute("font-weight", "bold");
-	    }
-
-	    // italic
-	    if (font.isItalic()) {
-		styleAttributes.addAttribute("font-style", "italic");
-	    }
-   		
-   	}
-   	
-	//styleAttributes.addAttribute("font", toFontString(font));
-    }
-
-    protected void setHorizontalAlign(Attributes styleAttributes, HorizontalAlign horizontalAlign) {
-	if (horizontalAlign == null) {
-	    return;
-	}
-	String value = toHorizontalAlign(horizontalAlign);
-	if (value == null) {
-	    return;
-	}
-	styleAttributes.addAttribute("text-align", value); // TODO
-    }
-
-    protected void setVerticalAlign(Attributes styleAttributes, VerticalAlign verticalAlign) {
-	if (verticalAlign == null) {
-	    return;
-	}
-	String value = toVerticalAlignString(verticalAlign);
-	if (value == null) {
-	    return;
-	}
-	styleAttributes.addAttribute("vertical-align", value);
-    }
-    
-    
-    protected void writeText(String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
-	if (text == null) {
-	    return;
-	}
-	
-	Attributes styleAttributes = new Attributes();
-	setPosition(styleAttributes, x, y);
-	setSize(styleAttributes, width, height);
-	setHorizontalAlign(styleAttributes, horizontalAlign);
-	setVerticalAlign(styleAttributes, verticalAlign);
-	
-	String style = styleAttributes.toStyleAttribute("style");
-	level++;
-	write("<div " + style + ">\n");
-	write(text + "\n");
-	write("</div>\n");
-	level--;
-	
-    }
 
     
 }
