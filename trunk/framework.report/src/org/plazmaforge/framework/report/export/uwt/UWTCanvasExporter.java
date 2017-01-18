@@ -56,7 +56,8 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
  */
 public class UWTCanvasExporter extends AbstractBaseExporter {
 
-
+    public static Color DEFAULT_BORDER_COLOR = Color.BLACK;
+    
     
     protected int offsetX;
     
@@ -164,7 +165,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    return;
 	}
 
-	boolean isCollapsedBorder = true; 
+	boolean isOuterBorder = true; 
 	
 	int columnCount = grid.getColumnCount();
 	int rowCount = grid.getRowCount();
@@ -372,9 +373,11 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
 		
 		// cell: background
-		if (isCollapsedBorder) {
+		if (isOuterBorder) {
+		    // Inner cell = Outer border
 		    fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
 		} else {
+		    // Outer cell = Inner border
 		    fillBackground(gc, outCellX, outCellY, outCellWidth, outCellHeight, background);
 		}
 		
@@ -384,7 +387,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		
 		Border border = layout.getCellBorder(columnIndex, rowIndex);
 		
-		drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, true);
+		drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, isOuterBorder);
 		
 		// cell: init gc
 		setCurrentStyle(gc);
@@ -482,101 +485,185 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	gc.drawTextBox(text, x, y, width, height, horizontalAlign, verticalAlign);
     }
     
-    protected void drawBorder(GC gc, Border border, int x, int y, int width, int height, boolean outline) {
+    protected void drawBorder(GC gc, Border border, int x, int y, int width, int height, boolean outerBorder) {
 	if (border == null || border.isEmpty()) {
 	    return;
 	}
 
-	int w;
-	int rx;
-	int ry;
+	int w = 0;
+	int rx = 0;
+	int ry = 0;
 	
-	int rwidth;
-	int rheight;
+	int rwidth = 0;
+	int rheight = 0;
 
-	Pen pen;
-	Color color;
-	Color defaultColor = Color.BLACK;
-	
+	Pen pen = null;
+	Color color = null;
+
+	Pen leftPen = null;
+	Pen rightPen = null;
+	Pen topPen = null;
+	Pen bottomPen = null;
 	
 	int leftW = 0;
 	int rightW = 0;
+	int topW = 0;
+	int bottomW = 0;
+	
+	// =====
+	// |   |
+	// |   |
+	// =====
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// Preprocessing
+	//
+	////////////////////////////////////////////////////////////////////////////////
 	
 	// Left
 	if (border.hasLeft() && !border.getLeft().isEmpty()) {
-	    pen = border.getLeft();
-	    w = pen.getLineWidth();
-	    if (w <= 0) {
-		w = 1;
-	    }
-	    leftW = w;
-	    color = pen.getLineColor();
-	    gc.setBackground(color == null ? defaultColor : color);
-
-	    rx = x - w;
-	    ry = y;
-	    rwidth = w;
-	    rheight = height;
-	    
-	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	    leftPen = border.getLeft();
+	    leftW = normalizeLineWidth(leftPen);
 	}
 	
 	// Right
 	if (border.hasRight() && !border.getRight().isEmpty()) {
-	    pen = border.getRight();
-	    w = pen.getLineWidth();
-	    if (w <= 0) {
-		w = 1;
-	    }
-	    rightW = w;
-	    color = pen.getLineColor();
-	    gc.setBackground(color == null ? defaultColor : color);
-	    
-	    rx = x + width;
-	    ry = y;
-	    rwidth = w;
-	    rheight = height;
-	    
-	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	    rightPen = border.getRight();
+	    rightW = normalizeLineWidth(rightPen);
 	}
 
 	// Top
 	if (border.hasTop() && !border.getTop().isEmpty()) {
-	    pen = border.getTop();
-	    w = pen.getLineWidth();
-	    if (w <= 0) {
-		w = 1;
-	    }
-	    color = pen.getLineColor();
-	    gc.setBackground(color == null ? defaultColor : color);
-	    
-	    rx = x - leftW;
-	    ry = y - w;
-	    rwidth = width + leftW + rightW;
-	    rheight = w;
-	    
-	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	    topPen = border.getTop();
+	    topW = normalizeLineWidth(topPen);
 	}
 
 	// Bottom
 	if (border.hasBottom() && !border.getBottom().isEmpty()) {
-	    pen = border.getBottom();
-	    w = pen.getLineWidth();
-	    if (w <= 0) {
-		w = 1;
+	    bottomPen = border.getBottom();
+	    bottomW = normalizeLineWidth(bottomPen);
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// Drawing
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	// Left
+	if (leftPen != null) {
+	    pen = leftPen;
+	    w = leftW;
+	    
+	    if (outerBorder) {
+		rx = x - w;
+		ry = y;
+		rheight = height;
+	    } else {
+		rx = x;
+		ry = y + topW;
+		rheight = height - topW - bottomW;
 	    }
-	    color = pen.getLineColor();
-	    gc.setBackground(color == null ? defaultColor : color);
 	    
-	    rx = x - leftW;
-	    ry = y + height;
-	    rwidth = width + leftW + rightW;
-	    rheight = w;
+	    rwidth = w;
 	    
+	    color = getLineColor(pen);
+	    gc.setBackground(color);
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+ 
+	}
+
+	// Right
+	if (rightPen != null) {
+	    
+	    pen = rightPen;
+	    w = rightW;
+	    
+	    if (outerBorder) {
+		rx = x + width;
+		ry = y;
+		rheight = height;
+	    } else {
+		rx = x + width - w;
+		ry = y + topW;
+		rheight = height - topW - bottomW;
+	    }
+	    
+	    rwidth = w;
+
+	    color = getLineColor(pen);
+	    gc.setBackground(color);
 	    gc.fillRectangle(rx, ry, rwidth, rheight);
 	}
 	
+	// Top
+	if (topPen != null) {
+	    
+	    pen = topPen;
+	    w = topW;
+	    
+	    if (outerBorder) {
+		rx = x - leftW;
+		ry = y - w;
+		rwidth = width + leftW + rightW;
+	    } else {
+		rx = x;
+		ry = y;
+		rwidth = width;
+	    }
+	    
+	    rheight = w;
+
+	    color = getLineColor(pen);
+	    gc.setBackground(color);
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	}
+
+	// Bottom
+	if (bottomPen != null) {
+	    
+	    pen = bottomPen;
+	    w = bottomW;
+	    
+	    if (outerBorder) {
+		rx = x - leftW;
+		ry = y + height;
+		rwidth = width + leftW + rightW;
+	    } else {
+		rx = x;
+		ry = y + height - w;
+		rwidth = width;
+	    }
+	    
+	    rheight = w;
+
+	    color = getLineColor(pen);
+	    gc.setBackground(color);
+	    gc.fillRectangle(rx, ry, rwidth, rheight);
+	}
+	
+	
+    }
+ 
+    protected int normalizeLineWidth(Pen pen) {
+	if (pen == null) {
+	    return 0;
+	}
+	int w = pen.getLineWidth();
+	if (w <= 0) {
+	    w = 1;
+	}
+	return w;
     }
     
+    protected Color getLineColor(Pen pen) {
+	if (pen == null) {
+	    return null;
+	}
+	return getColor(pen.getLineColor(), DEFAULT_BORDER_COLOR);
+    }
  
 }
