@@ -367,27 +367,41 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		foreground = cellForeground;
 		font = cellFont;
 		
-		int outCellX = cellX - columnBorderLeft;
-		int outCellY = cellY - rowBorderTop;
-		int outCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
-		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
+		int fillCellX = 0;
+		int fillCellY = 0;
+		int fillCellWidth = 0;
+		int fillCellHeight = 0;
+
+		int clientCellX = 0;
+		int clientCellY = 0;
+		int clientCellWidth = 0;
+		int clientCellHeight = 0;
 		
-		// cell: background
 		if (isOuterBorder) {
 		    // Inner cell = Outer border
-		    fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
+		    fillCellX = cellX;
+		    fillCellY = cellY;
+		    fillCellWidth = cellWidth;
+		    fillCellHeight = cellHeight;
+		    
+		    
 		} else {
 		    // Outer cell = Inner border
-		    fillBackground(gc, outCellX, outCellY, outCellWidth, outCellHeight, background);
+		    fillCellX = cellX - columnBorderLeft;
+		    fillCellY = cellY - rowBorderTop;
+		    fillCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
+		    fillCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
 		}
-		
+
+		// cell: background
+		fillBackground(gc, fillCellX, fillCellY, fillCellWidth, fillCellHeight, background);
 		
 		// cell: normalize current gc
 		normalizeCurrentStyle();
 		
 		Border border = layout.getCellBorder(columnIndex, rowIndex);
 		
-		drawBorder(gc, border, cellX, cellY, cellWidth, cellHeight, isOuterBorder);
+		drawBorder(gc, border, fillCellX, fillCellY, fillCellWidth, fillCellHeight, isOuterBorder);
 		
 		// cell: init gc
 		setCurrentStyle(gc);
@@ -553,8 +567,10 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
+	
 	// Left
 	if (leftPen != null) {
+	    
 	    pen = leftPen;
 	    w = leftW;
 	    
