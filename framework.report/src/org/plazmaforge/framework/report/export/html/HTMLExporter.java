@@ -29,6 +29,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -440,12 +441,19 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		background = cellBackground;
    		foreground = cellForeground;
    		font = cellFont;
-   		
+
+   		/*
    		int outCellX = cellX - columnBorderLeft;
    		int outCellY = cellY - rowBorderTop;
    		int outCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
    		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
-   		
+   		*/
+
+   		int outCellX = cellX;
+   		int outCellY = cellY;
+   		int outCellWidth = cellWidth;
+   		int outCellHeight = cellHeight;
+
    		// cell: background
    		// TODO:GC
    		//if (isCollapsedBorder) {
@@ -455,11 +463,31 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		//}
    		
    		Border border = layout.getCellBorder(columnIndex, rowIndex);
+
+   		int borderLeft = 0;
+   		int borderRight = 0;
+   		int borderTop = 0;
+   		int borderBottom = 0;
+
+   		/*
+   		if (border != null && !border.isEmpty()) {
+    		   borderLeft = normalizeLineWidth(border.hasLeft() ? border.getLeft() : null);
+ 		   borderRight = normalizeLineWidth(border.hasRight() ? border.getRight() : null);
+ 		   borderTop = normalizeLineWidth(border.hasTop() ? border.getTop() : null);
+ 		   borderBottom = normalizeLineWidth(border.hasBottom() ? border.getBottom() : null);
+ 		   
+ 		   outCellX += borderLeft;
+ 		   outCellY += borderTop;
+ 		   outCellWidth -= (borderLeft + borderRight);
+ 		   outCellHeight -= (borderTop + borderBottom);   		
+ 		   
+   		}
+   		*/
    		
    		// cell: start (position, size, background, border)
    		styleAttributes = new Attributes();
-   		setPosition(styleAttributes, cellX, cellY);
-   		setSize(styleAttributes, cellWidth, cellHeight);
+   		setPosition(styleAttributes, outCellX, outCellY);
+   		setSize(styleAttributes, outCellWidth, outCellHeight);
    		setBorder(styleAttributes, border);
    		setBackground(styleAttributes, background);
    		setForeground(styleAttributes, foreground);
@@ -558,6 +586,16 @@ public class HTMLExporter extends AbstractHTMLExporter {
     }
     
     
+    protected int normalizeLineWidth(Pen pen) {
+	if (pen == null || pen.isEmpty()) {
+	    return 0;
+	}
+	int w = pen.getLineWidth();
+	if (w <= 0) {
+	    w = 1;
+	}
+	return w;
+    }
 
     
 }
