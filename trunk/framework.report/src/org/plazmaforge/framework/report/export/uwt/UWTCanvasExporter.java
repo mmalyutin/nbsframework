@@ -372,10 +372,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		int fillCellWidth = 0;
 		int fillCellHeight = 0;
 
-		int clientCellX = 0;
-		int clientCellY = 0;
-		int clientCellWidth = 0;
-		int clientCellHeight = 0;
 		
 		if (isOuterBorder) {
 		    // Inner cell = Outer border
@@ -418,12 +414,32 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		    paddingRight = cell.getPadding().getRight();
 		    paddingBottom = cell.getPadding().getBottom();
 		}
+
+		
+		int clientCellX = cellX;
+		int clientCellY = cellY;
+		int clientCellWidth = cellWidth;
+		int clientCellHeight = cellHeight;
+		
+		if (!isOuterBorder && border != null && !border.isEmpty()) {
+		    // Outer cell = Inner border
+		    
+		    int borderLeft = normalizeLineWidth(border.hasLeft() ? border.getLeft() : null);
+		    int borderRight = normalizeLineWidth(border.hasRight() ? border.getRight() : null);
+		    int borderTop = normalizeLineWidth(border.hasTop() ? border.getTop() : null);
+		    int borderBottom = normalizeLineWidth(border.hasBottom() ? border.getBottom() : null);
+		    
+		    clientCellX += borderLeft;
+		    clientCellY += borderTop;
+		    clientCellWidth -= (borderLeft + borderRight);
+		    clientCellHeight -= (borderTop + borderBottom);
+		}
 		
 		// cell: area
-		int areaX = cellX + paddingLeft;
-		int areaY = cellY + paddingTop;
-		int areaWidth = cellWidth - paddingLeft - paddingRight;
-		int areaHeight = cellHeight - paddingTop - paddingBottom;
+		int areaX = clientCellX + paddingLeft;
+		int areaY = clientCellY + paddingTop;
+		int areaWidth = clientCellWidth - paddingLeft - paddingRight;
+		int areaHeight = clientCellHeight - paddingTop - paddingBottom;
 		
 		// cell: paint
 		if (areaWidth > 0 && areaHeight > 0) {
@@ -665,7 +681,7 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
     }
  
     protected int normalizeLineWidth(Pen pen) {
-	if (pen == null) {
+	if (pen == null || pen.isEmpty()) {
 	    return 0;
 	}
 	int w = pen.getLineWidth();
