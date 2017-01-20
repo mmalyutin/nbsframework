@@ -389,15 +389,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
     	   
    	    for (int j = 0; j < cellCount; j++) {
    		
-   		//TODO: BREAK
-   		//if (j > 0) {
-   		//    break;
-   		//}
-   		
-   		
    		cellIndex = j;
    		cell = cells.get(cellIndex);
-   		
    		
    		cellWidth = 0;
    		cellHeight = 0;
@@ -448,27 +441,11 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		foreground = cellForeground;
    		font = cellFont;
 
-   		
-   		int outCellX = cellX - columnBorderLeft;
-   		int outCellY = cellY - rowBorderTop;
-   		int outCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
-   		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
-   		
-
-   		/*
-   		int outCellX = cellX;
-   		int outCellY = cellY;
-   		int outCellWidth = cellWidth;
-   		int outCellHeight = cellHeight;
-   		*/
-
-   		// cell: background
-   		// TODO:GC
-   		//if (isCollapsedBorder) {
-   		//    fillBackground(gc, cellX, cellY, cellWidth, cellHeight, background);
-   		//} else {
-   		//    fillBackground(gc, outCellX, outCellY, outCellWidth, outCellHeight, background);
-   		//}
+   		// fill outer cell
+   		int fillCellX = cellX - columnBorderLeft;
+   		int fillCellY = cellY - rowBorderTop;
+   		int fillCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
+   		int fillCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
    		
    		Border border = layout.getCellBorder(columnIndex, rowIndex);
 
@@ -477,26 +454,21 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		int borderTop = 0;
    		int borderBottom = 0;
 
-   		
    		if (border != null && !border.isEmpty()) {
     		   borderLeft = getLineWidth(border.hasLeft() ? border.getLeft() : null);
  		   borderRight = getLineWidth(border.hasRight() ? border.getRight() : null);
  		   borderTop = getLineWidth(border.hasTop() ? border.getTop() : null);
  		   borderBottom = getLineWidth(border.hasBottom() ? border.getBottom() : null);
  		   
- 		   //outCellX += borderLeft;
- 		   //outCellY += borderTop;
- 		   
- 		   outCellWidth -= (borderLeft + borderRight);
- 		   outCellHeight -= (borderTop + borderBottom);   		
- 		   
+ 		   // fixed size
+ 		   fillCellWidth -= (borderLeft + borderRight);
+ 		   fillCellHeight -= (borderTop + borderBottom);   		
    		}
-   		
    		
    		// cell: start (position, size, background, border)
    		styleAttributes = new Attributes();
-   		setPosition(styleAttributes, outCellX, outCellY);
-   		setSize(styleAttributes, outCellWidth, outCellHeight);
+   		setPosition(styleAttributes, fillCellX, fillCellY);
+   		setSize(styleAttributes, fillCellWidth, fillCellHeight);
    		setBorder(styleAttributes, border);
    		setBackground(styleAttributes, background);
    		setForeground(styleAttributes, foreground);
