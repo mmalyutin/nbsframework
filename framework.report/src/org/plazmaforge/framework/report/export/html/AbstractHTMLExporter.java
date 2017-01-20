@@ -100,9 +100,11 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	String style = styleAttributes.toStyleAttribute("style");
 	
 	levelInc();
-	write("<div " + style + ">\n");
+	
+	writeStartTag("div", style);
 	write(text + "\n");
-	write("</div>\n");
+	writeEndTag("div");
+	
 	levelDec();
 	
     }
@@ -113,6 +115,14 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 
     protected void levelDec() {
 	level--;
+    }
+    
+    protected void writeStartTag(String tag, String attr) throws IOException {
+	write("<" + tag + (attr == null ? "" : (" " + attr)) + ">\n");
+    }
+
+    protected void writeEndTag(String tag) throws IOException {
+	write("</" + tag + ">\n");
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////
