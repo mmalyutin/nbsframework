@@ -389,6 +389,13 @@ public class HTMLExporter extends AbstractHTMLExporter {
     	    cellY += rowBorderTop;
     	   
    	    for (int j = 0; j < cellCount; j++) {
+   		
+   		//TODO: BREAK
+   		//if (j > 0) {
+   		//    break;
+   		//}
+   		
+   		
    		cellIndex = j;
    		cell = cells.get(cellIndex);
    		
@@ -442,17 +449,19 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		foreground = cellForeground;
    		font = cellFont;
 
-   		/*
+   		
    		int outCellX = cellX - columnBorderLeft;
    		int outCellY = cellY - rowBorderTop;
    		int outCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
    		int outCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
-   		*/
+   		
 
+   		/*
    		int outCellX = cellX;
    		int outCellY = cellY;
    		int outCellWidth = cellWidth;
    		int outCellHeight = cellHeight;
+   		*/
 
    		// cell: background
    		// TODO:GC
@@ -469,20 +478,21 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		int borderTop = 0;
    		int borderBottom = 0;
 
-   		/*
+   		
    		if (border != null && !border.isEmpty()) {
     		   borderLeft = normalizeLineWidth(border.hasLeft() ? border.getLeft() : null);
  		   borderRight = normalizeLineWidth(border.hasRight() ? border.getRight() : null);
  		   borderTop = normalizeLineWidth(border.hasTop() ? border.getTop() : null);
  		   borderBottom = normalizeLineWidth(border.hasBottom() ? border.getBottom() : null);
  		   
- 		   outCellX += borderLeft;
- 		   outCellY += borderTop;
+ 		   //outCellX += borderLeft;
+ 		   //outCellY += borderTop;
+ 		   
  		   outCellWidth -= (borderLeft + borderRight);
  		   outCellHeight -= (borderTop + borderBottom);   		
  		   
    		}
-   		*/
+   		
    		
    		// cell: start (position, size, background, border)
    		styleAttributes = new Attributes();
