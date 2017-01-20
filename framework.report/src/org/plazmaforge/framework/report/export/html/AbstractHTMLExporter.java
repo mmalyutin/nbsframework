@@ -367,13 +367,8 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	if (pen == null || pen.isEmpty()) {
 	    return;
 	}
-	Color defaultColor = Color.BLACK;
-	int w = pen.getLineWidth();
-	if (w <= 0) {
-	    w = 1;
-	}
-	Color color = pen.getLineColor();
-	color = color == null ? defaultColor : color;
+	int w = getLineWidth(pen);
+	Color color = getLineColor(pen);
 	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
     }
     
