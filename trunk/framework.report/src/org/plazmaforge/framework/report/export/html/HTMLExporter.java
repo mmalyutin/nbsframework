@@ -60,6 +60,15 @@ public class HTMLExporter extends AbstractHTMLExporter {
     
     protected int pageOffsetY;
     
+
+    private static String TAG_DIV = "div";
+    
+    private static String TAG_GRID = TAG_DIV;
+    
+    private static String TAG_GRID_ROW = TAG_DIV;
+    
+    private static String TAG_GRID_CELL = TAG_DIV;
+    
     
     @Override
     public void exportDocument(Document document) throws RTException {
@@ -284,7 +293,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	setFont(styleAttributes, font);
 	
 	String style = styleAttributes.toStyleAttribute("style");
-	write("<div " + style + ">\n");
+	
+	// TODO: HTML-TYPE
+	//write("<div " + style + ">\n");
+	writeGridStart(style);
 
 	
    	// grid: normalize current gc
@@ -355,7 +367,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    style = styleAttributes.toStyleAttribute("style");
    	    
    	    levelInc();
-   	    write("<div " + style + ">\n");
+   	    
+   	    //TODO: HTML-TYPE
+   	    //write("<div " + style + ">\n");
+   	    writeRowStart(style);
    	    
    	    // row: normalize current gc
    	    normalizeCurrentStyle();
@@ -477,7 +492,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		style = styleAttributes.toStyleAttribute("style");
    		
    		levelInc();
-   		write("<div " + style + ">\n");
+   		
+   		//TODO: HTML-TYPE
+   		//write("<div " + style + ">\n");
+   		writeCellStart(style);
    		
    		
    		// cell: normalize current gc
@@ -515,7 +533,11 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		}
    		
    		// cell: end
-   		write("</div>\n");
+   		
+   		//TODO: HTML-TYPE
+   		//write("</div>\n");
+   		writeCellEnd();
+   		
    		levelDec();
    	   	    
    		columnIndex = nextColumnIndex;
@@ -526,7 +548,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    }
    	    
    	    // row: end
-   	    write("</div>\n");
+   	    
+   	    //TODO: HTML-TYPE
+   	    //write("</div>\n");
+   	    writeRowEnd();
    	    levelDec();
 
    	    rowIndex++;
@@ -563,11 +588,38 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	}
    	
    	// grid: end
-	write("</div>\n");
+   	
+   	//TODO: HTML-TYPE
+	//write("</div>\n");
+	writeGridEnd();
     }
     
     
+	
+
+    protected void writeGridStart(String attr) throws IOException {
+	writeStartTag(TAG_GRID, attr);
+    }
+
+    protected void writeGridEnd() throws IOException {
+	writeEndTag(TAG_GRID);
+    }
 
 
+    protected void writeRowStart(String attr) throws IOException {
+	writeStartTag(TAG_GRID_ROW, attr);
+    }
+
+    protected void writeRowEnd() throws IOException {
+	writeEndTag(TAG_GRID_ROW);
+    }
+
+    protected void writeCellStart(String attr) throws IOException {
+	writeStartTag(TAG_GRID_CELL, attr);
+    }
+
+    protected void writeCellEnd() throws IOException {
+	writeEndTag(TAG_GRID_CELL);
+    }
     
 }
