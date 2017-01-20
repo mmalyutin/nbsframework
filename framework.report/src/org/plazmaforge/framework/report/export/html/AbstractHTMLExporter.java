@@ -27,6 +27,7 @@ import java.io.IOException;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractTextExporter;
 import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.Padding;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
@@ -48,6 +49,18 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
     
     
     protected int level;
+    
+    
+    private boolean tableAsDiv = true;  
+    
+    protected boolean isTableAsDiv() {
+        return tableAsDiv;
+    }
+
+    protected void setTableAsDiv(boolean tableAsDiv) {
+        this.tableAsDiv = tableAsDiv;
+    }
+
     
     protected void writeHeader() throws IOException {
 
@@ -92,7 +105,11 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	}
 	
 	Attributes styleAttributes = new Attributes();
-	setPosition(styleAttributes, x, y);
+	
+	if (isTableAsDiv()) {
+	    setPosition(styleAttributes, x, y);
+	}
+	
 	setSize(styleAttributes, width, height);
 	setHorizontalAlign(styleAttributes, horizontalAlign);
 	setVerticalAlign(styleAttributes, verticalAlign);
@@ -344,6 +361,16 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	styleAttributes.addAttribute("height", toDimensionString(height));
     }
 
+    // height
+    protected void setHeight(Attributes styleAttributes, int height) {
+	styleAttributes.addAttribute("height", toDimensionString(height));
+    }
+
+    // width
+    protected void setWidth(Attributes styleAttributes, int width) {
+	styleAttributes.addAttribute("width", toDimensionString(width));
+    }
+    
     // border (left, top, right, bottom)
     protected void setBorder(Attributes styleAttributes, Border border) {
 	if (border == null || border.isEmpty()) {
@@ -381,6 +408,35 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	Color color = getLineColor(pen);
 	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
     }
+    
+    // padding (left, top, right, bottom)
+    protected void setPadding(Attributes styleAttributes, Padding padding) {
+	if (padding == null || padding.isEmpty()) {
+	    return;
+	}
+
+	// Left
+	setPadding(styleAttributes, "padding-left", padding.getLeft());
+	
+	// Right
+	setPadding(styleAttributes, "padding-right", padding.getRight());
+
+	// Top
+	setPadding(styleAttributes, "padding-top", padding.getTop());
+
+	// Bottom
+	setPadding(styleAttributes, "padding-bottom", padding.getBottom());
+	
+    }
+
+    // padding (one size)
+    protected void setPadding(Attributes styleAttributes, String name, Integer value) {
+	if (value == null) {
+	    return;
+	}
+	styleAttributes.addAttribute(name, toDimensionString(value));
+    }
+    
     
     // horizontal align
     protected void setHorizontalAlign(Attributes styleAttributes, HorizontalAlign horizontalAlign) {

@@ -63,6 +63,16 @@ public class HTMLExporter extends AbstractHTMLExporter {
 
     private static String TAG_DIV = "div";
     
+    private static String TAG_TABLE = "table";
+    
+    private static String TAG_TR = "tr";
+    
+    private static String TAG_TH = "th";
+    
+    private static String TAG_TD = "td";
+    
+    
+    
     private static String TAG_GRID = TAG_DIV;
     
     private static String TAG_GRID_ROW = TAG_DIV;
@@ -222,8 +232,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    return;
    	}
 
-   	boolean isCollapsedBorder = true; 
-   	
    	int columnCount = grid.getColumnCount();
    	int rowCount = grid.getRowCount();
    	
@@ -358,8 +366,14 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		
    	    // row: start (position, size, background)
    	    styleAttributes = new Attributes();
-   	    setPosition(styleAttributes, rowOffsetX, rowOffsetY);
-   	    setSize(styleAttributes, rowWidth, rowHeight);
+   	    
+   	    if (isTableAsDiv()) {
+   		setPosition(styleAttributes, rowOffsetX, rowOffsetY);
+   		setSize(styleAttributes, rowWidth, rowHeight);
+   	    } else {
+   		setHeight(styleAttributes, rowHeight);
+   	    }
+   	    
    	    setBackground(styleAttributes, background);
    	    setForeground(styleAttributes, foreground);
    	    setFont(styleAttributes, font);
@@ -423,6 +437,9 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		    break;
    		}
    		
+   		int columnWidth = columns.get(columnIndex).getWidth();
+   		//int rowHeight
+   		
    		cellWidth = GridUtils.calculateCellWidth(layout, cell, columns, columnIndex);
    		cellHeight = GridUtils.calculateCellHeight(layout, cell, rows, rowIndex);
    		
@@ -480,16 +497,59 @@ public class HTMLExporter extends AbstractHTMLExporter {
  		   fillCellHeight -= (borderTop + borderBottom);   		
    		}
    		
+   		
+   		// cell: padding
+   		paddingLeft = 0;
+   		paddingTop = 0;
+   		paddingRight = 0;
+   		paddingBottom = 0;
+
+   		if (cell.hasPadding()) {
+   		    paddingLeft = cell.getPadding().getLeft();
+   		    paddingTop = cell.getPadding().getTop();
+   		    paddingRight = cell.getPadding().getRight();
+   		    paddingBottom = cell.getPadding().getBottom();
+   		}
+   		
+   		
    		// cell: start (position, size, background, border)
    		styleAttributes = new Attributes();
-   		setPosition(styleAttributes, fillCellX, fillCellY);
-   		setSize(styleAttributes, fillCellWidth, fillCellHeight);
+   		
+   		String attr = null;
+   		if (isTableAsDiv()) {
+   		    setPosition(styleAttributes, fillCellX, fillCellY);
+   		    setSize(styleAttributes, fillCellWidth, fillCellHeight);
+   		} else {
+   		    
+   		    if (rowIndex == 0) {
+   			setWidth(styleAttributes, columnWidth);
+   		    }
+   		    if (cell.hasPadding()) {
+   			setPadding(styleAttributes, cell.getPadding());
+   		    }
+   		    
+   		    if (colspan > 1) {
+   			attr = "colspan=\"" + colspan + "\"";
+   		    }
+   		    if (rowspan > 1) {
+   			if (attr == null) {
+   			    attr = "";
+   			} else {
+   			    attr = attr + " ";
+   			}
+   			attr += "rowspan=\"" + rowspan + "\"";
+   		    }
+   		}
+   		
    		setBorder(styleAttributes, border);
    		setBackground(styleAttributes, background);
    		setForeground(styleAttributes, foreground);
    		setFont(styleAttributes, font);
    		
    		style = styleAttributes.toStyleAttribute("style");
+   		if (attr != null) {
+   		    style += (" " + attr);
+   		}
    		
    		levelInc();
    		
@@ -504,18 +564,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		// cell: init gc
    		//setCurrentStyle(gc);
    		
-   		// cell: padding
-   		paddingLeft = 0;
-   		paddingTop = 0;
-   		paddingRight = 0;
-   		paddingBottom = 0;
-
-   		if (cell.hasPadding()) {
-   		    paddingLeft = cell.getPadding().getLeft();
-   		    paddingTop = cell.getPadding().getTop();
-   		    paddingRight = cell.getPadding().getRight();
-   		    paddingBottom = cell.getPadding().getBottom();
-   		}
    		
    		// cell: area
    		int areaX = /*cellX + */ paddingLeft; // #REL
@@ -598,28 +646,27 @@ public class HTMLExporter extends AbstractHTMLExporter {
 	
 
     protected void writeGridStart(String attr) throws IOException {
-	writeStartTag(TAG_GRID, attr);
+	writeStartTag(isTableAsDiv() ? TAG_DIV : (TAG_TABLE + " cellpadding=\"0\" cellspacing=\"0\""), attr);
     }
 
     protected void writeGridEnd() throws IOException {
-	writeEndTag(TAG_GRID);
+	writeEndTag(isTableAsDiv() ? TAG_DIV : TAG_TABLE);
     }
 
-
     protected void writeRowStart(String attr) throws IOException {
-	writeStartTag(TAG_GRID_ROW, attr);
+	writeStartTag(isTableAsDiv() ? TAG_DIV : TAG_TR, attr);
     }
 
     protected void writeRowEnd() throws IOException {
-	writeEndTag(TAG_GRID_ROW);
+	writeEndTag(isTableAsDiv() ? TAG_DIV : TAG_TR);
     }
 
     protected void writeCellStart(String attr) throws IOException {
-	writeStartTag(TAG_GRID_CELL, attr);
+	writeStartTag(isTableAsDiv() ? TAG_DIV : TAG_TD, attr);
     }
 
     protected void writeCellEnd() throws IOException {
-	writeEndTag(TAG_GRID_CELL);
+	writeEndTag(isTableAsDiv() ? TAG_DIV : TAG_TD);
     }
     
 }
