@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.report.export;
 
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 
@@ -32,6 +33,11 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  */
 public abstract class AbstractBaseExporter extends AbstractReportExporter {
 
+    public static int DEFAULT_BORDER_WIDTH = 1;
+    
+    public static Color DEFAULT_BORDER_COLOR = Color.BLACK;
+    
+    
     protected Color parentBackground;
     protected Color parentForeground;
     protected Font parentFont;
@@ -97,6 +103,23 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
 	foreground = getColor(foreground, parentForeground);
 	font = getFont(font, parentFont);
     }
-    
 
+    protected int getLineWidth(Pen pen) {
+	if (pen == null || pen.isEmpty()) {
+	    return 0;
+	}
+	int w = pen.getLineWidth();
+	if (w <= 0) {
+	    w = DEFAULT_BORDER_WIDTH;
+	}
+	return w;
+    }
+
+    protected Color getLineColor(Pen pen) {
+	if (pen == null) {
+	    return null;
+	}
+	return getColor(pen.getLineColor(), DEFAULT_BORDER_COLOR);
+    }
+    
 }

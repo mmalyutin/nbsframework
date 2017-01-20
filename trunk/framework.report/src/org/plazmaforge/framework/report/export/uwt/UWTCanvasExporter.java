@@ -56,7 +56,7 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
  */
 public class UWTCanvasExporter extends AbstractBaseExporter {
 
-    public static Color DEFAULT_BORDER_COLOR = Color.BLACK;
+
     
     
     protected int offsetX;
@@ -424,10 +424,10 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		if (!isOuterBorder && border != null && !border.isEmpty()) {
 		    // Outer cell = Inner border
 		    
-		    int borderLeft = normalizeLineWidth(border.hasLeft() ? border.getLeft() : null);
-		    int borderRight = normalizeLineWidth(border.hasRight() ? border.getRight() : null);
-		    int borderTop = normalizeLineWidth(border.hasTop() ? border.getTop() : null);
-		    int borderBottom = normalizeLineWidth(border.hasBottom() ? border.getBottom() : null);
+		    int borderLeft = getLineWidth(border.hasLeft() ? border.getLeft() : null);
+		    int borderRight = getLineWidth(border.hasRight() ? border.getRight() : null);
+		    int borderTop = getLineWidth(border.hasTop() ? border.getTop() : null);
+		    int borderBottom = getLineWidth(border.hasBottom() ? border.getBottom() : null);
 		    
 		    clientCellX += borderLeft;
 		    clientCellY += borderTop;
@@ -555,25 +555,25 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	// Left
 	if (border.hasLeft() && !border.getLeft().isEmpty()) {
 	    leftPen = border.getLeft();
-	    leftW = normalizeLineWidth(leftPen);
+	    leftW = getLineWidth(leftPen);
 	}
 	
 	// Right
 	if (border.hasRight() && !border.getRight().isEmpty()) {
 	    rightPen = border.getRight();
-	    rightW = normalizeLineWidth(rightPen);
+	    rightW = getLineWidth(rightPen);
 	}
 
 	// Top
 	if (border.hasTop() && !border.getTop().isEmpty()) {
 	    topPen = border.getTop();
-	    topW = normalizeLineWidth(topPen);
+	    topW = getLineWidth(topPen);
 	}
 
 	// Bottom
 	if (border.hasBottom() && !border.getBottom().isEmpty()) {
 	    bottomPen = border.getBottom();
-	    bottomW = normalizeLineWidth(bottomPen);
+	    bottomW = getLineWidth(bottomPen);
 	}
 	
 	
@@ -680,22 +680,5 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	
     }
  
-    protected int normalizeLineWidth(Pen pen) {
-	if (pen == null || pen.isEmpty()) {
-	    return 0;
-	}
-	int w = pen.getLineWidth();
-	if (w <= 0) {
-	    w = 1;
-	}
-	return w;
-    }
-    
-    protected Color getLineColor(Pen pen) {
-	if (pen == null) {
-	    return null;
-	}
-	return getColor(pen.getLineColor(), DEFAULT_BORDER_COLOR);
-    }
  
 }

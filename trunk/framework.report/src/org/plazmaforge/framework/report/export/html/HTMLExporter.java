@@ -29,7 +29,6 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
-import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -480,10 +479,10 @@ public class HTMLExporter extends AbstractHTMLExporter {
 
    		
    		if (border != null && !border.isEmpty()) {
-    		   borderLeft = normalizeLineWidth(border.hasLeft() ? border.getLeft() : null);
- 		   borderRight = normalizeLineWidth(border.hasRight() ? border.getRight() : null);
- 		   borderTop = normalizeLineWidth(border.hasTop() ? border.getTop() : null);
- 		   borderBottom = normalizeLineWidth(border.hasBottom() ? border.getBottom() : null);
+    		   borderLeft = getLineWidth(border.hasLeft() ? border.getLeft() : null);
+ 		   borderRight = getLineWidth(border.hasRight() ? border.getRight() : null);
+ 		   borderTop = getLineWidth(border.hasTop() ? border.getTop() : null);
+ 		   borderBottom = getLineWidth(border.hasBottom() ? border.getBottom() : null);
  		   
  		   //outCellX += borderLeft;
  		   //outCellY += borderTop;
@@ -596,16 +595,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
     }
     
     
-    protected int normalizeLineWidth(Pen pen) {
-	if (pen == null || pen.isEmpty()) {
-	    return 0;
-	}
-	int w = pen.getLineWidth();
-	if (w <= 0) {
-	    w = 1;
-	}
-	return w;
-    }
+
 
     
 }
