@@ -48,6 +48,18 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  */
 public class HTMLExporter extends AbstractHTMLExporter {
 
+    
+    private static String TAG_DIV = "div";
+    
+    private static String TAG_TABLE = "table";
+    
+    private static String TAG_TR = "tr";
+    
+    private static String TAG_TH = "th";
+    
+    private static String TAG_TD = "td";
+
+    
     protected int offsetX;
     
     protected int offsetY;
@@ -60,24 +72,15 @@ public class HTMLExporter extends AbstractHTMLExporter {
     
     protected int pageOffsetY;
     
+    private boolean tableAsDiv = true;  
+    
+    protected boolean isTableAsDiv() {
+        return tableAsDiv;
+    }
 
-    private static String TAG_DIV = "div";
-    
-    private static String TAG_TABLE = "table";
-    
-    private static String TAG_TR = "tr";
-    
-    private static String TAG_TH = "th";
-    
-    private static String TAG_TD = "td";
-    
-    
-    
-    private static String TAG_GRID = TAG_DIV;
-    
-    private static String TAG_GRID_ROW = TAG_DIV;
-    
-    private static String TAG_GRID_CELL = TAG_DIV;
+    protected void setTableAsDiv(boolean tableAsDiv) {
+        this.tableAsDiv = tableAsDiv;
+    }
     
     
     @Override
@@ -572,11 +575,12 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		int areaHeight = cellHeight - paddingTop - paddingBottom;
    		
    		// cell: paint
+   		boolean isTextPosition = isTableAsDiv();
    		if (areaWidth > 0 && areaHeight > 0) {
    		    Object value = cell.getValue();
    		    if (value != null) {
    			String text = formatCellValue(cell);
-   			writeText(text, areaX, areaY, areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
+   			writeText(text, (isTextPosition ? areaX : null), (isTextPosition ? areaY : null), areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
    		    }
    		}
    		

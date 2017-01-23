@@ -51,15 +51,6 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
     protected int level;
     
     
-    private boolean tableAsDiv = true;  
-    
-    protected boolean isTableAsDiv() {
-        return tableAsDiv;
-    }
-
-    protected void setTableAsDiv(boolean tableAsDiv) {
-        this.tableAsDiv = tableAsDiv;
-    }
 
     
     protected void writeHeader() throws IOException {
@@ -99,17 +90,14 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	super.write(str);
     }
 
-    protected void writeText(String text, int x, int y, int width, int height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
+    protected void writeText(String text, Integer x, Integer y, Integer width, Integer height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
 	if (text == null) {
 	    return;
 	}
 	
 	Attributes styleAttributes = new Attributes();
-	
-	if (isTableAsDiv()) {
-	    setPosition(styleAttributes, x, y);
-	}
-	
+
+	setPosition(styleAttributes, x, y);
 	setSize(styleAttributes, width, height);
 	setHorizontalAlign(styleAttributes, horizontalAlign);
 	setVerticalAlign(styleAttributes, verticalAlign);
@@ -349,26 +337,40 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
     }
 
     // position
-    protected void setPosition(Attributes styleAttributes, int x, int y) {
+    protected void setPosition(Attributes styleAttributes, Integer x, Integer y) {
+	if (x == null && y == null) {
+	    return;
+	}
 	styleAttributes.addAttribute("position", "absolute");
-	styleAttributes.addAttribute("left", toDimensionString(x));
-	styleAttributes.addAttribute("top", toDimensionString(y));
+	if (x != null) {
+	    styleAttributes.addAttribute("left", toDimensionString(x));
+	}
+	if (y != null) {
+	    styleAttributes.addAttribute("top", toDimensionString(y));
+	}
     }
     
     // size
-    protected void setSize(Attributes styleAttributes, int width, int height) {
-	styleAttributes.addAttribute("width", toDimensionString(width));
-	styleAttributes.addAttribute("height", toDimensionString(height));
+    protected void setSize(Attributes styleAttributes, Integer width, Integer height) {
+	if (width == null && height == null) {
+	    return;
+	}
+	if (width != null) {
+	    styleAttributes.addAttribute("width", toDimensionString(width));
+	}
+	if (height != null) {
+	    styleAttributes.addAttribute("height", toDimensionString(height));
+	}
     }
 
     // height
-    protected void setHeight(Attributes styleAttributes, int height) {
-	styleAttributes.addAttribute("height", toDimensionString(height));
+    protected void setHeight(Attributes styleAttributes, Integer height) {
+	setSize(styleAttributes, null, height);
     }
 
     // width
-    protected void setWidth(Attributes styleAttributes, int width) {
-	styleAttributes.addAttribute("width", toDimensionString(width));
+    protected void setWidth(Attributes styleAttributes, Integer width) {
+	setSize(styleAttributes, width, null);
     }
     
     // border (left, top, right, bottom)
