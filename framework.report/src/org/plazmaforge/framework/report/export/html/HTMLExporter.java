@@ -333,6 +333,44 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	rowOffsetX = gridOffsetX;
    	rowOffsetY = gridOffsetY;
 
+
+   	int columnWidth = 0;
+   	
+   	
+   	// table tag only
+	if (!isTableAsDiv()) {
+
+	    styleAttributes = new Attributes();
+	    setHeight(styleAttributes, 0);
+	    style = styleAttributes.toStyleAttribute("style");
+	   
+	    levelInc();
+	    writeRowStart(style);
+	    
+	    
+	    // table: empty first row
+	    columnIndex = 0;
+	    for (int i = 0; i < columnCount; i++) {
+		columnIndex = i;
+		columnWidth = columns.get(columnIndex).getWidth();
+
+		styleAttributes = new Attributes();
+		setWidth(styleAttributes, columnWidth);
+		style = styleAttributes.toStyleAttribute("style");
+
+		levelInc();
+		writeCellStart(style);
+		writeCellEnd();
+		levelDec();
+	    }
+
+	    writeRowEnd();
+	    levelDec();
+	}	
+
+	columnIndex = 0;
+	columnWidth = 0;
+	
    	for (int i = 0; i < rowCount; i++) {
    	    
    	    row = rows.get(i);
@@ -384,9 +422,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    style = styleAttributes.toStyleAttribute("style");
    	    
    	    levelInc();
-   	    
-   	    //TODO: HTML-TYPE
-   	    //write("<div " + style + ">\n");
    	    writeRowStart(style);
    	    
    	    // row: normalize current gc
@@ -440,7 +475,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		    break;
    		}
    		
-   		int columnWidth = columns.get(columnIndex).getWidth();
+   		columnWidth = columns.get(columnIndex).getWidth();
    		//int rowHeight
    		
    		cellWidth = GridUtils.calculateCellWidth(layout, cell, columns, columnIndex);
@@ -515,18 +550,21 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		}
    		
    		
-   		// cell: start (position, size, background, border)
+   		// cell: start (position, size, background, foreground, border)
    		styleAttributes = new Attributes();
    		
    		String attr = null;
    		if (isTableAsDiv()) {
+   		    
+   		    // cell: position, size
    		    setPosition(styleAttributes, fillCellX, fillCellY);
    		    setSize(styleAttributes, fillCellWidth, fillCellHeight);
    		} else {
    		    
-   		    if (rowIndex == 0) {
-   			setWidth(styleAttributes, columnWidth);
-   		    }
+   		    //if (rowIndex == 0) {
+   			//setWidth(styleAttributes, columnWidth);
+   		    //}
+   		    
    		    if (cell.hasPadding()) {
    			setPadding(styleAttributes, cell.getPadding());
    		    }
@@ -555,11 +593,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		}
    		
    		levelInc();
-   		
-   		//TODO: HTML-TYPE
-   		//write("<div " + style + ">\n");
    		writeCellStart(style);
-   		
    		
    		// cell: normalize current gc
    		normalizeCurrentStyle();
@@ -585,9 +619,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		}
    		
    		// cell: end
-   		
-   		//TODO: HTML-TYPE
-   		//write("</div>\n");
    		writeCellEnd();
    		
    		levelDec();
@@ -600,9 +631,6 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    }
    	    
    	    // row: end
-   	    
-   	    //TODO: HTML-TYPE
-   	    //write("</div>\n");
    	    writeRowEnd();
    	    levelDec();
 
