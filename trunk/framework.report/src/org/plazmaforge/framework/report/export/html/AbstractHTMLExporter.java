@@ -181,7 +181,8 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	    buf.append("italic");
 	}
 	
-	// TODO: underline, strikeout
+	// 'font' attribute doesn't support 'underline', 'strikeout'
+	// Use 'text-decoration' ('underline', 'line-through')
 	
 	if (buf.length() == 0) {
 	    return null;
@@ -223,6 +224,10 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 		}
 		buf.append(value);
 	    }
+
+	    // 'font' attribute doesn't support 'underline', 'strikeout'
+	    // Use 'text-decoration' ('underline', 'line-through')
+
 	}
 	
 	if (buf.length() == 0) {
@@ -313,6 +318,17 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 		styleAttributes.addAttribute("font-style", "italic");
 	    }
    		
+	    // underline | strikeout
+	    if (font.isUnderline() || font.isStrikeout()) {
+		String textDecoration = null;
+		if (font.isUnderline()) {
+		    textDecoration = "underline";
+		}
+		if (font.isStrikeout()) {
+		    textDecoration = (textDecoration == null ? "" : (textDecoration + " ")) + "line-through";
+		}
+		styleAttributes.addAttribute("text-decoration", textDecoration);
+	    }
    	}
    	
 	//styleAttributes.addAttribute("font", toFontString(font));
