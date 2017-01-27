@@ -27,6 +27,7 @@ import java.io.IOException;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractTextExporter;
 import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Padding;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -90,7 +91,7 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	super.write(str);
     }
 
-    protected void writeText(String text, Integer x, Integer y, Integer width, Integer height, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
+    protected void writeText(String text, Integer x, Integer y, Integer width, Integer height, Insets margin, Font font, Color foreground, HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) throws RTException, IOException {
 	if (text == null) {
 	    return;
 	}
@@ -101,6 +102,11 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	setSize(styleAttributes, width, height);
 	setHorizontalAlign(styleAttributes, horizontalAlign);
 	setVerticalAlign(styleAttributes, verticalAlign);
+	setMargin(styleAttributes, margin);
+	
+	if (verticalAlign != null) {
+	    styleAttributes.addAttribute("display", "table-cell");
+	}
 	
 	String style = styleAttributes.toStyleAttribute("style");
 	
@@ -427,8 +433,37 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
     }
     
+    
+    // margin (left, top, right, bottom)
+    protected void setMargin(Attributes styleAttributes, Insets margin) {
+	if (margin == null || margin.isEmpty()) {
+	    return;
+	}
+
+	// Left
+	setMargin(styleAttributes, "margin-left", margin.getLeft());
+	
+	// Right
+	setMargin(styleAttributes, "margin-right", margin.getRight());
+
+	// Top
+	setMargin(styleAttributes, "margin-top", margin.getTop());
+
+	// Bottom
+	setMargin(styleAttributes, "margin-bottom", margin.getBottom());
+	
+    }
+
+    // margin (one size)
+    protected void setMargin(Attributes styleAttributes, String name, Integer value) {
+	if (value == null) {
+	    return;
+	}
+	styleAttributes.addAttribute(name, toDimensionString(value));
+    }
+    
     // padding (left, top, right, bottom)
-    protected void setPadding(Attributes styleAttributes, Padding padding) {
+    protected void setPadding(Attributes styleAttributes, Insets padding) {
 	if (padding == null || padding.isEmpty()) {
 	    return;
 	}
@@ -478,6 +513,7 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	    return;
 	}
 	styleAttributes.addAttribute("vertical-align", value);
+	
     }
     
     
