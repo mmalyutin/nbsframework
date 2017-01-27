@@ -29,6 +29,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
@@ -72,7 +73,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
     
     protected int pageOffsetY;
     
-    private boolean tableAsDiv = true;  
+    private boolean tableAsDiv = false;  
     
     protected boolean isTableAsDiv() {
         return tableAsDiv;
@@ -556,15 +557,28 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		String attr = null;
    		if (isTableAsDiv()) {
    		    
-   		    // cell: position, size
+   		    // cell: [DIV] position, size
    		    setPosition(styleAttributes, fillCellX, fillCellY);
    		    setSize(styleAttributes, fillCellWidth, fillCellHeight);
+   		    
+   		    // cell: [DIV] parent {display: table}, child {display: table-cell}
+   		    if (cell.getVerticalAlign() != null) {
+   			styleAttributes.addAttribute("display", "table");
+   		    }
+   		    
+   		    // cell: [DIV] padding = none, use textMargin late (emulate padding like margin)
+   		    //if (cell.hasPadding()) {
+   			//setPadding(styleAttributes, cell.getPadding());
+   		    //}
+   		    
    		} else {
    		    
+   		    // cell: [TABLE:TD] position, size = none, use first empty row in table (invisible: height=0)
    		    //if (rowIndex == 0) {
    			//setWidth(styleAttributes, columnWidth);
    		    //}
    		    
+   		    // cell: [TABLE:TD] padding
    		    if (cell.hasPadding()) {
    			setPadding(styleAttributes, cell.getPadding());
    		    }
@@ -609,12 +623,18 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		int areaHeight = cellHeight - paddingTop - paddingBottom;
    		
    		// cell: paint
-   		boolean isTextPosition = isTableAsDiv();
+   		boolean isTextPosition = false; //isTableAsDiv();
+   		Insets textMargin = null;
+   		
+   		// cell: [TABLE:TD] textMargin
+   		if (isTableAsDiv()) {
+   		    textMargin =  cell.hasPadding() ? cell.getPadding() : null;
+   		}
    		if (areaWidth > 0 && areaHeight > 0) {
    		    Object value = cell.getValue();
    		    if (value != null) {
    			String text = formatCellValue(cell);
-   			writeText(text, (isTextPosition ? areaX : null), (isTextPosition ? areaY : null), areaWidth, areaHeight, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
+   			writeText(text, (isTextPosition ? areaX : null), (isTextPosition ? areaY : null), areaWidth, areaHeight, textMargin, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
    		    }
    		}
    		
