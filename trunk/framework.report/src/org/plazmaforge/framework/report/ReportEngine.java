@@ -31,6 +31,7 @@ import java.util.Map;
 import org.plazmaforge.framework.report.export.ReportExporter;
 import org.plazmaforge.framework.report.export.ReportExporterFactory;
 import org.plazmaforge.framework.report.export.html.HTMLExporterFactory;
+import org.plazmaforge.framework.report.export.pdf.PDFExporterFactory;
 import org.plazmaforge.framework.report.export.uwt.UWTCanvasExporterFactory;
 import org.plazmaforge.framework.report.export.xls.XLSExporterFactory;
 import org.plazmaforge.framework.report.export.xlsx.XLSXExporterFactory;
@@ -244,6 +245,7 @@ public class ReportEngine {
 	registerReportExporterFactory(XLSXExporterFactory.TYPE, new XLSXExporterFactory());		// XLS
 	registerReportExporterFactory(UWTCanvasExporterFactory.TYPE, new UWTCanvasExporterFactory());	// UWT
 	registerReportExporterFactory(HTMLExporterFactory.TYPE, new HTMLExporterFactory());		// HTML
+	registerReportExporterFactory(PDFExporterFactory.TYPE, new PDFExporterFactory());		// PDF
     }
     
     private static String normalizeString(String str) {
