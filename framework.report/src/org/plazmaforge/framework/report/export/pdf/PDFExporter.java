@@ -36,6 +36,7 @@ import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -590,6 +591,20 @@ public class PDFExporter extends AbstractBaseExporter {
 		    }
 		}
 		
+		// cell: padding
+		if (cell.hasPadding()) {
+		    pdfCell.setPaddingLeft(paddingLeft);
+		    pdfCell.setPaddingTop(paddingTop);
+		    pdfCell.setPaddingRight(paddingRight);
+		    pdfCell.setPaddingBottom(paddingBottom);
+		}
+		
+		// cell: border
+		setBorder(pdfCell, border);
+		
+		setBackground(pdfCell, background);
+		
+		
    		table.addCell(pdfCell);
    		
    		// cell: end
@@ -649,5 +664,100 @@ public class PDFExporter extends AbstractBaseExporter {
     ////
     
     
+    // border (left, top, right, bottom)
+    protected void setBorder(PdfPCell pdfCell, Border border) {
+	if (border == null || border.isEmpty()) {
+	    pdfCell.setBorder(Rectangle.NO_BORDER);
+	    return;
+	}
+	
+	Pen pen = null;
+	int w = 0;
+	Color color = null;
+	
+	int borderType = Rectangle.NO_BORDER;
+	
+	// Left
+	pen = getBorderPen(border.hasLeft() ? border.getLeft() : null);
+	if (pen != null) {
+	    borderType |= Rectangle.LEFT;
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    pdfCell.setBorderWidthLeft(w);
+	} else {
+	    pdfCell.setBorderWidthLeft(0);
+	}
 
+	// Right
+	pen = getBorderPen(border.hasRight() ? border.getRight() : null);
+	if (pen != null) {
+	    borderType |= Rectangle.RIGHT;
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    pdfCell.setBorderWidthRight(w);
+	} else {
+	    pdfCell.setBorderWidthRight(0);
+	}
+
+	// Top
+	pen = getBorderPen(border.hasTop() ? border.getTop() : null);
+	if (pen != null) {
+	    borderType |= Rectangle.TOP;
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    pdfCell.setBorderWidthTop(w);
+	} else {
+	    pdfCell.setBorderWidthTop(0);
+	}
+
+	// Bottom
+	pen = getBorderPen(border.hasBottom() ? border.getBottom() : null);
+	if (pen != null) {
+	    borderType |= Rectangle.BOTTOM;
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    pdfCell.setBorderWidthBottom(w);
+	} else {
+	    pdfCell.setBorderWidthBottom(0);
+	}
+
+	pdfCell.setBorder(borderType);
+    }
+    
+    // border (one line)
+//    protected void setBorder(PdfPCell pdfCell, String name, Pen pen) {
+//	if (pen == null || pen.isEmpty()) {
+//	    return;
+//	}
+//	int w = getLineWidth(pen);
+//	Color color = getLineColor(pen);
+//	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
+//    }
+    
+    protected Pen getBorderPen(Pen pen) {
+	if (pen == null || pen.isEmpty()) {
+	    return null;
+	}
+	return pen;
+    }
+
+    protected void setBackground(PdfPCell pdfCell, Color color) {
+	if (color == null) {
+	    return;
+	}
+	java.awt.Color awtColor = getAWTColor(color);
+	pdfCell.setBackgroundColor(awtColor);
+    }
+    
+    protected java.awt.Color getAWTColor(Color color) {
+	if (color == null) {
+	    return null;
+	}
+	return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue(), get255ColorAlpha(color.getAlpha())); 
+    }
+    
+    protected int get255ColorAlpha(float alpha) {
+	return (int) (alpha * 255);
+    }
+    
 }

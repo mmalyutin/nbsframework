@@ -27,7 +27,6 @@ package org.plazmaforge.framework.report.export.pdf;
 
 import org.plazmaforge.framework.report.export.ReportExporter;
 import org.plazmaforge.framework.report.export.ReportExporterFactory;
-import org.plazmaforge.framework.report.export.html.HTMLExporter;
 
 /**
  * @author ohapon
