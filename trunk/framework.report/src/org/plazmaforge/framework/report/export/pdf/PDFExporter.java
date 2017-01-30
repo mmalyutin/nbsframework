@@ -31,11 +31,9 @@ import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
-import org.plazmaforge.framework.report.export.html.Attributes;
 import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
-import org.plazmaforge.framework.report.model.base.Insets;
 import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.Size;
@@ -49,12 +47,12 @@ import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.PdfCell;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -64,6 +62,18 @@ import com.lowagie.text.pdf.PdfWriter;
  *
  */
 public class PDFExporter extends AbstractBaseExporter {
+    
+    
+    public static final short ALIGN_LEFT = com.lowagie.text.Element.ALIGN_LEFT;
+    public static final short ALIGN_CENTER = com.lowagie.text.Element.ALIGN_CENTER;
+    public static final short ALIGN_RIGHT = com.lowagie.text.Element.ALIGN_RIGHT;
+    public static final short ALIGN_FILL = com.lowagie.text.Element.ALIGN_JUSTIFIED;
+    //public static final short ALIGN_FILL = com.lowagie.text.Element.ALIGN_JUSTIFIED
+    
+    public static final short ALIGN_TOP = com.lowagie.text.Element.ALIGN_TOP;
+    public static final short ALIGN_MIDDLE = com.lowagie.text.Element.ALIGN_MIDDLE;
+    public static final short ALIGN_BOTTOM = com.lowagie.text.Element.ALIGN_BOTTOM;
+    
     
     protected int offsetX;
     protected int offsetY;
@@ -167,11 +177,6 @@ public class PDFExporter extends AbstractBaseExporter {
 	pdfDocument.setPageSize(new Rectangle(pageSize.getWidth(), pageSize.getHeight()));
 	pdfDocument.setMargins(pageMargin.getLeft(), pageMargin.getTop(), pageMargin.getRight(), pageMargin.getBottom());
 
-	// pageOffsetX = offsetX;
-	// pageOffsetY = offsetY;
-
-	// level = -1;
-
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 	    Page page = pages.get(pageIndex);
 	    writePage(page, pageIndex);
@@ -180,10 +185,11 @@ public class PDFExporter extends AbstractBaseExporter {
     }
 
     protected void writePage(Page page, int pageIndex) throws RTException, IOException, DocumentException {
-	// offsetX = 0;
-	// offsetY = 0;
+	
+	offsetX = 0;
+	offsetY = 0;
+	
 	pdfDocument.newPage();
-	//pdfDocument.add(new Paragraph("Page " + (pageIndex + 1)));
 	
 	if (!page.hasChildren()) {
 	    return;
@@ -537,14 +543,6 @@ public class PDFExporter extends AbstractBaseExporter {
    		int areaHeight = cellHeight - paddingTop - paddingBottom;
    		
    		// cell: paint
-   		boolean isTextPosition = false; //isTableAsDiv();
-   		Insets textMargin = null;
-   		
-   		// cell: [TABLE:TD] textMargin
-   		//if (isTableAsDiv()) {
-   		//    textMargin =  cell.hasPadding() ? cell.getPadding() : null;
-   		//}
-   		
    		String text = null;
    		if (areaWidth > 0 && areaHeight > 0) {
    		    Object value = cell.getValue();
@@ -567,6 +565,31 @@ public class PDFExporter extends AbstractBaseExporter {
 		if (rowspan > 1) {
 		    pdfCell.setRowspan(rowspan);
 		}
+		
+		// cell: horizontal align
+		HorizontalAlign horizontalAlign = cell.getHorizontalAlign();
+		if (horizontalAlign != null) {
+		    if (horizontalAlign == HorizontalAlign.LEFT) {
+			pdfCell.setHorizontalAlignment(ALIGN_LEFT);
+		    } else if (horizontalAlign == HorizontalAlign.CENTER) {
+			pdfCell.setHorizontalAlignment(ALIGN_CENTER);
+		    } else if (horizontalAlign == HorizontalAlign.RIGHT) {
+			pdfCell.setHorizontalAlignment(ALIGN_RIGHT);
+		    }
+		}
+
+		// cell: vertical align
+		VerticalAlign verticalAlign = cell.getVerticalAlign();
+		if (verticalAlign != null) {
+		    if (verticalAlign == VerticalAlign.TOP) {
+			pdfCell.setVerticalAlignment(ALIGN_TOP);
+		    } else if (verticalAlign == VerticalAlign.MIDDLE) {
+			pdfCell.setVerticalAlignment(ALIGN_MIDDLE);
+		    } else if (verticalAlign == VerticalAlign.BOTTOM) {
+			pdfCell.setVerticalAlignment(ALIGN_BOTTOM);
+		    }
+		}
+		
    		table.addCell(pdfCell);
    		
    		// cell: end
