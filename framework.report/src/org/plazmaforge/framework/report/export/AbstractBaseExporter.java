@@ -48,12 +48,23 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
 
     
     protected Color getColor(Color color, Color parentColor) {
-	return color == null ? parentColor : color;
+	//return color == null ? parentColor : color;
+	return getColor(color, parentColor, null);
+    }
+
+    protected Color getColor(Color color1, Color color2, Color color3) {
+	// find first not null color
+	if (color1 != null) {
+	    return color1;
+	}
+	if (color2 != null) {
+	    return color2;
+	}
+	return color3;
     }
 
     protected Font getFont(Font font, Font parentFont) {
-	//return font == null ? parentFont : font;
-	
+	/*
 	if (font == null && parentFont == null) {
 	    return null;
 	}
@@ -96,8 +107,71 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
 	style = font.getStyle();
 	
 	return new Font(name , size, style);
+	*/
+	
+	return getFont(font, parentFont, null);
     }
     
+    protected Font getFont(Font font1, Font font2, Font font3) {
+	// find first not null font
+	Font font = font1;
+	if (font == null) {
+	    font = font2;
+	}
+	if (font == null) {
+	    font = font3;
+	}
+	if (font == null) {
+	    return null;
+	}
+	if (font.isComplete()) {
+	    return font;
+	}
+	
+	// merge incomplete font
+	String name = null;
+	int size = 0;
+	int style = 0;
+	
+
+	// font name
+	name = getStrongFontName(font1);
+	if (name == null) {
+	    name = getStrongFontName(font2);
+	}
+	if (name == null) {
+	    name = getStrongFontName(font3);
+	}
+	if (name == null) {
+	    name = "";
+	}
+	
+	// font size
+	size = getStrongFontSize(font1);
+	if (size == 0) {
+	    size = getStrongFontSize(font2);
+	}
+	if (size == 0) {
+	    size = getStrongFontSize(font3);
+	}
+	if (size == 0) {
+	    size = 12;
+	}
+	
+	// font style
+	style = font.getStyle();
+	
+	return new Font(name , size, style);
+    }
+    
+    protected String getStrongFontName(Font font) {
+	return (font == null || font.isEmptyName()) ? null : font.getName(); 
+    }
+
+    protected int getStrongFontSize(Font font) {
+	return font == null ? 0 : font.getSize(); 
+    }
+
     protected void normalizeCurrentStyle() {
 	background = getColor(background, parentBackground);
 	foreground = getColor(foreground, parentForeground);

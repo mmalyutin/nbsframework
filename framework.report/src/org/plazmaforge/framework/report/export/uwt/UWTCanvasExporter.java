@@ -353,9 +353,9 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		cellX += columnBorderLeft;		  
 		
 		// cell: parent gc
-		parentBackground = getColor(rowBackground, gridBackground != null ? gridBackground : contextBackground);
-		parentForeground = getColor(rowForeground, gridForeground != null ? gridForeground : contextForeground);
-		parentFont = getFont(rowFont, gridFont != null ? gridFont: contextFont);
+		parentBackground = getColor(rowBackground, gridBackground, contextBackground);
+		parentForeground = getColor(rowForeground, gridForeground, contextForeground);
+		parentFont = getFont(rowFont, gridFont, contextFont);
 		
 		// cell: load gc
 		cellBackground = cell.getBackground();
