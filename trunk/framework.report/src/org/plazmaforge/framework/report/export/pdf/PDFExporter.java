@@ -52,6 +52,7 @@ import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
@@ -557,7 +558,12 @@ public class PDFExporter extends AbstractBaseExporter {
    		    text = "";
    		}
    		
-		PdfPCell pdfCell = new PdfPCell(new Phrase(text));
+   		com.lowagie.text.Font pdfFont = getPdfFont(font, foreground);
+   		
+   		Phrase phrase = pdfFont == null ? new Phrase(text) : new Phrase(text, pdfFont);
+   		
+		PdfPCell pdfCell = new PdfPCell(phrase);
+		
 		pdfCell.setFixedHeight(cellHeight);
 		
 		if (colspan > 1) {
@@ -568,28 +574,10 @@ public class PDFExporter extends AbstractBaseExporter {
 		}
 		
 		// cell: horizontal align
-		HorizontalAlign horizontalAlign = cell.getHorizontalAlign();
-		if (horizontalAlign != null) {
-		    if (horizontalAlign == HorizontalAlign.LEFT) {
-			pdfCell.setHorizontalAlignment(ALIGN_LEFT);
-		    } else if (horizontalAlign == HorizontalAlign.CENTER) {
-			pdfCell.setHorizontalAlignment(ALIGN_CENTER);
-		    } else if (horizontalAlign == HorizontalAlign.RIGHT) {
-			pdfCell.setHorizontalAlignment(ALIGN_RIGHT);
-		    }
-		}
+		setHorizontalAlign(pdfCell, cell.getHorizontalAlign());
 
 		// cell: vertical align
-		VerticalAlign verticalAlign = cell.getVerticalAlign();
-		if (verticalAlign != null) {
-		    if (verticalAlign == VerticalAlign.TOP) {
-			pdfCell.setVerticalAlignment(ALIGN_TOP);
-		    } else if (verticalAlign == VerticalAlign.MIDDLE) {
-			pdfCell.setVerticalAlignment(ALIGN_MIDDLE);
-		    } else if (verticalAlign == VerticalAlign.BOTTOM) {
-			pdfCell.setVerticalAlignment(ALIGN_BOTTOM);
-		    }
-		}
+		setVerticalAlign(pdfCell, cell.getVerticalAlign());
 		
 		// cell: padding
 		if (cell.hasPadding()) {
@@ -602,6 +590,7 @@ public class PDFExporter extends AbstractBaseExporter {
 		// cell: border
 		setBorder(pdfCell, border);
 		
+		// cell: background
 		setBackground(pdfCell, background);
 		
 		
@@ -664,6 +653,35 @@ public class PDFExporter extends AbstractBaseExporter {
     ////
     
     
+    
+    // horizontal align
+    protected void setHorizontalAlign(PdfPCell pdfCell, HorizontalAlign horizontalAlign) {
+	if (horizontalAlign == null) {
+	    return;
+	}
+	if (horizontalAlign == HorizontalAlign.LEFT) {
+	    pdfCell.setHorizontalAlignment(ALIGN_LEFT);
+	} else if (horizontalAlign == HorizontalAlign.CENTER) {
+	    pdfCell.setHorizontalAlignment(ALIGN_CENTER);
+	} else if (horizontalAlign == HorizontalAlign.RIGHT) {
+	    pdfCell.setHorizontalAlignment(ALIGN_RIGHT);
+	}
+    }
+
+    // vertical align
+    protected void setVerticalAlign(PdfPCell pdfCell, VerticalAlign verticalAlign) {
+	if (verticalAlign == null) {
+	    return;
+	}
+	if (verticalAlign == VerticalAlign.TOP) {
+	    pdfCell.setVerticalAlignment(ALIGN_TOP);
+	} else if (verticalAlign == VerticalAlign.MIDDLE) {
+	    pdfCell.setVerticalAlignment(ALIGN_MIDDLE);
+	} else if (verticalAlign == VerticalAlign.BOTTOM) {
+	    pdfCell.setVerticalAlignment(ALIGN_BOTTOM);
+	}
+    }
+    
     // border (left, top, right, bottom)
     protected void setBorder(PdfPCell pdfCell, Border border) {
 	if (border == null || border.isEmpty()) {
@@ -683,6 +701,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.LEFT;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
+	    pdfCell.setBorderColorLeft(getAWTColor(color));
 	    pdfCell.setBorderWidthLeft(w);
 	} else {
 	    pdfCell.setBorderWidthLeft(0);
@@ -694,6 +713,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.RIGHT;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
+	    pdfCell.setBorderColorRight(getAWTColor(color));
 	    pdfCell.setBorderWidthRight(w);
 	} else {
 	    pdfCell.setBorderWidthRight(0);
@@ -705,6 +725,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.TOP;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
+	    pdfCell.setBorderColorTop(getAWTColor(color));
 	    pdfCell.setBorderWidthTop(w);
 	} else {
 	    pdfCell.setBorderWidthTop(0);
@@ -716,6 +737,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.BOTTOM;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
+	    pdfCell.setBorderColorBottom(getAWTColor(color));
 	    pdfCell.setBorderWidthBottom(w);
 	} else {
 	    pdfCell.setBorderWidthBottom(0);
@@ -747,6 +769,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	}
 	java.awt.Color awtColor = getAWTColor(color);
 	pdfCell.setBackgroundColor(awtColor);
+	
     }
     
     protected java.awt.Color getAWTColor(Color color) {
@@ -759,5 +782,32 @@ public class PDFExporter extends AbstractBaseExporter {
     protected int get255ColorAlpha(float alpha) {
 	return (int) (alpha * 255);
     }
-    
+ 
+    protected com.lowagie.text.Font getPdfFont(Font font, Color color) {
+	if (font == null) {
+	    return null;
+	}
+	java.awt.Color fontColor = getAWTColor(color);
+	//new com.lowagie.text.Font(BaseFont.HELVETICA, font.getSize(), Font.NORMAL, fontColor);
+	if (fontColor == null) {
+	    fontColor = java.awt.Color.BLACK;
+	}
+	String fontName = font.getName(); //BaseFont.HELVETICA
+	int fontSize = font.getSize();
+	int fontStyle = com.lowagie.text.Font.NORMAL;
+	if (font.isBold()) {
+	    fontStyle |= com.lowagie.text.Font.BOLD;
+	}
+	if (font.isItalic()) {
+	    fontStyle |= com.lowagie.text.Font.ITALIC;
+	}
+	if (font.isUnderline()) {
+	    fontStyle |= com.lowagie.text.Font.UNDERLINE;
+	}
+	if (font.isStrikeout()) {
+	    fontStyle |= com.lowagie.text.Font.STRIKETHRU;
+	}
+	
+	return FontFactory.getFont(fontName, /*"cp1251",*/ fontSize, fontStyle, fontColor);
+    }
 }
