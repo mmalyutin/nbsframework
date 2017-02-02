@@ -688,13 +688,6 @@ public class PDFExporter extends AbstractBaseExporter {
 //	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
 //    }
     
-    protected Pen getBorderPen(Pen pen) {
-	if (pen == null || pen.isEmpty()) {
-	    return null;
-	}
-	return pen;
-    }
-
     protected void setBackground(PdfPCell pdfCell, Color color) {
 	if (color == null) {
 	    return;

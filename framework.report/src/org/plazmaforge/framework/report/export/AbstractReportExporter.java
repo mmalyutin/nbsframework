@@ -260,5 +260,13 @@ public abstract class AbstractReportExporter implements ReportExporter {
 	return getColor(pen.getLineColor(), DEFAULT_BORDER_COLOR);
     }
     
+    protected Pen getBorderPen(Pen pen) {
+	if (pen == null || pen.isEmpty()) {
+	    return null;
+	}
+	return pen;
+    }
+
+    
 }
 

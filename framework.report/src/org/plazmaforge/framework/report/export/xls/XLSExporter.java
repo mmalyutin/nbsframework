@@ -27,6 +27,8 @@ import org.apache.poi.hssf.usermodel.HSSFPalette;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.plazmaforge.framework.report.export.AbstractXLWorkbookExporter;
+import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.grid.Cell;
 
 /**
  * 
@@ -71,6 +73,14 @@ public class XLSExporter extends AbstractXLWorkbookExporter {
 
     protected void setXCellStyleFillBackground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	cellStyle.setFillBackgroundColor(((HSSFColor) color).getIndex());
+    }
+
+    protected void setXCellBorderLeftColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	cellStyle.setLeftBorderColor(((HSSFColor) color).getIndex());
+    }
+
+    protected void setXCellBorderRightColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	cellStyle.setRightBorderColor(((HSSFColor) color).getIndex());
     }
     
 }
