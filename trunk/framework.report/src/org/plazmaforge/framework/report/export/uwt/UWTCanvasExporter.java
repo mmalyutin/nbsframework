@@ -57,14 +57,6 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 public class UWTCanvasExporter extends AbstractBaseExporter {
 
 
-    
-    
-    protected int offsetX;
-    
-    protected int offsetY;
-
-    
-    
     @Override
     public void exportDocument(Document document) throws RTException {
 	if (document == null) {

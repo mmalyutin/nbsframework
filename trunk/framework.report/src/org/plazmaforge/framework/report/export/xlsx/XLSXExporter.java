@@ -47,28 +47,45 @@ public class XLSXExporter extends AbstractXLWorkbookExporter {
 	//dataFormat = workbook.createDataFormat();
     }
     
+    @Override
     protected XSSFColor createXColor(byte r, byte g, byte b) {
 	return new XSSFColor(new byte[] {r, g, b});
     }
     
+    @Override
     protected void setXFontColor(org.apache.poi.ss.usermodel.Font font, org.apache.poi.ss.usermodel.Color color) {
 	((XSSFFont) font).setColor((XSSFColor) color);
     }
 
+    @Override
     protected void setXCellStyleFillForeground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	((XSSFCellStyle) cellStyle).setFillForegroundColor((XSSFColor) color);
     }
 
+    @Override
     protected void setXCellStyleFillBackground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	((XSSFCellStyle) cellStyle).setFillBackgroundColor((XSSFColor) color);
     }
 
+    @Override
     protected void setXCellBorderLeftColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	((XSSFCellStyle) cellStyle).setLeftBorderColor((XSSFColor) color);
     }
     
+    @Override
     protected void setXCellBorderRightColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	((XSSFCellStyle) cellStyle).setRightBorderColor((XSSFColor) color);
     }
+
+    @Override
+    protected void setXCellBorderTopColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	((XSSFCellStyle) cellStyle).setTopBorderColor((XSSFColor) color);
+    }
+    
+    @Override
+    protected void setXCellBorderBottomColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	((XSSFCellStyle) cellStyle).setBottomBorderColor((XSSFColor) color);
+    }
+    
     
 }
