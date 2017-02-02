@@ -37,6 +37,14 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
     
     public static Color DEFAULT_BORDER_COLOR = Color.BLACK;
     
+    public static Color DEFAULT_COLOR = Color.BLACK;
+    
+    public static String DEFAULT_FONT_NAME = "Hevletica";
+    
+    public static int DEFAULT_FONT_SIZE = 12;
+    
+    public static Font DEFAULT_FONT = new Font(DEFAULT_FONT_NAME, DEFAULT_FONT_SIZE);
+    
     
     protected Color parentBackground;
     protected Color parentForeground;
@@ -155,7 +163,7 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
 	    size = getStrongFontSize(font3);
 	}
 	if (size == 0) {
-	    size = 12;
+	    size = DEFAULT_FONT_SIZE;
 	}
 	
 	// font style
