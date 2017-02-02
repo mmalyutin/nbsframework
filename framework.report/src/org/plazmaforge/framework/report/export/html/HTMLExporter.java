@@ -60,11 +60,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
     
     private static String TAG_TD = "td";
 
-    
-    protected int offsetX;
-    
-    protected int offsetY;
 
+    
     protected int oldOffsetX;
     
     protected int oldOffsetY;

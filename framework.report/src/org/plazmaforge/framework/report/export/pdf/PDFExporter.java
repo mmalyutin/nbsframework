@@ -77,10 +77,6 @@ public class PDFExporter extends AbstractBaseExporter {
     public static final short ALIGN_BOTTOM = com.lowagie.text.Element.ALIGN_BOTTOM;
     
     
-    protected int offsetX;
-    protected int offsetY;
-
-
     protected PdfWriter writer;
     protected com.lowagie.text.Document pdfDocument;
     

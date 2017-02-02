@@ -41,9 +41,6 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
-import com.lowagie.text.Rectangle;
-
-
 
 /**
  * 
@@ -123,13 +120,19 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     }
     
     @Override
-    protected void createXCell(int columnIndex){
+    protected void createXCell(int columnIndex) {
 	xCell = xRow.createCell((short) columnIndex);
     }
     
     @Override
-    protected void setXCellSize(Cell cell) {
+    protected void setXCellSize(Cell cell, int rowIndex, int columnIndex, int rowspan, int colspan) {
 	if (colspan > 1 || rowspan > 1) {
+	    if (colspan < 1) {
+		colspan = 1;
+	    }
+	    if (rowspan < 1) {
+		rowspan = 1;
+	    }
 	    xSheet.addMergedRegion(new CellRangeAddress(rowIndex, (rowIndex + rowspan - 1), columnIndex, (columnIndex + colspan - 1)));
 	}
     }
@@ -302,7 +305,6 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	if (pen != null) {
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
-	    //cellStyle.setBorderLeft((short) w);
 	    setXCellBorderLeftColor(cellStyle, getXColor(color));
 	    cellStyle.setBorderLeft(getXBorderType(w));
 	}
@@ -312,12 +314,27 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	if (pen != null) {
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
-	    //cellStyle.setBorderLeft((short) w);
 	    setXCellBorderRightColor(cellStyle, getXColor(color));
 	    cellStyle.setBorderRight(getXBorderType(w));
 	}
+
+	// Top
+	pen = getBorderPen(border.hasTop() ? border.getTop() : null);
+	if (pen != null) {
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    setXCellBorderTopColor(cellStyle, getXColor(color));
+	    cellStyle.setBorderTop(getXBorderType(w));
+	}
 	
-	//TODO
+	// Bottom
+	pen = getBorderPen(border.hasBottom() ? border.getBottom() : null);
+	if (pen != null) {
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    setXCellBorderBottomColor(cellStyle, getXColor(color));
+	    cellStyle.setBorderBottom(getXBorderType(w));
+	}
 
     }
     
@@ -420,5 +437,9 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     protected abstract void setXCellBorderLeftColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
     
     protected abstract void setXCellBorderRightColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
+    
+    protected abstract void setXCellBorderTopColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
+    
+    protected abstract void setXCellBorderBottomColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
     
 }

@@ -52,17 +52,11 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
 
     
     
+    protected int absoluteRowIndex;
     
-    protected int rowIndex;
+    protected int absoluteColumnIndex;
     
-    protected int columnIndex;
     
-    protected int cellIndex;
-    
-    protected int colspan;
-    
-    protected int rowspan;
-
     ////
     
     protected abstract void createXWorkbook();
@@ -77,8 +71,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
 
     protected abstract void setXCellStyle(Cell cell, Border border);
 
-    protected abstract void setXCellSize(Cell cell);
-
+    protected abstract void setXCellSize(Cell cell, int rowIndex, int columnIndex, int rowspan, int colspan);
+    
     protected abstract void setXCellValue(Cell cell);
 
     protected abstract void setXColumnWidth(int columnIndex, int columnWidth);
@@ -115,11 +109,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
     }
   
     protected void initExport() {
-  	rowIndex = 0;
-  	columnIndex = 0;
-  	cellIndex = 0;
-  	colspan = 1;
-  	rowspan = 1;
+	absoluteRowIndex = 0;
+	absoluteColumnIndex = 0;
     }
     
     protected void exportDocument(Document document, String fileName) throws RTException {
@@ -240,12 +231,16 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	    }
  	}
  	
+ 	int columnIndex = 0;
+	int rowIndex = 0;
+	int cellIndex = 0;
+	
  	Row row = null;
 	Cell cell = null;
 	
  	for (int i = 0; i < rowCount; i++) {
  	    
- 	    //rowIndex = i;
+ 	    rowIndex = i;
  	    row = rows.get(i);
  	    
  	    // row: parent gc
@@ -263,21 +258,23 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	    foreground = rowForeground;
  	    font = rowFont;
  	    
- 	    createXRow(rowIndex);
+ 	    createXRow(absoluteRowIndex);
  	    setXRowHeight(row.getHeight());
  	    
+ 	    absoluteColumnIndex = 0;
  	    columnIndex = 0;
  	    cellIndex = 0;
  	    
  	    int cellWidth = 0;
  	    int cellHeight = 0;
- 	    colspan = 0;
- 	    rowspan = 0;
+ 	    int colspan = 0;
+ 	    int rowspan = 0;
 
  	    int cellCount = row.getCellCount();
  	    List<Cell> cells = row.getCells();
  	
  	    for (int j = 0; j < cellCount; j++) {
+ 		
  		cellIndex = j;
  		cell = cells.get(cellIndex);
  		
@@ -325,17 +322,20 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		createXCell(columnIndex);
  		
  		setXCellStyle(cell, border);
- 		setXCellSize(cell);
+ 		//setXCellSize(cell);
+ 		setXCellSize(cell, absoluteRowIndex, absoluteColumnIndex, rowspan, colspan);
  		
  		setXCellValue(cell);
  		
  		/////////////////////////////////////////////////
  		columnIndex = nextColumnIndex;
+ 		absoluteColumnIndex = columnIndex; // ???
+ 		
  		//cellX += cellWidth;
 
  	    }
  	    
- 	   rowIndex++;
+ 	   absoluteRowIndex++;
  	}
  	
      }

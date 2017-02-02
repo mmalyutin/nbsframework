@@ -40,7 +40,27 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
     protected Color foreground;
     protected Font font;
 
+    /**
+     * Current offsetX
+     */
+    protected int offsetX;
     
+    /**
+     * Current offsetY
+     */
+    protected int offsetY;
+
+    
+    /**
+     * Absolute offsetX
+     */
+    protected int absoluteOffsetX;
+    
+    /**
+     * Absolute offsetY
+     */
+    protected int absoluteOffsetY;
+
     
     protected void normalizeCurrentStyle() {
 	background = getColor(background, parentBackground);

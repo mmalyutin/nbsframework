@@ -27,8 +27,6 @@ import org.apache.poi.hssf.usermodel.HSSFPalette;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.plazmaforge.framework.report.export.AbstractXLWorkbookExporter;
-import org.plazmaforge.framework.report.model.base.Border;
-import org.plazmaforge.framework.report.model.base.grid.Cell;
 
 /**
  * 
@@ -48,6 +46,7 @@ public class XLSExporter extends AbstractXLWorkbookExporter {
 	//dataFormat = workbook.createDataFormat();
     }
  
+    @Override
     protected org.apache.poi.ss.usermodel.Color createXColor(byte r, byte g, byte b) {
 	HSSFPalette palette = ((HSSFWorkbook) xWorkbook).getCustomPalette();
 	HSSFColor hssfColor = null;
@@ -63,24 +62,40 @@ public class XLSExporter extends AbstractXLWorkbookExporter {
 	return hssfColor;
     }
     
+    @Override
     protected void setXFontColor(org.apache.poi.ss.usermodel.Font font, org.apache.poi.ss.usermodel.Color color) {
 	font.setColor(((HSSFColor) color).getIndex());
     }
 
+    @Override
     protected void setXCellStyleFillForeground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	cellStyle.setFillForegroundColor(((HSSFColor) color).getIndex());
     }
 
+    @Override
     protected void setXCellStyleFillBackground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	cellStyle.setFillBackgroundColor(((HSSFColor) color).getIndex());
     }
 
+    @Override
     protected void setXCellBorderLeftColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	cellStyle.setLeftBorderColor(((HSSFColor) color).getIndex());
     }
 
+    @Override
     protected void setXCellBorderRightColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	cellStyle.setRightBorderColor(((HSSFColor) color).getIndex());
     }
+
+    @Override
+    protected void setXCellBorderTopColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	cellStyle.setTopBorderColor(((HSSFColor) color).getIndex());
+    }
+    
+    @Override    
+    protected void setXCellBorderBottomColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	cellStyle.setBottomBorderColor(((HSSFColor) color).getIndex());
+    }
+    
     
 }
