@@ -291,7 +291,7 @@ public class PDFExporter extends AbstractBaseExporter {
    	font = gridFont;
    	
 
-   	PdfPTable table = new PdfPTable(columnCount); 
+   	PdfPTable table = new PdfPTable(columnCount);
    	float[] columnWidths = new float[columnCount];
    	
 	for (int i = 0; i < columnCount; i++) {
@@ -336,26 +336,7 @@ public class PDFExporter extends AbstractBaseExporter {
    	    foreground = rowForeground;
    	    font = rowFont;
    		
-   	    // row: start (position, size, background)
-   	    //table.add
-   	    /*
-   	    styleAttributes = new Attributes();
-   	    
-   	    if (isTableAsDiv()) {
-   		setPosition(styleAttributes, rowOffsetX, rowOffsetY);
-   		setSize(styleAttributes, rowWidth, rowHeight);
-   	    } else {
-   		setHeight(styleAttributes, rowHeight);
-   	    }
-   	    
-   	    setBackground(styleAttributes, background);
-   	    setForeground(styleAttributes, foreground);
-   	    setFont(styleAttributes, font);
-   	 
-   	    style = styleAttributes.toStyleAttribute("style");
-   	    
-   	    writeRowStart(style);
-   	    */
+   	    // row: not implemented in PDF
    	    
    	    // row: normalize current gc
    	    normalizeCurrentStyle();
@@ -386,8 +367,6 @@ public class PDFExporter extends AbstractBaseExporter {
    	    
     	    // shift cellY (row-border-top)
     	    cellY += rowBorderTop;	
-    	    
-    	    
     	    
     	    
    	    for (int j = 0; j < cellCount; j++) {
@@ -489,49 +468,6 @@ public class PDFExporter extends AbstractBaseExporter {
    		// cell: start (position, size, background, foreground, border)
    		
    		
-   		/*
-   		styleAttributes = new Attributes();
-   		
-   		String attr = null;
-   		
-   		    
-   		    // cell: [TABLE:TD] position, size = none, use first empty row in table (invisible: height=0)
-   		    //if (rowIndex == 0) {
-   			//setWidth(styleAttributes, columnWidth);
-   		    //}
-   		    
-   		    // cell: [TABLE:TD] padding
-   		    if (cell.hasPadding()) {
-   			setPadding(styleAttributes, cell.getPadding());
-   		    }
-   		    
-   		    if (colspan > 1) {
-   			attr = "colspan=\"" + colspan + "\"";
-   		    }
-   		    if (rowspan > 1) {
-   			if (attr == null) {
-   			    attr = "";
-   			} else {
-   			    attr = attr + " ";
-   			}
-   			attr += "rowspan=\"" + rowspan + "\"";
-   		    }
-   		
-   		
-   		setBorder(styleAttributes, border);
-   		setBackground(styleAttributes, background);
-   		setForeground(styleAttributes, foreground);
-   		setFont(styleAttributes, font);
-   		
-   		style = styleAttributes.toStyleAttribute("style");
-   		if (attr != null) {
-   		    style += (" " + attr);
-   		}
-   		
-   		writeCellStart(style);
-   		*/
-   		
-   		
    		// cell: normalize current gc
    		normalizeCurrentStyle();
    		
@@ -551,8 +487,6 @@ public class PDFExporter extends AbstractBaseExporter {
    		    Object value = cell.getValue();
    		    if (value != null) {
    			text = formatCellValue(cell);
-   			
-   			//writeText(text, (isTextPosition ? areaX : null), (isTextPosition ? areaY : null), areaWidth, areaHeight, textMargin, font, foreground, cell.getHorizontalAlign(), cell.getVerticalAlign());
    		    }
    		}
    		if (text == null) {
@@ -639,9 +573,6 @@ public class PDFExporter extends AbstractBaseExporter {
    	    // TODO:GC
    	    //setCurrentStyle(gc);
 
-   	    
-   	    
-   	    
    	    
 	}
 	
