@@ -531,6 +531,7 @@ public class PDFExporter extends AbstractBaseExporter {
    		writeCellStart(style);
    		*/
    		
+   		
    		// cell: normalize current gc
    		normalizeCurrentStyle();
    		
@@ -785,7 +786,10 @@ public class PDFExporter extends AbstractBaseExporter {
  
     protected com.lowagie.text.Font getPdfFont(Font font, Color color) {
 	if (font == null) {
-	    return null;
+	    if (color == null) {
+		return null;
+	    }
+	    font = DEFAULT_FONT;
 	}
 	java.awt.Color fontColor = getAWTColor(color);
 	//new com.lowagie.text.Font(BaseFont.HELVETICA, font.getSize(), Font.NORMAL, fontColor);
@@ -810,4 +814,6 @@ public class PDFExporter extends AbstractBaseExporter {
 	
 	return FontFactory.getFont(fontName, /*"cp1251",*/ fontSize, fontStyle, fontColor);
     }
+    
+
 }
