@@ -62,5 +62,13 @@ public class XLSXExporter extends AbstractXLWorkbookExporter {
     protected void setXCellStyleFillBackground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
 	((XSSFCellStyle) cellStyle).setFillBackgroundColor((XSSFColor) color);
     }
+
+    protected void setXCellBorderLeftColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	((XSSFCellStyle) cellStyle).setLeftBorderColor((XSSFColor) color);
+    }
+    
+    protected void setXCellBorderRightColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color) {
+	((XSSFCellStyle) cellStyle).setRightBorderColor((XSSFColor) color);
+    }
     
 }

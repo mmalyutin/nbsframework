@@ -31,9 +31,11 @@ import java.io.OutputStream;
 import java.util.List;
 
 import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
+import org.plazmaforge.framework.report.model.base.grid.GridLayout;
 import org.plazmaforge.framework.report.model.base.grid.GridUtils;
 import org.plazmaforge.framework.report.model.base.grid.Grid;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -73,7 +75,7 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
 
     protected abstract void createXCell(int columnIndex);
 
-    protected abstract void setXCellStyle(Cell cell);
+    protected abstract void setXCellStyle(Cell cell, Border border);
 
     protected abstract void setXCellSize(Cell cell);
 
@@ -173,6 +175,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  	
  	List<Column> columns = grid.getColumns();
  	List<Row> rows = grid.getRows();
+ 	
+ 	GridLayout layout = GridUtils.getGridLayout(grid);
  	
  	Color contextBackground = null;
  	Color contextForeground = null;
@@ -314,11 +318,13 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		// cell: normalize current gc
  		normalizeCurrentStyle();
  		
+ 		Border border = layout.getCellBorder(columnIndex, rowIndex);
+ 		
  		/////////////////////////////////////////////////
  		
  		createXCell(columnIndex);
  		
- 		setXCellStyle(cell);
+ 		setXCellStyle(cell, border);
  		setXCellSize(cell);
  		
  		setXCellValue(cell);

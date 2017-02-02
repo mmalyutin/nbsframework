@@ -33,11 +33,15 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.plazmaforge.framework.core.type.TypeUtils;
+import org.plazmaforge.framework.report.model.base.Border;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
+
+import com.lowagie.text.Rectangle;
 
 
 
@@ -199,7 +203,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     }       
     
     @Override
-    protected void setXCellStyle(Cell cell) {
+    protected void setXCellStyle(Cell cell, Border border) {
 	if (cell == null) {
 	    return;
 	}
@@ -211,6 +215,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	if (verticalAlign == null) {
 	    verticalAlign = VerticalAlign.TOP;
 	}
+	//Border border = cell.hasBorder() ? cell.getBorder() : null; 
 	
 	String format = normalizeString(cell.getFormat());	
 	if (background == null 
@@ -218,6 +223,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 		&& font == null 
 		&& horizontalAlign == null 
 		&& verticalAlign == null
+		&& border == null
 		&& format == null ) {
 	    return;
 	}
@@ -267,6 +273,11 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    }
 	}
 	
+	// cell: border
+	if (border != null) {
+	    setXBorder(border);
+	}
+	
 	if (format != null) {
 	    DataFormat df = xWorkbook.createDataFormat();
 	    short f = df.getFormat(format);
@@ -275,6 +286,49 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 
 	
 	xCell.setCellStyle(cellStyle);
+    }
+    
+    protected void setXBorder(Border border) {
+	if (border == null || border.isEmpty()) {
+	    return;
+	}
+	
+	Pen pen = null;
+	int w = 0;
+	Color color = null;
+	
+	// Left
+	pen = getBorderPen(border.hasLeft() ? border.getLeft() : null);
+	if (pen != null) {
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    //cellStyle.setBorderLeft((short) w);
+	    setXCellBorderLeftColor(cellStyle, getXColor(color));
+	    cellStyle.setBorderLeft(getXBorderType(w));
+	}
+
+	// Right
+	pen = getBorderPen(border.hasRight() ? border.getRight() : null);
+	if (pen != null) {
+	    w = getLineWidth(pen);
+	    color = getLineColor(pen);
+	    //cellStyle.setBorderLeft((short) w);
+	    setXCellBorderRightColor(cellStyle, getXColor(color));
+	    cellStyle.setBorderRight(getXBorderType(w));
+	}
+	
+	//TODO
+
+    }
+    
+    protected short getXBorderType(int width) {
+	if (width <= 0) {
+	    return CellStyle.BORDER_NONE;
+	}
+	if (width > 0 /*float only*/ && width <= 1) {
+	    return CellStyle.BORDER_THIN;
+	}
+        return CellStyle.BORDER_MEDIUM;
     }
     
     ////
@@ -362,5 +416,9 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     protected abstract void setXCellStyleFillForeground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
 
     protected abstract void setXCellStyleFillBackground(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
+    
+    protected abstract void setXCellBorderLeftColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
+    
+    protected abstract void setXCellBorderRightColor(org.apache.poi.ss.usermodel.CellStyle cellStyle, org.apache.poi.ss.usermodel.Color color);
     
 }
