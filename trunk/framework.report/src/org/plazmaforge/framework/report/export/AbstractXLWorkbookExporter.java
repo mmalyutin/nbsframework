@@ -37,6 +37,7 @@ import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 
 
@@ -203,8 +204,21 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    return;
 	}
 	HorizontalAlign horizontalAlign = cell.getHorizontalAlign();
+	if (horizontalAlign == null) {
+	    horizontalAlign = HorizontalAlign.LEFT;
+	}
+	VerticalAlign verticalAlign = cell.getVerticalAlign();
+	if (verticalAlign == null) {
+	    verticalAlign = VerticalAlign.TOP;
+	}
+	
 	String format = normalizeString(cell.getFormat());	
-	if (background == null && foreground == null && font == null && horizontalAlign == null && format == null ) {
+	if (background == null 
+		&& foreground == null 
+		&& font == null 
+		&& horizontalAlign == null 
+		&& verticalAlign == null
+		&& format == null ) {
 	    return;
 	}
 	
@@ -229,13 +243,30 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 
 	// cell: horizontal align
 	if (horizontalAlign != null) {
-	    if (horizontalAlign == HorizontalAlign.CENTER) {
+	    if (horizontalAlign == HorizontalAlign.LEFT) {
+		cellStyle.setAlignment(ALIGN_LEFT);
+	    } else if (horizontalAlign == HorizontalAlign.CENTER) {
 		cellStyle.setAlignment(ALIGN_CENTER);
 	    } else if (horizontalAlign == HorizontalAlign.RIGHT) {
 		cellStyle.setAlignment(ALIGN_RIGHT);
+	    } else if (horizontalAlign == HorizontalAlign.FILL) {
+		cellStyle.setAlignment(ALIGN_JUSTIFY);
 	    }
 	}
 
+	// cell: vertical align
+	if (verticalAlign != null) {
+	    if (verticalAlign == VerticalAlign.TOP) {
+		cellStyle.setVerticalAlignment(VERTICAL_TOP);
+	    } else if (verticalAlign == VerticalAlign.MIDDLE) {
+		cellStyle.setVerticalAlignment(VERTICAL_CENTER);
+	    } else if (verticalAlign == VerticalAlign.BOTTOM) {
+		cellStyle.setVerticalAlignment(VERTICAL_BOTTOM);
+	    } else if (verticalAlign == VerticalAlign.FILL) {
+		cellStyle.setVerticalAlignment(VERTICAL_JUSTIFY);
+	    }
+	}
+	
 	if (format != null) {
 	    DataFormat df = xWorkbook.createDataFormat();
 	    short f = df.getFormat(format);

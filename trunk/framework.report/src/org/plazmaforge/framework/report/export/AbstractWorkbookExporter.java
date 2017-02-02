@@ -311,6 +311,8 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
  		foreground = cellForeground;
  		font = cellFont;
  		
+ 		// cell: normalize current gc
+ 		normalizeCurrentStyle();
  		
  		/////////////////////////////////////////////////
  		
