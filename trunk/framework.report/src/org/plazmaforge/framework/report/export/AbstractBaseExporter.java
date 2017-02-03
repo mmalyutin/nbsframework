@@ -68,5 +68,11 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
 	font = getFont(font, parentFont);
     }
 
+    protected String getFontColorKey(Font font, Color color) {
+	if (font == null && color == null) {
+	    return null;
+	}
+	return (font == null ? "." : font.getKey()) + "|" + (color == null ? "." : color.getKey());
+    }
     
 }

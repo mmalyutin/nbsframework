@@ -343,11 +343,5 @@ public abstract class AbstractWorkbookExporter extends AbstractBaseExporter {
     
      ////
      
-    protected String getFontColorKey(Font font, Color color) {
-	if (font == null && color == null) {
-	    return null;
-	}
-	return (font == null ? "." : font.getKey()) + "|" + (color == null ? "." : color.getKey());
-    }
      
 }

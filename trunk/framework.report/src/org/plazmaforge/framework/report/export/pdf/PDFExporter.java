@@ -25,9 +25,12 @@
  */
 package org.plazmaforge.framework.report.export.pdf;
 
+import java.awt.GraphicsEnvironment;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.AbstractBaseExporter;
@@ -52,12 +55,14 @@ import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.FontFactory;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+
+import sun.font.FontManager;
 
 /**
  * @author ohapon
@@ -79,9 +84,12 @@ public class PDFExporter extends AbstractBaseExporter {
     
     protected PdfWriter writer;
     protected com.lowagie.text.Document pdfDocument;
+    protected Map<String, com.lowagie.text.Font> fontMap;
+    
     
     @Override
     public void exportDocument(Document document) throws RTException {
+	initExport();
 	try {
 	    ensureOutput();
 	    checkOutput();
@@ -99,6 +107,10 @@ public class PDFExporter extends AbstractBaseExporter {
     @Override
     public void exportPage(Page page) throws RTException {
 	// TODO Auto-generated method stub
+    }
+    
+    protected void initExport() {
+	fontMap = new HashMap<String, com.lowagie.text.Font>();
     }
     
     protected void ensureOutput() throws RTException {
@@ -489,6 +501,8 @@ public class PDFExporter extends AbstractBaseExporter {
    		    text = "";
    		}
    		
+   		//text = "подключаем";
+   		
    		com.lowagie.text.Font pdfFont = getPdfFont(font, foreground);
    		
    		Phrase phrase = pdfFont == null ? new Phrase(text) : new Phrase(text, pdfFont);
@@ -704,11 +718,41 @@ public class PDFExporter extends AbstractBaseExporter {
 	return (int) (alpha * 255);
     }
  
-    protected com.lowagie.text.Font getPdfFont(Font font, Color color) {
+    
+
+    protected com.lowagie.text.Font getPdfFont(Font font, Color color) throws IOException, DocumentException {
+	
+	// TODO: Only for ENCODE text
 	if (font == null) {
-	    if (color == null) {
-		return null;
-	    }
+	    font = DEFAULT_FONT;
+	}
+	if (color == null) {
+	    color = DEFAULT_COLOR;
+	}
+	
+	
+	String key = getFontColorKey(font, color);
+	if (key == null) {
+	    return null;
+	}
+	com.lowagie.text.Font xFont = fontMap.get(key);
+	if (xFont != null) {
+	    return xFont;
+	}
+	xFont = createPdfFont(font, color);
+	if (xFont == null) {
+	    return xFont;
+	}
+	fontMap.put(key, xFont);
+	return xFont;
+    }
+
+    protected com.lowagie.text.Font createPdfFont(Font font, Color color) throws IOException, DocumentException {
+	if (font == null) {
+	    //TODO
+	    //if (color == null) {
+		//return null;
+	    //}
 	    font = DEFAULT_FONT;
 	}
 	java.awt.Color fontColor = getAWTColor(color);
@@ -731,9 +775,42 @@ public class PDFExporter extends AbstractBaseExporter {
 	if (font.isStrikeout()) {
 	    fontStyle |= com.lowagie.text.Font.STRIKETHRU;
 	}
+
+	//return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
+	//return FontFactory.getFont(fontName, "Cp1251", fontSize, fontStyle, fontColor); // OK
 	
-	return FontFactory.getFont(fontName, /*"cp1251",*/ fontSize, fontStyle, fontColor);
+	String fontFile = getFontFileName(fontName);
+	
+	//System.out.println("font='" + fontName + "', file='" + fontFile + "'");
+	//return FontFactory.getFont(fontName, "cp1251", fontSize, fontStyle, fontColor); // OK
+	
+	BaseFont bf = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H/*"Cp1251"*/, BaseFont.EMBEDDED);
+	return new com.lowagie.text.Font(bf, fontSize, fontStyle, fontColor);
     }
     
-
+    private static Map<String, String> fontFiles;
+    
+    public String getFontFileName(String fontName) {
+	fontName  = "Arial"; //DEFAULT_FONT_NAME;
+	if (!fontFiles.containsKey(fontName)) {
+	    fontName  = "Arial"; //DEFAULT_FONT_NAME;
+	}
+	String fontFile = fontFiles.get(fontName);
+	if (fontFile == null) {
+	    //1.7 - 1.8 FontManagerFactory.getInstance()
+	    fontFile = FontManager.getFontPath(true) + "/" +  FontManager.getFileNameForFontName(fontName);
+	    fontFiles.put(fontName, fontFile);
+	}
+	return fontFile;
+    }
+    
+    static {
+	GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	fontFiles = new HashMap<String, String>();
+	String[] names = env.getAvailableFontFamilyNames();
+	for (String name: names) {
+	    fontFiles.put(name, null);
+	}
+    }
+    
 }
