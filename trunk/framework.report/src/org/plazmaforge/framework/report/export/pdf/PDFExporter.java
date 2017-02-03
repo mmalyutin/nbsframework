@@ -786,10 +786,10 @@ public class PDFExporter extends AbstractBaseExporter {
 	
 	String fontFile = getFontFileName(fontName);
 	if (fontFile == null) {
-	    // Font file name not found
+	    // Font file not found
 	    return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
 	}
-	BaseFont baseFont = BaseFont.createFont(fontFile, "Cp1251", BaseFont.EMBEDDED);
+	BaseFont baseFont = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H /*"Cp1251"*/, BaseFont.EMBEDDED);
 	return new com.lowagie.text.Font(baseFont, fontSize, fontStyle, fontColor);
 	
 	
@@ -808,29 +808,39 @@ public class PDFExporter extends AbstractBaseExporter {
     
     private static String defaultFontName;
     
+    private static final String FONT_FILE_NONE = "-";
+    
     public static String getFontFileName(String fontName) {
+	
+	// Font not available 
 	if (!isAvailable(fontName)) {
 	    return null;
 	}
-	//fontName  = "Arial"; //DEFAULT_FONT_NAME;
-	//if (!fontFiles.containsKey(fontName)) {
-	//    fontName  = /*"Arial";*/ DEFAULT_FONT_NAME;
-	//}
 	
+	// Get font file from storage
 	String fontFile = fontFiles.get(fontName);
-	if (fontFile == null) {
-	    //1.7 - 1.8 FontManagerFactory.getInstance()
-	    fontFile = FontManager.getFileNameForFontName(fontName);
-	    if (fontFile == null) {
-		System.out.println("font='" + fontName + "', file='" + fontFile + "'");
-	    } else {
-		 fontFile = FontManager.getFontPath(true) + "/" +  fontFile;
-	    }
-	    fontFiles.put(fontName, fontFile);
+	
+	// Font file not found in storage (marker)
+	if (fontFile != null && FONT_FILE_NONE.equals(fontFile)) {
+	    return null;
 	}
+	
+	// Try find font file
+	if (fontFile == null) {
+	    fontFile = findFontFileName(fontName);
+	    if (fontFile == null) {
+		// Font file not found in system
+		fontFiles.put(fontName, FONT_FILE_NONE);
+		System.out.println("Font file not found: font='" + fontName + "'");
+	    } else {
+		fontFile = FontManager.getFontPath(true) + "/" +  fontFile;
+		fontFiles.put(fontName, fontFile);
+	    }
+	}
+	
 	return fontFile;
     }
-
+    
     public static boolean isAvailable(String fontName) {
 	if (fontName == null || fontName.isEmpty()) {
 	    return false;
@@ -840,6 +850,15 @@ public class PDFExporter extends AbstractBaseExporter {
     
     public String getAvailableDefaultFont() {
 	return defaultFontName;
+    }
+
+    private static String findFontFileName(String fontName) {
+	if (fontName == null) {
+	    return null;
+	}
+	//1.7 - 1.8 FontManagerFactory.getInstance()
+	String fontFile = FontManager.getFileNameForFontName(fontName);
+	return fontFile;
     }
     
     static {
