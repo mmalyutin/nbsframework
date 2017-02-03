@@ -52,6 +52,8 @@ import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 public class ReportManagerTest extends DataTestCase {
 
 
+    private static String REPORT_STORAGE = "D:\\Plazma\\test-resources";
+    
     /*
     public void testFillNullReport() throws Exception {
 	System.out.println("Test fill NullReport");
@@ -127,10 +129,54 @@ public class ReportManagerTest extends DataTestCase {
 
     public void testFillReportFromFile() throws Exception {
 	
-	String storage = "test.storage";
+	String storage = REPORT_STORAGE;
 	
 	String reportFile = "resources/reports/Report1.report.xml";
-	String documentFile = storage + "/Document3.document.xml";
+	String documentFile = storage + "/Document1.document.xml";
+	String documentFileW = storage + "/Document1w.document.xml";
+	
+   	//System.out.println("Test fill Report form file: '" + reportFile + "'");
+
+   	ReportManager manager = new ReportManager();
+   	
+   	// 1. Read report from file
+   	long start = System.currentTimeMillis();
+	InputStream is = ReportEngine.class.getResourceAsStream(reportFile);
+	Report report = manager.readReport(is);
+	logDeltaTime("Read report time     ", start);
+	assertNotNull(report);
+	
+	// 2. Fill report (create document)
+	start = System.currentTimeMillis();
+   	Document document = manager.fillReport(report, getConnection());
+   	logDeltaTime("Fill report time     ", start);
+   	assertNotNull(document);
+   	//printDocument(document);
+   	
+   	// 3. Export document to XML file
+   	start = System.currentTimeMillis();
+   	manager.exportDocumentToFile(document, "xml", documentFile, null);
+   	logDeltaTime("Export document time ", start);
+   	
+   	// 4. Read document from XML file
+   	start = System.currentTimeMillis();
+   	document = manager.readDocument(documentFile);
+   	logDeltaTime("Read document time   ", start);
+   	assertNotNull(document);
+   	
+   	// 5. Write document to XML file (see export to XML)
+   	XMLDocumentWriter writer = new XMLDocumentWriter();
+   	writer.writeDocument(document, documentFileW);
+    }
+
+    
+    public void testExportReportFromFile() throws Exception {
+	
+	String storage = REPORT_STORAGE;
+	
+	String reportFile = "resources/reports/Report1.report.xml";
+	String documentName = storage + "/Document1";
+	String[] exportTypes = new String[] {"xml", "html", "xls", "xlsx", "pdf"};
 	
    	//System.out.println("Test fill Report form file: '" + reportFile + "'");
 
@@ -146,20 +192,13 @@ public class ReportManagerTest extends DataTestCase {
    	Document document = manager.fillReport(report, getConnection());
    	logDeltaTime("Fill report time     ", start);
    	assertNotNull(document);
-   	
    	//printDocument(document);
-   	start = System.currentTimeMillis();
-   	manager.exportDocumentToFile(document, "xml", documentFile, null);
-   	logDeltaTime("Export document time ", start);
    	
-   	start = System.currentTimeMillis();
-   	document = manager.readDocument(documentFile);
-   	logDeltaTime("Read document time   ", start);
-   	assertNotNull(document);
-   	
-   	//manager.exportDocumentToFile(document, "xls", storage + "/Document3.xls", null);
-   	//XMLDocumentWriter w = new XMLDocumentWriter();
-   	//w.writeDocument(document, storage + "/Document3.document.xml");
+   	for (String exportType: exportTypes) {
+   	    start = System.currentTimeMillis();
+   	    manager.exportDocumentToFile(document, exportType, documentName + "." + exportType, null);
+   	    logDeltaTime("Export document ("  + exportType + ") time ", start);
+   	}
     }
     
     private float timeMs(long time ) {
