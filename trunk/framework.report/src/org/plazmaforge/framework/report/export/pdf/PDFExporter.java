@@ -55,6 +55,7 @@ import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.BaseFont;
@@ -501,8 +502,6 @@ public class PDFExporter extends AbstractBaseExporter {
    		    text = "";
    		}
    		
-   		//text = "подключаем";
-   		
    		com.lowagie.text.Font pdfFont = getPdfFont(font, foreground);
    		
    		Phrase phrase = pdfFont == null ? new Phrase(text) : new Phrase(text, pdfFont);
@@ -779,29 +778,68 @@ public class PDFExporter extends AbstractBaseExporter {
 	//return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
 	//return FontFactory.getFont(fontName, "Cp1251", fontSize, fontStyle, fontColor); // OK
 	
+	 if (!isAvailable(fontName)) {
+	     // Replace unavailable font
+	     fontName = getAvailableDefaultFont(); 
+	 }
+	 
+	
+	String fontFile = getFontFileName(fontName);
+	if (fontFile == null) {
+	    // Font file name not found
+	    return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
+	}
+	BaseFont baseFont = BaseFont.createFont(fontFile, "Cp1251", BaseFont.EMBEDDED);
+	return new com.lowagie.text.Font(baseFont, fontSize, fontStyle, fontColor);
+	
+	
+	/*
 	String fontFile = getFontFileName(fontName);
 	
 	//System.out.println("font='" + fontName + "', file='" + fontFile + "'");
 	//return FontFactory.getFont(fontName, "cp1251", fontSize, fontStyle, fontColor); // OK
 	
-	BaseFont bf = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H/*"Cp1251"*/, BaseFont.EMBEDDED);
+	BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA /"fontFile"/, BaseFont.IDENTITY_H/"Cp1251"/, BaseFont.EMBEDDED);
 	return new com.lowagie.text.Font(bf, fontSize, fontStyle, fontColor);
+	*/
     }
     
     private static Map<String, String> fontFiles;
     
-    public String getFontFileName(String fontName) {
-	fontName  = "Arial"; //DEFAULT_FONT_NAME;
-	if (!fontFiles.containsKey(fontName)) {
-	    fontName  = "Arial"; //DEFAULT_FONT_NAME;
+    private static String defaultFontName;
+    
+    public static String getFontFileName(String fontName) {
+	if (!isAvailable(fontName)) {
+	    return null;
 	}
+	//fontName  = "Arial"; //DEFAULT_FONT_NAME;
+	//if (!fontFiles.containsKey(fontName)) {
+	//    fontName  = /*"Arial";*/ DEFAULT_FONT_NAME;
+	//}
+	
 	String fontFile = fontFiles.get(fontName);
 	if (fontFile == null) {
 	    //1.7 - 1.8 FontManagerFactory.getInstance()
-	    fontFile = FontManager.getFontPath(true) + "/" +  FontManager.getFileNameForFontName(fontName);
+	    fontFile = FontManager.getFileNameForFontName(fontName);
+	    if (fontFile == null) {
+		System.out.println("font='" + fontName + "', file='" + fontFile + "'");
+	    } else {
+		 fontFile = FontManager.getFontPath(true) + "/" +  fontFile;
+	    }
 	    fontFiles.put(fontName, fontFile);
 	}
 	return fontFile;
+    }
+
+    public static boolean isAvailable(String fontName) {
+	if (fontName == null || fontName.isEmpty()) {
+	    return false;
+	}
+	return fontFiles.containsKey(fontName);
+    }
+    
+    public String getAvailableDefaultFont() {
+	return defaultFontName;
     }
     
     static {
@@ -810,6 +848,11 @@ public class PDFExporter extends AbstractBaseExporter {
 	String[] names = env.getAvailableFontFamilyNames();
 	for (String name: names) {
 	    fontFiles.put(name, null);
+	    if (defaultFontName == null 
+		    && ("Helvetica".equals(name) || "Arial".equals(name)  || "Verdana".equals(name))) {
+		defaultFontName = name;
+	    }
+	    //System.out.println(name);
 	}
     }
     
