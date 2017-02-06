@@ -54,14 +54,17 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+// lowagie -> itextpdf
 
 import sun.font.FontManager;
 
@@ -72,20 +75,21 @@ import sun.font.FontManager;
 public class PDFExporter extends AbstractBaseExporter {
     
     
-    public static final short ALIGN_LEFT = com.lowagie.text.Element.ALIGN_LEFT;
-    public static final short ALIGN_CENTER = com.lowagie.text.Element.ALIGN_CENTER;
-    public static final short ALIGN_RIGHT = com.lowagie.text.Element.ALIGN_RIGHT;
-    public static final short ALIGN_FILL = com.lowagie.text.Element.ALIGN_JUSTIFIED;
-    //public static final short ALIGN_FILL = com.lowagie.text.Element.ALIGN_JUSTIFIED
+    public static final short ALIGN_LEFT = com.itextpdf.text.Element.ALIGN_LEFT;
+    public static final short ALIGN_CENTER = com.itextpdf.text.Element.ALIGN_CENTER;
+    public static final short ALIGN_RIGHT = com.itextpdf.text.Element.ALIGN_RIGHT;
+    public static final short ALIGN_FILL = com.itextpdf.text.Element.ALIGN_JUSTIFIED;
+    //public static final short ALIGN_FILL = com.itextpdf.text.Element.ALIGN_JUSTIFIED
     
-    public static final short ALIGN_TOP = com.lowagie.text.Element.ALIGN_TOP;
-    public static final short ALIGN_MIDDLE = com.lowagie.text.Element.ALIGN_MIDDLE;
-    public static final short ALIGN_BOTTOM = com.lowagie.text.Element.ALIGN_BOTTOM;
+    public static final short ALIGN_TOP = com.itextpdf.text.Element.ALIGN_TOP;
+    public static final short ALIGN_MIDDLE = com.itextpdf.text.Element.ALIGN_MIDDLE;
+    public static final short ALIGN_BOTTOM = com.itextpdf.text.Element.ALIGN_BOTTOM;
     
     
     protected PdfWriter writer;
-    protected com.lowagie.text.Document pdfDocument;
-    protected Map<String, com.lowagie.text.Font> fontMap;
+    protected com.itextpdf.text.Document pdfDocument;
+    protected Map<String, com.itextpdf.text.Font> fontMap;
+    protected Map<String, com.itextpdf.text.pdf.BaseFont> baseFontMap;
     
     
     @Override
@@ -111,7 +115,8 @@ public class PDFExporter extends AbstractBaseExporter {
     }
     
     protected void initExport() {
-	fontMap = new HashMap<String, com.lowagie.text.Font>();
+	fontMap = new HashMap<String, com.itextpdf.text.Font>();
+	baseFontMap = new HashMap<String, com.itextpdf.text.pdf.BaseFont>();
     }
     
     protected void ensureOutput() throws RTException {
@@ -139,7 +144,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	try {
 
 	    FileOutputStream os = new FileOutputStream(fileName);
-	    pdfDocument = new com.lowagie.text.Document();
+	    pdfDocument = new com.itextpdf.text.Document();
 
 	    writer = PdfWriter.getInstance(pdfDocument, os);
 	    writer.setCloseStream(false);
@@ -299,8 +304,20 @@ public class PDFExporter extends AbstractBaseExporter {
    	foreground = gridForeground;
    	font = gridFont;
    	
-
+   	normalizeCurrentStyle();
+   	
+   	
    	PdfPTable table = new PdfPTable(columnCount);
+
+   	/*
+   	PdfPCell defaultCell = table.getDefaultCell();
+   	Font defaultFont = getFont(font, DEFAULT_FONT);
+   	Color defaultColor = getColor(foreground, Color.BLACK);
+   	defaultFont = new Font("Arial", 26);
+   	
+   	defaultCell.setPhrase(new Phrase("", getPdfFont(defaultFont, defaultColor)));
+   	*/
+   	
    	float[] columnWidths = new float[columnCount];
    	
 	for (int i = 0; i < columnCount; i++) {
@@ -502,7 +519,7 @@ public class PDFExporter extends AbstractBaseExporter {
    		    text = "";
    		}
    		
-   		com.lowagie.text.Font pdfFont = getPdfFont(font, foreground);
+   		com.itextpdf.text.Font pdfFont = getPdfFont(font, foreground);
    		
    		Phrase phrase = pdfFont == null ? new Phrase(text) : new Phrase(text, pdfFont);
    		
@@ -533,6 +550,7 @@ public class PDFExporter extends AbstractBaseExporter {
 		
 		// cell: border
 		setBorder(pdfCell, border);
+		//pdfCell.setUseAscender(true); //TODO: 
 		
 		// cell: background
 		setBackground(pdfCell, background);
@@ -642,7 +660,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.LEFT;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
-	    pdfCell.setBorderColorLeft(getAWTColor(color));
+	    pdfCell.setBorderColorLeft(getPdfColor(color));
 	    pdfCell.setBorderWidthLeft(w);
 	} else {
 	    pdfCell.setBorderWidthLeft(0);
@@ -654,7 +672,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.RIGHT;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
-	    pdfCell.setBorderColorRight(getAWTColor(color));
+	    pdfCell.setBorderColorRight(getPdfColor(color));
 	    pdfCell.setBorderWidthRight(w);
 	} else {
 	    pdfCell.setBorderWidthRight(0);
@@ -666,7 +684,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.TOP;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
-	    pdfCell.setBorderColorTop(getAWTColor(color));
+	    pdfCell.setBorderColorTop(getPdfColor(color));
 	    pdfCell.setBorderWidthTop(w);
 	} else {
 	    pdfCell.setBorderWidthTop(0);
@@ -678,7 +696,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    borderType |= Rectangle.BOTTOM;
 	    w = getLineWidth(pen);
 	    color = getLineColor(pen);
-	    pdfCell.setBorderColorBottom(getAWTColor(color));
+	    pdfCell.setBorderColorBottom(getPdfColor(color));
 	    pdfCell.setBorderWidthBottom(w);
 	} else {
 	    pdfCell.setBorderWidthBottom(0);
@@ -701,9 +719,9 @@ public class PDFExporter extends AbstractBaseExporter {
 	if (color == null) {
 	    return;
 	}
-	java.awt.Color awtColor = getAWTColor(color);
-	pdfCell.setBackgroundColor(awtColor);
-	
+	//java.awt.Color awtColor = getAWTColor(color);
+	BaseColor pdfColor = getPdfColor(color);
+	pdfCell.setBackgroundColor(pdfColor);
     }
     
     protected java.awt.Color getAWTColor(Color color) {
@@ -712,6 +730,13 @@ public class PDFExporter extends AbstractBaseExporter {
 	}
 	return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue(), get255ColorAlpha(color.getAlpha())); 
     }
+
+    protected BaseColor getPdfColor(Color color) {
+	if (color == null) {
+	    return null;
+	}
+	return new BaseColor(color.getRed(), color.getGreen(), color.getBlue(), get255ColorAlpha(color.getAlpha())); 
+    }
     
     protected int get255ColorAlpha(float alpha) {
 	return (int) (alpha * 255);
@@ -719,7 +744,15 @@ public class PDFExporter extends AbstractBaseExporter {
  
     
 
-    protected com.lowagie.text.Font getPdfFont(Font font, Color color) throws IOException, DocumentException {
+    protected com.itextpdf.text.Font getPdfFont2(Font font, Color color) throws IOException, DocumentException {
+	return null;
+    }
+    
+    protected com.itextpdf.text.Font getPdfFont(Font font, Color color) throws IOException, DocumentException {
+	
+//	if (true) {
+//	    return null;
+//	}
 	
 	// TODO: Only for ENCODE text
 	if (font == null) {
@@ -728,13 +761,20 @@ public class PDFExporter extends AbstractBaseExporter {
 	if (color == null) {
 	    color = DEFAULT_COLOR;
 	}
-	
+
+	//if (font == null) {
+	//    if (color == null) {
+	//	return null;
+	//    }
+	//    font = DEFAULT_FONT;
+	//}
+
 	
 	String key = getFontColorKey(font, color);
 	if (key == null) {
 	    return null;
 	}
-	com.lowagie.text.Font xFont = fontMap.get(key);
+	com.itextpdf.text.Font xFont = fontMap.get(key);
 	if (xFont != null) {
 	    return xFont;
 	}
@@ -746,33 +786,38 @@ public class PDFExporter extends AbstractBaseExporter {
 	return xFont;
     }
 
-    protected com.lowagie.text.Font createPdfFont(Font font, Color color) throws IOException, DocumentException {
+    protected com.itextpdf.text.Font createPdfFont(Font font, Color color) throws IOException, DocumentException {
 	if (font == null) {
-	    //TODO
 	    //if (color == null) {
 		//return null;
 	    //}
 	    font = DEFAULT_FONT;
 	}
-	java.awt.Color fontColor = getAWTColor(color);
-	//new com.lowagie.text.Font(BaseFont.HELVETICA, font.getSize(), Font.NORMAL, fontColor);
+	
+	//java.awt.Color fontColor = getAWTColor(color);
+	//if (fontColor == null) {
+	//    fontColor = java.awt.Color.BLACK;
+	//}
+
+	BaseColor fontColor = getPdfColor(color);
 	if (fontColor == null) {
-	    fontColor = java.awt.Color.BLACK;
+	    fontColor = BaseColor.BLACK;
 	}
+	
 	String fontName = font.getName(); //BaseFont.HELVETICA
 	int fontSize = font.getSize();
-	int fontStyle = com.lowagie.text.Font.NORMAL;
+	int fontStyle = com.itextpdf.text.Font.NORMAL;
 	if (font.isBold()) {
-	    fontStyle |= com.lowagie.text.Font.BOLD;
+	    fontStyle |= com.itextpdf.text.Font.BOLD;
 	}
 	if (font.isItalic()) {
-	    fontStyle |= com.lowagie.text.Font.ITALIC;
+	    fontStyle |= com.itextpdf.text.Font.ITALIC;
 	}
 	if (font.isUnderline()) {
-	    fontStyle |= com.lowagie.text.Font.UNDERLINE;
+	    fontStyle |= com.itextpdf.text.Font.UNDERLINE;
 	}
 	if (font.isStrikeout()) {
-	    fontStyle |= com.lowagie.text.Font.STRIKETHRU;
+	    fontStyle |= com.itextpdf.text.Font.STRIKETHRU;
 	}
 
 	//return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
@@ -782,15 +827,20 @@ public class PDFExporter extends AbstractBaseExporter {
 	     // Replace unavailable font
 	     fontName = getAvailableDefaultFont(); 
 	 }
-	 
 	
 	String fontFile = getFontFileName(fontName);
 	if (fontFile == null) {
 	    // Font file not found
 	    return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
 	}
-	BaseFont baseFont = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H /*"Cp1251"*/, BaseFont.EMBEDDED);
-	return new com.lowagie.text.Font(baseFont, fontSize, fontStyle, fontColor);
+	BaseFont baseFont = baseFontMap.get(fontFile);
+	if (baseFont == null) {
+	    baseFont = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H /*"Cp1251"*/, BaseFont.EMBEDDED);
+	    baseFontMap.put(fontFile, baseFont);
+	    System.out.println("BASE FONT=" + fontFile);
+	}
+	System.out.println("NEW FONT =" + fontName + ", " + fontSize + ", " + fontStyle + ", " + fontColor);
+	return new com.itextpdf.text.Font(baseFont, fontSize, fontStyle, fontColor);
 	
 	
 	/*
@@ -800,7 +850,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	//return FontFactory.getFont(fontName, "cp1251", fontSize, fontStyle, fontColor); // OK
 	
 	BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA /"fontFile"/, BaseFont.IDENTITY_H/"Cp1251"/, BaseFont.EMBEDDED);
-	return new com.lowagie.text.Font(bf, fontSize, fontStyle, fontColor);
+	return new com.itextpdf.text.Font(bf, fontSize, fontStyle, fontColor);
 	*/
     }
     
