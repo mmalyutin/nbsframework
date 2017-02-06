@@ -86,6 +86,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
     
     protected Map<String, org.apache.poi.ss.usermodel.Font> fontMap;
     
+    protected Map<String, CellStyle> styleMap;
     
     @Override
     protected void initExport() {
@@ -101,6 +102,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	
 	colorMap = new HashMap<String, org.apache.poi.ss.usermodel.Color>();
 	fontMap = new HashMap<String, org.apache.poi.ss.usermodel.Font>();
+	styleMap = new HashMap<String, CellStyle>();
     }
    
     
@@ -231,7 +233,14 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	    return;
 	}
 	
-	cellStyle = xWorkbook.createCellStyle();
+	String styleKey = "" + background + foreground + font + horizontalAlign + verticalAlign + border + format;
+	cellStyle = styleMap.get(styleKey);
+	if (cellStyle == null) {
+	    cellStyle = xWorkbook.createCellStyle();
+	    styleMap.put(styleKey, cellStyle);
+	}
+	
+	
 
 	// cell: background
 	if (background != null) {
@@ -289,6 +298,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 
 	
 	xCell.setCellStyle(cellStyle);
+	
     }
     
     protected void setXBorder(Border border) {
