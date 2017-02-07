@@ -25,7 +25,6 @@
  */
 package org.plazmaforge.framework.report.export.pdf;
 
-import java.awt.GraphicsEnvironment;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -66,7 +65,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 // lowagie -> itextpdf
 
-import sun.font.FontManager;
 
 /**
  * @author ohapon
@@ -91,6 +89,8 @@ public class PDFExporter extends AbstractBaseExporter {
     protected Map<String, com.itextpdf.text.Font> fontMap;
     protected Map<String, com.itextpdf.text.pdf.BaseFont> baseFontMap;
     
+    protected boolean mandatoryFont;
+    protected boolean fontFromFile;
     
     @Override
     public void exportDocument(Document document) throws RTException {
@@ -126,6 +126,10 @@ public class PDFExporter extends AbstractBaseExporter {
 	    throw new RTException("Invalid output type: '" + outputType + "'");
 	}
 	
+	// Configure export
+	mandatoryFont = true;
+	fontFromFile = true;
+	
 	String encoding = null; //getEncoding();
 	if (isFileNameOutputType(outputType)) {
 	    String fileName = (String) getData(PROPERTY_OUTPUT_FILE_NAME);
@@ -136,8 +140,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	}
     }
    
-    protected void ensureOutput(String fileName, String encoding)
-	    throws RTException {
+    protected void ensureOutput(String fileName, String encoding) throws RTException {
 	if (fileName == null) {
 	    throw new RTException("Output file name is empty");
 	}
@@ -750,25 +753,19 @@ public class PDFExporter extends AbstractBaseExporter {
     
     protected com.itextpdf.text.Font getPdfFont(Font font, Color color) throws IOException, DocumentException {
 	
-//	if (true) {
-//	    return null;
-//	}
-	
-	// TODO: Only for ENCODE text
+	// Normalize font
 	if (font == null) {
+	    if (!mandatoryFont && color == null) {
+		return null;
+	    }
 	    font = DEFAULT_FONT;
 	}
+
+	// Normalize color
 	if (color == null) {
 	    color = DEFAULT_COLOR;
 	}
-
-	//if (font == null) {
-	//    if (color == null) {
-	//	return null;
-	//    }
-	//    font = DEFAULT_FONT;
-	//}
-
+	
 	
 	String key = getFontColorKey(font, color);
 	if (key == null) {
@@ -787,22 +784,19 @@ public class PDFExporter extends AbstractBaseExporter {
     }
 
     protected com.itextpdf.text.Font createPdfFont(Font font, Color color) throws IOException, DocumentException {
+	
+	// Normalize font
 	if (font == null) {
-	    //if (color == null) {
-		//return null;
-	    //}
 	    font = DEFAULT_FONT;
+	}
+
+	// Normalize color
+	if (color == null) {
+	    color = DEFAULT_COLOR;
 	}
 	
 	//java.awt.Color fontColor = getAWTColor(color);
-	//if (fontColor == null) {
-	//    fontColor = java.awt.Color.BLACK;
-	//}
-
 	BaseColor fontColor = getPdfColor(color);
-	if (fontColor == null) {
-	    fontColor = BaseColor.BLACK;
-	}
 	
 	String fontName = font.getName(); //BaseFont.HELVETICA
 	int fontSize = font.getSize();
@@ -820,15 +814,17 @@ public class PDFExporter extends AbstractBaseExporter {
 	    fontStyle |= com.itextpdf.text.Font.STRIKETHRU;
 	}
 
-	//return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
-	//return FontFactory.getFont(fontName, "Cp1251", fontSize, fontStyle, fontColor); // OK
+	if (!fontFromFile) {
+	    return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor);
+	    //return FontFactory.getFont(fontName, "Cp1251", fontSize, fontStyle, fontColor); // OK
+	}
 	
-	 if (!isAvailable(fontName)) {
-	     // Replace unavailable font
-	     fontName = getAvailableDefaultFont(); 
-	 }
+	if (!PDFHelper.isAvailable(fontName)) {
+	    // Replace unavailable font
+	    fontName = PDFHelper.getAvailableDefaultFont(); 
+	}
 	
-	String fontFile = getFontFileName(fontName);
+	String fontFile = PDFHelper.getFontFileName(fontName);
 	if (fontFile == null) {
 	    // Font file not found
 	    return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
@@ -837,92 +833,12 @@ public class PDFExporter extends AbstractBaseExporter {
 	if (baseFont == null) {
 	    baseFont = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H /*"Cp1251"*/, BaseFont.EMBEDDED);
 	    baseFontMap.put(fontFile, baseFont);
-	    System.out.println("BASE FONT=" + fontFile);
+	    //System.out.println("BASE FONT=" + fontFile);
 	}
-	System.out.println("NEW FONT =" + fontName + ", " + fontSize + ", " + fontStyle + ", " + fontColor);
+	//System.out.println("NEW FONT =" + fontName + ", " + fontSize + ", " + fontStyle + ", " + fontColor);
 	return new com.itextpdf.text.Font(baseFont, fontSize, fontStyle, fontColor);
 	
-	
-	/*
-	String fontFile = getFontFileName(fontName);
-	
-	//System.out.println("font='" + fontName + "', file='" + fontFile + "'");
-	//return FontFactory.getFont(fontName, "cp1251", fontSize, fontStyle, fontColor); // OK
-	
-	BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA /"fontFile"/, BaseFont.IDENTITY_H/"Cp1251"/, BaseFont.EMBEDDED);
-	return new com.itextpdf.text.Font(bf, fontSize, fontStyle, fontColor);
-	*/
     }
     
-    private static Map<String, String> fontFiles;
-    
-    private static String defaultFontName;
-    
-    private static final String FONT_FILE_NONE = "-";
-    
-    public static String getFontFileName(String fontName) {
-	
-	// Font not available 
-	if (!isAvailable(fontName)) {
-	    return null;
-	}
-	
-	// Get font file from storage
-	String fontFile = fontFiles.get(fontName);
-	
-	// Font file not found in storage (marker)
-	if (fontFile != null && FONT_FILE_NONE.equals(fontFile)) {
-	    return null;
-	}
-	
-	// Try find font file
-	if (fontFile == null) {
-	    fontFile = findFontFileName(fontName);
-	    if (fontFile == null) {
-		// Font file not found in system
-		fontFiles.put(fontName, FONT_FILE_NONE);
-		System.out.println("Font file not found: font='" + fontName + "'");
-	    } else {
-		fontFile = FontManager.getFontPath(true) + "/" +  fontFile;
-		fontFiles.put(fontName, fontFile);
-	    }
-	}
-	
-	return fontFile;
-    }
-    
-    public static boolean isAvailable(String fontName) {
-	if (fontName == null || fontName.isEmpty()) {
-	    return false;
-	}
-	return fontFiles.containsKey(fontName);
-    }
-    
-    public String getAvailableDefaultFont() {
-	return defaultFontName;
-    }
-
-    private static String findFontFileName(String fontName) {
-	if (fontName == null) {
-	    return null;
-	}
-	//1.7 - 1.8 FontManagerFactory.getInstance()
-	String fontFile = FontManager.getFileNameForFontName(fontName);
-	return fontFile;
-    }
-    
-    static {
-	GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	fontFiles = new HashMap<String, String>();
-	String[] names = env.getAvailableFontFamilyNames();
-	for (String name: names) {
-	    fontFiles.put(name, null);
-	    if (defaultFontName == null 
-		    && ("Helvetica".equals(name) || "Arial".equals(name)  || "Verdana".equals(name))) {
-		defaultFontName = name;
-	    }
-	    //System.out.println(name);
-	}
-    }
     
 }
