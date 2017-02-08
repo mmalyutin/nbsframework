@@ -1,0 +1,79 @@
+<html>
+<head>
+	<title>Plazma Report: Design Reports</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+	<h2>Design Reports.</h2>
+	To design a report use special XML file (*.report.xml).</br>
+	For example:
+
+	<pre class="prettyprint">
+
+&lt;report name="Report1" caption="Report 1"&gt;
+
+  &lt;data-sources&gt;
+    &lt;data-source&gt;
+      &lt;fields&gt;
+        &lt;field name="PRODUCT_ID" data-type="Integer"/&gt;
+        &lt;field name="PRODUCT_NAME" data-type="String"/&gt;
+        &lt;field name="PRICE" data-type="Float"/&gt;
+      &lt;/fields&gt;
+      &lt;query&gt;SELECT PRODUCT_ID, PRODUCT_NAME, PRICE FROM PRODUCT&lt;/query&gt;
+    &lt;/data-source&gt;
+  &lt;/data-sources&gt;
+ 
+  &lt;templates&gt;
+    &lt;template type="Table" cell-border-rule="all" row-line="1" column-line="1"&gt;
+      &lt;page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" /&gt;
+      &lt;columns&gt;
+        &lt;column width="100" /&gt;
+        &lt;column width="150" /&gt;
+        &lt;column width="150" /&gt;
+      &lt;/columns&gt;
+		
+      &lt;bands&gt;
+        &lt;band type="ReportHeader"&gt;
+          &lt;rows&gt;
+            &lt;row height="30" background="red"&gt;
+              &lt;cells&gt;
+                &lt;cell colspan="4" horizontal-align="center" vertical-align="middle" font="16"&gt;&lt;value&gt;My Report&lt;/value&gt;&lt;/cell&gt;
+              &lt;/cells&gt;
+            &lt;/row&gt;
+          &lt;/rows&gt;
+        &lt;/band&gt;
+			
+        &lt;band type="ColumnHeader"&gt;
+          &lt;rows&gt;
+            &lt;row height="30"&gt;
+              &lt;cells&gt;
+                &lt;cell font="bold"&gt;&lt;value&gt;Product ID&lt;/value&gt;&lt;/cell&gt;
+                &lt;cell font="bold"&gt;&lt;value&gt;Product Name&lt;/value&gt;&lt;/cell&gt;
+                &lt;cell font="bold"&gt;&lt;value&gt;Price&lt;/value&gt;&lt;/cell&gt;
+              &lt;/cells&gt;
+            &lt;/row&gt;
+          &lt;/rows&gt;
+        &lt;/band&gt;
+			
+        &lt;band type="Detail"&gt;
+          &lt;rows&gt;
+            &lt;row height="20"&gt;
+              &lt;cells&gt;
+                &lt;cell&gt;&lt;expression&gt;$F{PRODUCT_ID}&lt;/expression&gt;&lt;/cell&gt;
+                &lt;cell&gt;&lt;expression&gt;$F{PRODUCT_NAME}&lt;/expression&gt;&lt;/cell&gt;
+                &lt;cell format="#.00" data-type="Float"&gt;&lt;expression&gt;$F{PRICE}&lt;/expression&gt;&lt;/cell&gt;
+              &lt;/cells&gt;
+            &lt;/row&gt;
+          &lt;/rows&gt;
+        &lt;/band&gt;
+      &lt;/bands&gt;
+    &lt;/template&gt;
+  &lt;/templates&gt;
+  
+&lt;/report&gt;
+	
+	</pre>
+
+</body>
+</html>
