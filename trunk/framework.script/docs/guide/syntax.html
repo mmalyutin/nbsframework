@@ -1,0 +1,183 @@
+<html>
+<head>
+	<title>Plazma Script</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+	<h2>Syntax</h2>
+	<ul>
+	 <li><a href="#comments">Comments</a></li>
+	 <li><a href="#keywords">Keywords</a></li>
+	 <li><a href="#identifiers">Identifiers</a></li>
+	 <li><a href="#literals">Literals</a></li>
+	</ul>
+	
+	<h3 id="comments">Comments</h3>
+	
+	<h4>Single line comment</h4>
+	Single line comments start with <b>//</b> and can be found at any position in the line.
+	<pre class="source-code">
+ // a standalone single line comment
+ println("hello"); // a comment till the end of the line
+ 	</pre>
+ 	
+ 	<h4>Multiline comment</h4>
+A multiline comment starts with <b>/*</b> and can be found at any position in the line. The characters following /* will be considered part of the comment, including new line characters, up to the first <b>*/</b> closing the comment. 	
+
+
+	<pre class="source-code">
+  /* a standalone multiline comment
+  spanning two lines */
+  println("hello"); /* a multiline comment starting
+                   at the end of a statement */
+  println(1 /* one */ + 2 /* two */);
+	</pre>
+
+	<h3 id="keywords">Keywords</h3>
+	The following list represents all the keywords of the Plazma Script:
+	<table>
+		<colgroup>
+			<col style="width: 25%;">
+			<col style="width: 25%;">
+			<col style="width: 25%;">
+			<col style="width: 25%;">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>as</td>
+				<td>assert</td>
+				<td>break</td>
+				<td>case</td>
+			</tr>
+			<tr>
+				<td>catch</td>
+				<td>class</td>
+				<td>const</td>
+				<td>continue</td>
+			</tr>
+			<tr>
+				<td>def</td>
+				<td>default</td>
+				<td>do</td>
+				<td>else</td>
+			</tr>
+			<tr>
+				<td>enum</td>
+				<td>extends</td>
+				<td>false</td>
+				<td>finally</td>
+			</tr>
+			<tr>
+				<td>for</td>
+				<td>goto</td>
+				<td>if</td>
+				<td>implements</td>
+			</tr>
+			<tr>
+				<td>import</td>
+				<td>in</td>
+				<td>instanceof</td>
+				<td>interface</td>
+			</tr>
+			<tr>
+				<td>new</td>
+				<td>null</td>
+				<td>package</td>
+				<td>return</td>
+			</tr>
+			<tr>
+				<td>super</td>
+				<td>switch</td>
+				<td>this</td>
+				<td>throw</td>
+			</tr>
+			<tr>
+				<td>throws</td>
+				<td>trait</td>
+				<td>true</td>
+				<td>try</td>
+			</tr>
+			<tr>
+				<td>while</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h3 id="identifiers">Identifiers</h3>
+	Identifiers start with a letter, a dollar or an underscore. They cannot start with a number.
+	<br>A letter can be in the following ranges:
+	<ul>
+	 <li>'a' to 'z' (lowercase ascii letter)</li>
+	 <li>'A' to 'Z' (uppercase ascii letter)</li>
+	</ul>
+
+	Then following characters can contain letters and numbers.
+	<br>Here are a few examples of valid identifiers (here, variable names):
+	<pre class="source-code">
+  name
+  item1
+  _startUnderscore
+  with_underscore
+  $startDollar
+	</pre>
+	But the following ones are invalid identifiers:	
+	<pre class="source-code">
+  1name
+  a+b
+  #abc
+	</pre>
+  All keywords are not valid identifiers.
+  
+  	<h3 id="literals">Literals</h3>
+	A literal is the source code representation of a value.
+	
+	 
+	<h4>Strings</h4>
+	String literals represent sequence of characters enclosed in double quotes.
+	<pre class="source-code">
+ a = "Hello";
+ b = "a";
+ c = "";
+ 	</pre>
+	
+	
+	<h4>Numbers</h4>
+	Number literals represent sequence of numbers.
+	<pre class="source-code">
+ a = 123;
+ b = 3.14;
+ b = -0.0012;	
+ 	</pre>	
+ 	
+ 	
+	<h4>Booleans</h4>
+	Boolean literals represent two values: <b>true</b> and <b>false</b>.
+	<pre class="source-code">
+ a = true;
+ b = false;
+ 	</pre>
+
+
+	<h4>Lists</h4>
+	List literals represent a comma-separated list of values, surrounded by square brackets:
+	<pre class="source-code">
+ a = [1, 2, 3];
+ b = [1, "abc", -20.56, true];
+ 	</pre>
+
+
+	<h4>Maps</h4>
+	Maps literals represent a comma-separated list of key/value pairs, surrounded by curly brackets.
+	Maps associate keys to values, separating keys and values with colons:
+	<pre class="source-code">
+ a = {"red": "#FF0000", "green": "#00FF00", "blue": "#0000FF"};
+ b = {1: "one", 2: "two"};	
+ c = {"name": "Alex", "amount": 5000.00, "paid": true};
+ 	</pre>
+	
+</body>
+</html>

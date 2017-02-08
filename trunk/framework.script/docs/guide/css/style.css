@@ -1,0 +1,50 @@
+body {
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	color: #1e1e1e;
+}
+
+.source-code {
+	padding: 2px 4px;
+	/*color: #d14;*/
+	color: #00a;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	white-space: nowrap;
+}
+
+.source-out {
+	padding: 2px 4px;
+	/*color: #d14;*/
+	color: rgb(75,75,75);
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	white-space: nowrap;
+}
+
+pre .type  {
+	color: #0086b3;
+}
+pre .kwd {
+	color: #00a;
+}
+pre .val  {
+	color: #44a;
+}
+pre .str, div.pre .str, pre .str .kwd, pre .str .val, pre .str .type {
+	color: #a00;
+}
+pre .cmt {
+	color: #008800;
+	color: #998;
+	font-style: italic;
+}
+
+.grid-th {
+	text-align: left;
+	border: 2px #e1e1e8;
+}
+
+.grid-cell {
+	border: 1px solid #e1e1e8;
+}
