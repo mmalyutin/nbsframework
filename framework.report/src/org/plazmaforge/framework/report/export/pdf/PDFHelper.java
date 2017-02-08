@@ -42,7 +42,9 @@ public class PDFHelper {
     
     private static String defaultFontName;
     
+    private static Class<?> fontManagerClass;
     
+    private static String fontManagerVersion;
     
     
     public static String getFontFileName(String fontName) {
@@ -92,11 +94,8 @@ public class PDFHelper {
 	    return null;
 	}
 	
-	//fontName = "222";
-	
-	
 	/*
-	// Java 1.6
+	// Java 1.6 ONLY
 	String fontFile = FontManager.getFileNameForFontName(fontName);
 	//return fontFile;
 	if (fontFile == null) {
@@ -105,44 +104,41 @@ public class PDFHelper {
 	return FontManager.getFontPath(true) + "/" +  fontFile;
 	*/
 
-	
-	// TODO: Must optimize
-	// Java 1.7+ FontManagerFactory.getInstance()
 	String fontFile = null;
+	Class<?> fontManagerClass = null;
 	try {
-		java.awt.Font font = new java.awt.Font(fontName, java.awt.Font.PLAIN, 12); 
-		Object font2D;
-		try {
-		    // Java 1.7+.
-		    font2D = Class.forName("sun.font.FontUtilities").getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
-		} catch (Throwable ignored) {
-		    font2D = Class.forName("sun.font.FontManager").getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
-		}
-		Field platNameField = Class.forName("sun.font.PhysicalFont").getDeclaredField("platName");
-		platNameField.setAccessible(true);
-		fontFile = (String)platNameField.get(font2D);
+	    fontManagerClass = getFontManagerClass();
+	    if (fontManagerClass == null) {
+		return null;
+	    }
+	    java.awt.Font font = new java.awt.Font(fontName, java.awt.Font.PLAIN, 12);
+	    Object font2D = fontManagerClass.getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
+	    Field platNameField = Class.forName("sun.font.PhysicalFont").getDeclaredField("platName");
+	    platNameField.setAccessible(true);
+	    fontFile = (String) platNameField.get(font2D);
 	} catch (Exception ex) {
 	    System.err.println(ex);
 	}
-	
 	return fontFile;
 
-
-	/*
-	try {
-            String fmClassName = "sun.font.fontmanager", DEFAULT_CLASS);
-            ClassLoader cl = ClassLoader.getSystemClassLoader();
-            Class fmClass = Class.forName(fmClassName, true, cl);
-            instance = (FontManager) fmClass.newInstance();
-        } catch (ClassNotFoundException |
-                 InstantiationException |
-                 IllegalAccessException ex) {
-            throw new InternalError(ex);
-
-        }
-        */
-	
-	
+    }
+    
+    private static Class<?> getFontManagerClass() {
+	if (fontManagerClass == null) {
+	    try {
+		try {
+		    // Java 1.7+ FontManagerFactory.getInstance()
+		    fontManagerClass = Class.forName("sun.font.FontUtilities");
+		    fontManagerVersion = "1.7+";
+		} catch (Throwable ignored) {
+		    fontManagerClass = Class.forName("sun.font.FontManager");
+		    fontManagerVersion = "";
+		}
+	    } catch (Throwable ex) {
+		System.err.println(ex);
+	    }
+	}
+	return fontManagerClass;
     }
     
     static {
