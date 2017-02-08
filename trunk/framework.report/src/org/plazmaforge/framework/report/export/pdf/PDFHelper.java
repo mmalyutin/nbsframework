@@ -113,7 +113,7 @@ public class PDFHelper {
 		java.awt.Font font = new java.awt.Font(fontName, java.awt.Font.PLAIN, 12); 
 		Object font2D;
 		try {
-		    // Java 7+.
+		    // Java 1.7+.
 		    font2D = Class.forName("sun.font.FontUtilities").getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
 		} catch (Throwable ignored) {
 		    font2D = Class.forName("sun.font.FontManager").getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
