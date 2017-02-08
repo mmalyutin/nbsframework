@@ -830,10 +830,12 @@ public class PDFExporter extends AbstractBaseExporter {
 	    return FontFactory.getFont(fontName, fontSize, fontStyle, fontColor); // OK
 	}
 	BaseFont baseFont = baseFontMap.get(fontFile);
+	
 	if (baseFont == null) {
 	    baseFont = BaseFont.createFont(fontFile, BaseFont.IDENTITY_H /*"Cp1251"*/, BaseFont.EMBEDDED);
 	    baseFontMap.put(fontFile, baseFont);
 	    //System.out.println("BASE FONT=" + fontFile);
+	    //System.out.println("ENCODING =" + baseFont.getEncoding());
 	}
 	//System.out.println("NEW FONT =" + fontName + ", " + fontSize + ", " + fontStyle + ", " + fontColor);
 	return new com.itextpdf.text.Font(baseFont, fontSize, fontStyle, fontColor);
