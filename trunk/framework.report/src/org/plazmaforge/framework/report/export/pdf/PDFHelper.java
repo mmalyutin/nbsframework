@@ -23,10 +23,11 @@
 package org.plazmaforge.framework.report.export.pdf;
 
 import java.awt.GraphicsEnvironment;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import sun.font.FontManager;
+//import sun.font.FontManager;
 
 /**
  * 
@@ -67,7 +68,7 @@ public class PDFHelper {
 		fontFiles.put(fontName, FONT_FILE_NONE);
 		System.out.println("Font file not found: font='" + fontName + "'");
 	    } else {
-		fontFile = FontManager.getFontPath(true) + "/" +  fontFile;
+		//fontFile = FontManager.getFontPath(true) + "/" +  fontFile;
 		fontFiles.put(fontName, fontFile);
 	    }
 	}
@@ -90,9 +91,58 @@ public class PDFHelper {
 	if (fontName == null) {
 	    return null;
 	}
-	//1.7 - 1.8 FontManagerFactory.getInstance()
+	
+	//fontName = "222";
+	
+	
+	/*
+	// Java 1.6
 	String fontFile = FontManager.getFileNameForFontName(fontName);
+	//return fontFile;
+	if (fontFile == null) {
+	    return null;
+	}
+	return FontManager.getFontPath(true) + "/" +  fontFile;
+	*/
+
+	
+	// TODO: Must optimize
+	// Java 1.7+ FontManagerFactory.getInstance()
+	String fontFile = null;
+	try {
+		java.awt.Font font = new java.awt.Font(fontName, java.awt.Font.PLAIN, 12); 
+		Object font2D;
+		try {
+		    // Java 7+.
+		    font2D = Class.forName("sun.font.FontUtilities").getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
+		} catch (Throwable ignored) {
+		    font2D = Class.forName("sun.font.FontManager").getDeclaredMethod("getFont2D", new Class[] {java.awt.Font.class}).invoke(null, new Object[] {font});
+		}
+		Field platNameField = Class.forName("sun.font.PhysicalFont").getDeclaredField("platName");
+		platNameField.setAccessible(true);
+		fontFile = (String)platNameField.get(font2D);
+	} catch (Exception ex) {
+	    System.err.println(ex);
+	}
+	
 	return fontFile;
+
+
+	/*
+	try {
+            String fmClassName = "sun.font.fontmanager", DEFAULT_CLASS);
+            ClassLoader cl = ClassLoader.getSystemClassLoader();
+            Class fmClass = Class.forName(fmClassName, true, cl);
+            instance = (FontManager) fmClass.newInstance();
+        } catch (ClassNotFoundException |
+                 InstantiationException |
+                 IllegalAccessException ex) {
+            throw new InternalError(ex);
+
+        }
+        */
+	
+	
     }
     
     static {
