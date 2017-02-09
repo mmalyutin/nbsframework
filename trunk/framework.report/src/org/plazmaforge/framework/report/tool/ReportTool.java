@@ -27,10 +27,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.converter.ClassPropertyProvider2Test.Product;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
+import org.plazmaforge.framework.datastorage.support.sql.SQLDataConnector;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
@@ -76,6 +81,7 @@ public class ReportTool {
 	    return;
 	}
 	
+	DSDataConnector dataConnector = loadDataConnector(properties); 
 	
 	try {
 	    if (log) {
@@ -129,7 +135,7 @@ public class ReportTool {
 	}
     }
 
-    private DSDataConnector loadDataConnector(Properties properties){
+    private DSDataConnector loadDataConnector(Properties properties) {
 	if (properties == null) {
 	    return null;
 	}
@@ -142,13 +148,46 @@ public class ReportTool {
 	if (type == null) {
 	    type = "SQL";
 	}
-	DataProducer dataProducer = DataManager.getDataProducer(type);
-	if (dataProducer == null) {
+	//DataProducer dataProducer = DataManager.getDataProducer(type);
+	//if (dataProducer == null) {
+	//    return null;
+	//}
+	
+	DSDataConnector dataConnector = null; 
+	//TODO
+	type = type.toUpperCase();
+	if ("SQL".equals(type)) {
+	    dataConnector = new SQLDataConnector();
+	} else	if ("CSV".equals(type)) {
+	    dataConnector = new CSVDataConnector();
+	} else	if ("XML".equals(type)) {
+	    dataConnector = new CSVDataConnector();
+	} 
+	
+	if (dataConnector == null) {
 	    return null;
 	}
-	return null;
+	
+	if (propertyProviderFactory == null) {
+	    propertyProviderFactory = new ClassPropertyProviderFactory2();
+	}
+	
+	PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
+	if (propertyProvider == null) {
+	    return null;
+	}
+
+	//TODO
+	//Set<String> keys = result.keySet();
+	//for (String key: keys) {
+	//    
+	//}
+	
+ 	return null;
     }
 
+    private ClassPropertyProviderFactory2 propertyProviderFactory;
+    
     
     private String toNormalizeString(String str) {
 	if (str == null) {
