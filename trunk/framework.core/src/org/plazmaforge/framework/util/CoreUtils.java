@@ -101,6 +101,39 @@ public class CoreUtils {
 	return map;
     }
     
+    public static Map<String, String> toFilterMap(Properties properties, String prefix) {
+	return toFilterMap(properties, prefix, false);
+    }
+    
+    public static Map<String, String> toFilterMap(Properties properties, String prefix, boolean removePrefix) {
+	if (properties == null || prefix == null || prefix.isEmpty()) {
+	    return null;
+	}
+	Set<Object> keys = properties.keySet();
+	Map<String, String> result = new HashMap<String, String>();
+	String name = null;
+	String value = null;
+	for (Object key : keys) {
+	    if (key == null) {
+		continue;
+	    }
+	    name = key.toString();
+	    if (!name.startsWith(prefix)) {
+		continue;
+	    }
+	    value = properties.getProperty(name);
+	    if (removePrefix) {
+		if (value.length() == prefix.length()) {
+		    value = null;
+		} else {
+		    value = value.substring(prefix.length());
+		}
+	    }
+	    result.put(name, value);
+	}
+	return null;
+    }
+    
     public static String getSimpleClassName(String className) {
 	if (className == null) {
 	    return null;
