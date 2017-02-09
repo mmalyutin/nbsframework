@@ -123,15 +123,15 @@ public class CoreUtils {
 	    }
 	    value = properties.getProperty(name);
 	    if (removePrefix) {
-		if (value.length() == prefix.length()) {
-		    value = null;
+		if (name.length() == prefix.length()) {
+		    name = null;
 		} else {
-		    value = value.substring(prefix.length());
+		    name = name.substring(prefix.length());
 		}
 	    }
 	    result.put(name, value);
 	}
-	return null;
+	return result;
     }
     
     public static String getSimpleClassName(String className) {
