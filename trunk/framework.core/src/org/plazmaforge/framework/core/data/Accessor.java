@@ -38,6 +38,8 @@ public class Accessor {
 
     private Class entityClass;
     
+    private Class<?> type;
+    
     private Method getter;
 
     private Method setter;
@@ -51,10 +53,17 @@ public class Accessor {
         this.entityClass = entityClass;
     }
     
-    public Class getAttributeClass() {
-        return getter == null ? null : getter.getReturnType();
+//    public Class getAttributeClass() {
+//        return getter == null ? null : getter.getReturnType();
+//    }
+
+    public Class<?> getType() {
+        return type;
     }
 
+    public void setType(Class<?> type) {
+        this.type = type;
+    }
 
     public Method getGetter() {
 	return getter;
@@ -131,6 +140,8 @@ public class Accessor {
 	    return accessor;
 	}
 	Class type = getter.getReturnType();
+	accessor.setType(type);
+	
 	Class parameterType = null;
 	for (Method method : setMethods) {
 	    parameterType = method.getParameterTypes()[0];

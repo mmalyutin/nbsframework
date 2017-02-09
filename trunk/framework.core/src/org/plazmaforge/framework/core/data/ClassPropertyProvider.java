@@ -45,7 +45,7 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	if (element == null || property == null) {
 	    return null;
 	}
-	return getAccessor(property).getValue(element);
+	return doGetValue(element, property);
     }
 
     @Override
@@ -53,11 +53,24 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	if (element == null || property == null) {
 	    return;
 	}
+	doSetValue(element, property, value);
+    }
+    
+    protected Object doGetValue(T element, String property) {
+	if (element == null || property == null) {
+	    return null;
+	}
+	return getAccessor(property).getValue(element);
+    }
+    
+    protected void doSetValue(T element, String property, Object value) {
+	if (element == null || property == null) {
+	    return;
+	}
 	getAccessor(property).setValue(element, value);
     }
-
     
-    private Accessor getAccessor(String property) {
+    protected Accessor getAccessor(String property) {
 	Accessor accessor = accessors.get(property);
 	if (accessor != null) {
 	    return accessor;
@@ -70,6 +83,17 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	accessor = new Accessor();
 	accessors.put(property, accessor);
 	return accessor;
+    }
+    
+    protected Class<?> getDataType(String property) {
+	if (property == null) {
+	    return null;
+	}
+	Accessor accessor = getAccessor(property);
+	if (accessor == null) {
+	    return null;
+	}
+	return accessor.getType();
     }
     
     
