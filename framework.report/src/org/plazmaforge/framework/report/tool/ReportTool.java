@@ -22,14 +22,20 @@
 
 package org.plazmaforge.framework.report.tool;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
+import org.plazmaforge.framework.core.datastorage.DataManager;
+import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
+import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.util.SystemUtils;
 
 /**
@@ -123,6 +129,27 @@ public class ReportTool {
 	}
     }
 
+    private DSDataConnector loadDataConnector(Properties properties){
+	if (properties == null) {
+	    return null;
+	}
+	String prefix = "dataconnector.";
+	Map<String, String> result = CoreUtils.toFilterMap(properties, prefix, true);
+	if (result == null || result.isEmpty()) {
+	    return null;
+	}
+	String type = result.get("type");
+	if (type == null) {
+	    type = "SQL";
+	}
+	DataProducer dataProducer = DataManager.getDataProducer(type);
+	if (dataProducer == null) {
+	    return null;
+	}
+	return null;
+    }
+
+    
     private String toNormalizeString(String str) {
 	if (str == null) {
 	    return null;
