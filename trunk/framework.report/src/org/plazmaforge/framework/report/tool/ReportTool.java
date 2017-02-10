@@ -22,20 +22,16 @@
 
 package org.plazmaforge.framework.report.tool;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
 import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
 import org.plazmaforge.framework.core.data.PropertyProvider;
-import org.plazmaforge.framework.core.data.converter.ClassPropertyProvider2Test.Product;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
-import org.plazmaforge.framework.datastorage.support.sql.SQLDataConnector;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
@@ -56,6 +52,8 @@ import org.plazmaforge.framework.util.SystemUtils;
 public class ReportTool {
 
     
+    private boolean log; 
+    
     public static void main(String[] args) {
 	Properties properties = SystemUtils.loadProperties(args);
 	if (properties.getProperty("?") != null) {
@@ -68,20 +66,20 @@ public class ReportTool {
     }
 
     public void execute(Properties properties) {
+	
+	log = false;
 
 	String reportFile = properties.getProperty("report");
 	String documentFile = properties.getProperty("document");
 	String exportFormat = properties.getProperty("format");
 	String datastorageFile = properties.getProperty("datastorage");	// TODO: Not implemented
-	boolean log = properties.getProperty("log", "false").equalsIgnoreCase("true");
+	log = properties.getProperty("log", "false").equalsIgnoreCase("true");
 	
 	if (reportFile == null) {
 	    trace("Error: -report is not setting");
 	    printHelp();
 	    return;
 	}
-	
-	DSDataConnector dataConnector = loadDataConnector(properties); 
 	
 	try {
 	    if (log) {
@@ -114,6 +112,7 @@ public class ReportTool {
 	    trace("format   = " + exportFormat);
 	    trace("\n");
 	    
+	    DSDataConnector dataConnector = loadDataConnector(properties);
 	    
 	    // Create ReportManager
 	    ReportManager reportManager = new ReportManager();
@@ -139,32 +138,32 @@ public class ReportTool {
 	if (properties == null) {
 	    return null;
 	}
+	
 	String prefix = "dataconnector.";
 	Map<String, String> result = CoreUtils.toFilterMap(properties, prefix, true);
 	if (result == null || result.isEmpty()) {
 	    return null;
 	}
+	
 	String type = result.get("type");
 	if (type == null) {
 	    type = "SQL";
 	}
-	//DataProducer dataProducer = DataManager.getDataProducer(type);
-	//if (dataProducer == null) {
-	//    return null;
-	//}
 	
-	DSDataConnector dataConnector = null; 
-	//TODO
-	type = type.toUpperCase();
-	if ("SQL".equals(type)) {
-	    dataConnector = new SQLDataConnector();
-	} else	if ("CSV".equals(type)) {
-	    dataConnector = new CSVDataConnector();
-	} else	if ("XML".equals(type)) {
-	    dataConnector = new CSVDataConnector();
-	} 
+	if (!DataManager.supportsDataProducer(type)) {
+	    trace("Unsupports DataConnector type: " + type);
+	    return null;
+	}
 	
+	DataProducer dataProducer = DataManager.getDataProducer(type);
+	if (dataProducer == null) {
+	    trace("DataProducer is not initialized by type " + type);
+	    return null;
+	}
+	
+	DSDataConnector dataConnector = dataProducer.createDataConnector();
 	if (dataConnector == null) {
+	    trace("DataConnector is not initialized by type " + type);
 	    return null;
 	}
 	
@@ -174,16 +173,24 @@ public class ReportTool {
 	
 	PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
 	if (propertyProvider == null) {
+	    trace("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
 	    return null;
 	}
 
-	//TODO
-	//Set<String> keys = result.keySet();
-	//for (String key: keys) {
-	//    
-	//}
+	Set<String> names = result.keySet();
+	String value = null;
 	
- 	return null;
+	if (log) {
+	    trace("DataConnector properties");
+	    trace("============================================================");
+	}
+	
+	for (String name: names) {
+	    value = result.get(name);
+	    propertyProvider.setValue(dataConnector, name, value);
+	    trace("" + name + "=" + value);
+	}
+ 	return dataConnector;
     }
 
     private ClassPropertyProviderFactory2 propertyProviderFactory;
