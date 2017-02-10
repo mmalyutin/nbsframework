@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,7 +53,15 @@ public abstract class AbstractDataProducer implements DataProducer {
     
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
-	// By default unsupported operation. Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet)
+	// By default unsupported operation.
+	// Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
+	throw new DSException("Unsupported operation");
+    }
+
+    @Override
+    public DSResultSet openResultSet(DSSession session) throws DSException {
+	// By default unsupported operation.
+	// Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
 	throw new DSException("Unsupported operation");
     }
     
@@ -90,10 +97,12 @@ public abstract class AbstractDataProducer implements DataProducer {
 	return openResultSet(session, query, null);
     }
     
-    @Override
-    public DSResultSet openResultSet(DSSession session) throws DSException {
-	// By default unsupported operation. Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet)
-	throw new DSException("Unsupported operation");
+    
+    ////
+    
+    public boolean supportsSingleDataSource() {
+	// By default
+	return false;
     }
     
     ////

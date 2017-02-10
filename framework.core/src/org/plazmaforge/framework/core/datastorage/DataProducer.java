@@ -50,20 +50,82 @@ public interface DataProducer {
     
     DSSession openWrapSession(Object data) throws DSException;
     
-    
+    /**
+     * Open DSResultSet by DSSession.
+     * Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
+     * @param connectionString
+     * @return
+     * @throws DSException
+     */
     DSResultSet openResultSet(String connectionString) throws DSException;
-    
-    DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException;
-    
-    DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Object[] parameters) throws DSException;
-    
+
+    /**
+     * Open DSResultSet by DSSession.
+     * Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
+     * @param session
+     * @return
+     * @throws DSException
+     */
     DSResultSet openResultSet(DSSession session) throws DSException;
     
+    /**
+     * Open DSResultSet by DSSession and DSDataSource
+     * @param session
+     * @param dataSource
+     * @return
+     * @throws DSException
+     */
+    DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException;
+    
+    /**
+     * Open DSResultSet by DSSession and DSDataSource with parameters
+     * @param session
+     * @param dataSource
+     * @param parameters
+     * @return
+     * @throws DSException
+     */
+    DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Object[] parameters) throws DSException;
+    
+    /**
+     * Open DSResultSet by DSSession and query
+     * @param session
+     * @param query
+     * @return
+     * @throws DSException
+     */
     DSResultSet openResultSet(DSSession session, String query) throws DSException;
     
+    /**
+     * Open DSResultSet by DSSession and query with parameters
+     * @param session
+     * @param query
+     * @param parameters
+     * @return
+     * @throws DSException
+     */
     DSResultSet openResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException;
     
     
+    /**
+     * Open DSDataSet by DSSession and DSDataSource
+     * @param session
+     * @param dataSource
+     * @return
+     * @throws DSException
+     */
     DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException;
+    
+    /**
+     * Create empty DSDataConnector
+     * @return
+     */
+    DSDataConnector createDataConnector();
+    
+    /**
+     * Returns true if DSDataProducer supports mode with single DSDataSource (CSV, XML, XLS..)
+     * @return
+     */
+    boolean supportsSingleDataSource();
 
 }
