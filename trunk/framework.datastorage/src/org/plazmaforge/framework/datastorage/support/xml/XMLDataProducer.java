@@ -242,6 +242,12 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 
     }
 
+    public DSDataConnector createDataConnector() {
+	return new XMLDataConnector();
+    }
 
+    public boolean supportsSingleDataSource() {
+	return true;
+    }
 
 }

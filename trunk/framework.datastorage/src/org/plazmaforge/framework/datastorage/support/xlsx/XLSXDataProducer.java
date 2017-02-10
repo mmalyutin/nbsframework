@@ -68,4 +68,12 @@ public class XLSXDataProducer extends AbstractXLSDataProducer {
 	}
     }
 
+    public DSDataConnector createDataConnector() {
+	return new XLSXDataConnector();
+    }
+
+    public boolean supportsSingleDataSource() {
+	return true;
+    }
+    
 }

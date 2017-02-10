@@ -270,5 +270,13 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 
     }
 
+    public DSDataConnector createDataConnector() {
+	return new CSVDataConnector();
+    }
+
+    public boolean supportsSingleDataSource() {
+	return true;
+    }
+    
 
 }
