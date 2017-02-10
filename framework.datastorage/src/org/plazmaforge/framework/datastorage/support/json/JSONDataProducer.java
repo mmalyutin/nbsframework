@@ -44,7 +44,7 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
+
 
 /**
  * @author ohapon
@@ -71,7 +71,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(CSVDataConnector.PROPERTY_CHARSET, charset);
+	data.put(JSONDataConnector.PROPERTY_CHARSET, charset);
 	data.put(JSONDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(JSONDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -154,7 +154,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(JSONDataConnector.PROPERTY_FILE_NAME);
-	String charset = (String) data.get(CSVDataConnector.PROPERTY_CHARSET);	
+	String charset = (String) data.get(JSONDataConnector.PROPERTY_CHARSET);	
 	String dateFormat = (String) data.get(JSONDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(JSONDataConnector.PROPERTY_NUMBER_FROMAT);
 	
@@ -175,7 +175,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String fileName = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createParameterData(parametersString); 
-	String charset = (String) parameterData.get(CSVDataConnector.PROPERTY_CHARSET);
+	String charset = (String) parameterData.get(JSONDataConnector.PROPERTY_CHARSET);
 	try {
 	    Reader reader = createReader(fileName, charset);
 	    JSONResultSet resultSet = new JSONResultSet(reader);
@@ -249,6 +249,13 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	return dataSet;
 
     }
+    
+    public DSDataConnector createDataConnector() {
+	return new JSONDataConnector();
+    }
 
+    public boolean supportsSingleDataSource() {
+	return true;
+    }
 
 }
