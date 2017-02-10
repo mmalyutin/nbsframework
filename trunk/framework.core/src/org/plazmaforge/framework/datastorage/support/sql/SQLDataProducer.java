@@ -241,6 +241,12 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 
     ////
     
+    public DSDataConnector createDataConnector() {
+	return new SQLDataConnector();
+    }
+    
+    ////
+    
     protected ResultSet prepareResultSet(Connection cn, String sql, ParameterValue[] parameters) throws SQLException {
 	PreparedStatement stm = cn.prepareStatement(sql);
 	int inputParameterCount = parameters == null ? 0 : parameters.length;

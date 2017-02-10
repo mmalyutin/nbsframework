@@ -280,6 +280,10 @@ public class DataManager {
 	getInstance().dataProducers.remove(normalizeKey(type));
     }
 
+    public static boolean supportsDataProducer(String type) {
+	return getDataProducerFactory(type) != null;
+    }
+    
     private void init() {
 	
 	// Initialize context errors
