@@ -28,10 +28,12 @@ import java.util.Set;
 
 import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
 import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
+import org.plazmaforge.framework.datastorage.DataStorage;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
@@ -52,7 +54,9 @@ import org.plazmaforge.framework.util.SystemUtils;
 public class ReportTool {
 
     
-    private boolean log; 
+    private boolean log;
+    
+    private PropertyProviderFactory propertyProviderFactory;
     
     public static void main(String[] args) {
 	Properties properties = SystemUtils.loadProperties(args);
@@ -150,6 +154,8 @@ public class ReportTool {
 	    type = "SQL";
 	}
 	
+	DataStorage.init();
+	
 	if (!DataManager.supportsDataProducer(type)) {
 	    trace("Unsupports DataConnector type: " + type);
 	    return null;
@@ -167,11 +173,11 @@ public class ReportTool {
 	    return null;
 	}
 	
-	if (propertyProviderFactory == null) {
-	    propertyProviderFactory = new ClassPropertyProviderFactory2();
-	}
+//	if (propertyProviderFactory == null) {
+//	    propertyProviderFactory = new ClassPropertyProviderFactory2();
+//	}
 	
-	PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
+	PropertyProvider propertyProvider = getPropertyProviderFactory().getPropertyProvider(dataConnector.getClass());
 	if (propertyProvider == null) {
 	    trace("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
 	    return null;
@@ -193,8 +199,13 @@ public class ReportTool {
  	return dataConnector;
     }
 
-    private ClassPropertyProviderFactory2 propertyProviderFactory;
     
+    private PropertyProviderFactory getPropertyProviderFactory() {
+	if (propertyProviderFactory == null) {
+	    propertyProviderFactory = new ClassPropertyProviderFactory2();
+	}
+	return propertyProviderFactory;
+    }
     
     private String toNormalizeString(String str) {
 	if (str == null) {
