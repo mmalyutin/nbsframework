@@ -22,8 +22,6 @@
 
 package org.plazmaforge.framework.uwt.util;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -31,9 +29,10 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.plazmaforge.framework.core.data.Accessor;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.ValueProvider;
+import org.plazmaforge.framework.core.data.access.AccessUtils;
+import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 import org.plazmaforge.framework.uwt.widget.Column;
 import org.plazmaforge.framework.uwt.widget.IViewer;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
@@ -215,19 +214,11 @@ public class UWTUtils {
     
 
     
-    public static Object getValue(Object obj, Accessor accessor) {
-	if (obj == null || accessor == null) {
+    public static Object getValue(Object obj, PropertyAccessor propertyAccessor) {
+	if (obj == null || propertyAccessor == null) {
 	    return null;
 	}
-	Method getter = accessor.getGetter();
-	if (getter == null) {
-	    return null;
-	}
-	try {
-	    return invoke(getter, obj);
-	} catch (Exception ex) {
-	    return null;
-	}
+	return propertyAccessor.getValue(obj);
     }
 
 
@@ -257,9 +248,9 @@ public class UWTUtils {
 	    return getValue(element, property, propertyProvider);
 	}
 
-	// By Accessor
-	Accessor accessor = getAccessor(element, column);
-	return getValue(element, accessor);	    
+	// By PropertyAccessor
+	PropertyAccessor propertyAccessor = getPropertyAccessor(element, column);
+	return getValue(element, propertyAccessor);	    
 	
     }
 
@@ -358,86 +349,74 @@ public class UWTUtils {
    	}
    	
 
-   	// By Accessor
-   	Accessor accessor = getAccessor(element, property, viewer);
-	if (accessor == null) {
+   	// By PropertyAccessor
+   	PropertyAccessor propertyAccessor = getPropertyAccessor(element, property, viewer);
+	if (propertyAccessor == null) {
 	    // TODO !!! WHY
 	    return element.toString(); // TO_STRING
 	}
-	return getValue(element, accessor);
+	return getValue(element, propertyAccessor);
    }
     
     
     
-    public static Accessor getAccessor(Object obj, String property) {
+    public static PropertyAccessor getPropertyAccessor(Object obj, String property) {
 	if (obj == null || property == null) {
 	    return null;
 	}
-	Accessor accessor = createAccessor(obj.getClass(), property);
-	return accessor;
+	PropertyAccessor propertyAccessor = createPropertyAccessor(obj.getClass(), property);
+	return propertyAccessor;
 
     }
 
     
     
     /**
-     * Get Accessor by Column
+     * Get PropertyAccessor by Column
      * @param obj
      * @param column
      * @return
      */
-    public static Accessor getAccessor(Object obj, Column column) {
+    public static PropertyAccessor getPropertyAccessor(Object obj, Column column) {
 	if (obj == null || column == null) {
 	    return null;
 	}
-	Accessor accessor = (Accessor) column.getData(PROPERTY_ACCESSOR);
-	if (accessor == null) {
-	    accessor = createAccessor(obj.getClass(), column.getProperty());
-	    column.setData(PROPERTY_ACCESSOR, accessor);
+	PropertyAccessor propertyAccessor = (PropertyAccessor) column.getData(PROPERTY_ACCESSOR);
+	if (propertyAccessor == null) {
+	    propertyAccessor = createPropertyAccessor(obj.getClass(), column.getProperty());
+	    column.setData(PROPERTY_ACCESSOR, propertyAccessor);
 	}
-	return accessor;
+	return propertyAccessor;
 
     }
     
 
     
     /**
-     * Get Accessor by Viewer
+     * Get PropertyAccessor by Viewer
      * Use only for Tree without columns
      * @param obj
      * @param tree
      * @return
      */
-    public static Accessor getAccessor(Object obj, String property, IViewer<?> viewer) {
+    public static PropertyAccessor getPropertyAccessor(Object obj, String property, IViewer<?> viewer) {
 	if (obj == null || viewer == null) {
 	    return null;
 	}
-	Accessor accessor = (Accessor) viewer.getData(PROPERTY_ACCESSOR);
-	if (accessor == null) {
-	    accessor = createAccessor(obj.getClass(), property);
-	    viewer.setData(PROPERTY_ACCESSOR, accessor);
+	PropertyAccessor propertyAccessor = (PropertyAccessor) viewer.getData(PROPERTY_ACCESSOR);
+	if (propertyAccessor == null) {
+	    propertyAccessor = createPropertyAccessor(obj.getClass(), property);
+	    viewer.setData(PROPERTY_ACCESSOR, propertyAccessor);
 	}
-	return accessor;
+	return propertyAccessor;
 
     }
     
     
-
-       
-    public static Accessor createAccessor(Class<?> entityClass, String property) {
-	return (entityClass == null || property == null) ? null : Accessor.getAccessor(entityClass, property);
+    public static PropertyAccessor createPropertyAccessor(Class<?> entityClass, String property) {
+	return (entityClass == null || property == null) ? null : AccessUtils.getAccessor(entityClass, property);
     }
 
-
-    private static Object invoke(Method method, Object obj, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-	return method.invoke(obj, args);
-    }
-
-    
-    
-    
-    ////
-    
 
 
 }
