@@ -41,15 +41,15 @@ public class AccessUtils {
 	return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
-    public static PropertyAccessor getAccessor(Class<?> klass, String property) {
+    public static PropertyAccessor getPropertyAccessor(Class<?> klass, String property) {
 	if (klass == null || property == null) {
 	    return null;
 	}
 	Method[] methods = klass.getMethods();
-	return getAccessor(methods, property);
+	return getPropertyAccessor(methods, property);
     }
     
-    public static PropertyAccessor getAccessor(Method[] methods, String property) {
+    public static PropertyAccessor getPropertyAccessor(Method[] methods, String property) {
 	
 	Method getter = null;
 	Method setter = null;
@@ -88,13 +88,13 @@ public class AccessUtils {
 	if (getter == null) {
 	    return null;
 	}
-	PropertyAccessor accessor = new PropertyAccessor();
-	accessor.setGetter(getter);
+	BasePropertyAccessor propertyAccessor = new BasePropertyAccessor();
+	propertyAccessor.setGetter(getter);
 	if (setMethods.isEmpty()) {
-	    return accessor;
+	    return propertyAccessor;
 	}
 	Class type = getter.getReturnType();
-	accessor.setType(type);
+	propertyAccessor.setType(type);
 	
 	Class parameterType = null;
 	for (Method method : setMethods) {
@@ -115,16 +115,16 @@ public class AccessUtils {
 	    }
 	}
 
-	accessor.setSetter(setter);
-	return accessor;
+	propertyAccessor.setSetter(setter);
+	return propertyAccessor;
     }
     
     
-    public static Object getValue(PropertyAccessor accessor, Object obj) {
- 	if (obj == null || accessor == null) {
+    public static Object getValue(PropertyAccessor propertyAccessor, Object obj) {
+ 	if (obj == null || propertyAccessor == null) {
  	    return null;
  	}
- 	Method getter = accessor.getGetter();
+ 	Method getter = propertyAccessor.getGetter();
  	if (getter == null) {
  	    return null;
  	}
@@ -136,11 +136,11 @@ public class AccessUtils {
  	}
      }
 
-     public static void setValue(PropertyAccessor accessor, Object obj, Object value) {
- 	if (obj == null || accessor == null) {
+     public static void setValue(PropertyAccessor propertyAccessor, Object obj, Object value) {
+ 	if (obj == null || propertyAccessor == null) {
  	    return;
  	}
- 	Method setter = accessor.getSetter();
+ 	Method setter = propertyAccessor.getSetter();
  	if (setter == null) {
  	    return;
  	}
