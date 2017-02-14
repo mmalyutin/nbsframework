@@ -264,7 +264,7 @@ public class SwingTreeModel extends DefaultTreeModel {
     }    
     
     protected PropertyAccessor createProeprtyAccessor(Class entityClass, String property) {
-	return AccessUtils.getAccessor(entityClass, property);
+	return AccessUtils.getPropertyAccessor(entityClass, property);
     }
     
     protected Object getValue(Object obj, PropertyAccessor propertyAccessor) {
