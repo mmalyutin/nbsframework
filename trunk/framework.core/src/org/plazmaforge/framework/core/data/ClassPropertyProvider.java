@@ -25,18 +25,21 @@ package org.plazmaforge.framework.core.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.data.access.AccessUtils;
+import org.plazmaforge.framework.core.data.access.PropertyAccessor;
+
 public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 
-    private Class<T> targetClass;
+    private Class<T> targetType;
     
-    private Map<String, Accessor> accessors = new HashMap<String, Accessor>(); 
+    private Map<String, PropertyAccessor> propertyAccessors = new HashMap<String, PropertyAccessor>(); 
 
-    public ClassPropertyProvider(Class<T> targetClass) {
-	this.targetClass = targetClass;
+    public ClassPropertyProvider(Class<T> targetType) {
+	this.targetType = targetType;
     }
 
     public boolean isValid() {
-   	return targetClass != null;
+   	return targetType != null;
     }
     
     
@@ -60,40 +63,40 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	if (element == null || property == null) {
 	    return null;
 	}
-	return getAccessor(property).getValue(element);
+	return getPropertyAccessor(property).getValue(element);
     }
     
     protected void doSetValue(T element, String property, Object value) {
 	if (element == null || property == null) {
 	    return;
 	}
-	getAccessor(property).setValue(element, value);
+	getPropertyAccessor(property).setValue(element, value);
     }
     
-    protected Accessor getAccessor(String property) {
-	Accessor accessor = accessors.get(property);
-	if (accessor != null) {
-	    return accessor;
+    protected PropertyAccessor getPropertyAccessor(String property) {
+	PropertyAccessor propertyAccessor = propertyAccessors.get(property);
+	if (propertyAccessor != null) {
+	    return propertyAccessor;
 	}
-	accessor = Accessor.getAccessor(targetClass, property);
-	if (accessor != null) {
-	    accessors.put(property, accessor);
-	    return accessor;
+	propertyAccessor = AccessUtils.getAccessor(targetType, property);
+	if (propertyAccessor != null) {
+	    propertyAccessors.put(property, propertyAccessor);
+	    return propertyAccessor;
 	}
-	accessor = new Accessor();
-	accessors.put(property, accessor);
-	return accessor;
+	propertyAccessor = new PropertyAccessor();
+	propertyAccessors.put(property, propertyAccessor);
+	return propertyAccessor;
     }
     
-    protected Class<?> getDataType(String property) {
+    protected Class<?> getType(String property) {
 	if (property == null) {
 	    return null;
 	}
-	Accessor accessor = getAccessor(property);
-	if (accessor == null) {
+	PropertyAccessor proprtyAccessor = getPropertyAccessor(property);
+	if (proprtyAccessor == null) {
 	    return null;
 	}
-	return accessor.getType();
+	return proprtyAccessor.getType();
     }
     
     
