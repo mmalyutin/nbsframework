@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.access.AccessUtils;
+import org.plazmaforge.framework.core.data.access.BasePropertyAccessor;
 import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 
 public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
@@ -78,12 +79,12 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	if (propertyAccessor != null) {
 	    return propertyAccessor;
 	}
-	propertyAccessor = AccessUtils.getAccessor(targetType, property);
+	propertyAccessor = AccessUtils.getPropertyAccessor(targetType, property);
 	if (propertyAccessor != null) {
 	    propertyAccessors.put(property, propertyAccessor);
 	    return propertyAccessor;
 	}
-	propertyAccessor = new PropertyAccessor();
+	propertyAccessor = new BasePropertyAccessor();
 	propertyAccessors.put(property, propertyAccessor);
 	return propertyAccessor;
     }

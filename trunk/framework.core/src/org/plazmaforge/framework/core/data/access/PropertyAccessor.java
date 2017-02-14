@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
  * @author ohapon
  *
  */
-public class PropertyAccessor {
+public interface PropertyAccessor {
 
     public static final String GET_PREFIX = "get";
     
@@ -40,76 +40,18 @@ public class PropertyAccessor {
     public static final String HAS_PREFIX = "has"; //?
     
 
-    private Class<?> targetType;
+    Class<?> getTargetType();
     
-    /**
-     * Property data type
-     */
-    private Class<?> type;
-    
-    /**
-     * Getter method
-     */
-    private Method getter;
+    Class<?> getType();
 
-    /**
-     * Setter method
-     */
-    private Method setter;
+    Method getGetter();
 
-
-    
-    
-//    public Class getAttributeClass() {
-//        return getter == null ? null : getter.getReturnType();
-//    }
-
-    public Class<?> getTargetType() {
-        return targetType;
-    }
-
-    public void setTargetType(Class<?> targetType) {
-        this.targetType = targetType;
-    }
-
-    public Class<?> getType() {
-        return type;
-    }
-
-    public void setType(Class<?> type) {
-        this.type = type;
-    }
-
-    public Method getGetter() {
-	return getter;
-    }
-
-    public void setGetter(Method getter) {
-	this.getter = getter;
-    }
-
-    public Method getSetter() {
-	return setter;
-    }
-
-    public void setSetter(Method setter) {
-	this.setter = setter;
-    }
-
-    public String toString() {
-	return "Class=" + targetType + ", Getter=" + getter + ", Setter=" + setter;
-    }
-    
-    //////
+    Method getSetter();
     
 
-    public Object getValue(Object obj) {
-	return AccessUtils.getValue(this, obj);
-    }
+    Object getValue(Object obj);
     
-    public void setValue(Object obj, Object value) {
-	AccessUtils.setValue(this, obj, value);
-    }
+    void setValue(Object obj, Object value);
     
  
 
