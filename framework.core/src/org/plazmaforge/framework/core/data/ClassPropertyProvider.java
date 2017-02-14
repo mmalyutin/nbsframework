@@ -22,25 +22,25 @@
 
 package org.plazmaforge.framework.core.data;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.plazmaforge.framework.core.data.access.AccessUtils;
-import org.plazmaforge.framework.core.data.access.BasePropertyAccessor;
+import org.plazmaforge.framework.core.data.access.BaseClassAccessor;
 import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 
+/**
+ * 
+ * @author ohapon
+ *
+ * @param <T>
+ */
 public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 
-    private Class<T> targetType;
+    private BaseClassAccessor classAccessor;
     
-    private Map<String, PropertyAccessor> propertyAccessors = new HashMap<String, PropertyAccessor>(); 
-
     public ClassPropertyProvider(Class<T> targetType) {
-	this.targetType = targetType;
+	this.classAccessor = new BaseClassAccessor(targetType);
     }
 
     public boolean isValid() {
-   	return targetType != null;
+   	return classAccessor != null && classAccessor.getTargetType() != null;
     }
     
     
@@ -75,21 +75,10 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
     }
     
     protected PropertyAccessor getPropertyAccessor(String property) {
-	PropertyAccessor propertyAccessor = propertyAccessors.get(property);
-	if (propertyAccessor != null) {
-	    return propertyAccessor;
-	}
-	propertyAccessor = AccessUtils.getPropertyAccessor(targetType, property);
-	if (propertyAccessor != null) {
-	    propertyAccessors.put(property, propertyAccessor);
-	    return propertyAccessor;
-	}
-	propertyAccessor = new BasePropertyAccessor();
-	propertyAccessors.put(property, propertyAccessor);
-	return propertyAccessor;
+	return classAccessor.getPropertyAccessor(property);
     }
     
-    protected Class<?> getType(String property) {
+    protected Class<?> getPropertyType(String property) {
 	if (property == null) {
 	    return null;
 	}
