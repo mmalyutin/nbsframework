@@ -29,8 +29,9 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.plazmaforge.framework.core.data.Accessor;
 import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.access.AccessUtils;
+import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 import org.plazmaforge.framework.core.data.provider.TreeProvider;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
 import org.plazmaforge.framework.uwt.widget.Viewer;
@@ -175,9 +176,9 @@ public class SwingTreeModel extends DefaultTreeModel {
 		// By PropertyProvider
 		value = propertyProvider.getValue(element, property);
 	    } else {
-		// By Accessor
-		Accessor accessor = getAccessor(element, property, tree);
-		value = getValue(element, accessor);
+		// By PropertyAccessor
+		PropertyAccessor propertyAccessor = getPropertyAccessor(element, property, tree);
+		value = getValue(element, propertyAccessor);
 	    }
 
 	    if (value != null) {
@@ -250,24 +251,24 @@ public class SwingTreeModel extends DefaultTreeModel {
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected Accessor getAccessor(Object obj, TreeColumn column) {
-	return UWTUtils.getAccessor(obj, column);
+    protected PropertyAccessor getPropertyAccessor(Object obj, TreeColumn column) {
+	return UWTUtils.getPropertyAccessor(obj, column);
     }
     
-    protected Accessor getAccessor(Object obj, String property) {
-   	return UWTUtils.getAccessor(obj, property);
+    protected PropertyAccessor getPropertyAccessor(Object obj, String property) {
+   	return UWTUtils.getPropertyAccessor(obj, property);
     }
 
-    protected Accessor getAccessor(Object obj, String property, Viewer viewer) {
- 	return UWTUtils.getAccessor(obj, property, viewer);
+    protected PropertyAccessor getPropertyAccessor(Object obj, String property, Viewer viewer) {
+ 	return UWTUtils.getPropertyAccessor(obj, property, viewer);
     }    
     
-    protected Accessor createAccessor(Class entityClass, String property) {
-	return Accessor.getAccessor(entityClass, property);
+    protected PropertyAccessor createProeprtyAccessor(Class entityClass, String property) {
+	return AccessUtils.getAccessor(entityClass, property);
     }
     
-    protected Object getValue(Object obj, Accessor accessor) {
-	return UWTUtils.getValue(obj, accessor);
+    protected Object getValue(Object obj, PropertyAccessor propertyAccessor) {
+	return UWTUtils.getValue(obj, propertyAccessor);
     }
     
     protected String getTextValue(Object value, TreeColumn column) {
