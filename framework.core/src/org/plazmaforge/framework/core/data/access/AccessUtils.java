@@ -34,6 +34,9 @@ import java.util.List;
  */
 public class AccessUtils {
 
+    private AccessUtils() {
+    }
+
     public static String capitalize(String name) { 
 	if (name == null || name.length() == 0) { 
 	    return name; 

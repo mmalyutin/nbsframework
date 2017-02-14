@@ -24,10 +24,10 @@ package org.plazmaforge.framework.core.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.Parameters;
+import org.plazmaforge.framework.core.data.access.ReflectUtils;
 
 
 /**
@@ -49,7 +49,7 @@ public class ReflectionServiceMethodInvoker implements ServiceMethodInvoker {
 	}
 	
 	// Find methods by name
-	List<Method> methods = getMethods(serviceClass, methodName);
+	List<Method> methods = ReflectUtils.findMethods(serviceClass, methodName);
 	if (methods == null) {
 	    throw new ServiceCallerException("Method '" + methodName + "' not found");
 	}
@@ -72,13 +72,16 @@ public class ReflectionServiceMethodInvoker implements ServiceMethodInvoker {
 	}
 	
 	// Find methods by parameter types
-	Method serviceMethod = null;
-	for (Method method : methods) {
-	    if (acceptByParameters(method, parameterTypes)) {
-		serviceMethod = method;
-		break;
-	    }
-	}
+	Method serviceMethod = ReflectUtils.findMethod(methods, parameterTypes);
+	
+	
+//	Method serviceMethod = null;
+//	for (Method method : methods) {
+//	    if (acceptByParameters(method, parameterTypes)) {
+//		serviceMethod = method;
+//		break;
+//	    }
+//	}
 	
 	if (serviceMethod == null) {
 	    //TODO: Must create parameters string
@@ -92,57 +95,57 @@ public class ReflectionServiceMethodInvoker implements ServiceMethodInvoker {
 	}
     }
     
-    protected List<Method> getMethods(Class<?> serviceClass, String methodName) {
-	if (methodName == null) {
-	    return null;
-	}
-	//Method[] declaredMethods = serviceClass.getDeclaredMethods();
-	Method[] methods = serviceClass.getMethods();
-	List<Method> result = new ArrayList<Method>();
-	for (Method method: methods ) {
-	    if (methodName.equals(method.getName())) {
-		result.add(method);
-	    }
-	}
-	return result.isEmpty() ?  null : result;
-    }
-
-    
-    protected boolean acceptByParameters(Method method, Class[] parameterTypes) {
-	Class<?>[] methodParameterTypes = method.getParameterTypes();
-	if (parameterTypes == null && methodParameterTypes == null) {
-	    return true;
-	}
-	if (parameterTypes.length == 0 && methodParameterTypes.length == 0) {
-	    return true;
-	}
-	
-	if (parameterTypes.length != methodParameterTypes.length) {
-	    return false;
-	}
-	Class<?> methodParameterType = null;
-	Class<?> parameterType = null;
-	int acceptLevel = -1;
-	for (int i = 0; i < methodParameterTypes.length; i++) {
-	    methodParameterType = methodParameterTypes[i];
-	    parameterType = parameterTypes[i];
-	    acceptLevel = getAcceptLevel(methodParameterType, parameterType);
-	    if (acceptLevel < 0)  {
-		return false;
-	    }
-	}
-	return true;
-    }
-    
-    protected int getAcceptLevel(Class<?> methodParameterType, Class<?> parameterType) {
-	if (parameterType == null || methodParameterType.getName().equals(parameterType.getName())) {
-	    return 0;
-	}
-	if (methodParameterType.isAssignableFrom(parameterType) ) {
-	    return 1; // TODO: Must find level 
-	}
-	return -1;
-    }
+//    protected List<Method> getMethods(Class<?> serviceClass, String methodName) {
+//	if (methodName == null) {
+//	    return null;
+//	}
+//	//Method[] declaredMethods = serviceClass.getDeclaredMethods();
+//	Method[] methods = serviceClass.getMethods();
+//	List<Method> result = new ArrayList<Method>();
+//	for (Method method: methods ) {
+//	    if (methodName.equals(method.getName())) {
+//		result.add(method);
+//	    }
+//	}
+//	return result.isEmpty() ?  null : result;
+//    }
+//
+//    
+//    protected boolean acceptByParameters(Method method, Class[] parameterTypes) {
+//	Class<?>[] methodParameterTypes = method.getParameterTypes();
+//	if (parameterTypes == null && methodParameterTypes == null) {
+//	    return true;
+//	}
+//	if (parameterTypes.length == 0 && methodParameterTypes.length == 0) {
+//	    return true;
+//	}
+//	
+//	if (parameterTypes.length != methodParameterTypes.length) {
+//	    return false;
+//	}
+//	Class<?> methodParameterType = null;
+//	Class<?> parameterType = null;
+//	int acceptLevel = -1;
+//	for (int i = 0; i < methodParameterTypes.length; i++) {
+//	    methodParameterType = methodParameterTypes[i];
+//	    parameterType = parameterTypes[i];
+//	    acceptLevel = getAcceptLevel(methodParameterType, parameterType);
+//	    if (acceptLevel < 0)  {
+//		return false;
+//	    }
+//	}
+//	return true;
+//    }
+//    
+//    protected int getAcceptLevel(Class<?> methodParameterType, Class<?> parameterType) {
+//	if (parameterType == null || methodParameterType.getName().equals(parameterType.getName())) {
+//	    return 0;
+//	}
+//	if (methodParameterType.isAssignableFrom(parameterType) ) {
+//	    return 1; // TODO: Must find level 
+//	}
+//	return -1;
+//    }
     
     
     
