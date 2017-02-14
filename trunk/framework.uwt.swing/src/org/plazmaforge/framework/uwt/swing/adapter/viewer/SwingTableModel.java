@@ -28,7 +28,8 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import org.plazmaforge.framework.core.data.Accessor;
+import org.plazmaforge.framework.core.data.access.AccessUtils;
+import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
@@ -198,16 +199,16 @@ public class SwingTableModel extends DefaultTableModel {
 
     ////
     
-    protected Accessor getAccessor(Object obj, TableColumn column) {
-	return UWTUtils.getAccessor(obj, column);
+    protected PropertyAccessor getPropertyAccessor(Object obj, TableColumn column) {
+	return UWTUtils.getPropertyAccessor(obj, column);
     }
     
-    protected Accessor createAccessor(Class entityClass, String property) {
-	return Accessor.getAccessor(entityClass, property);
+    protected PropertyAccessor createPropertyAccessor(Class entityClass, String property) {
+	return AccessUtils.getAccessor(entityClass, property);
     }
     
-    protected Object getValue(Object obj, Accessor accessor) {
-	return UWTUtils.getValue(obj, accessor);
+    protected Object getValue(Object obj, PropertyAccessor propertyAccessor) {
+	return UWTUtils.getValue(obj, propertyAccessor);
     }
     
     protected String getTextValue(Object value, TableColumn column) {
