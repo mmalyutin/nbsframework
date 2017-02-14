@@ -69,7 +69,7 @@ public class ClassPropertyProvider2<T> extends ClassPropertyProvider<T> {
 	}
 	
 	// get data type of property
-	Class<?> dataType = getType(property);
+	Class<?> dataType = getPropertyType(property);
 	if (dataType == null) {
 	    //TODO
 	    return value;
