@@ -414,7 +414,7 @@ public class UWTUtils {
     
     
     public static PropertyAccessor createPropertyAccessor(Class<?> entityClass, String property) {
-	return (entityClass == null || property == null) ? null : AccessUtils.getAccessor(entityClass, property);
+	return (entityClass == null || property == null) ? null : AccessUtils.getPropertyAccessor(entityClass, property);
     }
 
 
