@@ -23,7 +23,8 @@
 package org.plazmaforge.framework.uwt.swt.adapter.viewer;
 
 import org.eclipse.jface.viewers.LabelProvider;
-import org.plazmaforge.framework.core.data.Accessor;
+import org.plazmaforge.framework.core.data.access.AccessUtils;
+import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTHelper;
@@ -37,21 +38,20 @@ public class SWTLabelProvider extends LabelProvider {
     
     
     
-    protected Accessor getAccessor(Object obj, String property) {
-	return UWTUtils.getAccessor(obj, property);
+    protected PropertyAccessor getPropertyAccessor(Object obj, String property) {
+	return UWTUtils.getPropertyAccessor(obj, property);
     }
 
-    
-    protected Accessor createAccessor(Class<?> entityClass, String property) {
-	return Accessor.getAccessor(entityClass, property);
+    protected PropertyAccessor createPropertyAccessor(Class<?> entityClass, String property) {
+	return AccessUtils.getAccessor(entityClass, property);
     }
     
-    protected Object getValue(Object obj, Accessor accessor) {
-	return UWTUtils.getValue(obj, accessor);
+    protected Object getValue(Object obj, PropertyAccessor propertyAccessor) {
+	return UWTUtils.getValue(obj, propertyAccessor);
     }
     
-    protected Accessor getAccessor(Object obj, Column column) {
-	return UWTUtils.getAccessor(obj, column);
+    protected PropertyAccessor getPropertyAccessor(Object obj, Column column) {
+	return UWTUtils.getPropertyAccessor(obj, column);
     }
     
     protected String getTextValue(Object value, Column column) {
@@ -62,8 +62,8 @@ public class SWTLabelProvider extends LabelProvider {
 	return UWTUtils.getTextValue(value, viewer);
     }
 
-    protected Accessor getAccessor(Object obj, String property, IViewer<?> viewer) {
- 	return UWTUtils.getAccessor(obj, property, viewer);
+    protected PropertyAccessor getPropertyAccessor(Object obj, String property, IViewer<?> viewer) {
+ 	return UWTUtils.getPropertyAccessor(obj, property, viewer);
     }
 
     ////
