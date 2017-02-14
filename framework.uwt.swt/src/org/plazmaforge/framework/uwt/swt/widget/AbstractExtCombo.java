@@ -30,7 +30,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.plazmaforge.framework.core.data.Accessor;
+import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
 
 /**
@@ -139,12 +139,12 @@ public abstract class AbstractExtCombo extends AbstractCombo {
 	}
 	
 	//TODO
-	Accessor accessor = (Accessor) getData(UWTUtils.PROPERTY_ACCESSOR);
-	if (accessor == null) {
-	    accessor = UWTUtils.createAccessor(value.getClass(), property);
-	    setData(UWTUtils.PROPERTY_ACCESSOR, accessor);
+	PropertyAccessor propertyAccessor = (PropertyAccessor) getData(UWTUtils.PROPERTY_ACCESSOR);
+	if (propertyAccessor == null) {
+	    propertyAccessor = UWTUtils.createPropertyAccessor(value.getClass(), property);
+	    setData(UWTUtils.PROPERTY_ACCESSOR, propertyAccessor);
 	}
-	Object v = accessor.getValue(value);
+	Object v = propertyAccessor.getValue(value);
 	return v == null ? getNullTextValue() : v.toString();
     }
        
