@@ -43,7 +43,7 @@ public class SWTLabelProvider extends LabelProvider {
     }
 
     protected PropertyAccessor createPropertyAccessor(Class<?> entityClass, String property) {
-	return AccessUtils.getAccessor(entityClass, property);
+	return AccessUtils.getPropertyAccessor(entityClass, property);
     }
     
     protected Object getValue(Object obj, PropertyAccessor propertyAccessor) {
