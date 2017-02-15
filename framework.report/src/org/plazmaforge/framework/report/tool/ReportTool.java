@@ -134,7 +134,7 @@ public class ReportTool {
 	    trace("Report '" + reportFile + "' was exported to file '" + documentFile + "' with format '"  + exportFormat + "'");
 	    
 	} catch (Exception e) {
-	    error("ReportTool.init error: " + e.getMessage());
+	    error("ReportTool.init error: " + getErrorMessage(e));
 	    //e.printStackTrace();
 	}
     }
@@ -153,6 +153,8 @@ public class ReportTool {
 	String type = result.get("type");
 	if (type == null) {
 	    type = "SQL";
+	} else {
+	    result.remove("type");
 	}
 	
 	DataStorage.init();
@@ -218,6 +220,14 @@ public class ReportTool {
 
     private void error(String s) {
 	System.err.println(s);
+    }
+    
+    private String getErrorMessage(Throwable e) {
+	if (e == null) {
+	    return null;
+	}
+	String message = e.getMessage();
+	return message == null ? e.toString() : message;
     }
     
     private static void printHelp() {
