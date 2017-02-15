@@ -165,11 +165,28 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String dateFormat = (String) data.get(CSVDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(CSVDataConnector.PROPERTY_NUMBER_FROMAT);
 	
+	if (fileName == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
+	}
+
+	fileName = normalize(fileName);
+	if (fileName == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
+	}
+
+	charset = normalize(charset);
+	columnDelimiter = normalize(columnDelimiter);
+	rowDelimiter = normalize(rowDelimiter);
+
 	try {
 	    Reader reader = createReader(fileName, charset);
 	    CSVSession session = new CSVSession(reader);
-	    session.setColumnDelimiter(columnDelimiter);
-	    session.setRowDelimiter(rowDelimiter);
+	    if (columnDelimiter != null) {
+		session.setColumnDelimiter(columnDelimiter);
+	    }
+	    if (rowDelimiter != null) {
+		session.setRowDelimiter(rowDelimiter);
+	    }
 	    if (firstRowHeader != null) {
 		session.setFirstRowHeader(firstRowHeader);
 	    }
