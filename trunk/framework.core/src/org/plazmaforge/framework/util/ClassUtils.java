@@ -123,6 +123,34 @@ public class ClassUtils {
   	return null;
       }
 
+    public static Class<?> normalizeClass(Class<?> klass) {
+	if (klass == null || !klass.isPrimitive()) {
+	    return klass;
+	}
+	String className = klass.getName();
+	if (boolean.class.getName().equals(className)) {
+	    return Boolean.class;
+	} else if (char.class.getName().equals(className)) {
+	    return Character.class;
+	} else if (byte.class.getName().equals(className)) {
+	    return Byte.class;
+	} else if (short.class.getName().equals(className)) {
+	    return Short.class;
+	} else if (int.class.getName().equals(className)) {
+	    return Integer.class;
+	} else if (long.class.getName().equals(className)) {
+	    return Long.class;
+	} else if (float.class.getName().equals(className)) {
+	    return Float.class;
+	} else if (double.class.getName().equals(className)) {
+	    return Double.class;
+	} else if (void.class.getName().equals(className)) {
+	    return Void.class;
+	}
+	
+	return klass;
+    }
+      
       /**
        * If the class located in base packages ('java.lang', 'java.util', 'java.sql') then return simple name of class
        * Example: 

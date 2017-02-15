@@ -182,7 +182,7 @@ public class DataManager {
 	if (dataSource == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "DataSource is null.");
 	}
-	String type = dataSource.getType();
+	String type = session.getType();
 	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type); // DataSource type
 	
 	return dataProducer.openResultSet(session, dataSource, parameterValues);
@@ -195,7 +195,7 @@ public class DataManager {
 	if (dataSource == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "DataSource is null.");
 	}
-	String type = dataSource.getType();
+	String type = session.getType();
 	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type); // DataSource type
 	
 	return dataProducer.openResultSet(session, dataSource);
@@ -247,7 +247,7 @@ public class DataManager {
 	if (dataSource == null) {
 	    handleContextException(CONTEXT_DATA_SET, "DataSource is null.");
 	}
-	String type = dataSource.getType();
+	String type = session.getType();
 	DataProducer dataProducer = getCheckDataProducer(CONTEXT_DATA_SET, type); // DataSource type
 	
 	return dataProducer.openDataSet(session, dataSource);
