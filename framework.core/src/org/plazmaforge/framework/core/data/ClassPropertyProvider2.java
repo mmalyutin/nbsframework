@@ -25,6 +25,7 @@ package org.plazmaforge.framework.core.data;
 
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
+import org.plazmaforge.framework.util.ClassUtils;
 
 public class ClassPropertyProvider2<T> extends ClassPropertyProvider<T> {
 
@@ -77,6 +78,9 @@ public class ClassPropertyProvider2<T> extends ClassPropertyProvider<T> {
 	
 	// get input type (real)
 	Class<?> inputType = value.getClass();
+	
+	dataType = ClassUtils.normalizeClass(dataType);
+	inputType = ClassUtils.normalizeClass(inputType);
 	
 	// no convert: type of value is correct
 	if (dataType.isAssignableFrom(inputType)) {
