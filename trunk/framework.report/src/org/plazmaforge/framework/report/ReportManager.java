@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.export.ReportExporter;
@@ -120,7 +121,25 @@ public class ReportManager {
 	// Fill report
 	return reportFiller.fillReport(report, connection, parameters);
     }
-    
+
+    public Document fillReport(Report report, DSDataConnector dataConnector) throws RTException {
+	return fillReport(report, dataConnector, null);
+    }
+	
+    public Document fillReport(Report report, DSDataConnector dataConnector, Map<String, Object> parameters) throws RTException {
+	// Get report type
+	String reportType = getReportType(report);
+	
+	// Get report filler
+	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
+	if (reportFiller == null) {
+	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
+	}
+	
+	// Fill report
+	return reportFiller.fillReport(report, dataConnector, parameters);
+    }
+
     public Document fillReport(Report report, Map<String, Object> parameters) throws RTException {
 	// Get report type
 	String reportType = getReportType(report);

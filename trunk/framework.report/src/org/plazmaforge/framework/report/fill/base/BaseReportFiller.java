@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSEmptyDataSet;
@@ -81,11 +82,13 @@ public class BaseReportFiller implements ReportFiller {
     }
 
     // By ResultSet
+    @Override
     public Document fillReport(Report report, DSResultSet resultSet) throws RTException {
 	return fillReport(report, resultSet, null);
     }
     
     // By ResultSet
+    @Override
     public Document fillReport(Report report, DSResultSet resultSet, Map<String, Object> parameters) throws RTException {
 	if (resultSet != null) {
 	    if (parameters == null) {
@@ -97,13 +100,14 @@ public class BaseReportFiller implements ReportFiller {
     }    
 
 
-    
-    // By Connection
+    // By JDBC Connection
+    @Override
     public Document fillReport(Report report, Connection connection) throws RTException {
 	return fillReport(report, connection, null);
     }
 	
-    // By Connection
+    // By JDBC Connection
+    @Override
     public Document fillReport(Report report, Connection connection, Map<String, Object> parameters) throws RTException {
 	if (connection != null) {
 	    if (parameters == null) {
@@ -114,7 +118,28 @@ public class BaseReportFiller implements ReportFiller {
 	return fillReport(report, parameters);
     }    
 
+    
+    // By DataConnector
+    @Override
+    public Document fillReport(Report report, DSDataConnector dataConnector) throws RTException {
+	return fillReport(report, dataConnector, null);
+    }
+    
+    // By DataConnector
+    @Override
+    public Document fillReport(Report report, DSDataConnector dataConnector, Map<String, Object> parameters) throws RTException {
+	if (dataConnector != null) {
+	    if (parameters == null) {
+		parameters = createParameters();
+	    }
+	    parameters.put(ReportParameters.DATA_CONNECTOR, dataConnector);
+	}
+	return fillReport(report, parameters);
+    }    
+    
+    
     // By Parameters (General)
+    @Override
     public Document fillReport(Report report, Map<String, Object> parameters) throws RTException {
 	Document document = new Document();
 	
@@ -286,33 +311,81 @@ public class BaseReportFiller implements ReportFiller {
     }
     
     protected DSResultSet getResultSet(Report report, Map<String, Object> parameters) throws RTException {
-	DSResultSet resultSet = (DSResultSet) parameters.get(ReportParameters.RESULT_SET);
-	if (resultSet != null) {
-	    return resultSet;
-	}
 	try {
-	    Connection connection = (Connection) parameters.get(ReportParameters.JDBC_CONNECTION);
-	    if (connection == null) {
-		return null;
-	    }
-	    DSSession session = DataManager.openSession(connection);
-	    if (session == null) { // ???
-		return null;
-	    }
+	    
+	    // 1. ResultSet (priority)
+	    DSResultSet resultSet = (DSResultSet) parameters.get(ReportParameters.RESULT_SET);
+	    if (resultSet != null) {
+		return resultSet;
+	    }	    
+	    
+	    // DataSource
 	    DSDataSource dataSource = (DSDataSource) parameters.get(ReportParameters.DATA_SOURCE);
 	    if (dataSource == null) {
 		dataSource = report.getDataSource();
 	    }
 	    if (dataSource == null) {
+		// ???
 		return null;
 	    }
-	    resultSet = DataManager.openResultSet(session, dataSource);
 
+	    // 2. JDBC Connection 
+	    Connection connection = (Connection) parameters.get(ReportParameters.JDBC_CONNECTION);
+	    if (connection != null) {
+		return openResultSet(connection, dataSource);
+	    }
+	    
+	    // 3. DataConnector
+	    DSDataConnector dataConnector = (DSDataConnector) parameters.get(ReportParameters.DATA_CONNECTOR);
+	    if (dataConnector != null) {
+		return openResultSet(dataConnector, dataSource);
+	    }
+
+	    
 	} catch (DSException ex) {
 	    throw new RTException(ex);
 	}
-	return resultSet;
-    }    
+	return null;
+    }
+    
+    /**
+     * Open DSResultSet by JDBC Connection
+     * @param connection 
+     * @param dataSource
+     * @return
+     * @throws DSException
+     */
+    protected DSResultSet openResultSet(Connection connection, DSDataSource dataSource) throws DSException {
+	if (connection == null) {
+	    return null;
+	}
+	// Open Session by JDBC Connection
+	DSSession session = DataManager.openSession(connection);
+	return openResultSet(session, dataSource);
+    }
+
+    /**
+     * Open DSResultSet by DataConnector
+     * @param dataConnector
+     * @param dataSource
+     * @return
+     * @throws DSException
+     */
+    protected DSResultSet openResultSet(DSDataConnector dataConnector, DSDataSource dataSource) throws DSException {
+	if (dataConnector == null) {
+	    return null;
+	}
+	// Open Session by DataConnector
+	DSSession session = DataManager.openSession(dataConnector);
+	return openResultSet(session, dataSource);
+    }
+
+    protected DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
+	if (session == null) {
+	    return null;
+	}
+	return DataManager.openResultSet(session, dataSource);
+    }
     
     protected DSDataSet createWrappedDataSet(DSResultSet resultSet, Report report, Map<String, Object> parameters) {
 	if (resultSet == null) {
