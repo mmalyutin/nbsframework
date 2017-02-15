@@ -119,7 +119,7 @@ public class ExportTool {
 	    trace("Document '" + inputFile + "' was exported to file '" + outputFile + "' with format '"  + exportFormat + "'");
 	    
 	} catch (Exception e) {
-	    error("ExportTool.init error: " + e.getMessage());
+	    error("ExportTool.init error: " + getErrorMessage(e));
 	    //e.printStackTrace();
 	}
     }
@@ -132,6 +132,14 @@ public class ExportTool {
 	System.err.println(s);
     }
     
+    private String getErrorMessage(Throwable e) {
+	if (e == null) {
+	    return null;
+	}
+	String message = e.getMessage();
+	return message == null ? e.toString() : message;
+    }
+         
     private static void printHelp() {
 
 	System.out.println("Usage: java ExportTool [-options]\n"
