@@ -51,7 +51,7 @@ public interface DataProducer {
     DSSession openWrapSession(Object data) throws DSException;
     
     /**
-     * Open DSResultSet by DSSession.
+     * Open DSResultSet by connection string.
      * Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
      * @param connectionString
      * @return
