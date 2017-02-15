@@ -159,6 +159,13 @@ public class DataManager {
 	return dataProducer.openWrapSession(dataSource);
     }
 
+    /**
+     * Open DSResultSet by connection string.
+     * Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
+     * @param connectionString
+     * @return
+     * @throws DSException
+     */
     public static DSResultSet openResultSet(String connectionString) throws DSException {
 	String[] values = parseConnectionString(CONTEXT_RESULT_SET, connectionString);
 	String type = values[0];
@@ -194,6 +201,13 @@ public class DataManager {
 	return dataProducer.openResultSet(session, dataSource);
     }
 
+    /**
+     * Open DSResultSet by DSSession.
+     * Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)
+     * @param session
+     * @return
+     * @throws DSException
+     */
     public static DSResultSet openResultSet(DSSession session) throws DSException {
 	if (session == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
