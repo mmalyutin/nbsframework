@@ -49,7 +49,7 @@ public abstract class AbstractReportExporter implements ReportExporter {
     
     public static Color DEFAULT_COLOR = Color.BLACK;
     
-    public static String DEFAULT_FONT_NAME = "Helvetica";
+    public static String DEFAULT_FONT_NAME = "Arial"; //"Helvetica"; //"Arial"
     
     public static int DEFAULT_FONT_SIZE = 12;
     

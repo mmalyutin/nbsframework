@@ -28,6 +28,7 @@ package org.plazmaforge.framework.report.fill;
 import java.sql.Connection;
 import java.util.Map;
 
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
@@ -46,6 +47,10 @@ public interface ReportFiller {
     Document fillReport(Report report, Connection connection) throws RTException;
     
     Document fillReport(Report report, Connection connection, Map<String, Object> parameters) throws RTException;
+    
+    Document fillReport(Report report, DSDataConnector dataConnector) throws RTException;
+    
+    Document fillReport(Report report, DSDataConnector dataConnector, Map<String, Object> parameters) throws RTException;
     
     Document fillReport(Report report, Map<String, Object> parameters) throws RTException;
     

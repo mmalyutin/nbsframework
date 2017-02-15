@@ -117,6 +117,7 @@ public class ReportTool {
 	    trace("\n");
 	    
 	    DSDataConnector dataConnector = loadDataConnector(properties);
+	    Map<String, Object> parameters = null;
 	    
 	    // Create ReportManager
 	    ReportManager reportManager = new ReportManager();
@@ -125,7 +126,7 @@ public class ReportTool {
 	    Report report = reportManager.readReport(reportFile);
 	    
 	    // Fill the report
-	    Document document = reportManager.fillReport(report, (DSResultSet) null, (Map<String, Object>) null);
+	    Document document = reportManager.fillReport(report, dataConnector, parameters);
 	    
 	    // Write the document to file
 	    reportManager.exportDocumentToFile(document, exportFormat, documentFile, null);
@@ -172,10 +173,6 @@ public class ReportTool {
 	    trace("DataConnector is not initialized by type " + type);
 	    return null;
 	}
-	
-//	if (propertyProviderFactory == null) {
-//	    propertyProviderFactory = new ClassPropertyProviderFactory2();
-//	}
 	
 	PropertyProvider propertyProvider = getPropertyProviderFactory().getPropertyProvider(dataConnector.getClass());
 	if (propertyProvider == null) {
