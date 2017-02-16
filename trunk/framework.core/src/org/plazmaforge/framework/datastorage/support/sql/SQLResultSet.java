@@ -30,9 +30,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.plazmaforge.framework.core.datastorage.AbstractResultSet;
 import org.plazmaforge.framework.core.datastorage.DSIndexableResultSet;
@@ -59,7 +57,7 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	this.rs = rs;
 
 	try {
-	    loadSQLFields(fieldNames, rs);
+	    loadFields(fieldNames, rs);
 	} catch (SQLException ex) {
 	    logError(ex);
 	}
@@ -69,7 +67,15 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	this(null, rs);
     }
     
-    protected void loadSQLFields(List<String> fieldNames, ResultSet rs) throws SQLException {
+    
+    /**
+     * Load (merge) fields by ResultSet
+     * 
+     * @param fieldNames
+     * @param rs
+     * @throws SQLException
+     */
+    protected void loadFields(List<String> fieldNames, ResultSet rs) throws SQLException {
 
 	// Load ResultSetMetaData columns
 	ResultSetMetaData meta = rs.getMetaData();
@@ -77,33 +83,12 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	List<String> columns = new ArrayList<String>();
 	
 	for (int column = 1; column <= columnCount; column++) {
-	    
 	    columns.add(meta.getColumnLabel(column)); // ???
 	}
-	
-	if (fieldNames == null || fieldNames.isEmpty()) {
-	    // If fields is empty then columns are fields
-	    setFieldNames(columns);
-	    return;
-	}
-	
-	int fieldCount = fieldNames.size();
-	Map<String, Integer> fieldIndexes = new HashMap<String, Integer>();
-	for (int i = 0; i < fieldCount; i++) {
-	    String fieldName = fieldNames.get(i);
-	    if (fieldName == null) {
-		continue;
-	    }
-	    // Find field in column list
-	    int index = columns.indexOf(fieldName);
-	    if (index < 0) {
-		continue;
-	    }
-	    fieldIndexes.put(fieldName, index);
-	}
-	setFieldIndexes(fieldIndexes);
-
+	generateFieldIndexes(fieldNames, columns);
     }
+    
+
     
     @Override
     public boolean canScroll() throws DSException {
@@ -117,8 +102,6 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	}
 	return false;
     }
-
-
     
     @Override
     public boolean first() throws DSException {

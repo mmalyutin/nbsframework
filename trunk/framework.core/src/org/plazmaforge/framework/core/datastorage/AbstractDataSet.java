@@ -26,6 +26,7 @@ import org.plazmaforge.framework.core.data.BaseLocalizedIdentifier;
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
 import org.plazmaforge.framework.core.data.converter.STConverterManager;
+import org.plazmaforge.framework.util.ClassUtils;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -83,6 +84,34 @@ public abstract class AbstractDataSet extends BaseLocalizedIdentifier {
 	String type = field.getDataType();
 	String format = getFormat(field);
 	Converter converter = getConverter("String", type, format);
+	Object result = converter == null ? null : converter.convert(value);
+	return result;
+    }
+
+    protected Object convertValue(Object value, DSField field) {
+	if (value == null || field == null) {
+	    return value;
+	}
+	String type = field.getDataType();
+	if (type == null) {
+	    return value;
+	}
+	
+	// get input type (real)
+	Class<?> inputType = value.getClass();
+	
+	//dataType = ClassUtils.normalizeClass(dataType);
+	inputType = ClassUtils.normalizeClass(inputType);
+	
+	// no convert: type of value is correct
+	//if (dataType.isAssignableFrom(inputType)) {
+	//    return value;
+	//}
+	
+	String format = getFormat(field);
+	
+	
+	Converter converter = getConverter(inputType.getSimpleName(), type, format);
 	Object result = converter == null ? null : converter.convert(value);
 	return result;
     }
