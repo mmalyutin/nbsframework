@@ -45,19 +45,39 @@ public class AbstractWrappedDataSet extends AbstractStructuredDataSet {
     //@Override
     public Object getValue(int index) throws DSException {
 	// Must optimize
+	//DSField field = getField(index);
+	//return getValue(field);
+	//return resultSet.getValue(index);
+	
 	DSField field = getField(index);
 	return getValue(field);
-	//return resultSet.getValue(index);
+	
+	//Object value = getValue(index);
+	//return convertValue(value, field);
     }
 
     //@Override
-    public Object getValue(String name) throws DSException {
-	return resultSet.getValue(name);
+    public Object getValue(String fieldName) throws DSException {
+	DSField field = getField(fieldName);
+	return getValue(field);
+	
+	//Object value = resultSet.getValue(fieldName);
+	//return convertValue(value, field);
+	//return resultSet.getValue(name);
     }
 
     //@Override
     public Object getValue(DSField field) throws DSException {
-	return getValue(field == null ? null : field.getName());
+	if (field == null) {
+	    return null;
+	}
+	String fieldName = field.getName();
+	if (fieldName == null) {
+	    return null;
+	}
+	Object value = resultSet.getValue(fieldName);
+	return convertValue(value, field);
+	//return getValue(field == null ? null : field.getName());
     }
     
     //@Override

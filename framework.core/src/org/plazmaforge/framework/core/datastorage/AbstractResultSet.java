@@ -42,8 +42,14 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public abstract class AbstractResultSet implements DSResultSet {
 
+    /**
+     * Field names
+     */
     private List<String> fieldNames;
     
+    /**
+     * Field index map (FieldName -> FieldIndex [internal])
+     */
     private Map<String, Integer> fieldIndexes;
     
     protected boolean processing;
@@ -106,6 +112,9 @@ public abstract class AbstractResultSet implements DSResultSet {
 	return index == null ? -1 : index;
     }
     
+    /**
+     * Generate physical field indexes (by default)
+     */
     protected void generateFieldIndexes() {
 	if (fieldNames == null) {
 	    fieldIndexes = null;
@@ -122,6 +131,37 @@ public abstract class AbstractResultSet implements DSResultSet {
 	}
     }
 
+    /**
+     * Generate field indexes by real (native internal) columns
+     * @param fieldNames
+     * @param columns
+     */
+    protected void generateFieldIndexes(List<String> fieldNames, List<String> columns) {
+	
+	if (fieldNames == null || fieldNames.isEmpty()) {
+	    // If fields is empty then columns are fields
+	    setFieldNames(columns);
+	    return;
+	}
+	
+	int fieldCount = fieldNames.size();
+	Map<String, Integer> fieldIndexes = new HashMap<String, Integer>();
+	for (int i = 0; i < fieldCount; i++) {
+	    String fieldName = fieldNames.get(i);
+	    if (fieldName == null) {
+		continue;
+	    }
+	    // Find field in column list
+	    int index = columns.indexOf(fieldName);
+	    if (index < 0) {
+		continue;
+	    }
+	    fieldIndexes.put(fieldName, index);
+	}
+	setFieldIndexes(fieldIndexes);
+    }
+    
+    
     protected boolean isEmpty(String str) {
 	return StringUtils.isEmpty(str);
     }
