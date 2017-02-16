@@ -66,6 +66,11 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
 	this(null, reader);
     }
 
+    
+    protected void loadFields(List<String> fieldNames, List<String> columns) {
+	generateFieldIndexes(fieldNames, columns);
+    }    
+    
     @Override
     public boolean next() throws DSException {
 	try {
@@ -77,12 +82,16 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
 			processing = true;
 			return false;
 		    }
+		    
+		    
+		    processing = true;
+		    loadFields(getFieldNames(), values);
 
 		    // ////////////////////////////////
-		    if (hasFields()) {
-			processing = true;
-			return parseRow();
-		    }
+		    //if (hasFields()) {
+			//processing = true;
+			//return parseRow();
+		    //}
 		    // ///////////////////////////////
 
 		    // Ignore blank row at top
@@ -194,7 +203,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
    		    hadQuotes = false;
    		}
 
-   		values.add(field);
+   		values.add(proccessValue(field));
    		startFieldPos = pos + 1;
    	    }
 
@@ -223,7 +232,8 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
    	    } else
    		field = "";
    	}
-   	values.add(field);
+   	
+   	values.add(proccessValue(field));
 
    	return true;
        }
@@ -271,6 +281,14 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
 	    }
 
 	} // end while
+    }
+    
+    //protected void addValue(String value) {
+	//values.add(proccessValue(value));
+    //}
+    
+    protected String proccessValue(String value) {
+	return value == null ? null : value.trim();
     }
 
     /**
