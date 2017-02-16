@@ -34,6 +34,10 @@ import org.plazmaforge.framework.core.data.converter.type.date.String2DateTimeCo
 import org.plazmaforge.framework.core.data.converter.type.date.String2DateTimeConverterFactory;
 import org.plazmaforge.framework.core.data.converter.type.date.String2TimeConverter;
 import org.plazmaforge.framework.core.data.converter.type.date.String2TimeConverterFactory;
+import org.plazmaforge.framework.core.data.converter.type.other.Boolean2StringConverter;
+import org.plazmaforge.framework.core.data.converter.type.other.Boolean2StringConverterFactory;
+import org.plazmaforge.framework.core.data.converter.type.other.String2BooleanConverter;
+import org.plazmaforge.framework.core.data.converter.type.other.String2BooleanConverterFactory;
 
 /**
  * 
@@ -161,6 +165,9 @@ public class STConverterManager extends GenericConverterManager {
 	registerConveretrFactory(Date2DateTimeConverter.class.getSimpleName(), new Date2DateTimeConverterFactory());
 	registerConveretrFactory(Date2TimeConverter.class.getSimpleName(), new Date2TimeConverterFactory());
 	
+	// String -> Boolean, Boolean -> String
+	registerConveretrFactory(String2BooleanConverter.class.getSimpleName(), new String2BooleanConverterFactory());
+	registerConveretrFactory(Boolean2StringConverter.class.getSimpleName(), new Boolean2StringConverterFactory());
 	
 	// Self
 	registerSelfConveretrFactory(String.class);
