@@ -27,24 +27,71 @@ import org.plazmaforge.framework.util.StringUtils;
 
 public class BooleanFormatter implements Formatter<Boolean> {
 
-    public static String[] FORMATS = new String[] {"true|false", "yes|no" ,"t|f", "y|n", "TRUE|FALSE", "YES|NO" ,"T|F", "Y|N"}; 
-	    
+    
+    public static String DEFAULT_FORMAT = "true|false";
+    
+    public static String[] DEFAULT_VALUES = new String[] {"true", "false"};
+    
+    public static String[] FORMATS = new String[] {"true|false", "yes|no" , "y|n", "t|f", "1|0"}; 
+	
+     
+    
+    /**
+     * Boolean format
+     */
     private String format;
     
+    /**
+     * Array of 'true' and 'false' presentation
+     */
     private String[] values;
     
+    /**
+     * Ignore case flag for parsing string
+     */
+    private boolean ignoreCaseString;
+    
+    private boolean nullBooleanAsFalse;
+    
+    private boolean unknownBooleanAsFalse;
+    
+    
+    
     public BooleanFormatter() {
-	super();
+	this(null, true, false, false);
     }
 
     public BooleanFormatter(String format) {
+	this(format, true, false, false);
+    }
+	
+    public BooleanFormatter(String format, boolean ignoreCaseString) {
+	this(format, ignoreCaseString, false, false);
+    }
+    
+    public BooleanFormatter(String format, boolean ignoreCaseString, boolean nullBooleanAsFalse, boolean unknownBooleanAsFalse) {
 	super();
 	this.format = format;
 	this.values = createValues(format);
+	this.ignoreCaseString = ignoreCaseString;
+	this.nullBooleanAsFalse = nullBooleanAsFalse;
+	this.unknownBooleanAsFalse = unknownBooleanAsFalse;
     }
 
     public String getFormat() {
         return format;
+    }
+
+    public boolean isIgnoreCaseString() {
+        return ignoreCaseString;
+    }
+
+    public boolean isNullBooleanAsFalse() {
+        return nullBooleanAsFalse;
+    }
+
+    public boolean isUnknownBooleanAsFalse() {
+        return unknownBooleanAsFalse;
     }
 
     @Override
@@ -54,7 +101,7 @@ public class BooleanFormatter implements Formatter<Boolean> {
 
     @Override
     public Boolean parse(String str) {
-	return null;
+	return parseBoolean(str);
     }
 
     protected String formatBoolean(Boolean value) {
@@ -62,7 +109,37 @@ public class BooleanFormatter implements Formatter<Boolean> {
     }
 
     protected Boolean parseBoolean(String str) {
-	return str == null ? null : str.equals(values[0]);
+	if (str == null) {
+	    return nullBooleanValue();	// NULL
+	}
+	if (equalsValue(str, values[0])) {
+	    return Boolean.TRUE;	// TRUE
+	}
+	if (equalsValue(str, values[1])) {
+	    return Boolean.FALSE;	// FALSE
+	}
+	return unknownBooleanValue();
+    }
+    
+    protected Boolean nullBooleanValue() {
+	if (isNullBooleanAsFalse()) {
+	    return Boolean.FALSE;
+	}
+	return null;
+    }
+
+    protected Boolean unknownBooleanValue() {
+	if (isUnknownBooleanAsFalse()) {
+	    return Boolean.FALSE;
+	}
+	return nullBooleanValue();
+    }
+    
+    protected boolean equalsValue(String value1, String value2) {
+	if (value1 == null || value2 == null) {
+	    return false;
+	}
+	return isIgnoreCaseString() ? value1.equalsIgnoreCase(value2) : value1.equals(value2);
     }
     
     /**
@@ -73,16 +150,17 @@ public class BooleanFormatter implements Formatter<Boolean> {
      */
     protected String[] createValues(String format) {
 	String[] values = parseFormat(format);
-	return values == null ? new String[] {"true", "false"} : values;
+	return values == null ? DEFAULT_VALUES : values;
     }
     
     /**
-     * Parse format
+     * Parse format boolean format 
+     * and return array with 'true' and 'false' presentation
      * 
      * @param format
      * @return
      */
-    protected String[] parseFormat(String format) {
+    public static String[] parseFormat(String format) {
 	if (format == null) {
 	    return null;
 	}
