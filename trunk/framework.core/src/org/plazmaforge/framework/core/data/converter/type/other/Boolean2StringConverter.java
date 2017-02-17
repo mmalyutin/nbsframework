@@ -23,9 +23,12 @@
 package org.plazmaforge.framework.core.data.converter.type.other;
 
 import org.plazmaforge.framework.core.data.converter.Converter;
+import org.plazmaforge.framework.core.data.formatter.type.BooleanFormatter;
 
 public class Boolean2StringConverter implements Converter<Boolean, String> {
 
+    
+    private String format;
     
     private String[] values;
     
@@ -34,30 +37,22 @@ public class Boolean2StringConverter implements Converter<Boolean, String> {
 	super();
     }
 
-
-    public Boolean2StringConverter(String[] values) {
-	super();
-	this.values = values;
-	this.values = values;
-	if (values != null) {
-	    if (values.length < 2) {
-		this.values = null;
-	    } else {
-		if (values[0] == null || values[1] == null) {
-		    this.values = null;
-		}
-	    }
-	}	
+    public Boolean2StringConverter(String format) {
+	this.format = format;
+	this.values = format == null ? null : BooleanFormatter.parseFormat(format, true);
     }
 
+    public String getFormat() {
+        return format;
+    }
 
     @Override
     public String convert(Boolean source) {
 	if (source == null) {
 	    return null;
 	}
-	String trueValue = values == null ? String2BooleanConverter.TRUE_FALSE[0] : values[0];
-	String falseValue = values == null ? String2BooleanConverter.TRUE_FALSE[1] : values[1];
+	String trueValue = values == null ? BooleanFormatter.DEFAULT_VALUES[0] : values[0];
+	String falseValue = values == null ? BooleanFormatter.DEFAULT_VALUES[1] : values[1];
 	return source ? trueValue : falseValue;
     }
 
