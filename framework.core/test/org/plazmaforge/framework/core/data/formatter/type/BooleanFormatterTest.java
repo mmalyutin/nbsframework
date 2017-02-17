@@ -28,8 +28,7 @@ import junit.framework.TestCase;
 public class BooleanFormatterTest extends TestCase {
     
     
-    // Byte
-    public void testByteFormatter() throws Exception {
+    public void testBooleanFormatter() throws Exception {
 	
 	BooleanFormatter formatter = new BooleanFormatter();
 	
@@ -46,11 +45,148 @@ public class BooleanFormatterTest extends TestCase {
 	assertEquals(str, "false");
 	
 	
+	
+	// TRUE: lower case
+	value = formatter.parse("true");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	value = formatter.parse("yes");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
 	value = formatter.parse("y");
 	assertNotNull(value);
 	assertEquals(value, Boolean.TRUE);
 
+	value = formatter.parse("t");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
 
+	value = formatter.parse("1");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+
+	
+	// TRUE: upper case
+	value = formatter.parse("TRUE");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+	
+	value = formatter.parse("YES");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+	
+	value = formatter.parse("Y");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+
+	value = formatter.parse("T");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+
+	
+	// TRUE: ignore case
+	value = formatter.parse("true"); // 0000
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+	
+	value = formatter.parse("truE"); // 0001
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+	
+	value = formatter.parse("trUe"); // 0010
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	value = formatter.parse("trUE"); // 0011
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+	
+	value = formatter.parse("tRue"); // 0100
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+	
+	value = formatter.parse("tRuE"); // 0101
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	value = formatter.parse("tRUe"); // 0110
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	value = formatter.parse("tRUE"); // 01111
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	value = formatter.parse("True"); // 1000
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	
+	
+	// FALSE: lower case
+	value = formatter.parse("n");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+
+	value = formatter.parse("no");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+	value = formatter.parse("f");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+
+	value = formatter.parse("0");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+	
+	
+	
+	// FALSE: upper case
+	value = formatter.parse("N");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+
+	value = formatter.parse("NO");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+	value = formatter.parse("F");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+
+	
+	// NULL: unknown value
+	value = formatter.parse("Nan");
+	assertNull(value);
+
+
+	// FALSE: unknown value
+	formatter = new BooleanFormatter(null, true, true, true);
+	value = formatter.parse("Nan");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+	// Own boolean format '.T.' -> true, '.F.' -> false
+	formatter = new BooleanFormatter(".T.|.F.", true, false, false);
+	value = formatter.parse(".T.");
+	assertNotNull(value);
+	assertEquals(value, Boolean.TRUE);
+
+	value = formatter.parse(".F.");
+	assertNotNull(value);
+	assertEquals(value, Boolean.FALSE);
+
+	
 
     }
 
