@@ -22,17 +22,22 @@
 
 package org.plazmaforge.framework.core.data.formatter.type;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.util.StringUtils;
 
 public class BooleanFormatter implements Formatter<Boolean> {
 
     
-    public static String DEFAULT_FORMAT = "true|false";
+    public static final String DEFAULT_FORMAT = "true|false";
     
-    public static String[] DEFAULT_VALUES = new String[] {"true", "false"};
+    public static final String[] FORMATS = new String[] {"true|false", "yes|no" , "y|n", "t|f", "1|0"};
     
-    public static String[] FORMATS = new String[] {"true|false", "yes|no" , "y|n", "t|f", "1|0"}; 
+    public static final String[] DEFAULT_VALUES;
+    
+    public static final String[][] ALL_DEFAULT_VALUES;
 	
      
     
@@ -55,7 +60,16 @@ public class BooleanFormatter implements Formatter<Boolean> {
     
     private boolean unknownBooleanAsFalse;
     
-    
+    static {
+	List<String[]> list = new ArrayList<String[]>();
+	String[] v = null;
+	for (String f : FORMATS) {
+	    v = parseFormat(f);
+	    list.add(v);
+	}
+	ALL_DEFAULT_VALUES = (String[][]) list.toArray(new String[0][0]);
+	DEFAULT_VALUES = ALL_DEFAULT_VALUES[0];
+    }
     
     public BooleanFormatter() {
 	this(null, true, false, false);
@@ -72,7 +86,7 @@ public class BooleanFormatter implements Formatter<Boolean> {
     public BooleanFormatter(String format, boolean ignoreCaseString, boolean nullBooleanAsFalse, boolean unknownBooleanAsFalse) {
 	super();
 	this.format = format;
-	this.values = createValues(format);
+	this.values = format == null ? null : createValues(format);
 	this.ignoreCaseString = ignoreCaseString;
 	this.nullBooleanAsFalse = nullBooleanAsFalse;
 	this.unknownBooleanAsFalse = unknownBooleanAsFalse;
@@ -105,20 +119,36 @@ public class BooleanFormatter implements Formatter<Boolean> {
     }
 
     protected String formatBoolean(Boolean value) {
+	if (value == null) {
+	    return null;
+	    
+	}
+	String[] values = this.values == null ? DEFAULT_VALUES : this.values;
 	return value == null ? null : (value ? values[0] : values[1]);
     }
 
     protected Boolean parseBoolean(String str) {
 	if (str == null) {
-	    return nullBooleanValue();	// NULL
+	    return nullBooleanValue();		// NULL
 	}
-	if (equalsValue(str, values[0])) {
-	    return Boolean.TRUE;	// TRUE
+	if (values != null) {
+	    if (equalsValue(str, values[0])) {
+		return Boolean.TRUE;		 // TRUE
+	    }
+	    if (equalsValue(str, values[1])) {
+		return Boolean.FALSE;		 // FALSE
+	    }
+	} else {
+	    for (String[] values : ALL_DEFAULT_VALUES) {
+		if (equalsValue(str, values[0])) {
+		    return Boolean.TRUE;	// TRUE
+		}
+		if (equalsValue(str, values[1])) {
+		    return Boolean.FALSE;	// FALSE
+		}
+	    }
 	}
-	if (equalsValue(str, values[1])) {
-	    return Boolean.FALSE;	// FALSE
-	}
-	return unknownBooleanValue();
+	return unknownBooleanValue();		// UNKNOWN
     }
     
     protected Boolean nullBooleanValue() {
