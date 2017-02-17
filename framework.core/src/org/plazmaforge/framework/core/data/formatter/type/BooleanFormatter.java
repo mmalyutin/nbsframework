@@ -86,7 +86,7 @@ public class BooleanFormatter implements Formatter<Boolean> {
     public BooleanFormatter(String format, boolean ignoreCaseString, boolean nullBooleanAsFalse, boolean unknownBooleanAsFalse) {
 	super();
 	this.format = format;
-	this.values = format == null ? null : createValues(format);
+	this.values = format == null ? null : parseFormat(format, true);
 	this.ignoreCaseString = ignoreCaseString;
 	this.nullBooleanAsFalse = nullBooleanAsFalse;
 	this.unknownBooleanAsFalse = unknownBooleanAsFalse;
@@ -132,18 +132,18 @@ public class BooleanFormatter implements Formatter<Boolean> {
 	    return nullBooleanValue();		// NULL
 	}
 	if (values != null) {
-	    if (equalsValue(str, values[0])) {
+	    if (equalsBooleanStrings(str, values[0])) {
 		return Boolean.TRUE;		 // TRUE
 	    }
-	    if (equalsValue(str, values[1])) {
+	    if (equalsBooleanStrings(str, values[1])) {
 		return Boolean.FALSE;		 // FALSE
 	    }
 	} else {
 	    for (String[] values : ALL_DEFAULT_VALUES) {
-		if (equalsValue(str, values[0])) {
+		if (equalsBooleanStrings(str, values[0])) {
 		    return Boolean.TRUE;	// TRUE
 		}
-		if (equalsValue(str, values[1])) {
+		if (equalsBooleanStrings(str, values[1])) {
 		    return Boolean.FALSE;	// FALSE
 		}
 	    }
@@ -165,22 +165,33 @@ public class BooleanFormatter implements Formatter<Boolean> {
 	return nullBooleanValue();
     }
     
-    protected boolean equalsValue(String value1, String value2) {
-	if (value1 == null || value2 == null) {
-	    return false;
-	}
-	return isIgnoreCaseString() ? value1.equalsIgnoreCase(value2) : value1.equals(value2);
+    protected boolean equalsBooleanStrings(String str1, String str2) {
+	return equalsBooleanStrings(str1, str2, isIgnoreCaseString());
     }
     
+    public static boolean equalsBooleanStrings(String str1, String str2, boolean ignoreCaseString) {
+	if (str1 == null || str2 == null) {
+	    return false;
+	}
+	return ignoreCaseString ? str1.equalsIgnoreCase(str2) : str1.equals(str2);
+    }
+    
+    
     /**
-     * Create true|false values by format
+     * Parse format boolean format
+     * and return array with 'true' and 'false' presentation
+     * If 'def' is true return DEFAULT_VALUES
      * 
      * @param format
+     * @param def
      * @return
      */
-    protected String[] createValues(String format) {
+    public static String[] parseFormat(String format, boolean def) {
 	String[] values = parseFormat(format);
-	return values == null ? DEFAULT_VALUES : values;
+	if (values == null && def) {
+	    values = DEFAULT_VALUES;
+	}
+	return values;
     }
     
     /**

@@ -23,70 +23,104 @@
 package org.plazmaforge.framework.core.data.converter.type.other;
 
 import org.plazmaforge.framework.core.data.converter.Converter;
+import org.plazmaforge.framework.core.data.formatter.type.BooleanFormatter;
 
 public class String2BooleanConverter implements Converter<String, Boolean> {
 
-    public static String[] Y_N = {"y", "n"};
-    
-    public static String[] YES_NO = {"yes", "no"};
-    
-    public static String[] TRUE_FALSE = {"true", "false"};
-    
-    public static String[] T_F = {"t", "f"};
-    
-    public static String[] N_1_0 = {"1", "0"};
-    
-    public static String[][] VALUES = {Y_N, YES_NO, TRUE_FALSE, T_F, N_1_0}; 
 
+    private String format;
     
     private String[] values;
     
+    /**
+     * Ignore case flag for parsing string
+     */
+    private boolean ignoreCaseString;
+    
+    private boolean nullBooleanAsFalse;
+    
+    private boolean unknownBooleanAsFalse;
+
+    
     public String2BooleanConverter() {
-	super();
+	this(null, true, false, false);
     }
 
-    public String2BooleanConverter(String[] values) {
+    public String2BooleanConverter(String format) {
+	this(format, true, false, false);
+    }
+
+    public String2BooleanConverter(String format, boolean ignoreCaseString) {
+	this(format, ignoreCaseString, false, false);
+    }
+
+    public String2BooleanConverter(String format, boolean ignoreCaseString, boolean nullBooleanAsFalse, boolean unknownBooleanAsFalse) {
 	super();
-	this.values = values;
-	if (values != null) {
-	    if (values.length < 2 ){
-		this.values = null;
-	    } else {
-		if (values[0] == null || values[1] == null) {
-		    this.values = null;
-		}
-	    }
-	}
+	this.format = format;
+	this.values = format == null ? null : BooleanFormatter.parseFormat(format, true);
+	this.ignoreCaseString = ignoreCaseString;
+	this.nullBooleanAsFalse = nullBooleanAsFalse;
+	this.unknownBooleanAsFalse = unknownBooleanAsFalse;
+    }
+       
+    public String getFormat() {
+        return format;
+    }
+
+    public boolean isIgnoreCaseString() {
+        return ignoreCaseString;
+    }
+
+    public boolean isNullBooleanAsFalse() {
+        return nullBooleanAsFalse;
+    }
+
+    public boolean isUnknownBooleanAsFalse() {
+        return unknownBooleanAsFalse;
     }
 
     @Override
     public Boolean convert(String source) {
 	if (source == null) {
-	    return null;
+	    return nullBooleanValue();		// NULL
 	}
 	if (values != null) {
-	    if (source.equalsIgnoreCase(values[0])) {
-		return Boolean.TRUE;
+	    if (equalsBooleanStrings(source, values[0])) {
+		return Boolean.TRUE;		// TRUE
 	    }
-	    if (source.equalsIgnoreCase(values[1])) {
-		return Boolean.FALSE;
+	    if (equalsBooleanStrings(source, values[1])) {
+		return Boolean.FALSE;		// FALSE
 	    }
-	    
-	    return null;
-
-	}
-	for (String[] value: VALUES) {
-	    if (source.equalsIgnoreCase(value[0])) {
-		return Boolean.TRUE;
-	    }
-	    if (source.equalsIgnoreCase(value[1])) {
-		return Boolean.FALSE;
+	} else {
+	    for (String[] value: BooleanFormatter.ALL_DEFAULT_VALUES) {
+		if (equalsBooleanStrings(source, value[0])) {
+		    return Boolean.TRUE;	// TRUE
+		}
+		if (equalsBooleanStrings(source, value[1])) {
+		    return Boolean.FALSE;	// FALSE
+		}
 	    }
 	}
-	
-	return null;
+	return unknownBooleanValue();		// UNKNOWN
     }
     
-    
+    protected Boolean nullBooleanValue() {
+ 	if (isNullBooleanAsFalse()) {
+ 	    return Boolean.FALSE;
+ 	}
+ 	return null;
+     }
+
+     protected Boolean unknownBooleanValue() {
+ 	if (isUnknownBooleanAsFalse()) {
+ 	    return Boolean.FALSE;
+ 	}
+ 	return nullBooleanValue();
+     }
+         
+    protected boolean equalsBooleanStrings(String str1, String str2) {
+	return BooleanFormatter.equalsBooleanStrings(str1, str2, isIgnoreCaseString());
+    }
+
 
 }
