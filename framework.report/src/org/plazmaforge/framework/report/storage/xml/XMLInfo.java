@@ -151,6 +151,8 @@ public interface XMLInfo {
     
     String XML_ATTR_EXPRESSION = "expression";
     
+    String XML_ATTR_PATH = "path";
+    
     String XML_ATTR_LANGUAGE = "language";
     
 

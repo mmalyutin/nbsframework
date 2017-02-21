@@ -40,6 +40,7 @@ public class XMLDSFieldReader extends XMLAbstractReader {
   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
   	DSField field = expression == null ? new DSField() : new DSComputedField(expression); 
   	
+  	// name, caption, description
   	readIdentifier(element, field);
   	
   	String sValue = null;
@@ -48,6 +49,12 @@ public class XMLDSFieldReader extends XMLAbstractReader {
   	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
   	if (sValue != null) {
   	    field.setDataType(sValue);
+  	}
+
+  	// path
+  	sValue = getStringValue(element, XML_ATTR_PATH);
+  	if (sValue != null) {
+  	    field.setPath(sValue);
   	}
 
   	// format
