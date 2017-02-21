@@ -35,13 +35,13 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
     
     public static final String PROPERTY_FILE_NAME = "fileName";
 
-    public static final String PROPERTY_CHARSET = "charset";
+    public static final String PROPERTY_ENCODING = "encoding";
     
     private String folderName;
     
     private String fileName;
 
-    private String charset;
+    private String encoding;
     
     public String getFolderName() {
         return folderName;
@@ -59,13 +59,14 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
         this.fileName = fileName;
     }
 
-    public String getCharset() {
-        return charset;
+    public String getEncoding() {
+        return encoding;
     }
 
-    public void setCharset(String charset) {
-        this.charset = charset;
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
-    
+
+  
     
 }
