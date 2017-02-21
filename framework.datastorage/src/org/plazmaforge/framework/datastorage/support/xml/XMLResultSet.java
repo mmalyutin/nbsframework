@@ -42,13 +42,16 @@ public class XMLResultSet extends AbstractXMLResultSet implements DSStructuredRe
 
    
     
-    public XMLResultSet(Reader reader) throws DSException {
+    public XMLResultSet(Reader reader/*, String encoding*/) throws DSException {
 	super();
 	this.reader = reader;
-	this.document = parse(new InputSource(reader));
+	this.document = parse(createInputSource(reader, null/*"UTF-8"*//*encoding*/));
+	System.out.println("InputEncoding=" + this.document.getInputEncoding());
+	System.out.println("XmlEncoding=" + this.document.getXmlEncoding());
 	this.xPathExecuter = createXPathExecuter();
     }
 
+    
     protected XPathExecuter createXPathExecuter() {
 	XalanXPathExecuter executer = new XalanXPathExecuter();
 	//JaxenXPathExecuter executer = new JaxenXPathExecuter();
