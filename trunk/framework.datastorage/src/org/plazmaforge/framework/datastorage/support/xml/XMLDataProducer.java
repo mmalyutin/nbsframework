@@ -22,7 +22,6 @@
 
 package org.plazmaforge.framework.datastorage.support.xml;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 
 /**
  * 
@@ -62,11 +62,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	XMLDataConnector xmlDataConnector = (XMLDataConnector) dataConnector;
 	
 	String fileName = xmlDataConnector.getFileName();
+	String charset = xmlDataConnector.getCharset();
 	String dateFormat = xmlDataConnector.getDateFormat();
 	String numberFormat = xmlDataConnector.getNumberFormat();
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XMLDataConnector.PROPERTY_CHARSET, charset);
 	data.put(XMLDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XMLDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -137,7 +139,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(String url, String username, String password) throws DSException {
 	String fileName = url;
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, null);
 	    return new XMLSession(reader);
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -148,11 +150,12 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(XMLDataConnector.PROPERTY_FILE_NAME);
+	String charset = (String) data.get(CSVDataConnector.PROPERTY_CHARSET);
 	String dateFormat = (String) data.get(XMLDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XMLDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, charset);
 	    XMLSession session = new XMLSession(reader);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
@@ -169,7 +172,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createParameterData(parametersString); 
 	try {
-	    Reader reader = new FileReader(fileName);
+	    Reader reader = createReader(fileName, null);
 	    XMLResultSet resultSet = new XMLResultSet(reader);
 	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;

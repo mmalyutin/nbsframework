@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.datastorage.support.xml;
 
 import java.io.IOException;
+import java.io.Reader;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,6 +32,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.plazmaforge.framework.core.datastorage.AbstractTextFileResultSet;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.core.xml.XPathExecuter;
+import org.plazmaforge.framework.util.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -93,6 +95,16 @@ public abstract class AbstractXMLResultSet extends AbstractTextFileResultSet {
 	    throw new DSException("Failed to parse the xml document", e);
 	}
     }
+    
+    protected InputSource createInputSource(Reader reader, String encoding) {
+	InputSource is = new InputSource(reader);
+	encoding = StringUtils.normalizeString(encoding);
+	if (encoding != null) {
+	    is.setEncoding(encoding);
+	}
+	return is;
+    }
+    
     
     protected void initPosition() throws DSException {
 	if (init) {
