@@ -51,7 +51,7 @@ public class XMLDataPathTest extends AbstractDSTestCase {
    	// Encoding
    	String fileName = getResourcesFileName("xml/country_list.xml");
    	dataConnector.setFileName(fileName);
-   	dataConnector.setCharset("utf-8");
+   	dataConnector.setEncoding("utf-8");
    	
    	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
 
