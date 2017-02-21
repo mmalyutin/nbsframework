@@ -63,7 +63,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	CSVDataConnector csvDataConnector = (CSVDataConnector) dataConnector;
 	
 	String fileName = csvDataConnector.getFileName();
-	String charset = csvDataConnector.getCharset();
+	String encoding = csvDataConnector.getEncoding();
 	String columnDelimiter = csvDataConnector.getColumnDelimiter();
 	String rowDelimiter = csvDataConnector.getRowDelimiter();
 	Boolean firstRowHeader = csvDataConnector.isFirstRowHeader();
@@ -73,7 +73,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(CSVDataConnector.PROPERTY_CHARSET, charset);
+	data.put(CSVDataConnector.PROPERTY_ENCODING, encoding);
 	data.put(CSVDataConnector.PROPERTY_COLUMN_DELIMITER, columnDelimiter);
 	data.put(CSVDataConnector.PROPERTY_ROW_DELIMITER, rowDelimiter);
 	data.put(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
@@ -158,7 +158,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(CSVDataConnector.PROPERTY_FILE_NAME);
-	String charset = (String) data.get(CSVDataConnector.PROPERTY_CHARSET);
+	String encoding = (String) data.get(CSVDataConnector.PROPERTY_ENCODING);
 	String columnDelimiter = (String) data.get(CSVDataConnector.PROPERTY_COLUMN_DELIMITER);
 	String rowDelimiter = (String) data.get(CSVDataConnector.PROPERTY_ROW_DELIMITER);
 	Boolean firstRowHeader = (Boolean) data.get(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER);
@@ -174,12 +174,12 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 
-	charset = normalize(charset);
+	encoding = normalize(encoding);
 	columnDelimiter = normalize(columnDelimiter);
 	rowDelimiter = normalize(rowDelimiter);
 
 	try {
-	    Reader reader = createReader(fileName, charset);
+	    Reader reader = createReader(fileName, encoding);
 	    CSVSession session = new CSVSession(reader);
 	    if (columnDelimiter != null) {
 		session.setColumnDelimiter(columnDelimiter);
@@ -205,10 +205,10 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String parametersString = values[1];
 	
 	Map<String, Object>  parameterData = createParameterData(parametersString); 
-	String charset = (String) parameterData.get(CSVDataConnector.PROPERTY_CHARSET);
+	String encoding = (String) parameterData.get(CSVDataConnector.PROPERTY_ENCODING);
 	
 	try {
-	    Reader reader = createReader(fileName, charset);
+	    Reader reader = createReader(fileName, encoding);
 	    CSVResultSet resultSet = new CSVResultSet(reader);
 	    //resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;

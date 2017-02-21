@@ -64,14 +64,14 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	JSONDataConnector jsonDataConnector = (JSONDataConnector) dataConnector;
 	
 	String fileName = jsonDataConnector.getFileName();
-	String charset = jsonDataConnector.getCharset();	
+	String encoding = jsonDataConnector.getEncoding();	
 	String dateFormat = jsonDataConnector.getDateFormat();
 	String numberFormat = jsonDataConnector.getNumberFormat();
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(JSONDataConnector.PROPERTY_CHARSET, charset);
+	data.put(JSONDataConnector.PROPERTY_ENCODING, encoding);
 	data.put(JSONDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(JSONDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -154,12 +154,12 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(JSONDataConnector.PROPERTY_FILE_NAME);
-	String charset = (String) data.get(JSONDataConnector.PROPERTY_CHARSET);	
+	String encoding = (String) data.get(JSONDataConnector.PROPERTY_ENCODING);	
 	String dateFormat = (String) data.get(JSONDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(JSONDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = createReader(fileName, charset);
+	    Reader reader = createReader(fileName, encoding);
 	    JSONSession session = new JSONSession(reader);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
@@ -175,9 +175,9 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String fileName = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createParameterData(parametersString); 
-	String charset = (String) parameterData.get(JSONDataConnector.PROPERTY_CHARSET);
+	String encoding = (String) parameterData.get(JSONDataConnector.PROPERTY_ENCODING);
 	try {
-	    Reader reader = createReader(fileName, charset);
+	    Reader reader = createReader(fileName, encoding);
 	    JSONResultSet resultSet = new JSONResultSet(reader);
 	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;

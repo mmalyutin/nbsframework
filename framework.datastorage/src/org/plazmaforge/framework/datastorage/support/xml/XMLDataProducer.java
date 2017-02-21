@@ -62,13 +62,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	XMLDataConnector xmlDataConnector = (XMLDataConnector) dataConnector;
 	
 	String fileName = xmlDataConnector.getFileName();
-	String charset = xmlDataConnector.getCharset();
+	String encoding = xmlDataConnector.getEncoding();
 	String dateFormat = xmlDataConnector.getDateFormat();
 	String numberFormat = xmlDataConnector.getNumberFormat();
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
-	data.put(XMLDataConnector.PROPERTY_CHARSET, charset);
+	data.put(XMLDataConnector.PROPERTY_ENCODING, encoding);
 	data.put(XMLDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XMLDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -150,12 +150,12 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(XMLDataConnector.PROPERTY_FILE_NAME);
-	String charset = (String) data.get(CSVDataConnector.PROPERTY_CHARSET);
+	String encoding = (String) data.get(CSVDataConnector.PROPERTY_ENCODING);
 	String dateFormat = (String) data.get(XMLDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XMLDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = createReader(fileName, charset);
+	    Reader reader = createReader(fileName, encoding);
 	    XMLSession session = new XMLSession(reader);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
