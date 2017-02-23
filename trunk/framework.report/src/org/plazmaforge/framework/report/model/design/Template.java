@@ -49,6 +49,7 @@ import org.plazmaforge.framework.report.model.base.grid.HasCellBorderRule;
  */
 public class Template implements Serializable, LocalizedIdentifier, ColumnModel, HasBands, HasExpressionBuilder, HasCellBorderRule {
 
+    
     private static final long serialVersionUID = 5671682441505999936L;
     
 
@@ -78,10 +79,8 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
      */
     private String type;
     
-    /**
-     * List of bands
-     */
-    private List<Band> bands;
+
+    private BandModel bandModel;
     
     /**
      * List of report groups
@@ -132,6 +131,7 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     
     
     public Template() {
+	bandModel = new BaseBandModel();
 	columnModel = new BaseColumnModel();
 	paging = true;
     }
@@ -183,40 +183,37 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 
     @Override
     public List<Band> getBands() {
-	if (bands == null) {
-	    bands = new ArrayList<Band>();
-	}
-        return bands;
+	return bandModel.getBands();
     }
     
     @Override
     public Band getBand(int index) {
-	return getBands().get(index);
+	return bandModel.getBand(index);
     }
 
     @Override
     public void setBands(List<Band> bands) {
-        this.bands = bands;
+	bandModel.setBands(bands);
     }
     
     @Override
     public void addBand(Band band) {
-	getBands().add(band);
+	bandModel.addBand(band);
     }
 
     @Override
     public void removeBand(Band band) {
-	getBands().remove(band);
+	bandModel.removeBand(band);
     }
     
     @Override
     public boolean hasBands() {
-	return bands != null && !bands.isEmpty();
+	return bandModel.hasBands();
     }
 
     @Override
     public int getBandCount() {
-	return bands == null ? 0 : bands.size();
+	return bandModel.getBandCount();
     }
 
     public boolean isEmpty() {
@@ -230,7 +227,7 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
      */
     @Override
     public Band findBandByType(BandType type) {
-	return findBandByType(type == null ? null : type.name());
+	return bandModel.findBandByType(type);
     }
     
     /**
@@ -240,18 +237,8 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
      */
     @Override
     public Band findBandByType(String type) {
-	if (type == null || !hasBands()) {
-	    return null;
-	}
-	for (Band band : bands) {
-	    if (type.equals(band.getType())) {
-		return band;
-	    }
-	}
-	return null;
+	return bandModel.findBandByType(type);
     }
-
-
 
     @Override
     public List<Column> getColumns() {
@@ -416,7 +403,7 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     @Override
     public void populateExpressions(List<DSExpression> expressions) {
 	if (hasBands()) {
-	    for (Band band: bands) {
+	    for (Band band: bandModel.getBands()) {
 		Element.populateExpressions(expressions, band);
 	    }
 	}

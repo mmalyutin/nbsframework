@@ -45,47 +45,54 @@ public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpre
     
 
     /**
-     * List of bands
+     * Band model 
      */
-    private List<Band> bands;
+    private BandModel bandModel;
 
+
+    public ReportGroup() {
+	super();
+	bandModel = new BaseBandModel();
+    }
+
+    public ReportGroup(DSExpression expression) {
+	super(expression);
+	bandModel = new BaseBandModel();
+    }
 
     @Override
     public List<Band> getBands() {
-	if (bands == null) {
-	    bands = new ArrayList<Band>();
-	}
-	return bands;
+	return bandModel.getBands();
     }
     
     @Override
     public Band getBand(int index) {
-	return getBands().get(index);
+	return bandModel.getBand(index);
     }
 
     @Override
     public void setBands(List<Band> bands) {
-	this.bands = bands;
+	bandModel.setBands(bands);
     }
 
     @Override
     public void addBand(Band band) {
-	getBands().add(band);
+	bandModel.addBand(band);
     }
 
     @Override
     public void removeBand(Band band) {
-	getBands().remove(band);
+	bandModel.removeBand(band);
     }
 
     @Override
     public boolean hasBands() {
-	return bands != null && !bands.isEmpty();
+	return bandModel.hasBands();
     }
 
     @Override
     public int getBandCount() {
-	return bands == null ? 0 : bands.size();
+	return bandModel.getBandCount();
     }
 
     /**
@@ -95,7 +102,7 @@ public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpre
      */
     @Override
     public Band findBandByType(BandType type) {
-	return findBandByType(type == null ? null : type.name());
+	return bandModel.findBandByType(type);
     }
     
     /**
@@ -105,15 +112,7 @@ public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpre
      */
     @Override
     public Band findBandByType(String type) {
-	if (type == null || !hasBands()) {
-	    return null;
-	}
-	for (Band band : bands) {
-	    if (type.equals(band.getType())) {
-		return band;
-	    }
-	}
-	return null;
+	return bandModel.findBandByType(type);
     }
 
     public boolean isStartOnNewPage() {
@@ -123,7 +122,6 @@ public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpre
     public void setStartOnNewPage(boolean startOnNewPage) {
         this.startOnNewPage = startOnNewPage;
     }
-
 
     @Override
     public List<DSExpression> buildExpressions() {
@@ -138,7 +136,7 @@ public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpre
 	    expressions.add(getExpression());
 	}
 	if (hasBands()) {
-	    for (Band band: bands) {
+	    for (Band band: getBands()) {
 		Element.populateExpressions(expressions, band);
 	    }
 	}

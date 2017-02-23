@@ -48,6 +48,12 @@ public class Band extends Container implements HasCellBorder, RowModel {
      * Band type: ReportHeader, PageHeader, GroupHeader, Detail, GroupFooter, PageFooter, ReportFooter
      */
     private String type;
+
+
+    /**
+     * Content type of band: Element, Row, band
+     */
+    private BandContentType contentType;
     
     
     /**
@@ -71,7 +77,12 @@ public class Band extends Container implements HasCellBorder, RowModel {
      */
     private RowModel rowModel;
     
+    
+    
     public Band() {
+	
+	// By default: Table layout
+	contentType = BandContentType.Row;
 	rowModel = new BaseRowModel();
     }
 
@@ -84,6 +95,15 @@ public class Band extends Container implements HasCellBorder, RowModel {
     }
 
     ////
+
+    public BandContentType getContentType() {
+        return contentType;
+    }
+    
+    public void redesignContentType(BandContentType contentType) {
+	//TODO
+	this.contentType = contentType;
+    }
 
     public Pen getCellLine() {
         return cellLine;
