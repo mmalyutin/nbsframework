@@ -22,6 +22,25 @@
 
 package org.plazmaforge.framework.report.model.design;
 
-public interface BandModel extends HasBands {
+import java.util.List;
 
+public interface BandModel {
+
+    List<Band> getBands();
+
+    Band getBand(int index);
+    
+    void setBands(List<Band> bands);
+       
+    void addBand(Band band);
+
+    void removeBand(Band band);
+       
+    boolean hasBands();
+    
+    int getBandCount();
+    
+    Band findBandByType(BandType type);
+    
+    Band findBandByType(String type);    
 }

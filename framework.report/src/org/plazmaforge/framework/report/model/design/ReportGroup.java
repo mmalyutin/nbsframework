@@ -37,7 +37,7 @@ import org.plazmaforge.framework.report.model.base.Element;
  * @author ohapon
  *
  */
-public class ReportGroup extends DSExpressionGroup implements HasBands, HasExpressionBuilder {
+public class ReportGroup extends DSExpressionGroup implements BandModel, HasExpressionBuilder {
 
     private static final long serialVersionUID = -8187650058128605525L;
     

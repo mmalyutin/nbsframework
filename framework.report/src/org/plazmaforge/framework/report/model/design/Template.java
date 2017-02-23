@@ -47,7 +47,7 @@ import org.plazmaforge.framework.report.model.base.grid.HasCellBorderRule;
  * The Report Template has bands
  *
  */
-public class Template implements Serializable, LocalizedIdentifier, ColumnModel, HasBands, HasExpressionBuilder, HasCellBorderRule {
+public class Template implements Serializable, LocalizedIdentifier, ColumnModel, BandModel, HasExpressionBuilder, HasCellBorderRule {
 
     
     private static final long serialVersionUID = 5671682441505999936L;
