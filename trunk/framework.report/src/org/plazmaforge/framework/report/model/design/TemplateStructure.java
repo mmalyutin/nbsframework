@@ -263,15 +263,15 @@ public class TemplateStructure implements Serializable {
     /**
      * Find only visible band by type
      * 
-     * @param template
+     * @param bandModel
      * @param type
      * @return
      */
-    public static Band findBand(HasBands template, BandType type) {
-	if (template == null || type == null) {
+    public static Band findBand(BandModel bandModel, BandType type) {
+	if (bandModel == null || type == null) {
 	    return null;
 	}
-	Band band = template.findBandByType(type);
+	Band band = bandModel.findBandByType(type);
 	return (band == null || !band.isVisible()) ? null : band;
     }
 
