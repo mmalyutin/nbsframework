@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Plazma Report: Data</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+	<h2>Report Data.</h2>
+	In the report data section you can configure following elements:
+	<ul>
+		<li><a href="#dataconnector">Data Connector</a></li>
+		<li><a href="#datasource">Data Source</a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#variables">Variables</a></li>
+	</ul>
+
+
+	<h3 id="dataconnector">Data Connector</h3>
+	The Data Connector configures a connect to Data Sources.<br/>
+	We have	following types of the Data Connector:
+	<ul>
+		<li>Database/SQL</li>
+		<li>CSV</li>
+		<li>Json</li>
+		<li>XML</li>
+		<li>Excel (XLS, XLSX)</li>
+	</ul>
+
+	<h3 id="datasource">Data Source</h3>
+	The Data Source describes flat data structure (like a table)<br/>
+	We have	following base elements of the Data Source:
+	<ul>
+		<li>Fields</li>
+		<li>Query</li>
+		<li>Orders</li>
+		<li>Filters</li>
+	</ul>
+
+	For example:
+
+	<pre class="prettyprint">
+&lt;report&gt;
+
+  &lt;data-sources&gt;
+    &lt;data-source&gt;
+      &lt;fields&gt;
+        &lt;field name="PRODUCT_ID" data-type="Integer"/&gt;
+        &lt;field name="PRODUCT_NAME" data-type="String"/&gt;
+        &lt;field name="PRICE" data-type="Float"/&gt;
+      &lt;/fields&gt;
+      &lt;query&gt;SELECT PRODUCT_ID, PRODUCT_NAME, PRICE FROM PRODUCT&lt;/query&gt;
+    &lt;/data-source&gt;
+  &lt;/data-sources&gt;
+  
+&lt;/report&gt;
+	</pre>
+	  
+</body>
+</html>
