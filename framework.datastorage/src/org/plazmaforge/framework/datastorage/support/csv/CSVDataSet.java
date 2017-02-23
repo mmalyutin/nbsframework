@@ -54,9 +54,12 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
     @Override
     public Object getValue(String fieldName) throws DSException {
 	//TODO: Must optimize
-	int index = getFieldIndex(fieldName);
+	//int index = getFieldIndex(fieldName);
+	//String value = getCSVResultSet().getStringValue(index);
+	
 	DSField field = getField(fieldName);
-	String value = getCSVResultSet().getStringValue(index);
+	String path = getPath(field);
+	String value = getCSVResultSet().getStringValue(path);
 	return convertString(value, field);
     }
     
@@ -64,7 +67,9 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
     public Object getValue(int index) throws DSException {
 	//TODO: Must optimize
 	DSField field = getField(index);
-	String value = getCSVResultSet().getStringValue(index);
+	//String value = getCSVResultSet().getStringValue(index);
+	String path = getPath(field);
+	String value = getCSVResultSet().getStringValue(path);
 	return convertString(value, field);
     }
 
