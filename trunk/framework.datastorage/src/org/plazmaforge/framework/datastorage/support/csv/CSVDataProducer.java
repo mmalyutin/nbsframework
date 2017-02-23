@@ -210,7 +210,6 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	try {
 	    Reader reader = createReader(fileName, encoding);
 	    CSVResultSet resultSet = new CSVResultSet(reader);
-	    //resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;
 	} catch (IOException ex) {
 	    throw new DSException(ex);

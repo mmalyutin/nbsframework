@@ -41,7 +41,7 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
+
 
 /**
  * 
@@ -150,7 +150,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String fileName = (String) data.get(XMLDataConnector.PROPERTY_FILE_NAME);
-	String encoding = (String) data.get(CSVDataConnector.PROPERTY_ENCODING);
+	String encoding = (String) data.get(XMLDataConnector.PROPERTY_ENCODING);
 	String dateFormat = (String) data.get(XMLDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XMLDataConnector.PROPERTY_NUMBER_FROMAT);
 	
@@ -170,11 +170,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String fileName = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	Map<String, Object>  parameterData = createParameterData(parametersString);
+	String encoding = (String) parameterData.get(XMLDataConnector.PROPERTY_ENCODING);
+	String query = (String) parameterData.get(DataManager.PROPERTY_QUERY);
 	try {
-	    Reader reader = createReader(fileName, null);
+	    Reader reader = createReader(fileName, encoding);
 	    XMLResultSet resultSet = new XMLResultSet(reader);
-	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
+	    resultSet.setSelectExpression(query);
 	    return resultSet;
 	} catch (IOException ex) {
 	    throw new DSException(ex);
