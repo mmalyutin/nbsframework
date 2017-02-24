@@ -37,6 +37,12 @@ import org.plazmaforge.framework.util.StringUtils;
 
 
 /**
+ * Abstract simple result set
+ * 
+ * - fieldNames
+ * 
+ * 
+ * 
  * @author ohapon
  *
  */
@@ -51,6 +57,8 @@ public abstract class AbstractResultSet implements DSResultSet {
      * Field index map (FieldName -> FieldIndex [internal])
      */
     private Map<String, Integer> fieldIndexes;
+    
+    private Map<Integer, Integer> externalIndexes;
     
     protected boolean processing;
 
@@ -73,16 +81,6 @@ public abstract class AbstractResultSet implements DSResultSet {
 	setFieldNames(fieldNames);
     }
 
-
-
-//    public Object getValue(String name) throws DSException {
-//	int index = getFieldIndex(name);
-//	if (index < 0) {
-//	    return null;
-//	}
-//	return getValue(index);
-//    }
-    
     public int getFieldCount() {
 	return fieldNames == null ? 0 : fieldNames.size();
     }
@@ -92,8 +90,7 @@ public abstract class AbstractResultSet implements DSResultSet {
     }
 
     protected void setFieldNames(List<String> fieldNames) {
-        this.fieldNames = fieldNames == null ? null : new ArrayList<String>(fieldNames);
-        generateFieldIndexes();
+	initFields(fieldNames);
     }
     
     public boolean hasFields() {
@@ -104,64 +101,119 @@ public abstract class AbstractResultSet implements DSResultSet {
 	this.fieldIndexes = fieldIndexes == null ? null : new HashMap<String, Integer>(fieldIndexes); 
 	
     }
-    protected int getFieldIndex(String fieldName) {
+    
+    public int getFieldIndex(String fieldName) {
 	if (fieldName == null || fieldIndexes == null) {
 	    return -1;
 	}
 	Integer index = fieldIndexes.get(fieldName);
 	return index == null ? -1 : index;
     }
+
+    public int getInternalIndex(int index) {
+	if (externalIndexes == null) {
+	    return -1;
+	}
+	Integer internalIndex = externalIndexes.get(index);
+	return internalIndex == null ? -1 : internalIndex;
+    }
+    
+    protected void initFields(List<String> fieldNames) {
+	initFields(fieldNames, null);
+    }
     
     /**
-     * Generate physical field indexes (by default)
-     */
-    protected void generateFieldIndexes() {
-	if (fieldNames == null) {
-	    fieldIndexes = null;
-	    return;
-	}
-	fieldIndexes = new HashMap<String, Integer>();
-	int count = fieldNames.size();
-	for (int i = 0; i < count; i++) {
-	    String fieldName = fieldNames.get(i);
-	    if (fieldName == null) {
-		continue;
-	    }
-	    fieldIndexes.put(fieldName, i);
-	}
-    }
-
-    /**
-     * Generate field indexes by real (native internal) columns
+     * Set new fields and generate indexes
+     * 
      * @param fieldNames
      * @param columns
      */
-    protected void generateFieldIndexes(List<String> fieldNames, List<String> columns) {
+    protected void initFields(List<String> fieldNames, List<String> columns) {
 	
 	if (fieldNames == null || fieldNames.isEmpty()) {
 	    // If fields is empty then columns are fields
-	    setFieldNames(columns);
-	    return;
+	    fieldNames = columns == null ? new ArrayList<String>() : new ArrayList<String>(columns);
 	}
 	
+	this.fieldNames = fieldNames;
+	fieldIndexes = new HashMap<String, Integer>();
+	externalIndexes = new HashMap<Integer, Integer>();
+	
+	boolean physical = (columns == null);
 	int fieldCount = fieldNames.size();
-	Map<String, Integer> fieldIndexes = new HashMap<String, Integer>();
+	int index = 0;
+	String fieldName = null;
 	for (int i = 0; i < fieldCount; i++) {
-	    String fieldName = fieldNames.get(i);
+	    fieldName = fieldNames.get(i);
 	    if (fieldName == null) {
 		continue;
 	    }
-	    // Find field in column list
-	    int index = columns.indexOf(fieldName);
+	    if (physical) {
+		// Physical index
+		index = i;
+	    } else {
+		// Find field in column list
+		index = columns.indexOf(fieldName);
+	    }
 	    if (index < 0) {
 		continue;
 	    }
 	    fieldIndexes.put(fieldName, index);
+	    externalIndexes.put(i, index);
 	}
-	setFieldIndexes(fieldIndexes);
+    }
+
+    protected void initFieldsExt(List<DSField> fields, List<String> columns) {
+	
+	if (fields == null || fields.isEmpty()) {
+	    // If fields is empty then columns are fields
+	    initFields(null, columns);
+	    return;
+	}
+	
+	fieldNames = new ArrayList<String>();
+	fieldIndexes = new HashMap<String, Integer>();
+	externalIndexes = new HashMap<Integer, Integer>();
+	
+	boolean physical = (columns == null);
+	int fieldCount = fields.size();
+	int index = 0;
+	DSField field = null;
+	String fieldName = null;
+	String path = null;
+	for (int i = 0; i < fieldCount; i++) {
+	    field = fields.get(i);
+	    fieldName = field.getName();
+	    if (fieldName == null) {
+		continue;
+	    }
+	    if (physical) {
+		// Physical index
+		index = i;
+	    } else {
+		// Find field in column list
+		path = field.getPath();
+		if (path == null) {
+		    path = fieldName;
+		}
+		index = columnIndexPyPath(columns, path);
+	    }
+	    if (index < 0) {
+		continue;
+	    }
+	    fieldIndexes.put(fieldName, index);
+	    externalIndexes.put(i, index);
+	}
     }
     
-    
+    protected int columnIndexPyPath(List<String> columns, String path) {
+	if (columns == null || path == null) {
+	    return -1;
+	}
+	//TODO
+	return columns.indexOf(path);
+    }
+
     protected boolean isEmpty(String str) {
 	return StringUtils.isEmpty(str);
     }
