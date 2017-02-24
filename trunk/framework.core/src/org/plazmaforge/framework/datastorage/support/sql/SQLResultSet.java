@@ -85,7 +85,11 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	for (int column = 1; column <= columnCount; column++) {
 	    columns.add(meta.getColumnLabel(column)); // ???
 	}
-	generateFieldIndexes(fieldNames, columns);
+	if (fieldNames == null || fieldNames.isEmpty()) {
+	    // If fields is empty then columns are fields
+	    setFieldNames(columns);
+	}
+	initFields(fieldNames, columns);
     }
     
 

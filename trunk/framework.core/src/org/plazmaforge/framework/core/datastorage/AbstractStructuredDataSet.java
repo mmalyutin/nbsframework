@@ -108,7 +108,8 @@ public abstract class AbstractStructuredDataSet extends AbstractDataSet {
 	this.fieldIndexes = fieldIndexes == null ? null : new HashMap<String, Integer>(fieldIndexes); 
 	
     }
-    protected int getFieldIndex(String fieldName) {
+    
+    public int getFieldIndex(String fieldName) {
 	if (fieldName == null || fieldIndexes == null) {
 	    return -1;
 	}
