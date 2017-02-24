@@ -39,66 +39,80 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
-    public CSVDataSet(List<DSField> fields, Reader reader) {
+    public CSVDataSet(final List<DSField> fields, Reader reader) {
 	
 	assert(fields != null);
 	assert(reader != null);
 	
 	setFields(fields);
-	List<String> fieldNames = getFieldNames();
 	
-	this.resultSet = new CSVResultSet(fieldNames, reader);
+	this.resultSet = new CSVResultSet(null, reader) {
+	    
+	    @Override
+	    protected void loadFields(List<String> columns) {
+		initFieldsExt(fields, columns);
+	    }
+	};
 	
     }
 
     @Override
     public Object getValue(String fieldName) throws DSException {
-	//TODO: Must optimize
+
 	//int index = getFieldIndex(fieldName);
 	//String value = getCSVResultSet().getStringValue(index);
-	
+	//String path = getPath(field);
+	//String value = getCSVResultSet().getStringValue(path);
+
 	DSField field = getField(fieldName);
-	String path = getPath(field);
-	String value = getCSVResultSet().getStringValue(path);
+	CSVResultSet rs = getInternalResultSet();
+	int index = rs.getFieldIndex(fieldName);
+	String value = rs.getStringValue(index);
 	return convertString(value, field);
     }
     
     @Override
     public Object getValue(int index) throws DSException {
-	//TODO: Must optimize
-	DSField field = getField(index);
+
 	//String value = getCSVResultSet().getStringValue(index);
-	String path = getPath(field);
-	String value = getCSVResultSet().getStringValue(path);
+	//String path = getPath(field);
+	//String value = getCSVResultSet().getStringValue(path);
+	//return convertString(value, field);
+	
+	DSField field = getField(index);
+	CSVResultSet rs = getInternalResultSet();
+	index = rs.getInternalIndex(index);
+	String value = rs.getStringValue(index);
 	return convertString(value, field);
+	
     }
 
-    protected CSVResultSet getCSVResultSet() {
+    protected CSVResultSet getInternalResultSet() {
 	return ((CSVResultSet) resultSet);
     }
     
     public String getColumnDelimiter() {
-        return getCSVResultSet().getColumnDelimiter();
+        return getInternalResultSet().getColumnDelimiter();
     }
 
     public void setColumnDelimiter(String columnDelimiter) {
-	getCSVResultSet().setColumnDelimiter(columnDelimiter);
+	getInternalResultSet().setColumnDelimiter(columnDelimiter);
     }
 
     public String getRowDelimiter() {
-        return getCSVResultSet().getRowDelimiter();
+        return getInternalResultSet().getRowDelimiter();
     }
 
     public void setRowDelimiter(String rowDelimiter) {
-	getCSVResultSet().setRowDelimiter(rowDelimiter);
+	getInternalResultSet().setRowDelimiter(rowDelimiter);
     }
 
     public boolean isFirstRowHeader() {
-        return getCSVResultSet().isFirstRowHeader();
+        return getInternalResultSet().isFirstRowHeader();
     }
 
     public void setFirstRowHeader(boolean firstRowHeader) {
-	getCSVResultSet().setFirstRowHeader(firstRowHeader);
+	getInternalResultSet().setFirstRowHeader(firstRowHeader);
     }
  
   

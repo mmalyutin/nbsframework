@@ -59,16 +59,17 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
     public CSVResultSet(List<String> fieldNames, Reader reader) {
 	super(fieldNames);
 	this.reader = reader;
-	// loadCSVFields(fieldNames);
+	// Real column loading in first next()
+	// Only if isFirstRowHeader() is true
     }
-
+    
     public CSVResultSet(Reader reader) {
 	this(null, reader);
     }
 
     
-    protected void loadFields(List<String> fieldNames, List<String> columns) {
-	generateFieldIndexes(fieldNames, columns);
+    protected void loadFields(List<String> columns) {
+	initFields(getFieldNames(), columns);
     }    
     
     @Override
@@ -85,7 +86,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
 		    
 		    
 		    processing = true;
-		    loadFields(getFieldNames(), values);
+		    loadFields(values);
 
 		    // ////////////////////////////////
 		    //if (hasFields()) {
@@ -97,7 +98,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
 		    // Ignore blank row at top
 		    // TODO
 		    //if (!isBlankRow()) {
-			//loadHeaderColumns();
+			//loadFields();
 
 			processing = true;
 		    //}
