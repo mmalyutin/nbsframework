@@ -54,11 +54,15 @@ public abstract class AbstractResultSet implements DSResultSet {
     private List<String> fieldNames;
     
     /**
-     * Field index map (FieldName -> FieldIndex [internal])
+     * Field map (FieldName [external/internal] -> FieldIndex [internal])
      */
     private Map<String, Integer> fieldIndexes;
     
+    /**
+     * Index map (index [external] - > index [internal])
+     */
     private Map<Integer, Integer> externalIndexes;
+    
     
     protected boolean processing;
 
@@ -153,7 +157,8 @@ public abstract class AbstractResultSet implements DSResultSet {
 		index = i;
 	    } else {
 		// Find field in column list
-		index = columns.indexOf(fieldName);
+		//index = columns.indexOf(fieldName);
+		index = columnIndexByName(columns, i, fieldName);
 	    }
 	    if (index < 0) {
 		continue;
@@ -196,7 +201,7 @@ public abstract class AbstractResultSet implements DSResultSet {
 		if (path == null) {
 		    path = fieldName;
 		}
-		index = columnIndexPyPath(columns, path);
+		index = columnIndexByPath(columns, i, path);
 	    }
 	    if (index < 0) {
 		continue;
@@ -205,8 +210,16 @@ public abstract class AbstractResultSet implements DSResultSet {
 	    externalIndexes.put(i, index);
 	}
     }
+
+    protected int columnIndexByName(List<String> columns, int index, String name) {
+	if (columns == null || name == null) {
+	    return -1;
+	}
+	//TODO
+	return columns.indexOf(name);
+    }
     
-    protected int columnIndexPyPath(List<String> columns, String path) {
+    protected int columnIndexByPath(List<String> columns, int index, String path) {
 	if (columns == null || path == null) {
 	    return -1;
 	}

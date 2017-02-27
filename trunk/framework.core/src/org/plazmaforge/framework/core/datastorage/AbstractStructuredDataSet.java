@@ -61,15 +61,18 @@ public abstract class AbstractStructuredDataSet extends AbstractDataSet {
     }
 
     public DSField getField(String name) {
-	if (name == null || fields == null || fields.isEmpty()) {
-	    return null;
-	}
-	for (DSField field: fields) {
-	    if (name.equals(field.getName())) {
-		return field;
-	    }
-	}
-	return null;
+	int index = getFieldIndex(name);
+	return getField(index);
+	
+	//if (name == null || fields == null || fields.isEmpty()) {
+	//    return null;
+	//}
+	//for (DSField field: fields) {
+	//    if (name.equals(field.getName())) {
+	//	return field;
+	//    }
+	//}
+	//return null;
     }
 
     public String getFieldName(int index) {
