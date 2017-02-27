@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.datastorage.support.xls;
 
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -104,9 +105,11 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 
 	if ((getSheetExpression() != null || sheetIndex == 0) && isFirstRowHeader() && recordIndex == 0) {
 	    // readHeader(); // TODO: OHA
+	    loadFields(getRecordAsStringList());
 	    recordIndex++;
 	}
 	if (recordIndex <= workbook.getSheetAt(sheetIndex).getLastRowNum()) {
+	    loadFields(null);
 	    return true;
 	} else {
 	    // TODO: Auto close: May be optional
@@ -169,7 +172,57 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	return workbook.getSheetIndex(sheet);
     }
     
+    public List<String> getRecordAsStringList() throws DSException {
+	String[] record = getRecordAsStringArray();
+	if (record == null) {
+	    return null;
+	}
+	return Arrays.asList(record); 
+    }
+
+    public String[] getRecordAsStringArray() throws DSException {
+	Object[] record = getRecord();
+	if (record == null) {
+	    return null;
+	}
+	int count = record.length;
+	String[] values = new String[count];
+	Object value = null;
+	for (int i = 0; i < count; i++) {
+	    value = record[i];
+	    values[i] = value == null ? null : value.toString();
+	}
+	return values;
+    }
     
+    //Native
+    public Object[] getRecord() throws DSException {
+	Sheet sheet = workbook.getSheetAt(sheetIndex);
+	if (sheet == null) {
+	    return null;
+	}
+	Row row = sheet.getRow(recordIndex);
+	if (row == null) {
+	    return null;
+	}
+	int count = row.getLastCellNum();
+	if (count == 0) {
+	    return null;
+	}
+	Object[] values = new Object[count];
+	Object value = null;
+	Cell cell = null;
+	for (int i = 0; i < count; i++) {
+	    cell = row.getCell(i);
+	    if (cell == null) {
+		continue;
+	    }
+	    value = getCellValue(cell, null, null);
+	    values[i] = value;
+	}
+	return values;
+    }
+	
     //Native
     public Object getNativeValue(int index, String type, String format) throws DSException {
 	Sheet sheet = workbook.getSheetAt(sheetIndex);

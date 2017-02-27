@@ -64,11 +64,15 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	//String path = getPath(field);
 	//String value = getCSVResultSet().getStringValue(path);
 
-	DSField field = getField(fieldName);
-	CSVResultSet rs = getInternalResultSet();
-	int index = rs.getFieldIndex(fieldName);
-	String value = rs.getStringValue(index);
-	return convertString(value, field);
+	//DSField field = getField(fieldName);
+	int index = getFieldIndex(fieldName);
+	DSField field = getField(index);
+	return getValue(field, index);
+	
+	//CSVResultSet rs = getInternalResultSet();
+	//int index = rs.getFieldIndex(fieldName);
+	//String value = rs.getStringValue(index);
+	//return convertString(value, field);
     }
     
     @Override
@@ -80,11 +84,20 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	//return convertString(value, field);
 	
 	DSField field = getField(index);
+	return getValue(field, index);
+	
+	//CSVResultSet rs = getInternalResultSet();
+	//index = rs.getInternalIndex(index);
+	//String value = rs.getStringValue(index);
+	//return convertString(value, field);
+	
+    }
+    
+    protected Object getValue(DSField field, int index) throws DSException {
 	CSVResultSet rs = getInternalResultSet();
-	index = rs.getInternalIndex(index);
+	index = rs.getInternalIndex(index); // convert index : [external] to [internal]
 	String value = rs.getStringValue(index);
 	return convertString(value, field);
-	
     }
 
     protected CSVResultSet getInternalResultSet() {
