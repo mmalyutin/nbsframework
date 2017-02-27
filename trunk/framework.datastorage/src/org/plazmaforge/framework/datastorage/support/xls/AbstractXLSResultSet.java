@@ -154,4 +154,25 @@ public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet i
     //Native
     public abstract Object getNativeValue(int index, String type, String format) throws DSException;
     
+    
+    protected void loadFields(List<String> columns) {
+	initFields(getFieldNames(), columns);
+    }
+    
+    protected int columnIndexByName(List<String> columns, int index, String name) {
+	if (name == null) {
+	    return -1;
+	}
+	if (columns == null) {
+	    //TODO
+	    // 0 - A
+	    // 1 - B
+	    // 2 - C
+	    // ....
+	    return -1;
+	}
+	//TODO
+	return columns.indexOf(name);
+    }
+
 }

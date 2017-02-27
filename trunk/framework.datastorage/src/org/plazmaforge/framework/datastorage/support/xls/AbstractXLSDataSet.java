@@ -37,7 +37,6 @@ public abstract class AbstractXLSDataSet extends AbstractWrappedDataSet implemen
 
     @Override
     public Object getValue(String fieldName) throws DSException {
-	//TODO: Must optimize
 	int index = getFieldIndex(fieldName);
 	DSField field = getField(fieldName);
 	return getValue(field, index);
@@ -45,7 +44,6 @@ public abstract class AbstractXLSDataSet extends AbstractWrappedDataSet implemen
     
     @Override
     public Object getValue(int index) throws DSException {
-	//TODO: Must optimize
 	DSField field = getField(index);
 	return getValue(field, index);
     }
@@ -53,20 +51,22 @@ public abstract class AbstractXLSDataSet extends AbstractWrappedDataSet implemen
     protected Object getValue(DSField field, int index) throws DSException {
 	String type = field.getDataType();
 	String format = getFormat(field);
-	Object value = getXLSResultSet().getNativeValue(index, type, format);
+	AbstractXLSResultSet rs = getInternalResultSet();
+	//index = rs.getInternalIndex(index); // convert index : [external] to [internal]
+	Object value = rs.getNativeValue(index, type, format);
 	return value;
     }
 
-    protected AbstractXLSResultSet getXLSResultSet() {
+    protected AbstractXLSResultSet getInternalResultSet() {
 	return ((AbstractXLSResultSet) resultSet);
     }
     
     public boolean isFirstRowHeader() {
-        return getXLSResultSet().isFirstRowHeader();
+        return getInternalResultSet().isFirstRowHeader();
     }
 
     public void setFirstRowHeader(boolean firstRowHeader) {
-	getXLSResultSet().setFirstRowHeader(firstRowHeader);
+	getInternalResultSet().setFirstRowHeader(firstRowHeader);
     }
     
 }
