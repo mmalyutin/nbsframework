@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.datastorage.support.xls;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -103,13 +104,17 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	    }
 	}
 
+	boolean isLoadFields = false;
 	if ((getSheetExpression() != null || sheetIndex == 0) && isFirstRowHeader() && recordIndex == 0) {
 	    // readHeader(); // TODO: OHA
 	    loadFields(getRecordAsStringList());
+	    isLoadFields = true;
 	    recordIndex++;
 	}
 	if (recordIndex <= workbook.getSheetAt(sheetIndex).getLastRowNum()) {
-	    loadFields(null);
+	    if (!isLoadFields) {
+		loadFields(generateColumns());
+	    }
 	    return true;
 	} else {
 	    // TODO: Auto close: May be optional
@@ -172,6 +177,31 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	return workbook.getSheetIndex(sheet);
     }
     
+    protected List<String> generateColumns()  {
+	return generateColumns(getRecordSize());
+    }
+    
+    protected List<String> generateColumns(int count)  {
+	if (count < 1) {
+	    return null;
+	}
+	char code = 65;
+	List<String> list = new ArrayList<String>();
+	for (int i = 1; i <= count; i++) {
+	    if (code > 255) {
+		//TODO: STUB
+		break;
+	    }
+	    //if (count > Character.MAX_VALUE ) {
+		//TODO: STUB
+		//break;
+	    //}
+	    list.add(new String(new char[] {code}));
+	    code++;
+	}
+	return list;
+    }
+    
     public List<String> getRecordAsStringList() throws DSException {
 	String[] record = getRecordAsStringArray();
 	if (record == null) {
@@ -222,6 +252,21 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	}
 	return values;
     }
+    
+    //Native
+    protected int getRecordSize()  {
+	Sheet sheet = workbook.getSheetAt(sheetIndex);
+	if (sheet == null) {
+	    return 0;
+	}
+	Row row = sheet.getRow(recordIndex);
+	if (row == null) {
+	    return 0;
+	}
+	int count = row.getLastCellNum();
+	return count;
+    }
+    
 	
     //Native
     public Object getNativeValue(int index, String type, String format) throws DSException {
