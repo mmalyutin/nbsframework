@@ -227,11 +227,7 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
     
     //Native
     public Object[] getRecord() throws DSException {
-	Sheet sheet = workbook.getSheetAt(sheetIndex);
-	if (sheet == null) {
-	    return null;
-	}
-	Row row = sheet.getRow(recordIndex);
+	Row row = getCurrentRow();
 	if (row == null) {
 	    return null;
 	}
@@ -255,35 +251,35 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
     
     //Native
     protected int getRecordSize()  {
-	Sheet sheet = workbook.getSheetAt(sheetIndex);
-	if (sheet == null) {
-	    return 0;
-	}
-	Row row = sheet.getRow(recordIndex);
+	Row row = getCurrentRow();
 	if (row == null) {
 	    return 0;
 	}
 	int count = row.getLastCellNum();
 	return count;
     }
-    
 	
     //Native
     public Object getNativeValue(int index, String type, String format) throws DSException {
-	Sheet sheet = workbook.getSheetAt(sheetIndex);
-	if (sheet == null) {
-	    return null;
-	}
-	Row row = sheet.getRow(recordIndex);
+	Row row = getCurrentRow();
 	if (row == null) {
 	    return null;
 	}
-	Cell cell = sheet.getRow(recordIndex).getCell(index);
+	Cell cell = row.getCell(index);
 	if (cell == null) {
 	    return null;
 	}
 	Object value = getCellValue(cell, type, format);
 	return value;
+    }
+    
+    protected Sheet getCurrentSheet() {
+	return workbook == null ? null : workbook.getSheetAt(sheetIndex);
+    }
+    
+    protected Row getCurrentRow() {
+	Sheet sheet = getCurrentSheet();
+	return sheet == null ? null : sheet.getRow(recordIndex);
     }
     
     public Object getCellValue(Cell cell, String type, String format) throws DSException {
