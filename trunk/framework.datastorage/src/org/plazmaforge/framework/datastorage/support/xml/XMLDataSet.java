@@ -41,35 +41,31 @@ import org.plazmaforge.framework.core.exception.DSException;
 public class XMLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
     public XMLDataSet(List<DSField> fields, Reader reader) throws DSException {
-	
 	assert(fields != null);
 	assert(reader != null);
 	
 	setFields(fields);
-	//List<String> fieldNames = getFieldNames();
-	//TODO
 	this.resultSet = new XMLResultSet(reader);
-	
     }
 
     @Override
     public Object getValue(String fieldName) throws DSException {
-	//TODO: Must optimize
 	DSField field = getField(fieldName);
-	String path = getPath(field);
-	String value = getXMLResultSet().getStringValue(path);
-	return convertString(value, field);
+	return getFieldValue(field);
     }
     
     @Override
     public Object getValue(int index) throws DSException {
-	//TODO: Must optimize
 	DSField field = getField(index);
+	return getFieldValue(field);
+    }
+
+    protected Object getFieldValue(DSField field) throws DSException {
 	String path = getPath(field);
 	String value = getXMLResultSet().getStringValue(path);
 	return convertString(value, field);
     }
-    
+
     public String getSelectExpression() {
 	return getXMLResultSet().getSelectExpression();
     }

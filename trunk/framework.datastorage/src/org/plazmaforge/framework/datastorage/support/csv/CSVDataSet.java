@@ -40,12 +40,10 @@ import org.plazmaforge.framework.core.exception.DSException;
 public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
     public CSVDataSet(final List<DSField> fields, Reader reader) {
-	
 	assert(fields != null);
 	assert(reader != null);
 	
 	setFields(fields);
-	
 	this.resultSet = new CSVResultSet(null, reader) {
 	    
 	    @Override
@@ -53,47 +51,22 @@ public class CSVDataSet extends AbstractWrappedDataSet implements DSDataSet {
 		initFieldsExt(fields, columns);
 	    }
 	};
-	
     }
 
     @Override
     public Object getValue(String fieldName) throws DSException {
-
-	//int index = getFieldIndex(fieldName);
-	//String value = getCSVResultSet().getStringValue(index);
-	//String path = getPath(field);
-	//String value = getCSVResultSet().getStringValue(path);
-
-	//DSField field = getField(fieldName);
 	int index = getFieldIndex(fieldName);
 	DSField field = getField(index);
-	return getValue(field, index);
-	
-	//CSVResultSet rs = getInternalResultSet();
-	//int index = rs.getFieldIndex(fieldName);
-	//String value = rs.getStringValue(index);
-	//return convertString(value, field);
+	return getFieldValue(field, index);
     }
     
     @Override
     public Object getValue(int index) throws DSException {
-
-	//String value = getCSVResultSet().getStringValue(index);
-	//String path = getPath(field);
-	//String value = getCSVResultSet().getStringValue(path);
-	//return convertString(value, field);
-	
 	DSField field = getField(index);
-	return getValue(field, index);
-	
-	//CSVResultSet rs = getInternalResultSet();
-	//index = rs.getInternalIndex(index);
-	//String value = rs.getStringValue(index);
-	//return convertString(value, field);
-	
+	return getFieldValue(field, index);
     }
     
-    protected Object getValue(DSField field, int index) throws DSException {
+    protected Object getFieldValue(DSField field, int index) throws DSException {
 	CSVResultSet rs = getInternalResultSet();
 	index = rs.getInternalIndex(index); // convert index : [external] to [internal]
 	String value = rs.getStringValue(index);
