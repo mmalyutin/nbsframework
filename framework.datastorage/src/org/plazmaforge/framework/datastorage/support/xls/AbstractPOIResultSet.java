@@ -48,6 +48,8 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 
     private boolean initSheet;
     
+    private boolean loadFields;
+    
     public AbstractPOIResultSet(InputStream inputStream) throws DSException {
 	super(inputStream);
 	this.workbook = loadWorkbook(inputStream);
@@ -65,6 +67,7 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	    return;
 	}
 	initSheet = true;
+	loadFields = false;
 	sheetIndex = getSheetIndex(getSheetExpression());
     }
 
@@ -104,15 +107,14 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	    }
 	}
 
-	boolean isLoadFields = false;
 	if ((getSheetExpression() != null || sheetIndex == 0) && isFirstRowHeader() && recordIndex == 0) {
 	    // readHeader(); // TODO: OHA
 	    loadFields(getRecordAsStringList());
-	    isLoadFields = true;
+	    loadFields = true;
 	    recordIndex++;
 	}
 	if (recordIndex <= workbook.getSheetAt(sheetIndex).getLastRowNum()) {
-	    if (!isLoadFields) {
+	    if (!loadFields) {
 		loadFields(generateColumns());
 	    }
 	    return true;
@@ -127,14 +129,14 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	return false;
     }
 
-    protected int getSheetIndex(String sheetExpression) throws DSException {
-	if (sheetExpression == null) {
+    protected int getSheetIndex(String expression) throws DSException {
+	if (expression == null) {
 	    return 0;
 	}
 	int sheetIndex = -1;
 	
 	// Step 1: Try parse string as sheet index
-	Integer parseIndex = parseIndex(sheetExpression);
+	Integer parseIndex = parseIndex(expression);
 	if (parseIndex != null) {
 	    sheetIndex = parseIndex;
 	    int startIndex = 0;
@@ -146,16 +148,16 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	
 	try {
 	    
-	    sheetIndex = Integer.parseInt(sheetExpression);
+	    sheetIndex = Integer.parseInt(expression);
 	} catch (NumberFormatException e) {
 	    // Ignore
 	}
 	
 	// Step 2: Try use string as sheet name
 	if (sheetIndex < 0) {
-	    sheetIndex = getSheetIndexByName(sheetExpression);
+	    sheetIndex = getSheetIndexByName(expression);
 	    if (sheetIndex < 0) {
-		throw new DSException("Sheet '" + sheetExpression + "' not found in workbook.");
+		throw new DSException("Sheet '" + expression + "' not found in workbook.");
 	    }
 	}
 	return sheetIndex;

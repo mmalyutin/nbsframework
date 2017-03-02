@@ -52,7 +52,7 @@ public abstract class AbstractXLSDataSet extends AbstractWrappedDataSet implemen
 	String type = field.getDataType();
 	String format = getFormat(field);
 	AbstractXLSResultSet rs = getInternalResultSet();
-	//index = rs.getInternalIndex(index); // convert index : [external] to [internal]
+	index = rs.getInternalIndex(index); // convert index : [external] to [internal]
 	Object value = rs.getNativeValue(index, type, format);
 	return value;
     }
