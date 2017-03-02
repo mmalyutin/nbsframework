@@ -71,9 +71,19 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be SQLDataConnector");
 	}	
 	SQLDataConnector sqlDataConnector = (SQLDataConnector) dataConnector;
+	String driver = normalize(sqlDataConnector.getDriverClassName());
+	if (driver != null) {
+	    try {
+		Class.forName(driver);   
+	    } catch (ClassNotFoundException ex) {
+		handleContextException(DataManager.CONTEXT_SESSION, ex);
+	    }
+	}
+	
 	String url = sqlDataConnector.getUrl();
 	String username = sqlDataConnector.getUsername();
 	String password = sqlDataConnector.getPassword();
+	
 	return openSession(url, username, password);
     }
 
