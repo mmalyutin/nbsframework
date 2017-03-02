@@ -442,7 +442,20 @@ public class DataManager {
     }
 
     public static void handleContextException(String context, Throwable cause) throws DSException {
-	throw new DSException(getContextMessage(context), cause);
+	String message1 = getContextMessage(context);
+	String message2 = cause == null ? null : cause.getMessage();
+	String message = null;
+	if (message1 != null || message2 != null) {
+	    if (message1 == null) {
+		message = message2;
+	    } else if (message2 == null) {
+		message = message1;
+	    } else {
+		message = message1 + " " + message2;
+	    }
+	    
+	}
+	throw new DSException(message/*getContextMessage(context)*/, cause);
     }
 
     public static void handleContextException(String context, String cause) throws DSException {
