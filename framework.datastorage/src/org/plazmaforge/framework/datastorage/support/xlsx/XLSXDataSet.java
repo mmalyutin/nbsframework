@@ -36,14 +36,18 @@ import org.plazmaforge.framework.datastorage.support.xls.AbstractXLSDataSet;
  */
 public class XLSXDataSet extends AbstractXLSDataSet {
 
-    public XLSXDataSet(List<DSField> fields, InputStream inputStream) throws DSException {
+    public XLSXDataSet(final List<DSField> fields, InputStream inputStream) throws DSException {
 	assert(fields != null);
 	assert(inputStream != null);
 	
 	setFields(fields);
-	//List<String> fieldNames = getFieldNames();
-	//TODO
-	this.resultSet = new XLSXResultSet(inputStream);
+	this.resultSet = new XLSXResultSet(inputStream) {
+	    
+	    @Override
+	    protected void loadFields(List<String> columns) {
+		initFieldsExt(fields, columns);
+	    }
+	};;
     }
 
 }

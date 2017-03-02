@@ -35,14 +35,18 @@ import org.plazmaforge.framework.core.exception.DSException;
  */
 public class XLSDataSet extends AbstractXLSDataSet {
 
-    public XLSDataSet(List<DSField> fields, InputStream inputStream) throws DSException {
+    public XLSDataSet(final List<DSField> fields, InputStream inputStream) throws DSException {
 	assert(fields != null);
 	assert(inputStream != null);
 	
 	setFields(fields);
-	//List<String> fieldNames = getFieldNames();
-	//TODO
-	this.resultSet = new XLSResultSet(inputStream);
+	this.resultSet = new XLSResultSet(inputStream) {
+	    
+	    @Override
+	    protected void loadFields(List<String> columns) {
+		initFieldsExt(fields, columns);
+	    }
+	};
     }
 
 }
