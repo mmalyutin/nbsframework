@@ -39,16 +39,16 @@ public abstract class AbstractXLSDataSet extends AbstractWrappedDataSet implemen
     public Object getValue(String fieldName) throws DSException {
 	int index = getFieldIndex(fieldName);
 	DSField field = getField(fieldName);
-	return getValue(field, index);
+	return getFieldValue(field, index);
     }
     
     @Override
     public Object getValue(int index) throws DSException {
 	DSField field = getField(index);
-	return getValue(field, index);
+	return getFieldValue(field, index);
     }
     
-    protected Object getValue(DSField field, int index) throws DSException {
+    protected Object getFieldValue(DSField field, int index) throws DSException {
 	String type = field.getDataType();
 	String format = getFormat(field);
 	AbstractXLSResultSet rs = getInternalResultSet();
