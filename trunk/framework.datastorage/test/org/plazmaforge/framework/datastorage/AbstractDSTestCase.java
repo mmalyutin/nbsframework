@@ -23,6 +23,9 @@
 package org.plazmaforge.framework.datastorage;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -44,7 +47,14 @@ public abstract class AbstractDSTestCase extends TestCase {
     
     private String resourcesDir; 
     
-    protected void setUp() {
+    
+    private Connection connection;
+    
+    private static TestDB testDB;
+
+    
+    
+    protected void setUp()  throws Exception {
 	if (resourcesDir != null) {
 	    return;
 	}
@@ -93,6 +103,56 @@ public abstract class AbstractDSTestCase extends TestCase {
 
     protected String formatDate(Date date, DateFormat format) {
 	return date == null ? null : format.format(date);
+    }
+
+    ////
+    
+    protected Connection getConnection() throws SQLException {
+	if (connection == null) {
+	    connection = openTestConnection();
+	}
+	return connection;
+    }
+    
+    protected Connection openTestConnection() throws SQLException {
+	try {
+	    Connection connection = getJDBCConnection();
+	    if (!getTestDB().isInit()) {
+		getTestDB().init(connection);
+	    }
+	    return connection;
+	} catch (ClassNotFoundException ex) {
+	    throw new SQLException(ex.getMessage());
+	}
+    }
+    
+    protected Connection getJDBCConnection() throws ClassNotFoundException, SQLException {
+	String driver = "org.hsqldb.jdbcDriver";
+	String url = "jdbc:hsqldb:mem:mydb";
+	String user = "sa";
+	String password = "";
+	Class.forName(driver);
+	Connection connection = DriverManager.getConnection(url, user, password);
+	connection.setAutoCommit(false);
+	return connection;
+    }
+    
+    public void close(Connection connection) {
+	try {
+	    if (connection == null || connection.isClosed()) {
+		return;
+	    }
+	    connection.close();
+	} catch (Exception ex) {
+	    
+	}
+    }
+    
+    private static TestDB getTestDB() {
+	if (testDB == null) {
+	    testDB = new TestDB();
+	}
+	return testDB;
     }
     
 }
