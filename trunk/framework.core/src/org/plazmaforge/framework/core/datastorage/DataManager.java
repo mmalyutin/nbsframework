@@ -352,6 +352,17 @@ public class DataManager {
     }
     
     
+    /**
+     * Parse local connection string:
+     * 
+     * - first element: real connection string (url, file...) 
+     * - second element: list of parameters 
+     * 
+     * @param context
+     * @param connectionString
+     * @return
+     * @throws DSException
+     */
     public static String[] parseLocalConnectionString(String context, String connectionString) throws DSException {
 	
 	connectionString = getCheckConnectionString(context, connectionString);
