@@ -25,6 +25,8 @@
  */
 package org.plazmaforge.framework.datastorage.support.sql;
 
+import java.sql.Connection;
+
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
@@ -42,51 +44,55 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class SQLDataConnectorTest extends AbstractDSTestCase {
 
+    protected void setUp() throws Exception {
+	super.setUp();
+	openTestConnection();
+    }
     
-    public void testCSVResultSet() throws Exception {
+    public void testSQLSession() throws Exception {
 
 	// Data Producer
 	DataProducer producer = new SQLDataProducerFactory().getDataProducer();
 	assertNotNull(producer);
 	
-	// Data Connector
+	// 1. by Data Connector
 	SQLDataConnector dataConnector = new SQLDataConnector();
 	
 	String driver = "org.hsqldb.jdbcDriver";
 	String url = "jdbc:hsqldb:mem:mydb";
+	String username = "sa";
+	String password = "";
+	
 	
 	dataConnector.setDriverClassName(driver);
 	dataConnector.setUrl(url);
+	dataConnector.setUsername(username);
+	dataConnector.setPassword(password);
 	
-	System.out.println("Create SQLDataConnector: url=" + url);
+	System.out.println("Create SQLDataConnector: driver=" + driver + ", url=" + url);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
 	assertNotNull(session);
 	assertTrue(session instanceof SQLSession);
+	
+	SQLSession sqlSession = (SQLSession) session;
+	
+	Connection connection = sqlSession.getConnection();
+	assertNotNull(connection);
 
-	/*
-	// 1. by Session
-	DSResultSet resultSet = producer.openResultSet(session);
-	assertNotNull(resultSet);
-	assertTrue(resultSet instanceof SQLResultSet);
-	SQLResultSet csvResultSet = (SQLResultSet) resultSet;
-	
-	System.out.println("\nOpen SQLResultSet by session: fileName=" + fileName);
-	printSQLResultSet(csvResultSet);
-	
-	session.close();
-	
+
 	// 2. by Connection string
-	String connectionString = fileName;
-	resultSet = producer.openResultSet(connectionString);
-	assertNotNull(resultSet);
-	assertTrue(resultSet instanceof CSVResultSet);
-	csvResultSet = (CSVResultSet) resultSet;
+	String connectionString = "jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+	session = producer.openSession(connectionString);
+	assertNotNull(session);
+	assertTrue(session instanceof SQLSession);
 	
-	System.out.println("\nOpen CSVResultSet by internal connection string: '" + connectionString + "'");
-	printSQLResultSet(csvResultSet);
-	*/
+	sqlSession = (SQLSession) session;
+	
+	connection = sqlSession.getConnection();
+	assertNotNull(connection);
+	
     }
     
     /*
