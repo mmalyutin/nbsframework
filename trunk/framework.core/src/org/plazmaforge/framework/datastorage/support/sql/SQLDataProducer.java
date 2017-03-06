@@ -31,7 +31,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -59,9 +61,6 @@ import org.plazmaforge.framework.core.sql.SQLValueWriter;
 public class SQLDataProducer extends AbstractDataProducer implements DataProducer {
 
 
-    
-    
-    
     @Override
     public DSSession openSession(DSDataConnector dataConnector) throws DSException {
 	if (dataConnector == null) {
@@ -71,31 +70,31 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "DataConnector must be SQLDataConnector");
 	}	
 	SQLDataConnector sqlDataConnector = (SQLDataConnector) dataConnector;
-	String driver = normalize(sqlDataConnector.getDriverClassName());
-	if (driver != null) {
-	    try {
-		Class.forName(driver);   
-	    } catch (ClassNotFoundException ex) {
-		handleContextException(DataManager.CONTEXT_SESSION, ex);
-	    }
-	}
 	
+	String driver = sqlDataConnector.getDriverClassName();
 	String url = sqlDataConnector.getUrl();
 	String username = sqlDataConnector.getUsername();
 	String password = sqlDataConnector.getPassword();
 	
-	return openSession(url, username, password);
+	Map<String, Object> data = new HashMap<String, Object>();
+	data.put(SQLDataConnector.PROPERTY_DRIVER, driver);
+	data.put(SQLDataConnector.PROPERTY_URL, url);
+	data.put(SQLDataConnector.PROPERTY_USERNAME, username);
+	data.put(SQLDataConnector.PROPERTY_PASSWORD, password);
+	
+	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String url = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	try {
-	    return openWrapSession(DriverManager.getConnection(url));
-	} catch (SQLException ex) {
-	    handleContextException(DataManager.CONTEXT_SESSION, ex);
-	}
-	return null;
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String url = values[0];
+	String parametersString = values[1];
+	
+	Map<String, Object>  parameterData = createParameterData(parametersString);
+	parameterData.put(SQLDataConnector.PROPERTY_URL, url);
+	
+	return doOpenSession(parameterData);
     }
 
     @Override
@@ -161,7 +160,47 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	return null;
     }
 
+    // General method
+    protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
+	
+	String driver = (String) data.get(SQLDataConnector.PROPERTY_DRIVER);
+	String url = (String) data.get(SQLDataConnector.PROPERTY_URL);
+	String username = (String) data.get(SQLDataConnector.PROPERTY_USERNAME);
+	String password = (String) data.get(SQLDataConnector.PROPERTY_PASSWORD);
+	
+	if (url == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "URL is null");
+	}
 
+	url = normalize(url);
+	if (url == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "URL is empty");
+	}
+
+	driver = normalize(driver);
+	username = normalize(username);
+	
+	try {
+	    if (driver != null) {
+		Class.forName(driver);
+	    }
+	    Connection connection = null;
+	    if (username != null || password != null) {
+		connection = DriverManager.getConnection(url, username, password);
+	    } else {
+		connection = DriverManager.getConnection(url);
+	    }
+	    return openWrapSession(connection);
+	} catch (ClassNotFoundException ex) {
+	    handleContextException(DataManager.CONTEXT_SESSION, ex);
+	} catch (SQLException ex) {
+	    handleContextException(DataManager.CONTEXT_SESSION, ex);
+	}
+	
+	return null;
+    }
+
+    
     @Override
     public DSResultSet openResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {

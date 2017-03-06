@@ -34,7 +34,10 @@ import org.plazmaforge.framework.core.datastorage.AbstractDataConnector;
 public class SQLDataConnector extends AbstractDataConnector {
 
     public static final String TYPE = "SQL";
+
     
+    public static final String PROPERTY_URL = "url";
+    public static final String PROPERTY_DRIVER = "driver";    
     
     private String url;
     
