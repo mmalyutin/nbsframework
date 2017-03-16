@@ -63,9 +63,20 @@ public class TestDB {
 			"  PRICE NUMERIC(15, 2)" +
 			")");
 	stm.close();
+	
+	stm = connection.createStatement();
+	stm.executeUpdate("CREATE TABLE TEST (" +
+			"  A INTEGER," +
+			"  B INTEGER," +
+			"  C INTEGER" +
+			")");
+	stm.close();
+	
     }
     
     private void populateTables(Connection connection) throws SQLException {
+	
+	// PRODUCT
 	PreparedStatement pstm = connection.prepareStatement("INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, PRODUCT_GROUP, PRICE) VALUES (?, ?, ?, ?)");
 	for (int i = 101; i <= 200; i++) {
 	    
@@ -76,5 +87,36 @@ public class TestDB {
 	    pstm.execute();
 	}
 	pstm.close();
+	
+	
+	// TEST
+	pstm = connection.prepareStatement("INSERT INTO TEST (A, B, C) VALUES (?, ?, ?)");
+	
+	/*
+	1, 2, 3
+	4, 5, 6
+	7, 8, 9
+	*/
+
+	// Row 1
+	pstm.setInt(1, 1);
+	pstm.setInt(2, 2);
+	pstm.setInt(3, 3);
+	pstm.execute();
+	
+	// Row 2
+	pstm.setInt(1, 4);
+	pstm.setInt(2, 5);
+	pstm.setInt(3, 6);
+	pstm.execute();
+
+	// Row 3
+	pstm.setInt(1, 7);
+	pstm.setInt(2, 8);
+	pstm.setInt(3, 9);
+	pstm.execute();
+	
+	pstm.close();
+
     }
 }
