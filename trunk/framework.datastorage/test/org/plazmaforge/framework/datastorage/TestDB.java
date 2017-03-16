@@ -29,6 +29,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 /**
  * Test Database
@@ -55,6 +56,8 @@ public class TestDB {
     }
     
     private void createTables(Connection connection) throws SQLException {
+	
+	// PRODUCT
 	Statement stm = connection.createStatement();
 	stm.executeUpdate("CREATE TABLE PRODUCT (" +
 			"  PRODUCT_ID INTEGER," +
@@ -64,11 +67,26 @@ public class TestDB {
 			")");
 	stm.close();
 	
+	// TEST
 	stm = connection.createStatement();
 	stm.executeUpdate("CREATE TABLE TEST (" +
 			"  A INTEGER," +
 			"  B INTEGER," +
 			"  C INTEGER" +
+			")");
+	stm.close();
+
+	// TEST_DATA
+	stm = connection.createStatement();
+	stm.executeUpdate("CREATE TABLE TEST_DATA_TYPE (" +
+			"  F_STRING VARCHAR," +
+			"  F_INTEGER INTEGER," +
+			"  F_FLOAT FLOAT," +
+			"  F_DATE DATE," +
+			"  F_TIME TIME," +
+			"  F_DATE_TIME DATETIME," +
+			"  F_DATE_FMT VARCHAR," + // Date in formatted string
+			"  F_TIME_FMT VARCHAR" +  // Time in formatted string
 			")");
 	stm.close();
 	
@@ -114,6 +132,45 @@ public class TestDB {
 	pstm.setInt(1, 7);
 	pstm.setInt(2, 8);
 	pstm.setInt(3, 9);
+	pstm.execute();
+	
+	pstm.close();
+
+	
+	// TEST_DATA
+	pstm = connection.prepareStatement("INSERT INTO TEST_DATA_TYPE (F_STRING, F_INTEGER, F_FLOAT, F_DATE, F_TIME, F_DATE_TIME, F_DATE_FMT, F_TIME_FMT) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+	
+	// Row 1
+	pstm.setString(1, "String 1");
+	pstm.setInt(2, 100);
+	pstm.setFloat(3, 123.45f);
+	pstm.setNull(4,  Types.DATE);
+	pstm.setNull(5,  Types.TIME);
+	pstm.setNull(6,  Types.TIMESTAMP);
+	pstm.setNull(7,  Types.VARCHAR);
+	pstm.setNull(8,  Types.VARCHAR);
+	pstm.execute();
+	
+	// Row 2
+	pstm.setString(1, "String 2");
+	pstm.setInt(2, 200);
+	pstm.setFloat(3, 234.56f);
+	pstm.setNull(4,  Types.DATE);
+	pstm.setNull(5,  Types.TIME);
+	pstm.setNull(6,  Types.TIMESTAMP);
+	pstm.setNull(7,  Types.VARCHAR);
+	pstm.setNull(8,  Types.VARCHAR);
+	pstm.execute();
+
+	// Row 3
+	pstm.setString(1, "String 3");
+	pstm.setInt(2, 300);
+	pstm.setFloat(3, 345.67f);
+	pstm.setNull(4,  Types.DATE);
+	pstm.setNull(5,  Types.TIME);
+	pstm.setNull(6,  Types.TIMESTAMP);
+	pstm.setNull(7,  Types.VARCHAR);
+	pstm.setNull(8,  Types.VARCHAR);
 	pstm.execute();
 	
 	pstm.close();
