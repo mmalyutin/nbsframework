@@ -68,7 +68,6 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
     @Override
     public Object getValue(String fieldName) throws DSException {
-	//TODO: Must optimize
 	int index = getFieldIndex(fieldName);
 	DSField field = getField(fieldName);
 	return getFieldValue(field, index);
@@ -76,7 +75,6 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     
     @Override
     public Object getValue(int index) throws DSException {
-	//TODO: Must optimize
 	DSField field = getField(index);
 	return getFieldValue(field, index);
     }
@@ -84,9 +82,14 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     protected Object getFieldValue(DSField field, int index) throws DSException {
 	String dataType = field.getDataType();
 	int type = SQLEnvironment.getSQLType(dataType);
-	return getValue(((SQLResultSet) resultSet).getNativeResultSet(), index, type);
+	SQLResultSet rs = getInternalResultSet();
+	return getValue(rs.getNativeResultSet(), index + 1, type); // shift index (+1) for java.sql.ResultSet
     }
  
+    protected SQLResultSet getInternalResultSet() {
+	return ((SQLResultSet) resultSet);
+    }
+
     protected Object getValue(ResultSet rs, int index, int type) throws DSException {
 	try {
 	    return getValueReader().getValue(rs, index, type);	    

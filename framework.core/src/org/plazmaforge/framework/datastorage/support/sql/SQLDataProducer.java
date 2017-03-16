@@ -214,7 +214,7 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	SQLSession sqlSession = (SQLSession) session;
 	Connection cn = sqlSession.getConnection();
 	if (cn == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Connection is null");
+	    handleContextException(DataManager.CONTEXT_RESULT_SET, "SQL Connection is null");
 	}
 
 	int parameterCount = parameters == null ? 0 : parameters.length;
@@ -237,20 +237,23 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
     public DSDataSet openDataSet(DSSession session, DSDataSource dataSource) throws DSException {
 	
 	if (session == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
+	    handleContextException(DataManager.CONTEXT_DATA_SET, "Session is null.");
 	}
 	if (!(session instanceof SQLSession)) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session must be SQLSession");
+	    handleContextException(DataManager.CONTEXT_DATA_SET, "Session must be SQLSession");
 	}
 
 	SQLDataSet data = null;
 	SQLSession sqlSession = (SQLSession) session;
 	Connection cn = sqlSession.getConnection();
 	if (cn == null) {
-	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Connection is null");
+	    handleContextException(DataManager.CONTEXT_DATA_SET, "SQL Connection is null");
 	}
 
 	String query = dataSource.getQueryText();
+	if (query == null) {
+	    handleContextException(DataManager.CONTEXT_DATA_SET, "SQL query is null");
+	}
 	List<DSParameter> dsParameters = dataSource.getParameters();
 	
 	List<DSField> dsFields = dataSource.getFields();
@@ -264,7 +267,8 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	int parameterCount = dsParameters == null ? 0 : dsParameters.size();
 	String sql = compileQuery(query, parameterCount);
 	if (sql == null) {
-	    return new SQLDataSet(fields, null);
+	    handleContextException(DataManager.CONTEXT_DATA_SET, "SQL query is empty");
+	    //return new SQLDataSet(fields, null);
 	}
 	
 	// Default value of parameter
