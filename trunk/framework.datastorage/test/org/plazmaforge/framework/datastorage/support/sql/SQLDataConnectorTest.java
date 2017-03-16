@@ -95,32 +95,89 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
 	
     }
     
-    /*
-    public void testCSVDataSet() throws Exception {
+    public void testSQLResultSet() throws Exception {
+
+   	// Data Producer
+   	DataProducer producer = new SQLDataProducerFactory().getDataProducer();
+   	assertNotNull(producer);
+   	
+   	// Data Connector
+	SQLDataConnector dataConnector = new SQLDataConnector();
+	
+	String driver = "org.hsqldb.jdbcDriver";
+	String url = "jdbc:hsqldb:mem:mydb";
+	String username = "sa";
+	String password = "";
+	
+	
+	dataConnector.setDriverClassName(driver);
+	dataConnector.setUrl(url);
+	dataConnector.setUsername(username);
+	dataConnector.setPassword(password);
+	
+	System.out.println("Create SQLDataConnector: driver=" + driver + ", url=" + url);
+
+   	// Session
+   	DSSession session = producer.openSession(dataConnector);
+   	assertNotNull(session);
+   	assertTrue(session instanceof SQLSession);
+
+   	// 1. by Session
+   	String query = "SELECT * FROM TEST";
+   	DSResultSet resultSet = producer.openResultSet(session, query);
+   	assertNotNull(resultSet);
+   	assertTrue(resultSet instanceof SQLResultSet);
+   	SQLResultSet sqlResultSet = (SQLResultSet) resultSet;
+   	
+   	System.out.println("\nOpen SQLResultSet by session: query=" + query);
+   	printSQLResultSet(sqlResultSet);
+   	
+   	session.close();
+   	
+   	/*
+   	// 2. by Connection string
+   	String connectionString = "jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+   	resultSet = producer.openResultSet(connectionString);
+   	assertNotNull(resultSet);
+   	assertTrue(resultSet instanceof SQLResultSet);
+   	sqlResultSet = (SQLResultSet) resultSet;
+   	
+   	System.out.println("\nOpen SQLResultSet by internal connection string: '" + connectionString + "'");
+   	printSQLResultSet(sqlResultSet);
+   	*/
+    }
+    
+    public void testSQLDataSet() throws Exception {
 
 	// Data Producer
-	DataProducer producer = new CSVDataProducerFactory().getDataProducer();
+	DataProducer producer = new SQLDataProducerFactory().getDataProducer();
 	assertNotNull(producer);
 	
 	// Data Connector
-	CSVDataConnector dataConnector = new CSVDataConnector();
+	SQLDataConnector dataConnector = new SQLDataConnector();
 	
-	String fileName = getResourcesFileName("csv/test.csv");
-	dataConnector.setFileName(fileName);
+	String driver = "org.hsqldb.jdbcDriver";
+	String url = "jdbc:hsqldb:mem:mydb";
+	String username = "sa";
+	String password = "";
 	
-	System.out.println("\nCreate CSVDataConnector: fileName=" + fileName);
+	
+	dataConnector.setDriverClassName(driver);
+	dataConnector.setUrl(url);
+	dataConnector.setUsername(username);
+	dataConnector.setPassword(password);
+	
+	System.out.println("Create SQLDataConnector: driver=" + driver + ", url=" + url);
 
-	// Session
-	DSSession session = producer.openSession(dataConnector);
-	assertNotNull(session);
+   	// Session
+   	DSSession session = producer.openSession(dataConnector);
+   	assertNotNull(session);
+   	assertTrue(session instanceof SQLSession);
 	
-	// 1. By Session
-	dataConnector.setFirstRowHeader(true);
-	session = producer.openSession(dataConnector);
-	assertNotNull(session);
-	
-	DSDataSource dataSource = new DSBaseDataSource();
-	dataSource.setType("csv");
+
+   	DSDataSource dataSource = new DSBaseDataSource();
+	dataSource.setType("sql");
+	dataSource.setQueryText("SELECT * FROM TEST");
 	
 	DSField field = new DSField();
 	field.setName("A");
@@ -141,7 +198,7 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
 	DSDataSet dataSet = producer.openDataSet(session, dataSource);
 	
 	int row = 0;
-   	System.out.println("Load CSV DataSet:");
+   	System.out.println("Load SQL DataSet:");
    	Integer valueA = null;
    	Integer valueB = null;
    	Integer valueC = null;
@@ -168,26 +225,21 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
    	}
 	assertEquals(row, 3);
     }
-    */
     
-    
-    /*
-    public void testCSVDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
+    public void testDataManager() throws Exception {
 	
-	String fileName = getResourcesFileName("csv/test.csv");
-	String connectionString = "csv::" + fileName;
-	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
-	printSQLResultSet(csvResultSet);
+	String connectionString = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+	DSSession session = DataManager.openSession(connectionString);
+	assertNotNull(session);
+	assertTrue(session instanceof SQLSession);
+	
     }
-    */
     
-    private int printSQLResultSet(SQLResultSet csvResultSet) throws DSException {
+    private int printSQLResultSet(SQLResultSet resultSet) throws DSException {
 	int row = 0;
-	System.out.println("Load CSV data:");
-	while (csvResultSet.next()) {
-	    System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
+	System.out.println("Load SQL data:");
+	while (resultSet.next()) {
+	    System.out.println(" Row[" + row + "] : " + resultSet.getValue(0) + ", " + resultSet.getValue(1) + ", " + resultSet.getValue(2));
 	    row++;
 	}
 	return row;
