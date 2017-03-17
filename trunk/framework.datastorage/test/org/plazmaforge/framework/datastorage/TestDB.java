@@ -30,6 +30,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.Date;
+
+import org.plazmaforge.framework.util.DateUtils;
 
 /**
  * Test Database
@@ -144,36 +147,51 @@ public class TestDB {
 	pstm.setString(1, "String 1");
 	pstm.setInt(2, 100);
 	pstm.setFloat(3, 123.45f);
-	pstm.setNull(4,  Types.DATE);
-	pstm.setNull(5,  Types.TIME);
-	pstm.setNull(6,  Types.TIMESTAMP);
-	pstm.setNull(7,  Types.VARCHAR);
-	pstm.setNull(8,  Types.VARCHAR);
+	pstm.setDate(4,  getSQLDate(2001, 1, 11));
+	pstm.setTime(5,  getSQLTime(11, 1, 21));
+	pstm.setTimestamp(6,  getSQLDateTime(2011, 1, 11, 21, 1, 11));
+	pstm.setString(7, "21/Jan/1951");
+	pstm.setString(8, "01:21 AM");
 	pstm.execute();
 	
 	// Row 2
 	pstm.setString(1, "String 2");
 	pstm.setInt(2, 200);
 	pstm.setFloat(3, 234.56f);
-	pstm.setNull(4,  Types.DATE);
-	pstm.setNull(5,  Types.TIME);
-	pstm.setNull(6,  Types.TIMESTAMP);
-	pstm.setNull(7,  Types.VARCHAR);
-	pstm.setNull(8,  Types.VARCHAR);
+	pstm.setDate(4,  getSQLDate(2002, 2, 12));
+	pstm.setTime(5,  getSQLTime(12, 2, 22));
+	pstm.setTimestamp(6,  getSQLDateTime(2012, 2, 12, 22, 2, 12));
+	pstm.setString(7, "22/Feb/1952");
+	pstm.setString(8, "02:22 PM");
 	pstm.execute();
 
 	// Row 3
 	pstm.setString(1, "String 3");
 	pstm.setInt(2, 300);
 	pstm.setFloat(3, 345.67f);
-	pstm.setNull(4,  Types.DATE);
-	pstm.setNull(5,  Types.TIME);
-	pstm.setNull(6,  Types.TIMESTAMP);
-	pstm.setNull(7,  Types.VARCHAR);
-	pstm.setNull(8,  Types.VARCHAR);
+	pstm.setDate(4,  getSQLDate(2003, 3, 13));
+	pstm.setTime(5,  getSQLTime(13, 3, 23));
+	pstm.setTimestamp(6,  getSQLDateTime(2013, 3, 13, 23, 3, 13));
+	pstm.setString(7, "23/Mar/1953");
+	pstm.setString(8, "03:23 AM");
 	pstm.execute();
 	
 	pstm.close();
 
     }
+    
+    
+    protected  java.sql.Date getSQLDate(int year, int month, int day) {
+	return  new java.sql.Date(year - 1900, month - 1, day);
+    }
+
+    protected java.sql.Time getSQLTime(int h, int m, int s) {
+	return new java.sql.Time(h, m, s);
+    }
+
+    protected java.sql.Timestamp getSQLDateTime(int year, int month, int day, int h, int m, int s) {
+	return new java.sql.Timestamp(year - 1900, month - 1, day, h, m, s, 0);
+    }
+
+   
 }
