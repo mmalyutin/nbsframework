@@ -83,7 +83,57 @@ public class SQLEnvironment {
 	Class<?> klass = getClass(sqlType);
 	return klass == null ? null : klass.getName();
     }
+
+    public static boolean isSQLBooleanType(int sqlType) {
+	return sqlType == Types.BIT 
+		|| sqlType == Types.BOOLEAN; 
+    }
     
+    public static boolean isSQLNumberType(int sqlType) {
+	return sqlType == Types.TINYINT 
+		|| sqlType == Types.SMALLINT 
+		|| sqlType == Types.INTEGER 
+		|| sqlType == Types.BIGINT 
+		|| sqlType == Types.NUMERIC 
+		|| sqlType == Types.DECIMAL 
+		|| sqlType == Types.REAL 
+		|| sqlType == Types.FLOAT
+		|| sqlType == Types.DOUBLE;
+    }
+
+    public static boolean isSQLDateType(int sqlType) {
+	return sqlType == Types.DATE 
+		|| sqlType == Types.TIME 
+		|| sqlType == Types.TIMESTAMP; 
+    }
+    
+    public static boolean isSQLStringType(int sqlType) {
+	return sqlType == Types.CHAR 
+		|| sqlType == Types.VARCHAR 
+		|| sqlType == Types.LONGVARCHAR 
+		|| sqlType == Types.NVARCHAR 
+		|| sqlType == Types.ROWID; 
+    }
+    
+    
+    public static boolean isSQLSoftCompatibleType(int fromType, int toType) {
+	if (fromType == toType) {
+	    return true;
+	}
+	if (isSQLBooleanType(fromType) && isSQLBooleanType(toType)) {
+	    return true;
+	}
+	if (isSQLNumberType(fromType) && isSQLNumberType(toType)) {
+	    return true;
+	}
+	if (isSQLDateType(fromType) && isSQLDateType(toType)) {
+	    return true;
+	}
+	if (isSQLStringType(fromType) && isSQLStringType(toType)) {
+	    return true;
+	}
+	return false;
+    }
     
     public static int getSQLType(String className) {
 
