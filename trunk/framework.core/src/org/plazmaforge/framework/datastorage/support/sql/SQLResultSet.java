@@ -52,6 +52,41 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
     
     private boolean bottom;
 
+    
+    private List<SQLColumn> columns;
+    
+    
+    public static class SQLColumn {
+	
+	private int type;
+	
+	private String typeName;
+
+	public SQLColumn(int type, String typeName) {
+	    super();
+	    this.type = type;
+	    this.typeName = typeName;
+	}
+
+	public int getType() {
+	    return type;
+	}
+
+	public void setType(int type) {
+	    this.type = type;
+	}
+
+	public String getTypeName() {
+	    return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+	    this.typeName = typeName;
+	}
+	
+    }
+    
+    
     public SQLResultSet(List<String> fieldNames, ResultSet rs) {
 	super(fieldNames);
 	this.rs = rs;
@@ -80,20 +115,27 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	// Load ResultSetMetaData columns
 	ResultSetMetaData meta = rs.getMetaData();
 	int columnCount = meta.getColumnCount();
-	List<String> columns = new ArrayList<String>();
+	List<String> columnNames = new ArrayList<String>();
+	columns = new ArrayList<SQLColumn>();
 	
-	for (int column = 1; column <= columnCount; column++) {
-	    columns.add(meta.getColumnLabel(column)); // ???
+	SQLColumn column = null;
+	for (int columnNumber = 1; columnNumber <= columnCount; columnNumber++) {
+	    column = new SQLColumn(meta.getColumnType(columnNumber), meta.getColumnTypeName(columnNumber));
+	    columns.add(column);
+	    columnNames.add(meta.getColumnLabel(columnNumber)); // ???
 	}
 	if (fieldNames == null || fieldNames.isEmpty()) {
 	    // If fields is empty then columns are fields
-	    setFieldNames(columns);
+	    setFieldNames(columnNames);
 	}
-	initFields(fieldNames, columns);
+	initFields(fieldNames, columnNames);
     }
     
 
-    
+    public SQLColumn getSQLColumn(int index) {
+	return columns.get(index);
+    }
+
     @Override
     public boolean canScroll() throws DSException {
 	if (isInvalid()) {

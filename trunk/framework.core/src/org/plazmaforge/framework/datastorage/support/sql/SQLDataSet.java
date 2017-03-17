@@ -29,6 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.datastorage.AbstractWrappedDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSField;
@@ -36,6 +37,7 @@ import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.core.sql.SQLBaseValueReader;
 import org.plazmaforge.framework.core.sql.SQLEnvironment;
 import org.plazmaforge.framework.core.sql.SQLValueReader;
+import org.plazmaforge.framework.datastorage.support.sql.SQLResultSet.SQLColumn;
 
 /**
  * @author ohapon
@@ -81,9 +83,43 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     
     protected Object getFieldValue(DSField field, int index) throws DSException {
 	String dataType = field.getDataType();
-	int type = SQLEnvironment.getSQLType(dataType);
+	int toType = SQLEnvironment.getSQLType(dataType);
+	int fromType = toType; 
 	SQLResultSet rs = getInternalResultSet();
-	return getValue(rs.getNativeResultSet(), index + 1, type); // shift index (+1) for java.sql.ResultSet
+	SQLColumn column = rs.getSQLColumn(index);
+	if (column != null) {
+	    fromType = column.getType();
+	}
+	boolean needConvert = false;
+	String sourceType = null;
+	String targetType = null;
+	int type = -1;
+	if (fromType == toType) {
+	    type = toType;
+	} else if (SQLEnvironment.isSQLSoftCompatibleType(fromType, toType)) {
+	    type = toType;
+	    needConvert = true;
+	} else {
+	    type = fromType;
+	    needConvert = true;
+	}
+	
+	if (needConvert) {
+	    sourceType = SQLEnvironment.getClass(fromType).getSimpleName();
+	    targetType = dataType;
+	}
+	
+	Object value = getValue(rs.getNativeResultSet(), index + 1, type); // shift index (+1) for java.sql.ResultSet
+	if (needConvert) {
+	    if (sourceType != null && targetType != null) {
+		
+		Converter converter = getConverter(sourceType, targetType, field.getFormat());
+		Object result = converter == null ? value : converter.convert(value);
+		value = result;
+	    }
+	}
+	
+	return value;
     }
  
     protected SQLResultSet getInternalResultSet() {
