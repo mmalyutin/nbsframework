@@ -27,6 +27,7 @@ package org.plazmaforge.framework.datastorage.support.sql;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
@@ -48,6 +49,9 @@ public class SQLDataTypeTest extends AbstractDSTestCase {
     }       
     
     public void testSQLDataSet() throws Exception {
+
+	// TODO: Temp solution: Use 'locale' attribute to configure locale in DataConnector/DataSet/DataResultSet 
+	Locale.setDefault(Locale.ENGLISH);
 
    	// Data Producer
    	DataProducer producer = new SQLDataProducerFactory().getDataProducer();
@@ -141,7 +145,7 @@ public class SQLDataTypeTest extends AbstractDSTestCase {
    	
    	while (dataSet.next()) {
    	    
-   	    valueString = (String) dataSet.getValue(0);
+   	    valueString = (String) dataSet.getValue("F_STRING");
    	    valueInteger = (Integer) dataSet.getValue("F_INTEGER");
    	    valueFloat = (Float) dataSet.getValue("F_FLOAT");
    	    valueDate = (Date) dataSet.getValue("F_DATE");
@@ -154,29 +158,29 @@ public class SQLDataTypeTest extends AbstractDSTestCase {
    		assertEquals(valueString, "String 1");
    		assertEquals(valueInteger, new Integer(100));
    		assertEquals(valueFloat, new Float(123.45));
-   		//assertEquals(valueDate, getDate(2001, 1, 11));
-   		//assertEquals(valueTime, getTime(11, 1, 21));
-   		//assertEquals(valueDateTime, getDateTime(2011, 1, 11, 21, 1, 11));
-   		//assertEquals(valueDateFmt, getDate(1951, 1, 21));
-   		//assertEquals(valueTimeFmt, getTime(1, 21, 00));
+   		assertEquals(valueDate, getDate(2001, 1, 11));
+   		assertEquals(valueTime, getTime(11, 1, 21));
+   		assertEquals(valueDateTime.getTime(), getDateTime(2011, 1, 11, 21, 1, 11).getTime());
+   		assertEquals(valueDateFmt, getDate(1951, 1, 21));
+   		assertEquals(valueTimeFmt, getTime(1, 21, 00));
    	    } else if (row == 1) {
    		assertEquals(valueString, "String 2");
    		assertEquals(valueInteger, new Integer(200));
    		assertEquals(valueFloat, new Float(234.56));
-   		//assertEquals(valueDate, getDate(2002, 2, 12));
-   		//assertEquals(valueTime, getTime(12, 2, 22));
-   		//assertEquals(valueDateTime, getDateTime(2012, 2, 12, 22, 2, 12));
-   		//assertEquals(valueDateFmt, getDate(1952, 2, 22));
-   		//assertEquals(valueTimeFmt, getTime(14, 22, 00));
+   		assertEquals(valueDate, getDate(2002, 2, 12));
+   		assertEquals(valueTime, getTime(12, 2, 22));
+   		assertEquals(valueDateTime.getTime(), getDateTime(2012, 2, 12, 22, 2, 12).getTime());
+   		assertEquals(valueDateFmt, getDate(1952, 2, 22));
+   		assertEquals(valueTimeFmt, getTime(14, 22, 00));
    	    } else if (row == 2) {
    		assertEquals(valueString, "String 3");
    		assertEquals(valueInteger, new Integer(300));
    		assertEquals(valueFloat, new Float(345.67));
-   		//assertEquals(valueDate, getDate(2003, 3, 13));
-   		//assertEquals(valueTime, getTime(13, 3, 23));
-   		//assertEquals(valueDateTime, getDateTime(2013, 3, 13, 23, 3, 13));
-   		//assertEquals(valueDateFmt, getDate(1953, 3, 23));
-   		//assertEquals(valueTimeFmt, getTime(3, 23, 00));
+   		assertEquals(valueDate, getDate(2003, 3, 13));
+   		assertEquals(valueTime, getTime(13, 3, 23));
+   		assertEquals(valueDateTime.getTime(), getDateTime(2013, 3, 13, 23, 3, 13).getTime());
+   		assertEquals(valueDateFmt, getDate(1953, 3, 23));
+   		assertEquals(valueTimeFmt, getTime(3, 23, 00));
    	    }
 
    	    System.out.println(" Row[" + row + "] : " 
