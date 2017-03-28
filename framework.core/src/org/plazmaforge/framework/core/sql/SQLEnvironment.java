@@ -24,17 +24,118 @@ package org.plazmaforge.framework.core.sql;
 
 import java.math.BigDecimal;
 import java.sql.Types;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
  * @author ohapon
  *
  */
+
+
+// http://docs.oracle.com/javase/1.5.0/docs/guide/jdbc/getstart/mapping.html
+// http://www.hsqldb.org/doc/guide/ch09.html#datatypes-section
+
 public class SQLEnvironment {
 
+    
+    private static Map<Integer, Class<?>> TYPE_TO_CLASS;
+    private static Map<String, Integer> CLASS_NAME_TO_TYPE;
+    
+    static {
+	registerTypeToClass();
+	registerClassNameToType();
+    }
+    
+    private static void registerTypeToClass() {
+	
+	// Create Map: (SQL type -> Java Class)
+	TYPE_TO_CLASS = new HashMap<Integer, Class<?>>();
+	
+	// Boolean
+	TYPE_TO_CLASS.put(Types.BIT, Boolean.class);
+	TYPE_TO_CLASS.put(Types.BOOLEAN, Boolean.class);
+	
+	// Number: Integer
+	TYPE_TO_CLASS.put(Types.TINYINT, Byte.class);			// Integer-8
+	TYPE_TO_CLASS.put(Types.SMALLINT, Short.class);			// Integer-16
+	TYPE_TO_CLASS.put(Types.INTEGER, Integer.class);		// Integer-32
+	TYPE_TO_CLASS.put(Types.BIGINT, Long.class);			// Integer-64
+	
+	// Number: Float
+	TYPE_TO_CLASS.put(Types.REAL, Float.class);			// Float-32
+	TYPE_TO_CLASS.put(Types.FLOAT, Float.class);			// Float-32
+	TYPE_TO_CLASS.put(Types.DOUBLE, Double.class);			// Float-64
+	
+	// Number: Decimal
+	TYPE_TO_CLASS.put(Types.NUMERIC, BigDecimal.class);
+	TYPE_TO_CLASS.put(Types.DECIMAL, BigDecimal.class);
+
+	// Date
+	TYPE_TO_CLASS.put(Types.DATE, java.sql.Date.class);		// Date
+	TYPE_TO_CLASS.put(Types.TIME, java.sql.Time.class);		// Time
+	TYPE_TO_CLASS.put(Types.DATE, java.sql.Timestamp.class);	// DateTime
+	
+	// String
+	TYPE_TO_CLASS.put(Types.CHAR, String.class);
+	TYPE_TO_CLASS.put(Types.VARCHAR, String.class);
+	TYPE_TO_CLASS.put(Types.LONGVARCHAR, String.class);
+	TYPE_TO_CLASS.put(Types.NVARCHAR, String.class);
+	TYPE_TO_CLASS.put(Types.ROWID, String.class);
+	
+    }
+    
+    private static void registerClassNameToType() {
+	
+	// Create Map: (Java Class Name -> SQL type)
+	CLASS_NAME_TO_TYPE = new HashMap<String, Integer>();
+	
+	// Boolean
+	CLASS_NAME_TO_TYPE.put("java.lang.Boolean", Types.BIT);
+	CLASS_NAME_TO_TYPE.put("Boolean", Types.BIT);
+	
+	// Number: Integer
+	CLASS_NAME_TO_TYPE.put("java.lang.Byte", Types.TINYINT);	// Integer-8
+	CLASS_NAME_TO_TYPE.put("Byte", Types.TINYINT);
+	CLASS_NAME_TO_TYPE.put("java.lang.Short", Types.SMALLINT);	// Integer-16
+	CLASS_NAME_TO_TYPE.put("Short", Types.SMALLINT);
+	CLASS_NAME_TO_TYPE.put("java.lang.Integer", Types.INTEGER);	// Integer-32
+	CLASS_NAME_TO_TYPE.put("Integer", Types.INTEGER);
+	CLASS_NAME_TO_TYPE.put("java.lang.Long", Types.BIGINT);		// Integer-64
+	CLASS_NAME_TO_TYPE.put("Long", Types.BIGINT);
+
+	// Number: Float
+	CLASS_NAME_TO_TYPE.put("java.lang.Float", Types.FLOAT);		// Float-32
+	CLASS_NAME_TO_TYPE.put("Float", Types.FLOAT);
+	CLASS_NAME_TO_TYPE.put("java.lang.Double", Types.DOUBLE);	// Float-64
+	CLASS_NAME_TO_TYPE.put("Double", Types.DOUBLE);
+
+	// Number: Decimal
+	CLASS_NAME_TO_TYPE.put("java.math.BigDecimal", Types.DECIMAL);
+	CLASS_NAME_TO_TYPE.put("BigDecimal", Types.DECIMAL);
+
+	// Date
+	CLASS_NAME_TO_TYPE.put("java.util.Date", Types.DATE);		// Date
+	CLASS_NAME_TO_TYPE.put("java.sql.Date", Types.DATE);	
+	CLASS_NAME_TO_TYPE.put("Date", Types.DATE);
+	CLASS_NAME_TO_TYPE.put("java.sql.Time", Types.TIME);		// Time
+	CLASS_NAME_TO_TYPE.put("Time", Types.TIME);
+	CLASS_NAME_TO_TYPE.put("java.sql.Timestamp", Types.TIMESTAMP);	// DateTime
+	CLASS_NAME_TO_TYPE.put("Timestamp", Types.TIMESTAMP);
+
+	// String
+	CLASS_NAME_TO_TYPE.put("java.lang.String", Types.VARCHAR);	// String
+	CLASS_NAME_TO_TYPE.put("String", Types.VARCHAR);
+	
+    }
+    
     public static Class<?> getClass(int sqlType) {
 
+	Class<?> klass = TYPE_TO_CLASS.get(sqlType);
+	return klass == null ? Object.class : klass; 
+	
+	/*
 	switch (sqlType) {
 	
 	case Types.BIT:
@@ -77,6 +178,7 @@ public class SQLEnvironment {
 	default:
 	    return Object.class;
 	}
+	*/
     }
     
     public static String getClassName(int sqlType) {
@@ -136,7 +238,10 @@ public class SQLEnvironment {
     }
     
     public static int getSQLType(String className) {
-
+	Integer sqlType = className == null ? null : CLASS_NAME_TO_TYPE.get(className);
+	return sqlType == null ? Types.OTHER : sqlType;
+	
+	/*
 	if (className == null) {
 	    return Types.OTHER; // TODO
 	}
@@ -180,6 +285,8 @@ public class SQLEnvironment {
     	}
 	
 	return Types.OTHER; // TODO
+	*/
+	
     }
     
     
