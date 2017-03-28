@@ -75,7 +75,7 @@ public class SQLEnvironment {
 	// Date
 	TYPE_TO_CLASS.put(Types.DATE, java.sql.Date.class);		// Date
 	TYPE_TO_CLASS.put(Types.TIME, java.sql.Time.class);		// Time
-	TYPE_TO_CLASS.put(Types.DATE, java.sql.Timestamp.class);	// DateTime
+	TYPE_TO_CLASS.put(Types.TIMESTAMP, java.sql.Timestamp.class);	// DateTime
 	
 	// String
 	TYPE_TO_CLASS.put(Types.CHAR, String.class);
@@ -123,6 +123,7 @@ public class SQLEnvironment {
 	CLASS_NAME_TO_TYPE.put("Time", Types.TIME);
 	CLASS_NAME_TO_TYPE.put("java.sql.Timestamp", Types.TIMESTAMP);	// DateTime
 	CLASS_NAME_TO_TYPE.put("Timestamp", Types.TIMESTAMP);
+	CLASS_NAME_TO_TYPE.put("DateTime", Types.TIMESTAMP);
 
 	// String
 	CLASS_NAME_TO_TYPE.put("java.lang.String", Types.VARCHAR);	// String
