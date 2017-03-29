@@ -65,7 +65,7 @@ public class GenericConverterManager extends ConverterManager {
     }
     
     public static String getConverterSimpleName(Class<?> sourceType, Class<?> targetType) {
-	return getConverterSimpleName(sourceType == null ? null : sourceType.getSimpleName(), targetType == null ? null : targetType.getSimpleName());
+	return getConverterSimpleName(getSimpleName(sourceType), getSimpleName(targetType));
     }
 
     

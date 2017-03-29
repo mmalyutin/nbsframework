@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.converter.Converter;
+import org.plazmaforge.framework.core.data.converter.ConverterManager;
 import org.plazmaforge.framework.core.datastorage.AbstractWrappedDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSField;
@@ -82,10 +83,18 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
     }
     
     protected Object getFieldValue(DSField field, int index) throws DSException {
+	
+	// Get field data type
 	String dataType = field.getDataType();
+	
+	// Get SQL type by field data type
 	int toType = SQLEnvironment.getSQLType(dataType);
 	int fromType = toType; 
+	
+	
 	SQLResultSet rs = getInternalResultSet();
+	
+	// Get real SQL type by column of 'ResultSet'
 	SQLColumn column = rs.getSQLColumn(index);
 	if (column != null) {
 	    fromType = column.getType();
@@ -94,6 +103,9 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	String sourceType = null;
 	String targetType = null;
 	int type = -1;
+	
+	// Analize compatible types (fromType, toType)
+	// Find SQL type for 'get' methods of 'ResultSet'
 	if (fromType == toType) {
 	    type = toType;
 	} else if (SQLEnvironment.isSQLSoftCompatibleType(fromType, toType)) {
@@ -105,8 +117,11 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	}
 	
 	if (needConvert) {
-	    sourceType = SQLEnvironment.getClass(fromType).getSimpleName();
-	    targetType = dataType;
+	    Class<?> fromClass = SQLEnvironment.getClass(fromType);
+	    if (fromClass != null) {
+		sourceType = ConverterManager.getSimpleName(fromClass);
+		targetType = dataType;
+	    }
 	}
 	
 	Object value = getValue(rs.getNativeResultSet(), index + 1, type); // shift index (+1) for java.sql.ResultSet
