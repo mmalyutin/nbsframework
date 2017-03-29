@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.core.data.converter;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ import org.plazmaforge.framework.util.StringUtils;
 public class ConverterManager {
 
 
+    private static Map<String, String> classSimpleNameMap = new HashMap<String, String>();
     
     private Map<String, ConverterFactory<?, ?>> converterFactories = new LinkedHashMap<String, ConverterFactory<?, ?>>();
     
@@ -51,6 +53,14 @@ public class ConverterManager {
 
     
     private final boolean cacheMode;
+
+    static {
+	classSimpleNameMap = new HashMap<String, String>();
+	
+	classSimpleNameMap.put("java.sql.Date", "SQLDate");
+	classSimpleNameMap.put("java.sql.Time", "SQLTime");
+	classSimpleNameMap.put("java.sql.Timestamp", "SQLTimestamp");
+    }
     
     public ConverterManager() {
 	this(false);
@@ -174,5 +184,17 @@ public class ConverterManager {
 	}
 	return sourceType + "2" + targetType + "Converter";
     }
+    
+    public static String getSimpleName(Class<?> type) {
+	if (type == null) {
+	    return null;
+	}
+	String simpleName = classSimpleNameMap.get(type.getName());
+	if (simpleName != null) {
+	    return simpleName;
+	}
+	return type.getSimpleName();
+    }
+
     
 }
