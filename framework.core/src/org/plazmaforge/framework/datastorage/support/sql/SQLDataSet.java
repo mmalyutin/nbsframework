@@ -48,13 +48,20 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 
     private SQLValueReader valueReader; 
     
-    public SQLDataSet(List<DSField> fields, ResultSet rs) {
+    public SQLDataSet(final List<DSField> fields, final ResultSet rs) {
 	assert(fields != null);
 	assert(rs != null);
 	
 	setFields(fields);
 	List<String> fieldNames = getFieldNames();
-	this.resultSet = new SQLResultSet(fieldNames, rs);
+	this.resultSet = new SQLResultSet(fieldNames, rs) {
+	    
+	    @Override
+	    protected void loadFields(List<String> fieldNames, ResultSet rs) throws SQLException {
+		loadFieldsExt(fields, rs);
+	    }
+	    
+	};
 	
     }
 
@@ -91,8 +98,9 @@ public class SQLDataSet extends AbstractWrappedDataSet implements DSDataSet {
 	int toType = SQLEnvironment.getSQLType(dataType);
 	int fromType = toType; 
 	
-	
 	SQLResultSet rs = getInternalResultSet();
+	
+	index = rs.getInternalIndex(index); // convert index : [external] to [internal]
 	
 	// Get real SQL type by column of 'ResultSet'
 	SQLColumn column = rs.getSQLColumn(index);

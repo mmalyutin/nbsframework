@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.AbstractResultSet;
+import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSIndexableResultSet;
 import org.plazmaforge.framework.core.datastorage.DSScrollableResultSet;
 import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
@@ -98,6 +99,7 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	}
     }
 
+
     public SQLResultSet(ResultSet rs) {
 	this(null, rs);
     }
@@ -124,11 +126,34 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	    columns.add(column);
 	    columnNames.add(meta.getColumnLabel(columnNumber)); // ???
 	}
-	if (fieldNames == null || fieldNames.isEmpty()) {
+	
+	//if (fieldNames == null || fieldNames.isEmpty()) {
 	    // If fields is empty then columns are fields
-	    setFieldNames(columnNames);
-	}
+	    //setFieldNames(columnNames);
+	//}
 	initFields(fieldNames, columnNames);
+    }
+
+    protected void loadFieldsExt(List<DSField> fields, ResultSet rs) throws SQLException {
+
+	// Load ResultSetMetaData columns
+	ResultSetMetaData meta = rs.getMetaData();
+	int columnCount = meta.getColumnCount();
+	List<String> columnNames = new ArrayList<String>();
+	columns = new ArrayList<SQLColumn>();
+	
+	SQLColumn column = null;
+	for (int columnNumber = 1; columnNumber <= columnCount; columnNumber++) {
+	    column = new SQLColumn(meta.getColumnType(columnNumber), meta.getColumnTypeName(columnNumber));
+	    columns.add(column);
+	    columnNames.add(meta.getColumnLabel(columnNumber)); // ???
+	}
+	
+	//if (fieldNames == null || fieldNames.isEmpty()) {
+	    // If fields is empty then columns are fields
+	    //setFieldNames(columnNames);
+	//}
+	initFieldsExt(fields, columnNames);
     }
     
 
