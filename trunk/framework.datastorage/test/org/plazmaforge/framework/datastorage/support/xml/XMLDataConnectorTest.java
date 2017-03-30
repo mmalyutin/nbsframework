@@ -42,6 +42,16 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class XMLDataConnectorTest extends AbstractDSTestCase {
 
+    public void testDataManager() throws Exception {
+	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
+	
+	String fileName = getResourcesFileName("xml/test.xml");
+	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
+	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
+	printXMLResultSet(xmlResultSet);
+    }
+
     public void testXMLResultSet() throws Exception {
 
 	// Data Producer
@@ -157,17 +167,6 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
    	    row++;
    	}
 	assertEquals(row, 3);
-    }
-    
-    
-    public void testDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
-	
-	String fileName = getResourcesFileName("xml/test.xml");
-	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
-	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
-	printXMLResultSet(xmlResultSet);
     }
     
     private int printXMLResultSet(XMLResultSet csvResultSet) throws DSException {

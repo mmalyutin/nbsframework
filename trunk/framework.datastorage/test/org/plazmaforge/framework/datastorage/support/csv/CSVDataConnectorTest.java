@@ -42,6 +42,16 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class CSVDataConnectorTest extends AbstractDSTestCase {
 
+
+    public void testDataManager() throws Exception {
+	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
+	
+	String fileName = getResourcesFileName("csv/test.csv");
+	String connectionString = "csv::" + fileName;
+	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
+	printCSVResultSet(csvResultSet);
+    }
     
     public void testCSVResultSet() throws Exception {
 
@@ -156,17 +166,6 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
    	    row++;
    	}
 	assertEquals(row, 3);
-    }
-    
-    
-    public void testCSVDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
-	
-	String fileName = getResourcesFileName("csv/test.csv");
-	String connectionString = "csv::" + fileName;
-	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
-	printCSVResultSet(csvResultSet);
     }
     
     private int printCSVResultSet(CSVResultSet csvResultSet) throws DSException {

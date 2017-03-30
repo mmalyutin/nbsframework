@@ -42,6 +42,15 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class XLSXDataConnectorTest extends AbstractDSTestCase {
 
+    public void testDataManager() throws Exception {
+	DataManager.registerDataProducerFactory(XLSXDataConnector.TYPE, new XLSXDataProducerFactory());
+	
+	String fileName = getResourcesFileName("xlsx/test.xlsx");
+	String connectionString = "xlsx::" + fileName;
+	XLSXResultSet xlsResultSet = (XLSXResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen XLSXResultSet by general connection string: '" + connectionString + "'");
+	printXLSResultSet(xlsResultSet);
+    }
     
     public void testXLSXResultSet() throws Exception {
 
@@ -156,17 +165,6 @@ public class XLSXDataConnectorTest extends AbstractDSTestCase {
    	    row++;
    	}
 	assertEquals(row, 3);
-    }
-    
-    
-    public void testXLSDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(XLSXDataConnector.TYPE, new XLSXDataProducerFactory());
-	
-	String fileName = getResourcesFileName("xlsx/test.xlsx");
-	String connectionString = "xlsx::" + fileName;
-	XLSXResultSet xlsResultSet = (XLSXResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen XLSXResultSet by general connection string: '" + connectionString + "'");
-	printXLSResultSet(xlsResultSet);
     }
     
     private int printXLSResultSet(XLSXResultSet xlsResultSet) throws DSException {
