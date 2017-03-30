@@ -42,6 +42,17 @@ import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
  */
 public class JSONDataConnectorTest extends AbstractDSTestCase {
 
+    
+    public void testDataManager() throws Exception {
+	DataManager.registerDataProducerFactory(JSONDataConnector.TYPE, new JSONDataProducerFactory());
+	
+	String fileName = getResourcesFileName("json/test.json");
+	String connectionString = "json::" + fileName + "->(query=data-set.records)";
+	JSONResultSet jsonResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
+	System.out.println("\nOpen JSONResultSet by general connection string: '" + connectionString + "'");
+	printJSONResultSet(jsonResultSet);
+    }
+
     public void testJSONResultSet() throws Exception {
 
 	// Data Producer
@@ -158,18 +169,6 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
    	}
 	assertEquals(row, 3);
     }
-    
-
-    public void testDataManager() throws Exception {
-	DataManager.registerDataProducerFactory(JSONDataConnector.TYPE, new JSONDataProducerFactory());
-	
-	String fileName = getResourcesFileName("json/test.json");
-	String connectionString = "json::" + fileName + "->(query=data-set.records)";
-	JSONResultSet jsonResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen JSONResultSet by general connection string: '" + connectionString + "'");
-	printJSONResultSet(jsonResultSet);
-    }
-    
     
     private int printJSONResultSet(JSONResultSet jsonResultSet) throws DSException {
 	int row = 0;

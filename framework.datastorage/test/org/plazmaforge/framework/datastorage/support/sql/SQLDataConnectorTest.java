@@ -48,6 +48,15 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
 	super.setUp();
 	openTestConnection();
     }
+
+    public void testDataManager() throws Exception {
+	
+	String connectionString = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+	DSSession session = DataManager.openSession(connectionString);
+	assertNotNull(session);
+	assertTrue(session instanceof SQLSession);
+	
+    }
     
     public void testSQLSession() throws Exception {
 
@@ -224,15 +233,6 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
    	    row++;
    	}
 	assertEquals(row, 3);
-    }
-    
-    public void testDataManager() throws Exception {
-	
-	String connectionString = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
-	DSSession session = DataManager.openSession(connectionString);
-	assertNotNull(session);
-	assertTrue(session instanceof SQLSession);
-	
     }
     
     private int printSQLResultSet(SQLResultSet resultSet) throws DSException {
