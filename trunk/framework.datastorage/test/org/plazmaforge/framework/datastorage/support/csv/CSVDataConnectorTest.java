@@ -168,11 +168,11 @@ public class CSVDataConnectorTest extends AbstractDSTestCase {
 	assertEquals(row, 3);
     }
     
-    private int printCSVResultSet(CSVResultSet csvResultSet) throws DSException {
+    private int printCSVResultSet(CSVResultSet resultSet) throws DSException {
 	int row = 0;
 	System.out.println("Load CSV data:");
-	while (csvResultSet.next()) {
-	    System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
+	while (resultSet.next()) {
+	    System.out.println(" Row[" + row + "] : " + resultSet.getValue(0) + ", " + resultSet.getValue(1) + ", " + resultSet.getValue(2));
 	    row++;
 	}
 	return row;
