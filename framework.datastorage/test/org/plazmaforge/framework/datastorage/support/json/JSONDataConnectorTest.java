@@ -50,7 +50,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	String connectionString = "json::" + fileName + "->(query=data-set.records)";
 	JSONResultSet jsonResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen JSONResultSet by general connection string: '" + connectionString + "'");
-	printJSONResultSet(jsonResultSet);
+	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
     }
 
     public void testJSONResultSet() throws Exception {
@@ -79,7 +79,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	JSONResultSet jsonResultSet = (JSONResultSet) resultSet;
 	
 	System.out.println("\nOpen JSONResultSet by session: fileName=" + fileName);
-	printJSONResultSet(jsonResultSet);
+	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
 	
 	session.close();
 	
@@ -92,7 +92,7 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 
 	
 	System.out.println("\nOpen JSONResultSet by internal connection string: '" + connectionString + "'");
-	printJSONResultSet(jsonResultSet);
+	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
 	
     }
     
@@ -170,12 +170,11 @@ public class JSONDataConnectorTest extends AbstractDSTestCase {
 	assertEquals(row, 3);
     }
     
-    private int printJSONResultSet(JSONResultSet jsonResultSet) throws DSException {
+    private int printJSONResultSet(JSONResultSet resultSet, String[] fields) throws DSException {
 	int row = 0;
 	System.out.println("Load JSON data:");
-	while (jsonResultSet.next()) {
-	    //System.out.println(" Row[" + row + "] : " + jsonResultSet.getValue("A")); // + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
-	    System.out.println(" Row[" + row + "] : ");
+	while (resultSet.next()) {
+	    System.out.println(" Row[" + row + "] : " + resultSet.getValue(fields[0])  + ", " + resultSet.getValue(fields[1]) + ", " + resultSet.getValue(fields[2]));
 	    row++;
 	}
 	return row;

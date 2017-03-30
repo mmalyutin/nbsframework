@@ -170,11 +170,11 @@ public class XLSDataConnectorTest extends AbstractDSTestCase {
     
     
     
-    private int printXLSResultSet(XLSResultSet xlsResultSet) throws DSException {
+    private int printXLSResultSet(XLSResultSet resultSet) throws DSException {
 	int row = 0;
 	System.out.println("Load XLS data:");
-	while (xlsResultSet.next()) {
-	    System.out.println(" Row[" + row + "] : " + xlsResultSet.getValue(0) + ", " + xlsResultSet.getValue(1) + ", " + xlsResultSet.getValue(2));
+	while (resultSet.next()) {
+	    System.out.println(" Row[" + row + "] : " + resultSet.getValue(0) + ", " + resultSet.getValue(1) + ", " + resultSet.getValue(2));
 	    row++;
 	}
 	return row;

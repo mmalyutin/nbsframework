@@ -167,11 +167,11 @@ public class XLSXDataConnectorTest extends AbstractDSTestCase {
 	assertEquals(row, 3);
     }
     
-    private int printXLSResultSet(XLSXResultSet xlsResultSet) throws DSException {
+    private int printXLSResultSet(XLSXResultSet resultSet) throws DSException {
 	int row = 0;
 	System.out.println("Load XLSX data:");
-	while (xlsResultSet.next()) {
-	    System.out.println(" Row[" + row + "] : " + xlsResultSet.getValue(0) + ", " + xlsResultSet.getValue(1) + ", " + xlsResultSet.getValue(2));
+	while (resultSet.next()) {
+	    System.out.println(" Row[" + row + "] : " + resultSet.getValue(0) + ", " + resultSet.getValue(1) + ", " + resultSet.getValue(2));
 	    row++;
 	}
 	return row;

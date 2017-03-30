@@ -49,7 +49,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
 	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
-	printXMLResultSet(xmlResultSet);
+	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
     }
 
     public void testXMLResultSet() throws Exception {
@@ -78,7 +78,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	XMLResultSet xmlResultSet = (XMLResultSet) resultSet;
 	
 	System.out.println("\nOpen XMLResultSet by session: fileName=" + fileName);
-	printXMLResultSet(xmlResultSet);
+	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
 	
 	session.close();
 	
@@ -91,7 +91,7 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 
 	
 	System.out.println("\nOpen XMLResultSet by internal connection string: '" + connectionString + "'");
-	printXMLResultSet(xmlResultSet);
+	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
 	
     }
     
@@ -169,12 +169,11 @@ public class XMLDataConnectorTest extends AbstractDSTestCase {
 	assertEquals(row, 3);
     }
     
-    private int printXMLResultSet(XMLResultSet csvResultSet) throws DSException {
+    private int printXMLResultSet(XMLResultSet resultSet, String[] fields) throws DSException {
 	int row = 0;
 	System.out.println("Load XML data:");
-	while (csvResultSet.next()) {
-	    //System.out.println(" Row[" + row + "] : " + csvResultSet.getValue(0) + ", " + csvResultSet.getValue(1) + ", " + csvResultSet.getValue(2));
-	    System.out.println(" Row[" + row + "] : ");
+	while (resultSet.next()) {
+	    System.out.println(" Row[" + row + "] : " + resultSet.getValue(fields[0]) + ", " + resultSet.getValue(fields[1]) + ", " + resultSet.getValue(fields[2]));
 	    row++;
 	}
 	return row;
