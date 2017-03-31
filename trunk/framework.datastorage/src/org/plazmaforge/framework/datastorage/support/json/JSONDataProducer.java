@@ -174,7 +174,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String fileName = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
 	String encoding = (String) parameterData.get(JSONDataConnector.PROPERTY_ENCODING);
 	try {
 	    Reader reader = createReader(fileName, encoding);
