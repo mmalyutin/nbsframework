@@ -394,20 +394,30 @@ public class DataManager {
 	return values;
     }
     
-    public static Map<String, Object> createParameterData(String parametersString) throws DSException {
+    public static Map<String, Object> createConnectionParameterData(String parametersString) throws DSException {
 	Map<String, Object> data = new HashMap<String, Object>();
 	if (parametersString == null) {
 	    return data;
 	}
-	populateParameterData(parametersString, data);
+	populateConnectionParameterData(parametersString, data);
 	return data;
     }
     
-    public static void populateParameterData(String parametersString, Map<String, Object> data) throws DSException {
+    public static void populateConnectionParameterData(String parametersString, Map<String, Object> data) throws DSException {
+	populateParameterData(parametersString, data, ",");
+    }
+
+    public static void populateParameterData(String parametersString, Map<String, Object> data, String separator) throws DSException {
 	if (parametersString == null) {
 	    return;
 	}
-	String[] parameterLines = parametersString.split(",");
+	if (data == null) {
+	    throw new DSException("Parameters data is null");
+	}
+	if (separator == null) {
+	    separator = ",";
+	}
+	String[] parameterLines = parametersString.split(separator);
 	for (String parameterLine : parameterLines ) {
 	    parameterLine = normalize(parameterLine);
 	    if (parameterLine == null) {

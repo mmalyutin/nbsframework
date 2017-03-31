@@ -91,7 +91,7 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	String url = values[0];
 	String parametersString = values[1];
 	
-	Map<String, Object>  parameterData = createParameterData(parametersString);
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
 	parameterData.put(SQLDataConnector.PROPERTY_URL, url);
 	
 	return doOpenSession(parameterData);

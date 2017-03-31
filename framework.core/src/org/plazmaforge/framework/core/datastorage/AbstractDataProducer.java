@@ -116,12 +116,12 @@ public abstract class AbstractDataProducer implements DataProducer {
     }
     
     
-    protected Map<String, Object> createParameterData(String parametersString) throws DSException {
-	return DataManager.createParameterData(parametersString);
+    protected Map<String, Object> createConnectionParameterData(String parametersString) throws DSException {
+	return DataManager.createConnectionParameterData(parametersString);
     }
     
-    protected  void populateParameterData(String parametersString, Map<String, Object> data) throws DSException {
-	DataManager.populateParameterData(parametersString, data);
+    protected  void populateConnectionParameterData(String parametersString, Map<String, Object> data) throws DSException {
+	DataManager.populateConnectionParameterData(parametersString, data);
     }
     
     protected void handleContextException(String context, Throwable cause) throws DSException {
