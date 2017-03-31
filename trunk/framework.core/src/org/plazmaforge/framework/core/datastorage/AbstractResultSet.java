@@ -223,10 +223,55 @@ public abstract class AbstractResultSet implements DSResultSet {
 	if (columns == null || path == null) {
 	    return -1;
 	}
-	//TODO
+	Integer number = parseIntegerExpression(path);
+	if (number != null) {
+	    // Decrement because position start with 1 but index start with 0;
+	    number--;
+	    return number;
+	}
 	return columns.indexOf(path);
     }
 
+    
+    protected Integer parseIntegerExpression(String expression) {
+	return parseIntegerExpression(expression, null);
+    }
+
+    protected Integer parseIntegerExpression(String expression, Integer def) {
+	if (expression == null) {
+	    return def;
+	}
+	expression = expression.trim();
+	if (expression.isEmpty()) {
+	    return def;
+	}
+	Integer result = parseInteger(expression);
+	if (result == null) {
+	    if (expression.startsWith("[") && expression.endsWith("]")) {
+		if (expression.length() > 2) {
+		    expression = expression.substring(1, expression.length() - 1);
+		    result = parseInteger(expression); // '[123]': number
+		}
+	    }
+	}
+	if (result == null) {
+	    result = def;
+	}
+	return result;
+    }
+
+    protected Integer parseInteger(String str) {
+	if (str == null) {
+	    return null;
+	}
+	try {
+	    return Integer.parseInt(str);
+	} catch (NumberFormatException e) {
+	    // Ignore
+	}
+	return null;
+    }
+      
     protected boolean isEmpty(String str) {
 	return StringUtils.isEmpty(str);
     }
