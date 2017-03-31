@@ -44,7 +44,7 @@ import org.plazmaforge.framework.util.StringUtils;
  * 
  * Universal connection string:
  * 
- * [type]::driver=[driver], url=[url], username=[username], password=[password]
+ * [type]::driver=[driver]; url=[url]; username=[username]; password=[password]
  * 
  * @author ohapon
  *
@@ -111,7 +111,7 @@ public class DataManager {
 	return dataProducer.openSession(dataConnector);
     }
     
-    //sql::driver=, url=, username=, password=
+    //sql::driver=; url=; username=; password=
     public static DSSession openSession(String connectionString) throws DSException {
 	String[] values = parseConnectionString(CONTEXT_SESSION, connectionString);
 	String type = values[0];
@@ -404,7 +404,7 @@ public class DataManager {
     }
     
     public static void populateConnectionParameterData(String parametersString, Map<String, Object> data) throws DSException {
-	populateParameterData(parametersString, data, ",");
+	populateParameterData(parametersString, data, ";"); // driver=[driver]; url=[url]; username=[username]; password=[password]
     }
 
     public static void populateParameterData(String parametersString, Map<String, Object> data, String separator) throws DSException {

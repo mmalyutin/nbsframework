@@ -51,7 +51,7 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
 
     public void testDataManager() throws Exception {
 	
-	String connectionString = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+	String connectionString = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver; username=sa)";
 	DSSession session = DataManager.openSession(connectionString);
 	assertNotNull(session);
 	assertTrue(session instanceof SQLSession);
@@ -92,7 +92,7 @@ public class SQLDataConnectorTest extends AbstractDSTestCase {
 
 
 	// 2. by Connection string
-	String connectionString = "jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+	String connectionString = "jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver; username=sa)";
 	session = producer.openSession(connectionString);
 	assertNotNull(session);
 	assertTrue(session instanceof SQLSession);
