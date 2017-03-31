@@ -79,6 +79,7 @@ public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet i
         this.sheetExpression = sheetExpression;
     }
     
+    /*
     protected Integer parseIndex(String str) {
 	return parseIndex(str, null);
     }
@@ -129,6 +130,7 @@ public abstract class AbstractXLSResultSet extends AbstractStreamFileResultSet i
 	}
 	return null;
     }
+    */
     
     @Override
     public Object getValue(String name) throws DSException {

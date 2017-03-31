@@ -136,8 +136,12 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	int sheetIndex = -1;
 	
 	// Step 1: Try parse string as sheet index
-	Integer parseIndex = parseIndex(expression);
+	Integer parseIndex = parseIntegerExpression(expression);
 	if (parseIndex != null) {
+	    
+	    // Decrement because position start with 1 but index start with 0;
+	    parseIndex--;
+	    
 	    sheetIndex = parseIndex;
 	    int startIndex = 0;
 	    int endIndex = workbook.getNumberOfSheets() - 1;
@@ -146,12 +150,14 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	    }
 	}
 	
+	/*
 	try {
 	    
 	    sheetIndex = Integer.parseInt(expression);
 	} catch (NumberFormatException e) {
 	    // Ignore
 	}
+	*/
 	
 	// Step 2: Try use string as sheet name
 	if (sheetIndex < 0) {
