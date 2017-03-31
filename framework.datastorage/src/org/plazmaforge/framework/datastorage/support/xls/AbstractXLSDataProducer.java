@@ -167,7 +167,7 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String fileName = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
 	try {
 	    FileInputStream inputStream = new FileInputStream(fileName);
 	    AbstractXLSResultSet resultSet = createXLSResultSet(inputStream);

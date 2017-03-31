@@ -204,7 +204,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String fileName = values[0];
 	String parametersString = values[1];
 	
-	Map<String, Object>  parameterData = createParameterData(parametersString); 
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
 	String encoding = (String) parameterData.get(CSVDataConnector.PROPERTY_ENCODING);
 	
 	try {
