@@ -30,7 +30,6 @@ import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
-import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.datastorage.DataStorage;
@@ -237,7 +236,8 @@ public class ReportTool {
 		+ "    -report <report file>\n"
 		+ "    -document <document file> optional\n"
 		+ "    -format <export format> optional\n"		
-		+ "    -datastorage <report file> optional\n")		
+		+ "    -datastorage <report file> optional\n"
+		+ "    -dataconnector.<property name> <property value> optional\n")	
 		;
     }
 
