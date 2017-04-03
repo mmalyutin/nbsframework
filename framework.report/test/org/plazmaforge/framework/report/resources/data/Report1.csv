@@ -1,0 +1,8 @@
+PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE
+1000, Product 1000, Group1, 123.45
+2000, Product 2000, Group2, 512.45
+3000, Product 3000, Group2, 230.45
+4000, Product 4000, Group2, 150.45
+5000, Product 5000, Group2, 220.45
+6000, Product 6000, Group2, 355.45
+7000, Product 7000, Group2, 555.45
