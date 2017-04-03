@@ -15,6 +15,14 @@
 		<mkdir dir="${dist.dir}" />
 		<jar destfile="${dist.dir}/plazma-framework-core-${version}.jar" basedir="${classes.dir}" includes="**">
 
+			<exclude name="org/plazmaforge/framework/core/**/*Test.class" />
+			<exclude name="org/plazmaforge/framework/core/**/*TestCase.class" />
+			<exclude name="org/plazmaforge/framework/util/**/*Test.class" />
+			<exclude name="org/plazmaforge/framework/util/**/*TestCase.class" />
+			<exclude name="org/plazmaforge/framework/**/*Test.class" />
+			<exclude name="org/plazmaforge/framework/**/*TestCase.class" />
+			<exclude name="org/plazmaforge/framework/**/TestDB.class" />
+			
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0" />
 				<attribute name="Plazma-Version" value="${version}" />
