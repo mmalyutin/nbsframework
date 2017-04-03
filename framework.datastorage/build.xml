@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-datastorage" default="create-jar">
+
+	<property file="build.properties" />
+
+	<path id="plazma-classpath">
+		<fileset dir="../lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create-jar" description="Create jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/plazma-framework-datastorage-${version}.jar" basedir="${classes.dir}" includes="**">
+
+			<exclude name="org/plazmaforge/framework/datastorage/**/*Test.class" />
+			<exclude name="org/plazmaforge/framework/datastorage/**/*TestCase.class" />
+			<exclude name="org/plazmaforge/framework/**/TestDB.class" />
+			<exclude name="resources/**/*" />
+				
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Plazma-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-framework-datastorage" description="Clean framework datastorage">
+		<delete dir="${framework.datastorage.target.dir}"/>
+    </target>
+
+
+	<target name="create-framework-datastorage" description="Create framework datastorage" depends="clean-framework-datastorage">
+		
+		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${framework.datastorage.target.dir}" />
+		<mkdir dir="${framework.datastorage.target.dir}/dist" />
+		<mkdir dir="${framework.datastorage.target.dir}/lib" />
+		
+		<copy todir="${framework.datastorage.target.dir}">
+			<fileset dir="${framework.datastorage.dir}">
+				<include name="**" />
+				<exclude name=".settings/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${framework.datastorage.target.dir}/dist">
+			<fileset dir="${dist.dir}">
+				<include name="plazma-framework-datastorage-${version}.jar" />
+			</fileset>
+		</copy>
+		
+		<!--
+		<copy todir="${framework.datastorage.target.dir}/lib">
+			<fileset dir="${lib.dir}">
+				<include name="hsqldb.jar" />
+				<include name="jdom_1_0.jar" />
+			</fileset>
+		</copy>
+		-->
+		
+      	<replace file="${framework.datastorage.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+
+	</target>
+
+
+</project>
