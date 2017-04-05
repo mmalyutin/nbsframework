@@ -32,9 +32,9 @@ import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
+import org.plazmaforge.framework.datastorage.AbstractTestCase;
 
-public class XLSXDataPathTest extends AbstractDSTestCase {
+public class XLSXDataPathTest extends AbstractTestCase {
 
     
     public void testXLSXDataSet() throws Exception {

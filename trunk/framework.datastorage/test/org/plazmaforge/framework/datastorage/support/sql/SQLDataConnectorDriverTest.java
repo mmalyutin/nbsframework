@@ -30,13 +30,13 @@ import java.sql.Connection;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
+import org.plazmaforge.framework.datastorage.AbstractTestCase;
 
 /**
  * @author ohapon
  *
  */
-public class SQLDataConnectorDriverTest extends AbstractDSTestCase {
+public class SQLDataConnectorDriverTest extends AbstractTestCase {
 
     
     public void testSQLSession() throws Exception {
@@ -98,7 +98,7 @@ public class SQLDataConnectorDriverTest extends AbstractDSTestCase {
 
 
 	// 2.1  by Connection string: SUCCESS
-	connectionString = "jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver, username=sa)";
+	connectionString = "jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver; username=sa)";
 	session = producer.openSession(connectionString);
 	assertNotNull(session);
 	assertTrue(session instanceof SQLSession);
