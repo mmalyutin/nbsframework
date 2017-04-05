@@ -38,7 +38,7 @@ public class AbstractTestCase extends TestCase  {
 
     public static final String DEFAULT_TEST_DIR = "test.storage";
     
-    public static final String DEFAULT_RESOURCES_DIR = "test/org/plazmaforge/framework/report/resources";
+    public static final String DEFAULT_RESOURCES_DIR = FileUtils.getPath("test", "org", "plazmaforge", "framework", "report", "resources");
     
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
     
@@ -63,11 +63,11 @@ public class AbstractTestCase extends TestCase  {
 	if (resourcesDir != null) {
 	    return;
 	}
-	// Iniitialize base resource directory
+	// Initialize base resource directory
 	String rootDir = new File("").getAbsolutePath();
 	String workspaceDir = FileUtils.getFolderName(rootDir);
-	resourcesDir = rootDir + "/" + DEFAULT_RESOURCES_DIR;
-	testDir = workspaceDir + "/" + DEFAULT_TEST_DIR;
+	resourcesDir = rootDir + File.separator + DEFAULT_RESOURCES_DIR;
+	testDir = workspaceDir + File.separator + DEFAULT_TEST_DIR;
 	FileUtils.createFolder(testDir);
     }
 
@@ -89,14 +89,23 @@ public class AbstractTestCase extends TestCase  {
     }
 
     /**
-     * Return full file name in base resource directory 
+     * Return full file name in resource directory 
      * @param fileName
      * @return
      */
     protected String getResourcesFileName(String fileName) {
-        return (fileName == null  || resourcesDir == null) ? null : (getResourcesDir() + "/" + fileName);
+        return (fileName == null  || resourcesDir == null) ? null : (getResourcesDir() + File.separator + fileName);
     }
 
+    /**
+     * Return full file name in test directory
+     * @param fileName
+     * @return
+     */
+    protected String getTestFileName(String fileName) {
+        return (fileName == null  || testDir == null) ? null : (getTestDir() + File.separator + fileName);
+    }
+    
     protected Date getDate(int year, int month, int day) {
 	return DateUtils.getDate(year, month, day);
     }
