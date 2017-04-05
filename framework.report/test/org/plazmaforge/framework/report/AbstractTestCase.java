@@ -31,12 +31,12 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
-import org.plazmaforge.framework.datastorage.TestDB;
 import org.plazmaforge.framework.util.DateUtils;
+import org.plazmaforge.framework.util.FileUtils;
 
 public class AbstractTestCase extends TestCase  {
 
-    //public static final String DEFAULT_RESOURCES_DIR = "test/resources";
+    public static final String DEFAULT_TEST_DIR = "test.storage";
     
     public static final String DEFAULT_RESOURCES_DIR = "test/org/plazmaforge/framework/report/resources";
     
@@ -48,7 +48,9 @@ public class AbstractTestCase extends TestCase  {
     
     
     
-    private String resourcesDir; 
+    private String resourcesDir;
+    
+    private String testDir; 
     
     
     private Connection connection;
@@ -63,7 +65,10 @@ public class AbstractTestCase extends TestCase  {
 	}
 	// Iniitialize base resource directory
 	String rootDir = new File("").getAbsolutePath();
-	resourcesDir = rootDir + "/" + DEFAULT_RESOURCES_DIR; 
+	String workspaceDir = FileUtils.getFolderName(rootDir);
+	resourcesDir = rootDir + "/" + DEFAULT_RESOURCES_DIR;
+	testDir = workspaceDir + "/" + DEFAULT_TEST_DIR;
+	FileUtils.createFolder(testDir);
     }
 
     /**
@@ -74,6 +79,14 @@ public class AbstractTestCase extends TestCase  {
         return resourcesDir;
     }
     
+
+    /**
+     * Return test output directory
+     * @return
+     */
+    public String getTestDir() {
+        return testDir;
+    }
 
     /**
      * Return full file name in base resource directory 
