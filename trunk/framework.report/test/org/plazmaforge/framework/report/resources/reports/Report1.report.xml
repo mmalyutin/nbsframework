@@ -20,7 +20,7 @@
 		</data-source>
 	</data-sources>
 	<templates>
-		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-line="1">
+		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-line="1" column-line="1">
 			<page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
 				<column width="100" />
@@ -120,7 +120,7 @@
 				
 				<band type="ReportFooter">
 					<rows>
-						<row height="15">
+						<row height="20">
 							<cells>
 								<cell colspan="4" background="gray"><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
 							</cells>
@@ -130,7 +130,7 @@
 
 				<band type="PageFooter" cell-line="none">
 					<rows>
-						<row height="15">
+						<row height="20">
 							<cells>
 								<cell colspan="4" background="gray" horizontal-align="right"><expression>"Page: " + $V{PAGE_NO}</expression></cell>
 							</cells>
