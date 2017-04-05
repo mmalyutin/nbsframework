@@ -34,13 +34,13 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
+import org.plazmaforge.framework.datastorage.AbstractTestCase;
 
 /**
  * @author ohapon
  *
  */
-public class XMLDataConnectorTest extends AbstractDSTestCase {
+public class XMLDataConnectorTest extends AbstractTestCase {
 
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());

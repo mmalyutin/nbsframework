@@ -35,13 +35,13 @@ import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
-import org.plazmaforge.framework.datastorage.AbstractDSTestCase;
+import org.plazmaforge.framework.datastorage.AbstractTestCase;
 
 /**
  * @author ohapon
  *
  */
-public class SQLDataTypeTest extends AbstractDSTestCase {
+public class SQLDataTypeTest extends AbstractTestCase {
 
     protected void setUp() throws Exception {
 	super.setUp();

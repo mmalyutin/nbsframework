@@ -33,9 +33,9 @@ import org.plazmaforge.framework.util.DateUtils;
 
 import junit.framework.TestCase;
 
-public abstract class AbstractDSTestCase extends TestCase {
+public abstract class AbstractTestCase extends TestCase {
 
-    public static final String DEFAULT_RESOURCES_DIR = "test/resources";
+    public static final String DEFAULT_RESOURCES_DIR = "test/org/plazmaforge/framework/datastorage/resources";
     
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
     
