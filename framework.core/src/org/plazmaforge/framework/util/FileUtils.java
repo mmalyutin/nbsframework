@@ -138,6 +138,18 @@ public class FileUtils {
     }
     
     /**
+     * Create new folder
+     * @param name
+     * @return
+     */
+    public static boolean createFolder(String name) {
+	File folder = new File(name);
+	if (folder.exists()) {
+	    return false;
+	}
+	return folder.mkdir();
+    }
+    /**
      * Parse file name and return array:
      * - parent folder
      * - simple file name
