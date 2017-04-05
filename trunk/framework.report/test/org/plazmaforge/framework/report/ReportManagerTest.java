@@ -40,21 +40,21 @@ import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
-import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
 import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentWriter;
-import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 
 /**
  * @author ohapon
  *
  */
-public class ReportManagerTest extends DataTestCase {
+public class ReportManagerTest extends AbstractTestCase {
 
 
-    private static String REPORT_STORAGE = "D:\\Plazma\\test-resources";
-    
-    /*
+    protected void setUp() throws Exception {
+	super.setUp();
+	openTestConnection();
+    }
+
     public void testFillNullReport() throws Exception {
 	System.out.println("Test fill NullReport");
 	ReportManager manager = new ReportManager();
@@ -125,15 +125,15 @@ public class ReportManagerTest extends DataTestCase {
 	Document document = manager.fillReport(report, getConnection());
 	printDocument(document);
     }
-    */
+
 
     public void testFillReportFromFile() throws Exception {
 	
-	String storage = REPORT_STORAGE;
+	String testStorage = getTestDir();
 	
 	String reportFile = "resources/reports/Report1.report.xml";
-	String documentFile = storage + "/Document1.document.xml";
-	String documentFileW = storage + "/Document1w.document.xml";
+	String documentFile = testStorage + "/Document1.document.xml";
+	String documentFileW = testStorage + "/Document1w.document.xml";
 	
    	//System.out.println("Test fill Report form file: '" + reportFile + "'");
 
@@ -172,10 +172,10 @@ public class ReportManagerTest extends DataTestCase {
     
     public void testExportReportFromFile() throws Exception {
 	
-	String storage = REPORT_STORAGE;
+	String testStorage = getTestDir();
 	
 	String reportFile = "resources/reports/Report1.report.xml";
-	String documentName = storage + "/Document1";
+	String documentName = testStorage + "/Document1";
 	String[] exportTypes = new String[] {"xml", "html", "xls", "xlsx", "pdf"};
 	
    	//System.out.println("Test fill Report form file: '" + reportFile + "'");
