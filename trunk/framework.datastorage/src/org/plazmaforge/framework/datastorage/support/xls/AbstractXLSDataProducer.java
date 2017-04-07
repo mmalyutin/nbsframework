@@ -55,13 +55,13 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	checkDataConnector(dataConnector);
 	AbstractXLSDataConnector xlsDataConnector = (AbstractXLSDataConnector) dataConnector;
 	
-	String fileName = xlsDataConnector.getFileName();
+	String file = xlsDataConnector.getFile();
 	Boolean firstRowHeader = xlsDataConnector.isFirstRowHeader();
 	String dateFormat = xlsDataConnector.getDateFormat();
 	String numberFormat = xlsDataConnector.getNumberFormat();
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XLSDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XLSDataConnector.PROPERTY_FILE, file);
 	data.put(XLSDataConnector.PROPERTY_FIRST_ROW_HEADER, firstRowHeader);
 	data.put(XLSDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XLSDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
@@ -71,33 +71,33 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
     
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XLSDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XLSDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
-	if (fileName == null || fileName.isEmpty()) {
-	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
+	if (file == null || file.isEmpty()) {
+	    file = properties.getProperty(DataManager.PROPERTY_URL);
 	}
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XLSDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XLSDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XLSDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XLSDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
@@ -108,10 +108,10 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
 	
-	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
+	String file = properties.getProperty(DataManager.PROPERTY_URL);
 
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XLSDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XLSDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
@@ -131,9 +131,9 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 
     // General method
     protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String fileName = url;
+	String file = url;
 	try {
-	    FileInputStream inputStream = new FileInputStream(fileName);
+	    FileInputStream inputStream = new FileInputStream(file);
 	    return createXLSSession(inputStream);
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -143,13 +143,13 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
     // General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
-	String fileName = (String) data.get(XLSDataConnector.PROPERTY_FILE_NAME);
+	String file = (String) data.get(XLSDataConnector.PROPERTY_FILE);
 	Boolean firstRowHeader = (Boolean) data.get(XLSDataConnector.PROPERTY_FIRST_ROW_HEADER);
 	String dateFormat = (String) data.get(XLSDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XLSDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    FileInputStream inputStream = new FileInputStream(fileName);
+	    FileInputStream inputStream = new FileInputStream(file);
 	    AbstractXLSSession session = createXLSSession(inputStream);
 	    if (firstRowHeader != null) {
 		session.setFirstRowHeader(firstRowHeader);
@@ -165,11 +165,11 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = values[0];
+	String file = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
 	try {
-	    FileInputStream inputStream = new FileInputStream(fileName);
+	    FileInputStream inputStream = new FileInputStream(file);
 	    AbstractXLSResultSet resultSet = createXLSResultSet(inputStream);
 	    // TODO: squery is not implemented
 	    //resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));

@@ -63,14 +63,14 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	}	
 	JSONDataConnector jsonDataConnector = (JSONDataConnector) dataConnector;
 	
-	String fileName = jsonDataConnector.getFileName();
+	String file = jsonDataConnector.getFile();
 	String encoding = jsonDataConnector.getEncoding();	
 	String dateFormat = jsonDataConnector.getDateFormat();
 	String numberFormat = jsonDataConnector.getNumberFormat();
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(JSONDataConnector.PROPERTY_FILE, file);
 	data.put(JSONDataConnector.PROPERTY_ENCODING, encoding);
 	data.put(JSONDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(JSONDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
@@ -83,31 +83,31 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(JSONDataConnector.PROPERTY_FILE, fileName);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
-	if (fileName == null || fileName.isEmpty()) {
-	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
+	if (file == null || file.isEmpty()) {
+	    file = properties.getProperty(DataManager.PROPERTY_URL);
 	}
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(JSONDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(JSONDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
@@ -121,7 +121,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(JSONDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(JSONDataConnector.PROPERTY_FILE, fileName);
 	
 	return doOpenSession(data);
     }
@@ -153,13 +153,13 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     // General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
-	String fileName = (String) data.get(JSONDataConnector.PROPERTY_FILE_NAME);
+	String file = (String) data.get(JSONDataConnector.PROPERTY_FILE);
 	String encoding = (String) data.get(JSONDataConnector.PROPERTY_ENCODING);	
 	String dateFormat = (String) data.get(JSONDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(JSONDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = createReader(fileName, encoding);
+	    Reader reader = createReader(file, encoding);
 	    JSONSession session = new JSONSession(reader);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
@@ -172,12 +172,12 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = values[0];
+	String file = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
 	String encoding = (String) parameterData.get(JSONDataConnector.PROPERTY_ENCODING);
 	try {
-	    Reader reader = createReader(fileName, encoding);
+	    Reader reader = createReader(file, encoding);
 	    JSONResultSet resultSet = new JSONResultSet(reader);
 	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
 	    return resultSet;
