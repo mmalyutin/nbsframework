@@ -45,8 +45,8 @@ public class XMLDataConnectorTest extends AbstractTestCase {
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
 	
-	String fileName = getResourcesFileName("xml/test.xml");
-	String connectionString = "xml::" + fileName + "->(query=/data-set/record)";
+	String file = getResourcesFileName("xml/test.xml");
+	String connectionString = "xml::" + file + "->(query=/data-set/record)";
 	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
 	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
@@ -61,10 +61,10 @@ public class XMLDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	XMLDataConnector dataConnector = new XMLDataConnector();
 	
-	String fileName = getResourcesFileName("xml/test.xml");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("xml/test.xml");
+	dataConnector.setFile(file);
 	
-	System.out.println("Create XMLDataConnector: fileName=" + fileName);
+	System.out.println("Create XMLDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
@@ -77,13 +77,13 @@ public class XMLDataConnectorTest extends AbstractTestCase {
 	assertNotNull(resultSet instanceof XMLResultSet);
 	XMLResultSet xmlResultSet = (XMLResultSet) resultSet;
 	
-	System.out.println("\nOpen XMLResultSet by session: fileName=" + fileName);
+	System.out.println("\nOpen XMLResultSet by session: file=" + file);
 	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
 	
 	session.close();
 	
 	// 2.
-	String connectionString = fileName + "->(query=/data-set/record)";
+	String connectionString = file + "->(query=/data-set/record)";
 	resultSet = producer.openResultSet(connectionString);
 	assertNotNull(resultSet);
 	assertNotNull(resultSet instanceof XMLResultSet);
@@ -104,10 +104,10 @@ public class XMLDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	XMLDataConnector dataConnector = new XMLDataConnector();
 	
-	String fileName = getResourcesFileName("xml/test.xml");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("xml/test.xml");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate XMLDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);

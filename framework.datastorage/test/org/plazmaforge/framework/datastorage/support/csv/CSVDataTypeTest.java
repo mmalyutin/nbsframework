@@ -56,10 +56,10 @@ public class CSVDataTypeTest extends AbstractTestCase {
 	// Data Connector
 	CSVDataConnector dataConnector = new CSVDataConnector();
 	
-	String fileName = getResourcesFileName("csv/test_data_type.csv");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("csv/test_data_type.csv");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate CSVDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate CSVDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);

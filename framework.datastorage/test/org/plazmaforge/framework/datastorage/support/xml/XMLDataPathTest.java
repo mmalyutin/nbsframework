@@ -49,11 +49,11 @@ public class XMLDataPathTest extends AbstractTestCase {
    	XMLDataConnector dataConnector = new XMLDataConnector();
    	
    	// Encoding
-   	String fileName = getResourcesFileName("xml/country_list.xml");
-   	dataConnector.setFileName(fileName);
+   	String file = getResourcesFileName("xml/country_list.xml");
+   	dataConnector.setFile(file);
    	dataConnector.setEncoding("utf-8");
    	
-   	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
+   	System.out.println("\nCreate XMLDataConnector: file=" + file);
 
    	// Session
    	DSSession session = producer.openSession(dataConnector);

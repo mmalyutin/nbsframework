@@ -46,8 +46,8 @@ public class XLSDataConnectorTest extends AbstractTestCase {
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(XLSDataConnector.TYPE, new XLSDataProducerFactory());
 	
-	String fileName = getResourcesFileName("xls/test.xls");
-	String connectionString = "xls::" + fileName;
+	String file = getResourcesFileName("xls/test.xls");
+	String connectionString = "xls::" + file;
 	XLSResultSet xlsResultSet = (XLSResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen XLSResultSet by general connection string: '" + connectionString + "'");
 	printXLSResultSet(xlsResultSet);
@@ -62,10 +62,10 @@ public class XLSDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	XLSDataConnector dataConnector = new XLSDataConnector();
 	
-	String fileName = getResourcesFileName("xls/test.xls");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("xls/test.xls");
+	dataConnector.setFile(file);
 	
-	System.out.println("Create XLSDataConnector: fileName=" + fileName);
+	System.out.println("Create XLSDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
@@ -78,13 +78,13 @@ public class XLSDataConnectorTest extends AbstractTestCase {
 	assertTrue(resultSet instanceof XLSResultSet);
 	XLSResultSet xlsResultSet = (XLSResultSet) resultSet;
 	
-	System.out.println("\nOpen XLSResultSet by session: fileName=" + fileName);
+	System.out.println("\nOpen XLSResultSet by session: file=" + file);
 	printXLSResultSet(xlsResultSet);
 	
 	session.close();
 	
 	// 2. by Connection string
-	String connectionString = fileName;
+	String connectionString = file;
 	resultSet = producer.openResultSet(connectionString);
 	assertNotNull(resultSet);
 	assertTrue(resultSet instanceof XLSResultSet);
@@ -104,10 +104,10 @@ public class XLSDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	XLSDataConnector dataConnector = new XLSDataConnector();
 	
-	String fileName = getResourcesFileName("xls/test.xls");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("xls/test.xls");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate XLSDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate XLSDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);

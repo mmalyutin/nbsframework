@@ -59,10 +59,10 @@ public class XMLDataTypeTest extends AbstractTestCase {
 	// Data Connector
 	XMLDataConnector dataConnector = new XMLDataConnector();
 	
-	String fileName = getResourcesFileName("xml/test_data_type.xml");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("xml/test_data_type.xml");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate XMLDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate XMLDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);

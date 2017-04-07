@@ -59,10 +59,10 @@ public class JSONDataTypeTest extends AbstractTestCase {
 	// Data Connector
 	JSONDataConnector dataConnector = new JSONDataConnector();
 	
-	String fileName = getResourcesFileName("json/test_data_type.json");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("json/test_data_type.json");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate JSONDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate JSONDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
