@@ -61,13 +61,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	}	
 	XMLDataConnector xmlDataConnector = (XMLDataConnector) dataConnector;
 	
-	String fileName = xmlDataConnector.getFileName();
+	String file = xmlDataConnector.getFile();
 	String encoding = xmlDataConnector.getEncoding();
 	String dateFormat = xmlDataConnector.getDateFormat();
 	String numberFormat = xmlDataConnector.getNumberFormat();
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XMLDataConnector.PROPERTY_FILE, file);
 	data.put(XMLDataConnector.PROPERTY_ENCODING, encoding);
 	data.put(XMLDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XMLDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
@@ -77,33 +77,33 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XMLDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
-	if (fileName == null || fileName.isEmpty()) {
-	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
+	if (file == null || file.isEmpty()) {
+	    file = properties.getProperty(DataManager.PROPERTY_URL);
 	}
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XMLDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XMLDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
@@ -114,10 +114,10 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
 	
-	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
+	String file = properties.getProperty(DataManager.PROPERTY_URL);
 
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XMLDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(XMLDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
@@ -137,9 +137,9 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 
     // General method
     protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String fileName = url;
+	String file = url;
 	try {
-	    Reader reader = createReader(fileName, null);
+	    Reader reader = createReader(file, null);
 	    return new XMLSession(reader);
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -149,13 +149,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     // General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
-	String fileName = (String) data.get(XMLDataConnector.PROPERTY_FILE_NAME);
+	String file = (String) data.get(XMLDataConnector.PROPERTY_FILE);
 	String encoding = (String) data.get(XMLDataConnector.PROPERTY_ENCODING);
 	String dateFormat = (String) data.get(XMLDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XMLDataConnector.PROPERTY_NUMBER_FROMAT);
 	
 	try {
-	    Reader reader = createReader(fileName, encoding);
+	    Reader reader = createReader(file, encoding);
 	    XMLSession session = new XMLSession(reader);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
@@ -168,13 +168,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = values[0];
+	String file = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
 	String encoding = (String) parameterData.get(XMLDataConnector.PROPERTY_ENCODING);
 	String query = (String) parameterData.get(DataManager.PROPERTY_QUERY);
 	try {
-	    Reader reader = createReader(fileName, encoding);
+	    Reader reader = createReader(file, encoding);
 	    XMLResultSet resultSet = new XMLResultSet(reader);
 	    resultSet.setSelectExpression(query);
 	    return resultSet;

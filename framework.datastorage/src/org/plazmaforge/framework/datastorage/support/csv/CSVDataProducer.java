@@ -62,7 +62,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	}	
 	CSVDataConnector csvDataConnector = (CSVDataConnector) dataConnector;
 	
-	String fileName = csvDataConnector.getFileName();
+	String file = csvDataConnector.getFile();
 	String encoding = csvDataConnector.getEncoding();
 	String columnDelimiter = csvDataConnector.getColumnDelimiter();
 	String rowDelimiter = csvDataConnector.getRowDelimiter();
@@ -72,7 +72,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_FILE, file);
 	data.put(CSVDataConnector.PROPERTY_ENCODING, encoding);
 	data.put(CSVDataConnector.PROPERTY_COLUMN_DELIMITER, columnDelimiter);
 	data.put(CSVDataConnector.PROPERTY_ROW_DELIMITER, rowDelimiter);
@@ -88,30 +88,30 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_FILE, fileName);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
-	if (fileName == null || fileName.isEmpty()) {
-	    fileName = properties.getProperty(DataManager.PROPERTY_URL);
+	if (file == null || file.isEmpty()) {
+	    file = properties.getProperty(DataManager.PROPERTY_URL);
 	}
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_FILE, file);
 	
 	return doOpenSession(data);
     }
@@ -125,7 +125,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String fileName = properties.getProperty(DataManager.PROPERTY_URL);
 
 	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE_NAME, fileName);
+	data.put(CSVDataConnector.PROPERTY_FILE, fileName);
 	
 	return doOpenSession(data);
     }
@@ -145,9 +145,9 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 
     // General method
     protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String fileName = url;
+	String file = url;
 	try {
-	    Reader reader = createReader(fileName, null);
+	    Reader reader = createReader(file, null);
 	    return new CSVSession(reader);
 	} catch (IOException ex) {
 	    throw new DSException(ex);
@@ -157,7 +157,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     // General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
-	String fileName = (String) data.get(CSVDataConnector.PROPERTY_FILE_NAME);
+	String file = (String) data.get(CSVDataConnector.PROPERTY_FILE);
 	String encoding = (String) data.get(CSVDataConnector.PROPERTY_ENCODING);
 	String columnDelimiter = (String) data.get(CSVDataConnector.PROPERTY_COLUMN_DELIMITER);
 	String rowDelimiter = (String) data.get(CSVDataConnector.PROPERTY_ROW_DELIMITER);
@@ -165,12 +165,12 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String dateFormat = (String) data.get(CSVDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(CSVDataConnector.PROPERTY_NUMBER_FROMAT);
 	
-	if (fileName == null) {
+	if (file == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
 	}
 
-	fileName = normalize(fileName);
-	if (fileName == null) {
+	file = normalize(file);
+	if (file == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 
@@ -179,7 +179,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	rowDelimiter = normalize(rowDelimiter);
 
 	try {
-	    Reader reader = createReader(fileName, encoding);
+	    Reader reader = createReader(file, encoding);
 	    CSVSession session = new CSVSession(reader);
 	    if (columnDelimiter != null) {
 		session.setColumnDelimiter(columnDelimiter);
@@ -201,14 +201,14 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSResultSet openResultSet(String connectionString) throws DSException {
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
-	String fileName = values[0];
+	String file = values[0];
 	String parametersString = values[1];
 	
 	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
 	String encoding = (String) parameterData.get(CSVDataConnector.PROPERTY_ENCODING);
 	
 	try {
-	    Reader reader = createReader(fileName, encoding);
+	    Reader reader = createReader(file, encoding);
 	    CSVResultSet resultSet = new CSVResultSet(reader);
 	    return resultSet;
 	} catch (IOException ex) {
