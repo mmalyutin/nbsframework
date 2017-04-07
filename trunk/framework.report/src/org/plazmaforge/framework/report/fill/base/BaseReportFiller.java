@@ -136,6 +136,25 @@ public class BaseReportFiller implements ReportFiller {
 	}
 	return fillReport(report, parameters);
     }    
+
+    
+    // By Connection string
+    @Override
+    public Document fillReport(Report report, String connectionString) throws RTException {
+	return fillReport(report, connectionString, null);
+    }
+    
+    // By Connection string
+    @Override
+    public Document fillReport(Report report, String connectionString, Map<String, Object> parameters) throws RTException {
+	if (connectionString != null) {
+	    if (parameters == null) {
+		parameters = createParameters();
+	    }
+	    parameters.put(ReportParameters.CONNECTION_STRING, connectionString);
+	}
+	return fillReport(report, parameters);
+    }    
     
     
     // By Parameters (General)
@@ -341,6 +360,12 @@ public class BaseReportFiller implements ReportFiller {
 		return openResultSet(dataConnector, dataSource);
 	    }
 
+	    // 4. Connection string
+	    String connectionString = (String) parameters.get(ReportParameters.CONNECTION_STRING);
+	    if (connectionString != null) {
+		return openResultSet(connectionString, dataSource);
+	    }
+	    
 	    
 	} catch (DSException ex) {
 	    throw new RTException(ex);
@@ -380,6 +405,17 @@ public class BaseReportFiller implements ReportFiller {
 	return openResultSet(session, dataSource);
     }
 
+    protected DSResultSet openResultSet(String connectionString, DSDataSource dataSource) throws DSException {
+	if (connectionString == null) {
+	    return null;
+	}
+	// Open Session by Connection String
+	// TODO
+	//DSSession session = DataManager.openSession(connectionString);
+	//return openResultSet(session, dataSource);
+	return null;
+    }
+    
     protected DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
 	if (session == null) {
 	    return null;

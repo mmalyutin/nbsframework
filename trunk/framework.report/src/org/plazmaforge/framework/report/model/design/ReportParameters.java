@@ -43,4 +43,6 @@ public class ReportParameters {
     
     public static final String DATA_CONNECTOR = "DATA_CONNECTOR";
     
+    public static final String CONNECTION_STRING = "CONNECTION_STRING";
+    
 }
