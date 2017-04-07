@@ -31,32 +31,33 @@ package org.plazmaforge.framework.core.datastorage;
  */
 public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 
-    public static final String PROPERTY_FOLDER_NAME = "folderName";
+    public static final String PROPERTY_FOLDER = "folder";
     
-    public static final String PROPERTY_FILE_NAME = "fileName";
+    public static final String PROPERTY_FILE = "file";
 
     public static final String PROPERTY_ENCODING = "encoding";
     
-    private String folderName;
+    private String folder;
     
-    private String fileName;
+    private String file;
 
     private String encoding;
     
-    public String getFolderName() {
-        return folderName;
+
+    public String getFolder() {
+        return folder;
     }
 
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
+    public void setFolder(String folder) {
+        this.folder = folder;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFile() {
+        return file;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public String getEncoding() {
