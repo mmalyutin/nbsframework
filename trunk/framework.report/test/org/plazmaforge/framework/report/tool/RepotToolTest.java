@@ -40,7 +40,7 @@ public class RepotToolTest extends AbstractTestCase {
 		"-log", "true", 
 		"-format", "PDF", 
 		"-dataconnector.type", "CSV", 
-		"-dataconnector.fileName", dataFile, 
+		"-dataconnector.file", dataFile, 
 		"-dataconnector.firstRowHeader", "true"};
 	
 	ReportTool.main(args);
