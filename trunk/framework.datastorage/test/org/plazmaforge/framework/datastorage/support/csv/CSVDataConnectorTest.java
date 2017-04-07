@@ -46,8 +46,8 @@ public class CSVDataConnectorTest extends AbstractTestCase {
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
 	
-	String fileName = getResourcesFileName("csv/test.csv");
-	String connectionString = "csv::" + fileName;
+	String file = getResourcesFileName("csv/test.csv");
+	String connectionString = "csv::" + file;
 	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
 	printCSVResultSet(csvResultSet);
@@ -62,10 +62,10 @@ public class CSVDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	CSVDataConnector dataConnector = new CSVDataConnector();
 	
-	String fileName = getResourcesFileName("csv/test.csv");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("csv/test.csv");
+	dataConnector.setFile(file);
 	
-	System.out.println("Create CSVDataConnector: fileName=" + fileName);
+	System.out.println("Create CSVDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
@@ -78,13 +78,13 @@ public class CSVDataConnectorTest extends AbstractTestCase {
 	assertTrue(resultSet instanceof CSVResultSet);
 	CSVResultSet csvResultSet = (CSVResultSet) resultSet;
 	
-	System.out.println("\nOpen CSVResultSet by session: fileName=" + fileName);
+	System.out.println("\nOpen CSVResultSet by session: file=" + file);
 	printCSVResultSet(csvResultSet);
 	
 	session.close();
 	
 	// 2. by Connection string
-	String connectionString = fileName;
+	String connectionString = file;
 	resultSet = producer.openResultSet(connectionString);
 	assertNotNull(resultSet);
 	assertTrue(resultSet instanceof CSVResultSet);
@@ -104,10 +104,10 @@ public class CSVDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	CSVDataConnector dataConnector = new CSVDataConnector();
 	
-	String fileName = getResourcesFileName("csv/test.csv");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("csv/test.csv");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate CSVDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate CSVDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);

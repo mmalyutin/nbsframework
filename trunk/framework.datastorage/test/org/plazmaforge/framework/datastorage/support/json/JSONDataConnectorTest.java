@@ -46,8 +46,8 @@ public class JSONDataConnectorTest extends AbstractTestCase {
     public void testDataManager() throws Exception {
 	DataManager.registerDataProducerFactory(JSONDataConnector.TYPE, new JSONDataProducerFactory());
 	
-	String fileName = getResourcesFileName("json/test.json");
-	String connectionString = "json::" + fileName + "->(query=data-set.records)";
+	String file = getResourcesFileName("json/test.json");
+	String connectionString = "json::" + file + "->(query=data-set.records)";
 	JSONResultSet jsonResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
 	System.out.println("\nOpen JSONResultSet by general connection string: '" + connectionString + "'");
 	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
@@ -62,10 +62,10 @@ public class JSONDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	JSONDataConnector dataConnector = new JSONDataConnector();
 	
-	String fileName = getResourcesFileName("json/test.json");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("json/test.json");
+	dataConnector.setFile(file);
 	
-	System.out.println("Create JSONDataConnector: fileName=" + fileName);
+	System.out.println("Create JSONDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
@@ -78,13 +78,13 @@ public class JSONDataConnectorTest extends AbstractTestCase {
 	assertNotNull(resultSet instanceof JSONResultSet);
 	JSONResultSet jsonResultSet = (JSONResultSet) resultSet;
 	
-	System.out.println("\nOpen JSONResultSet by session: fileName=" + fileName);
+	System.out.println("\nOpen JSONResultSet by session: file=" + file);
 	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
 	
 	session.close();
 	
 	// 2.
-	String connectionString = fileName + "->(query=data-set.records)";
+	String connectionString = file + "->(query=data-set.records)";
 	resultSet = producer.openResultSet(connectionString);
 	assertNotNull(resultSet);
 	assertNotNull(resultSet instanceof JSONResultSet);
@@ -105,10 +105,10 @@ public class JSONDataConnectorTest extends AbstractTestCase {
 	// Data Connector
 	JSONDataConnector dataConnector = new JSONDataConnector();
 	
-	String fileName = getResourcesFileName("json/test.json");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("json/test.json");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate JSONDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate JSONDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);

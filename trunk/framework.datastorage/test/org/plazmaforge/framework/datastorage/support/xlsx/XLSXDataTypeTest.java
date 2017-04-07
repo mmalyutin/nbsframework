@@ -49,10 +49,10 @@ public class XLSXDataTypeTest extends AbstractTestCase {
 	// Data Connector
 	XLSXDataConnector dataConnector = new XLSXDataConnector();
 	
-	String fileName = getResourcesFileName("xlsx/test_data_type.xlsx");
-	dataConnector.setFileName(fileName);
+	String file = getResourcesFileName("xlsx/test_data_type.xlsx");
+	dataConnector.setFile(file);
 	
-	System.out.println("\nCreate XLSXDataConnector: fileName=" + fileName);
+	System.out.println("\nCreate XLSXDataConnector: file=" + file);
 
 	// Session
 	DSSession session = producer.openSession(dataConnector);
