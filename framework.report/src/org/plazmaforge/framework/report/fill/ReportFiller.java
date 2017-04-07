@@ -51,6 +51,10 @@ public interface ReportFiller {
     Document fillReport(Report report, DSDataConnector dataConnector) throws RTException;
     
     Document fillReport(Report report, DSDataConnector dataConnector, Map<String, Object> parameters) throws RTException;
+
+    Document fillReport(Report report, String connectionString) throws RTException;
+    
+    Document fillReport(Report report, String connectionString, Map<String, Object> parameters) throws RTException;
     
     Document fillReport(Report report, Map<String, Object> parameters) throws RTException;
     

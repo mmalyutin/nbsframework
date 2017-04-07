@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.report.tool;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -36,6 +37,7 @@ import org.plazmaforge.framework.datastorage.DataStorage;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
+import org.plazmaforge.framework.report.model.design.ReportParameters;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.util.SystemUtils;
@@ -76,6 +78,7 @@ public class ReportTool {
 	String documentFile = properties.getProperty("document");
 	String exportFormat = properties.getProperty("format");
 	String datastorageFile = properties.getProperty("datastorage");	// TODO: Not implemented
+	String connectionString = properties.getProperty("connection");
 	log = properties.getProperty("log", "false").equalsIgnoreCase("true");
 	
 	if (reportFile == null) {
@@ -116,7 +119,10 @@ public class ReportTool {
 	    trace("\n");
 	    
 	    DSDataConnector dataConnector = loadDataConnector(properties);
-	    Map<String, Object> parameters = null;
+	    Map<String, Object> parameters = new HashMap<String, Object>();
+	    
+	    parameters.put(ReportParameters.DATA_CONNECTOR, dataConnector);
+	    parameters.put(ReportParameters.CONNECTION_STRING, connectionString);
 	    
 	    // Create ReportManager
 	    ReportManager reportManager = new ReportManager();
@@ -124,8 +130,9 @@ public class ReportTool {
 	    // Read the report form file
 	    Report report = reportManager.readReport(reportFile);
 	    
+	    
 	    // Fill the report
-	    Document document = reportManager.fillReport(report, dataConnector, parameters);
+	    Document document = reportManager.fillReport(report, parameters);
 	    
 	    // Write the document to file
 	    reportManager.exportDocumentToFile(document, exportFormat, documentFile, null);

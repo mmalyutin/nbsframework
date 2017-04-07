@@ -140,6 +140,20 @@ public class ReportManager {
 	return reportFiller.fillReport(report, dataConnector, parameters);
     }
 
+    public Document fillReport(Report report, String connectionString, Map<String, Object> parameters) throws RTException {
+	// Get report type
+	String reportType = getReportType(report);
+	
+	// Get report filler
+	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
+	if (reportFiller == null) {
+	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
+	}
+	
+	// Fill report
+	return reportFiller.fillReport(report, connectionString, parameters);
+    }
+    
     public Document fillReport(Report report, Map<String, Object> parameters) throws RTException {
 	// Get report type
 	String reportType = getReportType(report);
