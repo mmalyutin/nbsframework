@@ -28,11 +28,35 @@ package org.plazmaforge.framework.core.datastorage;
  *
  */
 public abstract class AbstractSession implements DSSession {
+    
+    private String username;
 
+    private String query;
+    
     private String dateFormat;
 
     private String numberFormat;
     
+
+    public AbstractSession() {
+	super();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
 
     public String getDateFormat() {
         return dateFormat;
