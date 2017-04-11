@@ -143,18 +143,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	return null;
     }
 
-    // General method
-    protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String file = url;
-	try {
-	    Reader reader = createReader(file, null);
-	    return new CSVSession(reader);
-	} catch (IOException ex) {
-	    throw new DSException(ex);
-	}
-    }
-
-    // General method
+    // DSSession: General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String file = (String) data.get(CSVDataConnector.PROPERTY_FILE);
@@ -203,17 +192,14 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String file = values[0];
 	String parametersString = values[1];
-	
-	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
-	String encoding = (String) parameterData.get(CSVDataConnector.PROPERTY_ENCODING);
-	
-	try {
-	    Reader reader = createReader(file, encoding);
-	    CSVResultSet resultSet = new CSVResultSet(reader);
-	    return resultSet;
-	} catch (IOException ex) {
-	    throw new DSException(ex);
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
+	file = normalize(file);
+	if (file != null) {
+	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
 	}
+	DSSession session = doOpenSession(parameterData);
+	
+	return openResultSet(session);
     }
 
     @Override
@@ -226,7 +212,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	return doOpenResultSet(session, query, parameters);
     }
 
-    // General method
+    // DSResultSet: General method
     protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
