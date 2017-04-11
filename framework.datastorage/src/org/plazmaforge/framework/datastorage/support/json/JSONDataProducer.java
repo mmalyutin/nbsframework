@@ -200,7 +200,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	return doOpenResultSet(session, query, parameters);
     }
 
-    // General method
+    // DSResultSet: General method
     protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
@@ -240,6 +240,11 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
 
+	String query = dataSource.getQueryText();
+	if (query == null) {
+	    query = jsonSession.getQuery();
+	}
+		
 	List<DSField> dsFields = dataSource.getFields();
 	List<DSField> fields = new ArrayList<DSField>();
 	DSField field = null;
@@ -249,7 +254,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	}
 	
 	JSONDataSet dataSet = new JSONDataSet(fields, reader);
-	dataSet.setSelectExpression(dataSource.getQueryText());
+	dataSet.setSelectExpression(query);
 	
 	dataSet.setDateFormat(jsonSession.getDateFormat());
 	dataSet.setNumberFormat(jsonSession.getNumberFormat());
