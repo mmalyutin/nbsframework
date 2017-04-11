@@ -221,7 +221,7 @@ public class BaseReportFiller implements ReportFiller {
 	
 	
 	// If data is null then Set empty data
-	DSResultSet resultSet = getResultSet(report, parameters);
+	DSResultSet resultSet = openReportResultSet(report, parameters);
 	DSDataSet dataSet = null;
 	if (resultSet != null) {
 	    dataSet = createWrappedDataSet(resultSet, report, parameters);
@@ -329,7 +329,7 @@ public class BaseReportFiller implements ReportFiller {
 	return null;
     }
     
-    protected DSResultSet getResultSet(Report report, Map<String, Object> parameters) throws RTException {
+    protected DSResultSet openReportResultSet(Report report, Map<String, Object> parameters) throws RTException {
 	try {
 	    
 	    // 1. ResultSet (priority)
@@ -405,15 +405,20 @@ public class BaseReportFiller implements ReportFiller {
 	return openResultSet(session, dataSource);
     }
 
+    /**
+     * Open DSResultSet by Connection String
+     * @param connectionString
+     * @param dataSource
+     * @return
+     * @throws DSException
+     */
     protected DSResultSet openResultSet(String connectionString, DSDataSource dataSource) throws DSException {
 	if (connectionString == null) {
 	    return null;
 	}
 	// Open Session by Connection String
-	// TODO
-	//DSSession session = DataManager.openSession(connectionString);
-	//return openResultSet(session, dataSource);
-	return null;
+	DSSession session = DataManager.openSession(connectionString);
+	return openResultSet(session, dataSource);
     }
     
     protected DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
