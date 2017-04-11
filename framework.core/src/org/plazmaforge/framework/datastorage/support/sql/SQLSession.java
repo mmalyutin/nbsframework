@@ -28,14 +28,14 @@ package org.plazmaforge.framework.datastorage.support.sql;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.plazmaforge.framework.core.datastorage.DSSession;
+import org.plazmaforge.framework.core.datastorage.AbstractSession;
 import org.plazmaforge.framework.core.exception.DSException;
 
 /**
  * @author ohapon
  *
  */
-public class SQLSession implements DSSession {
+public class SQLSession extends AbstractSession {
 
     private Connection connection;
     
