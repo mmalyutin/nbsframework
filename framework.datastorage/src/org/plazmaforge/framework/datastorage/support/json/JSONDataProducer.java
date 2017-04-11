@@ -44,6 +44,8 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
+import org.plazmaforge.framework.datastorage.support.xml.XMLDataConnector;
 
 
 /**
@@ -64,7 +66,8 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	JSONDataConnector jsonDataConnector = (JSONDataConnector) dataConnector;
 	
 	String file = jsonDataConnector.getFile();
-	String encoding = jsonDataConnector.getEncoding();	
+	String encoding = jsonDataConnector.getEncoding();
+	String query = jsonDataConnector.getQuery();
 	String dateFormat = jsonDataConnector.getDateFormat();
 	String numberFormat = jsonDataConnector.getNumberFormat();
 	
@@ -72,6 +75,7 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(JSONDataConnector.PROPERTY_FILE, file);
 	data.put(JSONDataConnector.PROPERTY_ENCODING, encoding);
+	data.put(XMLDataConnector.PROPERTY_QUERY, query);
 	data.put(JSONDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(JSONDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -139,28 +143,30 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	return null;
     }
 
-    // General method
-    protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String fileName = url;
-	try {
-	    Reader reader = createReader(fileName, null);
-	    return new JSONSession(reader);
-	} catch (IOException ex) {
-	    throw new DSException(ex);
-	}
-    }
-
-    // General method
+    // DSSession: General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String file = (String) data.get(JSONDataConnector.PROPERTY_FILE);
-	String encoding = (String) data.get(JSONDataConnector.PROPERTY_ENCODING);	
+	String encoding = (String) data.get(JSONDataConnector.PROPERTY_ENCODING);
+	String query = (String) data.get(DataManager.PROPERTY_QUERY);
 	String dateFormat = (String) data.get(JSONDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(JSONDataConnector.PROPERTY_NUMBER_FROMAT);
+	
+	if (file == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
+	}
+
+	file = normalize(file);
+	if (file == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
+	}
+	
+	encoding = normalize(encoding);
 	
 	try {
 	    Reader reader = createReader(file, encoding);
 	    JSONSession session = new JSONSession(reader);
+	    session.setQuery(query);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
 	    return session;
@@ -175,15 +181,13 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	String file = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
-	String encoding = (String) parameterData.get(JSONDataConnector.PROPERTY_ENCODING);
-	try {
-	    Reader reader = createReader(file, encoding);
-	    JSONResultSet resultSet = new JSONResultSet(reader);
-	    resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
-	    return resultSet;
-	} catch (IOException ex) {
-	    throw new DSException(ex);
+	file = normalize(file);
+	if (file != null) {
+	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
 	}
+	DSSession session = doOpenSession(parameterData);
+	
+	return openResultSet(session);
     }
 
     @Override
@@ -209,6 +213,9 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	Reader reader = jsonSession.getReader();
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
+	}
+	if (query == null) {
+	    query = jsonSession.getQuery();
 	}
 	// query is select expression
 	JSONResultSet resultSet = new JSONResultSet(reader);

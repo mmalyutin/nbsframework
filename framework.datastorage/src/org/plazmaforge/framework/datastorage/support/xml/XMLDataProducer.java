@@ -41,6 +41,7 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 
 
 /**
@@ -63,12 +64,14 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	
 	String file = xmlDataConnector.getFile();
 	String encoding = xmlDataConnector.getEncoding();
+	String query = xmlDataConnector.getQuery();	
 	String dateFormat = xmlDataConnector.getDateFormat();
 	String numberFormat = xmlDataConnector.getNumberFormat();
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE, file);
 	data.put(XMLDataConnector.PROPERTY_ENCODING, encoding);
+	data.put(XMLDataConnector.PROPERTY_QUERY, query);
 	data.put(XMLDataConnector.PROPERTY_DATE_FROMAT, dateFormat);
 	data.put(XMLDataConnector.PROPERTY_NUMBER_FROMAT, numberFormat);
 	
@@ -135,28 +138,37 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	return null;
     }
 
-    // General method
-    protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String file = url;
-	try {
-	    Reader reader = createReader(file, null);
-	    return new XMLSession(reader);
-	} catch (IOException ex) {
-	    throw new DSException(ex);
-	}
-    }
+//    protected DSSession doOpenSession(String url, String username, String password) throws DSException {
+//	String file = url;
+//	Map<String, Object> data = new HashMap<String, Object>();
+//	data.put(XMLDataConnector.PROPERTY_FILE, file);
+//	return doOpenSession(data);
+//    }
 
-    // General method
+    // DSSession: General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String file = (String) data.get(XMLDataConnector.PROPERTY_FILE);
 	String encoding = (String) data.get(XMLDataConnector.PROPERTY_ENCODING);
+	String query = (String) data.get(DataManager.PROPERTY_QUERY);
 	String dateFormat = (String) data.get(XMLDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XMLDataConnector.PROPERTY_NUMBER_FROMAT);
+	
+	if (file == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
+	}
+
+	file = normalize(file);
+	if (file == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
+	}
+	
+	encoding = normalize(encoding);
 	
 	try {
 	    Reader reader = createReader(file, encoding);
 	    XMLSession session = new XMLSession(reader);
+	    session.setQuery(query);
 	    session.setDateFormat(dateFormat);
 	    session.setNumberFormat(numberFormat);
 	    return session;
@@ -171,16 +183,25 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	String file = values[0];
 	String parametersString = values[1];
 	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
-	String encoding = (String) parameterData.get(XMLDataConnector.PROPERTY_ENCODING);
-	String query = (String) parameterData.get(DataManager.PROPERTY_QUERY);
-	try {
-	    Reader reader = createReader(file, encoding);
-	    XMLResultSet resultSet = new XMLResultSet(reader);
-	    resultSet.setSelectExpression(query);
-	    return resultSet;
-	} catch (IOException ex) {
-	    throw new DSException(ex);
+	file = normalize(file);
+	if (file != null) {
+	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
 	}
+	DSSession session = doOpenSession(parameterData);
+	
+	return openResultSet(session);
+	
+//	
+//	String encoding = (String) parameterData.get(XMLDataConnector.PROPERTY_ENCODING);
+//	String query = (String) parameterData.get(DataManager.PROPERTY_QUERY);
+//	try {
+//	    Reader reader = createReader(file, encoding);
+//	    XMLResultSet resultSet = new XMLResultSet(reader);
+//	    resultSet.setSelectExpression(query);
+//	    return resultSet;
+//	} catch (IOException ex) {
+//	    throw new DSException(ex);
+//	}
     }
 
     @Override
@@ -206,6 +227,9 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	Reader reader = xmlSession.getReader();
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
+	}
+	if (query == null) {
+	    query = xmlSession.getQuery();
 	}
 	// query is select expression
 	XMLResultSet resultSet = new XMLResultSet(reader);

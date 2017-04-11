@@ -42,6 +42,7 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 
 /**
  * 
@@ -129,18 +130,7 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	return null;
     }
 
-    // General method
-    protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-	String file = url;
-	try {
-	    FileInputStream inputStream = new FileInputStream(file);
-	    return createXLSSession(inputStream);
-	} catch (IOException ex) {
-	    throw new DSException(ex);
-	}
-    }
-
-    // General method
+    // DSSession: General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String file = (String) data.get(XLSDataConnector.PROPERTY_FILE);
@@ -167,16 +157,14 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String file = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
-	try {
-	    FileInputStream inputStream = new FileInputStream(file);
-	    AbstractXLSResultSet resultSet = createXLSResultSet(inputStream);
-	    // TODO: squery is not implemented
-	    //resultSet.setSelectExpression((String) parameterData.get(DataManager.PROPERTY_QUERY));
-	    return resultSet;
-	} catch (IOException ex) {
-	    throw new DSException(ex);
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
+	file = normalize(file);
+	if (file != null) {
+	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
 	}
+	DSSession session = doOpenSession(parameterData);
+	
+	return openResultSet(session);
     }
 
     @Override
