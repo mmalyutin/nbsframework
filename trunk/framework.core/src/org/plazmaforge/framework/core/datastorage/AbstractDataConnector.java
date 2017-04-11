@@ -36,6 +36,8 @@ public abstract class AbstractDataConnector extends BaseLocalizedIdentifier impl
     public static final String PROPERTY_USERNAME = "username";
     
     public static final String PROPERTY_PASSWORD = "password";
+    
+    public static final String PROPERTY_QUERY = "query";
 
     public static final String PROPERTY_DATE_FROMAT = "dateFormat";
     
@@ -46,6 +48,8 @@ public abstract class AbstractDataConnector extends BaseLocalizedIdentifier impl
     private String username;
     
     private String password;
+    
+    private String query;
     
     private String dateFormat;
     
@@ -73,6 +77,14 @@ public abstract class AbstractDataConnector extends BaseLocalizedIdentifier impl
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     public String getDateFormat() {
