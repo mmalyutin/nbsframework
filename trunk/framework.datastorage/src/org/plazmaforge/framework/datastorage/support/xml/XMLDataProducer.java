@@ -138,13 +138,6 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	return null;
     }
 
-//    protected DSSession doOpenSession(String url, String username, String password) throws DSException {
-//	String file = url;
-//	Map<String, Object> data = new HashMap<String, Object>();
-//	data.put(XMLDataConnector.PROPERTY_FILE, file);
-//	return doOpenSession(data);
-//    }
-
     // DSSession: General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
@@ -190,18 +183,6 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	DSSession session = doOpenSession(parameterData);
 	
 	return openResultSet(session);
-	
-//	
-//	String encoding = (String) parameterData.get(XMLDataConnector.PROPERTY_ENCODING);
-//	String query = (String) parameterData.get(DataManager.PROPERTY_QUERY);
-//	try {
-//	    Reader reader = createReader(file, encoding);
-//	    XMLResultSet resultSet = new XMLResultSet(reader);
-//	    resultSet.setSelectExpression(query);
-//	    return resultSet;
-//	} catch (IOException ex) {
-//	    throw new DSException(ex);
-//	}
     }
 
     @Override
@@ -214,7 +195,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	return doOpenResultSet(session, query, parameters);
     }
 
-    // General method
+    // DSResultSet: General method
     protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null");
@@ -253,7 +234,10 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	if (reader == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Reader is null");
 	}
-
+	String query = dataSource.getQueryText();
+	if (query == null) {
+	    query = xmlSession.getQuery();
+	}
 	List<DSField> dsFields = dataSource.getFields();
 	List<DSField> fields = new ArrayList<DSField>();
 	DSField field = null;
@@ -262,7 +246,7 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	    fields.add(field);
 	}
 	XMLDataSet dataSet = new XMLDataSet(fields, reader);
-	dataSet.setSelectExpression(dataSource.getQueryText());
+	dataSet.setSelectExpression(query);
 
 	dataSet.setDateFormat(xmlSession.getDateFormat());
 	dataSet.setNumberFormat(xmlSession.getNumberFormat());
