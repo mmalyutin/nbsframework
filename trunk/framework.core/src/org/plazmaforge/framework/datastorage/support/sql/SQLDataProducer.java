@@ -75,12 +75,15 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	String url = sqlDataConnector.getUrl();
 	String username = sqlDataConnector.getUsername();
 	String password = sqlDataConnector.getPassword();
+	String query = sqlDataConnector.getQuery(); // experimental
 	
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(SQLDataConnector.PROPERTY_DRIVER, driver);
 	data.put(SQLDataConnector.PROPERTY_URL, url);
 	data.put(SQLDataConnector.PROPERTY_USERNAME, username);
 	data.put(SQLDataConnector.PROPERTY_PASSWORD, password);
+	data.put(SQLDataConnector.PROPERTY_QUERY, query); // experimental
+	
 	
 	return doOpenSession(data);
     }
@@ -160,13 +163,14 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	return null;
     }
 
-    // General method
+    // DSSession: General method
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String driver = (String) data.get(SQLDataConnector.PROPERTY_DRIVER);
 	String url = (String) data.get(SQLDataConnector.PROPERTY_URL);
 	String username = (String) data.get(SQLDataConnector.PROPERTY_USERNAME);
 	String password = (String) data.get(SQLDataConnector.PROPERTY_PASSWORD);
+	String query = (String) data.get(SQLDataConnector.PROPERTY_QUERY); // experimental
 	
 	if (url == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "URL is null");
@@ -190,7 +194,10 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	    } else {
 		connection = DriverManager.getConnection(url);
 	    }
-	    return openWrapSession(connection);
+	    SQLSession session = (SQLSession) openWrapSession(connection);
+	    session.setQuery(query); // experimental
+	    return session;
+	    
 	} catch (ClassNotFoundException ex) {
 	    handleContextException(DataManager.CONTEXT_SESSION, ex);
 	} catch (SQLException ex) {
@@ -202,7 +209,31 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 
     
     @Override
+    public DSResultSet openResultSet(String connectionString) throws DSException {
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String url = values[0];
+	String parametersString = values[1];
+	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
+	url = normalize(url);
+	if (url != null) {
+	    parameterData.put(SQLDataConnector.PROPERTY_URL, url);
+	}
+	DSSession session = doOpenSession(parameterData);
+	
+	return openResultSet(session);
+    }
+    
+    @Override
+    public DSResultSet openResultSet(DSSession session) throws DSException {
+	return doOpenResultSet(session, null, null);
+    }
+
+    @Override
     public DSResultSet openResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
+	return doOpenResultSet(session, query, parameters);
+    }
+    
+    protected DSResultSet doOpenResultSet(DSSession session, String query, ParameterValue[] parameters) throws DSException {
 	if (session == null) {
 	    handleContextException(DataManager.CONTEXT_RESULT_SET, "Session is null.");
 	}
@@ -218,6 +249,10 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	}
 
 	int parameterCount = parameters == null ? 0 : parameters.length;
+	
+	if (query == null) {
+	    query = sqlSession.getQuery(); // experimental
+	}	
 	String sql = compileQuery(query, parameterCount);
 	if (sql == null) {
 	    return new SQLResultSet(null);
@@ -251,6 +286,9 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	}
 
 	String query = dataSource.getQueryText();
+	if (query == null) {
+	    query = sqlSession.getQuery(); // experimental
+	}		
 	if (query == null) {
 	    handleContextException(DataManager.CONTEXT_DATA_SET, "SQL query is null");
 	}
