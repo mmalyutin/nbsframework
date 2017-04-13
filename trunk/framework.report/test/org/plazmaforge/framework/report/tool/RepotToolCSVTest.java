@@ -26,10 +26,11 @@ import org.plazmaforge.framework.report.AbstractTestCase;
 
 
 
-public class RepotToolTest extends AbstractTestCase {
+public class RepotToolCSVTest extends AbstractTestCase {
 
     
     public void testReportCSV() {
+	
 	String reportFile = getResourcesFileName("reports/Report1.report.xml");
 	String dataFile = getResourcesFileName("data/Report1.csv");
 	String documentFile = getTestFileName("Report1CSV.pdf");
@@ -45,4 +46,6 @@ public class RepotToolTest extends AbstractTestCase {
 	
 	ReportTool.main(args);
     }
+    
+    
 }
