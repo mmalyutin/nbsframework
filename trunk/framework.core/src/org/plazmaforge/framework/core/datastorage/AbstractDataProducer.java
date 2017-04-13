@@ -249,4 +249,31 @@ public abstract class AbstractDataProducer implements DataProducer {
     protected Reader createReader(InputStream inputStream, String charset) throws IOException {
 	return charset == null ? new InputStreamReader(inputStream) : new InputStreamReader(inputStream, charset);
     }
+    
+    protected <T> T getProperty(Class<T> type, Map<String, Object> data, String name) {
+	if (data == null) {
+	    return null;
+	}
+	Object value = data.get(name);
+	if (value == null) {
+	    return null;
+	}
+	if (type == null) {
+	    return (T) value;
+	}
+	
+	
+	//TODO: STUB: Use converter
+	if (type == String.class) {
+	    return (T) value.toString();
+	}
+	if (type == Boolean.class) {
+	    if (value instanceof Boolean) {
+		return (T) value;
+	    }
+	    return (T) Boolean.valueOf(value.toString());
+	}
+	
+	return (T) value;
+    }
 }
