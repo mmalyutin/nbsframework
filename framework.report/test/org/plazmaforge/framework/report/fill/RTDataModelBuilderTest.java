@@ -30,14 +30,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.DataTestCase;
 import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.DSExpressionEvaluator;
 import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
-import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.data.Scope;
@@ -45,16 +43,15 @@ import org.plazmaforge.framework.core.datastorage.model.DSDataBuilder;
 import org.plazmaforge.framework.core.datastorage.model.DSDataModel;
 import org.plazmaforge.framework.core.datastorage.model.DSMainDataSet;
 import org.plazmaforge.framework.core.exception.DSEvaluateException;
-import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.report.AbstractTestCase;
 import org.plazmaforge.framework.report.fill.script.ns.NSExpressionEvaluator;
 import org.plazmaforge.framework.util.StringUtils;
-import org.plazmaforge.framework.uwt.widget.chart.dataset.Dataset;
 
 /**
  * @author ohapon
  *
  */
-public class RTDataModelBuilderTest  extends DataTestCase {
+public class RTDataModelBuilderTest  extends AbstractTestCase {
 
     private DecimalFormat numberFormatter = new DecimalFormat("#.00");
     
