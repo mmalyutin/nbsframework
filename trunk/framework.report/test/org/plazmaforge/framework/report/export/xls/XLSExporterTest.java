@@ -25,11 +25,7 @@
  */
 package org.plazmaforge.framework.report.export.xls;
 
-import java.io.InputStream;
-
-import junit.framework.TestCase;
-
-import org.plazmaforge.framework.report.ReportEngine;
+import org.plazmaforge.framework.report.AbstractTestCase;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
@@ -38,16 +34,17 @@ import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
  * @author ohapon
  *
  */
-public class XLSExporterTest extends TestCase {
+public class XLSExporterTest extends AbstractTestCase {
 
     public void testReadFromInputStream() throws Exception {
-	
-   	XMLDocumentReader reader = new XMLDocumentReader();
-   	InputStream is = ReportEngine.class.getResourceAsStream("resources/documents/Document1.document.xml");
-   	Document document = reader.readDocument(is);
+	String documentFile = getResourcesFileName("documents/Document1.document.xml");
+	String resultFile = getTestFileName("Document1.xls"); 
+   	
+	XMLDocumentReader reader = new XMLDocumentReader();
+   	Document document = reader.readDocument(documentFile);
    	
    	ReportManager reportManager = new ReportManager();
-   	reportManager.exportDocumentToFile(document, "XLS", "c:\\2.xls", null);
+   	reportManager.exportDocumentToFile(document, "XLS", resultFile, null);
    	
     }
 }

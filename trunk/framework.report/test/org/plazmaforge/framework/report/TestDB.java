@@ -56,6 +56,8 @@ public class TestDB {
     }
     
     private void createTables(Connection connection) throws SQLException {
+	
+	// PRODUCT
 	Statement stm = connection.createStatement();
 	stm.executeUpdate("CREATE TABLE PRODUCT (" +
 			"  PRODUCT_ID INTEGER," +
@@ -65,10 +67,38 @@ public class TestDB {
 			"  CREATED_DATE DATE" +			
 			")");
 	stm.close();
+	
+	// BIG_PRODUCT
+	stm = connection.createStatement();
+	stm.executeUpdate("CREATE TABLE BIG_PRODUCT (" +
+			"  PRODUCT_ID INTEGER," +
+			"  PRODUCT_NAME VARCHAR," +
+			"  GROUP_NAME VARCHAR," + 
+			"  PRICE NUMERIC(15, 2)," +
+			"  CREATED_DATE DATE" +			
+			")");
+	stm.close();
+	
     }
     
     private void populateTables(Connection connection) throws SQLException {
+	
+	// PRODUCT
 	PreparedStatement pstm = connection.prepareStatement("INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE) VALUES (?, ?, ?, ?, ?)");
+	for (int i = 101; i <= 200; i++) {
+	    
+	    pstm.setInt(1, i);
+	    pstm.setString(2, "Product " + i);
+	    pstm.setString(3, "Group " + (i < 200 ? "1" : "2"));
+	    pstm.setFloat(4, (float)(i/100.00 + i));
+	    pstm.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
+	    pstm.execute();
+	}
+	pstm.close();
+	
+	
+	// BIG_PRODUCT
+	pstm = connection.prepareStatement("INSERT INTO BIG_PRODUCT (PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE) VALUES (?, ?, ?, ?, ?)");
 	for (int i = 101; i <= 2000; i++) {
 	    
 	    pstm.setInt(1, i);
@@ -79,5 +109,6 @@ public class TestDB {
 	    pstm.execute();
 	}
 	pstm.close();
+	
     }
 }
