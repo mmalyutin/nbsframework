@@ -33,7 +33,7 @@ public class RepotToolCSVTest extends AbstractTestCase {
 	
 	String reportFile = getResourcesFileName("reports/Report1.report.xml");
 	String dataFile = getResourcesFileName("data/Report1.csv");
-	String documentFile = getTestFileName("Report1CSV.pdf");
+	String documentFile = getTestFileName("Report1CSV_DC.pdf");
 	
 	String[] args = new String[] {
 		"-report", reportFile, 
@@ -43,6 +43,24 @@ public class RepotToolCSVTest extends AbstractTestCase {
 		"-dataconnector.type", "CSV", 
 		"-dataconnector.file", dataFile, 
 		"-dataconnector.firstRowHeader", "true"};
+	
+	ReportTool.main(args);
+    }
+
+    public void testReportCSVConnectionString() {
+	
+	String reportFile = getResourcesFileName("reports/Report1.report.xml");
+	String dataFile = getResourcesFileName("data/Report1.csv");
+	String documentFile = getTestFileName("Report1CSV_CS.pdf");
+	
+	String connection = "csv::" + dataFile + "->(firstRowHeader=true)";
+	
+	String[] args = new String[] {
+		"-report", reportFile, 
+		"-document", documentFile,
+		"-log", "true", 
+		"-format", "PDF", 
+		"-connection", connection};
 	
 	ReportTool.main(args);
     }
