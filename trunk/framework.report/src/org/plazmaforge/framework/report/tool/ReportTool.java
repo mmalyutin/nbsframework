@@ -67,7 +67,7 @@ public class ReportTool {
 	}
 	ReportTool tool = new ReportTool();
 	tool.execute(properties);
-	System.exit(0);
+	//System.exit(0);
     }
 
     public void execute(Properties properties) {
@@ -118,6 +118,11 @@ public class ReportTool {
 	    trace("format   = " + exportFormat);
 	    trace("\n");
 	    
+	    
+	    // Initialize DataStorage: Register base DataProducer factories 
+	    DataStorage.init();
+	    
+	    
 	    DSDataConnector dataConnector = loadDataConnector(properties);
 	    Map<String, Object> parameters = new HashMap<String, Object>();
 	    
@@ -163,7 +168,7 @@ public class ReportTool {
 	    result.remove("type");
 	}
 	
-	DataStorage.init();
+	
 	
 	if (!DataManager.supportsDataProducer(type)) {
 	    trace("Unsupports DataConnector type: " + type);
