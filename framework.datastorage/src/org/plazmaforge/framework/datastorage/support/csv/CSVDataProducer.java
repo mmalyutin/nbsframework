@@ -85,12 +85,22 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	
-	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE, fileName);
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String file = values[0];
+	String parametersString = values[1];
+	Map<String, Object> parameterData = createConnectionParameterData(parametersString);
+	file = normalize(file);
+	if (file != null) {
+	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
+	}
 	
-	return doOpenSession(data);
+//	String fileName = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
+//	
+//	Map<String, Object> data = new HashMap<String, Object>();
+//	data.put(CSVDataConnector.PROPERTY_FILE, fileName);
+	
+	return doOpenSession(parameterData);
     }
 
     @Override
@@ -109,11 +119,9 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
 	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
-	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(CSVDataConnector.PROPERTY_FILE, file);
-	
-	return doOpenSession(data);
+	Map<String, Object> parameterData = new HashMap<String, Object>();
+	parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
+	return doOpenSession(parameterData);
     }
     
     @Override
@@ -150,7 +158,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String encoding = (String) data.get(CSVDataConnector.PROPERTY_ENCODING);
 	String columnDelimiter = (String) data.get(CSVDataConnector.PROPERTY_COLUMN_DELIMITER);
 	String rowDelimiter = (String) data.get(CSVDataConnector.PROPERTY_ROW_DELIMITER);
-	Boolean firstRowHeader = (Boolean) data.get(CSVDataConnector.PROPERTY_FIRST_ROW_HEADER);
+	Boolean firstRowHeader = getProperty(Boolean.class, data, CSVDataConnector.PROPERTY_FIRST_ROW_HEADER);
 	String dateFormat = (String) data.get(CSVDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(CSVDataConnector.PROPERTY_NUMBER_FROMAT);
 	
