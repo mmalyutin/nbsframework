@@ -166,10 +166,10 @@ public class SystemUtils {
     }
 
 
-    private static String normalizeString(String str) {
-	return StringUtils.normalizeString(str);
+    private static String normalizeArg(String str) {
+	return str; // ?
     }
-	    
+    
     public static Properties loadProperties(String[] args) {
    	Properties properties = new Properties();
    	if (args == null || args.length == 0){
@@ -178,14 +178,14 @@ public class SystemUtils {
    	String p = null;
    	String v = null;
       	for (int i = 0; i < args.length; i++) {
-      	    p = normalizeString(args[i]);
+      	    p = normalizeArg(args[i]);
       	    if (p == null) {
       		continue;
       	    }
       	    if (p.startsWith("-") && p.length() > 1) {
       		p = p.substring(1);
       		if ((i + 1) < args.length) {
-      		    v = normalizeString(args[i + 1]);
+      		    v = normalizeArg(args[i + 1]);
       		    if (v != null && v.startsWith("-")) {
       			v = "true";
       		    } else {
@@ -193,6 +193,9 @@ public class SystemUtils {
       		    }
       		} else {
       		    v = "true";
+      		}
+      		if (v == null) {
+      		    continue;
       		}
       		properties.put(p, v);
       		
