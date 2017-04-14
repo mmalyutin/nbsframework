@@ -90,14 +90,16 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSSession openSession(String connectionString) throws DSException {
+	// Parse connection string
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_SESSION, connectionString);
 	String url = values[0];
 	String parametersString = values[1];
-	
-	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
-	parameterData.put(SQLDataConnector.PROPERTY_URL, url);
-	
-	return doOpenSession(parameterData);
+	Map<String, Object> data = createConnectionParameterData(parametersString);
+	url = normalize(url);
+	if (url != null) {
+	    data.put(SQLDataConnector.PROPERTY_URL, url);
+	}
+	return doOpenSession(data);
     }
 
     @Override
@@ -213,13 +215,12 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String url = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createConnectionParameterData(parametersString); 
+	Map<String, Object> data = createConnectionParameterData(parametersString); 
 	url = normalize(url);
 	if (url != null) {
-	    parameterData.put(SQLDataConnector.PROPERTY_URL, url);
+	    data.put(SQLDataConnector.PROPERTY_URL, url);
 	}
-	DSSession session = doOpenSession(parameterData);
-	
+	DSSession session = doOpenSession(data);
 	return openResultSet(session);
     }
     
