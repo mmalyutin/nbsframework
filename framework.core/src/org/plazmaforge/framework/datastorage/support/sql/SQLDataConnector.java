@@ -41,7 +41,7 @@ public class SQLDataConnector extends AbstractDataConnector {
     
     private String url;
     
-    private String driverClassName;
+    private String driver;
     
     public SQLDataConnector() {
     }
@@ -54,12 +54,12 @@ public class SQLDataConnector extends AbstractDataConnector {
         this.url = url;
     }
 
-    public String getDriverClassName() {
-        return driverClassName;
+    public String getDriver() {
+        return driver;
     }
 
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
+    public void setDriver(String driver) {
+        this.driver = driver;
     }
 
     @Override

@@ -75,7 +75,11 @@ public abstract class AbstractDataProducer implements DataProducer {
 	}
 	
 	List<ParameterValue> parameters = createParameters(dataSource);
-	return openResultSet(session, dataSource.getQueryText(), parameters == null ? null : parameters.toArray(new ParameterValue[0]));
+	String query = getQuery(session);
+	if (query == null) {
+	    query = dataSource.getQueryText();
+	}
+	return openResultSet(session, query, parameters == null ? null : parameters.toArray(new ParameterValue[0]));
     }
 
     @Override
@@ -89,7 +93,11 @@ public abstract class AbstractDataProducer implements DataProducer {
 	}
 	
 	List<ParameterValue> parameters = createParameters(dataSource, parameterValues);
-	return openResultSet(session, dataSource.getQueryText(), parameters == null ? null : parameters.toArray(new ParameterValue[0]));
+	String query = getQuery(session);
+	if (query == null) {
+	    query = dataSource.getQueryText();
+	}
+	return openResultSet(session, query, parameters == null ? null : parameters.toArray(new ParameterValue[0]));
     }
     
     @Override
@@ -99,6 +107,8 @@ public abstract class AbstractDataProducer implements DataProducer {
     
     
     ////
+    
+    protected abstract String getQuery(DSSession session);
     
     public boolean supportsSingleDataSource() {
 	// By default
