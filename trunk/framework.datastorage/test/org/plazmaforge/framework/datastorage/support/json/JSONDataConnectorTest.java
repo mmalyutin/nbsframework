@@ -49,7 +49,7 @@ public class JSONDataConnectorTest extends AbstractTestCase {
 	String file = getResourcesFileName("json/test.json");
 	String connectionString = "json::" + file + "->(query=data-set.records)";
 	JSONResultSet jsonResultSet = (JSONResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen JSONResultSet by general connection string: '" + connectionString + "'");
+	System.out.println("\nOpen JSONResultSet by global connection string: '" + connectionString + "'");
 	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
     }
 
@@ -91,7 +91,7 @@ public class JSONDataConnectorTest extends AbstractTestCase {
 	jsonResultSet = (JSONResultSet) resultSet;
 
 	
-	System.out.println("\nOpen JSONResultSet by internal connection string: '" + connectionString + "'");
+	System.out.println("\nOpen JSONResultSet by local connection string: '" + connectionString + "'");
 	printJSONResultSet(jsonResultSet, new String[] {"a", "b", "c"});
 	
     }

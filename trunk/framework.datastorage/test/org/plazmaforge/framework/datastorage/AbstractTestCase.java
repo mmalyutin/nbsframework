@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.MessageFormat;
 import java.util.Date;
 
 import org.plazmaforge.framework.util.DateUtils;
@@ -105,6 +106,10 @@ public abstract class AbstractTestCase extends TestCase {
 	return date == null ? null : format.format(date);
     }
 
+    protected String format(String message, Object ... args) {
+	return MessageFormat.format(message, args);
+    }
+    
     ////
     
     protected Connection getConnection() throws SQLException {
