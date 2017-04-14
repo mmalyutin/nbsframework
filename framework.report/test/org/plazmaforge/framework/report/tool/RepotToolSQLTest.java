@@ -46,12 +46,29 @@ public class RepotToolSQLTest extends AbstractTestCase {
 		"-format", "PDF", 
 		"-dataconnector.type", "SQL", 
 		"-dataconnector.url", "jdbc:hsqldb:mem:mydb", 
-		"-dataconnector.driverClassName", "org.hsqldb.jdbcDriver",
+		"-dataconnector.driver", "org.hsqldb.jdbcDriver",
 		"-dataconnector.username", "sa",
 		"-dataconnector.password", ""
 		};
 	
 	ReportTool.main(args);
     }
-    
+
+    public void testReportSQLConnectionString() {
+	
+ 	String reportFile = getResourcesFileName("reports/Report1.report.xml");
+ 	String documentFile = getTestFileName("Report1SQL_CS.pdf");
+ 	String connection = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver; username=sa; query=SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE < :PRICE_LIMIT)";
+ 	
+ 	String[] args = new String[] {
+ 		"-report", reportFile, 
+ 		"-document", documentFile,
+ 		"-log", "true", 
+ 		"-format", "PDF", 
+ 		"-connection", connection};
+ 	
+ 	ReportTool.main(args);
+     }
+
+         
 }

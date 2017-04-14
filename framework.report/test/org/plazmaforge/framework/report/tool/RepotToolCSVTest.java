@@ -52,8 +52,7 @@ public class RepotToolCSVTest extends AbstractTestCase {
 	String reportFile = getResourcesFileName("reports/Report1.report.xml");
 	String dataFile = getResourcesFileName("data/Report1.csv");
 	String documentFile = getTestFileName("Report1CSV_CS.pdf");
-	
-	String connection = "csv::" + dataFile + "->(firstRowHeader=true)";
+	String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
 	
 	String[] args = new String[] {
 		"-report", reportFile, 
