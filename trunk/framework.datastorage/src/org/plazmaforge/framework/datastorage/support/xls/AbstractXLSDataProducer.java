@@ -42,7 +42,6 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 
 /**
  * 
@@ -72,34 +71,36 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
     
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
-	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XLSDataConnector.PROPERTY_FILE, file);
-	
+	// Parse connection string
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String file = values[0];
+	String parametersString = values[1];
+	Map<String, Object> data = createConnectionParameterData(parametersString);
+	file = normalize(file);
+	if (file != null) {
+	    data.put(XLSDataConnector.PROPERTY_FILE, file);
+	}
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
 	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
-	if (file == null || file.isEmpty()) {
-	    file = properties.getProperty(DataManager.PROPERTY_URL);
+	file = normalize(file);
+	if (file == null && properties != null) {
+	    file = properties.getProperty(XLSDataConnector.PROPERTY_FILE);
 	}
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XLSDataConnector.PROPERTY_FILE, file);
-	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
 	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
+	file = normalize(file);
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XLSDataConnector.PROPERTY_FILE, file);
-	
 	return doOpenSession(data);
     }
     
@@ -108,12 +109,10 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	if (properties == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
-	
-	String file = properties.getProperty(DataManager.PROPERTY_URL);
-
+	String file = properties.getProperty(XLSDataConnector.PROPERTY_FILE);
+	file = normalize(file);
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XLSDataConnector.PROPERTY_FILE, file);
-	
 	return doOpenSession(data);
     }
 	
@@ -134,7 +133,7 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
     protected DSSession doOpenSession(Map<String, Object> data) throws DSException {
 	
 	String file = (String) data.get(XLSDataConnector.PROPERTY_FILE);
-	Boolean firstRowHeader = (Boolean) data.get(XLSDataConnector.PROPERTY_FIRST_ROW_HEADER);
+	Boolean firstRowHeader = getProperty(Boolean.class, data, XLSDataConnector.PROPERTY_FIRST_ROW_HEADER);
 	String dateFormat = (String) data.get(XLSDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XLSDataConnector.PROPERTY_NUMBER_FROMAT);
 	
@@ -157,13 +156,12 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String file = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
+	Map<String, Object> data = createConnectionParameterData(parametersString);
 	file = normalize(file);
 	if (file != null) {
-	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
+	    data.put(XLSDataConnector.PROPERTY_FILE, file);
 	}
-	DSSession session = doOpenSession(parameterData);
-	
+	DSSession session = doOpenSession(data);
 	return openResultSet(session);
     }
 

@@ -41,7 +41,6 @@ import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
 import org.plazmaforge.framework.core.exception.DSException;
-import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 
 
 /**
@@ -80,34 +79,36 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 
     @Override
     public DSSession openSession(String connectionString) throws DSException {
-	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
-	Map<String, Object> data = new HashMap<String, Object>();
-	data.put(XMLDataConnector.PROPERTY_FILE, file);
-	
+	// Parse connection string
+	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
+	String file = values[0];
+	String parametersString = values[1];
+	Map<String, Object> data = createConnectionParameterData(parametersString);
+	file = normalize(file);
+	if (file != null) {
+	    data.put(XMLDataConnector.PROPERTY_FILE, file);
+	}
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, Properties properties) throws DSException {
 	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
-	if (file == null || file.isEmpty()) {
-	    file = properties.getProperty(DataManager.PROPERTY_URL);
+	file = normalize(file);
+	if (file == null && properties != null) {
+	    file = properties.getProperty(XMLDataConnector.PROPERTY_FILE);
 	}
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE, file);
-	
 	return doOpenSession(data);
     }
 
     @Override
     public DSSession openSession(String connectionString, String username, String password) throws DSException {
 	String file = getCheckConnectionString(DataManager.CONTEXT_SESSION, connectionString);
-	
+	file = normalize(file);
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE, file);
-	
 	return doOpenSession(data);
     }
     
@@ -116,12 +117,10 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	if (properties == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "Properties are null");
 	}
-	
-	String file = properties.getProperty(DataManager.PROPERTY_URL);
-
+	String file = properties.getProperty(XMLDataConnector.PROPERTY_FILE);
+	file = normalize(file);
 	Map<String, Object> data = new HashMap<String, Object>();
 	data.put(XMLDataConnector.PROPERTY_FILE, file);
-	
 	return doOpenSession(data);
     }
 	
@@ -175,13 +174,12 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	String[] values = parseLocalConnectionString(DataManager.CONTEXT_RESULT_SET, connectionString);
 	String file = values[0];
 	String parametersString = values[1];
-	Map<String, Object>  parameterData = createConnectionParameterData(parametersString);
+	Map<String, Object> data = createConnectionParameterData(parametersString);
 	file = normalize(file);
 	if (file != null) {
-	    parameterData.put(CSVDataConnector.PROPERTY_FILE, file);
+	    data.put(XMLDataConnector.PROPERTY_FILE, file);
 	}
-	DSSession session = doOpenSession(parameterData);
-	
+	DSSession session = doOpenSession(data);
 	return openResultSet(session);
     }
 
