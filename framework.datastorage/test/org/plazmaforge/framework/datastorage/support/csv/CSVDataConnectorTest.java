@@ -47,9 +47,9 @@ public class CSVDataConnectorTest extends AbstractTestCase {
 	DataManager.registerDataProducerFactory(CSVDataConnector.TYPE, new CSVDataProducerFactory());
 	
 	String file = getResourcesFileName("csv/test.csv");
-	String connectionString = "csv::" + file;
+	String connectionString = format("csv::{0}->(firstRowHeader=true)", file);
 	CSVResultSet csvResultSet = (CSVResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen CSVResultSet by general connection string: '" + connectionString + "'");
+	System.out.println("\nOpen CSVResultSet by global connection string: '" + connectionString + "'");
 	printCSVResultSet(csvResultSet);
     }
     
@@ -90,7 +90,7 @@ public class CSVDataConnectorTest extends AbstractTestCase {
 	assertTrue(resultSet instanceof CSVResultSet);
 	csvResultSet = (CSVResultSet) resultSet;
 	
-	System.out.println("\nOpen CSVResultSet by internal connection string: '" + connectionString + "'");
+	System.out.println("\nOpen CSVResultSet by local connection string: '" + connectionString + "'");
 	printCSVResultSet(csvResultSet);
 	
     }

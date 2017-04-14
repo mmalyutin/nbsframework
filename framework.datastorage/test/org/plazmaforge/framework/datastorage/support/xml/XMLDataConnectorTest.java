@@ -46,9 +46,9 @@ public class XMLDataConnectorTest extends AbstractTestCase {
 	DataManager.registerDataProducerFactory(XMLDataConnector.TYPE, new XMLDataProducerFactory());
 	
 	String file = getResourcesFileName("xml/test.xml");
-	String connectionString = "xml::" + file + "->(query=/data-set/record)";
+	String connectionString = format("xml::{0}->(query=/data-set/record)", file);
 	XMLResultSet xmlResultSet = (XMLResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen XMLResultSet by general connection string: '" + connectionString + "'");
+	System.out.println("\nOpen XMLResultSet by global connection string: '" + connectionString + "'");
 	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
     }
 
@@ -83,14 +83,14 @@ public class XMLDataConnectorTest extends AbstractTestCase {
 	session.close();
 	
 	// 2.
-	String connectionString = file + "->(query=/data-set/record)";
+	String connectionString = format("{0}->(query=/data-set/record)", file);
 	resultSet = producer.openResultSet(connectionString);
 	assertNotNull(resultSet);
 	assertNotNull(resultSet instanceof XMLResultSet);
 	xmlResultSet = (XMLResultSet) resultSet;
 
 	
-	System.out.println("\nOpen XMLResultSet by internal connection string: '" + connectionString + "'");
+	System.out.println("\nOpen XMLResultSet by local connection string: '" + connectionString + "'");
 	printXMLResultSet(xmlResultSet, new String[] {"a", "b", "c"});
 	
     }

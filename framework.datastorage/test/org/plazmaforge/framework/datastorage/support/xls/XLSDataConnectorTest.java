@@ -47,9 +47,9 @@ public class XLSDataConnectorTest extends AbstractTestCase {
 	DataManager.registerDataProducerFactory(XLSDataConnector.TYPE, new XLSDataProducerFactory());
 	
 	String file = getResourcesFileName("xls/test.xls");
-	String connectionString = "xls::" + file;
+	String connectionString = format("xls::{0}", file);
 	XLSResultSet xlsResultSet = (XLSResultSet) DataManager.openResultSet(connectionString);
-	System.out.println("\nOpen XLSResultSet by general connection string: '" + connectionString + "'");
+	System.out.println("\nOpen XLSResultSet by global connection string: '" + connectionString + "'");
 	printXLSResultSet(xlsResultSet);
     }
     
@@ -90,7 +90,7 @@ public class XLSDataConnectorTest extends AbstractTestCase {
 	assertTrue(resultSet instanceof XLSResultSet);
 	xlsResultSet = (XLSResultSet) resultSet;
 	
-	System.out.println("\nOpen XLSResultSet by internal connection string: '" + connectionString + "'");
+	System.out.println("\nOpen XLSResultSet by local connection string: '" + connectionString + "'");
 	printXLSResultSet(xlsResultSet);
 	
     }
