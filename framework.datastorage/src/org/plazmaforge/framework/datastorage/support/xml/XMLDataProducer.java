@@ -261,4 +261,8 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	return true;
     }
 
+    protected String getQuery(DSSession session) {
+	return ((XMLSession) session).getQuery();
+    }
+    
 }

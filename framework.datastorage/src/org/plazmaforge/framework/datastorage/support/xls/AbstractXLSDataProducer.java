@@ -239,5 +239,9 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
     protected abstract AbstractXLSResultSet createXLSResultSet(InputStream inputStream) throws DSException;
     
     protected abstract AbstractXLSDataSet createXLSDataSet(List<DSField> fields, InputStream inputStream) throws DSException;
+
+    protected String getQuery(DSSession session) {
+	return ((AbstractXLSSession) session).getQuery();
+    }
     
 }
