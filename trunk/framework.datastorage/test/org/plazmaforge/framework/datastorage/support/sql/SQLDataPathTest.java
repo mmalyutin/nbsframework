@@ -67,7 +67,7 @@ public class SQLDataPathTest extends AbstractTestCase {
 	String password = "";
 	
 	
-	dataConnector.setDriverClassName(driver);
+	dataConnector.setDriver(driver);
 	dataConnector.setUrl(url);
 	dataConnector.setUsername(username);
 	dataConnector.setPassword(password);

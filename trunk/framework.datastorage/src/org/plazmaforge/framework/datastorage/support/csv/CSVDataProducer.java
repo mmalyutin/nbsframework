@@ -279,5 +279,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	return true;
     }
     
-
+    protected String getQuery(DSSession session) {
+	return ((CSVSession) session).getQuery();
+    }
 }

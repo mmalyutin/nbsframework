@@ -265,5 +265,9 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
     public boolean supportsSingleDataSource() {
 	return true;
     }
+    
+    protected String getQuery(DSSession session) {
+	return ((JSONSession) session).getQuery();
+    }
 
 }

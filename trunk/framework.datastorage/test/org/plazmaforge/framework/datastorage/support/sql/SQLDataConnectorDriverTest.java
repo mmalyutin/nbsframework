@@ -53,7 +53,7 @@ public class SQLDataConnectorDriverTest extends AbstractTestCase {
 	// 1.1 by Data Connector: FAIL
 	SQLDataConnector dataConnector = new SQLDataConnector();
 	
-	dataConnector.setDriverClassName(null); // WITHOUT DRIVER
+	dataConnector.setDriver(null); // WITHOUT DRIVER
 	dataConnector.setUrl(url);
 	dataConnector.setUsername(username);
 	dataConnector.setPassword(password);
@@ -82,7 +82,7 @@ public class SQLDataConnectorDriverTest extends AbstractTestCase {
 	// 1.2 by Data Connector: SUCCESS
 	dataConnector = new SQLDataConnector();
 	
-	dataConnector.setDriverClassName(driver);
+	dataConnector.setDriver(driver);
 	dataConnector.setUrl(url);
 	dataConnector.setUsername(username);
 	dataConnector.setPassword(password);
