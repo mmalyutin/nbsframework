@@ -71,7 +71,7 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	}	
 	SQLDataConnector sqlDataConnector = (SQLDataConnector) dataConnector;
 	
-	String driver = sqlDataConnector.getDriverClassName();
+	String driver = sqlDataConnector.getDriver();
 	String url = sqlDataConnector.getUrl();
 	String username = sqlDataConnector.getUsername();
 	String password = sqlDataConnector.getPassword();
@@ -358,4 +358,9 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	int sqlType = SQLEnvironment.getSQLType(type);
 	valueWriter.setValue(stm, value, index, sqlType);
     }
+    
+    protected String getQuery(DSSession session) {
+	return ((SQLSession) session).getQuery();
+    }
+    
 }
