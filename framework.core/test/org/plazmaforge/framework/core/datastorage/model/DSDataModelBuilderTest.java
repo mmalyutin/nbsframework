@@ -50,7 +50,7 @@ public class DSDataModelBuilderTest  extends DataTestCase {
 
     private DecimalFormat numberFormatter = new DecimalFormat("#.00");
 
-    public void testGenerateQueryparameters() throws Exception  {
+    public void testGenerateQueryParameters() throws Exception  {
 	
 	// Test single DataSource 
 	DSDataBuilder builder = new DSDataBuilder();
