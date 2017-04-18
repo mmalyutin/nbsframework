@@ -28,17 +28,12 @@ package org.plazmaforge.framework.core.datastorage.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
+import org.plazmaforge.framework.core.datastorage.DSDataHelper;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
-import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
-import org.plazmaforge.framework.core.datastorage.DSParameter;
-import org.plazmaforge.framework.core.datastorage.data.QueryAnalyzer;
-import org.plazmaforge.framework.core.datastorage.data.QueryInfo;
-import org.plazmaforge.framework.core.datastorage.data.QueryParameter;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.util.StringUtils;
 
@@ -61,7 +56,15 @@ import org.plazmaforge.framework.util.StringUtils;
  *
  */
 public class DSDataBuilder {
+    
+    
+    protected DSDataHelper helper;
+    
 
+    public DSDataBuilder() {
+	super();
+	helper = new DSDataHelper();
+    }
 
     public DSDataModel buildDataModel(DSDataSource dataSource) throws DSException {
 	List<DSDataSource> dataSources = null;
@@ -238,64 +241,11 @@ public class DSDataBuilder {
     }
     
     public void generateQueryParameters(DSDataSource dataSource) {
-	generateQueryParameters(dataSource, null, null, false);
+	helper.generateQueryParameters(dataSource);
     }
 	
     public void generateQueryParameters(DSDataSource dataSource, String parameterPrefix, String parameterSuffix, boolean override) {
-	if (dataSource == null) {
-	    return;
-	}
-	String query = dataSource.getQueryText();
-	query = normalize(query);
-	if (query == null) {
-	    return;
-	}
-
-	QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
-	QueryInfo queryInfo = queryAnalyzer.analyzeQuery(query);
-	
-	Set<QueryParameter> parameters = queryInfo.getUniqueParameters();
-	int parameterCount = parameters == null ? 0: parameters.size();
-	if (parameterCount == 0) {
-	    return;
-	}
-	
-	parameterPrefix = normalize(parameterPrefix);
-	parameterSuffix = normalize(parameterSuffix);
-	
-	boolean isExpression = parameterPrefix != null || parameterSuffix != null;
-	
-	parameterPrefix = parameterPrefix == null ? "" : parameterPrefix;
-	parameterSuffix = parameterSuffix == null ? "" : parameterSuffix;
-	
-	for (QueryParameter parameter : parameters) {
-	    String parameterName = parameter.getName();
-	    DSParameter findParameter = dataSource.getParameter(parameterName);
-	    boolean needParameter = false;
-	    
-	    if (findParameter == null) {
-		needParameter = true;
-	    } else {
-		if (override && isExpression) {
-		    dataSource.removeParameter(findParameter);
-		    needParameter = true;
-		}
-	    }
-	    
-	    if (needParameter) {
-		DSParameter newParameter = null;
-		if (isExpression) {
-		    DSExpressionParameter expressionParameter = new DSExpressionParameter();
-		    expressionParameter.setExpressionText(parameterPrefix + parameterName + parameterSuffix);
-		    newParameter = expressionParameter;
-		} else {
-		    newParameter = new DSParameter();
-		}
-		newParameter.setName(parameterName);
-		dataSource.addParameter(newParameter);
-	    }
-	}
-	
+	helper.generateQueryParameters(dataSource, parameterPrefix, parameterSuffix, override);
     }
     
     protected String normalize(String str) {
