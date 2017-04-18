@@ -33,11 +33,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
+import org.plazmaforge.framework.core.datastorage.DSDataHelper;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSEmptyDataSet;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
-import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
@@ -46,7 +46,6 @@ import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.datastorage.DSWrappedDataSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.data.AggregationCalculator;
-import org.plazmaforge.framework.core.datastorage.model.DSDataBuilder;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.exception.RTException;
@@ -73,6 +72,13 @@ public class BaseReportFiller implements ReportFiller {
     private boolean trace;
     
     
+    protected DSDataHelper dataHelper;
+    
+    public BaseReportFiller() {
+	super();
+	dataHelper = new DSDataHelper();
+    }
+
     public boolean isTrace() {
         return trace;
     }
@@ -266,67 +272,14 @@ public class BaseReportFiller implements ReportFiller {
 	    return;
 	}
 	List<DSDataSource> dataSources = report.getDataSources();
+	List<DSParameter> reportParameters = report.getParameters();
 	for (DSDataSource dataSource: dataSources) {
-	    transferParametersToDataSource(report, dataSource, parameters);
+	    transferParametersToDataSource(dataSource, reportParameters, parameters);
 	}
     }
     
-    protected void transferParametersToDataSource(Report report, DSDataSource dataSource, Map<String, Object> parameters) {
-	if (dataSource == null || parameters == null || parameters.isEmpty()) {
-	    return;
-	}
-	DSDataBuilder builder = new DSDataBuilder();
-	
-	// Generate parameters by QUERY TEXT (:parameter1, :parameter2)
-	builder.generateQueryParameters(dataSource);
-	
-	// No parameters
-	if (!dataSource.hasParameters()) {
-	    return;
-	}
-	
-	List<DSParameter> dsParameters = dataSource.getParameters();
-	for (DSParameter dsParameter: dsParameters) {
-	    if (dsParameter instanceof DSExpressionParameter) {
-		continue;
-	    }
-	    String name = dsParameter.getName();
-	    if (name == null) {
-		continue;
-	    }
-	    Object value = dsParameter.getDefaultValue();
-	    
-	    // Fixed dataType
-	    if (dsParameter.getDataType() == null) {
-		DSParameter reportParameter = findParameter(report, name);
-		if (reportParameter != null) {
-		    dsParameter.setDataType(reportParameter.getDataType());
-		}
-	    }
-	    // If default value is setting then break
-	    if (value != null) {
-		continue;
-	    }
-	    // Get value from parameters map 
-	    value = parameters.get(name);
-	    if (value == null) {
-		continue;
-	    }
-	    dsParameter.setDefaultValue(value); // TODO: Must compare 'data-type' and type of value 
-	}
-    }
-    
-    protected DSParameter findParameter(Report report, String name) {
-	if (report == null) {
-	    return null;
-	}
-	List<DSParameter> parameters = report.getParameters();
-	for (DSParameter parameter: parameters) {
-	    if  (name.equals(parameter.getName())) {
-		return parameter;
-	    }
-	}
-	return null;
+    protected void transferParametersToDataSource(DSDataSource dataSource, List<DSParameter> generalParameters, Map<String, Object> parameters) {
+	dataHelper.transferParametersToDataSource(dataSource, generalParameters, parameters);
     }
     
     protected DSResultSet openReportResultSet(Report report, Map<String, Object> parameters) throws RTException {
