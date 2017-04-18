@@ -35,13 +35,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.plazmaforge.framework.core.datastorage.AbstractStructuredDataSet;
+import org.plazmaforge.framework.core.datastorage.DSDataHelper;
 import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.DSExpressionEvaluator;
-import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
-import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
@@ -104,6 +103,9 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
     private boolean populateScope;
     
     ////
+
+    protected DSDataHelper dataHelper;
+    
     
     class FieldInfo {
 	
@@ -157,6 +159,8 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 
     public DSMainDataSet(DSDataModel model, DSSession session, Scope scope, DSExpressionEvaluator expressionEvaluator) {
 	super();
+	dataHelper = new DSDataHelper();
+	
 	this.model = model;
 	this.session = session;
 	this.scope = scope;
@@ -689,36 +693,7 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 	}
 	
 	// Step 5. Prepare parameters (if need). Evaluate parameters values
-	List<Object> outputParameters = null;
-	if (dataSource.hasParameters()) {
-	    List<DSParameter> inputParameters = dataSource.getParameters();
-	    outputParameters = new ArrayList<Object>();
-	    Object outputParameter = null;
-	    
-	    for (DSParameter inputParameter: inputParameters) {
-		
-		// Set default parameter value
-		outputParameter = null;
-		
-		// Evaluate value only for parameter with expression
-		if (inputParameter instanceof DSExpressionParameter) {
-		    if (expressionEvaluator == null) {
-			outputParameters.add(outputParameter);
-			continue;
-		    }
-		    DSExpression expression = ((DSExpressionParameter) inputParameter).getExpression();
-		    if (!DSExpression.isEmpty(expression)) {
-			// Evaluate parameter expression
-			outputParameter = expressionEvaluator.evaluate(expression);
-		    }
-		} else {
-		    // Transfer default value to parameter value
-		    outputParameter = inputParameter.getDefaultValue();
-		}
-		
-		outputParameters.add(outputParameter);
-	    }
-	}
+	List<Object> outputParameters = dataHelper.evaluateParameters(dataSource, expressionEvaluator);
 	
 	// Step 6. Open new ResultSet by DataSource
 	resultSet = DataManager.openResultSet(session, dataSource, outputParameters == null ? null : outputParameters.toArray(new Object[0]));
@@ -842,7 +817,7 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
     }
     
     protected boolean equals(String s1, String s2) {
-	if (s1 == null || s2 == null){
+	if (s1 == null || s2 == null) {
 	    return false;
 	}
 	return s1.equals(s2);
