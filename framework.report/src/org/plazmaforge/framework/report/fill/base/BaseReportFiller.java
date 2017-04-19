@@ -279,7 +279,7 @@ public class BaseReportFiller implements ReportFiller {
     }
     
     protected void transferParametersToDataSource(DSDataSource dataSource, List<DSParameter> generalParameters, Map<String, Object> parameters) {
-	dataHelper.transferParametersToDataSource(dataSource, generalParameters, parameters);
+	dataHelper.transferDefaultValues(dataSource, generalParameters, parameters);
     }
     
     protected DSResultSet openReportResultSet(Report report, Map<String, Object> parameters) throws RTException {
