@@ -137,8 +137,15 @@ public class DSDataHelper {
 	
     }
     
-    public void transferParametersToDataSource(DSDataSource dataSource, List<DSParameter> generalParameters, Map<String, Object> parameters) {
-	if (dataSource == null || parameters == null || parameters.isEmpty()) {
+    /**
+     * Transfer default values from global parameters
+     * 
+     * @param dataSource
+     * @param globalParameters
+     * @param parameterValues
+     */
+    public void transferDefaultValues(DSDataSource dataSource, List<DSParameter> globalParameters, Map<String, Object> parameterValues) {
+	if (dataSource == null || parameterValues == null || parameterValues.isEmpty()) {
 	    return;
 	}
 
@@ -150,43 +157,69 @@ public class DSDataHelper {
 	    return;
 	}
 
-	List<DSParameter> dsParameters = dataSource.getParameters();
-	for (DSParameter dsParameter : dsParameters) {
-	    if (dsParameter instanceof DSExpressionParameter) {
+	List<DSParameter> parameters = dataSource.getParameters();
+	transferDefaultValues(parameters, globalParameters, parameterValues);
+    }
+    
+    /**
+     * Transfer default values from global parameters
+     * 
+     * @param parameters
+     * @param globalParameters
+     * @param parameterValues
+     */
+    public void transferDefaultValues(List<DSParameter> parameters, List<DSParameter> globalParameters, Map<String, Object> parameterValues) {
+	if (parameters == null || parameters.isEmpty() || parameterValues == null || parameterValues.isEmpty()) {
+	    return;
+	}
+	
+	Object value = null;
+	for (DSParameter parameter : parameters) {
+	    
+	    // Set default parameter value
+	    value = null;
+	    
+	    // Skip for parameter with expression
+	    if (parameter instanceof DSExpressionParameter) {
 		continue;
 	    }
-	    String name = dsParameter.getName();
+	    
+	    String name = parameter.getName();
 	    if (name == null) {
 		continue;
 	    }
-	    Object value = dsParameter.getDefaultValue();
+	    value = parameter.getDefaultValue();
 
 	    // Fixed dataType
-	    if (dsParameter.getDataType() == null) {
-		DSParameter reportParameter = findParameter(generalParameters, name);
+	    if (parameter.getDataType() == null) {
+		DSParameter reportParameter = findParameter(globalParameters, name);
 		if (reportParameter != null) {
-		    dsParameter.setDataType(reportParameter.getDataType());
+		    parameter.setDataType(reportParameter.getDataType());
 		}
 	    }
+	    
 	    // If default value is setting then break
 	    if (value != null) {
 		continue;
 	    }
+	    
 	    // Get value from parameters map
-	    value = parameters.get(name);
+	    value = parameterValues.get(name);
 	    if (value == null) {
 		continue;
 	    }
-	    dsParameter.setDefaultValue(value); // TODO: Must compare 'data-type' and type of value
+	    
+	    parameter.setDefaultValue(value); // TODO: Must compare 'data-type' and type of value
 	}
     }
+    
     
     /**
      * Evaluate DataSource parameters
      * 
      * @param dataSource
      * @param expressionEvaluator
-     * @return
+     * @return evaluated values
      * @throws DSEvaluateException
      */
     public List<Object> evaluateParameters(DSDataSource dataSource, DSExpressionEvaluator expressionEvaluator) throws DSEvaluateException {
@@ -194,36 +227,50 @@ public class DSDataHelper {
 	    return null;
 	}
 	
-	List<Object> outputParameters = null;
-	List<DSParameter> inputParameters = dataSource.getParameters();
-	outputParameters = new ArrayList<Object>();
-	Object outputParameter = null;
+	List<DSParameter> parameters = dataSource.getParameters();
+	List<Object> values = new ArrayList<Object>();
+	Object value = null;
 
-	for (DSParameter inputParameter : inputParameters) {
+	for (DSParameter parameter : parameters) {
 
-	    // Set default parameter value
-	    outputParameter = null;
-
-	    // Evaluate value only for parameter with expression
-	    if (inputParameter instanceof DSExpressionParameter) {
-		if (expressionEvaluator == null) {
-		    outputParameters.add(outputParameter);
-		    continue;
-		}
-		DSExpression expression = ((DSExpressionParameter) inputParameter).getExpression();
-		if (!DSExpression.isEmpty(expression)) {
-		    // Evaluate parameter expression
-		    outputParameter = expressionEvaluator.evaluate(expression);
-		}
-	    } else {
-		// Transfer default value to parameter value
-		outputParameter = inputParameter.getDefaultValue();
-	    }
-
-	    outputParameters.add(outputParameter);
+	    // Evaluate parameter
+	    value = evaluateParameter(parameter, expressionEvaluator);
+	    
+	    // Add value to list
+	    values.add(value);
 	}
 
-	return outputParameters;
+	return values;
+    }
+
+    public Object evaluateParameter(DSParameter parameter, DSExpressionEvaluator expressionEvaluator) throws DSEvaluateException {
+	if (parameter == null) {
+	    return null;
+	}
+
+	// Set default parameter value
+	Object value = parameter.getDefaultValue();
+	
+	if (parameter instanceof DSExpressionParameter) {
+	    // Evaluate value only for parameter with expression
+	    value = evaluateExpressionParameter(((DSExpressionParameter) parameter), expressionEvaluator);
+	}
+	
+	return value;
+    }
+    
+    public Object evaluateExpressionParameter(DSExpressionParameter parameter, DSExpressionEvaluator expressionEvaluator) throws DSEvaluateException {
+	if (parameter == null || expressionEvaluator == null) {
+	    return null;
+	}
+	return evaluateExpression(parameter.getExpression(), expressionEvaluator);
+    }
+    
+    public Object evaluateExpression(DSExpression expression, DSExpressionEvaluator expressionEvaluator) throws DSEvaluateException {
+	if (DSExpression.isEmpty(expression) || expressionEvaluator == null) {
+	    return null;
+	}
+	return  expressionEvaluator.evaluate(expression);
     }
     
     protected String normalize(String str) {
