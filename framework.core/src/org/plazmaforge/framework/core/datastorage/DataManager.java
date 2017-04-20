@@ -84,7 +84,10 @@ public class DataManager {
     
     private static DataManager instance; 
     
+    private DSDataHelper dataHelper;
+    
     private DataManager() {
+	dataHelper = new DSDataHelper();
     }
     
     private static DataManager getInstance() {
@@ -185,7 +188,12 @@ public class DataManager {
 	String type = session.getType();
 	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type); // DataSource type
 	
-	return dataProducer.openResultSet(session, dataSource, parameterValues);
+	DSResultSet resultSet = dataProducer.openResultSet(session, dataSource, parameterValues);
+	
+	// Processing ResultSet (filters, orders)
+	resultSet = getInstance().dataHelper.processResultSet(resultSet, dataSource);
+	
+	return resultSet; 
     }
 
     public static DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
@@ -197,8 +205,13 @@ public class DataManager {
 	}
 	String type = session.getType();
 	DataProducer dataProducer = getCheckDataProducer(CONTEXT_RESULT_SET, type); // DataSource type
+
+	DSResultSet resultSet = dataProducer.openResultSet(session, dataSource);
 	
-	return dataProducer.openResultSet(session, dataSource);
+	// Processing ResultSet (filters, orders)
+	resultSet = getInstance().dataHelper.processResultSet(resultSet, dataSource);
+	
+	return resultSet;
     }
 
     /**

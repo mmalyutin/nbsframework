@@ -249,7 +249,7 @@ public class DSBaseDataSource extends AbstractDataSource implements DSDataSource
     
     @Override    
     public boolean hasFilters() {
-	return filters != null && filters.isEmpty();
+	return filters != null && !filters.isEmpty();
     }
 
     @Override
