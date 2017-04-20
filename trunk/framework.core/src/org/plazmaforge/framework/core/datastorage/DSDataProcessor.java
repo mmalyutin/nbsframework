@@ -32,6 +32,7 @@ import org.plazmaforge.framework.core.data.converter.ConverterManager;
 import org.plazmaforge.framework.core.data.converter.STConverterManager;
 import org.plazmaforge.framework.core.datastorage.data.OperationProcessor;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.util.ClassUtils;
 import org.plazmaforge.framework.util.StringUtils;
 
@@ -206,8 +207,7 @@ public class DSDataProcessor {
   	//    return value;
   	//}
   	
-  	String format = field.getFormat();
-  	
+  	String format = getFormat(field);
   	
   	Converter converter = getConverter(inputType.getSimpleName(), type, format);
   	Object result = converter == null ? null : converter.convert(value);
@@ -229,6 +229,21 @@ public class DSDataProcessor {
 	return converterManager.getConverter(name, format);
     }
 
+    protected String getFormat(DSField field) {
+	if (field == null) {
+	    return null;
+	}
+	String format = field.getFormat();
+	if (format == null) {
+	    format = getFormat(field.getDataType());
+	}
+	return format;
+    }
+    
+    protected String getFormat(String type) {
+	return TypeUtils.getDefaultFormat(type);
+    }
+    
     protected boolean isFilterByOperation(Object leftValue, String operation, Object rightValue) {
 	Boolean result = operationProcessor.evaluate(leftValue, operation, rightValue);
 	if (result == null) {

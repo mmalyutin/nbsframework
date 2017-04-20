@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+import org.plazmaforge.framework.core.Platform;
+
 public class TypeUtils {
 
     public static boolean isLikeStringType(String type) {
@@ -208,6 +210,8 @@ public class TypeUtils {
 	    return String.class;
 	} else if (Types.TextType.equals(type)) {
 	    return String.class;
+	} else if (Types.BooleanType.equals(type)) {
+	    return Boolean.class;
 	} else if (Types.ByteType.equals(type)) {
 	    return Byte.class;
 	} else if (Types.ShortType.equals(type)) {
@@ -243,5 +247,24 @@ public class TypeUtils {
 
 	return null;
     }
+    
+    public static String getDefaultFormat(String type) {
+	if (type == null) {
+	    return null;
+	}
+	if (Types.DateType.equals(type)) {
+	    return Platform.DEFAULT_DATE_FORMAT;
+	} else if (Types.TimeType.equals(type)) {
+	    return Platform.DEFAULT_TIME_FORMAT;
+	} else if (Types.DateTimeType.equals(type)) {
+	    return Platform.DEFAULT_DATE_TIME_FORMAT;
+	} else if (Types.TimestampType.equals(type)) {
+	    return Platform.DEFAULT_DATE_TIME_FORMAT; 
+	}
+	
+	// TODO
+	return null;
+    }    
+        
 
 }
