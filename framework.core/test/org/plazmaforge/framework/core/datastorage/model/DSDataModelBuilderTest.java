@@ -127,7 +127,7 @@ public class DSDataModelBuilderTest  extends DataTestCase {
 	// Filters
 	DSFieldFilter f = new DSFieldFilter(field);
 	f.setValue("193");
-	//f.setOperation(operation)
+	f.setOperation("ne");
 	dataSource.addFilter(f);
 
 	
