@@ -27,8 +27,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.plazmaforge.framework.core.criteria.Operation;
+import org.plazmaforge.framework.core.data.converter.Converter;
+import org.plazmaforge.framework.core.data.converter.ConverterManager;
+import org.plazmaforge.framework.core.data.converter.STConverterManager;
+import org.plazmaforge.framework.core.datastorage.data.OperationProcessor;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.util.ClassUtils;
 import org.plazmaforge.framework.util.StringUtils;
 
 /**
@@ -38,8 +42,19 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public class DSDataProcessor {
 
+    private ConverterManager converterManager;
     
+    private OperationProcessor operationProcessor; 
     
+    public DSDataProcessor() {
+	super();
+	converterManager = new STConverterManager(true);
+	converterManager.init();
+
+	operationProcessor = new OperationProcessor();
+	operationProcessor.registerDefaultEvaluators();
+    }
+
     public DSResultSet processResultSet(DSResultSet resultSet, DSDataSource dataSource) throws DSException {
 	if (resultSet == null) {
 	    return null;
@@ -157,8 +172,11 @@ public class DSDataProcessor {
 	    if (index < 0 || index > record.length - 1) {
 		return true;
 	    }
+	    Object filterValue = fieldFilter.getValue();
+	    
 	    Object leftValue = record[index];
-	    Object rightValue = fieldFilter.getValue();
+	    Object rightValue = convertValue(filterValue, field);
+	    
 	    String operation = fieldFilter.getOperation();
 	    return isFilterByOperation(leftValue, operation, rightValue);
 	}
@@ -167,91 +185,57 @@ public class DSDataProcessor {
 	return true;
     }
     
-    /*
-    protected Boolean evaluateBooleanValue(Object leftValue, String operation, Object rightValue) {
-	if (operation == null) {
-	    operation = Operation.EQ;
-	}
+    // See AbstractDataSet
+    protected Object convertValue(Object value, DSField field) {
+  	if (value == null || field == null) {
+  	    return value;
+  	}
+  	String type = field.getDataType();
+  	if (type == null) {
+  	    return value;
+  	}
+  	
+  	// get input type (real)
+  	Class<?> inputType = value.getClass();
+  	
+  	//dataType = ClassUtils.normalizeClass(dataType);
+  	inputType = ClassUtils.normalizeClass(inputType);
+  	
+  	// no convert: type of value is correct
+  	//if (dataType.isAssignableFrom(inputType)) {
+  	//    return value;
+  	//}
+  	
+  	String format = field.getFormat();
+  	
+  	
+  	Converter converter = getConverter(inputType.getSimpleName(), type, format);
+  	Object result = converter == null ? null : converter.convert(value);
+  	return result;
     }
-    */
-    
+      
+    protected Converter<?, ?> getConverter(String sourceType, String targetType, String format) {
+	if (sourceType == null || targetType == null) {
+	    return null;
+	}
+	String name = ConverterManager.getConverterSimpleName(sourceType, targetType);
+	if (name == null) {
+	    return null;
+	}
+	return getConverterByName(name, format);
+    }
+
+    protected Converter<?, ?> getConverterByName(String name, String format) {
+	return converterManager.getConverter(name, format);
+    }
+
     protected boolean isFilterByOperation(Object leftValue, String operation, Object rightValue) {
-	if (operation == null) {
-	    operation = Operation.EQ;
-	}
-
-	if (Operation.EQ.equals(operation)) {
-	    return isEQ(leftValue, rightValue);
-	}
-	if (Operation.NE.equals(operation)) {
-	    return isNE(leftValue, rightValue);
-	}
-	if (Operation.LIKE.equals(operation)) {
-	    return isLIKE(leftValue, rightValue);
-	}
-	if (Operation.NOTLIKE.equals(operation)) {
-	    return isNOTLIKE(leftValue, rightValue);
-	}
-	if (Operation.LT.equals(operation)) {
-	    return isLT(leftValue, rightValue);
-	}
-	if (Operation.LE.equals(operation)) {
-	    return isLE(leftValue, rightValue);
-	}
-	if (Operation.GT.equals(operation)) {
-	    return isGT(leftValue, rightValue);
-	}
-	if (Operation.GE.equals(operation)) {
-	    return isGE(leftValue, rightValue);
-	}
-
-	// Default
-	return isEQ(leftValue, rightValue);
-    }    
-    
-    protected boolean isEQ(Object leftValue, Object rightValue) {
-	if (leftValue == null || rightValue == null) {
+	Boolean result = operationProcessor.evaluate(leftValue, operation, rightValue);
+	if (result == null) {
 	    return false;
 	}
-	return leftValue.equals(rightValue);
+	return result;
     }
-
-    protected boolean isNE(Object leftValue, Object rightValue) {
-	return !isEQ(leftValue, rightValue);
-    }
-
-    protected boolean isLIKE(Object leftValue, Object rightValue) {
-	//TODO
-	return true;
-    }
-
-    protected boolean isNOTLIKE(Object leftValue, Object rightValue) {
-	return !isLIKE(leftValue, rightValue);
-    }
-
-    protected boolean isLT(Object leftValue, Object rightValue) {
-	//TODO
-	return true;
-    }
-
-    protected boolean isLE(Object leftValue, Object rightValue) {
-	//TODO
-	return true;
-    }
-
-    protected boolean isGT(Object leftValue, Object rightValue) {
-	//TODO
-	return true;
-    }
-    
-    protected boolean isGE(Object leftValue, Object rightValue) {
-	//TODO
-	return true;
-    }
-    
-    
-    ////
-    
     
     public boolean needProcessing(DSDataSource dataSource) {
 	if (dataSource == null || !dataSource.hasFields()) {
