@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
+
 /**
  * 
  * @author ohapon
@@ -65,29 +67,163 @@ public class OperationProcessor {
     public void registerDefaultEvaluators() {
 	registerEvaluator("eq", new EQEvaluator());
 	registerEvaluator("ne", new NEEvaluator());
+	
+	registerEvaluator("lt", new LTEvaluator());
+	registerEvaluator("lte", new LTEEvaluator());
+	
+	registerEvaluator("gt", new GTEvaluator());
+	registerEvaluator("gte", new GTEEvaluator());
     }
     
     ////
     
+    // =
     public static class EQEvaluator implements OperationEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
-	    if (leftValue == null || rightValue == null) {
-		return false;
+	    Integer result = compareValue(leftValue, rightValue);
+	    if (result == null) {
+		return null;
 	    }
-	    return leftValue.equals(rightValue);
+	    return result.equals(0);
 	}
 	
     }
     
+    // !=
     public static class NEEvaluator extends EQEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
-	    return !super.evaluate(leftValue, rightValue);
+	    Boolean result = super.evaluate(leftValue, rightValue);
+	    if (result == null) {
+		return null;
+	    }
+	    return !result;
 	}
 	
     }
+
+    // <
+    public static class LTEvaluator implements OperationEvaluator {
+
+	@Override
+	public Boolean evaluate(Object leftValue, Object rightValue) {
+	    Integer result = compareValue(leftValue, rightValue);
+	    if (result == null) {
+		return null;
+	    }
+	    return result.equals(-1);
+	}
+	
+    }
+
+    // <=
+    public static class LTEEvaluator implements OperationEvaluator {
+
+	@Override
+	public Boolean evaluate(Object leftValue, Object rightValue) {
+	    Integer result = compareValue(leftValue, rightValue);
+	    if (result == null) {
+		return null;
+	    }
+	    return result.equals(0) || result.equals(-1);
+	}
+	
+    }
+    
+
+    // >
+    public static class GTEvaluator implements OperationEvaluator {
+
+	@Override
+	public Boolean evaluate(Object leftValue, Object rightValue) {
+	    Integer result = compareValue(leftValue, rightValue);
+	    if (result == null) {
+		return null;
+	    }
+	    return result.equals(1);
+	}
+	
+    }
+
+    // >=
+    public static class GTEEvaluator implements OperationEvaluator {
+
+	@Override
+	public Boolean evaluate(Object leftValue, Object rightValue) {
+	    Integer result = compareValue(leftValue, rightValue);
+	    if (result == null) {
+		return null;
+	    }
+	    return result.equals(0) || result.equals(1);
+	}
+	
+    }
+    
+    ////
+    
+    protected static Integer compareValue(Object v1, Object v2) {
+	if (v1 == null && v2 == null) {
+	    return 0;
+	}
+	if (v1 == null) {
+	    return -1;
+	}
+	if (v2 == null) {
+	    return 1;
+	}
+
+	if (v1 instanceof Number && v2 instanceof Number) {
+	    return compareNumberValue((Number) v1, (Number) v2);
+	}
+	
+	if (v1 instanceof Comparable && v2 instanceof Comparable) {
+	    return ((Comparable) v1).compareTo(v2);
+	}
+	
+	return null;
+    }
+    
+    
+    protected static Integer compareNumberValue(Number v1, Number v2) {
+	if (v1 == null && v2 == null) {
+	    return 0;
+	}
+	if (v1 == null) {
+	    return -1;
+	}
+	if (v2 == null) {
+	    return 1;
+	}
+	
+
+	// Same type
+	if (isEqualsValueType(v1, v2)) {
+	    return ((Comparable) v1).compareTo(v2);
+	}
+
+	// Double
+	Double d1 = v1.doubleValue();
+	Double d2 = v2.doubleValue();
+	if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
+	    return 0;
+	}
+	return d1.compareTo(d2);
+
+    }
+    
+    protected static boolean isZero(Double value) {
+ 	return value == null ? false : (value == 0.0 || value == -0.0); 
+    }
+    
+    protected static boolean isEqualsValueType(Object v1, Object v2) {
+	if (v1 == null || v2 == null) {
+	    return false;
+	}
+	return v1.getClass().equals(v2.getClass());
+    }
+
     
 }
