@@ -84,10 +84,10 @@ public class DataManager {
     
     private static DataManager instance; 
     
-    private DSDataHelper dataHelper;
+    private DSDataProcessor dataProcessor;
     
     private DataManager() {
-	dataHelper = new DSDataHelper();
+	dataProcessor = new DSDataProcessor();
     }
     
     private static DataManager getInstance() {
@@ -191,7 +191,7 @@ public class DataManager {
 	DSResultSet resultSet = dataProducer.openResultSet(session, dataSource, parameterValues);
 	
 	// Processing ResultSet (filters, orders)
-	resultSet = getInstance().dataHelper.processResultSet(resultSet, dataSource);
+	resultSet = getInstance().dataProcessor.processResultSet(resultSet, dataSource);
 	
 	return resultSet; 
     }
@@ -209,7 +209,7 @@ public class DataManager {
 	DSResultSet resultSet = dataProducer.openResultSet(session, dataSource);
 	
 	// Processing ResultSet (filters, orders)
-	resultSet = getInstance().dataHelper.processResultSet(resultSet, dataSource);
+	resultSet = getInstance().dataProcessor.processResultSet(resultSet, dataSource);
 	
 	return resultSet;
     }
