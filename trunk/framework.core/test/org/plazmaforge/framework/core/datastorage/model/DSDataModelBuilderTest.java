@@ -35,6 +35,7 @@ import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
+import org.plazmaforge.framework.core.datastorage.DSFieldFilter;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
@@ -122,10 +123,19 @@ public class DSDataModelBuilderTest  extends DataTestCase {
 	field = new DSField();
 	field.setName("PRODUCT_NAME");
 	dataSource.addField(field);
+	
+	// Filters
+	DSFieldFilter f = new DSFieldFilter(field);
+	f.setValue("Product 191");
+	//f.setOperation(operation)
+	dataSource.addFilter(f);
 
 	field = new DSField();
 	field.setName("PRICE");
 	dataSource.addField(field);
+	
+	
+	
 	
 	DSDataModel model = builder.buildDataModel(dataSource);
 	assertNotNull(model);
