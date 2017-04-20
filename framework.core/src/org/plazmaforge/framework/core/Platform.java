@@ -34,6 +34,11 @@ public final class Platform {
     public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
     
     public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    
+    public static final String DEFAULT_BOOLEAN_FORMAT = "true|false";
+    
+    public static final String[] DEFAULT_BOOLEAN_FORMATS = new String[] {"true|false", "yes|no" , "y|n", "t|f", "1|0"};
+    
 
     private Platform() {
     }

@@ -25,15 +25,16 @@ package org.plazmaforge.framework.core.data.formatter.type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.plazmaforge.framework.core.Platform;
 import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.util.StringUtils;
 
 public class BooleanFormatter implements Formatter<Boolean> {
 
     
-    public static final String DEFAULT_FORMAT = "true|false";
+    public static final String DEFAULT_FORMAT = Platform.DEFAULT_BOOLEAN_FORMAT;
     
-    public static final String[] FORMATS = new String[] {"true|false", "yes|no" , "y|n", "t|f", "1|0"};
+    public static final String[] FORMATS = Platform.DEFAULT_BOOLEAN_FORMATS;
     
     public static final String[] DEFAULT_VALUES;
     
