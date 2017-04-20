@@ -292,7 +292,8 @@ public class DSDataHelper {
 	List<DSFilter> filters = dataSource.getFilters();
 	
 	Map<String, Integer> fieldIndexMap = createFieldIndexMap(fields);
-	DSArrayResultSet result = new DSArrayResultSet();
+	List<String> fieldNames = createFieldNames(fields);
+	
 	List<Object[]> records = new ArrayList<Object[]>();
 	Object[] record = null;
 	
@@ -308,7 +309,11 @@ public class DSDataHelper {
 	    }
 	}
 	
-	result.setData(records);
+	DSArrayResultSet result = new DSArrayResultSet(fieldNames, records);
+	//result.setData(records);
+	
+	// Close input origin ResultSet
+	resultSet.close();
 	
 	//TODO: orders
 	return result;
@@ -324,6 +329,18 @@ public class DSDataHelper {
 	    fieldIndexMap.put(fields.get(i).getName(), i);
 	}
 	return fieldIndexMap;
+    }
+
+    protected List<String> createFieldNames(List<DSField> fields) {
+	List<String> fieldNames = new ArrayList<String>();
+	if (fields == null || fields.isEmpty()) {
+	    return fieldNames;
+	}
+	int size = fields.size();
+	for (int i = 0; i < size; i++) {
+	    fieldNames.add(fields.get(i).getName());
+	}
+	return fieldNames;
     }
     
     protected Object[] getRecord(DSResultSet resultSet, List<DSField> fields) throws DSException {
@@ -474,6 +491,9 @@ public class DSDataHelper {
 	    return false;
 	}
 	// Only for filter or order
+	boolean b1 = dataSource.hasFilters();
+	boolean b2 = dataSource.hasOrders();
+	
 	return dataSource.hasFilters() || dataSource.hasOrders();
     }
     

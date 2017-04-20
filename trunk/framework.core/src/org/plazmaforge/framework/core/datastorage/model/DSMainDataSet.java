@@ -697,6 +697,10 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 	
 	// Step 6. Open new ResultSet by DataSource
 	resultSet = DataManager.openResultSet(session, dataSource, outputParameters == null ? null : outputParameters.toArray(new Object[0]));
+	
+	// Processing ResultSet (if need)
+	//resultSet = dataHelper.processResultSet(resultSet, dataSource);
+	
 	dataItem.setResultSet(resultSet);
 
 	
