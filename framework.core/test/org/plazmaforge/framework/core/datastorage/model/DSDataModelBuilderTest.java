@@ -64,14 +64,17 @@ public class DSDataModelBuilderTest  extends DataTestCase {
 	
 	DSField field = new DSField();
 	field.setName("PRODUCT_ID");
+	field.setDataType("Integer");
 	dataSource.addField(field);
 
 	field = new DSField();
 	field.setName("PRODUCT_NAME");
+	field.setDataType("String");
 	dataSource.addField(field);
 
 	field = new DSField();
 	field.setName("PRICE");
+	field.setDataType("Float");
 	dataSource.addField(field);
 
 	assertEquals(0, dataSource.getParameterCount());
@@ -118,20 +121,29 @@ public class DSDataModelBuilderTest  extends DataTestCase {
 	
 	DSField field = new DSField();
 	field.setName("PRODUCT_ID");
+	field.setDataType("Integer");
 	dataSource.addField(field);
 
-	field = new DSField();
-	field.setName("PRODUCT_NAME");
-	dataSource.addField(field);
-	
 	// Filters
 	DSFieldFilter f = new DSFieldFilter(field);
-	f.setValue("Product 191");
+	f.setValue("193");
 	//f.setOperation(operation)
 	dataSource.addFilter(f);
 
+	
+	field = new DSField();
+	field.setName("PRODUCT_NAME");
+	field.setDataType("String");
+	dataSource.addField(field);
+	
+	// Filters
+	//DSFieldFilter f = new DSFieldFilter(field);
+	//f.setValue("Product 191");
+	//dataSource.addFilter(f);
+
 	field = new DSField();
 	field.setName("PRICE");
+	field.setDataType("Float");
 	dataSource.addField(field);
 	
 	
