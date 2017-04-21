@@ -132,8 +132,12 @@ public class DSDataProcessor {
 	}
 	int size = fields.size();
 	Object[] record = new Object[size];
+	DSField field = null;
+	Object value = null;
 	for (int i = 0; i < size; i++) {
-	    record[i] = resultSet.getValue(fields.get(i).getName());
+	    field = fields.get(i);
+	    value = resultSet.getValue(field.getName()); // get internal value
+	    record[i] = convertValue(value, field); // convert value by dataType
 	}
 	return record;
     }
