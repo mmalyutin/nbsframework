@@ -200,4 +200,51 @@ public interface XMLInfo {
     
     String XML_ELEMENT = "element";
     
+    
+    // DATA-STORAGE
+    
+    String XML_DATA_CONNECTORS = "data-connectors";
+    
+    String XML_DATA_CONNECTOR = "data-connector";
+    
+    String XML_DATA_SOURCES = "data-sources";
+    
+    String XML_DATA_SOURCE = "data-source";
+
+    String XML_DATA_SETS = "data-sets";
+    
+    String XML_DATA_SET = "data-set";
+    
+    String XML_PARAMETERS = "parameters";
+    
+    String XML_PARAMETER = "parameter";
+    
+    String XML_VARIABLES = "variables";
+    
+    String XML_VARIABLE = "variable";
+    
+    String XML_FIELDS = "fields";
+    
+    String XML_FIELD = "field";
+    
+    String XML_QUERY = "query";
+    
+    String XML_GROUPS = "groups";
+    
+    String XML_GROUP = "group";
+
+    String XML_ORDERS = "orders";
+    
+    String XML_ORDER = "order";
+    
+    String XML_FILTERS = "filters";
+    
+    String XML_FILTER = "filter";
+
+
+    String XML_ATTR_FIELD = "field";
+    
+    String XML_ATTR_OPERATION = "operation";
+    
+    
 }

@@ -31,6 +31,8 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
+import org.plazmaforge.framework.core.datastorage.DSFieldFilter;
+import org.plazmaforge.framework.core.datastorage.DSFilter;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSQuery;
 import org.plazmaforge.framework.core.datastorage.DSVariable;
@@ -83,7 +85,7 @@ public class XMLReportReaderTest extends TestCase {
     public void testReadFromInputStream() throws Exception {
 	
 	XMLReportReader reader = new XMLReportReader();
-	InputStream is = ReportEngine.class.getResourceAsStream("resources/reports/Report1.report.xml");
+	InputStream is = ReportEngine.class.getResourceAsStream("resources/reports/Report2.report.xml");
 	Report report = reader.readReport(is);
 	
 	assertNotNull(report);
@@ -165,12 +167,12 @@ public class XMLReportReaderTest extends TestCase {
 	String queryText = query.getText();
 	assertNotNull(queryText);
 	assertEquals(queryText, dataSource.getQueryText());
-	assertEquals(queryText, "SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT");
+	assertEquals(queryText, "SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT");
 	
 	// Get fields
 	List<DSField> fields = dataSource.getFields();
 	assertNotNull(fields);
-	assertEquals(4, fields.size());
+	assertEquals(5, fields.size());
 	
 	DSField field = fields.get(0);
 	assertNotNull(field);
@@ -191,6 +193,26 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(field);
 	assertEquals("PRICE", field.getName());
 	assertEquals("Float", field.getDataType());
+	
+	
+	List<DSFilter> filters = dataSource.getFilters();
+	assertNotNull(filters);
+	assertEquals(1, filters.size());
+	
+	DSFilter filter = filters.get(0);
+	assertNotNull(filter);
+	assertTrue(filter instanceof DSFieldFilter);
+	DSFieldFilter fieldFilter = (DSFieldFilter) filter;
+	
+	assertNotNull(fieldFilter.getField());
+	assertNotNull(fieldFilter.getField().getName());
+	assertNotNull(fieldFilter.getOperation());
+	assertNotNull(fieldFilter.getValue());
+	
+	assertEquals("PRODUCT_ID", fieldFilter.getField().getName());
+	assertEquals("lte", fieldFilter.getOperation());
+	assertEquals(194, fieldFilter.getValue());
+	
     }
     
     private void checkTemplates(Report report) {
@@ -208,7 +230,7 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertNotNull(pageSetup);
 	
-	assertEquals(21, pageSetup.getMargin().getLeft());
+	assertEquals(15, pageSetup.getMargin().getLeft());
 	assertEquals(22, pageSetup.getMargin().getTop());
 	assertEquals(23, pageSetup.getMargin().getRight());
 	assertEquals(24, pageSetup.getMargin().getBottom());
@@ -283,7 +305,7 @@ public class XMLReportReaderTest extends TestCase {
 	
 	
 	// Get template bands
-	assertEquals(4, template.getBandCount());
+	assertEquals(6, template.getBandCount());
 	
 	// Get ReportHeader
 	band = template.getBand(0);
@@ -294,13 +316,13 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertNotNull(row);
 	
-	assertEquals(15, row.getHeight());
+	assertEquals(30, row.getHeight());
 	assertEquals(1, row.getCellCount());
 	
 	cell = row.getCell(0);
 	assertNotNull(cell);
 	
-	assertEquals(3, cell.getColspan());
+	assertEquals(4, cell.getColspan());
 	assertEquals(1, cell.getRowspan());
 	
 	assertEquals("My Report", cell.getValue());
@@ -315,7 +337,7 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(row);
 	
 	assertEquals(30, row.getHeight());
-	assertEquals(3, row.getCellCount());
+	assertEquals(4, row.getCellCount());
 
 	// Get cell-1
 	cell = row.getCell(0);

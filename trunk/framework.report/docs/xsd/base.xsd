@@ -95,6 +95,13 @@
 		</complexType>
 	</element>
 		 
+	<element name="values">
+		<complexType>
+			<sequence>
+				<element ref="report:value" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>		 
 		 
 	<!-- UI -->
 	
@@ -417,6 +424,36 @@
 		</complexType>
 	</element>	
 		
+
+	<element name="filters">
+		<complexType>
+			<sequence>
+				<element ref="report:filter" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="filter">
+		<complexType>
+			<sequence>
+				<choice minOccurs="1" maxOccurs="unbounded">
+					<choice minOccurs="0" maxOccurs="unbounded">
+						<element ref="report:value" minOccurs="0" maxOccurs="1" />
+						<element ref="report:values" minOccurs="0" maxOccurs="1" />
+					</choice>
+					<element ref="report:expression" minOccurs="0" maxOccurs="1" />
+				</choice>
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			
+			<attribute name="field" type="string"/>     <!-- Only for FIELD -->
+			<attribute name="operation" type="string"/> <!-- Only for FIELD -->
+			
+		</complexType>
+	</element>	
 		
 	
 	
