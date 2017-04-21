@@ -31,7 +31,7 @@ public class RepotToolCSVTest extends AbstractTestCase {
     
     public void testReportCSV() {
 	
-	String reportFile = getResourcesFileName("reports/Report1.report.xml");
+	String reportFile = getResourcesFileName("reports/Report2.report.xml");
 	String dataFile = getResourcesFileName("data/Report1.csv");
 	String documentFile = getTestFileName("Report1CSV_DC.pdf");
 	
@@ -49,7 +49,7 @@ public class RepotToolCSVTest extends AbstractTestCase {
 
     public void testReportCSVConnectionString() {
 	
-	String reportFile = getResourcesFileName("reports/Report1.report.xml");
+	String reportFile = getResourcesFileName("reports/Report2.report.xml");
 	String dataFile = getResourcesFileName("data/Report1.csv");
 	String documentFile = getTestFileName("Report1CSV_CS.pdf");
 	String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
