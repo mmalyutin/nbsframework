@@ -21,6 +21,10 @@
 					<value>194</value>
 				</filter>
 			</filters>
+			<orders>
+				<order field="PRICE" asc="false"/>
+				<order field="PRODUCT_ID" asc="false"/>
+			</orders>
 			
 			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query>
 		</data-source>
