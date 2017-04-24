@@ -36,6 +36,7 @@ import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSExpressionParameter;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSFieldFilter;
+import org.plazmaforge.framework.core.datastorage.DSFieldOrder;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSSession;
 import org.plazmaforge.framework.core.datastorage.DataManager;
@@ -129,6 +130,12 @@ public class DSDataModelBuilderTest  extends DataTestCase {
 	f.setValue("193");
 	f.setOperation("ne");
 	dataSource.addFilter(f);
+
+	
+	// Filters
+	DSFieldOrder order = new DSFieldOrder(field);
+	order.setAsc(false);
+	dataSource.addOrder(order);
 
 	
 	field = new DSField();

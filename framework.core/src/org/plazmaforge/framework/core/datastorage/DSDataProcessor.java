@@ -23,6 +23,8 @@
 package org.plazmaforge.framework.core.datastorage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,14 +94,124 @@ public class DSDataProcessor {
 	    }
 	}
 	
+	// Sort data records
+	if (dataSource.hasOrders()) {
+	    sortRecords(records, fieldIndexMap, dataSource.getOrders());
+	}
+	
 	DSArrayResultSet result = new DSArrayResultSet(fieldNames, records);
-	//result.setData(records);
 	
 	// Close input origin ResultSet
 	resultSet.close();
 	
 	//TODO: orders
 	return result;
+    }
+    
+    protected void sortRecords(List<Object[]> records, Map<String, Integer> fieldIndexMap, final List<DSOrder> orders) {
+	final Map<Object[], Object[]> map = new HashMap<Object[], Object[]>();
+	int size = orders.size();
+	DSOrder order = null;
+	Object[] values = null; // sorting values
+	Object value = null;
+	
+	// Iteration array and evaluate sorting values for each record
+	// Create map: record -> sorting values 
+	for (Object[] record : records) {
+	    values = new Object[size];
+	    for (int i = 0; i < size; i++) {
+		order = orders.get(i);
+		value = getOrderValue(record, fieldIndexMap, order);
+		values[i] = value;
+	    }
+	    
+	    // record -> sorting values
+	    map.put(record, values);
+	}
+	
+	
+	Collections.sort(records, new Comparator<Object[]>() {
+	    public int compare(Object[] record1, Object[] record2) {
+		
+		return compareRecord(record1, record2, map, orders);
+	    }
+	});
+    }
+    
+    protected int compareRecord(Object[] record1, Object[] record2, Map<Object[], Object[]> map, List<DSOrder> orders) {
+	if (record1 == null && record2 == null) {
+	    return 0;
+	}
+	if (record1 == null) {
+	    return -1;
+	}
+	if (record2 == null) {
+	    return 1;
+	}
+	if (map == null) {
+	    return 0;
+	}
+	Object[] value1 = map.get(record1);
+	Object[] value2 = map.get(record2);
+
+	if (value1 == null && value2 == null) {
+	    return 0;
+	}
+	if (value1 == null) {
+	    return -1;
+	}
+	if (value2 == null) {
+	    return 1;
+	}
+	int size = value1.length;
+	Object v1 = null;
+	Object v2 = null;
+	Integer result = 0;
+	boolean asc = false;
+	for (int i = 0; i < size; i++) {
+	    v1 = value1[i];
+	    v2 = value2[i];
+	    result = OperationProcessor.compareValue(v1, v2);
+	    asc = orders.get(i).isAsc();
+	    if (result == null) {
+		result = 0;
+	    }
+	    if (!asc) {
+		result = result * -1;
+	    }
+	    if (result != 0) {
+		return result;
+	    }
+	}
+	return result;
+    }
+    
+    protected Object getOrderValue(Object[] record, Map<String, Integer> fieldIndexMap, DSOrder order)  {
+	if (order instanceof DSFieldOrder) {
+	    DSField field = ((DSFieldOrder) order).getField();
+	    if (field == null) {
+		return null;
+	    }
+	    String fieldName = field.getName();
+	    if (fieldName == null) {
+		return null;
+	    }
+	    Integer index = fieldIndexMap.get(fieldName);
+	    if (index == null) {
+		return null;
+	    }
+	    if (index < 0 || index > record.length - 1) {
+		return true;
+	    }
+	    
+	    Object fieldValue = record[index]; // get original value
+	    Object orderValue = convertValue(fieldValue, field); // convert value
+	    
+	    return orderValue;
+	    
+	}
+	
+	return null;
     }
     
     protected Map<String, Integer> createFieldIndexMap(List<DSField> fields) {
