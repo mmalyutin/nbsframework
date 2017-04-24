@@ -164,7 +164,7 @@ public class OperationProcessor {
     
     ////
     
-    protected static Integer compareValue(Object v1, Object v2) {
+    public static Integer compareValue(Object v1, Object v2) {
 	if (v1 == null && v2 == null) {
 	    return 0;
 	}
@@ -187,7 +187,7 @@ public class OperationProcessor {
     }
     
     
-    protected static Integer compareNumberValue(Number v1, Number v2) {
+    public static Integer compareNumberValue(Number v1, Number v2) {
 	if (v1 == null && v2 == null) {
 	    return 0;
 	}
@@ -214,11 +214,11 @@ public class OperationProcessor {
 
     }
     
-    protected static boolean isZero(Double value) {
+    public static boolean isZero(Double value) {
  	return value == null ? false : (value == 0.0 || value == -0.0); 
     }
     
-    protected static boolean isEqualsValueType(Object v1, Object v2) {
+    public static boolean isEqualsValueType(Object v1, Object v2) {
 	if (v1 == null || v2 == null) {
 	    return false;
 	}
