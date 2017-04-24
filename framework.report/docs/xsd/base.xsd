@@ -455,6 +455,31 @@
 		</complexType>
 	</element>	
 		
+
+
+	<element name="orders">
+		<complexType>
+			<sequence>
+				<element ref="report:order" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="order">
+		<complexType>
+			<sequence>
+				<element ref="report:expression" minOccurs="0" maxOccurs="1" />
+			</sequence>
+			<attribute name="id" type="string"/>
+			<attribute name="name" type="string"/>
+			<attribute name="caption" type="string"/>
+			<attribute name="description" type="string"/>
+			
+			<attribute name="field" type="string"/>     <!-- Only for FIELD -->
+			<attribute name="asc" type="string"/>
+			
+		</complexType>
+	</element>	
 	
 	
 

@@ -33,6 +33,7 @@ import org.plazmaforge.framework.core.datastorage.DSBaseDataSource;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSFilter;
+import org.plazmaforge.framework.core.datastorage.DSOrder;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSQuery;
 import org.plazmaforge.framework.report.storage.xml.report.XMLAbstractReportReader;
@@ -80,6 +81,7 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
 	readParameters(element, dataSource);
 	readFields(element, dataSource);
 	readFilters(element, dataSource);
+	readOrders(element, dataSource);
     }
     
  
@@ -144,6 +146,27 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
    		continue;
    	    }
    	    dataSource.addFilter(filter);   	    
+   	}
+    }
+
+    protected void readOrders(Element element, DSDataSource dataSource) {
+   	Element node = getChild(element, XML_ORDERS);
+   	if (node == null){
+   	    return;
+   	}
+
+   	List children = node.getChildren();
+   	if (children == null || children.isEmpty()) {
+   	    return;
+   	}
+   	int count = children.size();
+   	XMLDSOrderReader reader = new XMLDSOrderReader();
+   	for (int i = 0; i < count; i++) {
+   	    DSOrder order = reader.readOrder((Element) children.get(i), dataSource);
+   	    if (order == null) {
+   		continue;
+   	    }
+   	    dataSource.addOrder(order);   	    
    	}
     }
     
