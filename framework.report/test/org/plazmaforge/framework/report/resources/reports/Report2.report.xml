@@ -17,10 +17,15 @@
 				<field name="CREATED_DATE" data-type="Date"/>
 			</fields>
 			<filters>
-				<filter field="PRODUCT_ID" operation="lte">
+			
+ 				<filter field="PRODUCT_ID" operation="lte">
 					<value>194</value>
 				</filter>
-			</filters>
+				
+<!-- 				<filter>
+					<expression>$F{PRODUCT_ID} == 190</expression>
+				</filter>
+ -->			</filters>
 			<orders>
 				<order field="PRICE" asc="false"/>
 				<order field="PRODUCT_ID" asc="false"/>
