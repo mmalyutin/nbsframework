@@ -33,6 +33,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.plazmaforge.framework.core.data.ParameterValue;
+import org.plazmaforge.framework.core.datastorage.data.Scope;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.datastorage.support.sql.SQLDataConnector;
 import org.plazmaforge.framework.datastorage.support.sql.SQLDataProducerFactory;
@@ -98,6 +99,9 @@ public class DataManager {
 	return instance;
     }    
     
+    private static DSDataProcessor getDataProcessor() {
+	return getInstance().dataProcessor;
+    }
    
     /**
      * Open session by DataConnector
@@ -178,7 +182,12 @@ public class DataManager {
 	return dataProducer.openResultSet(connection);
     }
     
+
     public static DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Object[] parameterValues) throws DSException {
+	return openResultSet(session, dataSource, parameterValues, null, null);
+    }
+
+    public static DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Object[] parameterValues, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (session == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
 	}
@@ -191,12 +200,16 @@ public class DataManager {
 	DSResultSet resultSet = dataProducer.openResultSet(session, dataSource, parameterValues);
 	
 	// Processing ResultSet (filters, orders)
-	resultSet = getInstance().dataProcessor.processResultSet(resultSet, dataSource);
+	resultSet = getDataProcessor().processResultSet(resultSet, dataSource, scope, expressionEvaluator);
 	
 	return resultSet; 
     }
-
+    
     public static DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
+	return openResultSet(session, dataSource, null, null);
+    }
+
+    public static DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (session == null) {
 	    handleContextException(CONTEXT_RESULT_SET, "Session is null.");
 	}
@@ -209,11 +222,11 @@ public class DataManager {
 	DSResultSet resultSet = dataProducer.openResultSet(session, dataSource);
 	
 	// Processing ResultSet (filters, orders)
-	resultSet = getInstance().dataProcessor.processResultSet(resultSet, dataSource);
+	resultSet = getDataProcessor().processResultSet(resultSet, dataSource, scope, expressionEvaluator);
 	
 	return resultSet;
     }
-
+    
     /**
      * Open DSResultSet by DSSession.
      * Only for single DSSession/DSDataConnector (one DSSession/DSDataConnector - one DSResultSet: CSV, XML, XLS..)

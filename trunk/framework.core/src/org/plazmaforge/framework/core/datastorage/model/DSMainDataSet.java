@@ -606,19 +606,29 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
      * @throws DSException
      */
     protected void loadNodeRecord(DSDataNode node, DSResultSet resultSet, boolean reset) throws DSException {
+	
+	// Get node fields
 	List<DSField> fields = node.getDataItem().getFields();
+	
+	// No fields - no node segment in global record: retun
 	if (fields == null || fields.isEmpty()) {
 	    return;
 	}
+	
+	// Global record (all data sources)
 	if (record == null) {
 	    record = new Object[fieldArray.length];
 	}
+	
+	// Get count of node fields 
 	int count = fields.size();
 	FieldInfo fieldInfo = null;
 	int index = 0;
 	Object value = null;
+	
+	// Populate global record (only node segment: use shift)
 	for (int i = 0; i < count; i++) {
-	    index = i + node.getFieldOffset();
+	    index = i + node.getFieldOffset(); // shift index
 	    fieldInfo = fieldArray[index];
 	    value = reset ? null : doGetValue(fieldInfo);
 	    record[index] = value;
@@ -704,7 +714,7 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 	dataItem.setResultSet(resultSet);
 
 	
-	if (resultSet == null){
+	if (resultSet == null) {
 	    dataItem.setInvalidData(true);
 	    return;
 	}
@@ -778,7 +788,7 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 	    
 	    String fieldName = field.getName();
 	    
-	    if (fieldName == null){
+	    if (fieldName == null) {
 		continue;
 	    }
 	    

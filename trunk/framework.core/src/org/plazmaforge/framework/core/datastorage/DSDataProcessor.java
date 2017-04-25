@@ -33,6 +33,8 @@ import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
 import org.plazmaforge.framework.core.data.converter.STConverterManager;
 import org.plazmaforge.framework.core.datastorage.data.OperationProcessor;
+import org.plazmaforge.framework.core.datastorage.data.Scope;
+import org.plazmaforge.framework.core.exception.DSEvaluateException;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.util.ClassUtils;
@@ -59,6 +61,10 @@ public class DSDataProcessor {
     }
 
     public DSResultSet processResultSet(DSResultSet resultSet, DSDataSource dataSource) throws DSException {
+	return processResultSet(resultSet, dataSource, null, null);
+    }
+    
+    public DSResultSet processResultSet(DSResultSet resultSet, DSDataSource dataSource, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (resultSet == null) {
 	    return null;
 	}
@@ -88,15 +94,18 @@ public class DSDataProcessor {
 	    // Get record
 	    record = getRecord(resultSet, fields);
 	    
+	    // Populate scope-1
+	    populateScope(scope, record, fieldIndexMap, fields, false);
+	    
 	    // Apply filters
-	    if (isFilter(record, fieldIndexMap, filters)) {
+	    if (isFilter(record, fieldIndexMap, filters, expressionEvaluator)) {
 		records.add(record);
 	    }
 	}
 	
 	// Sort data records
 	if (dataSource.hasOrders()) {
-	    sortRecords(records, fieldIndexMap, dataSource.getOrders());
+	    sortRecords(scope, records, fieldIndexMap, fields, dataSource.getOrders(), expressionEvaluator);
 	}
 	
 	DSArrayResultSet result = new DSArrayResultSet(fieldNames, records);
@@ -108,7 +117,7 @@ public class DSDataProcessor {
 	return result;
     }
     
-    protected void sortRecords(List<Object[]> records, Map<String, Integer> fieldIndexMap, final List<DSOrder> orders) {
+    protected void sortRecords(Scope scope, List<Object[]> records, Map<String, Integer> fieldIndexMap, List<DSField> fields, final List<DSOrder> orders, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	final Map<Object[], Object[]> map = new HashMap<Object[], Object[]>();
 	int size = orders.size();
 	DSOrder order = null;
@@ -118,10 +127,15 @@ public class DSDataProcessor {
 	// Iteration array and evaluate sorting values for each record
 	// Create map: record -> sorting values 
 	for (Object[] record : records) {
+	    
+	    // Populate scope-2
+	    populateScope(scope, record, fieldIndexMap, fields, false);
+
+	    
 	    values = new Object[size];
 	    for (int i = 0; i < size; i++) {
 		order = orders.get(i);
-		value = getOrderValue(record, fieldIndexMap, order);
+		value = evaluateOrderValue(record, fieldIndexMap, order, expressionEvaluator);
 		values[i] = value;
 	    }
 	    
@@ -186,32 +200,53 @@ public class DSDataProcessor {
 	return result;
     }
     
-    protected Object getOrderValue(Object[] record, Map<String, Integer> fieldIndexMap, DSOrder order)  {
+    protected Object evaluateOrderValue(Object[] record, Map<String, Integer> fieldIndexMap, DSOrder order, DSExpressionEvaluator expressionEvaluator)  {
 	if (order instanceof DSFieldOrder) {
 	    DSField field = ((DSFieldOrder) order).getField();
-	    if (field == null) {
-		return null;
-	    }
-	    String fieldName = field.getName();
-	    if (fieldName == null) {
-		return null;
-	    }
-	    Integer index = fieldIndexMap.get(fieldName);
-	    if (index == null) {
-		return null;
-	    }
-	    if (index < 0 || index > record.length - 1) {
-		return true;
-	    }
 	    
-	    Object fieldValue = record[index]; // get original value
+//	    if (field == null) {
+//		return null;
+//	    }
+//	    String fieldName = field.getName();
+//	    if (fieldName == null) {
+//		return null;
+//	    }
+//	    Integer index = fieldIndexMap.get(fieldName);
+//	    if (index == null) {
+//		return null;
+//	    }
+//	    if (index < 0 || index > record.length - 1) {
+//		return null;
+//	    }
+	    
+	    //Object fieldValue = record[index]; // get original value
+	    Object fieldValue = getRecordValue(record, fieldIndexMap, field);
 	    Object orderValue = convertValue(fieldValue, field); // convert value
 	    
 	    return orderValue;
 	    
+	} else if (order instanceof DSExpressionOrder) {
+	    DSExpression expression = ((DSExpressionOrder) order).getExpression();
+	    return evaluateExpression(expression, expressionEvaluator);
 	}
 	
 	return null;
+    }
+    
+    protected Object evaluateExpression(DSExpression expression, DSExpressionEvaluator expressionEvaluator) {
+	if (expression == null) {
+	    return null;
+	}
+	if (expressionEvaluator == null) {
+	    // TODO
+	    return null;
+	}
+	try {
+	    return expressionEvaluator.evaluate(expression);
+	} catch (DSEvaluateException e) {
+	    // TODO: safe value
+	    return null;
+	}
     }
     
     protected Map<String, Integer> createFieldIndexMap(List<DSField> fields) {
@@ -254,19 +289,19 @@ public class DSDataProcessor {
 	return record;
     }
     
-    protected boolean isFilter(Object[] record, Map<String, Integer> fieldIndexMap, List<DSFilter> filters) {
+    protected boolean isFilter(Object[] record, Map<String, Integer> fieldIndexMap, List<DSFilter> filters, DSExpressionEvaluator expressionEvaluator) {
 	if (filters == null || filters.isEmpty()) {
 	    return true;
 	}
 	for (DSFilter filter : filters) {
-	    if (!isFilter(record, fieldIndexMap, filter)) {
+	    if (!isFilter(record, fieldIndexMap, filter, expressionEvaluator)) {
 		return false;
 	    }
 	}
 	return true;
     }
     
-    protected boolean isFilter(Object[] record, Map<String, Integer> fieldIndexMap, DSFilter filter) {
+    protected boolean isFilter(Object[] record, Map<String, Integer> fieldIndexMap, DSFilter filter, DSExpressionEvaluator expressionEvaluator) {
 	if (filter == null) {
 	    return true;
 	}
@@ -289,19 +324,96 @@ public class DSDataProcessor {
 	    if (index < 0 || index > record.length - 1) {
 		return true;
 	    }
-	    Object filterValue = fieldFilter.getValue();
+	    
 	    
 	    Object leftValue = record[index];
+	    
+	    Object filterValue = fieldFilter.getValue();
 	    Object rightValue = convertValue(filterValue, field);
 	    
 	    String operation = fieldFilter.getOperation();
 	    return isFilterByOperation(leftValue, operation, rightValue);
 	}
-	
+	else if (filter instanceof DSExpressionFilter) {
+	    DSExpression expression = ((DSExpressionFilter) filter).getExpression();
+	    Object value = evaluateExpression(expression, expressionEvaluator);
+	    
+	    //TODO
+	    if (value == null) {
+		return false;
+	    }
+
+	    if (value instanceof Boolean) {
+//		if (value == null) {
+//		    return false;
+//		}
+		return (Boolean) value;
+	    } else {
+		//TODO
+		return false;
+	    }
+
+	}
 	//TODO
 	return true;
     }
     
+    protected Object getRecordValue(Object[] record, Map<String, Integer> fieldIndexMap, DSField field) {
+	if (field == null) {
+	    return null;
+	}
+	String fieldName = field.getName();
+	if (fieldName == null) {
+	    return null;
+	}
+	Integer index = fieldIndexMap.get(fieldName);
+	if (index == null) {
+	    return null;
+	}
+	if (index < 0 || index > record.length - 1) {
+	    return null;
+	}
+	return record[index];
+    }
+    
+    protected void populateScope(Scope scope, Object[] record,  Map<String, Integer> fieldIndexMap, List<DSField> fields, boolean reset) throws DSException {
+	if (scope == null) {
+	    // No scope
+	    return;
+	}
+	if (fields == null) {
+	    return;
+	}
+	for (DSField field : fields) {
+
+	    String fieldName = field.getName();
+
+	    if (fieldName == null) {
+		continue;
+	    }
+
+	    // 1. Simple field name
+	    transferFieldValue(scope, record, fieldIndexMap, field, reset);
+
+	    //
+	}
+
+    }
+
+    protected void transferFieldValue(Scope scope, Object[] record, Map<String, Integer> fieldIndexMap, DSField field, boolean reset) throws DSException {
+
+	String fieldName = field.getName();
+
+	// Get
+	Object oldValue = scope.getFieldValue(fieldName);
+	Object newValue = reset ? null : getRecordValue(record, fieldIndexMap,	field);
+
+	// Set
+	scope.setFieldOldValue(fieldName, oldValue);
+	scope.setFieldValue(fieldName, newValue);
+
+    }
+
     // See AbstractDataSet
     protected Object convertValue(Object value, DSField field) {
   	if (value == null || field == null) {
