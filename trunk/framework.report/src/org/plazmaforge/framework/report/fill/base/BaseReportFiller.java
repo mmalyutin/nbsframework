@@ -38,6 +38,7 @@ import org.plazmaforge.framework.core.datastorage.DSDataSet;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSEmptyDataSet;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
+import org.plazmaforge.framework.core.datastorage.DSExpressionEvaluator;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
@@ -46,6 +47,8 @@ import org.plazmaforge.framework.core.datastorage.DSStructuredResultSet;
 import org.plazmaforge.framework.core.datastorage.DSWrappedDataSet;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.data.AggregationCalculator;
+import org.plazmaforge.framework.core.datastorage.data.Scope;
+import org.plazmaforge.framework.core.exception.DSEvaluateException;
 import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.exception.RTException;
@@ -56,6 +59,7 @@ import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ScriptGenerator;
 import org.plazmaforge.framework.report.fill.script.ScriptInfo;
 import org.plazmaforge.framework.report.fill.script.ScriptProvider;
+import org.plazmaforge.framework.report.fill.script.ns.NSExpressionEvaluator;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.ReportParameters;
@@ -224,10 +228,22 @@ public class BaseReportFiller implements ReportFiller {
 
 	// Transfer ALL report parameter to data sources
 	transferParametersToDataSources(report, parameters);
+
+	ReportContext context = new ReportContext();
+
+	context.setReport(report);
+	context.setParameters(parameters);
+	context.setDocument(document);
 	
+	ScriptProvider scriptProvider = getScriptProvider(report);
+	ExpressionEvaluator expressionEvaluator = scriptProvider.getExpressionEvaluator(); 
+	context.setExpressionEvaluator(expressionEvaluator);
+	context.setAggregationCalculator(new AggregationCalculator());
+
+	prepareScript(context, scriptProvider);
 	
 	// If data is null then Set empty data
-	DSResultSet resultSet = openReportResultSet(report, parameters);
+	DSResultSet resultSet = openReportResultSet(context, parameters);
 	DSDataSet dataSet = null;
 	if (resultSet != null) {
 	    dataSet = createWrappedDataSet(resultSet, report, parameters);
@@ -237,18 +253,20 @@ public class BaseReportFiller implements ReportFiller {
 	    dataSet = new DSEmptyDataSet();
 	}
 	
-	ReportContext context = new ReportContext();
-	context.setReport(report);
+	//ReportContext context = new ReportContext();
+	//context.setReport(report);
 	context.setMainData(dataSet);
-	context.setParameters(parameters);
-	context.setDocument(document);
+	//context.setParameters(parameters);
+	//context.setDocument(document);
 	
-	ScriptProvider scriptProvider = getScriptProvider(report);
-	ExpressionEvaluator expressionEvaluator = scriptProvider.getExpressionEvaluator(); 
-	context.setExpressionEvaluator(expressionEvaluator);
-	context.setAggregationCalculator(new AggregationCalculator());
 	
-	prepareScript(context, scriptProvider);
+	
+	//ScriptProvider scriptProvider = getScriptProvider(report);
+	//ExpressionEvaluator expressionEvaluator = scriptProvider.getExpressionEvaluator(); 
+	//context.setExpressionEvaluator(expressionEvaluator);
+	//context.setAggregationCalculator(new AggregationCalculator());
+	
+	//prepareScript(context, scriptProvider);
 	
 	// Fill report templates
 	for (Template template: templates) {
@@ -257,6 +275,31 @@ public class BaseReportFiller implements ReportFiller {
 	}
 	
 	return document;
+    }
+    
+    
+    //TODO
+    public static class DSExpressionEvaluatorWrap  implements DSExpressionEvaluator {
+
+	private ReportContext context;
+	private ExpressionEvaluator evaluator;
+	
+	
+	public DSExpressionEvaluatorWrap(ReportContext context,	ExpressionEvaluator evaluator) {
+	    this.context = context;
+	    this.evaluator = evaluator;
+	}
+
+
+	@Override
+	public Object evaluate(DSExpression expression) throws DSEvaluateException {
+	    try {
+		return evaluator.evaluate(context, DSExpression.EVALUATION_DEFAULT, expression);
+	    } catch (RTException e) {
+		throw new DSEvaluateException(e);
+	    }
+	}
+	
     }
     
     protected Map<String, Object> createParameters() {
@@ -282,8 +325,12 @@ public class BaseReportFiller implements ReportFiller {
 	dataHelper.transferDefaultValues(dataSource, generalParameters, parameters);
     }
     
-    protected DSResultSet openReportResultSet(Report report, Map<String, Object> parameters) throws RTException {
+    protected DSResultSet openReportResultSet(ReportContext context, /*Report report, */Map<String, Object> parameters) throws RTException {
 	try {
+	    
+	    Report report = context.getReport();
+	    Scope scope = context.getReportScope();
+	    DSExpressionEvaluatorWrap evaluator = new DSExpressionEvaluatorWrap(context, context.getExpressionEvaluator());
 	    
 	    // 1. ResultSet (priority)
 	    DSResultSet resultSet = (DSResultSet) parameters.get(ReportParameters.RESULT_SET);
@@ -300,23 +347,25 @@ public class BaseReportFiller implements ReportFiller {
 		// ???
 		return null;
 	    }
+	    
+	    
 
 	    // 2. JDBC Connection 
 	    Connection connection = (Connection) parameters.get(ReportParameters.JDBC_CONNECTION);
 	    if (connection != null) {
-		return openResultSet(connection, dataSource);
+		return openResultSet(connection, dataSource, scope, evaluator);
 	    }
 	    
 	    // 3. DataConnector
 	    DSDataConnector dataConnector = (DSDataConnector) parameters.get(ReportParameters.DATA_CONNECTOR);
 	    if (dataConnector != null) {
-		return openResultSet(dataConnector, dataSource);
+		return openResultSet(dataConnector, dataSource, scope, evaluator);
 	    }
 
 	    // 4. Connection string
 	    String connectionString = (String) parameters.get(ReportParameters.CONNECTION_STRING);
 	    if (connectionString != null) {
-		return openResultSet(connectionString, dataSource);
+		return openResultSet(connectionString, dataSource, scope, evaluator);
 	    }
 	    
 	    
@@ -333,13 +382,13 @@ public class BaseReportFiller implements ReportFiller {
      * @return
      * @throws DSException
      */
-    protected DSResultSet openResultSet(Connection connection, DSDataSource dataSource) throws DSException {
+    protected DSResultSet openResultSet(Connection connection, DSDataSource dataSource, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (connection == null) {
 	    return null;
 	}
 	// Open Session by JDBC Connection
 	DSSession session = DataManager.openSession(connection);
-	return openResultSet(session, dataSource);
+	return openResultSet(session, dataSource, scope, expressionEvaluator);
     }
 
     /**
@@ -349,13 +398,13 @@ public class BaseReportFiller implements ReportFiller {
      * @return
      * @throws DSException
      */
-    protected DSResultSet openResultSet(DSDataConnector dataConnector, DSDataSource dataSource) throws DSException {
+    protected DSResultSet openResultSet(DSDataConnector dataConnector, DSDataSource dataSource, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (dataConnector == null) {
 	    return null;
 	}
 	// Open Session by DataConnector
 	DSSession session = DataManager.openSession(dataConnector);
-	return openResultSet(session, dataSource);
+	return openResultSet(session, dataSource, scope, expressionEvaluator);
     }
 
     /**
@@ -365,20 +414,20 @@ public class BaseReportFiller implements ReportFiller {
      * @return
      * @throws DSException
      */
-    protected DSResultSet openResultSet(String connectionString, DSDataSource dataSource) throws DSException {
+    protected DSResultSet openResultSet(String connectionString, DSDataSource dataSource, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (connectionString == null) {
 	    return null;
 	}
 	// Open Session by Connection String
 	DSSession session = DataManager.openSession(connectionString);
-	return openResultSet(session, dataSource);
+	return openResultSet(session, dataSource, scope, expressionEvaluator);
     }
     
-    protected DSResultSet openResultSet(DSSession session, DSDataSource dataSource) throws DSException {
+    protected DSResultSet openResultSet(DSSession session, DSDataSource dataSource, Scope scope, DSExpressionEvaluator expressionEvaluator) throws DSException {
 	if (session == null) {
 	    return null;
 	}
-	return DataManager.openResultSet(session, dataSource);
+	return DataManager.openResultSet(session, dataSource, scope, expressionEvaluator);
     }
     
     protected DSDataSet createWrappedDataSet(DSResultSet resultSet, Report report, Map<String, Object> parameters) {
