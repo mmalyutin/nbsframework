@@ -3,36 +3,25 @@
 		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>150.0</default-value></parameter>
 	</parameters>
 	<variables>
-		<variable name="FULL_PRODUCT_NAME" data-type="String"><expression>$F{GROUP_NAME} + "/" + $F{PRODUCT_NAME}</expression></variable>
-		<variable name="GROUP_NAME_HEADER" data-type="String" reset-type="Group" reset-name="PRODUCT_GROUP"><expression>"Group: "  + $F{GROUP_NAME}</expression></variable>
-		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>$F{PRICE}</expression></variable>
 	</variables>
 	<data-sources>
 		<data-source>
 			<fields>
-				<field name="PRODUCT_ID" data-type="Integer"/>
-				<field name="PRODUCT_NAME" data-type="String"/>
-				<field name="GROUP_NAME" data-type="String"/>
-				<field name="PRICE" data-type="Float"/>
-				<field name="CREATED_DATE" data-type="Date"/>
+				<field name="ShippedDate" data-type="Date"/>
+				<field name="ShipCountry" data-type="String"/>
+				<field name="RequiredDate" data-type="Date"/>
+				<field name="CustomerID" data-type="String"/>
+				<field name="OrderID" data-type="Integer"/>
+				<field name="ShipName" data-type="String"/>
+				<field name="ShipVia" data-type="Integer"/>
+				<field name="ShipPostalCode" data-type="String"/>
+				<field name="OrderDate" data-type="Date"/>
+				<field name="ShipCity" data-type="String"/>
+				<field name="ShipAddress" data-type="String"/>
+				<field name="EmployeeID" data-type="Integer"/>
+				<field name="ShipRegion" data-type="String"/>
+				<field name="Freight" data-type="Double"/>
 			</fields>
-			<filters>
-			
- 				<filter field="PRODUCT_ID" operation="lte">
-					<value>194</value>
-				</filter>
-				<!-- 
- 				<filter>
-					<expression>$F{PRODUCT_ID} == 190</expression>
-				</filter>
-				 -->
-			</filters>
-			<orders>
-				<order field="PRICE" asc="false"/>
-				<order field="PRODUCT_ID" asc="false"/>
-			</orders>
-			
-			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query>
 		</data-source>
 	</data-sources>
 	<templates>
@@ -45,6 +34,7 @@
 				<column width="150" />
 			</columns>
 			
+			<!-- 
 			<report-groups>
 				<report-group name="PRODUCT_GROUP">
 					<expression>$F{GROUP_NAME}</expression>
@@ -76,6 +66,7 @@
 					</bands>
 				</report-group>
 			</report-groups>
+			 -->
 			
 			<bands>
 				<band type="ReportHeader" cell-line="none">
@@ -101,10 +92,10 @@
 					<rows>
 						<row height="30" cell-border-top="1" cell-border-top-color="green">
 							<cells>
-								<cell font="bold"><value>Product ID</value></cell>
-								<cell font="bold"><value>Product Name</value></cell>
-								<cell font="bold"><value>Price</value></cell>
-								<cell font="bold"><value>Full Name</value></cell>
+								<cell font="bold"><value>Order ID</value></cell>
+								<cell font="bold"><value>ShipName</value></cell>
+								<cell font="bold"><value>ShipRegion</value></cell>
+								<cell font="bold"><value>Freight</value></cell>
 							</cells>
 						</row>
 					</rows>
@@ -113,10 +104,10 @@
 					<rows>
 						<row height="20">
 							<cells>
-								<cell><expression>$F{PRODUCT_ID}</expression></cell>
-								<cell><expression>$F{PRODUCT_NAME}</expression></cell>
-								<cell format="#.00" data-type="Float"><expression>$F{PRICE}</expression></cell>
-								<cell><expression>$V{FULL_PRODUCT_NAME}</expression></cell>
+								<cell><expression>$F{OrderID}</expression></cell>
+								<cell><expression>$F{ShipName}</expression></cell>
+								<cell><expression>$F{ShipRegion}</expression></cell>
+								<cell><expression>$F{Freight}</expression></cell>
 							</cells>
 						</row>
 					</rows>
