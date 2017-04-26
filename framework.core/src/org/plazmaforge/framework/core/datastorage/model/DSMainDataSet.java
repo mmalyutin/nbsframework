@@ -152,7 +152,11 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 	}
 	
     }
-    
+
+    public DSMainDataSet(DSDataModel model, DSSession session) {
+	this(model, session, null, null);
+    }
+
     public DSMainDataSet(DSDataModel model, DSSession session, Scope scope) {
 	this(model, session, scope, null);
     }
@@ -165,6 +169,11 @@ public class DSMainDataSet extends AbstractStructuredDataSet implements DSDataSe
 	this.session = session;
 	this.scope = scope;
 	this.expressionEvaluator = expressionEvaluator;
+	
+	// Initialize new scope if need
+	if (this.scope == null) {
+	    this.scope = new Scope();
+	}
     }
 
     

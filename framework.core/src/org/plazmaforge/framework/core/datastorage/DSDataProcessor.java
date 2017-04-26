@@ -113,7 +113,6 @@ public class DSDataProcessor {
 	// Close input origin ResultSet
 	resultSet.close();
 	
-	//TODO: orders
 	return result;
     }
     
@@ -204,23 +203,7 @@ public class DSDataProcessor {
 	if (order instanceof DSFieldOrder) {
 	    DSField field = ((DSFieldOrder) order).getField();
 	    
-//	    if (field == null) {
-//		return null;
-//	    }
-//	    String fieldName = field.getName();
-//	    if (fieldName == null) {
-//		return null;
-//	    }
-//	    Integer index = fieldIndexMap.get(fieldName);
-//	    if (index == null) {
-//		return null;
-//	    }
-//	    if (index < 0 || index > record.length - 1) {
-//		return null;
-//	    }
-	    
-	    //Object fieldValue = record[index]; // get original value
-	    Object fieldValue = getRecordValue(record, fieldIndexMap, field);
+	    Object fieldValue = getRecordValue(record, fieldIndexMap, field); // get original value
 	    Object orderValue = convertValue(fieldValue, field); // convert value
 	    
 	    return orderValue;
