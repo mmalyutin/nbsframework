@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
+import org.plazmaforge.framework.core.exception.DSEvaluateException;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.fill.script.AbstractExpressionEvaluator;
@@ -79,7 +80,7 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
     }
     
     @Override
-    public Object evaluate(ReportContext context, int evaluation, DSExpression expression) throws RTException {
+    public Object evaluate(ReportContext context, int evaluation, DSExpression expression) throws DSEvaluateException {
 	
 	variableProvider.setContext(context);
 	variableProvider.setEvaluation(evaluation);
@@ -88,8 +89,8 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
 	return evaluate(expression);
     }
 
-    
-    protected Object evaluate(DSExpression expression) throws RTException {
+    @Override
+    public Object evaluate(DSExpression expression) throws DSEvaluateException {
 	if (expression == null || scriptFunctions == null) {
 	    return null;
 	}
@@ -117,7 +118,7 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
 	
     }
     
-    protected Object evaluate(String expression) throws RTException {
+    protected Object evaluate(String expression) throws DSEvaluateException {
 
 	if (expression == null) {
 	    return null;
@@ -134,7 +135,7 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
 	try {
 	    return nativeEvaluator.evaluate(expression);
 	} catch (EvaluateException e) {
-	    throw new RTException(e);
+	    throw new DSEvaluateException(e);
 	}
     }
     

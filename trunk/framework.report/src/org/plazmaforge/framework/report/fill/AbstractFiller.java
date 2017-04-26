@@ -25,14 +25,10 @@
  */
 package org.plazmaforge.framework.report.fill;
 
-import java.text.DecimalFormat;
-
 import org.plazmaforge.framework.core.datastorage.DSExpression;
-import org.plazmaforge.framework.core.type.TypeUtils;
-import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.core.exception.DSEvaluateException;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
-import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.design.Band;
 
 /**
@@ -60,7 +56,7 @@ public class AbstractFiller {
 	}
 	try {
 	    return evaluator.evaluate(context, evaluation, expression);
-	} catch (RTException e) {
+	} catch (DSEvaluateException e) {
 	    // TODO
 	    return null;
 	}
