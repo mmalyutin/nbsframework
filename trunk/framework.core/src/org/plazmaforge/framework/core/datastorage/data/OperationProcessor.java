@@ -37,6 +37,8 @@ public class OperationProcessor {
 
     private Map<String, OperationEvaluator> evaluators = new HashMap<String, OperationEvaluator>();
     
+    private static final ValueComparator valueComparator = new ValueComparator();
+    
     public OperationProcessor() {
 	super();
     }
@@ -165,65 +167,9 @@ public class OperationProcessor {
     ////
     
     public static Integer compareValue(Object v1, Object v2) {
-	if (v1 == null && v2 == null) {
-	    return 0;
-	}
-	if (v1 == null) {
-	    return -1;
-	}
-	if (v2 == null) {
-	    return 1;
-	}
-
-	if (v1 instanceof Number && v2 instanceof Number) {
-	    return compareNumberValue((Number) v1, (Number) v2);
-	}
-	
-	if (v1 instanceof Comparable && v2 instanceof Comparable) {
-	    return ((Comparable) v1).compareTo(v2);
-	}
-	
-	return null;
+	return valueComparator.compareValue(v1, v2);
     }
     
     
-    public static Integer compareNumberValue(Number v1, Number v2) {
-	if (v1 == null && v2 == null) {
-	    return 0;
-	}
-	if (v1 == null) {
-	    return -1;
-	}
-	if (v2 == null) {
-	    return 1;
-	}
-	
-
-	// Same type
-	if (isEqualsValueType(v1, v2)) {
-	    return ((Comparable) v1).compareTo(v2);
-	}
-
-	// Double
-	Double d1 = v1.doubleValue();
-	Double d2 = v2.doubleValue();
-	if (isZero(d1) && isZero(d2)) { // -0.0, 0.0
-	    return 0;
-	}
-	return d1.compareTo(d2);
-
-    }
-    
-    public static boolean isZero(Double value) {
- 	return value == null ? false : (value == 0.0 || value == -0.0); 
-    }
-    
-    public static boolean isEqualsValueType(Object v1, Object v2) {
-	if (v1 == null || v2 == null) {
-	    return false;
-	}
-	return v1.getClass().equals(v2.getClass());
-    }
-
     
 }
