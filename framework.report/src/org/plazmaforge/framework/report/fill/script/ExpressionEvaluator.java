@@ -33,6 +33,7 @@ import org.plazmaforge.framework.report.fill.process.ReportContext;
  */
 public interface ExpressionEvaluator {
 
+    
     void init(ScriptInfo scriptInfo) throws RTException;
     
     /**
