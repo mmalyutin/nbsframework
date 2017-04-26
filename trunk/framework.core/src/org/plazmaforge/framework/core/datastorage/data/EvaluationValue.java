@@ -66,7 +66,8 @@ public class EvaluationValue implements Serializable {
         this.value = value;
     }
     
+    public String toString() {
+	return "EvaluationValue[initValue=" + initValue +", oldValue=" + oldValue + ", value=" + value + "]";
+    }
     
-    
-
 }

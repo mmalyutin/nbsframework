@@ -28,11 +28,12 @@ package org.plazmaforge.framework.core.datastorage;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author ohapon
  *
  */
-public class DSBaseDataSource extends AbstractDataSource implements DSDataSource {
+public class DSBaseDataSource extends AbstractDataSource implements DSDataSource, HasExpressionBuilder  {
 
     private static final long serialVersionUID = 4764564520974413985L;
     
@@ -290,7 +291,72 @@ public class DSBaseDataSource extends AbstractDataSource implements DSDataSource
 	return groups == null ? 0 : groups.size();
     }
 
+    @Override
+    public List<DSExpression> buildExpressions() {
+	List<DSExpression> expressions = new ArrayList<DSExpression>();
+	populateExpressions(expressions);
+	return expressions;
+    }
+
+    @Override
+    public void populateExpressions(List<DSExpression> expressions) {
+	
+	if (hasParameters()) {
+	    for (DSParameter parameter: parameters) {
+		populateExpressions(expressions, parameter);
+	    }
+	}
+	
+	if (hasFields()) {
+	    for (DSField field: fields) {
+		populateExpressions(expressions, field);
+	    }
+	}
+	
+	if (hasVariables()) {
+	    for (DSVariable variable: variables) {
+		populateExpressions(expressions, variable);
+	    }
+	}
+	
+	if (hasFilters()) {
+	    for (DSFilter filter: filters) {
+		populateExpressions(expressions, filter);
+	    }
+	}
+
+	if (hasOrders()) {
+	    for (DSOrder order: orders) {
+		populateExpressions(expressions, order);
+	    }
+	}
+	
+	if (hasGroups()) {
+	    for (DSGroup group: groups) {
+		populateExpressions(expressions, group);
+	    }
+	}
+	
+    }
+
     
+    protected void populateExpressions(List<DSExpression> expressions, Object element) {
+	if (element == null) {
+	    return;
+	}
+	if (element instanceof HasExpressionBuilder) {
+	    ((HasExpressionBuilder) element).populateExpressions(expressions);
+	    return;
+	}
+	if (element instanceof HasExpression) {
+	    HasExpression hasExpression = (HasExpression) element;
+	    DSExpression exprsession = hasExpression.getExpression();
+	    if (exprsession == null || exprsession.isEmpty()) {
+		return;
+	    }
+	    expressions.add(exprsession);
+	}
+    }
     
     
 }
