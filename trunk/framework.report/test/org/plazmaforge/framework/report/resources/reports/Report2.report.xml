@@ -22,10 +22,10 @@
 					<value>194</value>
 				</filter>
 				
-<!-- 				<filter>
+ 				<filter>
 					<expression>$F{PRODUCT_ID} == 190</expression>
 				</filter>
- -->			</filters>
+			</filters>
 			<orders>
 				<order field="PRICE" asc="false"/>
 				<order field="PRODUCT_ID" asc="false"/>

@@ -68,7 +68,10 @@ public class RTDataModelBuilderTest  extends AbstractTestCase {
 
     public void testBuildModel_1() throws Exception  {
 	
-	// Test single DataSource 
+	// SCOPE	: NONE (internal)
+	// EXPRESSIONS	: NONE
+	
+	// Test single DataSource without expressions
 	DSDataBuilder builder = new DSDataBuilder();
 	
 
@@ -99,10 +102,7 @@ public class RTDataModelBuilderTest  extends AbstractTestCase {
 	DSSession session = DataManager.openSession(connection);
 	assertNotNull(session);
 	
-	Scope scope = new Scope();
-	
-	
-	DSMainDataSet mainDataSet = new DSMainDataSet(model, session, scope);
+	DSMainDataSet mainDataSet = new DSMainDataSet(model, session);
 	
 	int i = 0;
 	System.out.println("\nOutput 1 data source:");
@@ -122,6 +122,9 @@ public class RTDataModelBuilderTest  extends AbstractTestCase {
     }
 
     public void testBuildModel_2() throws Exception  {
+
+	// SCOPE	: New
+	// EXPRESSIONS	: TESTExpressionEvaluator
 	
 	// Test multi DataSource
 	// 1.1, 1.2           - level 1

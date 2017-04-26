@@ -23,7 +23,6 @@
 package org.plazmaforge.framework.report.fill.script;
 
 import org.plazmaforge.framework.core.datastorage.data.Scope;
-import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 
 /**
@@ -56,7 +55,7 @@ public class AbstractExpressionEvaluator {
    	// FIELD
    	if (matchAtomName(expression, "$F{", "}")) {
    	    String fieldName = getAtomName(expression, "$F{", "}");
-   	    if (context.getMainData() == null || fieldName == null) {
+   	    if (/*context.getMainData() == null || */fieldName == null) {
    		return null;
    	    }
    	    return context.getScopeValue(Scope.FIELD, fieldName, evaluation);
