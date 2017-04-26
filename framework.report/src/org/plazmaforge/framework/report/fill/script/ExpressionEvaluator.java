@@ -24,9 +24,9 @@ package org.plazmaforge.framework.report.fill.script;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.DSExpressionEvaluator;
+import org.plazmaforge.framework.core.datastorage.data.Scope;
 import org.plazmaforge.framework.core.exception.DSEvaluateException;
 import org.plazmaforge.framework.report.exception.RTException;
-import org.plazmaforge.framework.report.fill.process.ReportContext;
 
 /**
  * 
@@ -36,18 +36,17 @@ import org.plazmaforge.framework.report.fill.process.ReportContext;
 public interface ExpressionEvaluator extends DSExpressionEvaluator {
 
     
-    void init(ScriptInfo scriptInfo) throws RTException;
+    void init(Scope scope, ScriptInfo scriptInfo) throws RTException;
     
     /**
      * Evaluate expression
      * 
-     * @param context
      * @param evaluation
      * @param expression
      * @return
      * @throws RTException
      */
-    Object evaluate(ReportContext context, int evaluation, DSExpression expression) throws DSEvaluateException;
+    Object evaluate(int evaluation, DSExpression expression) throws DSEvaluateException;
     
     
     /**

@@ -22,18 +22,46 @@
 
 package org.plazmaforge.framework.report.fill.script;
 
+import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.data.Scope;
-import org.plazmaforge.framework.report.fill.process.ReportContext;
+import org.plazmaforge.framework.core.exception.DSEvaluateException;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class AbstractExpressionEvaluator {
+public abstract class AbstractExpressionEvaluator implements ExpressionEvaluator {
 
+    private Scope scope;
 
-    protected Object evaluateAtomExpression(ReportContext context, int evaluation, String expression) {
+    protected void setScope(Scope scope) {
+        this.scope = scope;
+    }
+
+    protected Scope getScope() {
+        return scope;
+    }
+    
+    /**
+     * Get value from scope (PARAMETER, FIELD, VARIABLE...)
+     * 
+     * @param valueContext
+     * @param valueName
+     * @param evaluation
+     * @return
+     */
+    protected Object getScopeValue(String valueContext, String valueName, int evaluation) {
+ 	return getScope().getScopeValue(valueContext, valueName, evaluation);
+    }
+    
+    @Override
+    public Object evaluate(DSExpression expression) throws DSEvaluateException {
+	// Evaluate expression with default evaluation 
+	return evaluate(DSExpression.EVALUATION_DEFAULT, expression);
+    }
+
+    protected Object evaluateAtomExpression(int evaluation, String expression) {
 	
    	if (expression == null) {
    	    return null;
@@ -49,7 +77,7 @@ public class AbstractExpressionEvaluator {
    	    if (parameterName == null) {
    		return null;
    	    }
-   	    return context.getScopeValue(Scope.PARAMETER, parameterName, evaluation);
+   	    return getScopeValue(Scope.PARAMETER, parameterName, evaluation);
    	}
    	
    	// FIELD
@@ -58,7 +86,7 @@ public class AbstractExpressionEvaluator {
    	    if (/*context.getMainData() == null || */fieldName == null) {
    		return null;
    	    }
-   	    return context.getScopeValue(Scope.FIELD, fieldName, evaluation);
+   	    return getScopeValue(Scope.FIELD, fieldName, evaluation);
    	}
    	
    	// VARIABLE
@@ -67,25 +95,12 @@ public class AbstractExpressionEvaluator {
    	    if (variableName == null) {
    		return null;
    	    }
-   	    return context.getScopeValue(Scope.VARIABLE, variableName, evaluation);
+   	    return getScopeValue(Scope.VARIABLE, variableName, evaluation);
    	}
    	
    	return null;
    }
     
-    /**
-     * Evaluate value (PARAMETER, FIELD, VARIABLE...)
-     * 
-     * @param context
-     * @param evaluation 
-     * @param valueContext
-     * @param valueName
-     * @return
-     */
-    protected Object evaluateValue(ReportContext context, int evaluation, String valueContext, String valueName) {
-	return context.getScopeValue(valueContext, valueName, evaluation);
-    }
-
     protected boolean matchAtomName(String expression, String prefix, String suffix) {
 	if (expression == null || prefix == null || suffix == null) {
 	    return false;
