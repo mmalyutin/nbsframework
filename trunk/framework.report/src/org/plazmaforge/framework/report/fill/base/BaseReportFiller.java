@@ -229,17 +229,22 @@ public class BaseReportFiller implements ReportFiller {
 	// Transfer ALL report parameter to data sources
 	transferParametersToDataSources(report, parameters);
 
+	// Initialize ReportContext
 	ReportContext context = new ReportContext();
 
 	context.setReport(report);
 	context.setParameters(parameters);
 	context.setDocument(document);
 	
+	// Initialize ScriptProvider
 	ScriptProvider scriptProvider = getScriptProvider(report);
+	
+	// Initialize ExpressionEvaluator
 	ExpressionEvaluator expressionEvaluator = scriptProvider.getExpressionEvaluator(); 
 	context.setExpressionEvaluator(expressionEvaluator);
 	context.setAggregationCalculator(new AggregationCalculator());
 
+	// Generate script (expression functions/ids)
 	prepareScript(context, scriptProvider);
 	
 	// If data is null then Set empty data
@@ -253,20 +258,7 @@ public class BaseReportFiller implements ReportFiller {
 	    dataSet = new DSEmptyDataSet();
 	}
 	
-	//ReportContext context = new ReportContext();
-	//context.setReport(report);
 	context.setMainData(dataSet);
-	//context.setParameters(parameters);
-	//context.setDocument(document);
-	
-	
-	
-	//ScriptProvider scriptProvider = getScriptProvider(report);
-	//ExpressionEvaluator expressionEvaluator = scriptProvider.getExpressionEvaluator(); 
-	//context.setExpressionEvaluator(expressionEvaluator);
-	//context.setAggregationCalculator(new AggregationCalculator());
-	
-	//prepareScript(context, scriptProvider);
 	
 	// Fill report templates
 	for (Template template: templates) {
@@ -301,12 +293,11 @@ public class BaseReportFiller implements ReportFiller {
 	dataHelper.transferDefaultValues(dataSource, generalParameters, parameters);
     }
     
-    protected DSResultSet openReportResultSet(ReportContext context, /*Report report, */Map<String, Object> parameters) throws RTException {
+    protected DSResultSet openReportResultSet(ReportContext context, Map<String, Object> parameters) throws RTException {
 	try {
 	    
 	    Report report = context.getReport();
 	    Scope scope = context.getReportScope();
-	    //DSExpressionEvaluatorWrap evaluator = new DSExpressionEvaluatorWrap(context, context.getExpressionEvaluator());
 	    DSExpressionEvaluator evaluator = context.getExpressionEvaluator();
 	    
 	    // 1. ResultSet (priority)
@@ -452,7 +443,7 @@ public class BaseReportFiller implements ReportFiller {
 	if (expressionEvaluator == null) {
 	    return;
 	}
-	expressionEvaluator.init(scriptInfo);
+	expressionEvaluator.init(context.getReportScope(), scriptInfo);
     }
     
     protected String generateScript(ReportContext context, ScriptProvider scriptProvider) throws RTException {

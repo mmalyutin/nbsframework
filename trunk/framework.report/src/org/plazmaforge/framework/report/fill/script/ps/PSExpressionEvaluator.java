@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
+import org.plazmaforge.framework.core.datastorage.data.Scope;
 import org.plazmaforge.framework.core.exception.DSEvaluateException;
 import org.plazmaforge.framework.report.exception.RTException;
-import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.fill.script.AbstractExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ScriptInfo;
@@ -62,8 +62,11 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
     
     
     @Override
-    public void init(ScriptInfo scriptInfo) throws RTException {
+    public void init(Scope scope, ScriptInfo scriptInfo) throws RTException {
 	try {
+	    
+	    setScope(scope);
+	    
 	    variableProvider = new ReportVariableProvider();
 	    globalFunctions = new HashMap<String, Function>();
 	    globalScope = new GlobalScope(variableProvider);
@@ -80,17 +83,12 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
     }
     
     @Override
-    public Object evaluate(ReportContext context, int evaluation, DSExpression expression) throws DSEvaluateException {
-	
-	variableProvider.setContext(context);
+    public Object evaluate(int evaluation, DSExpression expression) throws DSEvaluateException {
 	variableProvider.setEvaluation(evaluation);
-	
-	//return evaluate(expression == null ? null : expression.getText());
-	return evaluate(expression);
+	return evaluateExpression(expression);
     }
 
-    @Override
-    public Object evaluate(DSExpression expression) throws DSEvaluateException {
+    protected Object evaluateExpression(DSExpression expression) throws DSEvaluateException {
 	if (expression == null || scriptFunctions == null) {
 	    return null;
 	}
@@ -141,8 +139,6 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
     
     class ReportVariableProvider implements VariableProvider {
 
-	private ReportContext context;
-	
 	private int evaluation;
 	
 	@Override
@@ -153,21 +149,13 @@ public class PSExpressionEvaluator extends AbstractExpressionEvaluator implement
 
 	@Override
 	public Object getVariableValue(String var) {
-	    return evaluateAtomExpression(context, evaluation, var);
+	    return evaluateAtomExpression(evaluation, var);
 	}
 
 	@Override
 	public void setVariableValue(String var, Object value) {
 	    // TODO
 	    // Ignore set value
-	}
-
-	public ReportContext getContext() {
-	    return context;
-	}
-
-	public void setContext(ReportContext context) {
-	    this.context = context;
 	}
 
 	public int getEvaluation() {

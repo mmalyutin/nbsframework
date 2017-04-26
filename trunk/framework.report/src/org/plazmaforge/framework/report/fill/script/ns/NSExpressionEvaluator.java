@@ -23,8 +23,8 @@
 package org.plazmaforge.framework.report.fill.script.ns;
 
 import org.plazmaforge.framework.core.datastorage.DSExpression;
+import org.plazmaforge.framework.core.datastorage.data.Scope;
 import org.plazmaforge.framework.core.exception.DSEvaluateException;
-import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.fill.script.AbstractExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ScriptInfo;
@@ -39,18 +39,18 @@ import org.plazmaforge.framework.report.fill.script.ScriptInfo;
 public class NSExpressionEvaluator extends AbstractExpressionEvaluator implements ExpressionEvaluator {
 
     @Override
-    public void init(ScriptInfo scriptInfo) {
-	
+    public void init(Scope scope, ScriptInfo scriptInfo) {
+	setScope(scope);
     }
 
     @Override
-    public Object evaluate(ReportContext context, int evaluation, DSExpression expression) throws DSEvaluateException {
-	return evaluateAtomExpression(context, evaluation, expression == null ? null : expression.getText());
+    public Object evaluate( int evaluation, DSExpression expression) throws DSEvaluateException {
+	return evaluateAtomExpression(evaluation, expression == null ? null : expression.getText());
     }
     
     @Override
     public Object evaluate(DSExpression expression) throws DSEvaluateException {
-	return evaluateAtomExpression(null, 0, expression == null ? null : expression.getText()); // TODO: !!!
+	return evaluateAtomExpression(DSExpression.EVALUATION_DEFAULT, expression == null ? null : expression.getText()); 
     }
 
     @Override

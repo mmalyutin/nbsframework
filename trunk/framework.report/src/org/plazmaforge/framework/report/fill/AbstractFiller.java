@@ -55,7 +55,7 @@ public class AbstractFiller {
 	    return null;
 	}
 	try {
-	    return evaluator.evaluate(context, evaluation, expression);
+	    return evaluator.evaluate(evaluation, expression);
 	} catch (DSEvaluateException e) {
 	    // TODO
 	    return null;
@@ -63,25 +63,6 @@ public class AbstractFiller {
 	
     }
     
-//    protected String formatCellValue(Object value, Cell cell) {
-//	String text = formatValue(value, cell.getDataType(), cell.getFormat());
-//	return text;
-//    }
-//    
-//    protected String formatValue(Object value, String dataType, String format) {
-//	if (value == null) {
-//	    return "";
-//	}
-//	
-//	if (TypeUtils.isLikeDecimalType(dataType)) {
-//	    if (format == null) {
-//		format = "#.0";
-//	    }
-//	    DecimalFormat decimalFormat = new DecimalFormat(format);
-//	    return decimalFormat.format(value);
-//	}
-//	return value.toString();
-//    }
     
 
 }
