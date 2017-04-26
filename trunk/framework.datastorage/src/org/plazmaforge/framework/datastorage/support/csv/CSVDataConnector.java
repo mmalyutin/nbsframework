@@ -41,8 +41,20 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     public static final String PROPERTY_ROW_DELIMITER = "rowDelimiter";
     public static final String PROPERTY_FIRST_ROW_HEADER = "firstRowHeader";
     
+
+    // CARRIAGE RETURN	- '\r'
+    // LINE FEED	- '\n'
     
-    public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? "\r\n" : "\n";
+    // CRLF		- '\r\n'
+    // LF		- '\n'
+    
+    public static final String CRLF_DELIMITER = "\r\n";
+    public static final String LF_DELIMITER = "\n";
+
+    public static final String WIN_LINE_DELIMITER = CRLF_DELIMITER;	// Windows systems	'\r\n'
+    public static final String NIX_LINE_DELIMITER = LF_DELIMITER;	// *nix systems		'\n'
+    
+    public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? WIN_LINE_DELIMITER : NIX_LINE_DELIMITER;
     public static final String DEFAULT_COLUMN_DELIMITER = ",";
     public static final String DEFAULT_ROW_DELIMITER = DEFAULT_LINE_DELIMITER; //"\\n";
     public static final boolean DEFAULT_FIRST_ROW_HEADER = false;
@@ -79,7 +91,7 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     }
 
     public void setRowDelimiter(String rowDelimiter) {
-        this.rowDelimiter = rowDelimiter;
+        this.rowDelimiter = evaluateLineDelimiter(rowDelimiter);
     }
 
     public boolean isFirstRowHeader() {
@@ -90,8 +102,25 @@ public class CSVDataConnector extends AbstractFileDataConnector {
         this.firstRowHeader = firstRowHeader;
     }
 
-
-
+    
+    public static String evaluateLineDelimiter(String lineDelimiter) {
+	if (lineDelimiter == null) {
+	    return lineDelimiter;
+	}
+	if (lineDelimiter.equalsIgnoreCase("CRLF")) {
+	    return CRLF_DELIMITER;
+	}
+	if (lineDelimiter.equalsIgnoreCase("LF")) {
+	    return LF_DELIMITER;
+	}
+	if (lineDelimiter.equalsIgnoreCase("WIN")) {
+	    return WIN_LINE_DELIMITER;
+	}
+	if (lineDelimiter.equalsIgnoreCase("NIX")) {
+	    return NIX_LINE_DELIMITER;
+	}
+	return lineDelimiter;
+    }
     
     
 

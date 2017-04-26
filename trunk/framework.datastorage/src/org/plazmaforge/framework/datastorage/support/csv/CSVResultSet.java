@@ -342,7 +342,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
 
     public void setRowDelimiter(String rowDelimiter) {
 	checkProcessing();
-	this.rowDelimiter = rowDelimiter;
+	this.rowDelimiter = CSVDataConnector.evaluateLineDelimiter(rowDelimiter);
     }
 
     public boolean isFirstRowHeader() {
