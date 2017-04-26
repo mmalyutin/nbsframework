@@ -278,30 +278,6 @@ public class BaseReportFiller implements ReportFiller {
     }
     
     
-    //TODO
-    public static class DSExpressionEvaluatorWrap  implements DSExpressionEvaluator {
-
-	private ReportContext context;
-	private ExpressionEvaluator evaluator;
-	
-	
-	public DSExpressionEvaluatorWrap(ReportContext context,	ExpressionEvaluator evaluator) {
-	    this.context = context;
-	    this.evaluator = evaluator;
-	}
-
-
-	@Override
-	public Object evaluate(DSExpression expression) throws DSEvaluateException {
-	    try {
-		return evaluator.evaluate(context, DSExpression.EVALUATION_DEFAULT, expression);
-	    } catch (RTException e) {
-		throw new DSEvaluateException(e);
-	    }
-	}
-	
-    }
-    
     protected Map<String, Object> createParameters() {
 	return  new HashMap<String, Object>();
     }
@@ -330,7 +306,8 @@ public class BaseReportFiller implements ReportFiller {
 	    
 	    Report report = context.getReport();
 	    Scope scope = context.getReportScope();
-	    DSExpressionEvaluatorWrap evaluator = new DSExpressionEvaluatorWrap(context, context.getExpressionEvaluator());
+	    //DSExpressionEvaluatorWrap evaluator = new DSExpressionEvaluatorWrap(context, context.getExpressionEvaluator());
+	    DSExpressionEvaluator evaluator = context.getExpressionEvaluator();
 	    
 	    // 1. ResultSet (priority)
 	    DSResultSet resultSet = (DSResultSet) parameters.get(ReportParameters.RESULT_SET);
