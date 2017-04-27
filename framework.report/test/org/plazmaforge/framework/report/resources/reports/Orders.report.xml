@@ -3,6 +3,8 @@
 		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>150.0</default-value></parameter>
 	</parameters>
 	<variables>
+		<variable name="CountryGroupCount" data-type="Integer" aggregation="COUNT" reset-type="Group" reset-name="CountryGroup"/>
+		<variable name="CountryGroupSum" data-type="Double" aggregation="SUM" reset-type="Group" reset-name="CountryGroup"><expression>$F{Freight}</expression></variable>
 	</variables>
 	<data-sources>
 		<data-source>
@@ -22,43 +24,42 @@
 				<field name="ShipRegion" data-type="String"/>
 				<field name="Freight" data-type="Double"/>
 			</fields>
+			<orders>
+				<order field="ShipCountry"/>
+			</orders>
 		</data-source>
 	</data-sources>
 	<templates>
-		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-line="1" column-line="1">
+		<template type="Table" cell-border-rule="all" row-line="1" column-line="1">
 			<page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
-				<column width="100" />
-				<column width="150" />
-				<column width="150" />
-				<column width="150" />
+				<column width="80" />
+				<column width="220" />
+				<column width="80" />
+				<column width="80" />
+				<column width="80" />
 			</columns>
-			
-			<!-- 
 			<report-groups>
-				<report-group name="PRODUCT_GROUP">
-					<expression>$F{GROUP_NAME}</expression>
+				<report-group name="CountryGroup">
+					<expression>$F{ShipCountry}</expression>
 					<bands>
 						<band type="GroupHeader">
 							<rows>
 								<row height="20">
 									<cells>
-										<cell background="yellow" foreground="blue" colspan="4" font="11, underline|bold" ><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
-									</cells>
-								</row>
-								<row height="20">
-									<cells>
-										<cell border-right="none" colspan="2"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
-										<cell border-left="none" colspan="2" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
+										<cell colspan="5" font="12, underline|bold" ><expression>$F{ShipCountry}</expression></cell>
 									</cells>
 								</row>
 							</rows>
 						</band>
 						<band type="GroupFooter">
 							<rows>
-								<row height="20">
+								<row height="20" column-line="none">
 									<cells>
-										<cell colspan="4"><value>GroupFooter</value></cell>
+										<cell colspan="2" horizontal-align="right"><value>Count:</value></cell>
+										<cell horizontal-align="right"><expression>$V{CountryGroupCount}</expression></cell>
+										<cell horizontal-align="right"><value>Total:</value></cell>
+										<cell format="0.00" horizontal-align="right"><expression>$V{CountryGroupSum}</expression></cell>
 									</cells>
 								</row>
 							</rows>
@@ -66,9 +67,10 @@
 					</bands>
 				</report-group>
 			</report-groups>
-			 -->
+
 			
 			<bands>
+			<!-- 
 				<band type="ReportHeader" cell-line="none">
 					<rows>
 						<row height="30" background="red">
@@ -88,13 +90,15 @@
 						</row>
 					</rows>
 				</band>
+		 -->		
 				<band type="ColumnHeader">
 					<rows>
-						<row height="30" cell-border-top="1" cell-border-top-color="green">
+						<row height="30" cell-border-top="1">
 							<cells>
 								<cell font="bold"><value>Order ID</value></cell>
-								<cell font="bold"><value>ShipName</value></cell>
-								<cell font="bold"><value>ShipRegion</value></cell>
+								<cell font="bold"><value>Name, City</value></cell>
+								<cell font="bold"><value>Region</value></cell>
+								<cell font="bold"><value>Date</value></cell>
 								<cell font="bold"><value>Freight</value></cell>
 							</cells>
 						</row>
@@ -105,16 +109,17 @@
 						<row height="20">
 							<cells>
 								<cell><expression>$F{OrderID}</expression></cell>
-								<cell><expression>$F{ShipName}</expression></cell>
+								<cell><expression>$F{ShipName} + ", " + $F{ShipCity}</expression></cell>
 								<cell><expression>$F{ShipRegion}</expression></cell>
-								<cell><expression>$F{Freight}</expression></cell>
+								<cell format="dd/MM/yyyy"><expression>$F{OrderDate}</expression></cell>
+								<cell format="0.00" horizontal-align="right"><expression>$F{Freight}</expression></cell>
 							</cells>
 						</row>
 					</rows>
 				</band>
 				<band type="ColumnFooter">
 					<rows>
-						<row height="30" cell-border-top="1" cell-border-top-color="green">
+						<row height="30" cell-border-top="1">
 							<cells>
 								<cell font="bold" padding="5"><value>Product ID---</value></cell>
 								<cell font="bold"><value>Product Name--</value></cell>
