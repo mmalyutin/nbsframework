@@ -34,7 +34,7 @@ public class RepotToolCSV2Test extends AbstractTestCase {
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
 	String dataFile = getResourcesFileName("data/orders.csv");
 	String documentFile = getTestFileName("OrdersCSV_DC.pdf");
-	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF)", dataFile);
+	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
 	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
 	
 	String[] args = new String[] {
