@@ -61,9 +61,9 @@ public class AggregationCalculator {
 
    	if  ("COUNT".equals(aggregation)) {
    	    Integer countValue = getCastInteger(aggregationValue.getCountValue(), 0);
-   	    if (value != null) {
+   	    //if (value != null) {
    		countValue = countValue + 1;
-   	    }
+   	    //}
    	    aggregationValue.setCountValue(countValue);
    	    
    	    return countValue;
