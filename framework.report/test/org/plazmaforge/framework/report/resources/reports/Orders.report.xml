@@ -30,7 +30,7 @@
 		</data-source>
 	</data-sources>
 	<templates>
-		<template type="Table" cell-border-rule="all" row-line="1" column-line="1">
+		<template type="Table" >
 			<page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" />
 			<columns>
 				<column width="80" />
@@ -45,7 +45,7 @@
 					<bands>
 						<band type="GroupHeader">
 							<rows>
-								<row height="20">
+								<row height="20" cell-border-bottom="2">
 									<cells>
 										<cell colspan="5" font="12, underline|bold" ><expression>$F{ShipCountry}</expression></cell>
 									</cells>
@@ -93,20 +93,20 @@
 		 -->		
 				<band type="ColumnHeader">
 					<rows>
-						<row height="30" cell-border-top="1">
+						<row height="20" background="#333333" foreground="#FFFFFF" font="bold, 10">
 							<cells>
-								<cell font="bold"><value>Order ID</value></cell>
-								<cell font="bold"><value>Name, City</value></cell>
-								<cell font="bold"><value>Region</value></cell>
-								<cell font="bold"><value>Date</value></cell>
-								<cell font="bold"><value>Freight</value></cell>
+								<cell><value>Order ID</value></cell>
+								<cell><value>Name, City</value></cell>
+								<cell><value>Region</value></cell>
+								<cell><value>Date</value></cell>
+								<cell horizontal-align="right"><value>Freight</value></cell>
 							</cells>
 						</row>
 					</rows>
 				</band>
 				<band type="Detail">
 					<rows>
-						<row height="20">
+						<row height="20" cell-border-bottom="1">
 							<cells>
 								<cell><expression>$F{OrderID}</expression></cell>
 								<cell><expression>$F{ShipName} + ", " + $F{ShipCity}</expression></cell>
