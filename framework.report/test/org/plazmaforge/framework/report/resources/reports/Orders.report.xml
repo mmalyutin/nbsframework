@@ -5,6 +5,8 @@
 	<variables>
 		<variable name="CountryGroupCount" data-type="Integer" aggregation="COUNT" reset-type="Group" reset-name="CountryGroup"/>
 		<variable name="CountryGroupSum" data-type="Double" aggregation="SUM" reset-type="Group" reset-name="CountryGroup"><expression>$F{Freight}</expression></variable>
+		<variable name="CountryPageCount" data-type="Integer" aggregation="COUNT" reset-type="Page"/>
+		<variable name="CountryPageSum" data-type="Double" aggregation="SUM" reset-type="Page"><expression>$F{Freight}</expression></variable>
 	</variables>
 	<data-sources>
 		<data-source>
@@ -31,10 +33,10 @@
 	</data-sources>
 	<templates>
 		<template type="Table" >
-			<page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" />
+			<page-setup margin-left="15" margin-top="20" margin-right="23" margin-bottom="20" />
 			<columns>
 				<column width="80" />
-				<column width="220" />
+				<column width="350" />
 				<column width="80" />
 				<column width="80" />
 				<column width="80" />
@@ -45,16 +47,19 @@
 					<bands>
 						<band type="GroupHeader">
 							<rows>
-								<row height="20" cell-border-bottom="2">
+								<row height="25" cell-border-bottom="2">
 									<cells>
-										<cell colspan="5" font="12, underline|bold" ><expression>$F{ShipCountry}</expression></cell>
+										<cell colspan="5" font="12, bold" ><expression>$F{ShipCountry}</expression></cell>
 									</cells>
 								</row>
 							</rows>
 						</band>
 						<band type="GroupFooter">
 							<rows>
-								<row height="20" column-line="none">
+								<row height="5">
+									<cells><cell colspan="5"></cell></cells>
+								</row>
+								<row height="20" background="#C0C0C0">
 									<cells>
 										<cell colspan="2" horizontal-align="right"><value>Count:</value></cell>
 										<cell horizontal-align="right"><expression>$V{CountryGroupCount}</expression></cell>
@@ -93,7 +98,7 @@
 		 -->		
 				<band type="ColumnHeader">
 					<rows>
-						<row height="20" background="#333333" foreground="#FFFFFF" font="bold, 10">
+						<row height="20" background="#333333" foreground="#FFFFFF">
 							<cells>
 								<cell><value>Order ID</value></cell>
 								<cell><value>Name, City</value></cell>
@@ -119,12 +124,12 @@
 				</band>
 				<band type="ColumnFooter">
 					<rows>
-						<row height="30" cell-border-top="1">
+						<row height="20" background="#333333" foreground="#FFFFFF">
 							<cells>
-								<cell font="bold" padding="5"><value>Product ID---</value></cell>
-								<cell font="bold"><value>Product Name--</value></cell>
-								<cell format="#.00" data-type="Float" font="bold"><expression>$V{PRICE_AVG}</expression></cell>
-								<cell font="bold"><value>Full Name</value></cell>
+								<cell colspan="2" horizontal-align="right"><value>Count:</value></cell>
+								<cell horizontal-align="right"><expression>$V{CountryPageCount}</expression></cell>
+								<cell horizontal-align="right"><value>Total:</value></cell>
+								<cell format="0.00" horizontal-align="right"><expression>$V{CountryPageSum}</expression></cell>
 							</cells>
 						</row>
 					</rows>
@@ -134,7 +139,7 @@
 					<rows>
 						<row height="20">
 							<cells>
-								<cell colspan="4" background="gray"><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
+								<cell colspan="5" ><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
 							</cells>
 						</row>
 					</rows>
@@ -144,7 +149,7 @@
 					<rows>
 						<row height="20">
 							<cells>
-								<cell colspan="4" background="gray" horizontal-align="right"><expression>"Page: " + $V{PAGE_NO}</expression></cell>
+								<cell colspan="5"  horizontal-align="right"><expression>"Page: " + $V{PAGE_NO}</expression></cell>
 							</cells>
 						</row>
 					</rows>
