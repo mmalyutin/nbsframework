@@ -582,7 +582,7 @@ public class GridUtils {
     }
     
     public static Pen createDefaultPen() {
-	return new Pen(1, Pen.LINE_STYLE_SOLID, Color.BLACK);
+	return new Pen(1f, Pen.LINE_STYLE_SOLID, Color.BLACK);
     }
 
     public static Pen defaultPen(Pen pen) {
@@ -665,7 +665,7 @@ public class GridUtils {
 	*/
     }
     
-    private static void mergeBorderRegion(Map<Integer, BorderRegion> borders, int index, int width, boolean next) {
+    private static void mergeBorderRegion(Map<Integer, BorderRegion> borders, int index, float width, boolean next) {
 	if (width <= 0) {
 	    return;
 	}
@@ -678,7 +678,7 @@ public class GridUtils {
 	}
 	
 	// get old width
-	int oldWidth = next ? border.getNextWidth() : border.getPrevWidth();
+	float oldWidth = next ? border.getNextWidth() : border.getPrevWidth();
 	
 	// set new width
 	if (width > oldWidth) {

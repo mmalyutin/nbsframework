@@ -74,5 +74,10 @@ public abstract class AbstractBaseExporter extends AbstractReportExporter {
 	}
 	return (font == null ? "." : font.getKey()) + "|" + (color == null ? "." : color.getKey());
     }
-    
+
+    //TODO: FLOAT!
+    protected int toIntF(float value) {
+	return (int) value; 
+    }
+
 }

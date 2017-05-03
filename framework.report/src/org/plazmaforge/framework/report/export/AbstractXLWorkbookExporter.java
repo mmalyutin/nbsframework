@@ -307,7 +307,7 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 	}
 	
 	Pen pen = null;
-	int w = 0;
+	float w = 0;
 	Color color = null;
 	
 	// Left
@@ -348,11 +348,11 @@ public abstract class AbstractXLWorkbookExporter extends AbstractWorkbookExporte
 
     }
     
-    protected short getXBorderType(int width) {
-	if (width <= 0) {
+    protected short getXBorderType(float width) {
+	if (width <= 0f) {
 	    return CellStyle.BORDER_NONE;
 	}
-	if (width > 0 /*float only*/ && width <= 1) {
+	if (width > 0f && width <= 1f) {
 	    return CellStyle.BORDER_THIN;
 	}
         return CellStyle.BORDER_MEDIUM;

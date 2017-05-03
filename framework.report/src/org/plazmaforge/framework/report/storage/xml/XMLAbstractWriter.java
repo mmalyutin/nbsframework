@@ -242,8 +242,8 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 	}
 	 
 	// width
-	int width = pen.getLineWidth() <= 0 ? 1: pen.getLineWidth();
-   	setIntegerValue(element, borderAttribute, width);
+	float width = pen.getLineWidth() <= 0 ? 1f: pen.getLineWidth();
+   	setFloatValue(element, borderAttribute, width);
    	
   	// style
   	int lineStyle = pen.getLineStyle();

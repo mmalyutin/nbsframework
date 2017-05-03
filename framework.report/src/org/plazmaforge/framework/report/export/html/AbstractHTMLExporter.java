@@ -145,12 +145,24 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
     protected String toUnitString(int value, String unit) {
 	return "" + value + (unit == null ? "" : unit);
     }
+
+    protected String toUnitString(float value, String unit) {
+	return "" + value + (unit == null ? "" : unit);
+    }
     
     protected String toPXString(int value) {
 	return toUnitString(value, "px");
     }
 
+    protected String toPXString(float value) {
+	return toUnitString(value, "px");
+    }
+    
     protected String toDimensionString(int value) {
+	return toPXString(value);
+    }
+
+    protected String toDimensionString(float value) {
 	return toPXString(value);
     }
     
@@ -428,7 +440,7 @@ public abstract class AbstractHTMLExporter extends AbstractTextExporter {
 	if (pen == null || pen.isEmpty()) {
 	    return;
 	}
-	int w = getLineWidth(pen);
+	float w = getLineWidth(pen);
 	Color color = getLineColor(pen);
 	styleAttributes.addAttribute(name, "" + toDimensionString(w) + " solid " + toColorString(color));
     }

@@ -380,8 +380,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    rowWidth = gridWidth;
    	    rowHeight = row.getHeight();
    	    
-   	    int rowBorderTop = 0;
-   	    int rowBorderBottom = 0;
+   	    float rowBorderTop = 0f;
+   	    float rowBorderBottom = 0f;
    	    BorderRegion rowBorder = layout.getRowBorder(i);
    	    if (rowBorder != null) {
    		rowBorderTop = rowBorder.getPrevWidth();
@@ -479,8 +479,8 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		cellWidth = GridUtils.calculateCellWidth(layout, cell, columns, columnIndex);
    		cellHeight = GridUtils.calculateCellHeight(layout, cell, rows, rowIndex);
    		
-   		int columnBorderLeft = 0;
-   		int columnBorderRight = 0;
+   		float columnBorderLeft = 0f;
+   		float columnBorderRight = 0f;
    		
    		BorderRegion columnBorder1 = layout.getColumnBorder(columnIndex);
    		if (columnBorder1 != null) {
@@ -510,17 +510,17 @@ public class HTMLExporter extends AbstractHTMLExporter {
    		font = cellFont;
 
    		// fill outer cell
-   		int fillCellX = cellX - columnBorderLeft;
-   		int fillCellY = cellY - rowBorderTop;
-   		int fillCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
-   		int fillCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
+   		int fillCellX = cellX - toIntF(columnBorderLeft);
+   		int fillCellY = cellY - toIntF(rowBorderTop);
+   		int fillCellWidth = cellWidth  + toIntF(columnBorderLeft + columnBorderRight);
+   		int fillCellHeight = cellHeight + toIntF(rowBorderTop + rowBorderBottom);
    		
    		Border border = layout.getCellBorder(columnIndex, rowIndex);
 
-   		int borderLeft = 0;
-   		int borderRight = 0;
-   		int borderTop = 0;
-   		int borderBottom = 0;
+   		float borderLeft = 0f;
+   		float borderRight = 0f;
+   		float borderTop = 0f;
+   		float borderBottom = 0f;
 
    		if (border != null && !border.isEmpty()) {
     		   borderLeft = getLineWidth(border.hasLeft() ? border.getLeft() : null);
@@ -652,7 +652,7 @@ public class HTMLExporter extends AbstractHTMLExporter {
    	    levelDec();
 
    	    rowIndex++;
-   	    int shiftY = row.getHeight() + rowBorderTop + rowBorderBottom;
+   	    int shiftY = row.getHeight() + toIntF(rowBorderTop + rowBorderBottom);
    	    rowOffsetY += shiftY;
    	    offsetY += shiftY;
    	 

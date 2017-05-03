@@ -125,6 +125,31 @@ public class XMLWorker {
 	return (Integer) getTValue("Integer", value);
     }
 
+    // Float
+    protected float floatValue(Element element, String name) {
+	return getFloatValue(element, name, 0f);
+    }
+    
+    protected Float getFloatValue(Element element, String name) {
+	return getFloatValue(element, name, null);
+    }
+    
+    protected Float getFloatValue(Element element, String name, Float def) {
+	String value = getStringValue(element, name);
+	return getFloatValue(value, def);
+    }
+    
+    protected Float getFloatValue(String value) {
+	return getFloatValue(value, null);
+    }
+    
+    protected Float getFloatValue(String value, Float def) {
+	if (value == null) {
+	    return def;
+	}
+	return (Float) getTValue("Float", value);
+    }
+    
     // Boolean
     protected Boolean getBooleanValue(Element element, String name) {
 	return getBooleanValue(element, name, null);
@@ -205,6 +230,10 @@ public class XMLWorker {
 
      protected void setIntegerValue(Element element, String name, Integer value) {
     	setStringValue(element, name, getTString("Integer", value));
+     }
+
+     protected void setFloatValue(Element element, String name, Float value) {
+    	setStringValue(element, name, getTString("Float", value));
      }
      
      protected void setColor(Element element, String name, Color color) {

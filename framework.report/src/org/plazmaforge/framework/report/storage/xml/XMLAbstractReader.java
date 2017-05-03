@@ -310,7 +310,7 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
    	}
    	
    	// width
-   	Integer width = getIntegerValue(value);
+   	Float width = getFloatValue(value);
    	
    	 // style
    	String style = getStringValue(element, borderAttribute + "-style");

@@ -47,7 +47,7 @@
 					<bands>
 						<band type="GroupHeader">
 							<rows>
-								<row height="25" cell-border-bottom="2">
+								<row height="25" cell-border-bottom="1">
 									<cells>
 										<cell colspan="5" font="12, bold" ><expression>$F{ShipCountry}</expression></cell>
 									</cells>
@@ -111,7 +111,7 @@
 				</band>
 				<band type="Detail">
 					<rows>
-						<row height="20" cell-border-bottom="1">
+						<row height="20" cell-border-bottom="0.5">
 							<cells>
 								<cell><expression>$F{OrderID}</expression></cell>
 								<cell><expression>$F{ShipName} + ", " + $F{ShipCity}</expression></cell>
