@@ -43,7 +43,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
  */
 public abstract class AbstractReportExporter implements ReportExporter {
 
-    public static int DEFAULT_BORDER_WIDTH = 1;
+    public static float DEFAULT_BORDER_WIDTH = 1f;
     
     public static Color DEFAULT_BORDER_COLOR = Color.BLACK;
     
@@ -242,12 +242,12 @@ public abstract class AbstractReportExporter implements ReportExporter {
 	return font == null ? 0 : font.getSize(); 
     }
 
-    protected int getLineWidth(Pen pen) {
+    protected float getLineWidth(Pen pen) {
 	if (pen == null || pen.isEmpty()) {
-	    return 0;
+	    return 0f;
 	}
-	int w = pen.getLineWidth();
-	if (w <= 0) {
+	float w = pen.getLineWidth();
+	if (w <= 0f) {
 	    w = DEFAULT_BORDER_WIDTH;
 	}
 	return w;

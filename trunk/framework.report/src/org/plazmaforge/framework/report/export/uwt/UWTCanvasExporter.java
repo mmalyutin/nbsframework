@@ -251,8 +251,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	    rowWidth = gridWidth;
 	    rowHeight = row.getHeight();
 	    
-	    int rowBorderTop = 0;
-	    int rowBorderBottom = 0;
+	    float rowBorderTop = 0f;
+	    float rowBorderBottom = 0f;
 	    BorderRegion rowBorder = layout.getRowBorder(i);
 	    if (rowBorder != null) {
 		rowBorderTop = rowBorder.getPrevWidth();
@@ -329,8 +329,8 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		cellWidth = GridUtils.calculateCellWidth(layout, cell, columns, columnIndex);
 		cellHeight = GridUtils.calculateCellHeight(layout, cell, rows, rowIndex);
 		
-		int columnBorderLeft = 0;
-		int columnBorderRight = 0;
+		float columnBorderLeft = 0f;
+		float columnBorderRight = 0f;
 		
 		BorderRegion columnBorder1 = layout.getColumnBorder(columnIndex);
 		if (columnBorder1 != null) {
@@ -375,10 +375,10 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		    
 		} else {
 		    // Outer cell = Inner border
-		    fillCellX = cellX - columnBorderLeft;
-		    fillCellY = cellY - rowBorderTop;
-		    fillCellWidth = cellWidth  + columnBorderLeft + columnBorderRight;
-		    fillCellHeight = cellHeight + rowBorderTop + rowBorderBottom;
+		    fillCellX = cellX - toIntF(columnBorderLeft);
+		    fillCellY = cellY - toIntF(rowBorderTop);
+		    fillCellWidth = cellWidth  + toIntF(columnBorderLeft + columnBorderRight);
+		    fillCellHeight = cellHeight + toIntF(rowBorderTop + rowBorderBottom);
 		}
 
 		// cell: background
@@ -416,10 +416,10 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 		if (!isOuterBorder && border != null && !border.isEmpty()) {
 		    // Outer cell = Inner border
 		    
-		    int borderLeft = getLineWidth(border.hasLeft() ? border.getLeft() : null);
-		    int borderRight = getLineWidth(border.hasRight() ? border.getRight() : null);
-		    int borderTop = getLineWidth(border.hasTop() ? border.getTop() : null);
-		    int borderBottom = getLineWidth(border.hasBottom() ? border.getBottom() : null);
+		    int borderLeft = toIntF(getLineWidth(border.hasLeft() ? border.getLeft() : null));
+		    int borderRight = toIntF(getLineWidth(border.hasRight() ? border.getRight() : null));
+		    int borderTop = toIntF(getLineWidth(border.hasTop() ? border.getTop() : null));
+		    int borderBottom = toIntF(getLineWidth(border.hasBottom() ? border.getBottom() : null));
 		    
 		    clientCellX += borderLeft;
 		    clientCellY += borderTop;
@@ -547,25 +547,25 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	// Left
 	if (border.hasLeft() && !border.getLeft().isEmpty()) {
 	    leftPen = border.getLeft();
-	    leftW = getLineWidth(leftPen);
+	    leftW = toIntF(getLineWidth(leftPen));
 	}
 	
 	// Right
 	if (border.hasRight() && !border.getRight().isEmpty()) {
 	    rightPen = border.getRight();
-	    rightW = getLineWidth(rightPen);
+	    rightW = toIntF(getLineWidth(rightPen));
 	}
 
 	// Top
 	if (border.hasTop() && !border.getTop().isEmpty()) {
 	    topPen = border.getTop();
-	    topW = getLineWidth(topPen);
+	    topW = toIntF(getLineWidth(topPen));
 	}
 
 	// Bottom
 	if (border.hasBottom() && !border.getBottom().isEmpty()) {
 	    bottomPen = border.getBottom();
-	    bottomW = getLineWidth(bottomPen);
+	    bottomW = toIntF(getLineWidth(bottomPen));
 	}
 	
 	
@@ -671,6 +671,6 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
 	
 	
     }
- 
+
  
 }

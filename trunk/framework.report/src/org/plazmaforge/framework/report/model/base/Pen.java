@@ -46,7 +46,7 @@ public class Pen implements Serializable {
     public static final byte LINE_STYLE_DOUBLE = 3;
     
 
-    private int lineWidth;
+    private float lineWidth;
     
     private byte lineStyle;
     
@@ -57,18 +57,18 @@ public class Pen implements Serializable {
 	super();
     }
 
-    public Pen(int lineWidth, byte lineStyle, Color lineColor) {
+    public Pen(float lineWidth, byte lineStyle, Color lineColor) {
 	super();
 	this.lineWidth = normalizeWidth(lineWidth);
 	this.lineStyle = normalizeStyle(lineStyle);
 	this.lineColor = lineColor;
     }
 
-    public int getLineWidth() {
+    public float getLineWidth() {
         return lineWidth;
     }
 
-    public void setLineWidth(int lineWidth) {
+    public void setLineWidth(float lineWidth) {
         this.lineWidth = normalizeWidth(lineWidth);
     }
 
@@ -107,7 +107,7 @@ public class Pen implements Serializable {
 	return !isIncomplete();
     }
     
-    private int normalizeWidth(int width) {
+    private float normalizeWidth(float width) {
   	return width < 0 ? 0 : width;
     }
 
@@ -123,7 +123,7 @@ public class Pen implements Serializable {
 	result = prime * result
 		+ ((lineColor == null) ? 0 : lineColor.hashCode());
 	result = prime * result + lineStyle;
-	result = prime * result + lineWidth;
+	result = prime * result + (int) lineWidth;
 	return result;
     }
 
@@ -167,12 +167,12 @@ public class Pen implements Serializable {
 	}
 
 	@Override
-	public int getLineWidth() {
+	public float getLineWidth() {
 	    return 0;
 	}
 
 	@Override
-	public void setLineWidth(int lineWidth) {}
+	public void setLineWidth(float lineWidth) {}
 
 	@Override
 	public byte getLineStyle() {

@@ -34,27 +34,27 @@ public class BorderRegion implements Serializable  {
     private static final long serialVersionUID = -5401329918130048093L;
     
 
-    private int prevWidth;
+    private float prevWidth;
     
-    private int nextWidth;
+    private float nextWidth;
     
     public BorderRegion() {
 	super();
     }
     
-    public int getPrevWidth() {
+    public float getPrevWidth() {
         return prevWidth;
     }
 
-    public void setPrevWidth(int prevWidth) {
+    public void setPrevWidth(float prevWidth) {
         this.prevWidth = prevWidth < 0 ? 0 : prevWidth;
     }
 
-    public int getNextWidth() {
+    public float getNextWidth() {
         return nextWidth;
     }
 
-    public void setNextWidth(int nextWidth) {
+    public void setNextWidth(float nextWidth) {
         this.nextWidth = nextWidth < 0 ? 0 : nextWidth;
     }
 
