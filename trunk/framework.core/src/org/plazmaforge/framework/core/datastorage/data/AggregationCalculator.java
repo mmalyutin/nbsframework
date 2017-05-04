@@ -30,6 +30,15 @@ package org.plazmaforge.framework.core.datastorage.data;
  *
  */
 public class AggregationCalculator {
+    
+    
+    private ValueComparator valueComparator;
+    
+
+    public AggregationCalculator() {
+	super();
+	valueComparator = new ValueComparator();
+    }
 
     public Object calculateValue(Scope scope, String variable, String aggregation, Object value) {
    	if (aggregation == null){
@@ -89,9 +98,36 @@ public class AggregationCalculator {
    	    
    	    return sumValue / countValue;
    	}   
+
+   	if  ("MAX".equals(aggregation)) {
+   	    
+   	    Object oldValue = aggregationValue.getOldValue();
+   	    Object newValue = value;
+   	    Integer compareValue = valueComparator.compareValue(oldValue, newValue);
+   	    if (compareValue != null) {
+   		if (compareValue < 0) {
+   		    aggregationValue.setOldValue(newValue);
+   		}
+   	    }
+   	    return aggregationValue.getOldValue();
+   	}   
+
+   	
+   	if  ("MIN".equals(aggregation)) {
+   	    
+   	    Object oldValue = aggregationValue.getOldValue();
+   	    Object newValue = value;
+   	    Integer compareValue = valueComparator.compareValue(oldValue, newValue);
+   	    if (compareValue != null) {
+   		if (compareValue > 0) {
+   		    aggregationValue.setOldValue(newValue);
+   		}
+   	    }
+   	    return aggregationValue.getOldValue();
+   	}    
    	
    	return value;
-       }
+    }
     
     protected Integer getCastInteger(Object value) {
 	return getCastInteger(value, null);
