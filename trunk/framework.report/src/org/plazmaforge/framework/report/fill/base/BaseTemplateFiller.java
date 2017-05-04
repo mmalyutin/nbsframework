@@ -314,10 +314,22 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    isForcePageByColumnHeader = forcePageBand == BandType.ColumnHeader;
 	}
 	
-	// Fill footer of old page
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	Integer pageNo = (Integer) context.getReportScope().getVariableValue(ReportVariables.PAGE_NO);
+	if (pageNo == null) {
+	    pageNo = 0;
+	}
+	context.getReportScope().setVariableOldValue(ReportVariables.PAGE_NO, pageNo);
+	pageNo++;
+	context.getReportScope().setVariableValue(ReportVariables.PAGE_NO, pageNo);
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+	// Fill footer of OLD page (EVALUATION_OLD)
 	if (!isFirstPage) {
-	    fillColumnFooter(context, context.getTemplateStructure().getColumnFooter());
-	    fillPageFooter(context, context.getTemplateStructure().getPageFooter(), forcePageFooter);
+	    fillColumnFooter(context, DSExpression.EVALUATION_OLD, context.getTemplateStructure().getColumnFooter());
+	    fillPageFooter(context, DSExpression.EVALUATION_OLD, context.getTemplateStructure().getPageFooter(), forcePageFooter);
 	}
 	
 	context.setFirstPage(false);
@@ -334,22 +346,19 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	context.getDocument().addPage(page);
 	context.setPage(page);
 	
+
+	
 	//TODO: Use events : onPage
-	Integer pageNo = (Integer) context.getReportScope().getVariableValue(ReportVariables.PAGE_NO);
-	if (pageNo == null) {
-	    pageNo = 0;
-	}
-	pageNo++;
-	context.getReportScope().setVariableValue(ReportVariables.PAGE_NO, pageNo);
+	
 	
 	// Call type filler
 	prepareNewPage(context);
 	
 	
-	// Fill header of new page
+	// Fill header of NEW page
 	fillPageHeader(context, context.getTemplateStructure().getPageHeader());
 	
-	// Fill column header of new page
+	// Fill column header of NEW page
 	if (!isFirstPage && !isForcePageByColumnHeader) {
 	    fillColumnHeader(context, context.getTemplateStructure().getColumnHeader());
 	}
@@ -373,16 +382,20 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
 
     protected void fillPageFooter(ReportContext context, Band band) {
-	fillPageFooter(context, band, false);  // NO PAGING BAND
+	fillPageFooter(context, DSExpression.EVALUATION_DEFAULT, band, false);  // NO PAGING BAND
     }
 	
     protected void fillPageFooter(ReportContext context, Band band, boolean force) {
+	fillPageFooter(context, DSExpression.EVALUATION_DEFAULT, band, force);
+    }
+    
+    protected void fillPageFooter(ReportContext context, int evaluation, Band band, boolean force) {
 	if (band == null) {
 	    return;
 	}
 	context.setBand(band);
 	
-	boolean isPrint = force ? true : evaluatePrintExpression(context, DSExpression.EVALUATION_DEFAULT, band);
+	boolean isPrint = force ? true : evaluatePrintExpression(context, evaluation, band);
 	
 	if (!isPrint) {
 	    return;
@@ -395,7 +408,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	preparePageFooter(context, band);
 	
 	
-	fillBand(context, band, isPrint, false);  // NO PAGING BAND
+	fillBand(context, evaluation, band, isPrint, false);  // NO PAGING BAND
     }
 
     protected abstract void preparePageFooter(ReportContext context, Band band);
@@ -421,10 +434,14 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
 
     protected void fillColumnFooter(ReportContext context, Band band) {
+	fillColumnFooter(context, DSExpression.EVALUATION_DEFAULT, band);
+    }
+    
+    protected void fillColumnFooter(ReportContext context, int evaluation, Band band) {
 	if (context.isPushBand(BandType.ColumnFooter)) {
 	    return;
 	}
-	fillBand(context, band, true, false); // NO PAGING BAND
+	fillBand(context, evaluation, band, true, false); // NO PAGING BAND
 	context.pushBand(BandType.ColumnFooter);
     }
     
