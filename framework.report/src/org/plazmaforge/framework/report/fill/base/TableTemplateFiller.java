@@ -134,6 +134,83 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     }    
     
     @Override
+    protected boolean needPage(ReportContext context, int evaluation, Band fillContainer) {
+	if (fillContainer == null) {
+	    return false;
+	}
+	List<Row> rows = fillContainer.getRows();
+	if (rows == null || rows.isEmpty()) {
+	    return false;
+	}
+	
+	boolean startPage = false;
+	
+	//TODO: OFFSET-Y
+	//int offsetY = context.getOffsetY() + height; // calculate new offesetY
+	
+	int offsetY = context.getOffsetY() + calculateTotalHeight(context, fillContainer); // calculate new offesetY
+	
+	// System.out.println("New offsetY =" + offsetY);
+	int endY = context.getEndY();
+	
+	Band pageFooter = context.getTemplateStructure().getPageFooter();
+	int pageFooterHeight = context.getPageFooterHeight();
+	pageFooterHeight += context.getColumnFooterHeight(); // TODO: CHECK ? 
+	
+	//int pageFooterHeight = calculateNewBandHeight(context, pageFooter);
+
+	if (pageFooterHeight > 0) {
+	    
+	    int offsetY2 = offsetY + pageFooterHeight;
+	    //int offsetY2 = context.getOffsetY() + calculateTotalHeight(context, fillContainer, pageFooter); // calculate new offesetY2 (with pageFooter)
+	    
+	    //if (offsetY >= endY - pageFooterHeight) {
+	    if (offsetY2 >= endY) {
+		boolean isPrintPageFooter = evaluatePrintExpression(context, evaluation, pageFooter);
+		if (isPrintPageFooter) {
+		    startNewPage(context, true); // without evaluate print expression (force=true)
+		    startPage = true;
+		} else {
+		    if (offsetY >= endY) {
+			startNewPage(context);
+			startPage = true;
+		    }
+		}
+	    }
+	    
+	} else {
+	    if (offsetY >= endY) {
+		startNewPage(context);
+		startPage = true;
+	    }
+	}
+    
+	//Shift Y position
+	//TODO: OFFSET-Y
+	//context.setOffsetY(context.getOffsetY() + height);
+	
+	return startPage;
+    }
+    
+
+    @Override
+    protected boolean fillContainer(ReportContext context, int evaluation, Band fillContainer) {
+	List<Row> rows = fillContainer.getRows();
+	if (rows == null || rows.isEmpty()) {
+	    return false;
+	}
+
+	Grid grid = context.getGrid();
+	
+	for (Row row : rows) {
+	    grid.addRow(row);
+	}
+
+	return true;
+    }
+    
+    /*
+    @Override
     protected boolean fillContainer(ReportContext context, int evaluation, Band band, Band fillContainer, boolean paging) {
 
 	List<Row> rows = fillContainer.getRows();
@@ -150,7 +227,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	    //TODO: POINT-1: OLD GRID
 	    //Grid grid = context.getGrid();
 	    
-	    if (paging /* && !force */) {
+	    // if (paging  && !force ) {
+	    if (paging) {
 		
 		//TODO: OFFSET-Y
 		//int offsetY = context.getOffsetY() + height; // calculate new offesetY
@@ -217,7 +295,8 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
 	    return true;
 
-    }    
+    }  
+    */
     
     @Override
     protected Band createFillContainer(ReportContext context, int evaluation, Band band) {

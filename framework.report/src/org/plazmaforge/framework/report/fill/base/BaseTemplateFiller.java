@@ -515,23 +515,31 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	    return false;
 	}
 	
+	boolean needRefill = false;
+	
 	if (context.isForcePage()) {
 	    context.setForcePageBand(BandType.find(band.getType()));
 	    startNewPage(context);
-	    
+	    needRefill = true;
+	} else if (paging && needPage(context, evaluation, fillContainer)) {
+	    needRefill = true;
+	}
+
+	if (needRefill) {
 	    // TODO: REFILL CONTAINER !
 	    fillContainer = createFillContainer(context, evaluation, band);
-	    
-	    
 	}
-	
-	return fillContainer(context, evaluation, band, fillContainer, paging);
+
+	return fillContainer(context, evaluation, fillContainer);
     }
+    
+    protected abstract boolean needPage(ReportContext context, int evaluation, Band fillContainer);
     
     protected abstract Band createFillContainer(ReportContext context, int evaluation, Band band);
     
-    protected abstract boolean fillContainer(ReportContext context, int evaluation, Band band, Band fillContainer, boolean paging);
+    //protected abstract boolean fillContainer(ReportContext context, int evaluation, Band band, Band fillContainer, boolean paging);
     
+    protected abstract boolean fillContainer(ReportContext context, int evaluation, Band fillContainer);
     
 
     

@@ -43,6 +43,12 @@ public class SimpleTemplateFiller extends BaseTemplateFiller {
     protected void preparePageFooter(ReportContext context, Band band) {
 	// TODO
     }
+
+    @Override
+    protected boolean needPage(ReportContext context, int evaluation,  Band fillContainer) {
+	// TODO
+	return false;
+    }
     
     @Override
     protected Band createFillContainer(ReportContext context, int evaluation, Band band) {
@@ -51,10 +57,11 @@ public class SimpleTemplateFiller extends BaseTemplateFiller {
     }
     
     @Override
-    protected boolean fillContainer(ReportContext context, int evaluation, Band band, Band fillContainer, boolean paging) {
+    protected boolean fillContainer(ReportContext context, int evaluation, Band fillContainer) {
 	// TODO
 	return false;
     }
+
     
 
 }
