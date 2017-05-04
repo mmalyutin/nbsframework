@@ -180,6 +180,8 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 		// Reset group values and recalculate (after group footers because footer use old values)
 		resetGroupVariableValues(context, groupSections);
 		
+		//resetPageVariableValues(context);
+		
 		fillGroupHeaders(context, groupSections);
 		
 		fillDetail(context, detail);
@@ -335,6 +337,12 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	context.setFirstPage(false);
 	context.setNewPage(true);
 	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (!isFirstPage) {
+	    resetVariableValues(context, "Page", null, true);
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	
@@ -510,14 +518,19 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	if (context.isForcePage()) {
 	    context.setForcePageBand(BandType.find(band.getType()));
 	    startNewPage(context);
+	    
+	    // TODO: REFILL CONTAINER !
+	    fillContainer = createFillContainer(context, evaluation, band);
+	    
+	    
 	}
 	
-	return fillContainer(context, evaluation, fillContainer, paging);
+	return fillContainer(context, evaluation, band, fillContainer, paging);
     }
     
     protected abstract Band createFillContainer(ReportContext context, int evaluation, Band band);
     
-    protected abstract boolean fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging);
+    protected abstract boolean fillContainer(ReportContext context, int evaluation, Band band, Band fillContainer, boolean paging);
     
     
 
@@ -749,6 +762,10 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     
     
     protected void resetVariableValues(ReportContext context, String resetType, String resetName) {
+	resetVariableValues(context, resetType, resetName, false);
+    }
+	
+    protected void resetVariableValues(ReportContext context, String resetType, String resetName, boolean resetOldValue) {
 	if (resetType == null) {
 	    return;
 	}
@@ -774,7 +791,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 		continue;
 	    }
 
-	    oldValue = scope.getVariableValue(variable.getName());
+	    oldValue = resetOldValue ? null : scope.getVariableValue(variable.getName());
 	    initValue = scope.getVariableInitValue(variable.getName());
 
 	    scope.setVariableOldValue(variable.getName(), oldValue);
@@ -812,6 +829,12 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	}
     }
     
+    protected void resetPageVariableValues(ReportContext context) {
+	if (!context.isNewPage() /*|| context.isFirstPage()*/) {
+	    return;
+	}
+	resetVariableValues(context, "Page", null, true);
+    }
     ////
     
     protected int calculateTemplateHeight(Template template, TemplateStructure structure) {

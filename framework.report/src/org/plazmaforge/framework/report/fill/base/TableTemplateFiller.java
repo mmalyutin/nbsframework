@@ -134,12 +134,14 @@ public class TableTemplateFiller extends BaseTemplateFiller {
     }    
     
     @Override
-    protected boolean fillContainer(ReportContext context, int evaluation, Band fillContainer, boolean paging) {
+    protected boolean fillContainer(ReportContext context, int evaluation, Band band, Band fillContainer, boolean paging) {
 
 	List<Row> rows = fillContainer.getRows();
 	if (rows == null || rows.isEmpty()) {
 	    return false;
 	}
+	
+	boolean startPage = false;
 	
 
 	    //TODO: OFFSET-Y
@@ -174,9 +176,11 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 			boolean isPrintPageFooter = evaluatePrintExpression(context, evaluation, pageFooter);
 			if (isPrintPageFooter) {
 			    startNewPage(context, true); // without evaluate print expression (force=true)
+			    startPage = true;
 			} else {
 			    if (offsetY >= endY) {
 				startNewPage(context);
+				startPage = true;
 			    }
 			}
 		    }
@@ -184,6 +188,7 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 		} else {
 		    if (offsetY >= endY) {
 			startNewPage(context);
+			startPage = true;
 		    }
 		}
 	    }
@@ -194,6 +199,18 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
 	    //TODO: POINT-2: NEW GRID when start new page
 	    Grid grid = context.getGrid();
+	    
+	    /////////////////////////////////////////////////////////////////////////////////////////
+	    if (startPage) {
+		// TODO: REFILL CONTAINER !
+		fillContainer = createFillContainer(context, evaluation, band);
+		rows = fillContainer.getRows();
+		if (rows == null || rows.isEmpty()) {
+		    return false;
+		}
+	    }
+	    ////////////////////////////////////////////////////////////////////////////////////////
+	    
 	    for (Row row : rows) {
 		grid.addRow(row);
 	    }
