@@ -59,7 +59,6 @@ import org.plazmaforge.framework.report.fill.script.ExpressionEvaluator;
 import org.plazmaforge.framework.report.fill.script.ScriptGenerator;
 import org.plazmaforge.framework.report.fill.script.ScriptInfo;
 import org.plazmaforge.framework.report.fill.script.ScriptProvider;
-import org.plazmaforge.framework.report.fill.script.ns.NSExpressionEvaluator;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.ReportParameters;
@@ -242,7 +241,10 @@ public class BaseReportFiller implements ReportFiller {
 	// Initialize ExpressionEvaluator
 	ExpressionEvaluator expressionEvaluator = scriptProvider.getExpressionEvaluator(); 
 	context.setExpressionEvaluator(expressionEvaluator);
-	context.setAggregationCalculator(new AggregationCalculator());
+	
+	// Initialize AggregationCalculator
+	AggregationCalculator aggregationCalculator = createAggregationCalculator();
+	context.setAggregationCalculator(aggregationCalculator);
 
 	// Generate script (expression functions/ids)
 	prepareScript(context, scriptProvider);
@@ -269,6 +271,11 @@ public class BaseReportFiller implements ReportFiller {
 	return document;
     }
     
+    protected AggregationCalculator createAggregationCalculator( ){
+	AggregationCalculator aggregationCalculator =  new AggregationCalculator();
+	aggregationCalculator.registerDefaultFunctions();
+	return aggregationCalculator;
+    }
     
     protected Map<String, Object> createParameters() {
 	return  new HashMap<String, Object>();
