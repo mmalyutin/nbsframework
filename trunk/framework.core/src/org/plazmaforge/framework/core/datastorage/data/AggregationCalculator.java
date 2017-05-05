@@ -25,50 +25,123 @@
  */
 package org.plazmaforge.framework.core.datastorage.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.plazmaforge.framework.core.exception.DSEvaluateException;
+
 /**
  * @author ohapon
  *
  */
 public class AggregationCalculator {
     
+    private Map<String, AggregationFunction> functions = new HashMap<String, AggregationFunction>();
     
-    private ValueComparator valueComparator;
+    private static final ValueComparator valueComparator = new ValueComparator();
     
 
     public AggregationCalculator() {
 	super();
-	valueComparator = new ValueComparator();
     }
 
+    public void registerFunction(String name, AggregationFunction function) {
+	functions.put(name, function);
+    }
+    
+    public AggregationFunction getFunction(String name) {
+  	if (name == null) {
+  	    return null;
+  	}
+  	return functions.get(name.toLowerCase());
+    }
+
+    public void registerDefaultFunctions() {
+	registerFunction("sum", new SUMFunction());
+	registerFunction("count", new COUNTFunction());
+	registerFunction("avg", new AVGFunction());
+	registerFunction("max", new MAXFunction());
+	registerFunction("min", new MINFunction());
+    }
+    
+    protected String normalize(String name)  {
+	if (name == null || name.isEmpty()) {
+	    return null;
+	}
+	return name.isEmpty() ? null : name;
+    }
+    
     public Object calculateValue(Scope scope, String variable, String aggregation, Object value) {
-   	if (aggregation == null){
-   	    return value;
-   	}
-   	aggregation = aggregation.trim();
-   	if (aggregation.isEmpty()) {
-   	    return value;
-   	}
-   	AggregationValue aggregationValue = scope.getVariableAggregationValue(variable);
-   	if (aggregationValue == null){
-   	    aggregationValue = new AggregationValue();
-   	    scope.setVariableAggregationValue(variable, aggregationValue);
-   	}
    	
-   	aggregation = aggregation.toUpperCase();
-   	
-   	// TODO
-   	if  ("SUM".equals(aggregation)) {
+   	try {
    	    
+	    aggregation = normalize(aggregation);
+	    if (aggregation == null) {
+		return value;
+	    }
+
+	    AggregationFunction function = getFunction(aggregation);
+	    if (function == null) {
+		throw new DSEvaluateException("Aggregation functon '" + aggregation + "' not found");
+	    }
+
+	    AggregationValue aggregationValue = scope.getVariableAggregationValue(variable);
+	    if (aggregationValue == null) {
+		aggregationValue = new AggregationValue();
+		scope.setVariableAggregationValue(variable, aggregationValue);
+	    }
+   	    
+   	    return function.calculate(aggregationValue, value);
+   	} catch (DSEvaluateException e) {
+   	    // TODO: safe value
+   	    return null;
+   	}
+   	
+    }
+    
+    ////
+    
+    private static Integer getCastInteger(Object value) {
+	return getCastInteger(value, null);
+    }
+
+    private static Integer getCastInteger(Object value, Integer def) {
+	return value == null || !(value instanceof Number) ? def : ((Number) value).intValue();
+
+    }
+
+    private static Double getCastDouble(Object value) {
+	return getCastDouble(value, null);
+    }
+
+    private static Double getCastDouble(Object value, Double def) {
+	return value == null || !(value instanceof Number) ? def: ((Number) value).doubleValue();
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // SUM
+    public static class SUMFunction implements AggregationFunction {
+
+	@Override
+	public Object calculate(AggregationValue aggregationValue, Object value) throws DSEvaluateException {
    	    Double sumValue = getCastDouble(aggregationValue.getSumValue(), 0.0);
    	    Double currValue =  getCastDouble(value, 0.0);
    	    
    	    sumValue = sumValue + currValue;
    	    aggregationValue.setSumValue(sumValue);
    	    
-   	    return sumValue;
-   	}
+   	    return sumValue;	    
+	}
+	
+    }
+    
+    
+    // COUNT
+    public static class COUNTFunction implements AggregationFunction {
 
-   	if  ("COUNT".equals(aggregation)) {
+	@Override
+	public Object calculate(AggregationValue aggregationValue, Object value) throws DSEvaluateException {
    	    Integer countValue = getCastInteger(aggregationValue.getCountValue(), 0);
    	    //if (value != null) {
    		countValue = countValue + 1;
@@ -76,10 +149,16 @@ public class AggregationCalculator {
    	    aggregationValue.setCountValue(countValue);
    	    
    	    return countValue;
-   	}
+	}
+	
+    }    
 
-   	if  ("AVG".equals(aggregation)) {
-   	    
+    
+    // AVG
+    public static class AVGFunction implements AggregationFunction {
+
+	@Override
+	public Object calculate(AggregationValue aggregationValue, Object value) throws DSEvaluateException {
    	    Integer countValue = getCastInteger(aggregationValue.getCountValue(), 0);
    	    if (value != null) {
    		countValue = countValue + 1;
@@ -97,10 +176,16 @@ public class AggregationCalculator {
    	    }
    	    
    	    return sumValue / countValue;
-   	}   
+	}
+	
+    }
 
-   	if  ("MAX".equals(aggregation)) {
-   	    
+    
+    // MAX
+    public static class MAXFunction implements AggregationFunction {
+
+	@Override
+	public Object calculate(AggregationValue aggregationValue, Object value) throws DSEvaluateException {
    	    Object oldValue = aggregationValue.getOldValue();
    	    Object newValue = value;
    	    Integer compareValue = valueComparator.compareValue(oldValue, newValue);
@@ -110,11 +195,15 @@ public class AggregationCalculator {
    		}
    	    }
    	    return aggregationValue.getOldValue();
-   	}   
+	}
+	
+    }
 
-   	
-   	if  ("MIN".equals(aggregation)) {
-   	    
+    // MIN
+    public static class MINFunction implements AggregationFunction {
+
+	@Override
+	public Object calculate(AggregationValue aggregationValue, Object value) throws DSEvaluateException {
    	    Object oldValue = aggregationValue.getOldValue();
    	    Object newValue = value;
    	    Integer compareValue = valueComparator.compareValue(oldValue, newValue);
@@ -124,26 +213,8 @@ public class AggregationCalculator {
    		}
    	    }
    	    return aggregationValue.getOldValue();
-   	}    
-   	
-   	return value;
+	}
+	
     }
     
-    protected Integer getCastInteger(Object value) {
-	return getCastInteger(value, null);
-    }
-
-    protected Integer getCastInteger(Object value, Integer def) {
-	return value == null || !(value instanceof Number) ? def : ((Number) value).intValue();
-
-    }
-
-    protected Double getCastDouble(Object value) {
-	return getCastDouble(value, null);
-    }
-
-    protected Double getCastDouble(Object value, Double def) {
-	return value == null || !(value instanceof Number) ? def: ((Number) value).doubleValue();
-
-    }
 }
