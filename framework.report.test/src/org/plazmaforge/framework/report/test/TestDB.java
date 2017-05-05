@@ -69,7 +69,7 @@ public class TestDB {
     
     private void populateTables(Connection connection) throws SQLException {
 	PreparedStatement pstm = connection.prepareStatement("INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE) VALUES (?, ?, ?, ?, ?)");
-	for (int i = 101; i <= 200; i++) {
+	for (int i = 101000; i <= 200000; i++) {
 	    
 	    pstm.setInt(1, i);
 	    pstm.setString(2, "Product " + i);

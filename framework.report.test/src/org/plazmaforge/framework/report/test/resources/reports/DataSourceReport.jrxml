@@ -9,8 +9,8 @@
     columnWidth="515" 
     leftMargin="40" 
     rightMargin="40" 
-    topMargin="50" 
-    bottomMargin="50" >
+    topMargin="22" 
+    bottomMargin="24" >
 
 <!--
     xmlns="http://jasperreports.sourceforge.net/jasperreports" 
@@ -44,6 +44,9 @@
 
 	<variable name="FULL_PRODUCT_NAME" class="java.lang.String" >
 		<variableExpression><![CDATA[ $F{GROUP_NAME} + "/" + $F{PRODUCT_NAME} ]]></variableExpression>
+	</variable>
+	<variable name="PRICE_AVG" class="java.lang.Float" calculation="Average">
+		<variableExpression><![CDATA[$F{PRICE}]]></variableExpression>
 	</variable>
 
 <!--
@@ -183,9 +186,9 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="15">
+		<band height="20">
 			<textField>
-				<reportElement x="0" y="0" width="100" height="15" />
+				<reportElement x="0" y="0" width="100" height="20" />
 				<box>
 					<leftPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
@@ -195,7 +198,7 @@
 			</textField>
 
 			<textField>
-				<reportElement x="100" y="0" width="150" height="15" />
+				<reportElement x="100" y="0" width="150" height="20" />
 				<box>
 					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
@@ -204,7 +207,7 @@
 			</textField>
 
 			<textField pattern="#,##0.00">
-				<reportElement x="250" y="0" width="150" height="15" />
+				<reportElement x="250" y="0" width="150" height="20" />
 				<box>
 					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
@@ -213,7 +216,7 @@
 			</textField>
 
 			<textField>
-				<reportElement x="400" y="0" width="150" height="15" />
+				<reportElement x="400" y="0" width="150" height="20" />
 				<box>
 					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
@@ -225,7 +228,7 @@
 	</detail>
 
 
-<columnFooter>
+	<columnFooter>
 		<band height="30">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="30" />
@@ -238,28 +241,58 @@
 				<textElement>
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Product ID]]></text>
+				<text><![CDATA[Product ID--]]></text>
 			</staticText>
-	</band>
-</columnFooter>
 			
-<!--
+			<staticText>
+				<reportElement x="100" y="0" width="150" height="30" />
+				<box>
+					<topPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Product Name--]]></text>
+			</staticText>
+
+			<textField pattern="#,##0.00">
+				<reportElement x="250" y="0" width="150" height="30" />
+				<box>
+					<topPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$V{PRICE_AVG}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="400" y="0" width="150" height="30" />
+				<box>
+					<topPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Full Name--]]></text>
+			</staticText>
+			
+		</band>
+	</columnFooter>
+			
+
 	<pageFooter>
-		<band height="40">
-			<line>
-				<reportElement x="0" y="10" width="515" height="1" uuid="35482145-facf-43d6-91ce-9d8cf372af20"/>
-			</line>
-			<textField>
-				<reportElement x="200" y="20" width="80" height="15" uuid="7add3ee1-e567-44b0-bde4-cd01a27cd0f2"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page " + String.valueOf($V{PAGE_NUMBER}) + " of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="280" y="20" width="75" height="15" uuid="621f5978-1e1d-43f5-9d80-a79e0cd4bcfa"/>
-				<textFieldExpression><![CDATA[" " + String.valueOf($V{PAGE_NUMBER})]]></textFieldExpression>
-			</textField>
+		<band height="15">
 		</band>
 	</pageFooter>
+	
+<!--	
 	<lastPageFooter>
 		<band height="60">
 			<textField bookmarkLevel="1">
