@@ -29,7 +29,7 @@
 
 	<target name="create-framework-report" description="Create framework report" depends="clean-framework-report">
 		
-		<mkdir dir="${plazma.source.dir}" />
+		<mkdir dir="${plazma.target.projects.dir}" />
 		<mkdir dir="${framework.report.target.dir}" />
 		<mkdir dir="${framework.report.target.dir}/dist" />
 		<mkdir dir="${framework.report.target.dir}/lib" />
@@ -42,14 +42,55 @@
 		</copy>
 		
 		<copy todir="${framework.report.target.dir}/dist">
-			<fileset dir="${dist.dir}">
-				<include name="plazma-framework-report-${version}.jar" />
-			</fileset>
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+		</copy>
+
+		<copy todir="${framework.report.target.dir}/lib">
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
 		</copy>
 		
+		<!--
       	<replace file="${framework.report.target.dir}/.classpath" token="/lib/" value = "lib/"/>
+		<replace file="${framework.report.target.dir}/.classpath" token="PLAZMA_LIB/" value = "lib/"/>
+		-->
 
 	</target>
 
+	<target name="clean-framework-report-install" description="Clean framework report install">
+		<delete dir="${install.dir}"/>
+    </target>
+
+	<target name="create-framework-report-install" description="Create framework report" depends="clean-framework-report-install">
+		
+		<mkdir dir="${install.report.dir}" />
+		<mkdir dir="${install.report.dir}/dist" />
+		<mkdir dir="${install.report.dir}/lib" />
+		
+		<copy todir="${install.report.dir}/dist">
+			<fileset dir="${dist.dir}" includes="${dist.fileset}"/>
+		</copy>
+
+		<copy todir="${install.report.dir}/lib">
+			<fileset dir="${lib.dir}" includes="${lib.fileset}"/>
+		</copy>
+
+		<copy todir="${install.report.dir}">
+			<fileset dir="${framework.report.dir}">
+				<include name="runExport.bat" />
+				<include name="runReport.bat" />
+			</fileset>
+		</copy>
+
+		<replace file="${install.report.dir}/runExport.bat" token="../lib/" value = "lib/"/>
+		<replace file="${install.report.dir}/runExport.bat" token="../dist/" value = "dist/"/>
+			
+		<replace file="${install.report.dir}/runReport.bat" token="../lib/" value = "lib/"/>
+		<replace file="${install.report.dir}/runReport.bat" token="../dist/" value = "dist/"/>
+		
+		<zip destfile="${plazma.target.dir}/${install.report}-${version}.zip"  basedir="${install.report.dir}"/>
+		<delete dir="${install.report.dir}"/>
+		
+	</target>
+	
 
 </project>
