@@ -29,7 +29,7 @@ import org.plazmaforge.framework.report.AbstractTestCase;
 public class RepotToolCSV2Test extends AbstractTestCase {
 
     
-    public void testReportCSV2() {
+    public void testReportCSVtoPDF() {
 	
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
 	String dataFile = getResourcesFileName("data/orders.csv");
@@ -42,6 +42,42 @@ public class RepotToolCSV2Test extends AbstractTestCase {
 		"-document", documentFile,
 		"-log", "true", 
 		"-format", "PDF", 
+		"-connection", connection};
+	
+	ReportTool.main(args);
+    }
+
+    public void testReportCSVtoXLS() {
+	
+	String reportFile = getResourcesFileName("reports/Orders.report.xml");
+	String dataFile = getResourcesFileName("data/orders.csv");
+	String documentFile = getTestFileName("OrdersCSV_DC.xls");
+	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
+	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
+	
+	String[] args = new String[] {
+		"-report", reportFile, 
+		"-document", documentFile,
+		"-log", "true", 
+		"-format", "XLS", 
+		"-connection", connection};
+	
+	ReportTool.main(args);
+    }
+
+    public void testReportCSVtoHTML() {
+	
+	String reportFile = getResourcesFileName("reports/Orders.report.xml");
+	String dataFile = getResourcesFileName("data/orders.csv");
+	String documentFile = getTestFileName("OrdersCSV_DC.html");
+	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
+	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
+	
+	String[] args = new String[] {
+		"-report", reportFile, 
+		"-document", documentFile,
+		"-log", "true", 
+		"-format", "HTML", 
 		"-connection", connection};
 	
 	ReportTool.main(args);
