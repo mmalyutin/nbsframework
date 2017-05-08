@@ -465,9 +465,8 @@ public class DataManager {
 	if (connectionString.isEmpty()) {
 	    handleContextException(CONTEXT_SESSION, "Connection string is empty.");
 	}
-	return connectionString;
+	return StringUtils.unquote(connectionString, false);
     }
-    
     
     public static DataProducer getCheckDataProducer(String context, String type) throws DSException {
 	
