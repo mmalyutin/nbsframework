@@ -137,6 +137,15 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	String dateFormat = (String) data.get(XLSDataConnector.PROPERTY_DATE_FROMAT);
 	String numberFormat = (String) data.get(XLSDataConnector.PROPERTY_NUMBER_FROMAT);
 	
+	if (file == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
+	}
+
+	file = normalizeUnquote(file);
+	if (file == null) {
+	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
+	}
+	
 	try {
 	    FileInputStream inputStream = new FileInputStream(file);
 	    AbstractXLSSession session = createXLSSession(inputStream);
