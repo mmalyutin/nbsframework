@@ -131,7 +131,6 @@ public class ReportTool {
 		if (changeOutputFormat) {
 		    trace("output-format = " + outputFormat);
 		}
-		trace("\n");
 	    }
 	    
 	    // Initialize DataStorage: Register base DataProducer factories 
@@ -156,6 +155,8 @@ public class ReportTool {
 	    long fillTime = 0;
 	    long exportTime = 0;
 	    long totalTime = 0;
+	    
+	    trace("");
 	    
 	    // Read the report form file
 	    time = System.currentTimeMillis();
@@ -233,7 +234,7 @@ public class ReportTool {
 	String value = null;
 	
 	if (log) {
-	    trace("DataConnector properties");
+	    trace("\nDataConnector properties");
 	    trace(LINE);
 	}
 	
