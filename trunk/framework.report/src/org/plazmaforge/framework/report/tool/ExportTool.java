@@ -38,7 +38,10 @@ import org.plazmaforge.framework.util.SystemUtils;
  *
  */
 public class ExportTool {
-
+    
+    private static final String LINE = "============================================================";
+    
+    private boolean log;
     
     public static void main(String[] args) {
 	Properties properties = SystemUtils.loadProperties(args);
@@ -53,17 +56,19 @@ public class ExportTool {
 
     public void execute(Properties properties) {
 
-	String inputFile = properties.getProperty("input");
-	String outputFile = properties.getProperty("output");
-	String exportFormat = properties.getProperty("format");
-	boolean log = properties.getProperty("log", "false").equalsIgnoreCase("true");
+	log = false;
 	
-	if (inputFile == null || (outputFile == null && exportFormat == null)) {
+	String inputFile = properties.getProperty("input-file");
+	String outputFile = properties.getProperty("output-file");
+	String outputFormat = properties.getProperty("output-format");
+	log = properties.getProperty("log", "false").equalsIgnoreCase("true");
+	
+	if (inputFile == null || (outputFile == null && outputFormat == null)) {
 	    if (inputFile == null) {
-		trace("Error: -input is not setting");
+		trace("Error: '-input-file' is not setting");
 	    }
-	    if (outputFile == null && exportFormat == null) {
-		trace("Error: -output/format is not setting");
+	    if (outputFile == null && outputFormat == null) {
+		trace("Error: '-output-file' is not setting");
 	    }
 	    printHelp();
 	    return;
@@ -72,39 +77,52 @@ public class ExportTool {
 	
 	try {
 	    if (log) {
-		trace("Input data");
-		trace("============================================================");
-		trace("input  = " + inputFile);
-		trace("output = " + outputFile);
-		trace("format = " + exportFormat);
-		trace("log    = " + log);
-	    }
-
-	    if (exportFormat == null) {
-		exportFormat = (outputFile == null ? null : SystemUtils.getFileNameSuffix(outputFile));
-		exportFormat = StringUtils.normalizeString(exportFormat);
-		if (exportFormat == null) {
-		    error("Error: Export format is empty. Can't get extension form output file");		    
-		}
+		trace("Input log");
+		trace(LINE);
+		trace("input-file    = " + inputFile);
+		trace("output-file   = " + outputFile);
+		trace("output-format = " + outputFormat);
+		trace("log           = " + log);
 	    }
 	    
-	    if (!ReportEngine.supportsReportExporter(exportFormat)) {
-		error("Error: Unsupports export format '" + exportFormat + "'");
+	    boolean changeLog = false;
+	    boolean changeOutputFormat = false;
+	    boolean changeOutputFile = false;
+
+	    if (outputFormat == null) {
+		outputFormat = (outputFile == null ? null : SystemUtils.getFileNameSuffix(outputFile));
+		outputFormat = StringUtils.normalizeString(outputFormat);
+		if (outputFormat == null) {
+		    error("Error: Export format is empty. Can't get extension form output file");
+		    return;
+		}
+		changeOutputFormat = true;
+	    }
+	    
+	    if (!ReportEngine.supportsReportExporter(outputFormat)) {
+		error("Error: Unsupports export format '" + outputFormat + "'");
 		return;
 	    }
 	    
 	    if (outputFile == null) {
-		outputFile = ReportEngine.generateOutputFile(inputFile, exportFormat);
+		outputFile = ReportEngine.generateOutputFile(inputFile, outputFormat);
+		changeOutputFile = true;
 	    }
 
-
-	    trace("\n");
-	    trace("Modify data");
-	    trace("============================================================");
-	    trace("output = " + outputFile);
-	    trace("format = " + exportFormat);
-	    trace("\n");
+	    changeLog = changeOutputFormat || changeOutputFile;
 	    
+	    if (changeLog) {
+		trace("\n");
+		trace("Change log");
+		trace(LINE);
+		if (changeOutputFile) {
+		    trace("output-file   = " + outputFile);
+		}
+		if (changeOutputFormat) {
+		    trace("output-format = " + outputFormat);    
+		}
+		trace("\n");
+	    }
 	    
 	    // Create ReportManager
 	    ReportManager reportManager = new ReportManager();
@@ -114,9 +132,9 @@ public class ExportTool {
 	    Document document = documentReader.readDocument(inputFile);
 	    
 	    // Write the document to file
-	    reportManager.exportDocumentToFile(document, exportFormat, outputFile, null);
+	    reportManager.exportDocumentToFile(document, outputFormat, outputFile, null);
 	    
-	    trace("Document '" + inputFile + "' was exported to file '" + outputFile + "' with format '"  + exportFormat + "'");
+	    trace("Document '" + inputFile + "' was exported to file '" + outputFile + "' with format '"  + outputFormat + "'");
 	    
 	} catch (Exception e) {
 	    error("ExportTool.init error: " + getErrorMessage(e));
@@ -144,9 +162,9 @@ public class ExportTool {
 
 	System.out.println("Usage: java ExportTool [-options]\n"
 		+ "where options include:\n"
-		+ "    -input <input file>\n"
-		+ "    -output <output file> optional\n"
-		+ "    -format <export format> optional if -output is setting\n");		
+		+ "    -input-file <input file>\n"
+		+ "    -output-file <output file> optional\n"
+		+ "    -output-format <output format> optional\n");		
     }
 
 }

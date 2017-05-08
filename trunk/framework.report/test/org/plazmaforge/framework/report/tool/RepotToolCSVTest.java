@@ -32,17 +32,18 @@ public class RepotToolCSVTest extends AbstractTestCase {
     public void testReportCSV() {
 	
 	String reportFile = getResourcesFileName("reports/Report2.report.xml");
-	String dataFile = getResourcesFileName("data/Report1.csv");
-	String documentFile = getTestFileName("Report1CSV_DC.pdf");
+	String outputFile = getTestFileName("Report1CSV_DC.pdf");
+	String dataFile = getResourcesFileName("data/Report1.csv");	
 	
 	String[] args = new String[] {
-		"-report", reportFile, 
-		"-document", documentFile,
-		"-log", "true", 
-		"-format", "PDF", 
-		"-dataconnector.type", "CSV", 
-		"-dataconnector.file", dataFile, 
-		"-dataconnector.firstRowHeader", "true"};
+		"-report-file", reportFile, 
+		"-output-file", outputFile,
+		"-output-format", "PDF", 
+		"-data-connector.type", "CSV", 
+		"-data-connector.file", dataFile, 
+		"-data-connector.firstRowHeader", "true",
+		"-log", "true", 		
+		};
 	
 	ReportTool.main(args);
     }
@@ -50,16 +51,17 @@ public class RepotToolCSVTest extends AbstractTestCase {
     public void testReportCSVConnectionString() {
 	
 	String reportFile = getResourcesFileName("reports/Report2.report.xml");
-	String dataFile = getResourcesFileName("data/Report1.csv");
-	String documentFile = getTestFileName("Report1CSV_CS.pdf");
+	String outputFile = getTestFileName("Report1CSV_CS.pdf");
+	String dataFile = getResourcesFileName("data/Report1.csv");	
 	String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
 	
 	String[] args = new String[] {
-		"-report", reportFile, 
-		"-document", documentFile,
-		"-log", "true", 
-		"-format", "PDF", 
-		"-connection", connection};
+		"-report-file", reportFile, 
+		"-output-file", outputFile,
+		"-output-format", "PDF", 
+		"-connection", connection,
+		"-log", "true",		
+		};
 	
 	ReportTool.main(args);
     }
