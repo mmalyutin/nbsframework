@@ -33,6 +33,7 @@ import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DataManager;
 import org.plazmaforge.framework.core.datastorage.DataProducer;
+import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.datastorage.DataStorage;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
@@ -80,12 +81,12 @@ public class ReportTool {
 	String outputFile = properties.getProperty("output-file");
 	String outputFormat = properties.getProperty("output-format");
 	
-	String datastorageFile = properties.getProperty("datastorage");	// TODO: Not implemented
+	String dataStorageFile = properties.getProperty("data-storage-file");	// TODO: Not implemented
 	String connectionString = properties.getProperty("connection");
 	log = properties.getProperty("log", "false").equalsIgnoreCase("true");
 	
 	if (reportFile == null) {
-	    trace("Error: '-report-file' is not setting");
+	    error("'-report-file' is not setting.");
 	    printHelp();
 	    return;
 	}
@@ -122,8 +123,7 @@ public class ReportTool {
 	    changeLog = changeOutputFormat || changeOutputFile;
 
 	    if (changeLog) {
-		trace("\n");
-		trace("Change log");
+		trace("\nChange log");
 		trace(LINE);
 		if (changeOutputFile) {
 		    trace("output-file   = " + outputFile);
@@ -141,36 +141,63 @@ public class ReportTool {
 	    DSDataConnector dataConnector = loadDataConnector(properties);
 	    Map<String, Object> parameters = new HashMap<String, Object>();
 	    
+	    if (dataConnector == null && connectionString == null) {
+		warning("Report data is empty.");
+	    }
+	    
 	    parameters.put(ReportParameters.DATA_CONNECTOR, dataConnector);
 	    parameters.put(ReportParameters.CONNECTION_STRING, connectionString);
 	    
 	    // Create ReportManager
 	    ReportManager reportManager = new ReportManager();
 	    
-	    // Read the report form file
-	    Report report = reportManager.readReport(reportFile);
+	    long time = 0;
+	    long readTime = 0;
+	    long fillTime = 0;
+	    long exportTime = 0;
+	    long totalTime = 0;
 	    
+	    // Read the report form file
+	    time = System.currentTimeMillis();
+	    trace(log, "\nStart read the report...");
+	    Report report = reportManager.readReport(reportFile);
+	    trace(log, "Report '" + reportFile + "' was read.");
+	    readTime = System.currentTimeMillis() - time; 
 	    
 	    // Fill the report
+	    time = System.currentTimeMillis();
+	    trace(log, "Start fill the report...");
 	    Document document = reportManager.fillReport(report, parameters);
+	    trace(log, "Report was filled.");
+	    fillTime = System.currentTimeMillis() - time;
 	    
 	    // Write the document to file
+	    time = System.currentTimeMillis();
+	    trace("Start export the report...");
 	    reportManager.exportDocumentToFile(document, outputFormat, outputFile, null);
-	    
-	    trace("Report '" + reportFile + "' was exported to file '" + outputFile + "' with format '"  + outputFormat + "'");
+	    trace("Report '" + reportFile + "' was exported to file '" + outputFile + "' with format '"  + outputFormat + "'.");
+	    exportTime = System.currentTimeMillis() - time;
+
+	    totalTime = readTime + fillTime + exportTime;
+		
+	    trace("\nStatistics");
+	    trace(LINE);
+	    trace("Read report   : " + readTime + " ms");
+	    trace("Fill report   : " + fillTime + " ms");
+	    trace("Export report : " + exportTime + " ms");
+	    trace("Total         : " + totalTime + " ms");
 	    
 	} catch (Exception e) {
-	    error("ReportTool.init error: " + getErrorMessage(e));
-	    //e.printStackTrace();
+	    error(e);
 	}
     }
 
-    private DSDataConnector loadDataConnector(Properties properties) {
+    private DSDataConnector loadDataConnector(Properties properties) throws DSException {
 	if (properties == null) {
 	    return null;
 	}
 	
-	String prefix = "dataconnector.";
+	String prefix = "data-connector.";
 	Map<String, String> result = CoreUtils.toFilterMap(properties, prefix, true);
 	if (result == null || result.isEmpty()) {
 	    return null;
@@ -183,29 +210,23 @@ public class ReportTool {
 	    result.remove("type");
 	}
 	
-	
-	
 	if (!DataManager.supportsDataProducer(type)) {
-	    trace("Unsupports DataConnector type: " + type);
-	    return null;
+	    throw new DSException("Unsupports DataConnector type: " + type);
 	}
 	
 	DataProducer dataProducer = DataManager.getDataProducer(type);
 	if (dataProducer == null) {
-	    trace("DataProducer is not initialized by type " + type);
-	    return null;
+	    throw new DSException("DataProducer is not initialized by type " + type);
 	}
 	
 	DSDataConnector dataConnector = dataProducer.createDataConnector();
 	if (dataConnector == null) {
-	    trace("DataConnector is not initialized by type " + type);
-	    return null;
+	    throw new DSException("DataConnector is not initialized by type " + type);
 	}
 	
 	PropertyProvider propertyProvider = getPropertyProviderFactory().getPropertyProvider(dataConnector.getClass());
 	if (propertyProvider == null) {
-	    trace("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
-	    return null;
+	    throw new DSException("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
 	}
 
 	Set<String> names = result.keySet();
@@ -213,13 +234,15 @@ public class ReportTool {
 	
 	if (log) {
 	    trace("DataConnector properties");
-	    trace("============================================================");
+	    trace(LINE);
 	}
 	
 	for (String name: names) {
 	    value = result.get(name);
 	    propertyProvider.setValue(dataConnector, name, value);
-	    trace("" + name + "=" + value);
+	    if (log) {
+		trace("" + name + "=" + value);
+	    }
 	}
  	return dataConnector;
     }
@@ -240,12 +263,27 @@ public class ReportTool {
 	return str.isEmpty() ? null : str; 
     }
 
-    private void trace(String s) {
-	System.out.println(s);
+    private void trace(String message) {
+	System.out.println(message);
     }
 
-    private void error(String s) {
-	System.err.println(s);
+    private void trace(boolean enabled, String message) {
+	if (!enabled) {
+	    return;
+	}
+	trace(message);
+    }
+    
+    private void warning(String message) {
+	System.out.println("WARNING: " + message);
+    }
+    
+    private void error(String message) {
+	System.out.println("ERROR:   " + message);
+    }
+
+    private void error(Throwable e) {
+	error(getErrorMessage(e));
     }
     
     private String getErrorMessage(Throwable e) {
@@ -281,7 +319,7 @@ public class ReportTool {
 		+ "    -output-file <output file> optional\n"
 		+ "    -output-format <output format> optional\n"
 		
-		+ "    -data-storage <datastorage file> optional\n"
+		+ "    -data-storage <data storage file> optional\n"
 		+ "    -data-connector.<property name> <property value> optional\n")	
 		;
     }
