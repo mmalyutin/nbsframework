@@ -421,6 +421,24 @@ public class StringUtils {
 	return str.startsWith(prefix.toUpperCase()) && str.endsWith(suffix.toUpperCase());
     }
     
+    public static String unquote(String str, boolean trim) {
+	if (str == null || str.isEmpty()) {
+	    return str;
+	}
+	if (trim) {
+	    str = str.trim();
+	}
+	if ((str.startsWith("'") && str.startsWith("'")) 
+		|| (str.startsWith("\"") && str.startsWith("\"")) ) {
+
+	    if (str.length() == 2) {
+		return "";
+	    } else {
+		str = str.substring(1, str.length() - 1);
+	    }
+	}
+	return str;
+    }
     
     public static String replaceAll(String str, String s1, String s2) {
 	if (str == null) {

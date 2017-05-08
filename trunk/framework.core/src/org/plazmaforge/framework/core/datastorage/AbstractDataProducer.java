@@ -150,6 +150,15 @@ public abstract class AbstractDataProducer implements DataProducer {
  	return StringUtils.normalizeString(str);
     }
 
+    protected String normalizeUnquote(String str) {
+	return normalizeUnquote(str, true);
+    }
+	
+    protected String normalizeUnquote(String str, boolean trim) {
+	str = StringUtils.nullIfEmpty(str, trim);
+ 	return StringUtils.unquote(str, false); // trim=false because we use trim mode before
+    }
+    
     protected <T> boolean isEmpty(T[] array) {
  	return SystemUtils.isEmpty(array);
     }

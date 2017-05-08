@@ -178,13 +178,14 @@ public class SQLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "URL is null");
 	}
 
-	url = normalize(url);
+	url = normalizeUnquote(url);
 	if (url == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "URL is empty");
 	}
 
-	driver = normalize(driver);
-	username = normalize(username);
+	driver = normalizeUnquote(driver);
+	username = normalizeUnquote(username);
+	query = normalizeUnquote(query, false); // why? trim=false
 	
 	try {
 	    if (driver != null) {
