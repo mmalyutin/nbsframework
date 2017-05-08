@@ -150,12 +150,13 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
 	}
 
-	file = normalize(file);
+	file = normalizeUnquote(file);
 	if (file == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 	
-	encoding = normalize(encoding);
+	encoding = normalizeUnquote(encoding);
+	query = normalizeUnquote(query, false);
 	
 	try {
 	    Reader reader = createReader(file, encoding);

@@ -158,14 +158,14 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is null");
 	}
 
-	file = normalize(file);
+	file = normalizeUnquote(file);
 	if (file == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 
-	encoding = normalize(encoding);
-	columnDelimiter = normalize(columnDelimiter);
-	rowDelimiter = normalize(rowDelimiter);
+	encoding = normalizeUnquote(encoding);
+	columnDelimiter = normalizeUnquote(columnDelimiter);
+	rowDelimiter = normalizeUnquote(rowDelimiter);
 
 	try {
 	    Reader reader = createReader(file, encoding);
