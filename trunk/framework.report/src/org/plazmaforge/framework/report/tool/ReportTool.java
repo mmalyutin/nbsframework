@@ -60,6 +60,7 @@ public class ReportTool {
     private PropertyProviderFactory propertyProviderFactory;
     
     public static void main(String[] args) {
+	//dumpArgs(args);
 	Properties properties = SystemUtils.loadProperties(args);
 	if (properties.getProperty("?") != null) {
 	    printHelp();
@@ -98,7 +99,7 @@ public class ReportTool {
 	    }
 
 	    if (exportFormat == null) {
-		exportFormat = ReportEngine.DEFAULT_DOCUMENT_FROMAT;
+		exportFormat = ReportEngine.DEFAULT_DOCUMENT_FORMAT;
 	    }
 	    
 	    if (!ReportEngine.supportsReportExporter(exportFormat)) {
@@ -241,6 +242,23 @@ public class ReportTool {
 	return message == null ? e.toString() : message;
     }
     
+    private static void dumpArgs(String[] args) {
+	if (args == null) {
+	    System.out.println("Args is null");
+	    return;
+	}
+	if (args.length == 0) {
+	    System.out.println("Args is empty");
+	    return;
+	}
+	
+	System.out.println("Args");
+	System.out.println("==============================================");
+	for (int i = 0; i < args.length; i++ ) {
+	    System.out.println("arg[" + i + "]='" + args[i] + "'");
+	}
+    }
+    
     private static void printHelp() {
 
 	System.out.println("Usage: java ReportTool [-options]\n"
@@ -248,7 +266,7 @@ public class ReportTool {
 		+ "    -report <report file>\n"
 		+ "    -document <document file> optional\n"
 		+ "    -format <export format> optional\n"		
-		+ "    -datastorage <report file> optional\n"
+		+ "    -datastorage <datastorage file> optional\n"
 		+ "    -dataconnector.<property name> <property value> optional\n")	
 		;
     }

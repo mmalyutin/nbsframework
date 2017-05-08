@@ -56,7 +56,7 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public class ReportEngine {
 
-    public static String DEFAULT_DOCUMENT_FROMAT = "XML";
+    public static String DEFAULT_DOCUMENT_FORMAT = "XML";
     
     
     public static String DEFAULT_REPORT_TYPE = "Simple";
@@ -160,7 +160,7 @@ public class ReportEngine {
 	    return null;
 	}
 	if (format == null) {
-	    format = DEFAULT_DOCUMENT_FROMAT;
+	    format = DEFAULT_DOCUMENT_FORMAT;
 	}
 	String documentFile = null;
 	int index =  reportFile.lastIndexOf(".");
