@@ -53,7 +53,8 @@ import org.plazmaforge.framework.util.SystemUtils;
  *
  */
 public class ReportTool {
-
+    
+    private static final String LINE = "============================================================"; 
     
     private boolean log;
     
@@ -75,50 +76,63 @@ public class ReportTool {
 	
 	log = false;
 
-	String reportFile = properties.getProperty("report");
-	String documentFile = properties.getProperty("document");
-	String exportFormat = properties.getProperty("format");
+	String reportFile = properties.getProperty("report-file");
+	String outputFile = properties.getProperty("output-file");
+	String outputFormat = properties.getProperty("output-format");
+	
 	String datastorageFile = properties.getProperty("datastorage");	// TODO: Not implemented
 	String connectionString = properties.getProperty("connection");
 	log = properties.getProperty("log", "false").equalsIgnoreCase("true");
 	
 	if (reportFile == null) {
-	    trace("Error: -report is not setting");
+	    trace("Error: '-report-file' is not setting");
 	    printHelp();
 	    return;
 	}
 	
 	try {
 	    if (log) {
-		trace("Input data");
-		trace("============================================================");
-		trace("report   = " + reportFile);
-		trace("document = " + documentFile);
-		trace("format   = " + exportFormat);
-		trace("log      = " + log);
+		trace("Input log");
+		trace(LINE);
+		trace("report-file   = " + reportFile);
+		trace("output-file   = " + outputFile);
+		trace("output-format = " + outputFormat);
+		trace("log           = " + log);
 	    }
 
-	    if (exportFormat == null) {
-		exportFormat = ReportEngine.DEFAULT_DOCUMENT_FORMAT;
+	    boolean changeLog = false;
+	    boolean changeOutputFormat = false;
+	    boolean changeOutputFile = false;
+	    
+	    if (outputFormat == null) {
+		outputFormat = ReportEngine.DEFAULT_DOCUMENT_FORMAT;
+		changeOutputFormat = true;		
 	    }
 	    
-	    if (!ReportEngine.supportsReportExporter(exportFormat)) {
-		error("Unsupports export format: " + exportFormat);
+	    if (!ReportEngine.supportsReportExporter(outputFormat)) {
+		error("Unsupports export format: " + outputFormat);
 		return;
 	    }
 	    
-	    if (documentFile == null) {
-		documentFile = ReportEngine.generateDocumentFile(reportFile, exportFormat);
+	    if (outputFile == null) {
+		outputFile = ReportEngine.generateDocumentFile(reportFile, outputFormat);
+		changeOutputFile = true;		
 	    }
 
+	    changeLog = changeOutputFormat || changeOutputFile;
 
-	    trace("\n");
-	    trace("Modify data");
-	    trace("============================================================");
-	    trace("document = " + documentFile);
-	    trace("format   = " + exportFormat);
-	    trace("\n");
-	    
+	    if (changeLog) {
+		trace("\n");
+		trace("Change log");
+		trace(LINE);
+		if (changeOutputFile) {
+		    trace("output-file   = " + outputFile);
+		}
+		if (changeOutputFormat) {
+		    trace("output-format = " + outputFormat);
+		}
+		trace("\n");
+	    }
 	    
 	    // Initialize DataStorage: Register base DataProducer factories 
 	    DataStorage.init();
@@ -141,9 +155,9 @@ public class ReportTool {
 	    Document document = reportManager.fillReport(report, parameters);
 	    
 	    // Write the document to file
-	    reportManager.exportDocumentToFile(document, exportFormat, documentFile, null);
+	    reportManager.exportDocumentToFile(document, outputFormat, outputFile, null);
 	    
-	    trace("Report '" + reportFile + "' was exported to file '" + documentFile + "' with format '"  + exportFormat + "'");
+	    trace("Report '" + reportFile + "' was exported to file '" + outputFile + "' with format '"  + outputFormat + "'");
 	    
 	} catch (Exception e) {
 	    error("ReportTool.init error: " + getErrorMessage(e));
@@ -263,11 +277,12 @@ public class ReportTool {
 
 	System.out.println("Usage: java ReportTool [-options]\n"
 		+ "where options include:\n"
-		+ "    -report <report file>\n"
-		+ "    -document <document file> optional\n"
-		+ "    -format <export format> optional\n"		
-		+ "    -datastorage <datastorage file> optional\n"
-		+ "    -dataconnector.<property name> <property value> optional\n")	
+		+ "    -report-file <report file>\n"
+		+ "    -output-file <output file> optional\n"
+		+ "    -output-format <output format> optional\n"
+		
+		+ "    -data-storage <datastorage file> optional\n"
+		+ "    -data-connector.<property name> <property value> optional\n")	
 		;
     }
 

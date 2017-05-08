@@ -32,17 +32,18 @@ public class RepotToolCSV2Test extends AbstractTestCase {
     public void testReportCSVtoPDF() {
 	
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
-	String dataFile = getResourcesFileName("data/orders.csv");
-	String documentFile = getTestFileName("OrdersCSV_DC.pdf");
+	String outputFile = getTestFileName("OrdersCSV_DC.pdf");
+	String dataFile = getResourcesFileName("data/orders.csv");	
 	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
 	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
 	
 	String[] args = new String[] {
-		"-report", reportFile, 
-		"-document", documentFile,
-		"-log", "true", 
-		"-format", "PDF", 
-		"-connection", connection};
+		"-report-file", reportFile, 
+		"-output-file", outputFile,
+		"-output-format", "PDF", 
+		"-connection", connection,
+		"-log", "true",		
+		};
 	
 	ReportTool.main(args);
     }
@@ -50,17 +51,18 @@ public class RepotToolCSV2Test extends AbstractTestCase {
     public void testReportCSVtoXLS() {
 	
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
-	String dataFile = getResourcesFileName("data/orders.csv");
-	String documentFile = getTestFileName("OrdersCSV_DC.xls");
+	String outputFile = getTestFileName("OrdersCSV_DC.xls");
+	String dataFile = getResourcesFileName("data/orders.csv");	
 	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
 	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
 	
 	String[] args = new String[] {
-		"-report", reportFile, 
-		"-document", documentFile,
-		"-log", "true", 
-		"-format", "XLS", 
-		"-connection", connection};
+		"-report-file", reportFile, 
+		"-output-file", outputFile,
+		"-output-format", "XLS", 
+		"-connection", connection,
+		"-log", "true",		
+		};
 	
 	ReportTool.main(args);
     }
@@ -68,17 +70,18 @@ public class RepotToolCSV2Test extends AbstractTestCase {
     public void testReportCSVtoHTML() {
 	
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
-	String dataFile = getResourcesFileName("data/orders.csv");
-	String documentFile = getTestFileName("OrdersCSV_DC.html");
+	String outputFile = getTestFileName("OrdersCSV_DC.html");
+	String dataFile = getResourcesFileName("data/orders.csv");	
 	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
 	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
 	
 	String[] args = new String[] {
-		"-report", reportFile, 
-		"-document", documentFile,
-		"-log", "true", 
-		"-format", "HTML", 
-		"-connection", connection};
+		"-report-file", reportFile, 
+		"-output-file", outputFile,
+		"-output-format", "HTML", 
+		"-connection", connection,
+		"-log", "true",		
+		};
 	
 	ReportTool.main(args);
     }

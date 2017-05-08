@@ -37,18 +37,18 @@ public class RepotToolSQLTest extends AbstractTestCase {
     public void testReportSQL() {
 	
 	String reportFile = getResourcesFileName("reports/Report1.report.xml");
-	String documentFile = getTestFileName("Report1SQL.pdf");
+	String outputFile = getTestFileName("Report1SQL.pdf");
 	
 	String[] args = new String[] {
-		"-report", reportFile, 
-		"-document", documentFile,
-		"-log", "true", 
-		"-format", "PDF", 
-		"-dataconnector.type", "SQL", 
-		"-dataconnector.url", "jdbc:hsqldb:mem:mydb", 
-		"-dataconnector.driver", "org.hsqldb.jdbcDriver",
-		"-dataconnector.username", "sa",
-		"-dataconnector.password", ""
+		"-report-file", reportFile, 
+		"-output-file", outputFile,
+		"-output-format", "PDF", 
+		"-data-connector.type", "SQL", 
+		"-data-connector.url", "jdbc:hsqldb:mem:mydb", 
+		"-data-connector.driver", "org.hsqldb.jdbcDriver",
+		"-data-connector.username", "sa",
+		"-data-connector.password", "",
+		"-log", "true", 		
 		};
 	
 	ReportTool.main(args);
@@ -57,15 +57,16 @@ public class RepotToolSQLTest extends AbstractTestCase {
     public void testReportSQLConnectionString() {
 	
  	String reportFile = getResourcesFileName("reports/Report1.report.xml");
- 	String documentFile = getTestFileName("Report1SQL_CS.pdf");
+ 	String outputFile = getTestFileName("Report1SQL_CS.pdf");
  	String connection = "sql::jdbc:hsqldb:mem:mydb->(driver=org.hsqldb.jdbcDriver; username=sa; query=SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE < :PRICE_LIMIT)";
  	
  	String[] args = new String[] {
- 		"-report", reportFile, 
- 		"-document", documentFile,
- 		"-log", "true", 
- 		"-format", "PDF", 
- 		"-connection", connection};
+ 		"-report-file", reportFile, 
+ 		"-output-file", outputFile,
+ 		"-output-format", "PDF", 
+ 		"-connection", connection,
+ 		"-log", "true", 		
+ 		};
  	
  	ReportTool.main(args);
      }
