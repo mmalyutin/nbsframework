@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="plazma-framework-script" default="generate">
+<project name="plazma-framework-script" default="create-jar">
 
 	<property file="build.properties" />
 	
