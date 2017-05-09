@@ -1,0 +1,161 @@
+<report name="Report1" caption="Report 1" description="Report Description1">
+	<parameters>
+		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>150.0</default-value></parameter>
+	</parameters>
+	<variables>
+		<variable name="CountryGroupCount" data-type="Integer" aggregation="COUNT" reset-type="Group" reset-name="CountryGroup"/>
+		<variable name="CountryGroupSum" data-type="Double" aggregation="SUM" reset-type="Group" reset-name="CountryGroup"><expression>$F{Freight}</expression></variable>
+		<variable name="CountryPageCount" data-type="Integer" aggregation="COUNT" reset-type="Page"/>
+		<variable name="CountryPageSum" data-type="Double" aggregation="SUM" reset-type="Page"><expression>$F{Freight}</expression></variable>
+		<variable name="CountryPageDateMax" data-type="date" aggregation="MAX" reset-type="Page"><expression>$F{OrderDate}</expression></variable>
+	</variables>
+	<data-sources>
+		<data-source>
+			<fields>
+				<field name="ShippedDate" data-type="Date"/>
+				<field name="ShipCountry" data-type="String"/>
+				<field name="RequiredDate" data-type="Date"/>
+				<field name="CustomerID" data-type="String"/>
+				<field name="OrderID" data-type="Integer"/>
+				<field name="ShipName" data-type="String"/>
+				<field name="ShipVia" data-type="Integer"/>
+				<field name="ShipPostalCode" data-type="String"/>
+				<field name="OrderDate" data-type="Date"/>
+				<field name="ShipCity" data-type="String"/>
+				<field name="ShipAddress" data-type="String"/>
+				<field name="EmployeeID" data-type="Integer"/>
+				<field name="ShipRegion" data-type="String"/>
+				<field name="Freight" data-type="Double"/>
+			</fields>
+			<orders>
+				<order field="ShipCountry"/>
+			</orders>
+		</data-source>
+	</data-sources>
+	<templates>
+		<template type="Table" >
+			<page-setup margin-left="15" margin-top="20" margin-right="23" margin-bottom="20" />
+			<columns>
+				<column width="80" />
+				<column width="350" />
+				<column width="80" />
+				<column width="100" />
+				<column width="80" />
+			</columns>
+			<report-groups>
+				<report-group name="CountryGroup">
+					<expression>$F{ShipCountry}</expression>
+					<bands>
+						<band type="GroupHeader">
+							<rows>
+								<row height="5">
+									<cells><cell colspan="5"></cell></cells>
+								</row>
+								<row height="25" cell-border-bottom="1">
+									<cells>
+										<cell colspan="5" font="12, bold" ><expression>$F{ShipCountry}</expression></cell>
+										<!-- <cell format="dd/MM/yyyy" colspan="2" font="12, bold" ><expression>$V{CountryPageDateMax}</expression></cell> -->
+										<!-- EEE, MMM d, yyyy -->
+										<!-- <cell colspan="2" font="12, bold" ><expression>$V{CountryPageCount}</expression></cell> -->
+									</cells>
+								</row>
+							</rows>
+						</band>
+						<band type="GroupFooter">
+							<rows>
+								<row height="5">
+									<cells><cell colspan="5"></cell></cells>
+								</row>
+								<row height="20" background="#C0C0C0">
+									<cells>
+									    <cell format="dd/MM/yyyy" vertical-align="middle" font="8, bold" ><expression>$V{CountryPageDateMax}</expression></cell>
+										<cell horizontal-align="right"><value>Count:</value></cell>
+										<cell horizontal-align="right"><expression>$V{CountryGroupCount}</expression></cell>
+										<cell horizontal-align="right"><value>Total:</value></cell>
+										<cell format="0.00" horizontal-align="right"><expression>$V{CountryGroupSum}</expression></cell>
+									</cells>
+								</row>
+							</rows>
+						</band>
+					</bands>
+				</report-group>
+			</report-groups>
+
+			
+			<bands>
+				<band type="ReportHeader">
+					<rows>
+						<row height="30" cell-border-top="1">
+							<cells>
+								<cell colspan="5" horizontal-align="center" vertical-align="middle" font="18, bold"><value>Order List</value></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+	
+				<band type="ColumnHeader">
+					<rows>
+						<row height="20" background="#333333" foreground="#FFFFFF">
+							<cells>
+								<cell><value>Order ID</value></cell>
+								<cell><value>Name, City</value></cell>
+								<cell><value>Region</value></cell>
+								<cell><value>Date</value></cell>
+								<cell horizontal-align="right"><value>Freight</value></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="Detail">
+					<rows>
+						<row height="20" cell-border-bottom="1">
+							<cells>
+								<cell><expression>$F{OrderID}</expression></cell>
+								<cell><expression>$F{ShipName} + ", " + $F{ShipCity}</expression></cell>
+								<cell><expression>$F{ShipRegion}</expression></cell>
+								<cell format="dd/MM/yyyy"><expression>$F{OrderDate}</expression></cell>
+								<!-- <cell><expression>$V{CountryPageCount}</expression></cell>   -->
+								<cell format="0.00" horizontal-align="right"><expression>$F{Freight}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="ColumnFooter">
+					<rows>
+						<row height="20" background="#333333" foreground="#FFFFFF">
+							<cells>
+								<cell colspan="2" horizontal-align="right"><value>Count:</value></cell>
+								<cell horizontal-align="right"><expression>$V{CountryPageCount}</expression></cell>
+								<cell horizontal-align="right"><value>Total:</value></cell>
+								<cell format="0.00" horizontal-align="right"><expression>$V{CountryPageSum}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				
+				<band type="ReportFooter">
+					<rows>
+						<row height="20">
+							<cells>
+								<cell colspan="5" ><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+
+				<band type="PageFooter" cell-line="none">
+					<rows>
+						<row height="20">
+							<cells>
+								<cell colspan="2" horizontal-align="right"><value>Count:</value></cell>
+								<cell horizontal-align="right"><expression>$V{CountryPageCount}</expression></cell>
+								<cell colspan="2"  horizontal-align="right"><expression>"Page: " + $V{PAGE_NO}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				
+			</bands>
+		</template>
+	</templates>
+</report>

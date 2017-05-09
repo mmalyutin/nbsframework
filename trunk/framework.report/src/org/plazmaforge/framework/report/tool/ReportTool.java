@@ -93,7 +93,7 @@ public class ReportTool {
 	
 	try {
 	    if (log) {
-		trace("Input log");
+		trace("\nInput log");
 		trace(LINE);
 		trace("report-file   = " + reportFile);
 		trace("output-file   = " + outputFile);
