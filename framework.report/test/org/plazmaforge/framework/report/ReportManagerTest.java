@@ -57,7 +57,7 @@ public class ReportManagerTest extends AbstractTestCase {
 
     public void testFillNullReport() throws Exception {
 	System.out.println("Test fill NullReport");
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Document document = manager.fillReport(null, (DSResultSet) null);
 	assertNotNull(document);
 	printDocument(document);
@@ -65,7 +65,7 @@ public class ReportManagerTest extends AbstractTestCase {
 
     public void testFillEmptyReport() throws Exception {
 	System.out.println("Test fill EmptyReport");
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Report report = new Report();
 	Document document = manager.fillReport(report, (DSResultSet) null);
 	assertNotNull(document);
@@ -79,7 +79,7 @@ public class ReportManagerTest extends AbstractTestCase {
 	
 	report.addTemplate(template);
 	
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Document document = manager.fillReport(report, (DSResultSet) null);
 	
 	printDocument(document);
@@ -91,7 +91,7 @@ public class ReportManagerTest extends AbstractTestCase {
 	Report report = ReportSamples.createTableReport();
 	DSResultSet reportData = ReportSamples.createProductResultSet();
 	
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Document document = manager.fillReport(report, reportData);
 	printDocument(document);
 
@@ -105,7 +105,7 @@ public class ReportManagerTest extends AbstractTestCase {
 	String query = "SELECT GROUP_NAME, PRODUCT_NAME, PRICE FROM PRODUCT";
 	DSResultSet reportData = DataManager.openResultSet(session, query);
 	
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Document document = manager.fillReport(report, reportData);
 	printDocument(document);
     }
@@ -121,7 +121,7 @@ public class ReportManagerTest extends AbstractTestCase {
 	report.setDataSource(dataSource);
 	
 	
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Document document = manager.fillReport(report, getConnection());
 	printDocument(document);
     }
@@ -137,7 +137,7 @@ public class ReportManagerTest extends AbstractTestCase {
 	
    	//System.out.println("Test fill Report form file: '" + reportFile + "'");
 
-   	ReportManager manager = new ReportManager();
+   	ReportManager manager = ReportEngine.getReportManager();
    	
    	// 1. Read report from file
    	long start = System.currentTimeMillis();
@@ -180,7 +180,7 @@ public class ReportManagerTest extends AbstractTestCase {
 	
    	//System.out.println("Test fill Report form file: '" + reportFile + "'");
 
-   	ReportManager manager = new ReportManager();
+   	ReportManager manager = ReportEngine.getReportManager();
    	
    	long start = System.currentTimeMillis();
 	InputStream is = ReportEngine.class.getResourceAsStream(reportFile);

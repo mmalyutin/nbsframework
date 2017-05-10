@@ -148,7 +148,7 @@ public class ReportTool {
 	    parameters.put(ReportParameters.CONNECTION_STRING, connectionString);
 	    
 	    // Create ReportManager
-	    ReportManager reportManager = new ReportManager();
+	    ReportManager reportManager = ReportEngine.getReportManager();
 	    
 	    long time = 0;
 	    long readTime = 0;

@@ -285,7 +285,7 @@ public class ReportSamples {
 	Report report = createTableReport();
 	DSResultSet reportData = createProductResultSet();
 	
-	ReportManager manager = new ReportManager();
+	ReportManager manager = ReportEngine.getReportManager();
 	Document document = manager.fillReport(report, reportData, parameters);
 	
 	return document;

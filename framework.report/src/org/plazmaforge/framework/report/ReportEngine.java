@@ -91,6 +91,9 @@ public class ReportEngine {
 	return instance;
     }
     
+    public static ReportManager getReportManager() {
+	return new BaseReportManager(); 
+    }
     
     // REPORT FILLERS
 

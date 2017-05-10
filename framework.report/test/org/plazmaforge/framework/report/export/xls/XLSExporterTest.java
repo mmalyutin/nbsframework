@@ -26,6 +26,7 @@
 package org.plazmaforge.framework.report.export.xls;
 
 import org.plazmaforge.framework.report.AbstractTestCase;
+import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
@@ -43,7 +44,7 @@ public class XLSExporterTest extends AbstractTestCase {
 	XMLDocumentReader reader = new XMLDocumentReader();
    	Document document = reader.readDocument(documentFile);
    	
-   	ReportManager reportManager = new ReportManager();
+   	ReportManager reportManager = ReportEngine.getReportManager();
    	reportManager.exportDocumentToFile(document, "XLS", resultFile, null);
    	
     }
