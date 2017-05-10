@@ -29,22 +29,13 @@ package org.plazmaforge.framework.report;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSResultSet;
 import org.plazmaforge.framework.report.exception.RTException;
-import org.plazmaforge.framework.report.export.ReportExporter;
-import org.plazmaforge.framework.report.export.xml.XMLExporter;
-import org.plazmaforge.framework.report.fill.ReportFiller;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.document.Document;
-import org.plazmaforge.framework.report.storage.DocumentReader;
-import org.plazmaforge.framework.report.storage.ReportReader;
-import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
-import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
 
 /**
  * General Report Manager
@@ -58,7 +49,7 @@ import org.plazmaforge.framework.report.storage.xml.report.XMLReportReader;
  * @author ohapon
  *
  */
-public class ReportManager {
+public interface ReportManager {
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,17 +59,11 @@ public class ReportManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     
-    public Report readReport(String fileName) throws RTException {
-	return createReportReader().readReport(fileName);
-    }
+    Report readReport(String fileName) throws RTException;
+    
+    Report readReport(File file) throws RTException;
 
-    public Report readReport(File file) throws RTException {
-	return createReportReader().readReport(file);
-    }
-
-    public Report readReport(InputStream is) throws RTException {
-	return createReportReader().readReport(is);
-    }
+    Report readReport(InputStream is) throws RTException;
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -86,88 +71,21 @@ public class ReportManager {
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    public Document fillReport(Report report, DSResultSet reportData) throws RTException {
-	return fillReport(report, reportData, null);
-    }
+    Document fillReport(Report report, DSResultSet reportData) throws RTException;
     
-    public Document fillReport(Report report, DSResultSet reportData, Map<String, Object> parameters) throws RTException {
-	// Get report type
-	String reportType = getReportType(report);
+    Document fillReport(Report report, DSResultSet reportData, Map<String, Object> parameters) throws RTException;
+    
+    Document fillReport(Report report, Connection connection) throws RTException;
+    
+    Document fillReport(Report report, Connection connection, Map<String, Object> parameters) throws RTException;
+    
+    Document fillReport(Report report, DSDataConnector dataConnector) throws RTException;
 	
-	// Get report filler
-	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
-	if (reportFiller == null) {
-	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
-	}
-	
-	// Fill report
-	return reportFiller.fillReport(report, reportData, parameters);
-    }
+    Document fillReport(Report report, DSDataConnector dataConnector, Map<String, Object> parameters) throws RTException;
 
-    public Document fillReport(Report report, Connection connection) throws RTException {
-	return fillReport(report, connection, null);
-    }
+    Document fillReport(Report report, String connectionString, Map<String, Object> parameters) throws RTException;
     
-    public Document fillReport(Report report, Connection connection, Map<String, Object> parameters) throws RTException {
-	// Get report type
-	String reportType = getReportType(report);
-	
-	// Get report filler
-	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
-	if (reportFiller == null) {
-	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
-	}
-	
-	// Fill report
-	return reportFiller.fillReport(report, connection, parameters);
-    }
-
-    public Document fillReport(Report report, DSDataConnector dataConnector) throws RTException {
-	return fillReport(report, dataConnector, null);
-    }
-	
-    public Document fillReport(Report report, DSDataConnector dataConnector, Map<String, Object> parameters) throws RTException {
-	// Get report type
-	String reportType = getReportType(report);
-	
-	// Get report filler
-	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
-	if (reportFiller == null) {
-	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
-	}
-	
-	// Fill report
-	return reportFiller.fillReport(report, dataConnector, parameters);
-    }
-
-    public Document fillReport(Report report, String connectionString, Map<String, Object> parameters) throws RTException {
-	// Get report type
-	String reportType = getReportType(report);
-	
-	// Get report filler
-	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
-	if (reportFiller == null) {
-	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
-	}
-	
-	// Fill report
-	return reportFiller.fillReport(report, connectionString, parameters);
-    }
-    
-    public Document fillReport(Report report, Map<String, Object> parameters) throws RTException {
-	// Get report type
-	String reportType = getReportType(report);
-	
-	// Get report filler
-	ReportFiller reportFiller = ReportEngine.getReportFiller(reportType);
-	if (reportFiller == null) {
-	    throw new RTException("Can't fill report. ReportFiller not found. ReportType = '" + reportType + "'");
-	}
-	
-	// Fill report
-	return reportFiller.fillReport(report, parameters);
-    }
-    
+    Document fillReport(Report report, Map<String, Object> parameters) throws RTException;
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -175,38 +93,9 @@ public class ReportManager {
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    public void exportDocumentToFile(Document document, String exportType, String outputFileName, Map<String, Object> exportData) throws RTException {
-	if (exportData == null) {
-	    exportData = new HashMap<String, Object>();
-	}
-	exportData.put(XMLExporter.PROPERTY_OUTPUT_TYPE, "fileName");
-	exportData.put(XMLExporter.PROPERTY_OUTPUT_FILE_NAME, outputFileName);
-	exportDocument(document, exportType, exportData);
-    }
+    void exportDocumentToFile(Document document, String exportType, String outputFileName, Map<String, Object> exportData) throws RTException;
     
-    public void exportDocument(Document document, String exportType, Map<String, Object> exportData) throws RTException {
-	if (exportType == null) {
-	    throw new RTException("Can't export report. ExportType is null");
-	}
-	
-	// Get report exporter
-	ReportExporter reportExporter = ReportEngine.getReportExporter(exportType);
-	if (reportExporter == null) {
-	    throw new RTException("Can't export report. ReportExporter not found. ExportType = '"  + exportType + "'");
-	}
-
-	// Populate export data
-	if (exportData != null) {
-	    Set<Map.Entry<String, Object>> entries = exportData.entrySet();
-	    for (Map.Entry<String, Object> entry: entries) {
-		reportExporter.setData(entry.getKey(), entry.getValue());
-	    }
-	}
-	
-	// Export report
-	reportExporter.exportDocument(document);
-    }
-
+    void exportDocument(Document document, String exportType, Map<String, Object> exportData) throws RTException;
 
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,30 +105,13 @@ public class ReportManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     
-    public Document readDocument(String fileName) throws RTException {
-	return createDocumentReader().readDocument(fileName);
-    }
+    Document readDocument(String fileName) throws RTException;
 
-    public Document readDocument(File file) throws RTException {
-	return createDocumentReader().readDocument(file);
-    }
+    Document readDocument(File file) throws RTException;
 
-    public Document readDocument(InputStream is) throws RTException {
-	return createDocumentReader().readDocument(is);
-    }
+    Document readDocument(InputStream is) throws RTException;
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected String getReportType(Report report) {
-	return report == null ? null : report.getType();
-    }
-    
-    protected ReportReader createReportReader() {
-	return new XMLReportReader();	
-    }
-
-    protected DocumentReader createDocumentReader() {
-	return new XMLDocumentReader();	
-    }
     
 }

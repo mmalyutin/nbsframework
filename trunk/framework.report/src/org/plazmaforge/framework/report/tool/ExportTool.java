@@ -124,7 +124,7 @@ public class ExportTool {
 	    }
 	    
 	    // Create ReportManager
-	    ReportManager reportManager = new ReportManager();
+	    ReportManager reportManager = ReportEngine.getReportManager();
 	    
 	    long time = 0;
 	    long readTime = 0;
