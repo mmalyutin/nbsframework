@@ -108,11 +108,16 @@ public class Pen implements Serializable {
     }
     
     private float normalizeWidth(float width) {
-  	return width < 0 ? 0 : width;
+  	return width < 0 ? 0 : roundWidth(width);
     }
 
+    private float roundWidth(float width) {
+	// TODO: Temp solution. Fix after float 'Size' and 'Point'
+	return Math.round(width);
+    }
+    
     private byte normalizeStyle(byte style) {
-  	return (style < 0  || style > 3) ? 0 : style;
+  	return (style < LINE_STYLE_SOLID  || style > LINE_STYLE_DOUBLE) ? LINE_STYLE_SOLID : style;
     }
 
     
