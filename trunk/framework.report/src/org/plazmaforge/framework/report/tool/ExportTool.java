@@ -65,10 +65,10 @@ public class ExportTool {
 	
 	if (inputFile == null || (outputFile == null && outputFormat == null)) {
 	    if (inputFile == null) {
-		trace("Error: '-input-file' is not setting");
+		error("'-input-file' is not setting");
 	    }
 	    if (outputFile == null && outputFormat == null) {
-		trace("Error: '-output-file' is not setting");
+		error("'-output-file' is not setting");
 	    }
 	    printHelp();
 	    return;
@@ -77,7 +77,7 @@ public class ExportTool {
 	
 	try {
 	    if (log) {
-		trace("Input log");
+		trace("\nInput log");
 		trace(LINE);
 		trace("input-file    = " + inputFile);
 		trace("output-file   = " + outputFile);
@@ -93,14 +93,14 @@ public class ExportTool {
 		outputFormat = (outputFile == null ? null : SystemUtils.getFileNameSuffix(outputFile));
 		outputFormat = StringUtils.normalizeString(outputFormat);
 		if (outputFormat == null) {
-		    error("Error: Export format is empty. Can't get extension form output file");
+		    error("Export format is empty. Can't get extension form output file");
 		    return;
 		}
 		changeOutputFormat = true;
 	    }
 	    
 	    if (!ReportEngine.supportsReportExporter(outputFormat)) {
-		error("Error: Unsupports export format '" + outputFormat + "'");
+		error("Unsupports export format '" + outputFormat + "'");
 		return;
 	    }
 	    
@@ -121,33 +121,67 @@ public class ExportTool {
 		if (changeOutputFormat) {
 		    trace("output-format = " + outputFormat);    
 		}
-		trace("\n");
 	    }
 	    
 	    // Create ReportManager
 	    ReportManager reportManager = new ReportManager();
 	    
+	    long time = 0;
+	    long readTime = 0;
+	    long exportTime = 0;
+	    long totalTime = 0;
+	    
+	    
 	    // Read the report form file
+	    time = System.currentTimeMillis();
+	    trace(log, "\nStart read the document...");
 	    XMLDocumentReader documentReader = new XMLDocumentReader(); 
 	    Document document = documentReader.readDocument(inputFile);
+	    trace(log, "Document '" + inputFile + "' was read.");
+	    readTime = System.currentTimeMillis() - time; 
 	    
 	    // Write the document to file
+	    time = System.currentTimeMillis();
+	    trace("Start export the document...");
 	    reportManager.exportDocumentToFile(document, outputFormat, outputFile, null);
+	    exportTime = System.currentTimeMillis() - time;
 	    
 	    trace("Document '" + inputFile + "' was exported to file '" + outputFile + "' with format '"  + outputFormat + "'");
 	    
+	    totalTime = readTime + exportTime;
+		
+	    trace("\nStatistics");
+	    trace(LINE);
+	    trace("Read document   : " + readTime + " ms");
+	    trace("Export document : " + exportTime + " ms");
+	    trace("Total         : " + totalTime + " ms");
+	    
 	} catch (Exception e) {
-	    error("ExportTool.init error: " + getErrorMessage(e));
-	    //e.printStackTrace();
+	    error(e);
 	}
     }
-
-    private void trace(String s) {
-	System.out.println(s);
+    
+    private void trace(String message) {
+	System.out.println(message);
+    }
+    
+    private void trace(boolean enabled, String message) {
+	if (!enabled) {
+	    return;
+	}
+	trace(message);
+    }
+    
+    private void warning(String message) {
+	System.out.println("WARNING: " + message);
+    }
+    
+    private void error(String message) {
+	System.out.println("ERROR:   " + message);
     }
 
-    private void error(String s) {
-	System.err.println(s);
+    private void error(Throwable e) {
+	error(getErrorMessage(e));
     }
     
     private String getErrorMessage(Throwable e) {

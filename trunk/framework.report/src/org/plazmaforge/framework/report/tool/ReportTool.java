@@ -156,8 +156,6 @@ public class ReportTool {
 	    long exportTime = 0;
 	    long totalTime = 0;
 	    
-	    trace("");
-	    
 	    // Read the report form file
 	    time = System.currentTimeMillis();
 	    trace(log, "\nStart read the report...");
