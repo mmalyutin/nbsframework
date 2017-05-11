@@ -18,7 +18,7 @@
 			<exclude name="org/plazmaforge/framework/datastorage/**/*Test.class" />
 			<exclude name="org/plazmaforge/framework/datastorage/**/*TestCase.class" />
 			<exclude name="org/plazmaforge/framework/**/TestDB.class" />
-			<exclude name="resources/**/*" />
+			<exclude name="org/plazmaforge/framework/datastorage/resources/**/*" />
 				
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0" />
