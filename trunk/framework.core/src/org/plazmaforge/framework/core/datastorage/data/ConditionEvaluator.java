@@ -24,11 +24,30 @@ package org.plazmaforge.framework.core.datastorage.data;
 
 /**
  * 
+ * This condition evaluator for one operator.
+ * For example:
+ * - eq
+ * - ne
+ * - lt
+ * - lte
+ * - gt
+ * - gte
+ * 
  * @author ohapon
  *
  */
-public interface OperationEvaluator {
+public interface ConditionEvaluator {
 
+    /**
+     * Evaluate and return boolean value:
+     * - unary (only left)
+     * - binary (left and right)
+     * - ternary (left and right - array)
+     * 
+     * @param leftValue
+     * @param rightValue
+     * @return
+     */
     Boolean evaluate(Object leftValue, Object rightValue);
 
 }

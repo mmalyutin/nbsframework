@@ -29,29 +29,30 @@ import java.util.Map;
 
 
 /**
+ * The condition processor
  * 
  * @author ohapon
  *
  */
-public class OperationProcessor {
+public class ConditionProcessor {
 
-    private Map<String, OperationEvaluator> evaluators = new HashMap<String, OperationEvaluator>();
+    private Map<String, ConditionEvaluator> evaluators = new HashMap<String, ConditionEvaluator>();
     
     private static final ValueComparator valueComparator = new ValueComparator();
     
-    public OperationProcessor() {
+    public ConditionProcessor() {
 	super();
     }
 
-    public void registerEvaluator(String name, OperationEvaluator evaluator) {
+    public void registerEvaluator(String name, ConditionEvaluator evaluator) {
 	evaluators.put(name, evaluator);
     }
     
-    public Boolean evaluate(Object leftValue, String operation, Object rightValue) {
-	if (operation == null) {
-	    operation = "eq";
+    public Boolean evaluate(Object leftValue, String operator, Object rightValue) {
+	if (operator == null) {
+	    operator = "eq";
 	}
-	OperationEvaluator evaluator = getEvaluator(operation);
+	ConditionEvaluator evaluator = getEvaluator(operator);
 	if (evaluator == null) {
 	    return null;
 	}
@@ -59,7 +60,7 @@ public class OperationProcessor {
 	
     }
     
-    public OperationEvaluator getEvaluator(String name) {
+    public ConditionEvaluator getEvaluator(String name) {
 	if (name == null) {
 	    return null;
 	}
@@ -80,7 +81,7 @@ public class OperationProcessor {
     ////
     
     // =
-    public static class EQEvaluator implements OperationEvaluator {
+    public static class EQEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
@@ -108,7 +109,7 @@ public class OperationProcessor {
     }
 
     // <
-    public static class LTEvaluator implements OperationEvaluator {
+    public static class LTEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
@@ -122,7 +123,7 @@ public class OperationProcessor {
     }
 
     // <=
-    public static class LTEEvaluator implements OperationEvaluator {
+    public static class LTEEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
@@ -137,7 +138,7 @@ public class OperationProcessor {
     
 
     // >
-    public static class GTEvaluator implements OperationEvaluator {
+    public static class GTEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
@@ -151,7 +152,7 @@ public class OperationProcessor {
     }
 
     // >=
-    public static class GTEEvaluator implements OperationEvaluator {
+    public static class GTEEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
