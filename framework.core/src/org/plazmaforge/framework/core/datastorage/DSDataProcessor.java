@@ -31,7 +31,7 @@ import java.util.Map;
 import org.plazmaforge.framework.core.data.converter.Converter;
 import org.plazmaforge.framework.core.data.converter.ConverterManager;
 import org.plazmaforge.framework.core.data.converter.STConverterManager;
-import org.plazmaforge.framework.core.datastorage.data.OperationProcessor;
+import org.plazmaforge.framework.core.datastorage.data.ConditionProcessor;
 import org.plazmaforge.framework.core.datastorage.data.RecordComparator;
 import org.plazmaforge.framework.core.datastorage.data.Scope;
 import org.plazmaforge.framework.core.exception.DSEvaluateException;
@@ -47,17 +47,19 @@ import org.plazmaforge.framework.util.StringUtils;
  */
 public class DSDataProcessor {
 
+    // convert values
     private ConverterManager converterManager;
     
-    private OperationProcessor operationProcessor; 
+    // evaluate conditions
+    private ConditionProcessor conditionProcessor; 
     
     public DSDataProcessor() {
 	super();
 	converterManager = new STConverterManager(true);
 	converterManager.init();
 
-	operationProcessor = new OperationProcessor();
-	operationProcessor.registerDefaultEvaluators();
+	conditionProcessor = new ConditionProcessor();
+	conditionProcessor.registerDefaultEvaluators();
     }
 
     public DSResultSet processResultSet(DSResultSet resultSet, DSDataSource dataSource) throws DSException {
@@ -170,21 +172,6 @@ public class DSDataProcessor {
 	return null;
     }
     
-    protected Object evaluateExpression(DSExpression expression, DSExpressionEvaluator expressionEvaluator) {
-	if (expression == null) {
-	    return null;
-	}
-	if (expressionEvaluator == null) {
-	    // TODO
-	    return null;
-	}
-	try {
-	    return expressionEvaluator.evaluate(expression);
-	} catch (DSEvaluateException e) {
-	    // TODO: safe value
-	    return null;
-	}
-    }
     
     protected Map<String, Integer> createFieldIndexes(List<DSField> fields) {
 	Map<String, Integer> fieldIndexes = new HashMap<String, Integer>();
@@ -240,19 +227,18 @@ public class DSDataProcessor {
 	    return true;
 	}
 	for (DSFilter filter : filters) {
-	    if (!isFilter(record, fieldIndexes, filter, expressionEvaluator)) {
+	    if (!evaluateFilterValue(record, fieldIndexes, filter, expressionEvaluator)) {
 		return false;
 	    }
 	}
 	return true;
     }
     
-    protected boolean isFilter(Object[] record, Map<String, Integer> fieldIndexes, DSFilter filter, DSExpressionEvaluator expressionEvaluator) {
+    protected boolean evaluateFilterValue(Object[] record, Map<String, Integer> fieldIndexes, DSFilter filter, DSExpressionEvaluator expressionEvaluator) {
 	if (filter == null) {
 	    return true;
 	}
 	
-	// TODO: Implemented only for DSFieldFilter
 	if (filter instanceof DSFieldFilter) {
 	    DSFieldFilter fieldFilter = ((DSFieldFilter) filter);
 	    DSField field = fieldFilter.getField();
@@ -277,28 +263,17 @@ public class DSDataProcessor {
 	    Object filterValue = fieldFilter.getValue();
 	    Object rightValue = convertValue(filterValue, field);
 	    
-	    String operation = fieldFilter.getOperation();
-	    return isFilterByOperation(leftValue, operation, rightValue);
+	    String operator = fieldFilter.getOperation();
+	    
+	    // Evaluate condition by operator
+	    return evaluateCondition(leftValue, operator, rightValue);
 	} else if (filter instanceof DSExpressionFilter) {
 	    DSExpression expression = ((DSExpressionFilter) filter).getExpression();
-	    Object value = evaluateExpression(expression, expressionEvaluator);
 	    
-	    //TODO
-	    if (value == null) {
-		return false;
-	    }
-
-	    if (value instanceof Boolean) {
-//		if (value == null) {
-//		    return false;
-//		}
-		return (Boolean) value;
-	    } else {
-		//TODO
-		return false;
-	    }
-
+	    // Evaluate condition by expression
+	    return evaluateCondition(expression, expressionEvaluator);
 	}
+	
 	//TODO
 	return true;
     }
@@ -417,12 +392,63 @@ public class DSDataProcessor {
 	return TypeUtils.getDefaultFormat(type);
     }
     
-    protected boolean isFilterByOperation(Object leftValue, String operation, Object rightValue) {
-	Boolean result = operationProcessor.evaluate(leftValue, operation, rightValue);
-	if (result == null) {
+    
+    protected boolean translateBoolean(Object value) {
+	if (value == null) {
+	    // NULL -> FALSE
 	    return false;
 	}
-	return result;
+	if (value instanceof Boolean) {
+	    return (Boolean) value;
+	} else {
+	    // NON BOOLEAN -> FALSE
+	    return false;
+	}
+    }
+    
+    /**
+     * Evaluate condition by operator
+     * @param leftValue
+     * @param operator
+     * @param rightValue
+     * @return
+     */
+    protected boolean evaluateCondition(Object leftValue, String operator, Object rightValue) {
+	Boolean result = conditionProcessor.evaluate(leftValue, operator, rightValue);
+	return translateBoolean(result);
+    }
+
+    /**
+     * Evaluate condition by expression
+     * @param expression
+     * @param expressionEvaluator
+     * @return
+     */
+    protected boolean evaluateCondition(DSExpression expression, DSExpressionEvaluator expressionEvaluator) {
+	Object value = evaluateExpression(expression, expressionEvaluator);
+	return translateBoolean(value);
+    }
+    
+    /**
+     * Evaluate expression
+     * @param expression
+     * @param expressionEvaluator
+     * @return
+     */
+    protected Object evaluateExpression(DSExpression expression, DSExpressionEvaluator expressionEvaluator) {
+	if (expression == null) {
+	    return null;
+	}
+	if (expressionEvaluator == null) {
+	    // TODO
+	    return null;
+	}
+	try {
+	    return expressionEvaluator.evaluate(expression);
+	} catch (DSEvaluateException e) {
+	    // TODO: safe value
+	    return null;
+	}
     }
     
     public boolean needProcessing(DSDataSource dataSource) {
