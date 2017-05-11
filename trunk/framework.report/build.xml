@@ -15,6 +15,11 @@
 		<mkdir dir="${dist.dir}" />
 		<jar destfile="${dist.dir}/plazma-framework-report-${version}.jar" basedir="${classes.dir}" includes="**">
 
+			<exclude name="org/plazmaforge/framework/report/**/*Test.class" />
+			<exclude name="org/plazmaforge/framework/report/**/*TestCase.class" />
+			<exclude name="org/plazmaforge/framework/report/**/TestDB.class" />
+			<exclude name="org/plazmaforge/framework/report/resources/**/*" />
+			
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0" />
 				<attribute name="Plazma-Version" value="${version}" />
