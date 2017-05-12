@@ -40,6 +40,7 @@ import org.plazmaforge.framework.core.data.ParameterValue;
 import org.plazmaforge.framework.core.datastorage.data.QueryAnalyzer;
 import org.plazmaforge.framework.core.datastorage.data.QueryInfo;
 import org.plazmaforge.framework.core.exception.DSException;
+import org.plazmaforge.framework.util.FileUtils;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.util.SystemUtils;
 
@@ -166,6 +167,23 @@ public abstract class AbstractDataProducer implements DataProducer {
     protected boolean isEmpty(Collection<?> collection) {
  	return SystemUtils.isEmpty(collection);
     }
+    
+    protected String normalizePath(String path) {
+	if (path == null) {
+	    return null;
+	}
+	String userDir = DataManager.getUserDir();
+	if (userDir == null) {
+	    return path;
+	}
+	try {
+	    return FileUtils.getCanonicalPath(userDir, path);
+	} catch (IOException e) {
+	    // TODO
+	    return path;
+	}
+    }
+    
 
     ////
     

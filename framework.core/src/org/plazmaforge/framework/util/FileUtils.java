@@ -229,19 +229,7 @@ public class FileUtils {
     }
 
     
-    /**
-     * Return true if the file path is absolute
-     * @param fileName
-     * @return
-     */
-    public static boolean isAbsoluteFile(String fileName) {
-	if (fileName == null) {
-	    return false;
-	}
-	File file = new File(fileName);
-	return file.isAbsolute();
-    }
-    
+
     /**
      * Return true if file is exists
      * @param fileName
@@ -390,41 +378,63 @@ public class FileUtils {
     
     
     public static String getCanonicalPath(String folder, String path) throws IOException {
-	boolean isEmptyFolder = StringUtils.isEmpty(folder);
-	boolean isEmptyPath = StringUtils.isEmpty(path);
+	folder = normalizeString(folder);
+	path = normalizeString(path);
 	
-	if (isEmptyFolder && isEmptyPath)  {
+	if (folder == null && path == null)  {
 	    return null;
 	}
 	
-	if (isEmptyFolder) {
+	if (folder == null) {
 	    return path; 
 	}
 	
-	if (isEmptyPath) {
+	if (path == null) {
 	    return folder; 
 	}
 	
-	if (!isRelativePath(path)) {
+	// Return original path if it is absolute path
+	if (isAbsolutePath(path)) {
 	    return path;
 	}
-	folder = folder.trim();
-	path = path.trim();
+	
 	String canonicalPath = folder + (isStartWithFileSeparator(path) ? "" : File.separator) + path;
 	File file = new File(canonicalPath);
 	return file.getCanonicalPath();
 	
     }
     
+    /**
+     * Return true if the file path is relative
+     * @param path
+     * @return
+     */
     public static boolean isRelativePath(String path) {
+	return isAbsolutePath(path);
+//	if (path == null) {
+//	    return false;
+//	}
+//	path = path.trim();
+//	if (path.startsWith(".") || path.startsWith(File.separator) || path.startsWith("/")) {
+//	    return true;
+//	}
+//	return false;
+    }
+    
+    /**
+     * Return true if the file path is absolute
+     * @param path
+     * @return
+     */
+    public static boolean isAbsolutePath(String path) {
 	if (path == null) {
 	    return false;
 	}
 	path = path.trim();
-	if (path.startsWith(".") || path.startsWith(File.separator) || path.startsWith("/")) {
-	    return true;
+	if (path.isEmpty()) {
+	    return false;
 	}
-	return false;
+	return new File(path).isAbsolute();
     }
     
     public static boolean isStartWithFileSeparator(String path) {
@@ -589,6 +599,14 @@ public class FileUtils {
 	return getFileResource(path);
     }
     
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Internal utilities
+    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     private static String[] parseProtocolPath(String path) {
 	if (path == null) {
 	    return null;
@@ -737,5 +755,9 @@ public class FileUtils {
 	} catch (IOException ioe) {
 	    // do nothing
 	}
+    }
+    
+    private static String normalizeString(String str) {
+	return StringUtils.normalizeString(str);
     }
 }
