@@ -31,6 +31,9 @@ import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
+import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
+import org.plazmaforge.framework.core.data.PropertyProviderFactory;
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSVariable;
@@ -38,6 +41,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportReader;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataConnectorReader;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceReader;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSParameterReader;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSVariableReader;
@@ -59,6 +63,19 @@ import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSVariableRea
  */
 public class XMLReportReader extends XMLAbstractReportReader implements ReportReader {
 
+    private PropertyProviderFactory propertyProviderFactory;
+    
+    
+    public XMLReportReader() {
+	super();
+    }
+
+    private PropertyProviderFactory getPropertyProviderFactory() {
+	if (propertyProviderFactory == null) {
+	    propertyProviderFactory = new ClassPropertyProviderFactory2();
+	}
+	return propertyProviderFactory;
+    }
     
     public Report readReport(String fileName) throws RTException {
 	Document doc = readXMLDocument(fileName);
@@ -115,7 +132,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	//readProperties(element, report);
 	readParameters(element, report);
 	readVariables(element, report);
-	//readDataConnectors(element, report);
+	readDataConnectors(element, report);
 	readDataSources(element, report);
 	//readStyles(element, report);
 	readTemplates(element, report);
@@ -156,6 +173,25 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	for (int i = 0; i < count; i++) {
 	    DSParameter parameter = reader.readParameter((Element) children.get(i));
 	    report.addParameter(parameter);
+	}
+    }
+
+    // DATA-CONNECTORS
+    protected void readDataConnectors(Element element, Report report) {
+	Element node = getChild(element, XML_DATA_CONNECTORS);
+	if (node == null) {
+	    return;
+	}
+
+	List children = node.getChildren();
+	if (children == null || children.isEmpty()) {
+	    return;
+	}
+	int count = children.size();
+	XMLDSDataConnectorReader reader = new XMLDSDataConnectorReader(getPropertyProviderFactory());
+	for (int i = 0; i < count; i++) {
+	    DSDataConnector dataConnector = reader.readDataConnector((Element) children.get(i));
+	    report.addDataConnector(dataConnector);
 	}
     }
     
