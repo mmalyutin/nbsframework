@@ -307,6 +307,22 @@ public class BaseReportFiller implements ReportFiller {
 	    Scope scope = context.getReportScope();
 	    DSExpressionEvaluator evaluator = context.getExpressionEvaluator();
 	    
+	    String reportFile = (String) parameters.get(ReportParameters.REPORT_FILE);
+	    if (reportFile == null) {
+		reportFile = report.getReportFile();
+	    }
+	    
+	    String reportDir = (String) parameters.get(ReportParameters.REPORT_DIR);
+	    if (reportDir == null) {
+		reportDir = report.getReportDir();
+	    }
+	    
+	    //TODO
+	    DataManager.setUserDir(reportDir);
+	    
+	    
+	    
+	    
 	    // 1. ResultSet (priority)
 	    DSResultSet resultSet = (DSResultSet) parameters.get(ReportParameters.RESULT_SET);
 	    if (resultSet != null) {
@@ -349,6 +365,8 @@ public class BaseReportFiller implements ReportFiller {
 	    
 	} catch (DSException ex) {
 	    throw new RTException(ex);
+	} finally {
+	    DataManager.setUserDir(null);
 	}
 	return null;
     }

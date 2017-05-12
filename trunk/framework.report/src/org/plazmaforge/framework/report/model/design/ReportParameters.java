@@ -31,6 +31,10 @@ package org.plazmaforge.framework.report.model.design;
  */
 public class ReportParameters {
 
+    public static final String REPORT_FILE = "REPORT_FILE";
+    
+    public static final String REPORT_DIR = "REPORT_DIR";
+    
     public static final String JDBC_CONNECTION = "JDBC_CONNECTION";
     
     public static final String JDBC_DATA_SOURCE = "JDBC_DATA_SOURCE";
