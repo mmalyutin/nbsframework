@@ -155,6 +155,8 @@ public class XMLDataProducer extends AbstractDataProducer implements DataProduce
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 	
+	file = normalizePath(file);
+	
 	encoding = normalizeUnquote(encoding);
 	query = normalizeUnquote(query, false);
 	

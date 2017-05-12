@@ -146,6 +146,8 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 	
+	file = normalizePath(file);
+	
 	try {
 	    FileInputStream inputStream = new FileInputStream(file);
 	    AbstractXLSSession session = createXLSSession(inputStream);
