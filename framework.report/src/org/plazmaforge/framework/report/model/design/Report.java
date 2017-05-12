@@ -71,6 +71,11 @@ public class Report implements Serializable, LocalizedIdentifier, HasExpressionB
      */
     private String type;
 
+    
+    private String reportFile;
+    
+    private String reportDir;
+    
     /**
      * Expression/Script language
      */
@@ -143,6 +148,23 @@ public class Report implements Serializable, LocalizedIdentifier, HasExpressionB
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    
+    public String getReportFile() {
+        return reportFile;
+    }
+
+    public void setReportFile(String reportFile) {
+        this.reportFile = reportFile;
+    }
+
+    public String getReportDir() {
+        return reportDir;
+    }
+
+    public void setReportDir(String reportDir) {
+        this.reportDir = reportDir;
     }
 
     public String getLanguage() {

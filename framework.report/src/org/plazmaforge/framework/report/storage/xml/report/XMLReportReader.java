@@ -45,6 +45,7 @@ import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataConnect
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceReader;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSParameterReader;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSVariableReader;
+import org.plazmaforge.framework.util.FileUtils;
 
 /**
  * @author ohapon
@@ -107,6 +108,18 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	    return null;
 	}
 	Report report = new Report();
+	
+	try {
+	    String reportFile = new File(fileName).getCanonicalPath();
+	    String reportDir = FileUtils.getFolderName(reportFile);
+	    
+	    report.setReportFile(reportFile);
+	    report.setReportDir(reportDir);
+	    
+	} catch (Exception e) {
+	    
+	}
+	
 	
 	readReportAttributes(element, report);
 	readReportContent(element, report);
