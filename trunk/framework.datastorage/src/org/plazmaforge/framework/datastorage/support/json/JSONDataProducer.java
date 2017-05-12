@@ -158,6 +158,8 @@ public class JSONDataProducer extends AbstractDataProducer implements DataProduc
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
 	
+	file = normalizePath(file);
+	
 	encoding = normalizeUnquote(encoding);
 	query = normalizeUnquote(query, false);
 	

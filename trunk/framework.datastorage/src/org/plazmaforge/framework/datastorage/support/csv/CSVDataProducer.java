@@ -162,6 +162,9 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	if (file == null) {
 	    handleContextException(DataManager.CONTEXT_SESSION, "File name is empty");
 	}
+	
+	// canonical path 
+	file = normalizePath(file);
 
 	encoding = normalizeUnquote(encoding);
 	columnDelimiter = normalizeUnquote(columnDelimiter);
