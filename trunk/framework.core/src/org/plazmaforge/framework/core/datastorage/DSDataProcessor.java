@@ -263,7 +263,7 @@ public class DSDataProcessor {
 	    Object filterValue = fieldFilter.getValue();
 	    Object rightValue = convertValue(filterValue, field);
 	    
-	    String operator = fieldFilter.getOperation();
+	    String operator = fieldFilter.getOperator();
 	    
 	    // Evaluate condition by operator
 	    return evaluateCondition(leftValue, operator, rightValue);
