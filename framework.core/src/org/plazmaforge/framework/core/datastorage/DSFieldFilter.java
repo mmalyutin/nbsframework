@@ -37,7 +37,7 @@ public class DSFieldFilter extends DSFilter implements HasField {
     
     private DSField field;
 
-    private String operation;
+    private String operator;
     
     private Serializable value;
     
@@ -59,12 +59,12 @@ public class DSFieldFilter extends DSFilter implements HasField {
         this.field = field;
     }
 
-    public String getOperation() {
-        return operation;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setOperation(String operation) {
-        this.operation = operation;
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
     public Serializable getValue() {
