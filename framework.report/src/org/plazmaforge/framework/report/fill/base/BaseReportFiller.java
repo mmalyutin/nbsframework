@@ -333,6 +333,9 @@ public class BaseReportFiller implements ReportFiller {
 	    
 	    // 3. DataConnector
 	    DSDataConnector dataConnector = (DSDataConnector) parameters.get(ReportParameters.DATA_CONNECTOR);
+	    if (dataConnector == null) {
+		dataConnector = report.getDataConnector();
+	    }
 	    if (dataConnector != null) {
 		return openResultSet(dataConnector, dataSource, scope, evaluator);
 	    }
