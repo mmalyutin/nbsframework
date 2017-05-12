@@ -449,8 +449,8 @@
 			<attribute name="caption" type="string"/>
 			<attribute name="description" type="string"/>
 			
-			<attribute name="field" type="string"/>     <!-- Only for FIELD -->
-			<attribute name="operation" type="string"/> <!-- Only for FIELD -->
+			<attribute name="field" type="string"/>		<!-- Only for FIELD -->
+			<attribute name="operator" type="string"/>	<!-- Only for FIELD -->
 			
 		</complexType>
 	</element>	

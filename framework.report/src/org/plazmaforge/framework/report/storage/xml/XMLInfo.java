@@ -244,7 +244,7 @@ public interface XMLInfo {
 
     String XML_ATTR_FIELD = "field";
     
-    String XML_ATTR_OPERATION = "operation";
+    String XML_ATTR_OPERATOR = "operator";
     
     String XML_ATTR_ASC = "asc";
     

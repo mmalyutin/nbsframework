@@ -206,11 +206,11 @@ public class XMLReportReaderTest extends TestCase {
 	
 	assertNotNull(fieldFilter.getField());
 	assertNotNull(fieldFilter.getField().getName());
-	assertNotNull(fieldFilter.getOperation());
+	assertNotNull(fieldFilter.getOperator());
 	assertNotNull(fieldFilter.getValue());
 	
 	assertEquals("PRODUCT_ID", fieldFilter.getField().getName());
-	assertEquals("lte", fieldFilter.getOperation());
+	assertEquals("lte", fieldFilter.getOperator());
 	assertEquals(194, fieldFilter.getValue());
 	
     }

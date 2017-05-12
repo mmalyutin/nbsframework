@@ -18,7 +18,7 @@
 			</fields>
 			<filters>
 			
- 				<filter field="PRODUCT_ID" operation="lte">
+ 				<filter field="PRODUCT_ID" operator="lte">
 					<value>194</value>
 				</filter>
 				<!-- 

@@ -55,8 +55,8 @@ public class XMLDSFilterReader extends XMLAbstractReader {
   	    DSFieldFilter fieldFilter = new DSFieldFilter(field);
   	    
   	    // operation
-  	    sValue = getStringValue(element, XML_ATTR_OPERATION);
-  	    fieldFilter.setOperation(sValue);
+  	    sValue = getStringValue(element, XML_ATTR_OPERATOR);
+  	    fieldFilter.setOperator(sValue);
   	    
   	    // value
   	    sValue = getContentValue(getChild(element, XML_VALUE));
