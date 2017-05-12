@@ -78,6 +78,9 @@ public class DataManager {
     
     public static final String PROPERTY_QUERY = "query";
     
+
+    private static final ThreadLocal<String> threadLocalScope = new ThreadLocal<String>();
+    
     
     private Map<String, DataProducerFactory> dataProducers;
     
@@ -103,6 +106,14 @@ public class DataManager {
 	return getInstance().dataProcessor;
     }
    
+    public static void setUserDir(String userDir) {
+	threadLocalScope.set(userDir);
+    }
+
+    public static String getUserDir() {
+	return threadLocalScope.get();
+    }
+    
     /**
      * Open session by DataConnector
      * 
