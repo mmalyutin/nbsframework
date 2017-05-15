@@ -25,8 +25,8 @@
  */
 package org.plazmaforge.framework.datastorage.support.csv;
 
+import org.plazmaforge.framework.core.Platform;
 import org.plazmaforge.framework.core.datastorage.AbstractFileDataConnector;
-import org.plazmaforge.framework.util.SystemInfo;
 
 
 /**
@@ -41,22 +41,9 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     public static final String PROPERTY_ROW_DELIMITER = "rowDelimiter";
     public static final String PROPERTY_FIRST_ROW_HEADER = "firstRowHeader";
     
-
-    // CARRIAGE RETURN	- '\r'
-    // LINE FEED	- '\n'
-    
-    // CRLF		- '\r\n'
-    // LF		- '\n'
-    
-    public static final String CRLF_DELIMITER = "\r\n";
-    public static final String LF_DELIMITER = "\n";
-
-    public static final String WIN_LINE_DELIMITER = CRLF_DELIMITER;	// Windows systems	'\r\n'
-    public static final String NIX_LINE_DELIMITER = LF_DELIMITER;	// *nix systems		'\n'
-    
-    public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? WIN_LINE_DELIMITER : NIX_LINE_DELIMITER;
-    public static final String DEFAULT_COLUMN_DELIMITER = ",";
-    public static final String DEFAULT_ROW_DELIMITER = DEFAULT_LINE_DELIMITER; //"\\n";
+    public static final String DEFAULT_LINE_DELIMITER = Platform.DEFAULT_LINE_DELIMITER;
+    public static final String DEFAULT_COLUMN_DELIMITER = Platform.DEFAULT_COLUMN_DELIMITER;
+    public static final String DEFAULT_ROW_DELIMITER = Platform.DEFAULT_ROW_DELIMITER;
     public static final boolean DEFAULT_FIRST_ROW_HEADER = false;
     
     
@@ -102,24 +89,40 @@ public class CSVDataConnector extends AbstractFileDataConnector {
         this.firstRowHeader = firstRowHeader;
     }
 
-    
     public static String evaluateLineDelimiter(String lineDelimiter) {
 	if (lineDelimiter == null) {
 	    return lineDelimiter;
 	}
-	if (lineDelimiter.equalsIgnoreCase("CRLF")) {
-	    return CRLF_DELIMITER;
+	if (eqDelimiter(lineDelimiter, "CRLF")) {
+	    return Platform.CRLF_DELIMITER;
 	}
-	if (lineDelimiter.equalsIgnoreCase("LF")) {
-	    return LF_DELIMITER;
+	if (eqDelimiter(lineDelimiter, "CR")) {
+	    return Platform.CR_DELIMITER;
 	}
-	if (lineDelimiter.equalsIgnoreCase("WIN")) {
-	    return WIN_LINE_DELIMITER;
+	if (eqDelimiter(lineDelimiter, "LF")) {
+	    return Platform.LF_DELIMITER;
 	}
-	if (lineDelimiter.equalsIgnoreCase("NIX")) {
-	    return NIX_LINE_DELIMITER;
+	if (eqDelimiter(lineDelimiter, "WIN") || eqDelimiter(lineDelimiter, "WINDOWS")) {
+	    return Platform.WIN_LINE_DELIMITER;
+	}
+	if (eqDelimiter(lineDelimiter, "NIX") || eqDelimiter(lineDelimiter, "UNIX") || eqDelimiter(lineDelimiter, "LINUX")) {
+	    return Platform.NIX_LINE_DELIMITER;
+	}
+	if (eqDelimiter(lineDelimiter, "MAC")) {
+	    return Platform.MAC_LINE_DELIMITER;
 	}
 	return lineDelimiter;
+    }
+    
+    private static boolean eqDelimiter(String value, String constant) {
+	return ieq(value, "#" + constant);
+    }
+    
+    private static boolean ieq(String value1, String value2) {
+	if (value1 == null || value2 == null) {
+	    return false;
+	}
+	return value1.equalsIgnoreCase(value2);
     }
     
     
