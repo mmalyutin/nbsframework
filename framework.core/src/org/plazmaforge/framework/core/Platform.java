@@ -22,6 +22,8 @@
 
 package org.plazmaforge.framework.core;
 
+import org.plazmaforge.framework.util.SystemInfo;
+
 /**
  * 
  * @author ohapon
@@ -29,12 +31,28 @@ package org.plazmaforge.framework.core;
  */
 public final class Platform {
 
+    // CARRIAGE RETURN	- '\r'
+    // LINE FEED	- '\n'
+    
+    // CRLF		- '\r\n'
+    // CR		- '\r'    
+    // LF		- '\n'
+    
+    public static final String CRLF_DELIMITER = "\r\n";
+    public static final String CR_DELIMITER = "\r";
+    public static final String LF_DELIMITER = "\n";
+
+    public static final String WIN_LINE_DELIMITER = CRLF_DELIMITER;	// Windows systems	'\r\n'
+    public static final String NIX_LINE_DELIMITER = LF_DELIMITER;	// *nix systems		'\n'
+    public static final String MAC_LINE_DELIMITER = LF_DELIMITER;	// Mac systems		'\n'
+    
+    public static final String DEFAULT_LINE_DELIMITER = SystemInfo.isWindows ? WIN_LINE_DELIMITER : NIX_LINE_DELIMITER;
+    public static final String DEFAULT_COLUMN_DELIMITER = ",";
+    public static final String DEFAULT_ROW_DELIMITER = DEFAULT_LINE_DELIMITER; //"\\n";
+    
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    
     public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
-    
     public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    
     public static final String DEFAULT_BOOLEAN_FORMAT = "true|false";
     
     public static final String[] DEFAULT_BOOLEAN_FORMATS = new String[] {"true|false", "yes|no" , "y|n", "t|f", "1|0"};
