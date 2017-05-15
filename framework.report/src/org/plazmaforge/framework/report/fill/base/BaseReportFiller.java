@@ -317,10 +317,9 @@ public class BaseReportFiller implements ReportFiller {
 		reportDir = report.getReportDir();
 	    }
 	    
-	    //TODO
-	    DataManager.setUserDir(reportDir);
-	    
-	    
+	    // Reset UserDir
+	    // TODO
+	    DataManager.setUserDir(null);
 	    
 	    
 	    // 1. ResultSet (priority)
@@ -348,11 +347,20 @@ public class BaseReportFiller implements ReportFiller {
 	    }
 	    
 	    // 3. DataConnector
+	    boolean isOwnDataConnector = false;
 	    DSDataConnector dataConnector = (DSDataConnector) parameters.get(ReportParameters.DATA_CONNECTOR);
 	    if (dataConnector == null) {
+		isOwnDataConnector = true;
 		dataConnector = report.getDataConnector();
 	    }
 	    if (dataConnector != null) {
+
+		if (isOwnDataConnector) {
+		    // Set REPORT_DIR only for internal DataConnector
+		    // TODO
+		    DataManager.setUserDir(reportDir);
+		}
+		
 		return openResultSet(dataConnector, dataSource, scope, evaluator);
 	    }
 
