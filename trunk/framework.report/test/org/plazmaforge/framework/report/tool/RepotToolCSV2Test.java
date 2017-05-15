@@ -34,8 +34,7 @@ public class RepotToolCSV2Test extends AbstractTestCase {
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
 	String outputFile = getTestFileName("OrdersCSV_DC.pdf");
 	String dataFile = getResourcesFileName("data/orders.csv");	
-	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
-	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
+	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=#LF; encoding=UTF-8)", dataFile);
 	
 	String[] args = new String[] {
 		"-report-file", reportFile, 
@@ -53,8 +52,7 @@ public class RepotToolCSV2Test extends AbstractTestCase {
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
 	String outputFile = getTestFileName("OrdersCSV_DC.xls");
 	String dataFile = getResourcesFileName("data/orders.csv");	
-	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
-	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
+	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=#LF; encoding=UTF-8)", dataFile);
 	
 	String[] args = new String[] {
 		"-report-file", reportFile, 
@@ -72,8 +70,7 @@ public class RepotToolCSV2Test extends AbstractTestCase {
 	String reportFile = getResourcesFileName("reports/Orders.report.xml");
 	String outputFile = getTestFileName("OrdersCSV_DC.html");
 	String dataFile = getResourcesFileName("data/orders.csv");	
-	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=LF; encoding=UTF-8)", dataFile);
-	//String connection = format("csv::{0}->(firstRowHeader=true)", dataFile);
+	String connection = format("csv::{0}->(firstRowHeader=true; rowDelimiter=#LF; encoding=UTF-8)", dataFile);
 	
 	String[] args = new String[] {
 		"-report-file", reportFile, 
