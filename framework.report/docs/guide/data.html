@@ -14,9 +14,9 @@
 		<li><a href="#variables">Variables</a></li>
 	</ul>
 
-
 	<h3 id="dataconnector">Data Connector</h3>
 	The Data Connector configures a connect to Data Sources.<br/>
+	It is optional section. We can put a Data Connector in runtime mode.<br/>
 	We have	following types of the Data Connector:
 	<ul>
 		<li>Database/SQL</li>
@@ -26,14 +26,55 @@
 		<li>Excel (XLS, XLSX)</li>
 	</ul>
 
+
+	For example SQL Data Connector:
+
+	<pre class="prettyprint">
+
+&lt;report&gt;
+
+     &lt;data-connectors&gt;
+       &lt;data-connector type="sql"&gt;
+         &lt;properties&gt;
+           &lt;property name="driver"&gt;org.hsqldb.jdbcDriver&lt;/property&gt;         
+           &lt;property name="url"&gt;jdbc:hsqldb:mem:mydb&lt;/property&gt;
+           &lt;property name="username"&gt;sa&lt;/property&gt;
+           &lt;property name="password"&gt;&lt;/property&gt;           
+         &lt;/properties&gt;
+       &lt;/data-connector&gt;
+     &lt;/data-connectors&gt;
+	
+&lt;/report&gt;
+	</pre>
+	
+	For example CSV Data Connector:
+
+	<pre class="prettyprint">
+
+&lt;report&gt;
+
+     &lt;data-connectors&gt;
+       &lt;data-connector type="csv"&gt;
+         &lt;properties&gt;
+           &lt;property name="file"&gt;../data/Report1.csv&lt;/property&gt;
+           &lt;property name="firstRowHeader"&gt;true&lt;/property&gt;
+           &lt;property name="rowDelimiter"&gt;#LF&lt;/property&gt;
+           &lt;property name="encoding"&gt;UTF-8&lt;/property&gt;           
+         &lt;/properties&gt;
+       &lt;/data-connector&gt;
+     &lt;/data-connectors&gt;
+	
+&lt;/report&gt;
+	</pre>
+
 	<h3 id="datasource">Data Source</h3>
 	The Data Source describes flat data structure (like a table)<br/>
 	We have	following base elements of the Data Source:
 	<ul>
 		<li>Fields</li>
-		<li>Query</li>
-		<li>Orders</li>
 		<li>Filters</li>
+		<li>Orders</li>
+		<li>Query</li>				
 	</ul>
 
 	For example:
@@ -43,12 +84,26 @@
 
   &lt;data-sources&gt;
     &lt;data-source&gt;
+    
       &lt;fields&gt;
         &lt;field name="PRODUCT_ID" data-type="Integer"/&gt;
         &lt;field name="PRODUCT_NAME" data-type="String"/&gt;
+        &lt;field name="GROUP_NAME" data-type="String"/&gt;
         &lt;field name="PRICE" data-type="Float"/&gt;
       &lt;/fields&gt;
-      &lt;query&gt;SELECT PRODUCT_ID, PRODUCT_NAME, PRICE FROM PRODUCT&lt;/query&gt;
+      
+      &lt;filters&gt;
+        &lt;filter field="PRICE" operator="lte"&gt;
+          &lt;value>150.00&lt;/value&gt;
+        &lt;/filter&gt;
+      &lt;/filters&gt;
+      
+      &lt;orders&gt;
+        &lt;order field="GROUP_NAME"/&gt;
+        &lt;order field="PRODUCT_NAME"/&gt;
+      &lt;/orders&gt;
+      
+      &lt;query&gt;SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE FROM PRODUCT&lt;/query&gt;
     &lt;/data-source&gt;
   &lt;/data-sources&gt;
   
