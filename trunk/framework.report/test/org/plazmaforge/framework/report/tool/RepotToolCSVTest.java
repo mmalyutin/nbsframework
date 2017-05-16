@@ -25,11 +25,18 @@ package org.plazmaforge.framework.report.tool;
 import org.plazmaforge.framework.report.AbstractTestCase;
 
 
+/**
+ *  Test DataConnector and Connection string external (command line arguments)
+ *  
+ * @author ohapon
+ *
+ */
 
 public class RepotToolCSVTest extends AbstractTestCase {
 
     
-    public void testReportCSV() {
+    // PDF: DataConnector
+    public void testToPDF_DC() {
 	
 	String reportFile = getResourcesFileName("reports/Report2.report.xml");
 	String outputFile = getTestFileName("Report1CSV_DC.pdf");
@@ -48,7 +55,8 @@ public class RepotToolCSVTest extends AbstractTestCase {
 	ReportTool.main(args);
     }
 
-    public void testReportCSVConnectionString() {
+    // PDF: Connection string
+    public void testToPDF_CS() {
 	
 	String reportFile = getResourcesFileName("reports/Report2.report.xml");
 	String outputFile = getTestFileName("Report1CSV_CS.pdf");

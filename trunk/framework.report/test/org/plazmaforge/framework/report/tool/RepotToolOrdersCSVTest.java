@@ -25,7 +25,12 @@ package org.plazmaforge.framework.report.tool;
 import org.plazmaforge.framework.report.AbstractTestCase;
 
 
-
+/**
+ * Test DataConnector and Connection string external (command line arguments)
+ * 
+ * @author ohapon
+ *
+ */
 public class RepotToolOrdersCSVTest extends AbstractTestCase {
 
     
