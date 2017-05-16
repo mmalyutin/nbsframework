@@ -141,7 +141,7 @@ public class ReportTool {
 	    Map<String, Object> parameters = new HashMap<String, Object>();
 	    
 	    if (dataConnector == null && connectionString == null) {
-		warning("Report data is empty.");
+		warning("DataConnector and Connection String are not setting.");
 	    }
 	    
 	    parameters.put(ReportParameters.DATA_CONNECTOR, dataConnector);
