@@ -78,7 +78,7 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     }
 
     public void setRowDelimiter(String rowDelimiter) {
-        this.rowDelimiter = evaluateLineDelimiter(rowDelimiter);
+        this.rowDelimiter = rowDelimiter;
     }
 
     public boolean isFirstRowHeader() {
@@ -89,7 +89,7 @@ public class CSVDataConnector extends AbstractFileDataConnector {
         this.firstRowHeader = firstRowHeader;
     }
 
-    public static String evaluateLineDelimiter(String lineDelimiter) {
+    public static String normalizeLineDelimiter(String lineDelimiter) {
 	if (lineDelimiter == null) {
 	    return lineDelimiter;
 	}
