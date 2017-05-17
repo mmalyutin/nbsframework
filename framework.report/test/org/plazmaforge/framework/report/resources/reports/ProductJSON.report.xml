@@ -8,10 +8,9 @@
 		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>$F{PRICE}</expression></variable>
 	</variables>
 	<data-connectors>
-		<data-connector type="csv">
+		<data-connector type="json">
 			<properties>
-				<property name="file">../data/products.csv</property>
-				<property name="firstRowHeader">true</property>
+				<property name="file">../data/products.json</property>
 			</properties>
 		</data-connector>
 	</data-connectors>
@@ -39,8 +38,7 @@
 				<order field="PRICE" asc="false"/>
 				<order field="PRODUCT_ID" asc="false"/>
 			</orders>
-			
-			<query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query>
+			<query>data-set.records</query>
 		</data-source>
 	</data-sources>
 	<templates>
@@ -90,7 +88,7 @@
 					<rows>
 						<row height="30" background="red">
 							<cells>
-								<cell colspan="4" horizontal-align="center" vertical-align="middle" font="16"><value>CSV: Product list</value></cell>
+								<cell colspan="4" horizontal-align="center" vertical-align="middle" font="16"><value>JSON: Product list</value></cell>
 							</cells>
 						</row>
 						<row height="15">
