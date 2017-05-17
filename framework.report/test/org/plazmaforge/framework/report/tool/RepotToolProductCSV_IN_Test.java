@@ -31,15 +31,15 @@ import org.plazmaforge.framework.report.AbstractTestCase;
  * @author ohapon
  *
  */
-public class RepotToolCSV_IN_Test extends AbstractTestCase {
+public class RepotToolProductCSV_IN_Test extends AbstractTestCase {
 
     
     // PDF: DataConnector internal
     public void testToPDF_DC() {
 	
 	
-	String reportFile = getResourcesFileName("reports/Report3.report.xml");
-	String outputFile = getTestFileName("Report3CSV_IN.pdf");
+	String reportFile = getResourcesFileName("reports/ProductCSV.report.xml");
+	String outputFile = getTestFileName("ProductCSV_IN.pdf");
 	
 	String[] args = new String[] {
 		"-report-file", reportFile, 
