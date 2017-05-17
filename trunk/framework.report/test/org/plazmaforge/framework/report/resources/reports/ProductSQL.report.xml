@@ -51,8 +51,8 @@
 			<columns>
 				<column width="100" />
 				<column width="150" />
-				<column width="150" />
-				<column width="150" />
+				<column width="100" />
+				<column width="200" />
 			</columns>
 			
 			<report-groups>

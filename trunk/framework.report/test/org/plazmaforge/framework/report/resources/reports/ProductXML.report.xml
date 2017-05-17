@@ -40,7 +40,6 @@
 				<order field="PRODUCT_ID" asc="false"/>
 			</orders>
 			<query>/data-set/record</query>
-			<!-- <query>SELECT PRODUCT_ID, PRODUCT_NAME, GROUP_NAME, PRICE, CREATED_DATE FROM PRODUCT WHERE PRICE > :PRICE_LIMIT</query> -->
 		</data-source>
 	</data-sources>
 	<templates>
@@ -49,8 +48,8 @@
 			<columns>
 				<column width="100" />
 				<column width="150" />
-				<column width="150" />
-				<column width="150" />
+				<column width="100" />
+				<column width="200" />
 			</columns>
 			
 			<report-groups>
