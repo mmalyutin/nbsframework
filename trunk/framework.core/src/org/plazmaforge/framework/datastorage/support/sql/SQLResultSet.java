@@ -161,6 +161,10 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 	return columns.get(index);
     }
 
+    public int getSQLColumnCount() {
+	return columns == null ? 0 : columns.size();
+    }
+    
     @Override
     public boolean canScroll() throws DSException {
 	if (isInvalid()) {
@@ -325,6 +329,17 @@ public class SQLResultSet extends AbstractResultSet implements DSScrollableResul
 
     protected Object getNativeValue(int index) throws DSException {
 	try {
+	    
+	    // CHECK RANGE: MIN
+	    if (index < 0) {
+		return null;
+	    }
+
+	    // CHECK RANGE: MAX
+	    if (index >= getSQLColumnCount()) {
+		return null;
+	    }
+	    
 	    return rs.getObject(index + 1);
 	} catch (SQLException ex) {
 	    handleSQLException(ex);
