@@ -8,7 +8,7 @@
 		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>$F{PRICE}</expression></variable>
 	</variables>
 	<data-connectors>
-		<data-connector type="xls">
+		<data-connector type="xlsx">
 			<properties>
 				<property name="file">../data/products.xlsx</property>
 				<property name="firstRowHeader">true</property>				
