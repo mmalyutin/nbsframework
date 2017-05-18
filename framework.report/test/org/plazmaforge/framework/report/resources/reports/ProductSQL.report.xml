@@ -135,10 +135,10 @@
 					<rows>
 						<row height="30" cell-border-top="1" cell-border-top-color="green">
 							<cells>
-								<cell font="bold" padding="5"><value>Product ID---</value></cell>
-								<cell font="bold"><value>Product Name--</value></cell>
+								<cell font="bold" padding="5"><value></value></cell>
+								<cell font="bold"><value>AVG</value></cell>
 								<cell format="#.00" data-type="Float" font="bold"><expression>$V{PRICE_AVG}</expression></cell>
-								<cell font="bold"><value>Full Name</value></cell>
+								<cell font="bold"><value></value></cell>
 							</cells>
 						</row>
 					</rows>
