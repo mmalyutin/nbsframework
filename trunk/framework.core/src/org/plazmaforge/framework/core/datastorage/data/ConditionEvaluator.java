@@ -29,9 +29,9 @@ package org.plazmaforge.framework.core.datastorage.data;
  * - eq
  * - ne
  * - lt
- * - lte
+ * - le
  * - gt
- * - gte
+ * - ge
  * 
  * @author ohapon
  *
