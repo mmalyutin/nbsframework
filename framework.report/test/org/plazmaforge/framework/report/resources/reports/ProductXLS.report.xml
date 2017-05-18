@@ -1,0 +1,167 @@
+<report name="Report1" caption="Report 1" description="Report Description1">
+	<parameters>
+		<parameter name="PRICE_LIMIT" data-type="Float"><default-value>150.0</default-value></parameter>
+	</parameters>
+	<variables>
+		<variable name="FULL_PRODUCT_NAME" data-type="String"><expression>$F{GROUP_NAME} + "/" + $F{PRODUCT_NAME}</expression></variable>
+		<variable name="GROUP_NAME_HEADER" data-type="String" reset-type="Group" reset-name="PRODUCT_GROUP"><expression>"Group: "  + $F{GROUP_NAME}</expression></variable>
+		<variable name="PRICE_AVG" data-type="Float" aggregation="AVG"><expression>$F{PRICE}</expression></variable>
+	</variables>
+	<data-connectors>
+		<data-connector type="xls">
+			<properties>
+				<property name="file">../data/products.xls</property>
+				<property name="firstRowHeader">true</property>				
+			</properties>
+		</data-connector>
+	</data-connectors>
+	<data-sources>
+		<data-source>
+			<fields>
+				<field name="PRODUCT_ID" data-type="Integer"/>
+				<field name="PRODUCT_NAME" data-type="String"/>
+				<field name="GROUP_NAME" data-type="String"/>
+				<field name="PRICE" data-type="Float"/>
+				<field name="CREATED_DATE" data-type="Date"/>
+			</fields>
+			<filters>
+			
+ 				<filter field="PRODUCT_ID" operator="lte">
+					<value>194</value>
+				</filter>
+				<!-- 
+ 				<filter>
+					<expression>$F{PRODUCT_ID} == 190</expression>
+				</filter>
+				 -->
+			</filters>
+			<orders>
+				<order field="PRICE" asc="false"/>
+				<order field="PRODUCT_ID" asc="false"/>
+			</orders>
+			
+		</data-source>
+	</data-sources>
+	<templates>
+		<template type="Table" cell-border-rule="all" column-line-color="green" row-line-color="green" row-line="1" column-line="1">
+			<page-setup margin-left="15" margin-top="22" margin-right="23" margin-bottom="24" />
+			<columns>
+				<column width="100" />
+				<column width="150" />
+				<column width="100" />
+				<column width="200" />
+			</columns>
+			
+			<report-groups>
+				<report-group name="PRODUCT_GROUP">
+					<expression>$F{GROUP_NAME}</expression>
+					<bands>
+						<band type="GroupHeader">
+							<rows>
+								<row height="20">
+									<cells>
+										<cell background="yellow" foreground="blue" colspan="4" font="11, underline|bold" ><expression>"GroupHeader: "  + $F{GROUP_NAME}</expression></cell>
+									</cells>
+								</row>
+								<row height="20">
+									<cells>
+										<cell border-right="none" colspan="2"><expression>$V{GROUP_NAME_HEADER}</expression></cell>
+										<cell border-left="none" colspan="2" format="dd MMM yyyy" data-type="Date"><expression>$F{CREATED_DATE}</expression></cell>
+									</cells>
+								</row>
+							</rows>
+						</band>
+						<band type="GroupFooter">
+							<rows>
+								<row height="20">
+									<cells>
+										<cell colspan="4"><value>GroupFooter</value></cell>
+									</cells>
+								</row>
+							</rows>
+						</band>
+					</bands>
+				</report-group>
+			</report-groups>
+			
+			<bands>
+				<band type="ReportHeader" cell-line="none">
+					<rows>
+						<row height="30" background="red">
+							<cells>
+								<cell colspan="4" horizontal-align="center" vertical-align="middle" font="16"><value>XLS: Product list</value></cell>
+							</cells>
+						</row>
+						<row height="15">
+							<cells>
+								<cell padding-left="20" colspan="4" font="bold|italic"><expression>"PRICE_LIMIT: "  + $P{PRICE_LIMIT}</expression></cell>
+							</cells>
+						</row>
+						<row height="15">
+							<cells>
+								<cell padding-left="20" colspan="4" foreground="green"><expression>"FULL_PRODUCT_NAME: "  + $V{FULL_PRODUCT_NAME}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="ColumnHeader">
+					<rows>
+						<row height="30" cell-border-top="1" cell-border-top-color="green">
+							<cells>
+								<cell font="bold"><value>Product ID</value></cell>
+								<cell font="bold"><value>Product Name</value></cell>
+								<cell font="bold"><value>Price</value></cell>
+								<cell font="bold"><value>Full Name</value></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="Detail">
+					<rows>
+						<row height="20">
+							<cells>
+								<cell><expression>$F{PRODUCT_ID}</expression></cell>
+								<cell><expression>$F{PRODUCT_NAME}</expression></cell>
+								<cell format="#.00" data-type="Float"><expression>$F{PRICE}</expression></cell>
+								<cell><expression>$V{FULL_PRODUCT_NAME}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				<band type="ColumnFooter">
+					<rows>
+						<row height="30" cell-border-top="1" cell-border-top-color="green">
+							<cells>
+								<cell font="bold" padding="5"><value>Product ID---</value></cell>
+								<cell font="bold"><value>Product Name--</value></cell>
+								<cell format="#.00" data-type="Float" font="bold"><expression>$V{PRICE_AVG}</expression></cell>
+								<cell font="bold"><value>Full Name</value></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				
+				<band type="ReportFooter">
+					<rows>
+						<row height="20">
+							<cells>
+								<cell colspan="4" background="gray"><expression>"Avg Price: "  + $V{PRICE_AVG}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+
+				<band type="PageFooter" cell-line="none">
+					<rows>
+						<row height="20">
+							<cells>
+								<cell colspan="4" background="gray" horizontal-align="right"><expression>"Page: " + $V{PAGE_NO}</expression></cell>
+							</cells>
+						</row>
+					</rows>
+				</band>
+				
+			</bands>
+		</template>
+	</templates>
+</report>
