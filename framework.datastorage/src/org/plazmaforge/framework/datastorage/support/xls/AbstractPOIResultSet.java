@@ -269,10 +269,22 @@ public abstract class AbstractPOIResultSet extends AbstractXLSResultSet {
 	
     //Native
     public Object getNativeValue(int index, String type, String format) throws DSException {
+	
+	// CHECK RANGE: MIN
+	if (index < 0) {
+	    return null;
+	}
+	
 	Row row = getCurrentRow();
 	if (row == null) {
 	    return null;
 	}
+	
+	// CHECK RANGE: MAX
+	if (index >= row.getLastCellNum()) {
+	    return null;
+	}
+	
 	Cell cell = row.getCell(index);
 	if (cell == null) {
 	    return null;

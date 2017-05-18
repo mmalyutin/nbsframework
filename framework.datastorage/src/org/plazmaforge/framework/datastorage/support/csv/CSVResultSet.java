@@ -133,6 +133,7 @@ public class CSVResultSet extends AbstractTextFileResultSet implements DSIndexab
     
     //Native
     public String getStringValue(int index) throws DSException {
+	// CHECK RANGE: NULL, EMPTY, NIN, MAX
 	if (values == null || values.isEmpty() || index < 0 || index >= values.size()) {
 	    return null;
 	}
