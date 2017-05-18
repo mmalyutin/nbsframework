@@ -72,10 +72,10 @@ public class ConditionProcessor {
 	registerEvaluator("ne", new NEEvaluator());
 	
 	registerEvaluator("lt", new LTEvaluator());
-	registerEvaluator("lte", new LTEEvaluator());
+	registerEvaluator("le", new LEEvaluator());
 	
 	registerEvaluator("gt", new GTEvaluator());
-	registerEvaluator("gte", new GTEEvaluator());
+	registerEvaluator("ge", new GEEvaluator());
     }
     
     ////
@@ -123,7 +123,7 @@ public class ConditionProcessor {
     }
 
     // <=
-    public static class LTEEvaluator implements ConditionEvaluator {
+    public static class LEEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
@@ -152,7 +152,7 @@ public class ConditionProcessor {
     }
 
     // >=
-    public static class GTEEvaluator implements ConditionEvaluator {
+    public static class GEEvaluator implements ConditionEvaluator {
 
 	@Override
 	public Boolean evaluate(Object leftValue, Object rightValue) {
