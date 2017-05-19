@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.report.storage.xml.datastorage;
 
 import org.jdom.Element;
-import org.plazmaforge.framework.core.datastorage.DSComputedField;
+import org.plazmaforge.framework.core.datastorage.DSExpressionField;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
@@ -38,7 +38,7 @@ public class XMLDSFieldReader extends XMLAbstractReader {
     public DSField readField(Element element) {
 	
   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
-  	DSField field = expression == null ? new DSField() : new DSComputedField(expression); 
+  	DSField field = expression == null ? new DSField() : new DSExpressionField(expression); 
   	
   	// name, caption, description
   	readIdentifier(element, field);
