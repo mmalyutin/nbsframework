@@ -53,4 +53,10 @@ public class DSFieldGroup extends DSGroup implements HasField {
         this.field = field;
     }
 
+
+    @Override
+    public String toString() {
+	return "DSFieldGroup[name=" + getName() + ", field=" + field + "]";
+    }
+
 }

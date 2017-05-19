@@ -62,6 +62,11 @@ public class DSExpressionOrder extends DSOrder implements HasExpression  {
     public void setExpressionText(String text) {
 	getExpression().setText(text);
     }
+
+    @Override
+    public String toString() {
+	return "DSExpressionOrder [expression=" + expression + ", asc=" + isAsc() + "]";
+    }
     
     
     

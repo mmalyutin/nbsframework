@@ -52,6 +52,12 @@ public class DSFieldOrder extends DSOrder implements HasField {
     public void setField(DSField field) {
         this.field = field;
     }
+
+
+    @Override
+    public String toString() {
+	return "DSFieldOrder[field=" + field + ", asc=" + isAsc() + "]";
+    }
     
     
 

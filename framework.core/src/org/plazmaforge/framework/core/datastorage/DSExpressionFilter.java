@@ -63,4 +63,9 @@ public class DSExpressionFilter extends DSFilter implements HasExpression {
 	getExpression().setText(text);
     }
 
+    @Override
+    public String toString() {
+	return "DSExpressionFilter[expression=" + expression + "]";
+    }
+
 }

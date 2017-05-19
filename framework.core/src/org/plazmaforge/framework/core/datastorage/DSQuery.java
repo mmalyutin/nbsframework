@@ -58,6 +58,11 @@ public class DSQuery implements Serializable {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+	return "DSQuery[language=" + language + ", text=" + text + "]";
+    }
+
 
     
     

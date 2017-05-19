@@ -75,4 +75,11 @@ public class DSFieldFilter extends DSFilter implements HasField {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+	return "DSFieldFilter[field=" + field 
+		+ ", operator=" + operator
+		+ ", value=" + value + "]";
+    }
+
 }

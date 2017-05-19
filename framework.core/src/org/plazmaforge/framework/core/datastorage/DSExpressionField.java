@@ -29,17 +29,17 @@ package org.plazmaforge.framework.core.datastorage;
  * @author ohapon
  *
  */
-public class DSComputedField extends DSField implements HasExpression {
+public class DSExpressionField extends DSField implements HasExpression {
 
     private static final long serialVersionUID = -8695854743615333668L;
 
     private DSExpression expression;
 
-    public DSComputedField() {
+    public DSExpressionField() {
 	super();
     }
 
-    public DSComputedField(DSExpression expression) {
+    public DSExpressionField(DSExpression expression) {
 	super();
 	this.expression = expression;
     }
@@ -63,4 +63,22 @@ public class DSComputedField extends DSField implements HasExpression {
 	getExpression().setText(text);
     }
 
+    @Override
+    public String toString() {
+	return "DSExpressionField[name=" + getName()
+		+ ", path=" + getPath() 
+		+ ", dataType=" + getDataType()
+		+ ", nativeTypeCode=" + getNativeTypeCode() 
+		+ ", nativeType=" + getNativeType() 
+		+ ", size=" + getSize() 
+		+ ", scale=" + getScale()
+		+ ", format=" + getFormat() 
+		+ ", isFixedType=" + isFixedType()
+		+ ", align=" + getAlign() 
+		+ ", displaySize=" + getDisplaySize()
+		+ ", primaryKey=" + isPrimaryKey() 
+		+ ", foreignKey=" + isForeignKey()
+		+ ", expression=" + expression
+		+ "]";
+    }
 }
