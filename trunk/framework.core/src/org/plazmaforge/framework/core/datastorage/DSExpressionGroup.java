@@ -67,4 +67,9 @@ public class DSExpressionGroup extends DSGroup implements HasExpression {
 	return DSExpression.hasText(expression);
     }
 
+    @Override
+    public String toString() {
+	return "DSExpressionGroup[name=" + getName() + ", expression=" + expression + "]";
+    }
+
 }

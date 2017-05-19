@@ -146,14 +146,14 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
 	}
     }
 
-    public String toString( ){
+    public String toString() {
 	return "DSVariable[name=" + getName() 
 		+ ", dataType=" + dataType 
 		+ ", resetType=" + resetType 
 		+ ", resetName=" + resetName
 		+ ", aggregation=" + aggregation
-		+ (DSExpression.isEmpty(expression) ? "" : (" ," + expression.toString()) )
-		+ (DSExpression.isEmpty(initExpression) ? "" : (" ," + initExpression.toString()))
+		+ ", expression=" + expression
+		+ ", initExpression=" + initExpression
 		+ "]";
     }
 }

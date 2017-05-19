@@ -62,4 +62,13 @@ public class DSExpressionParameter extends DSParameter implements HasExpression 
 	getExpression().setText(text);
     }
 
+    @Override
+    public String toString() {
+	return "DSExpressionParameter[dataType=" + getDataType() 
+		+ ", defaultValue=" + getDefaultValue()
+		+ ", expression=" + expression
+		+ "]";
+    }
+
+  
 }

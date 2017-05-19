@@ -64,5 +64,11 @@ public class DSParameter extends ComplexLocalizedIdentifier implements HasDataTy
     public void setDefaultValue(Object defaultValue) {
         this.defaultValue = defaultValue;
     }
+
+    @Override
+    public String toString() {
+	return "DSParameter[dataType=" + dataType 
+		+ ", defaultValue=" + defaultValue + "]";
+    }
     
 }

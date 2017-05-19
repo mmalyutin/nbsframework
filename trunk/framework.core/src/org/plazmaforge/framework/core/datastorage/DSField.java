@@ -227,6 +227,24 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
         this.format = format;
     }
 
+    @Override
+    public String toString() {
+	return "DSField[name=" + getName()
+		+ ", path=" + path 
+		+ ", dataType=" + dataType
+		+ ", nativeTypeCode=" + nativeTypeCode 
+		+ ", nativeType=" + nativeType 
+		+ ", size=" + size 
+		+ ", scale=" + scale
+		+ ", format=" + format 
+		+ ", isFixedType=" + isFixedType()
+		+ ", align=" + align 
+		+ ", displaySize=" + displaySize
+		+ ", primaryKey=" + primaryKey 
+		+ ", foreignKey=" + foreignKey
+		+ "]";
+    }
+
 
     
     
