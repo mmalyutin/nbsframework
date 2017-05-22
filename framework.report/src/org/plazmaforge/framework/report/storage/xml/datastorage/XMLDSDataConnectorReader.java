@@ -94,13 +94,10 @@ public class XMLDSDataConnectorReader extends XMLAbstractReportReader {
 	return dataConnector;
     }
 
+    
+    // PROPERTIES
     protected void readProperties(Element element, DSDataConnector dataConnector, PropertyProvider propertyProvider) {
-   	Element node = getChild(element, XML_PROPERTIES);
-   	if (node == null){
-   	    return;
-   	}
-
-   	List children = node.getChildren();
+   	List children = getNodeChildren(element, XML_PROPERTIES, XML_PROPERTY);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}

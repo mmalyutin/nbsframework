@@ -32,7 +32,9 @@ import java.util.List;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSFieldFilter;
+import org.plazmaforge.framework.core.datastorage.DSFieldOrder;
 import org.plazmaforge.framework.core.datastorage.DSFilter;
+import org.plazmaforge.framework.core.datastorage.DSOrder;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSQuery;
 import org.plazmaforge.framework.core.datastorage.DSVariable;
@@ -61,21 +63,21 @@ public class XMLReportReaderTest extends TestCase {
 	try {
 	    XMLReportReader reader = new XMLReportReader();
 	    reader.readReport((String) null);
-	} catch (Exception ex){
+	} catch (Exception ex) {
 	    assertTrue(ex instanceof RTException);
 	}
 	
 	try {
 	    XMLReportReader reader = new XMLReportReader();
 	    reader.readReport((File) null);
-	} catch (Exception ex){
+	} catch (Exception ex) {
 	    assertTrue(ex instanceof RTException);
 	}
 
 	try {
 	    XMLReportReader reader = new XMLReportReader();
 	    reader.readReport((InputStream) null);
-	} catch (Exception ex){
+	} catch (Exception ex) {
 	    assertTrue(ex instanceof RTException);
 	}
 
@@ -94,16 +96,16 @@ public class XMLReportReaderTest extends TestCase {
 	assertEquals("Report1", report.getName());
 	assertEquals("Report 1", report.getCaption());
 	
-	// Parameters
+	// Report: Parameters
 	checkParameters(report);
 	
-	// Variables
+	// Report: Variables
 	checkVariables(report);
 
-	// DataSource
+	// Report: DataSource
 	checkDataSource(report);
 	
-	// Templates
+	// Report: Templates
 	checkTemplates(report);
 
     }
@@ -194,11 +196,12 @@ public class XMLReportReaderTest extends TestCase {
 	assertEquals("PRICE", field.getName());
 	assertEquals("Float", field.getDataType());
 	
-	
+	// Get filters
 	List<DSFilter> filters = dataSource.getFilters();
 	assertNotNull(filters);
 	assertEquals(1, filters.size());
 	
+	// Get filters[0]
 	DSFilter filter = filters.get(0);
 	assertNotNull(filter);
 	assertTrue(filter instanceof DSFieldFilter);
@@ -210,8 +213,37 @@ public class XMLReportReaderTest extends TestCase {
 	assertNotNull(fieldFilter.getValue());
 	
 	assertEquals("PRODUCT_ID", fieldFilter.getField().getName());
-	assertEquals("lte", fieldFilter.getOperator());
+	assertEquals("le", fieldFilter.getOperator());
 	assertEquals(194, fieldFilter.getValue());
+
+	// Get orders
+	List<DSOrder> orders = dataSource.getOrders();
+	assertNotNull(orders);
+	assertEquals(2, orders.size());
+
+	// Get orders[0]
+	DSOrder order = orders.get(0);
+	assertNotNull(order);
+	assertTrue(order instanceof DSFieldOrder);
+	DSFieldOrder fieldOrder = (DSFieldOrder) order;
+	
+	assertNotNull(fieldOrder.getField());
+	assertNotNull(fieldOrder.getField().getName());
+	
+	assertEquals("PRICE", fieldOrder.getField().getName());
+	assertEquals(false, fieldOrder.isAsc());
+
+	// Get orders[1]
+	order = orders.get(1);
+	assertNotNull(order);
+	assertTrue(order instanceof DSFieldOrder);
+	fieldOrder = (DSFieldOrder) order;
+	
+	assertNotNull(fieldOrder.getField());
+	assertNotNull(fieldOrder.getField().getName());
+	
+	assertEquals("PRODUCT_ID", fieldOrder.getField().getName());
+	assertEquals(false, fieldOrder.isAsc());
 	
     }
     

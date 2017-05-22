@@ -53,6 +53,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 
     
+    //// COMMON-BEGIN
     
     protected Document readXMLDocument(String fileName) throws RTException {
 	if (fileName == null) {
@@ -88,8 +89,31 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	    throw new RTException(ex);
 	}
     }
-    
+
     ////
+
+    protected Element getChild(Element parent, String name) {
+	return parent.getChild(name, parent.getNamespace());	
+    }
+
+    protected List getChildren(Element parent, String name) {
+	return parent.getChildren(name, parent.getNamespace());	
+    }
+
+    protected List getNodeChildren(Element parent, String nodeName, String name) {
+	Element node = getChild(parent, nodeName);
+	if (node == null) {
+	    return null;
+	}
+	return getChildren(node, name);
+    }
+    
+    protected boolean useNamespace() {
+	return true;
+    }
+    
+    //// COMMON-END
+    
     
     protected void readElementAttributes(Element xmlElement, org.plazmaforge.framework.report.model.base.Element element)  {
   	String sValue = null;
@@ -139,19 +163,6 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
   	
     }
     
-   //
-
-    protected Element getChild(Element parent, String name) {
-	return parent.getChild(name, parent.getNamespace());	
-    }
-
-    protected List getChildren(Element parent, String name) {
-	return parent.getChildren(name, parent.getNamespace());	
-    }
-
-    protected boolean useNamespace() {
-	return true;
-    }
 
     ////
     

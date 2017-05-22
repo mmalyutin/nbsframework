@@ -53,6 +53,8 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 
     
+    //// COMMON-BEGIN
+    
     protected void writeXMLDocument(Document doc, String fileName) throws RTException {
         writeXMLDocument(doc, new File(fileName));
     }
@@ -84,8 +86,20 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 	    throw new RTException(ex);
 	}
     }
+
+    ////    
     
-    ////
+    protected Element createElement(String name) {
+	Element node = new Element(name);
+	return node;
+    }
+    
+    protected void addChild(Element parent, Element child) {
+	parent.getChildren().add(child);
+    }
+    
+    //// COMMON-END
+
     
     protected void writeElementAttributes(org.plazmaforge.framework.report.model.base.Element element, Element node) {
 
@@ -270,21 +284,11 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
    	
    	// dataType
    	if (isUseDataType) {
-   	 setStringValue(node, XML_ATTR_DATA_TYPE, expression.getDataType());
+   	    setStringValue(node, XML_ATTR_DATA_TYPE, expression.getDataType());
    	}
    	
     }
     
-    ////    
-    
-    protected Element createElement(String name) {
-	Element node = new Element(name);
-	return node;
-    }
-    
-    protected void addChild(Element parent, Element child) {
-	parent.getChildren().add(child);
-    }
     
  
     

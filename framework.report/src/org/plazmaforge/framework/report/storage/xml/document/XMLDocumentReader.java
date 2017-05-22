@@ -167,7 +167,7 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
     
     // PAGE-SETUP
     protected void readPageSetup(Element element, Document document) {
-	Element node = element.getChild(XML_PAGE_SETUP);
+	Element node = getChild(element, XML_PAGE_SETUP);
 	if (node == null) {
 	    return;
 	}
@@ -178,11 +178,7 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
     
     // PAGES
     protected void readPages(Element element, Document document) {
-	Element node = getChild(element, XML_PAGES);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_PAGES, XML_PAGE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

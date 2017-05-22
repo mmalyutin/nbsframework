@@ -77,11 +77,13 @@ public class XMLGroupReader extends XMLAbstractReportReader {
     
     // BANDS
     protected void readBands(Element element, ReportGroup group) {
-	Element node = getChild(element, XML_BANDS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	
+//	Element node = getChild(element, XML_BANDS);
+//	if (node == null) {
+//	    return;
+//	}
+	
+	List children = getNodeChildren(element, XML_BANDS, XML_BAND);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

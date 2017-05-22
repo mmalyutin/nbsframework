@@ -74,6 +74,7 @@ public class XMLPageReader extends XMLAbstractDocumentReader {
 	if (node == null) {
 	    return;
 	}
+	// Get all children (grid, text, image...) 
 	List children = node.getChildren();
 	if (children == null || children.isEmpty()) {
 	    return;

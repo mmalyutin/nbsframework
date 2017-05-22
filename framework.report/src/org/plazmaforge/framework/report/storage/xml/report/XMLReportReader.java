@@ -151,33 +151,9 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	readTemplates(element, report);
     }
 
-    // VARIABLES
-    protected void readVariables(Element element, Report report) {
-	Element node = getChild(element, XML_VARIABLES);
-	if (node == null){
-	    return;
-	}
-
-	List children = node.getChildren();
-	if (children == null || children.isEmpty()) {
-	    return;
-	}
-	int count = children.size();
-	XMLDSVariableReader reader = new XMLDSVariableReader();
-	for (int i = 0; i < count; i++) {
-	    DSVariable variable = reader.readVariable((Element) children.get(i));
-	    report.addVariable(variable);
-	}
-    }
-    
     // PARAMETERS
     protected void readParameters(Element element, Report report) {
-	Element node = getChild(element, XML_PARAMETERS);
-	if (node == null){
-	    return;
-	}
-
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_PARAMETERS, XML_PARAMETER);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -188,15 +164,24 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	    report.addParameter(parameter);
 	}
     }
+    
+    // VARIABLES
+    protected void readVariables(Element element, Report report) {
+	List children = getNodeChildren(element, XML_VARIABLES, XML_VARIABLE);
+	if (children == null || children.isEmpty()) {
+	    return;
+	}
+	int count = children.size();
+	XMLDSVariableReader reader = new XMLDSVariableReader();
+	for (int i = 0; i < count; i++) {
+	    DSVariable variable = reader.readVariable((Element) children.get(i));
+	    report.addVariable(variable);
+	}
+    }
 
     // DATA-CONNECTORS
     protected void readDataConnectors(Element element, Report report) {
-	Element node = getChild(element, XML_DATA_CONNECTORS);
-	if (node == null) {
-	    return;
-	}
-
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_DATA_CONNECTORS, XML_DATA_CONNECTOR);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -210,12 +195,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     
     // DATA-SOURCES
     protected void readDataSources(Element element, Report report) {
-	Element node = getChild(element, XML_DATA_SOURCES);
-	if (node == null) {
-	    return;
-	}
-
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_DATA_SOURCES, XML_DATA_SOURCE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -229,12 +209,7 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     
     // TEMPLATES
     protected void readTemplates(Element element, Report report) {
-	Element node = getChild(element, XML_TEMPLATES);
-	if (node == null){
-	    return;
-	}
-
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_TEMPLATES, XML_TEMPLATE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

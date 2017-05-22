@@ -103,11 +103,7 @@ public class XMLRowReader extends XMLAbstractReader {
     
     // CELLS
     protected void readCells(Element element, Row row) {
-	Element node = getChild(element, XML_CELLS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_CELLS, XML_CELL);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
