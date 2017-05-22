@@ -110,11 +110,7 @@ public class XMLBandReader extends XMLAbstractReportReader {
     
     
     protected void readBandRows(Element element, Band band) {
-	Element node = getChild(element, XML_ROWS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_ROWS, XML_ROW);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

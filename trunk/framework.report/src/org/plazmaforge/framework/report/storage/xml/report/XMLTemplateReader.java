@@ -120,7 +120,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     
     // PAGE-SETUP
     protected void readPageSetup(Element element, Template template) {
-	Element node = element.getChild(XML_PAGE_SETUP);
+	Element node = getChild(element, XML_PAGE_SETUP);
 	if (node == null) {
 	    return;
 	}
@@ -131,11 +131,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     
     // COLUMNS
     protected void readColumns(Element element, Template template) {
-	Element node = getChild(element, XML_COLUMNS);
-	if (node == null){
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_COLUMNS, XML_COLUMN);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -149,11 +145,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 
     // REPORT-GROUPS
     protected void readGroups(Element element, Template template) {
-	Element node = getChild(element, XML_REPORT_GROUPS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_REPORT_GROUPS, XML_REPORT_GROUP);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -167,11 +159,7 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     
     // BANDS
     protected void readBands(Element element, Template template) {
-	Element node = getChild(element, XML_BANDS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_BANDS, XML_BAND);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

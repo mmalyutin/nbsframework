@@ -85,14 +85,9 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     }
     
  
-    
+    // PARAMETERS
     protected void readParameters(Element element, DSDataSource dataSource) {
-   	Element node = getChild(element, XML_PARAMETERS);
-   	if (node == null){
-   	    return;
-   	}
-
-   	List children = node.getChildren();
+   	List children = getNodeChildren(element, XML_PARAMETERS, XML_PARAMETER);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}
@@ -107,13 +102,9 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
    	}
     }
     
+    // FIELDS
     protected void readFields(Element element, DSDataSource dataSource) {
-   	Element node = getChild(element, XML_FIELDS);
-   	if (node == null){
-   	    return;
-   	}
-
-   	List children = node.getChildren();
+   	List children = getNodeChildren(element, XML_FIELDS, XML_FIELD);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}
@@ -127,14 +118,10 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
    	    dataSource.addField(field);   	    
    	}
     }
-
+    
+    // FILTERS
     protected void readFilters(Element element, DSDataSource dataSource) {
-   	Element node = getChild(element, XML_FILTERS);
-   	if (node == null){
-   	    return;
-   	}
-
-   	List children = node.getChildren();
+   	List children = getNodeChildren(element, XML_FILTERS, XML_FILTER);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}
@@ -149,13 +136,9 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
    	}
     }
 
+    // ORDERS
     protected void readOrders(Element element, DSDataSource dataSource) {
-   	Element node = getChild(element, XML_ORDERS);
-   	if (node == null){
-   	    return;
-   	}
-
-   	List children = node.getChildren();
+   	List children = getNodeChildren(element, XML_ORDERS, XML_ORDER);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}

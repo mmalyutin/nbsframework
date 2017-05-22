@@ -83,11 +83,7 @@ public class XMLGridReader extends XMLAbstractReader {
     
     // COLUMNS
     protected void readColumns(Element element, Grid grid) {
-	Element node = getChild(element, XML_COLUMNS);
-	if (node == null){
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_COLUMNS, XML_COLUMN);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -104,11 +100,7 @@ public class XMLGridReader extends XMLAbstractReader {
 
     // ROWS
     protected void readRows(Element element, Grid grid) {
-	Element node = getChild(element, XML_ROWS);
-	if (node == null) {
-	    return;
-	}
-	List children = node.getChildren();
+	List children = getNodeChildren(element, XML_ROWS, XML_ROW);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
