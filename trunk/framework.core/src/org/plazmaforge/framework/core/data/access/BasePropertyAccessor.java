@@ -33,6 +33,9 @@ public class BasePropertyAccessor implements PropertyAccessor {
 
     private Class<?> targetType;
     
+    
+    private String propertyName;
+    
     /**
      * Property data type
      */
@@ -55,6 +58,14 @@ public class BasePropertyAccessor implements PropertyAccessor {
 
     public void setTargetType(Class<?> targetType) {
         this.targetType = targetType;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 
     public Class<?> getType() {
@@ -82,7 +93,7 @@ public class BasePropertyAccessor implements PropertyAccessor {
     }
 
     public String toString() {
-	return "TargetType=" + targetType + ", Type=" + type + ", Getter=" + getter + ", Setter=" + setter;
+	return "BasePropertyAccessor=[targetType=" + targetType + ", propertyName=" + propertyName + ", type=" + type + ", getter=" + getter + ", getter=" + setter;
     }
     
     //////
