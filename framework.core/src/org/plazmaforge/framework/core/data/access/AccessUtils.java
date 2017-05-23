@@ -160,7 +160,7 @@ public class AccessUtils {
     }
     
 
-    public static PropertyAccessor[] getPropertyAccessors(Method[] methods) {
+    public static PropertyAccessor[] getPropertyAccessors(Method[] methods, String[] include, String[] exclude) {
 	if (methods == null || methods.length == 0) {
 	    return new PropertyAccessor[0];
 	}
@@ -172,6 +172,9 @@ public class AccessUtils {
 	Method isMethod = null;
 	Method getMethod = null;
 	Method setMethod = null;
+	
+	boolean needInclude = include != null && include.length > 0;
+	boolean needExclude = exclude != null && exclude.length > 0;
 	
 	for (Method method : methods) {
 	    
@@ -199,6 +202,22 @@ public class AccessUtils {
 	    if (property == null) {
 		continue;
 	    }
+	    
+	    if (needInclude) {
+		if (!exists(property, include)) {
+		    continue;
+		}
+	    }
+	    
+	    if (needExclude) {
+		if (exists(property, exclude)) {
+		    continue;
+		}
+	    }
+	    
+	    if ("class".equals(property)) {
+		continue;
+  	    }	    
 	    
 	    PropertyInfo info = map.get(property);
 	    if (info == null) {
@@ -229,9 +248,7 @@ public class AccessUtils {
 	for (PropertyInfo propertyInfo: map.values()) {
 	
 	    property = propertyInfo.name;
-	    if ("class".equals(property)) {
-		continue;
-	    }
+	  
 	    
 	    PropertyAccessor propertyAccessor = createPropertyAccessor(property, propertyInfo.getMethod, propertyInfo.isMethod, propertyInfo.setMethods);
 	    if (propertyAccessor == null) {
@@ -244,11 +261,15 @@ public class AccessUtils {
     }
     
     public static PropertyAccessor[] getPropertyAccessors(Class<?> klass) {
+	return getPropertyAccessors(klass, null, null);
+    }
+    
+    public static PropertyAccessor[] getPropertyAccessors(Class<?> klass, String[] include, String[] exclude) {
 	if (klass == null) {
 	    return null;
 	}
 	Method[] methods = klass.getMethods();
-	return getPropertyAccessors(methods);
+	return getPropertyAccessors(methods, include, exclude);
     }
     
     
@@ -396,6 +417,18 @@ public class AccessUtils {
 	 // Setter
 	 List<Method> setMethods;
 	 
+     }
+
+     private static boolean exists(String value, String[] values) {
+	 if  (value == null || values == null || values.length == 0) {
+	     return false;
+	 }
+	 for (String v : values) {
+	     if (value.equals(v)) {
+		 return true;
+	     }
+	 }
+	 return false;
      }
      
     private static PropertyAccessor createPropertyAccessor(String name, Method getMethod, Method isMethod, List<Method> setMethods) {
