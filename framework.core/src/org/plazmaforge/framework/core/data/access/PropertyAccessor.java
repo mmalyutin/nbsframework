@@ -42,6 +42,9 @@ public interface PropertyAccessor {
 
     Class<?> getTargetType();
     
+    String getPropertyName();
+    
+    
     Class<?> getType();
 
     Method getGetter();
