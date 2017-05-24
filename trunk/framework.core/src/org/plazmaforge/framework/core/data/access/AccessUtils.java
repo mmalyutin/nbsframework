@@ -158,8 +158,67 @@ public class AccessUtils {
 	
 	return true;
     }
+
+    public static boolean hasProperty(PropertyAccessor[] propertyAccessors, String property) {
+	return getPropertyAccessor(propertyAccessors,  property) != null;
+    }
+
+    /**
+     * Find property accessor in array
+     * @param propertyAccessors
+     * @param property
+     * @return
+     */
+    public static PropertyAccessor getPropertyAccessor(PropertyAccessor[] propertyAccessors,  String property) {
+	if (property == null || propertyAccessors == null || propertyAccessors.length == 0) {
+	    return null;
+	}
+	for (PropertyAccessor propertyAccessor : propertyAccessors) {
+	    if (property.equals(propertyAccessor.getName())) {
+		return propertyAccessor;
+	    }
+	}
+	return null;
+    }
     
 
+    public static PropertyAccessor[] getPropertyAccessors(Class<?> klass) {
+	return getPropertyAccessors(klass, null, null);
+    }
+    
+    public static PropertyAccessor[] getPropertyAccessors(Class<?> klass, String[] include, String[] exclude) {
+	if (klass == null) {
+	    return null;
+	}
+	Method[] methods = klass.getMethods();
+	return getPropertyAccessors(methods, include, exclude);
+    }
+    
+    
+    public static PropertyAccessor getPropertyAccessor(Class<?> klass, String property) {
+	if (klass == null || property == null) {
+	    return null;
+	}
+	Method[] methods = klass.getMethods();
+	return getPropertyAccessor(methods, property);
+    }
+    
+    public static PropertyAccessor getPropertyAccessor(Method[] methods, String property) {
+	if (methods == null || methods.length == 0 || property == null) {
+	    return null;
+	}
+	property = StringUtils.normalizeString(property);
+	if (property == null) {
+	    return null;
+	}
+	
+	PropertyAccessor[] propertyAccessors = getPropertyAccessors(methods, new String[] {property}, null);
+	if (propertyAccessors == null || propertyAccessors.length == 0) {
+	    return null;
+	}
+	return propertyAccessors[0];
+    }
+    
     public static PropertyAccessor[] getPropertyAccessors(Method[] methods, String[] include, String[] exclude) {
 	if (methods == null || methods.length == 0) {
 	    return new PropertyAccessor[0];
@@ -260,114 +319,96 @@ public class AccessUtils {
 	return result.toArray(new PropertyAccessor[0]);
     }
     
-    public static PropertyAccessor[] getPropertyAccessors(Class<?> klass) {
-	return getPropertyAccessors(klass, null, null);
-    }
     
-    public static PropertyAccessor[] getPropertyAccessors(Class<?> klass, String[] include, String[] exclude) {
-	if (klass == null) {
-	    return null;
-	}
-	Method[] methods = klass.getMethods();
-	return getPropertyAccessors(methods, include, exclude);
-    }
-    
-    
-    public static PropertyAccessor getPropertyAccessor(Class<?> klass, String property) {
-	if (klass == null || property == null) {
-	    return null;
-	}
-	Method[] methods = klass.getMethods();
-	return getPropertyAccessor(methods, property);
-    }
-    
-    public static PropertyAccessor getPropertyAccessor(Method[] methods, String property) {
-	
-	if (methods == null || methods.length == 0 || property == null) {
-	    return null;
-	}
-	
-	property = StringUtils.normalizeString(property);
-	if (property == null) {
-	    return null;
-	}
-	
-	//Method getter = null;
-	//Method setter = null;
-	
-	String capitalizeName = capitalize(property);
-	String isMethodName = PropertyAccessor.IS_PREFIX + capitalizeName;
-	String getMethodName = PropertyAccessor.GET_PREFIX + capitalizeName;
-	String setMethodName = PropertyAccessor.SET_PREFIX + capitalizeName;
-	
-	Method isMethod = null;
-	Method getMethod = null;
-	//Method setMethod = null;
-
-	String methodName = null;
-	
-	//Class[] parameterTypes = null;
-	//int parameterCount = 0;
-	
-	List<Method> setMethods = new ArrayList<Method>(1);
-	for (Method method : methods) {
-	    methodName = method.getName();
-	    
-	    //parameterTypes = method.getParameterTypes();
-	    //parameterCount = parameterTypes.length;
-	    //Class returnType = method.getReturnType();
-	    
-	    if (isMethodName.equals(methodName) && isGetter(method) /*parameterCount == 0 && returnType != void.class*/) {
-		isMethod = method;
-		continue;
-	    }
-	    if (getMethodName.equals(methodName) && isGetter(method) /*parameterCount == 0 && returnType != void.class*/) {
-		getMethod = method;
-		continue;
-	    }
-	    if (setMethodName.equals(method.getName()) && isGetter(method) /*parameterCount == 1 && returnType == void.class*/) {
-		setMethods.add(method);
-	    }
-	}
-	
-	PropertyAccessor propertyAccessor = createPropertyAccessor(property, getMethod, isMethod, setMethods);
-	
-//	getter = getMethod == null ? isMethod : getMethod;
-//	if (getter == null) {
+//    public static PropertyAccessor getPropertyAccessor(Method[] methods, String property) {	
+//	
+//	if (methods == null || methods.length == 0 || property == null) {
 //	    return null;
 //	}
-//	BasePropertyAccessor propertyAccessor = new BasePropertyAccessor();
-//	propertyAccessor.setGetter(getter);
-//	if (setMethods.isEmpty()) {
-//	    return propertyAccessor;
-//	}
-//	Class type = getter.getReturnType();
-//	propertyAccessor.setType(type);
 //	
-//	Class parameterType = null;
-//	for (Method method : setMethods) {
-//	    parameterType = method.getParameterTypes()[0];
-//	    if (type.equals(parameterType)) {
-//		setter = method;
-//		break;
+//	property = StringUtils.normalizeString(property);
+//	if (property == null) {
+//	    return null;
+//	}
+//	
+//	//Method getter = null;
+//	//Method setter = null;
+//	
+//	String capitalizeName = capitalize(property);
+//	String isMethodName = PropertyAccessor.IS_PREFIX + capitalizeName;
+//	String getMethodName = PropertyAccessor.GET_PREFIX + capitalizeName;
+//	String setMethodName = PropertyAccessor.SET_PREFIX + capitalizeName;
+//	
+//	Method isMethod = null;
+//	Method getMethod = null;
+//	//Method setMethod = null;
+//
+//	String methodName = null;
+//	
+//	//Class[] parameterTypes = null;
+//	//int parameterCount = 0;
+//	
+//	List<Method> setMethods = new ArrayList<Method>(1);
+//	for (Method method : methods) {
+//	    methodName = method.getName();
+//	    
+//	    //parameterTypes = method.getParameterTypes();
+//	    //parameterCount = parameterTypes.length;
+//	    //Class returnType = method.getReturnType();
+//	    
+//	    if (isMethodName.equals(methodName) && isGetter(method) /*parameterCount == 0 && returnType != void.class*/) {
+//		isMethod = method;
+//		continue;
+//	    }
+//	    if (getMethodName.equals(methodName) && isGetter(method) /*parameterCount == 0 && returnType != void.class*/) {
+//		getMethod = method;
+//		continue;
+//	    }
+//	    if (setMethodName.equals(method.getName()) && isGetter(method) /*parameterCount == 1 && returnType == void.class*/) {
+//		setMethods.add(method);
 //	    }
 //	}
-//
-//	if (setter == null) {
-//	    for (Method method : setMethods) {
-//		parameterType = method.getParameterTypes()[0];
-//		if (type.isAssignableFrom(parameterType)) {
-//		    setter = method;
-//		    break;
-//		}
-//	    }
-//	}
-//
-//	propertyAccessor.setSetter(setter);
-	
-	
-	return propertyAccessor;
-    }
+//	
+//	PropertyAccessor propertyAccessor = createPropertyAccessor(property, getMethod, isMethod, setMethods);
+//	
+////	getter = getMethod == null ? isMethod : getMethod;
+////	if (getter == null) {
+////	    return null;
+////	}
+////	BasePropertyAccessor propertyAccessor = new BasePropertyAccessor();
+////	propertyAccessor.setGetter(getter);
+////	if (setMethods.isEmpty()) {
+////	    return propertyAccessor;
+////	}
+////	Class type = getter.getReturnType();
+////	propertyAccessor.setType(type);
+////	
+////	Class parameterType = null;
+////	for (Method method : setMethods) {
+////	    parameterType = method.getParameterTypes()[0];
+////	    if (type.equals(parameterType)) {
+////		setter = method;
+////		break;
+////	    }
+////	}
+////
+////	if (setter == null) {
+////	    for (Method method : setMethods) {
+////		parameterType = method.getParameterTypes()[0];
+////		if (type.isAssignableFrom(parameterType)) {
+////		    setter = method;
+////		    break;
+////		}
+////	    }
+////	}
+////
+////	propertyAccessor.setSetter(setter);
+//	
+//	
+//	return propertyAccessor;
+//	
+//	
+//    }
     
     
     public static Object getValue(PropertyAccessor propertyAccessor, Object obj) {
@@ -431,6 +472,7 @@ public class AccessUtils {
 	 return false;
      }
      
+     
     private static PropertyAccessor createPropertyAccessor(String name, Method getMethod, Method isMethod, List<Method> setMethods) {
 	
 	Method getter = null;
@@ -442,7 +484,7 @@ public class AccessUtils {
 	    return null;
 	}
 	BasePropertyAccessor propertyAccessor = new BasePropertyAccessor();
-	propertyAccessor.setPropertyName(name);
+	propertyAccessor.setName(name);
 	
 	// Getter
 	propertyAccessor.setGetter(getter);

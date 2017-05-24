@@ -28,12 +28,13 @@ public class ClassPropertyProviderFactory extends CachePropertyProviderFactory {
     /**
      * Create ClassPropertyProvider
      */
-    protected PropertyProvider<?> createPropertyProvider(String type) {
+    @Override
+    protected MetaPropertyProvider<?> createPropertyProvider(String type) {
 	try {
 	    Class<?> targetClass = Class.forName(type);
 	    return new ClassPropertyProvider(targetClass);
 	} catch (Throwable t) {
-	    return new InvalidPropertyProvider(getErrorMessage(t));
+	    return new MetaInvalidPropertyProvider(getErrorMessage(t));
 	}
     }
     

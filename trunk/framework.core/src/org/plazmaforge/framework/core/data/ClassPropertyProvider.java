@@ -22,6 +22,9 @@
 
 package org.plazmaforge.framework.core.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.plazmaforge.framework.core.data.access.BaseClassAccessor;
 import org.plazmaforge.framework.core.data.access.PropertyAccessor;
 
@@ -31,7 +34,7 @@ import org.plazmaforge.framework.core.data.access.PropertyAccessor;
  *
  * @param <T>
  */
-public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
+public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T>, MetaPropertyProvider<T> {
 
     private BaseClassAccessor classAccessor;
     
@@ -64,14 +67,25 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	if (element == null || property == null) {
 	    return null;
 	}
-	return getPropertyAccessor(property).getValue(element);
+	PropertyAccessor propertyAccessor = getPropertyAccessor(property);
+	if (propertyAccessor == null) {
+	    // E: Property not found
+	    return null;
+	}
+	return propertyAccessor.getValue(element);
     }
     
     protected void doSetValue(T element, String property, Object value) {
 	if (element == null || property == null) {
 	    return;
 	}
-	getPropertyAccessor(property).setValue(element, value);
+	PropertyAccessor propertyAccessor = getPropertyAccessor(property);
+	if (propertyAccessor == null) {
+	    // E: Property not found
+	    return;
+	}
+	
+	propertyAccessor.setValue(element, value);
     }
     
     protected PropertyAccessor getPropertyAccessor(String property) {
@@ -82,11 +96,21 @@ public class ClassPropertyProvider<T> implements ValidatePropertyProvider<T> {
 	if (property == null) {
 	    return null;
 	}
-	PropertyAccessor proprtyAccessor = getPropertyAccessor(property);
-	if (proprtyAccessor == null) {
+	PropertyAccessor propertyAccessor = getPropertyAccessor(property);
+	if (propertyAccessor == null) {
 	    return null;
 	}
-	return proprtyAccessor.getType();
+	return propertyAccessor.getType();
+    }
+
+    @Override
+    public List<String> getPropertyNames() {
+	List<String> result = new ArrayList<String>();
+	PropertyAccessor[] propertyAccessors = classAccessor.getPropertyAccessors(); 
+	for (PropertyAccessor propertyAccessor : propertyAccessors) {
+	    result.add(propertyAccessor.getName());
+	}
+	return result;
     }
     
     

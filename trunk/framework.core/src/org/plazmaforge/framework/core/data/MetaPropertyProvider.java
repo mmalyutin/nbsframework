@@ -20,23 +20,17 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.core.data.access;
+package org.plazmaforge.framework.core.data;
+
+import java.util.List;
 
 /**
  * 
  * @author ohapon
  *
  */
-public interface ClassAccessor {
+public interface MetaPropertyProvider<T> extends PropertyProvider<T> {
 
-    Class<?> getTargetType();
-    
-    Object getValue(Object obj, String property);
-
-    void setValue(Object obj, String property, Object value);
-    
-    PropertyAccessor getPropertyAccessor(String property);
-    
-    PropertyAccessor[] getPropertyAccessors();
+    List<String> getPropertyNames();
     
 }

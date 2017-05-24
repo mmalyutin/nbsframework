@@ -44,7 +44,27 @@ public class AccessUtilsTest extends TestCase {
 	propertyAccessors = AccessUtils.getPropertyAccessors(MyClass.class);
 	assertNotNull(propertyAccessors);
 	
+	assertEquals(3, propertyAccessors.length);
+	assertTrue(hasProperty(propertyAccessors, "name"));
+	assertTrue(hasProperty(propertyAccessors, "type"));
+	assertTrue(hasProperty(propertyAccessors, "description"));
 	
+	
+	PropertyAccessor propertyAccessor = AccessUtils.getPropertyAccessor(MyClass.class, "type");
+	assertNotNull(propertyAccessor);
+	assertEquals("type", propertyAccessor.getName());
+    }
+    
+    private boolean hasProperty(PropertyAccessor[] propertyAccessors, String property) {
+	if (property == null || propertyAccessors == null || propertyAccessors.length == 0) {
+	    return false;
+	}
+	for (PropertyAccessor propertyAccessor : propertyAccessors) {
+	    if (property.equals(propertyAccessor.getName())) {
+		return true;
+	    }
+	}
+	return false;
     }
     
     
