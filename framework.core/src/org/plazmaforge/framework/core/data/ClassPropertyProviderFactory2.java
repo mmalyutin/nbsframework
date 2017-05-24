@@ -40,12 +40,12 @@ public class ClassPropertyProviderFactory2 extends ClassPropertyProviderFactory 
     /**
      * Create ClassPropertyProvider
      */
-    protected PropertyProvider<?> createPropertyProvider(String type) {
+    protected MetaPropertyProvider<?> createPropertyProvider(String type) {
 	try {
 	    Class<?> targetClass = Class.forName(type);
 	    return new ClassPropertyProvider2(targetClass, getConverterManager());
 	} catch (Throwable t) {
-	    return new InvalidPropertyProvider(getErrorMessage(t));
+	    return new MetaInvalidPropertyProvider(getErrorMessage(t));
 	}
     }
     

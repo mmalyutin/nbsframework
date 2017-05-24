@@ -13,6 +13,26 @@ public class CoreUtils {
     private CoreUtils() {
     }
 
+    
+    public static <T> boolean contains(T[] array, T element) {
+	if (array == null || array.length == 0 || element == null) {
+	    return false;
+	}
+	for (T e: array) {
+	    if (element.equals(e)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
+    public static <T> boolean contains(Collection<T> collection, T element) {
+	if (collection == null || collection.isEmpty() || element == null) {
+	    return false;
+	}
+	return collection.contains(element);
+    }
+    
     public static <K, V> List<K> toKeyList(Map<K, V> map) {
 	if (map == null) {
 	    return null;

@@ -34,13 +34,28 @@ public class BaseClassAccessor implements ClassAccessor {
 
     private Class<?> targetType;
     
-    private Map<String, PropertyAccessor> propertyAccessors = new HashMap<String, PropertyAccessor>();
+    private PropertyAccessor[] propertyAccessors;
+    private Map<String, PropertyAccessor> propertyAccessorMap = new HashMap<String, PropertyAccessor>();
+    
 
     public BaseClassAccessor(Class<?> targetType) {
 	super();
+	assert targetType != null;
 	this.targetType = targetType;
+	loadPropertyAccessors();
     }
-
+    
+    protected void loadPropertyAccessors() {
+	propertyAccessors = AccessUtils.getPropertyAccessors(targetType);
+	propertyAccessorMap = new HashMap<String, PropertyAccessor>();
+	if (propertyAccessors == null || propertyAccessors.length == 0) {
+	    return;
+	}
+	for (PropertyAccessor propertyAccessor: propertyAccessors) {
+	    propertyAccessorMap.put(propertyAccessor.getName(), propertyAccessor);
+	}
+    }
+    
     @Override
     public Class<?> getTargetType() {
         return targetType;
@@ -48,38 +63,61 @@ public class BaseClassAccessor implements ClassAccessor {
     
     @Override
     public Object getValue(Object object, String property) {
-	return getPropertyAccessor(property).getValue(object);
+	PropertyAccessor propertyAccessor = getPropertyAccessor(property);
+	if (propertyAccessor == null) {
+	    // E: Property not found
+	    return null;
+	}
+	return propertyAccessor.getValue(object);
     }
 
     @Override
     public void setValue(Object object, String property, Object value) {
-	getPropertyAccessor(property).setValue(object, value);
+	PropertyAccessor propertyAccessor = getPropertyAccessor(property);
+	if (propertyAccessor == null) {
+	    // E: Property not found
+	    return;
+	}
+	propertyAccessor.setValue(object, value);
     }    
 
     @Override
     public PropertyAccessor getPropertyAccessor(String property) {
-	PropertyAccessor propertyAccessor = propertyAccessors.get(property);
-	if (propertyAccessor != null) {
-	    return propertyAccessor;
-	}
-	propertyAccessor = AccessUtils.getPropertyAccessor(targetType, property);
-	if (propertyAccessor != null) {
-	    propertyAccessors.put(property, propertyAccessor);
-	    return propertyAccessor;
-	}
-	propertyAccessor = new BasePropertyAccessor();
-	propertyAccessors.put(property, propertyAccessor);
-	return propertyAccessor;
-    }
-
-    public Class<?> getPropertyType(String property) {
 	if (property == null) {
 	    return null;
 	}
+	return propertyAccessorMap.get(property);
+	
+	
+//	PropertyAccessor propertyAccessor = propertyAccessorMap.get(property);
+//	if (propertyAccessor != null) {
+//	    return propertyAccessor;
+//	}
+//	propertyAccessor = AccessUtils.getPropertyAccessor(targetType, property);
+//	if (propertyAccessor != null) {
+//	    propertyAccessorMap.put(property, propertyAccessor);
+//	    return propertyAccessor;
+//	}
+//	propertyAccessor = new BasePropertyAccessor();
+//	propertyAccessorMap.put(property, propertyAccessor);
+//	return propertyAccessor;
+    }
+
+    @Override
+    public PropertyAccessor[] getPropertyAccessors() {
+	return propertyAccessors;
+    }
+    
+    public Class<?> getPropertyType(String property) {
+//	if (property == null) {
+//	    return null;
+//	}
 	PropertyAccessor proprtyAccessor = getPropertyAccessor(property);
 	if (proprtyAccessor == null) {
+	    // E: Property not found
 	    return null;
 	}
 	return proprtyAccessor.getType();
     }
+    
 }

@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.core.data;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -99,7 +100,24 @@ public class CachePropertyProviderFactory implements PropertyProviderFactory {
     protected String getErrorMessage(Throwable t) {
 	return t == null ? null : t.getMessage();
     }
-       
+    
+    public static class MetaInvalidPropertyProvider<T> extends InvalidPropertyProvider<T> implements MetaPropertyProvider<T> {
+
+	public MetaInvalidPropertyProvider() {
+	    super();
+	}
+
+	public MetaInvalidPropertyProvider(String errorMessage) {
+	    super(errorMessage);
+	}
+
+	@Override
+	public List<String> getPropertyNames() {
+	    return null;
+	}
+	
+    }
+    
     /**
      * Invalid PropertyProvider
      * Use to create error provider
