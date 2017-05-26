@@ -35,23 +35,23 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLPageSetupReader extends XMLAbstractReader {
 
-    public PageSetup readPageSetup(Element element) {
+    public PageSetup readPageSetup(Element node) {
    	PageSetup pageSetup = new PageSetup();
 
    	// Page format
-   	String sValue = getStringValue(element, XML_ATTR_FORMAT);
+   	String sValue = getStringValue(node, XML_ATTR_FORMAT);
    	if (sValue != null) {
    	    pageSetup.setFormat(sValue);
    	}
 
    	// Size
-   	Size size = getSizeByAttributes(element);
+   	Size size = getSizeByAttributes(node);
    	if (size != null) {
    	   pageSetup.setSize(size); 
    	}
    	
    	// Margin
-   	Margin margin = getMarginByAttributes(element);
+   	Margin margin = getMarginByAttributes(node);
    	if (margin != null) {
    	    pageSetup.setMargin(margin);
    	}

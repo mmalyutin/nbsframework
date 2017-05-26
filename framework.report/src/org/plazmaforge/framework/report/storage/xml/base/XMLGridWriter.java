@@ -72,7 +72,7 @@ public class XMLGridWriter extends XMLAbstractWriter {
 	
     }
     
-    //COLUMNS
+    // COLUMNS
     protected void writeColumns(Grid grid, Element node) {
 	Element columnsNode = buildColumnsNode(grid);
 	if (columnsNode == null) {

@@ -34,45 +34,45 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLDSVariableReader extends XMLAbstractReader {
 
-    public DSVariable readVariable(Element element) {
+    public DSVariable readVariable(Element node) {
 	
    	DSVariable variable = new DSVariable(); 
-   	readIdentifier(element, variable);
+   	readIdentifier(node, variable);
    	
    	String sValue = null;
    	
    	// dataType
-   	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
+   	sValue = getStringValue(node, XML_ATTR_DATA_TYPE);
    	if (sValue != null) {
    	    variable.setDataType(sValue);
    	}
 
    	// expression
-   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
+   	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION));
    	if (expression != null) {
    	    variable.setExpression(expression);
    	}
 
    	// init-expression
-   	expression = getExpression(getChild(element, XML_INIT_EXPRESSION));
+   	expression = getExpression(getChild(node, XML_INIT_EXPRESSION));
    	if (expression != null) {
    	    variable.setInitExpression(expression);
    	}
    	
    	// resetType
-   	sValue = getStringValue(element, XML_ATTR_RESET_TYPE);
+   	sValue = getStringValue(node, XML_ATTR_RESET_TYPE);
    	if (sValue != null) {
    	    variable.setResetType(sValue);
    	}
 
    	// resetName
-   	sValue = getStringValue(element, XML_ATTR_RESET_NAME);
+   	sValue = getStringValue(node, XML_ATTR_RESET_NAME);
    	if (sValue != null) {
    	    variable.setResetName(sValue);
    	}
 
    	// aggregation
-   	sValue = getStringValue(element, XML_ATTR_AGGREGATION);
+   	sValue = getStringValue(node, XML_ATTR_AGGREGATION);
    	if (sValue != null) {
    	    variable.setAggregation(sValue);
    	}

@@ -38,13 +38,13 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLDSOrderReader extends XMLAbstractReader {
 
-    public DSOrder readOrder(Element element, DSDataSource dataSource) {
+    public DSOrder readOrder(Element node, DSDataSource dataSource) {
   	
   	DSOrder order = null;
   	DSExpression expression = null;
   	
   	// field
-  	String fieldName = getStringValue(element, XML_ATTR_FIELD);
+  	String fieldName = getStringValue(node, XML_ATTR_FIELD);
   	if (fieldName != null) {
   	    
   	    // Field filter
@@ -52,7 +52,7 @@ public class XMLDSOrderReader extends XMLAbstractReader {
   	    DSFieldOrder fieldOrder = new DSFieldOrder(field);
   	    
   	    // asc
-  	    Boolean asc = getBooleanValue(element, XML_ATTR_ASC);
+  	    Boolean asc = getBooleanValue(node, XML_ATTR_ASC);
   	    if (asc != null) {
   		fieldOrder.setAsc(asc);
   	    }
@@ -63,14 +63,14 @@ public class XMLDSOrderReader extends XMLAbstractReader {
   	    // Expression filter
   	    
   	    // expression
-  	    expression = getExpression(getChild(element, XML_EXPRESSION));
+  	    expression = getExpression(getChild(node, XML_EXPRESSION));
   	    
   	    DSExpressionOrder expressionOrder = new DSExpressionOrder(expression);
   	    order = expressionOrder;
   	}
 
   	// name, caption, description
-  	//readIdentifier(element, filter);
+  	//readIdentifier(node, filter);
 
   	return order;
 

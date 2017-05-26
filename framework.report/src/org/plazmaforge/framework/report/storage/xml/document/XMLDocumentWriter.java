@@ -32,6 +32,7 @@ import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
+import org.plazmaforge.framework.report.storage.DocumentWriter;
 import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupWriter;
 
 
@@ -40,67 +41,73 @@ import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupWriter;
  * @author ohapon
  *
  */
-public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
+public class XMLDocumentWriter extends XMLAbstractDocumentWriter implements DocumentWriter {
 
+    @Override
     public void writeDocument(Document document, String fileName) throws RTException {
 	org.jdom.Document doc = buildXMLDocument(document);
         writeXMLDocument(doc, fileName);
     }
 
-    protected void writeDocument(Document document, File file) throws RTException {
+    @Override
+    public void writeDocument(Document document, File file) throws RTException {
 	org.jdom.Document doc = buildXMLDocument(document);
         writeXMLDocument(doc, file);
     }
 
-    protected void writeDocument(Document document, OutputStream os) throws RTException {
+    @Override
+    public void writeDocument(Document document, OutputStream os) throws RTException {
 	org.jdom.Document doc = buildXMLDocument(document);
         writeXMLDocument(doc, os);
     }
 
-    protected void writeDocument(Document document, Writer writer) throws RTException {
+    @Override    
+    public void writeDocument(Document document, Writer writer) throws RTException {
 	org.jdom.Document doc = buildXMLDocument(document);
 	writeXMLDocument(doc, writer);
     }
     
+    ////
     
     protected org.jdom.Document buildXMLDocument(Document document) {
 
 	Element root = createElement(XML_DOCUMENT);
 	org.jdom.Document doc = new org.jdom.Document(root);
 	
+	writeDocumentAttributes(document, root);
+	writePageSetup(document, root);
+	writePages(document, root);
+	
+	return doc;
+    }
+    
+    protected void writeDocumentAttributes(Document document, Element node) {
+	
    	// name
    	if (document.getName() != null) {
-   	    setStringValue(root, XML_ATTR_NAME, document.getName());
+   	    setStringValue(node, XML_ATTR_NAME, document.getName());
    	}
    	
    	// caption
    	if (document.getCaption() != null) {
-   	    setStringValue(root, XML_ATTR_CAPTION, document.getCaption());
+   	    setStringValue(node, XML_ATTR_CAPTION, document.getCaption());
    	}
    	
    	// description
    	if (document.getDescription() != null) {
-   	    setStringValue(root, XML_ATTR_DESCRIPTION, document.getDescription());
+   	    setStringValue(node, XML_ATTR_DESCRIPTION, document.getDescription());
    	}
-   	
-	Element node = null;
-
-	// PAGE-SETUP
-	node = buildPageSetupNode(document);
-	if (node != null) {
-	    addChild(root, node);
-	}
 	
-	// PAGES
-	node = buildPagesNode(document);
-	if (node != null) {
-	    addChild(root, node);
-	}
-	
-	return doc;
     }
 
     // PAGE-SETUP
+    protected void writePageSetup(Document document, Element node) {
+	Element childNode = buildPageSetupNode(document);
+	if (node != null) {
+	    addChild(node, childNode);
+	}
+    }
+    
     protected Element buildPageSetupNode(Document document) {
 	if (!document.hasPageSetup()) {
 	    return null;
@@ -115,7 +122,15 @@ public class XMLDocumentWriter extends XMLAbstractDocumentWriter {
 	return node;
     }
     
-    //PAGES
+
+    // PAGES    
+    protected void writePages(Document document, Element node) {
+	Element childNode = buildPagesNode(document);
+	if (node != null) {
+	    addChild(node, childNode);
+	}
+    }
+
     protected Element buildPagesNode(Document document) {
 	if (!document.hasPages()) {
 	    return null;

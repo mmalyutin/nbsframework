@@ -51,8 +51,8 @@ public class XMLDSDataConnectorReader extends XMLAbstractReportReader {
 	this.propertyProviderFactory = propertyProviderFactory;
     }
 
-    public DSDataConnector readDataConnector(Element element) {
-	String type = getStringValue(element, XML_ATTR_TYPE);
+    public DSDataConnector readDataConnector(Element node) {
+	String type = getStringValue(node, XML_ATTR_TYPE);
 	DSDataConnector dataConnector = null;
 	
 	try {
@@ -61,7 +61,7 @@ public class XMLDSDataConnectorReader extends XMLAbstractReportReader {
 	    if (propertyProvider == null) {
 		throw new DSException("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
 	    }
-	    readProperties(element, dataConnector, propertyProvider);
+	    readProperties(node, dataConnector, propertyProvider);
 	} catch (DSException e) {
 	    //TODO
 	    System.err.println(e);
@@ -96,8 +96,8 @@ public class XMLDSDataConnectorReader extends XMLAbstractReportReader {
 
     
     // PROPERTIES
-    protected void readProperties(Element element, DSDataConnector dataConnector, PropertyProvider propertyProvider) {
-   	List children = getNodeChildren(element, XML_PROPERTIES, XML_PROPERTY);
+    protected void readProperties(Element node, DSDataConnector dataConnector, PropertyProvider propertyProvider) {
+   	List children = getNodeChildren(node, XML_PROPERTIES, XML_PROPERTY);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}

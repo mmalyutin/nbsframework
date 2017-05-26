@@ -41,69 +41,69 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 public class XMLRowReader extends XMLAbstractReader {
 
     
-    public Row readRow(Element element) {
+    public Row readRow(Element node) {
 	Row row = new Row();
 
 	// height
-	Integer iValue = getIntegerValue(element, XML_ATTR_HEIGHT);
+	Integer iValue = getIntegerValue(node, XML_ATTR_HEIGHT);
 	if (iValue != null) {
 	    row.setHeight(iValue);
 	}
 	
 	// background
-	Color background = getColor(element, XML_ATTR_BACKGROUND);
+	Color background = getColor(node, XML_ATTR_BACKGROUND);
 	if (background != null) {
 	    row.setBackground(background);
 	}
 
 	// foreground
-	Color foreground = getColor(element, XML_ATTR_FOREGROUND);
+	Color foreground = getColor(node, XML_ATTR_FOREGROUND);
 	if (foreground != null) {
 	    row.setForeground(foreground);
 	}
 
 	// font
-	Font font = getFont(element, XML_ATTR_FONT);
+	Font font = getFont(node, XML_ATTR_FONT);
 	if (font != null) {
 	    row.setFont(font);
 	}
 	
 	
 	// cell-line	
-	Pen cellLine = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
+	Pen cellLine = getBorderPenByAttributes(node, XML_ATTR_CELL_LINE);
 	if (cellLine != null) {
 	    row.setCellLine(cellLine);
 	}
 
 	// column-line	
-	Pen columnLine = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
+	Pen columnLine = getBorderPenByAttributes(node, XML_ATTR_COLUMN_LINE);
 	if (columnLine != null) {
 	    row.setColumnLine(columnLine);
 	}
 
 	// row-line	
-	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
+	Pen rowLine = getBorderPenByAttributes(node, XML_ATTR_ROW_LINE);
 	if (rowLine != null) {
 	    row.setRowLine(rowLine);
 	}
 	
 	
 	// border
-   	Border border = getBorder(element, "cell");
+   	Border border = getBorder(node, "cell");
    	if (border != null) {
    	    row.setCellBorder(border);
    	}
 	
 	// Get cells
-	readCells(element, row);
+	readCells(node, row);
 	
 	return row;
     }
     
     
     // CELLS
-    protected void readCells(Element element, Row row) {
-	List children = getNodeChildren(element, XML_CELLS, XML_CELL);
+    protected void readCells(Element node, Row row) {
+	List children = getNodeChildren(node, XML_CELLS, XML_CELL);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

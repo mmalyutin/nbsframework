@@ -23,14 +23,11 @@
 package org.plazmaforge.framework.report.storage.xml.document;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.List;
 
 import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.document.Document;
@@ -45,76 +42,31 @@ import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupReader;
  */
 public class XMLDocumentReader extends XMLAbstractDocumentReader implements DocumentReader {
 
+    @Override
     public Document readDocument(String fileName) throws RTException {
 	org.jdom.Document doc = readXMLDocument(fileName);
 	return readDocument(fileName, doc);
     }
 
+    @Override
     public Document readDocument(File file) throws RTException {
 	org.jdom.Document doc = readXMLDocument(file);
 	return readDocument(file.getName(), doc);
     }
 
+    @Override
     public Document readDocument(InputStream is) throws RTException {
 	org.jdom.Document doc = readXMLDocument(is);
 	return readDocument(null, doc);
     }
     
+    @Override
     public Document readDocument(Reader reader) throws RTException {
 	org.jdom.Document doc = readXMLDocument(reader);
 	return readDocument(null, doc);
     }
     
-
     ////
-
-    protected org.jdom.Document readXMLDocument(String fileName) throws RTException {
-	if (fileName == null) {
-	    throw new RTException("Can't read report. File name is null.");
-	}
-	fileName = normalizeString(fileName);
-	if (fileName == null) {
-	    throw new RTException("Can't read report. File name is empty.");
-	}
-	return readXMLDocument(new File(fileName));
-    }
-
-    protected org.jdom.Document readXMLDocument(File file) throws RTException {
-	if (file == null) {
-	    throw new RTException("Can't read report. File is null.");
-	}
-	try {
-	    return readXMLDocument(new FileInputStream(file));
-	} catch (FileNotFoundException ex) {
-	    throw new RTException(ex);
-	}
-    }
-
-    protected org.jdom.Document readXMLDocument(Reader reader) throws RTException {
-	if (reader == null) {
-	    throw new RTException("Can't read report. Reader is null.");
-	}
-	try {
-	    SAXBuilder builder = new SAXBuilder();
-	    // builder.setValidation(false);
-	    return builder.build(reader);
-	} catch (Exception ex) {
-	    throw new RTException(ex);
-	}
-    }
-    
-    protected org.jdom.Document readXMLDocument(InputStream is) throws RTException {
-	if (is == null) {
-	    throw new RTException("Can't read report. InputStream is null.");
-	}
-	try {
-	    SAXBuilder builder = new SAXBuilder();
-	    // builder.setValidation(false);
-	    return builder.build(is);
-	} catch (Exception ex) {
-	    throw new RTException(ex);
-	}
-    }
 
     protected Document readDocument(String fileName, org.jdom.Document doc) {
 	Element root = doc.getRootElement();
@@ -122,63 +74,63 @@ public class XMLDocumentReader extends XMLAbstractDocumentReader implements Docu
     }
     
     
-    protected Document readDocument(String fileName, Element element) {
-	String name = element.getName();
+    protected Document readDocument(String fileName, Element node) {
+	String name = node.getName();
 
 	if (!XML_DOCUMENT.equals(name)) {
 	    return null;
 	}
 	Document document = new Document();
 	
-	readDocumentAttributes(element, document);
-	readDocumentContent(element, document);
+	readDocumentAttributes(node, document);
+	readDocumentContent(node, document);
 	
 
 	return document;
     }
     
-    protected void readDocumentAttributes(Element element, Document document) {
+    protected void readDocumentAttributes(Element node, Document document) {
    	String value = null;
    	
    	// name
-   	value = getStringValue(element, XML_ATTR_NAME);
+   	value = getStringValue(node, XML_ATTR_NAME);
    	if (value != null) {
    	    document.setName(value);
    	}
    	
    	// caption
-   	value = getStringValue(element, XML_ATTR_CAPTION);
+   	value = getStringValue(node, XML_ATTR_CAPTION);
    	if (value != null) {
    	    document.setCaption(value);
    	}
 
    	// description
-   	value = getStringValue(element, XML_ATTR_DESCRIPTION);
+   	value = getStringValue(node, XML_ATTR_DESCRIPTION);
    	if (value != null) {
    	    document.setDescription(value);
    	}
    	
     }
 
-    protected void readDocumentContent(Element element, Document document) {
-	readPageSetup(element, document);
-   	readPages(element, document);
+    protected void readDocumentContent(Element node, Document document) {
+	readPageSetup(node, document);
+   	readPages(node, document);
     }
     
     // PAGE-SETUP
-    protected void readPageSetup(Element element, Document document) {
-	Element node = getChild(element, XML_PAGE_SETUP);
-	if (node == null) {
+    protected void readPageSetup(Element node, Document document) {
+	Element child = getChild(node, XML_PAGE_SETUP);
+	if (child == null) {
 	    return;
 	}
 	XMLPageSetupReader reader = new XMLPageSetupReader();
-	PageSetup pageSetup = reader.readPageSetup(node);
+	PageSetup pageSetup = reader.readPageSetup(child);
 	document.setPageSetup(pageSetup);
     }
     
     // PAGES
-    protected void readPages(Element element, Document document) {
-	List children = getNodeChildren(element, XML_PAGES, XML_PAGE);
+    protected void readPages(Element node, Document document) {
+	List children = getNodeChildren(node, XML_PAGES, XML_PAGE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

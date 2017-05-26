@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 public class XMLCellReader extends XMLAbstractReader {
 
     
-    public Cell readCell(Element element) {
+    public Cell readCell(Element node) {
 	
    	Cell cell = new Cell();
    	
@@ -49,43 +49,43 @@ public class XMLCellReader extends XMLAbstractReader {
    	Integer iValue = null;
 
    	// column span
-   	iValue = getIntegerValue(element, XML_ATTR_COLSPAN);
+   	iValue = getIntegerValue(node, XML_ATTR_COLSPAN);
    	if (iValue != null) {
    	    cell.setColspan(iValue);
    	}
 
    	// row span
-   	iValue = getIntegerValue(element, XML_ATTR_ROWSPAN);
+   	iValue = getIntegerValue(node, XML_ATTR_ROWSPAN);
    	if (iValue != null) {
    	    cell.setRowspan(iValue);
    	}
 
    	// horizontal alignment
-   	HorizontalAlign horizontalAlign = getHorizontalAlign(element, XML_ATTR_HORIZONTAL_ALIGN);
+   	HorizontalAlign horizontalAlign = getHorizontalAlign(node, XML_ATTR_HORIZONTAL_ALIGN);
    	if (horizontalAlign != null) {
    	    cell.setHorizontalAlign(horizontalAlign);
    	}
 
    	// vertical alignment
-   	VerticalAlign verticalAlign = getVerticalAlign(element, XML_ATTR_VERTICAL_ALIGN);
+   	VerticalAlign verticalAlign = getVerticalAlign(node, XML_ATTR_VERTICAL_ALIGN);
    	if (verticalAlign != null) {
    	    cell.setVerticalAlign(verticalAlign);
    	}
    	
    	// border
-   	Border border = getBorder(element);
+   	Border border = getBorder(node);
    	if (border != null) {
    	    cell.setBorder(border);
    	}
    	
    	// dataType
-   	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
+   	sValue = getStringValue(node, XML_ATTR_DATA_TYPE);
    	if (sValue != null) {
    	    cell.setDataType(sValue);
    	}
 
    	// format
-   	sValue = getStringValue(element, XML_ATTR_FORMAT);
+   	sValue = getStringValue(node, XML_ATTR_FORMAT);
    	if (sValue != null) {
    	    cell.setFormat(sValue);
    	}
@@ -97,11 +97,11 @@ public class XMLCellReader extends XMLAbstractReader {
    	//}
 
    	// value: node
-   	sValue = getContentValue(getChild(element, XML_VALUE));
+   	sValue = getContentValue(getChild(node, XML_VALUE));
    	if (sValue == null) {
    	    
    	    // value: attribute
-   	    sValue = getStringValue(element, XML_ATTR_VALUE);
+   	    sValue = getStringValue(node, XML_ATTR_VALUE);
    	}
    	if (sValue != null) {
    	    Object value = getTValue(cell.getDataType(), sValue);
@@ -109,32 +109,32 @@ public class XMLCellReader extends XMLAbstractReader {
    	}
 
    	// expression
-   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION), USE_DATA_TYPE_IN_EXPRESSION);
+   	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION), USE_DATA_TYPE_IN_EXPRESSION);
    	if (expression != null) {
    	    cell.setExpression(expression);
    	}
    	
 	// background
-	Color background = getColor(element, XML_ATTR_BACKGROUND);
+	Color background = getColor(node, XML_ATTR_BACKGROUND);
 	if (background != null) {
 	    cell.setBackground(background);
 	}
 	
    	// foreground
-	Color foreground = getColor(element, XML_ATTR_FOREGROUND);
+	Color foreground = getColor(node, XML_ATTR_FOREGROUND);
 	if (foreground != null) {
 	    cell.setForeground(foreground);
 	}
 
 	// font
-	Font font = getFont(element, XML_ATTR_FONT);
+	Font font = getFont(node, XML_ATTR_FONT);
 	if (font != null) {
 	    cell.setFont(font);
 	}   		
    		
 	
    	// padding
-   	Padding padding = getPaddingByAttributes(element);
+   	Padding padding = getPaddingByAttributes(node);
    	if (padding != null) {
    	    cell.setPadding(padding);
    	}

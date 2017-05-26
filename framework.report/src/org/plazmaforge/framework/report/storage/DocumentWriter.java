@@ -25,6 +25,10 @@
  */
 package org.plazmaforge.framework.report.storage;
 
+import java.io.File;
+import java.io.OutputStream;
+import java.io.Writer;
+
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.document.Document;
 
@@ -34,6 +38,13 @@ import org.plazmaforge.framework.report.model.document.Document;
  */
 public interface DocumentWriter {
 
-    void wrireDocument(Document document, String fileName) throws RTException;
+    void writeDocument(Document document, String fileName) throws RTException;
+    
+    void writeDocument(Document document, File file) throws RTException;
+
+    void writeDocument(Document document, OutputStream os) throws RTException;
+
+    void writeDocument(Document document, Writer writer) throws RTException;
+    
     
 }

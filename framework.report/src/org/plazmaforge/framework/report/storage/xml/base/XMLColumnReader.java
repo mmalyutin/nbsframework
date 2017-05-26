@@ -34,9 +34,9 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
 public class XMLColumnReader extends XMLAbstractReader {
 
     
-    public Column readColumn(Element element) {
+    public Column readColumn(Element node) {
  	Column column = new Column();
- 	Integer iValue = getIntegerValue(element, XML_ATTR_WIDTH);
+ 	Integer iValue = getIntegerValue(node, XML_ATTR_WIDTH);
  	if (iValue != null) {
  	    column.setWidth(iValue);
  	}
