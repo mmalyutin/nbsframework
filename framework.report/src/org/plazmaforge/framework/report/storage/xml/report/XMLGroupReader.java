@@ -44,46 +44,41 @@ import org.plazmaforge.framework.report.model.design.ReportGroup;
  */
 public class XMLGroupReader extends XMLAbstractReportReader {
 
-    public ReportGroup readGroup(Element element) {
+    public ReportGroup readGroup(Element node) {
 	ReportGroup group = new ReportGroup();
-	readGroupAttributes(element, group);
-	readGroupContent(element, group);
+	readGroupAttributes(node, group);
+	readGroupContent(node, group);
 	return group;
     }
 
     ////
     
-    protected void readGroupAttributes(Element element, ReportGroup group) {
+    protected void readGroupAttributes(Element node, ReportGroup group) {
 	String value = null;
 
 	// name
-	value = getStringValue(element, XML_ATTR_NAME);
+	value = getStringValue(node, XML_ATTR_NAME);
 	if (value != null) {
 	    group.setName(value);
 	}
 	
     }
     
-    protected void readGroupContent(Element element, ReportGroup group) {
+    protected void readGroupContent(Element node, ReportGroup group) {
 	
 	// expression
-	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION), false);
+	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION), false);
 	if (expression != null) {
 	    group.setExpression(expression);
 	}
 
-	readBands(element, group);
+	readBands(node, group);
     }
     
     // BANDS
-    protected void readBands(Element element, ReportGroup group) {
+    protected void readBands(Element node, ReportGroup group) {
 	
-//	Element node = getChild(element, XML_BANDS);
-//	if (node == null) {
-//	    return;
-//	}
-	
-	List children = getNodeChildren(element, XML_BANDS, XML_BAND);
+	List children = getNodeChildren(node, XML_BANDS, XML_BAND);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

@@ -50,67 +50,67 @@ public class XMLBandReader extends XMLAbstractReportReader {
 
     ////
     
-    protected void readBandAttributes(Element element, Band band) {
+    protected void readBandAttributes(Element node, Band band) {
 	String sValue = null;
 	Integer iValue = null;
 	
 	// type
-	sValue = getStringValue(element, XML_ATTR_TYPE);
+	sValue = getStringValue(node, XML_ATTR_TYPE);
 	if (sValue != null) {
 	    band.setType(sValue);
 	}
 	
 	// height
-	iValue = getIntegerValue(element, XML_ATTR_HEIGHT);
+	iValue = getIntegerValue(node, XML_ATTR_HEIGHT);
 	if (iValue != null) {
 	    band.setHeight(iValue);
 	}
 
 	// background
-	Color background = getColor(element, XML_ATTR_BACKGROUND);
+	Color background = getColor(node, XML_ATTR_BACKGROUND);
 	if  (background != null) {
 	    band.setBackground(background);
 	}
 	    
 	// foreground
-	Color foreground = getColor(element, XML_ATTR_FOREGROUND);
+	Color foreground = getColor(node, XML_ATTR_FOREGROUND);
 	if (foreground != null) {
 	    band.setForeground(foreground);
 	}
 	
 	// font
-	Font font = getFont(element, XML_ATTR_FONT);
+	Font font = getFont(node, XML_ATTR_FONT);
 	if (font != null) {
 	    band.setFont(font);
 	}   		
 
 	// cell-line	
-	Pen cellLine = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
+	Pen cellLine = getBorderPenByAttributes(node, XML_ATTR_CELL_LINE);
 	if (cellLine != null) {
 	    band.setCellLine(cellLine);
 	}
 
 	// column-line	
-	Pen columnLine = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
+	Pen columnLine = getBorderPenByAttributes(node, XML_ATTR_COLUMN_LINE);
 	if (columnLine != null) {
 	    band.setColumnLine(columnLine);
 	}
 
 	// row-line	
-	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
+	Pen rowLine = getBorderPenByAttributes(node, XML_ATTR_ROW_LINE);
 	if (rowLine != null) {
 	    band.setRowLine(rowLine);
 	}
 	
     }
     
-    protected void readBandContent(Element element, Band band) {
-	readBandRows(element, band); // ONLY FOR Table report
+    protected void readBandContent(Element node, Band band) {
+	readBandRows(node, band); // ONLY FOR Table report
     }
     
     
-    protected void readBandRows(Element element, Band band) {
-	List children = getNodeChildren(element, XML_ROWS, XML_ROW);
+    protected void readBandRows(Element node, Band band) {
+	List children = getNodeChildren(node, XML_ROWS, XML_ROW);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

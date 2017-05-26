@@ -51,87 +51,87 @@ import org.plazmaforge.framework.report.storage.xml.base.XMLPageSetupReader;
  */
 public class XMLTemplateReader extends XMLAbstractReportReader {
 
-    public Template readTemplate(Element element) {
+    public Template readTemplate(Element node) {
 	Template template = new Template();
-	readTemplateAttributes(element, template);
-	readTemplateContent(element, template);
+	readTemplateAttributes(node, template);
+	readTemplateContent(node, template);
 	return template;
     }
     
     ////
 
-    protected void readTemplateAttributes(Element element, Template template) {
+    protected void readTemplateAttributes(Element node, Template template) {
 	
-	readIdentifier(element, template);
+	readIdentifier(node, template);
 	
 	String value = null;
 	Boolean booleanValue = null;
 	
 	// type
-	value = getStringValue(element, XML_ATTR_TYPE);
+	value = getStringValue(node, XML_ATTR_TYPE);
 	if (value != null) {
 	    template.setType(value);
 	}
 	
 	// cell-border-rule: ONLY FOR Table report
-	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_RULE);
+	CellBorderRule cellBorderRule = getCellBorderRule(node, XML_ATTR_CELL_BORDER_RULE);
 	if (cellBorderRule != null) {
 	    template.setCellBorderRule(cellBorderRule);
 	}
 	
 	// cell-line: ONLY FOR Table report
-	Pen cellLine = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
+	Pen cellLine = getBorderPenByAttributes(node, XML_ATTR_CELL_LINE);
 	if (cellLine != null) {
 	    template.setCellLine(cellLine);
 	}
 
 	// column-line: ONLY FOR Table report
-	Pen columnLine = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
+	Pen columnLine = getBorderPenByAttributes(node, XML_ATTR_COLUMN_LINE);
 	if (columnLine != null) {
 	    template.setColumnLine(columnLine);
 	}
 
 	// row-line: ONLY FOR Table report
-	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
+	Pen rowLine = getBorderPenByAttributes(node, XML_ATTR_ROW_LINE);
 	if (rowLine != null) {
 	    template.setRowLine(rowLine);
 	}
 	
 	// report-header-on-page
-	booleanValue = getBooleanValue(element, XML_ATTR_REPORT_HEADER_ON_PAGE);
+	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_HEADER_ON_PAGE);
 	if (booleanValue != null) {
 	    template.setReportHeaderOnPage(booleanValue);
 	}
 	
 	// report-footer-on-page
-	booleanValue = getBooleanValue(element, XML_ATTR_REPORT_FOOTER_ON_PAGE);
+	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_FOOTER_ON_PAGE);
 	if (booleanValue != null) {
 	    template.setReportFooterOnPage(booleanValue);
 	}
 	
     }
     
-    protected void readTemplateContent(Element element, Template template) {
-	readPageSetup(element, template);
-	readColumns(element, template); // ONLY FOR Table report 
-	readGroups(element, template);
-	readBands(element, template);
+    protected void readTemplateContent(Element node, Template template) {
+	readPageSetup(node, template);
+	readColumns(node, template); // ONLY FOR Table report 
+	readGroups(node, template);
+	readBands(node, template);
     }
     
     // PAGE-SETUP
-    protected void readPageSetup(Element element, Template template) {
-	Element node = getChild(element, XML_PAGE_SETUP);
-	if (node == null) {
+    protected void readPageSetup(Element node, Template template) {
+	Element child = getChild(node, XML_PAGE_SETUP);
+	if (child == null) {
 	    return;
 	}
 	XMLPageSetupReader reader = new XMLPageSetupReader();
-	PageSetup pageSetup = reader.readPageSetup(node);
+	PageSetup pageSetup = reader.readPageSetup(child);
 	template.setPageSetup(pageSetup);
     }
     
     // COLUMNS
-    protected void readColumns(Element element, Template template) {
-	List children = getNodeChildren(element, XML_COLUMNS, XML_COLUMN);
+    protected void readColumns(Element node, Template template) {
+	List children = getNodeChildren(node, XML_COLUMNS, XML_COLUMN);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -144,8 +144,8 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
 
     // REPORT-GROUPS
-    protected void readGroups(Element element, Template template) {
-	List children = getNodeChildren(element, XML_REPORT_GROUPS, XML_REPORT_GROUP);
+    protected void readGroups(Element node, Template template) {
+	List children = getNodeChildren(node, XML_REPORT_GROUPS, XML_REPORT_GROUP);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -158,8 +158,8 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
     }
     
     // BANDS
-    protected void readBands(Element element, Template template) {
-	List children = getNodeChildren(element, XML_BANDS, XML_BAND);
+    protected void readBands(Element node, Template template) {
+	List children = getNodeChildren(node, XML_BANDS, XML_BAND);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
