@@ -39,43 +39,43 @@ import org.plazmaforge.framework.uwt.graphics.Color;
  */
 public class XMLPageReader extends XMLAbstractDocumentReader {
 
-    public Page readPage(org.jdom.Element element) {
+    public Page readPage(org.jdom.Element node) {
 	Page page = new Page();
-	readPageAttributes(element, page);
-	readPageContent(element, page);
+	readPageAttributes(node, page);
+	readPageContent(node, page);
 	return page;
     }
 
     ////
     
-    protected void readPageAttributes(org.jdom.Element element, Page page) {
+    protected void readPageAttributes(org.jdom.Element node, Page page) {
 	
 	// background
-	Color background = getColor(element, XML_ATTR_BACKGROUND);
+	Color background = getColor(node, XML_ATTR_BACKGROUND);
 	if  (background != null) {
 	    page.setBackground(background);
 	}
 	    
 	// foreground
-	Color foreground = getColor(element, XML_ATTR_FOREGROUND);
+	Color foreground = getColor(node, XML_ATTR_FOREGROUND);
 	if (foreground != null) {
 	    page.setForeground(foreground);
 	}
 
     }
     
-    protected void readPageContent(org.jdom.Element element, Page page) {
-	readPageElements(element, page);
+    protected void readPageContent(org.jdom.Element node, Page page) {
+	readPageElements(node, page);
     }
     
     
-    protected void readPageElements(org.jdom.Element element, Page page) {
-	org.jdom.Element node = getChild(element, XML_ELEMENTS);
-	if (node == null) {
+    protected void readPageElements(org.jdom.Element node, Page page) {
+	org.jdom.Element elementsNode = getChild(node, XML_ELEMENTS);
+	if (elementsNode == null) {
 	    return;
 	}
 	// Get all children (grid, text, image...) 
-	List children = node.getChildren();
+	List children = elementsNode.getChildren();
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -93,25 +93,25 @@ public class XMLPageReader extends XMLAbstractDocumentReader {
     }
     
     
-    protected Element readElementByType(org.jdom.Element element) {
-	String elementName = element.getName();
+    protected Element readElementByType(org.jdom.Element node) {
+	String elementName = node.getName();
 	if (XML_ELEMENT.equals(elementName)) {
-	    return readElement(element);
+	    return readElement(node);
 	} else if (XML_GRID.equals(elementName)) {
-	    return readGrid(element);
+	    return readGrid(node);
 	}
 	// handleError("Document is not valid");
 	return null;
     }
  
-    protected Element readElement(org.jdom.Element element) {
+    protected Element readElement(org.jdom.Element node) {
 	// TODO
 	return null;
     }    
     
-    protected Grid readGrid(org.jdom.Element element) {
+    protected Grid readGrid(org.jdom.Element node) {
 	XMLGridReader reader = new XMLGridReader();
-	return reader.readGrid(element);
+	return reader.readGrid(node);
     }    
     
 }

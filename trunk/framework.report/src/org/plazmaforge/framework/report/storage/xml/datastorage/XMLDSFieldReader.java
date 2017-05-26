@@ -35,30 +35,30 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLDSFieldReader extends XMLAbstractReader {
 
-    public DSField readField(Element element) {
+    public DSField readField(Element node) {
 	
-  	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
+  	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION));
   	DSField field = expression == null ? new DSField() : new DSExpressionField(expression); 
   	
   	// name, caption, description
-  	readIdentifier(element, field);
+  	readIdentifier(node, field);
   	
   	String sValue = null;
   	
   	// dataType
-  	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
+  	sValue = getStringValue(node, XML_ATTR_DATA_TYPE);
   	if (sValue != null) {
   	    field.setDataType(sValue);
   	}
 
   	// path
-  	sValue = getStringValue(element, XML_ATTR_PATH);
+  	sValue = getStringValue(node, XML_ATTR_PATH);
   	if (sValue != null) {
   	    field.setPath(sValue);
   	}
 
   	// format
-  	//sValue = getValue(element, XML_ATTR_FORMAT);
+  	//sValue = getValue(node, XML_ATTR_FORMAT);
   	//if (sValue != null) {
   	//    field.setFormat(sValue);
   	//}

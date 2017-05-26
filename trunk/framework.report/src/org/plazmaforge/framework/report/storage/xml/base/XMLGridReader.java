@@ -39,51 +39,51 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLGridReader extends XMLAbstractReader {
 
-    public Grid readGrid(Element element) {
+    public Grid readGrid(Element node) {
 	Grid grid = new Grid();
-	readGridAttributes(element, grid);
-	readGridContent(element, grid);
+	readGridAttributes(node, grid);
+	readGridContent(node, grid);
 	return grid;
     }
 
-    protected void readGridAttributes(Element element, Grid grid) {
-	readElementAttributes(element, grid);
+    protected void readGridAttributes(Element node, Grid grid) {
+	readElementAttributes(node, grid);
 	
 	// cell-border-rule
-	CellBorderRule cellBorderRule = getCellBorderRule(element, XML_ATTR_CELL_BORDER_RULE);
+	CellBorderRule cellBorderRule = getCellBorderRule(node, XML_ATTR_CELL_BORDER_RULE);
 	if (cellBorderRule != null) {
 	    grid.setCellBorderRule(cellBorderRule);
 	}
 	
 	// cell-line	
-	Pen cellLine = getBorderPenByAttributes(element, XML_ATTR_CELL_LINE);
+	Pen cellLine = getBorderPenByAttributes(node, XML_ATTR_CELL_LINE);
 	if (cellLine != null) {
 	    grid.setCellLine(cellLine);
 	}
 
 	// column-line	
-	Pen columnLine = getBorderPenByAttributes(element, XML_ATTR_COLUMN_LINE);
+	Pen columnLine = getBorderPenByAttributes(node, XML_ATTR_COLUMN_LINE);
 	if (columnLine != null) {
 	    grid.setColumnLine(columnLine);
 	}
 
 	// row-line	
-	Pen rowLine = getBorderPenByAttributes(element, XML_ATTR_ROW_LINE);
+	Pen rowLine = getBorderPenByAttributes(node, XML_ATTR_ROW_LINE);
 	if (rowLine != null) {
 	    grid.setRowLine(rowLine);
 	}
 	
     }
     
-    protected void readGridContent(Element element, Grid grid) {
-	readColumns(element, grid);
-	readRows(element, grid);
+    protected void readGridContent(Element node, Grid grid) {
+	readColumns(node, grid);
+	readRows(node, grid);
     }
     
     
     // COLUMNS
-    protected void readColumns(Element element, Grid grid) {
-	List children = getNodeChildren(element, XML_COLUMNS, XML_COLUMN);
+    protected void readColumns(Element node, Grid grid) {
+	List children = getNodeChildren(node, XML_COLUMNS, XML_COLUMN);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -99,8 +99,8 @@ public class XMLGridReader extends XMLAbstractReader {
  
 
     // ROWS
-    protected void readRows(Element element, Grid grid) {
-	List children = getNodeChildren(element, XML_ROWS, XML_ROW);
+    protected void readRows(Element node, Grid grid) {
+	List children = getNodeChildren(node, XML_ROWS, XML_ROW);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}

@@ -46,48 +46,48 @@ import org.plazmaforge.framework.report.storage.xml.report.XMLAbstractReportRead
 public class XMLDSDataSourceReader extends XMLAbstractReportReader {
 
     
-    public DSDataSource readDataSource(Element element) {
+    public DSDataSource readDataSource(Element node) {
 	DSDataSource dataSource = new DSBaseDataSource();
-	readDataSourceAttributes(element, dataSource);
-	readDataSourceContent(element, dataSource);
+	readDataSourceAttributes(node, dataSource);
+	readDataSourceContent(node, dataSource);
 	return dataSource;
     }
     
     ////
 
-    protected void readDataSourceAttributes(Element element, DSDataSource dataSource) {
+    protected void readDataSourceAttributes(Element node, DSDataSource dataSource) {
 	
-	readIdentifier(element, dataSource);
+	readIdentifier(node, dataSource);
 	
 	String sValue = null;
 	
 	// type
-	sValue = getStringValue(element, XML_ATTR_TYPE);
+	sValue = getStringValue(node, XML_ATTR_TYPE);
 	if (sValue != null) {
 	    dataSource.setType(sValue);
 	}
 	
     }
     
-    protected void readDataSourceContent(Element element, DSDataSource dataSource) {
+    protected void readDataSourceContent(Element node, DSDataSource dataSource) {
 	
 	// Read query
 	XMLDSQueryReader reader = new XMLDSQueryReader(); 
-	DSQuery query = reader.readQuery(getChild(element, XML_QUERY));
+	DSQuery query = reader.readQuery(getChild(node, XML_QUERY));
 	if (query != null) {
 	    dataSource.setQuery(query);
 	}
 	
-	readParameters(element, dataSource);
-	readFields(element, dataSource);
-	readFilters(element, dataSource);
-	readOrders(element, dataSource);
+	readParameters(node, dataSource);
+	readFields(node, dataSource);
+	readFilters(node, dataSource);
+	readOrders(node, dataSource);
     }
     
  
     // PARAMETERS
-    protected void readParameters(Element element, DSDataSource dataSource) {
-   	List children = getNodeChildren(element, XML_PARAMETERS, XML_PARAMETER);
+    protected void readParameters(Element node, DSDataSource dataSource) {
+   	List children = getNodeChildren(node, XML_PARAMETERS, XML_PARAMETER);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}
@@ -103,8 +103,8 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     }
     
     // FIELDS
-    protected void readFields(Element element, DSDataSource dataSource) {
-   	List children = getNodeChildren(element, XML_FIELDS, XML_FIELD);
+    protected void readFields(Element node, DSDataSource dataSource) {
+   	List children = getNodeChildren(node, XML_FIELDS, XML_FIELD);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}
@@ -120,8 +120,8 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     }
     
     // FILTERS
-    protected void readFilters(Element element, DSDataSource dataSource) {
-   	List children = getNodeChildren(element, XML_FILTERS, XML_FILTER);
+    protected void readFilters(Element node, DSDataSource dataSource) {
+   	List children = getNodeChildren(node, XML_FILTERS, XML_FILTER);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}
@@ -137,8 +137,8 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     }
 
     // ORDERS
-    protected void readOrders(Element element, DSDataSource dataSource) {
-   	List children = getNodeChildren(element, XML_ORDERS, XML_ORDER);
+    protected void readOrders(Element node, DSDataSource dataSource) {
+   	List children = getNodeChildren(node, XML_ORDERS, XML_ORDER);
    	if (children == null || children.isEmpty()) {
    	    return;
    	}

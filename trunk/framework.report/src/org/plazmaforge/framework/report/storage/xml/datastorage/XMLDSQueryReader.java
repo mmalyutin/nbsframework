@@ -33,16 +33,16 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLDSQueryReader extends XMLAbstractReader {
 
-    public DSQuery readQuery(Element element) {
- 	if (element == null) {
+    public DSQuery readQuery(Element node) {
+ 	if (node == null) {
  	    return null;
  	}
  	DSQuery query = new DSQuery();
- 	String sValue = getStringValue(element, XML_ATTR_LANGUAGE);
+ 	String sValue = getStringValue(node, XML_ATTR_LANGUAGE);
  	if (sValue != null) {
  	    query.setLanguage(sValue);
  	}
- 	sValue = getContentValue(element);
+ 	sValue = getContentValue(node);
  	if (sValue != null) {
  	    query.setText(sValue);
  	}

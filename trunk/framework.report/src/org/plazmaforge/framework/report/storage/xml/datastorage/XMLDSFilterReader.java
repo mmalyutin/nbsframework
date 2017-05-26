@@ -40,14 +40,14 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLDSFilterReader extends XMLAbstractReader {
 
-    public DSFilter readFilter(Element element, DSDataSource dataSource) {
+    public DSFilter readFilter(Element node, DSDataSource dataSource) {
   	
   	String sValue = null;
   	DSFilter filter = null;
   	DSExpression expression = null;
   	
   	// field
-  	String fieldName = getStringValue(element, XML_ATTR_FIELD);
+  	String fieldName = getStringValue(node, XML_ATTR_FIELD);
   	if (fieldName != null) {
   	    
   	    // Field filter
@@ -55,11 +55,11 @@ public class XMLDSFilterReader extends XMLAbstractReader {
   	    DSFieldFilter fieldFilter = new DSFieldFilter(field);
   	    
   	    // operation
-  	    sValue = getStringValue(element, XML_ATTR_OPERATOR);
+  	    sValue = getStringValue(node, XML_ATTR_OPERATOR);
   	    fieldFilter.setOperator(sValue);
   	    
   	    // value
-  	    sValue = getContentValue(getChild(element, XML_VALUE));
+  	    sValue = getContentValue(getChild(node, XML_VALUE));
   	    if (sValue != null && field != null) {
   		Serializable filterValue = (Serializable) getFormatterManager().parseValue(sValue, field.getDataType());
   		fieldFilter.setValue(filterValue);
@@ -70,14 +70,14 @@ public class XMLDSFilterReader extends XMLAbstractReader {
   	    // Expression filter
   	    
   	    // expression
-  	    expression = getExpression(getChild(element, XML_EXPRESSION));
+  	    expression = getExpression(getChild(node, XML_EXPRESSION));
   	    
   	    DSExpressionFilter expressionFilter = new DSExpressionFilter(expression);
   	    filter = expressionFilter;
   	}
 
   	// name, caption, description
-  	//readIdentifier(element, filter);
+  	//readIdentifier(node, filter);
 
   	return filter;
 

@@ -54,18 +54,18 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	this.propertyProviderFactory = propertyProviderFactory;
     }
 
-    public void writeDataConnector(DSDataConnector dataConnector, Element element) {
+    public void writeDataConnector(DSDataConnector dataConnector, Element node) {
 	
 	String type = dataConnector.getType();
 	if (type != null) {
-	    setStringValue(element, XML_ATTR_DATA_TYPE, type);
+	    setStringValue(node, XML_ATTR_DATA_TYPE, type);
 	}
 	try {
 	    PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
 	    if (propertyProvider == null) {
 		throw new DSException("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
 	    }
-	    writeProperties(dataConnector, element, propertyProvider);
+	    writeProperties(dataConnector, node, propertyProvider);
 	} catch (DSException e) {
 	    //TODO
 	    System.err.println(e);
@@ -75,7 +75,7 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
     ////
     
     // PROPERTIES
-    protected void writeProperties(DSDataConnector dataConnector, Element element, PropertyProvider propertyProvider) {
+    protected void writeProperties(DSDataConnector dataConnector, Element node, PropertyProvider propertyProvider) {
 	
 	List<String> propertyNames = ((MetaPropertyProvider) propertyProvider).getPropertyNames();
 	if (propertyNames == null || propertyNames.isEmpty()) {
@@ -105,7 +105,7 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	    
 	    child = createElement(XML_PROPERTY);
 	    setStringValue(child, XML_ATTR_NAME, name);
-	    setContentValue(element, value, sValue);
+	    setContentValue(node, value, sValue);
 	    
 	    addChild(parentNode, child);
 	}

@@ -35,22 +35,22 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractReader;
  */
 public class XMLDSParameterReader extends XMLAbstractReader {
 
-    public DSParameter readParameter(Element element) {
+    public DSParameter readParameter(Element node) {
 	
-   	DSExpression expression = getExpression(getChild(element, XML_EXPRESSION));
+   	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION));
    	DSParameter parameter = expression == null ? new DSParameter() : new DSExpressionParameter(expression); 
    	
-   	readIdentifier(element, parameter);
+   	readIdentifier(node, parameter);
    	
    	String sValue = null;
    	
    	// dataType
-   	sValue = getStringValue(element, XML_ATTR_DATA_TYPE);
+   	sValue = getStringValue(node, XML_ATTR_DATA_TYPE);
    	if (sValue != null) {
    	    parameter.setDataType(sValue);
    	}
 
-   	sValue = getContentValue(getChild(element, XML_DEFAULT_VALUE));
+   	sValue = getContentValue(getChild(node, XML_DEFAULT_VALUE));
    	if (sValue != null) {
    	    Object defaultValue = getFormatterManager().parseValue(sValue, parameter.getDataType());
    	    parameter.setDefaultValue(defaultValue);
