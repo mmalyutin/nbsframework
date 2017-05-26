@@ -35,6 +35,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.plazmaforge.framework.core.data.LocalizedIdentifier;
 import org.plazmaforge.framework.core.datastorage.DSExpression;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.base.Border;
@@ -290,6 +291,24 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     }
     
     
- 
+    protected void writeIdentifier(LocalizedIdentifier identifier, Element node) {
+
+     	// id
+  	//if (identifier.getId() != null) {
+  	//    setStringValue(node, XML_ATTR_ID, identifier.getId());
+  	//}
+  	
+     	// name
+  	if (identifier.getName() != null) {
+  	    setStringValue(node, XML_ATTR_NAME, identifier.getName());
+  	}
+
+     	// caption  	
+  	if (identifier.getCaption() != null) {
+  	    setStringValue(node, XML_ATTR_CAPTION, identifier.getCaption());
+    	}
+  	
+     	
+      }
     
 }
