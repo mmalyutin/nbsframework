@@ -25,10 +25,77 @@
  */
 package org.plazmaforge.framework.report.storage.xml.report;
 
+import java.io.File;
+import java.io.OutputStream;
+import java.io.Writer;
+
+import org.jdom.Element;
+import org.plazmaforge.framework.report.exception.RTException;
+import org.plazmaforge.framework.report.model.design.Report;
+import org.plazmaforge.framework.report.storage.ReportWriter;
+
 /**
  * @author ohapon
+ * 
+ * Read report elements:
+ * 
+ * - properties*
+ * - parameters
+ * - variables
+ * - data-connectors
+ * - data-sources
+ * - styles*
+ * - templates
+ * 
  *
  */
-public class XMLReportWriter {
+public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWriter {
 
+    @Override
+    public void wrireReport(Report report, String fileName) throws RTException {
+	org.jdom.Document doc = buildXMLDocument(report);
+        writeXMLDocument(doc, fileName);
+    }
+
+    public void writeReport(Report report, File file) throws RTException {
+	org.jdom.Document doc = buildXMLDocument(report);
+        writeXMLDocument(doc, file);
+    }
+
+    public void writeReport(Report report, OutputStream os) throws RTException {
+	org.jdom.Document doc = buildXMLDocument(report);
+        writeXMLDocument(doc, os);
+    }
+
+    public void writeReport(Report report, Writer writer) throws RTException {
+	org.jdom.Document doc = buildXMLDocument(report);
+	writeXMLDocument(doc, writer);
+    }
+    
+    ////
+    
+    protected org.jdom.Document buildXMLDocument(Report report) {
+	Element root = createElement(XML_REPORT);
+	org.jdom.Document doc = new org.jdom.Document(root);
+	
+	writeReportAttributes(report, root);
+	writeReportContent(report, root);
+	
+	return doc;
+
+    }
+    
+    
+    protected void writeReportAttributes(Report report, Element node) {
+	
+	writeIdentifier(report, node);
+	
+	//TODO
+    }
+    
+    protected void writeReportContent(Report report, Element node) {
+	//TODO
+    }
+    
+    
 }

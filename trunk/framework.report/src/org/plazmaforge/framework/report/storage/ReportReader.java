@@ -27,6 +27,7 @@ package org.plazmaforge.framework.report.storage;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.Reader;
 
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
@@ -42,5 +43,7 @@ public interface ReportReader {
     Report readReport(File file) throws RTException;
 
     Report readReport(InputStream is) throws RTException;
+    
+    Report readReport(Reader reader) throws RTException;
     
 }

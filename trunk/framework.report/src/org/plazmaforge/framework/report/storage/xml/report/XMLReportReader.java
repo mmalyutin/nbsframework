@@ -27,6 +27,7 @@ package org.plazmaforge.framework.report.storage.xml.report;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.List;
 
 import org.jdom.Document;
@@ -52,12 +53,12 @@ import org.plazmaforge.framework.util.FileUtils;
  * 
  * Read report elements:
  * 
- * - properties
+ * - properties*
  * - parameters
  * - variables
  * - data-connectors
  * - data-sources
- * - styles
+ * - styles*
  * - templates
  * 
  *
@@ -71,6 +72,32 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	super();
     }
 
+    @Override
+    public Report readReport(String fileName) throws RTException {
+	Document doc = readXMLDocument(fileName);
+	return readReport(fileName, doc);
+    }
+
+    @Override
+    public Report readReport(File file) throws RTException {
+	Document doc = readXMLDocument(file);
+	return readReport(file.getName(), doc);
+    }
+
+    @Override
+    public Report readReport(InputStream is) throws RTException {
+	Document doc = readXMLDocument(is);
+	return readReport(null, doc);
+    }
+
+    @Override
+    public Report readReport(Reader reader) throws RTException {
+	Document doc = readXMLDocument(reader);
+	return readReport(null, doc);
+    }
+    
+    ////
+
     private PropertyProviderFactory getPropertyProviderFactory() {
 	if (propertyProviderFactory == null) {
 	    propertyProviderFactory = new ClassPropertyProviderFactory2();
@@ -78,31 +105,15 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	return propertyProviderFactory;
     }
     
-    public Report readReport(String fileName) throws RTException {
-	Document doc = readXMLDocument(fileName);
-	return readReport(fileName, doc);
-    }
-
-    public Report readReport(File file) throws RTException {
-	Document doc = readXMLDocument(file);
-	return readReport(file.getName(), doc);
-    }
-
-    public Report readReport(InputStream is) throws RTException {
-	Document doc = readXMLDocument(is);
-	return readReport(null, doc);
-    }
-
     ////
-
 
     protected Report readReport(String fileName, Document doc) {
 	Element root = doc.getRootElement();
 	return readReport(fileName, root);
     }
 
-    protected Report readReport(String fileName, Element element) {
-	String name = element.getName();
+    protected Report readReport(String fileName, Element node) {
+	String name = node.getName();
 
 	if (!XML_REPORT.equals(name)) {
 	    return null;
@@ -121,39 +132,39 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
 	}
 	
 	
-	readReportAttributes(element, report);
-	readReportContent(element, report);
+	readReportAttributes(node, report);
+	readReportContent(node, report);
 	
 
 	return report;
     }
     
-    protected void readReportAttributes(Element element, Report report) {
-	readIdentifier(element, report);
+    protected void readReportAttributes(Element node, Report report) {
+	readIdentifier(node, report);
 	
 	String value = null;
 	
 	// type
-	value = getStringValue(element, XML_ATTR_TYPE);
+	value = getStringValue(node, XML_ATTR_TYPE);
 	if (value != null) {
 	    report.setType(value);
 	}
 	
     }
     
-    protected void readReportContent(Element element, Report report) {
-	//readProperties(element, report);
-	readParameters(element, report);
-	readVariables(element, report);
-	readDataConnectors(element, report);
-	readDataSources(element, report);
-	//readStyles(element, report);
-	readTemplates(element, report);
+    protected void readReportContent(Element node, Report report) {
+	//readProperties(node, report);
+	readParameters(node, report);
+	readVariables(node, report);
+	readDataConnectors(node, report);
+	readDataSources(node, report);
+	//readStyles(node, report);
+	readTemplates(node, report);
     }
 
     // PARAMETERS
-    protected void readParameters(Element element, Report report) {
-	List children = getNodeChildren(element, XML_PARAMETERS, XML_PARAMETER);
+    protected void readParameters(Element node, Report report) {
+	List children = getNodeChildren(node, XML_PARAMETERS, XML_PARAMETER);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -166,8 +177,8 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     // VARIABLES
-    protected void readVariables(Element element, Report report) {
-	List children = getNodeChildren(element, XML_VARIABLES, XML_VARIABLE);
+    protected void readVariables(Element node, Report report) {
+	List children = getNodeChildren(node, XML_VARIABLES, XML_VARIABLE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -180,8 +191,8 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
 
     // DATA-CONNECTORS
-    protected void readDataConnectors(Element element, Report report) {
-	List children = getNodeChildren(element, XML_DATA_CONNECTORS, XML_DATA_CONNECTOR);
+    protected void readDataConnectors(Element node, Report report) {
+	List children = getNodeChildren(node, XML_DATA_CONNECTORS, XML_DATA_CONNECTOR);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -194,8 +205,8 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     // DATA-SOURCES
-    protected void readDataSources(Element element, Report report) {
-	List children = getNodeChildren(element, XML_DATA_SOURCES, XML_DATA_SOURCE);
+    protected void readDataSources(Element node, Report report) {
+	List children = getNodeChildren(node, XML_DATA_SOURCES, XML_DATA_SOURCE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
@@ -208,8 +219,8 @@ public class XMLReportReader extends XMLAbstractReportReader implements ReportRe
     }
     
     // TEMPLATES
-    protected void readTemplates(Element element, Report report) {
-	List children = getNodeChildren(element, XML_TEMPLATES, XML_TEMPLATE);
+    protected void readTemplates(Element node, Report report) {
+	List children = getNodeChildren(node, XML_TEMPLATES, XML_TEMPLATE);
 	if (children == null || children.isEmpty()) {
 	    return;
 	}
