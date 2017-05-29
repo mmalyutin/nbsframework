@@ -28,10 +28,12 @@ package org.plazmaforge.framework.report.storage.xml.report;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
+import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportWriter;
 
 /**
@@ -90,11 +92,50 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	
 	writeIdentifier(report, node);
 	
-	//TODO
+   	// type
+   	if (report.getType() != null) {
+   	    setStringValue(node, XML_ATTR_TYPE, report.getType());
+   	}
+	
     }
     
     protected void writeReportContent(Report report, Element node) {
-	//TODO
+	
+	//writeProperties(report, node);
+	
+	//writeParameters(report, node);
+	//writeVariables(report, node);
+	//writeDataConnectors(report, node);
+	//writeDataSources(report, node);
+	
+	//writeStyles(report, node);
+	
+	writeTemplates(report, node);
+    }
+    
+    
+    // TEMPLATES    
+    protected void writeTemplates(Report report, Element node) {
+	Element childNode = buildTemplatesNode(report);
+	if (node != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildTemplatesNode(Report report) {
+	if (!report.hasTemplates()) {
+	    return null;
+	}
+	List<Template> templates = report.getTemplates();
+	Element parentNode = createElement(XML_TEMPLATES);
+	Element pageNode = null;
+	XMLTemplateWriter writer = new XMLTemplateWriter();
+	for (Template template : templates) {
+	    pageNode = 	createElement(XML_TEMPLATE);
+	    writer.writeTemplate(template, pageNode);
+	    addChild(parentNode, pageNode);
+	}
+	return parentNode;
     }
     
     
