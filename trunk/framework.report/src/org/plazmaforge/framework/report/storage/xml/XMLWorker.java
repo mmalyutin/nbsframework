@@ -235,6 +235,10 @@ public class XMLWorker {
      protected void setFloatValue(Element element, String name, Float value) {
     	setStringValue(element, name, getTString("Float", value));
      }
+
+     protected void setBooleanValue(Element element, String name, Boolean value) {
+    	setStringValue(element, name, getTString("Boolean", value));
+     }
      
      protected void setColor(Element element, String name, Color color) {
  	setStringValue(element, name, color == null ? null : COLOR_FORMATTER.format(color));

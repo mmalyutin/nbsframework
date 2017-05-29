@@ -29,7 +29,10 @@ package org.plazmaforge.framework.report.storage.xml.report;
 
 import java.io.StringWriter;
 
+import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
+import org.plazmaforge.framework.report.model.base.grid.Row;
+import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 
@@ -76,6 +79,21 @@ public class XMLReportWriterTest extends TestCase {
 	template.addColumn(new Column(100));
 	
 	report.addTemplate(template);
+	
+	
+	// REPORT HEADER
+	Band band = new Band();
+	band.setType("ReportHeader");
+	template.addBand(band);
+	
+	Row row = new Row();
+	row.setHeight(15);
+	band.addRow(row);
+		
+	Cell cell = new Cell();
+	cell.setColspan(4);
+	cell.setValue("My Report");
+	row.addCell(cell);
 	
 	return report;
     }
