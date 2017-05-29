@@ -307,6 +307,11 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
   	if (identifier.getCaption() != null) {
   	    setStringValue(node, XML_ATTR_CAPTION, identifier.getCaption());
     	}
+
+     	// description  	
+  	if (identifier.getCaption() != null) {
+  	    setStringValue(node, XML_ATTR_DESCRIPTION, identifier.getDescription());
+    	}
   	
      	
       }
