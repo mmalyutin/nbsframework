@@ -369,6 +369,10 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.pageSetup = pageSetup;
     }
 
+    public boolean hasPageSetup() {
+ 	return pageSetup != null;
+    }
+    
     public boolean isPaging() {
         return paging;
     }
