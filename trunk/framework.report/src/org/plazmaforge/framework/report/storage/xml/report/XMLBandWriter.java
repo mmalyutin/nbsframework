@@ -25,8 +25,15 @@
  */
 package org.plazmaforge.framework.report.storage.xml.report;
 
+import java.util.List;
+
 import org.jdom.Element;
+import org.plazmaforge.framework.report.model.base.Pen;
+import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
+import org.plazmaforge.framework.report.storage.xml.base.XMLRowWriter;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 
 
 /**
@@ -47,11 +54,81 @@ public class XMLBandWriter extends XMLAbstractReportWriter {
 
     protected void writeBandAttributes(Band band, Element node) {
 	
-    }
-    
-    protected void writeBandContent(Band band, Element node) {
+
+   	// type
+   	if (band.getType() != null) {
+   	    setStringValue(node, XML_ATTR_TYPE, band.getType());
+   	}
+   	
+   	if (band.getHeight() > 0) {
+	    setIntegerValue(node, XML_ATTR_HEIGHT, band.getHeight());
+	}
+
+	// background
+	Color background = band.getBackground();
+	if (background != null) {
+	    setColor(node, XML_ATTR_BACKGROUND, background);
+	}
+
+	// foreground
+	Color foreground = band.getForeground();
+	if (foreground != null) {
+	    setColor(node, XML_ATTR_FOREGROUND, foreground);
+	}
+
+	// font
+	Font font = band.getFont();
+	if (font != null) {
+	    setFont(node, XML_ATTR_FONT, font);
+	}
+	
+	
+	Pen cellLine = band.getCellLine();
+	if (cellLine != null) {
+	    setBorderPenByAttributes(cellLine, node, XML_ATTR_CELL_LINE);
+	}
+
+	// column-line
+	Pen columnLine = band.getColumnLine();
+	if (columnLine != null) {
+	    setBorderPenByAttributes(columnLine, node, XML_ATTR_COLUMN_LINE);
+	}
+
+	// row-line
+	Pen rowLine = band.getRowLine();
+	if (rowLine != null) {
+	    setBorderPenByAttributes(rowLine, node, XML_ATTR_ROW_LINE);
+	}
+	
 	
     }
     
+    protected void writeBandContent(Band band, Element node) {
+	writeRows(band, node); // ONLY FOR Table report
+    }
     
+    // ROWS
+    protected void writeRows(Band band, Element node) {
+	Element rowsNode = buildRowsNode(band);
+	if (rowsNode == null) {
+	    return;
+	}
+	addChild(node, rowsNode);	
+    }
+    
+    protected Element buildRowsNode(Band band) {
+	if (!band.hasRows()) {
+	    return null;
+	}
+	List<Row> rows = band.getRows();
+	Element parentNode = createElement(XML_ROWS);
+	Element rowNode = null;
+	XMLRowWriter writer = new XMLRowWriter();
+	for (Row row : rows) {
+	    rowNode = createElement(XML_ROW);
+	    writer.writeRow(row, rowNode);
+	    addChild(parentNode, rowNode);
+	}
+	return parentNode;
+    }    
 }
