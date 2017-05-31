@@ -61,6 +61,10 @@ public class DSExpressionParameter extends DSParameter implements HasExpression 
     public void setExpressionText(String text) {
 	getExpression().setText(text);
     }
+    
+    public boolean hasExpressionText() {
+   	return DSExpression.hasText(expression);
+    }    
 
     @Override
     public String toString() {
