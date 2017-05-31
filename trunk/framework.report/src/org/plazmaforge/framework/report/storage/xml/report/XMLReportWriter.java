@@ -34,11 +34,13 @@ import org.jdom.Element;
 import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
 import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
+import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportWriter;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataConnectorWriter;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceWriter;
 
 /**
  * @author ohapon
@@ -116,16 +118,13 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
     }
     
     protected void writeReportContent(Report report, Element node) {
-	
 	//writeProperties(report, node);
 	
 	//writeParameters(report, node);
 	//writeVariables(report, node);
 	writeDataConnectors(report, node);
-	//writeDataSources(report, node);
-	
+	writeDataSources(report, node);
 	//writeStyles(report, node);
-	
 	writeTemplates(report, node);
     }
     
@@ -133,7 +132,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
     // DATA-CONNECTORS    
     protected void writeDataConnectors(Report report, Element node) {
 	Element childNode = buildDataConnectorsNode(report);
-	if (node != null) {
+	if (childNode != null) {
 	    addChild(node, childNode);
 	}
     }
@@ -153,11 +152,35 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	}
 	return parentNode;
     }    
+
+    // DATA-SOURCES    
+    protected void writeDataSources(Report report, Element node) {
+	Element childNode = buildDataSourcesNode(report);
+	if (childNode != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildDataSourcesNode(Report report) {
+	if (!report.hasTemplates()) {
+	    return null;
+	}
+	List<DSDataSource> dataSources = report.getDataSources();
+	Element parentNode = createElement(XML_DATA_SOURCES);
+	Element childNode = null;
+	XMLDSDataSourceWriter writer = new XMLDSDataSourceWriter();
+	for (DSDataSource dataSource : dataSources) {
+	    childNode = createElement(XML_DATA_SOURCE);
+	    writer.writeDataSource(dataSource, childNode);
+	    addChild(parentNode, childNode);
+	}
+	return parentNode;
+    }    
     
     // TEMPLATES    
     protected void writeTemplates(Report report, Element node) {
 	Element childNode = buildTemplatesNode(report);
-	if (node != null) {
+	if (childNode != null) {
 	    addChild(node, childNode);
 	}
     }
