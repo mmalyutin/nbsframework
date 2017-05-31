@@ -55,7 +55,9 @@ public interface DSDataSource extends Serializable, LocalizedIdentifier {
     
     void setQueryText(String text);
     
-
+    boolean hasQuery();
+    
+    
     String getParentName();
     
     void setParentName(String parentName);
