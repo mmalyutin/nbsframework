@@ -27,8 +27,11 @@ package org.plazmaforge.framework.report.storage.xml.report;
 
 
 
+import java.io.InputStream;
 import java.io.StringWriter;
 
+import org.plazmaforge.framework.datastorage.DataStorage;
+import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Row;
@@ -45,9 +48,10 @@ import junit.framework.TestCase;
 public class XMLReportWriterTest extends TestCase {
 
     public void testWrite() throws Exception {
-	XMLReportWriter writer = new XMLReportWriter();
 	
 	Report report1 = createTestReport();
+	
+	XMLReportWriter writer = new XMLReportWriter();
 	
 	// Write the report
 	StringWriter sw = new StringWriter();
@@ -57,7 +61,48 @@ public class XMLReportWriterTest extends TestCase {
 	System.out.println(reportString1);
 
     }
+
     
+    public void testReadFromInputStream() throws Exception {
+	
+	  // Initialize DataStorage: Register base DataProducer factories 
+	    DataStorage.init();
+	    
+	XMLReportReader reader = new XMLReportReader();
+	InputStream is = ReportEngine.class.getResourceAsStream("resources/reports/Report3.report.xml");
+	Report report = reader.readReport(is);
+	
+	assertNotNull(report);
+
+	XMLReportWriter writer = new XMLReportWriter();
+	
+	// Write the report
+	StringWriter sw = new StringWriter();
+	writer.writeReport(report, sw);
+	
+	String reportString1 = sw.toString(); 
+	System.out.println(reportString1);
+	
+	/*
+	// Get report attributes
+	assertEquals("Report1", report.getName());
+	assertEquals("Report 1", report.getCaption());
+	
+	// Report: Parameters
+	checkParameters(report);
+	
+	// Report: Variables
+	checkVariables(report);
+
+	// Report: DataSource
+	checkDataSource(report);
+	
+	// Report: Templates
+	checkTemplates(report);
+	*/
+
+    }
+
     private Report createTestReport() {
 	
 	Report report = new Report();
