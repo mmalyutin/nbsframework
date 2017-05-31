@@ -58,6 +58,13 @@ public class XMLDSDataSourceWriter extends XMLAbstractWriter {
     }
 
     protected void writeDataSourceContent(DSDataSource dataSource, Element node) {
+	// query
+	if (dataSource.hasQuery()) {
+	    Element childNode = createElement(XML_QUERY);
+	    XMLDSQueryWriter writer = new XMLDSQueryWriter();
+	    writer.writeQuery(dataSource.getQuery(), childNode);
+	    addChild(node, childNode);
+	}
 	
 	// TODO
 	writeParameters(dataSource, node);
