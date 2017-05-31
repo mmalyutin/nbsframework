@@ -71,7 +71,7 @@ public class XMLDSDataSourceReader extends XMLAbstractReportReader {
     
     protected void readDataSourceContent(Element node, DSDataSource dataSource) {
 	
-	// Read query
+	// query
 	XMLDSQueryReader reader = new XMLDSQueryReader(); 
 	DSQuery query = reader.readQuery(getChild(node, XML_QUERY));
 	if (query != null) {
