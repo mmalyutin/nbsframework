@@ -48,39 +48,39 @@ public class XMLGroupWriter extends XMLAbstractReportWriter {
 	writeGroupContent(group, node);
     }
     
-    protected void writeGroupAttributes(ReportGroup template, Element node) {
+    protected void writeGroupAttributes(ReportGroup group, Element node) {
 	
    	// name
-   	if (template.getName() != null) {
-   	    setStringValue(node, XML_ATTR_NAME, template.getName());
+   	if (group.getName() != null) {
+   	    setStringValue(node, XML_ATTR_NAME, group.getName());
    	}
     }
     
-    protected void writeGroupContent(ReportGroup template, Element node) {
+    protected void writeGroupContent(ReportGroup group, Element node) {
 	
 	// expression
-	if (template.hasExpressionText()) {
+	if (group.hasExpressionText()) {
 	    Element expressionNode = createElement(XML_EXPRESSION);
-	    setExpression(template.getExpression(), expressionNode, USE_DATA_TYPE_IN_EXPRESSION);
+	    setExpression(group.getExpression(), expressionNode, USE_DATA_TYPE_IN_EXPRESSION);
 	}
 	
-	writeBands(template, node);
+	writeBands(group, node);
     }  
     
     // BANDS
-    protected void writeBands(ReportGroup template, Element node) {
-	Element childNode = buildBandsNode(template);
+    protected void writeBands(ReportGroup group, Element node) {
+	Element childNode = buildBandsNode(group);
 	if (childNode == null) {
 	    return;
 	}
 	addChild(node, childNode);	
     }
 
-    protected Element buildBandsNode(ReportGroup template) {
-   	if (!template.hasBands()) {
+    protected Element buildBandsNode(ReportGroup group) {
+   	if (!group.hasBands()) {
    	    return null;
    	}
-   	List<Band> bands = template.getBands();
+   	List<Band> bands = group.getBands();
    	Element parentNode = createElement(XML_BANDS);
    	Element childNode = null;
    	XMLBandWriter writer = new XMLBandWriter();

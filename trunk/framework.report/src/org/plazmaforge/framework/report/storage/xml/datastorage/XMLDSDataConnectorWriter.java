@@ -58,7 +58,7 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	
 	String type = dataConnector.getType();
 	if (type != null) {
-	    setStringValue(node, XML_ATTR_DATA_TYPE, type);
+	    setStringValue(node, XML_ATTR_TYPE, type);
 	}
 	try {
 	    PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
@@ -88,7 +88,7 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	    return;
 	}
 	
-	Element parentNode = createElement(XML_PROPERTIES);
+	Element propertiesNode = createElement(XML_PROPERTIES);
    	Element child = null;
    	Object value = null;
    	String sValue = null;
@@ -97,7 +97,7 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	    if (value == null) {
 		continue;
 	    }
-	    sValue = getTString(value.getClass().getSimpleName(), sValue);
+	    sValue = getTString(value.getClass().getSimpleName(), value);
 	    if (sValue == null) {
 		// E: Formatter not found
 		continue;
@@ -105,10 +105,12 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	    
 	    child = createElement(XML_PROPERTY);
 	    setStringValue(child, XML_ATTR_NAME, name);
-	    setContentValue(node, value, sValue);
+	    setContentValue(child, sValue, null);
 	    
-	    addChild(parentNode, child);
+	    addChild(propertiesNode, child);
 	}
+	
+	addChild(node, propertiesNode);
 	
     }
     

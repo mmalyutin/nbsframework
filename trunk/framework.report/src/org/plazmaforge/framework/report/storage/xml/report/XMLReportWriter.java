@@ -31,10 +31,14 @@ import java.io.Writer;
 import java.util.List;
 
 import org.jdom.Element;
+import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
+import org.plazmaforge.framework.core.data.PropertyProviderFactory;
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportWriter;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataConnectorWriter;
 
 /**
  * @author ohapon
@@ -53,6 +57,9 @@ import org.plazmaforge.framework.report.storage.ReportWriter;
  */
 public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWriter {
 
+    private PropertyProviderFactory propertyProviderFactory;
+    
+    
     @Override
     public void wrireReport(Report report, String fileName) throws RTException {
 	org.jdom.Document doc = buildXMLDocument(report);
@@ -72,6 +79,15 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
     public void writeReport(Report report, Writer writer) throws RTException {
 	org.jdom.Document doc = buildXMLDocument(report);
 	writeXMLDocument(doc, writer);
+    }
+    
+    ////
+
+    private PropertyProviderFactory getPropertyProviderFactory() {
+	if (propertyProviderFactory == null) {
+	    propertyProviderFactory = new ClassPropertyProviderFactory2();
+	}
+	return propertyProviderFactory;
     }
     
     ////
@@ -105,7 +121,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	
 	//writeParameters(report, node);
 	//writeVariables(report, node);
-	//writeDataConnectors(report, node);
+	writeDataConnectors(report, node);
 	//writeDataSources(report, node);
 	
 	//writeStyles(report, node);
@@ -113,6 +129,30 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	writeTemplates(report, node);
     }
     
+    
+    // DATA-CONNECTORS    
+    protected void writeDataConnectors(Report report, Element node) {
+	Element childNode = buildDataConnectorsNode(report);
+	if (node != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildDataConnectorsNode(Report report) {
+	if (!report.hasTemplates()) {
+	    return null;
+	}
+	List<DSDataConnector> dataConnectors = report.getDataConnectors();
+	Element parentNode = createElement(XML_DATA_CONNECTORS);
+	Element childNode = null;
+	XMLDSDataConnectorWriter writer = new XMLDSDataConnectorWriter(getPropertyProviderFactory());
+	for (DSDataConnector dataConnector : dataConnectors) {
+	    childNode = createElement(XML_DATA_CONNECTOR);
+	    writer.writeDataConnector(dataConnector, childNode);
+	    addChild(parentNode, childNode);
+	}
+	return parentNode;
+    }    
     
     // TEMPLATES    
     protected void writeTemplates(Report report, Element node) {
@@ -128,12 +168,12 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	}
 	List<Template> templates = report.getTemplates();
 	Element parentNode = createElement(XML_TEMPLATES);
-	Element pageNode = null;
+	Element childNode = null;
 	XMLTemplateWriter writer = new XMLTemplateWriter();
 	for (Template template : templates) {
-	    pageNode = 	createElement(XML_TEMPLATE);
-	    writer.writeTemplate(template, pageNode);
-	    addChild(parentNode, pageNode);
+	    childNode = 	createElement(XML_TEMPLATE);
+	    writer.writeTemplate(template, childNode);
+	    addChild(parentNode, childNode);
 	}
 	return parentNode;
     }
