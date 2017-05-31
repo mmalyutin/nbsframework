@@ -103,7 +103,7 @@ public class XMLTemplateWriter extends XMLAbstractReportWriter {
     // PAGE-SETUP
     protected void writePageSetup(Template template, Element node) {
 	Element childNode = buildPageSetupNode(template);
-	if (node != null) {
+	if (childNode != null) {
 	    addChild(node, childNode);
 	}
     }
