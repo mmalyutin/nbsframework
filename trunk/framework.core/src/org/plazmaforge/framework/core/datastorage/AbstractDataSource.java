@@ -78,13 +78,17 @@ public abstract class AbstractDataSource extends BaseLocalizedIdentifier {
     }
     
     public String getQueryText() {
-	return getQuery().getText();
+	return query == null ? null : getQuery().getText();
     }
     
     public void setQueryText(String text) {
         getQuery().setText(text);
     }
-
+    
+    public boolean hasQuery() {
+	return query != null;
+    }
+    
     public String getParentName() {
         return parentName;
     }
