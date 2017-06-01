@@ -47,18 +47,6 @@ public class XMLDSVariableReader extends XMLAbstractReader {
    	    variable.setDataType(sValue);
    	}
 
-   	// expression
-   	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION));
-   	if (expression != null) {
-   	    variable.setExpression(expression);
-   	}
-
-   	// init-expression
-   	expression = getExpression(getChild(node, XML_INIT_EXPRESSION));
-   	if (expression != null) {
-   	    variable.setInitExpression(expression);
-   	}
-   	
    	// resetType
    	sValue = getStringValue(node, XML_ATTR_RESET_TYPE);
    	if (sValue != null) {
@@ -75,6 +63,18 @@ public class XMLDSVariableReader extends XMLAbstractReader {
    	sValue = getStringValue(node, XML_ATTR_AGGREGATION);
    	if (sValue != null) {
    	    variable.setAggregation(sValue);
+   	}
+
+   	// expression
+   	DSExpression expression = getExpression(getChild(node, XML_EXPRESSION));
+   	if (expression != null) {
+   	    variable.setExpression(expression);
+   	}
+
+   	// init-expression
+   	expression = getExpression(getChild(node, XML_INIT_EXPRESSION));
+   	if (expression != null) {
+   	    variable.setInitExpression(expression);
    	}
    	
    	return variable;
