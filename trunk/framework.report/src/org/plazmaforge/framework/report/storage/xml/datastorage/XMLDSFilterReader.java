@@ -50,7 +50,7 @@ public class XMLDSFilterReader extends XMLAbstractReader {
   	String fieldName = getStringValue(node, XML_ATTR_FIELD);
   	if (fieldName != null) {
   	    
-  	    // Field filter
+  	    // => 1. FieldFilter
   	    DSField field = dataSource.getField(fieldName);
   	    DSFieldFilter fieldFilter = new DSFieldFilter(field);
   	    
@@ -61,13 +61,14 @@ public class XMLDSFilterReader extends XMLAbstractReader {
   	    // value
   	    sValue = getContentValue(getChild(node, XML_VALUE));
   	    if (sValue != null && field != null) {
-  		Serializable filterValue = (Serializable) getFormatterManager().parseValue(sValue, field.getDataType());
+  		String dataType = field == null ? null : field.getDataType(); 
+  		Serializable filterValue = (Serializable) getTValue(dataType, sValue) ; //getFormatterManager().parseValue(sValue, field.getDataType());
   		fieldFilter.setValue(filterValue);
   	    }
   	    filter = fieldFilter;
   	} else {
   	    
-  	    // Expression filter
+  	    // => 2. ExpressionFilter
   	    
   	    // expression
   	    expression = getExpression(getChild(node, XML_EXPRESSION));
