@@ -258,7 +258,11 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
 	 
 	// width
 	float width = pen.getLineWidth() <= 0 ? 1f: pen.getLineWidth();
-   	setFloatValue(element, borderAttribute, width);
+	//setFloatValue(element, borderAttribute, width);
+	
+	//TODO: Temp solution. Fix after float 'Size' and 'Point'
+	width = Math.round(width);
+   	setIntegerValue(element, borderAttribute, (int) width);
    	
   	// style
   	int lineStyle = pen.getLineStyle();

@@ -67,8 +67,13 @@ public class XMLDSFilterWriter extends XMLAbstractWriter {
 	    // value
 	    if (fieldFilter.getValue() != null) {
 		String dataType = field == null ? null : field.getDataType();
-		String sValue = getTString(dataType, fieldFilter.getValue());
-		setStringValue(node, XML_VALUE, sValue);
+		
+		//String sValue = getTString(dataType, fieldFilter.getValue());
+		//setStringValue(node, XML_VALUE, sValue);
+		
+		 Element childNode = createElement(XML_VALUE);
+		 addChild(node, childNode);
+	   	 setContentValue(childNode, fieldFilter.getValue(), dataType);		
 	    }
 	    
 	} else if (filter instanceof DSExpressionFilter) {
