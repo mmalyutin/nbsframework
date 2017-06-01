@@ -36,6 +36,7 @@ import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
+import org.plazmaforge.framework.core.datastorage.DSVariable;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
@@ -43,6 +44,7 @@ import org.plazmaforge.framework.report.storage.ReportWriter;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataConnectorWriter;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceWriter;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSParameterWriter;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSVariableWriter;
 
 /**
  * @author ohapon
@@ -123,7 +125,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	//writeProperties(report, node);
 	
 	writeParameters(report, node);
-	//writeVariables(report, node);
+	writeVariables(report, node);
 	writeDataConnectors(report, node);
 	writeDataSources(report, node);
 	//writeStyles(report, node);
@@ -150,6 +152,30 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	for (DSParameter parameter : parameters) {
 	    childNode =	createElement(XML_PARAMETER);
 	    writer.writeParameter(parameter, childNode);
+	    addChild(parentNode, childNode);
+	}
+	return parentNode;
+    }
+
+    // VARIABLES    
+    protected void writeVariables(Report report, Element node) {
+	Element childNode = buildVariablesNode(report);
+	if (childNode != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildVariablesNode(Report report) {
+	if (!report.hasVariables()) {
+	    return null;
+	}
+	List<DSVariable> variables = report.getVariables();
+	Element parentNode = createElement(XML_VARIABLES);
+	Element childNode = null;
+	XMLDSVariableWriter writer = new XMLDSVariableWriter();
+	for (DSVariable variable : variables) {
+	    childNode =	createElement(XML_VARIABLE);
+	    writer.writeVariable(variable, childNode);
 	    addChild(parentNode, childNode);
 	}
 	return parentNode;
