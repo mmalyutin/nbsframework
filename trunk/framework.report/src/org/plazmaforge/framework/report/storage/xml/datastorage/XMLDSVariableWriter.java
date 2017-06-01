@@ -41,6 +41,8 @@ public class XMLDSVariableWriter extends XMLAbstractWriter {
     
     public void writeVariable(DSVariable variable, Element node) {
 
+	writeIdentifier(variable, node);
+	
    	// dataType
    	if (variable.getDataType() != null) {
    	    setStringValue(node, XML_ATTR_DATA_TYPE, variable.getDataType());
