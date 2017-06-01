@@ -49,11 +49,11 @@ public class CSVDataConnector extends AbstractFileDataConnector {
     
     
     
-    private String columnDelimiter = DEFAULT_COLUMN_DELIMITER;
+    private String columnDelimiter; // = DEFAULT_COLUMN_DELIMITER;
 
-    private String rowDelimiter = DEFAULT_ROW_DELIMITER;
+    private String rowDelimiter; // = DEFAULT_ROW_DELIMITER;
    
-    private boolean firstRowHeader = DEFAULT_FIRST_ROW_HEADER;
+    private Boolean firstRowHeader; // = DEFAULT_FIRST_ROW_HEADER;
 
 
     public CSVDataConnector() {
@@ -81,11 +81,11 @@ public class CSVDataConnector extends AbstractFileDataConnector {
         this.rowDelimiter = rowDelimiter;
     }
 
-    public boolean isFirstRowHeader() {
+    public Boolean getFirstRowHeader() {
         return firstRowHeader;
     }
 
-    public void setFirstRowHeader(boolean firstRowHeader) {
+    public void setFirstRowHeader(Boolean firstRowHeader) {
         this.firstRowHeader = firstRowHeader;
     }
 

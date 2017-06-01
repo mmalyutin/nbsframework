@@ -66,7 +66,7 @@ public class CSVDataProducer extends AbstractDataProducer implements DataProduce
 	String encoding = csvDataConnector.getEncoding();
 	String columnDelimiter = csvDataConnector.getColumnDelimiter();
 	String rowDelimiter = csvDataConnector.getRowDelimiter();
-	Boolean firstRowHeader = csvDataConnector.isFirstRowHeader();
+	Boolean firstRowHeader = csvDataConnector.getFirstRowHeader();
 	String dateFormat = csvDataConnector.getDateFormat();
 	String numberFormat = csvDataConnector.getNumberFormat();
 	
