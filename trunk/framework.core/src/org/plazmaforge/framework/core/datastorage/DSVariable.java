@@ -80,11 +80,15 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
     }
     
     public void setExpressionText(String expressionText) {
-	if (expression == null){
+	if (expression == null) {
 	    expression = new DSExpression();
 	}
 	expression.setText(expressionText);
     }
+    
+    public boolean hasExpressionText() {
+   	return DSExpression.hasText(expression);
+    }    
     
     public DSExpression getInitExpression() {
         return initExpression;
@@ -99,10 +103,14 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
     }
     
     public void setInitExpressionText(String expressionText) {
-	if (initExpression == null){
+	if (initExpression == null) {
 	    initExpression = new DSExpression();
 	}
 	initExpression.setText(expressionText);
+    }    
+    
+    public boolean hasInitExpressionText() {
+   	return DSExpression.hasText(initExpression);
     }    
     
     public String getResetType() {
