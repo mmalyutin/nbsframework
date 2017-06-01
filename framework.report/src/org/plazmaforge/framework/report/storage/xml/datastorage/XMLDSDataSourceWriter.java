@@ -31,6 +31,7 @@ import java.util.List;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
+import org.plazmaforge.framework.core.datastorage.DSFilter;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
@@ -69,7 +70,7 @@ public class XMLDSDataSourceWriter extends XMLAbstractWriter {
 	// TODO
 	writeParameters(dataSource, node);
 	writeFields(dataSource, node);
-	//writeFilters(dataSource, node);
+	writeFilters(dataSource, node);
 	//writeOrders(dataSource, node);
     }
     
@@ -111,12 +112,36 @@ public class XMLDSDataSourceWriter extends XMLAbstractWriter {
 	    return null;
 	}
 	List<DSField> fields = dataSource.getFields();
-	Element parentNode = createElement(XML_FILTERS);
+	Element parentNode = createElement(XML_FIELDS);
 	Element childNode = null;
 	XMLDSFieldWriter writer = new XMLDSFieldWriter();
 	for (DSField field : fields) {
 	    childNode =	createElement(XML_FIELD);
 	    writer.writeField(field, childNode);
+	    addChild(parentNode, childNode);
+	}
+	return parentNode;
+    }    
+
+    // FILTERS    
+    protected void writeFilters(DSDataSource dataSource, Element node) {
+	Element childNode = buildFiltersNode(dataSource);
+	if (childNode != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildFiltersNode(DSDataSource dataSource) {
+	if (!dataSource.hasFields()) {
+	    return null;
+	}
+	List<DSFilter> filters = dataSource.getFilters();
+	Element parentNode = createElement(XML_FILTERS);
+	Element childNode = null;
+	XMLDSFilterWriter writer = new XMLDSFilterWriter();
+	for (DSFilter filter : filters) {
+	    childNode =	createElement(XML_FILTER);
+	    writer.writeFilter(filter, childNode);
 	    addChild(parentNode, childNode);
 	}
 	return parentNode;
