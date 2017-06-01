@@ -35,12 +35,14 @@ import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory2;
 import org.plazmaforge.framework.core.data.PropertyProviderFactory;
 import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
+import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.report.exception.RTException;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
 import org.plazmaforge.framework.report.storage.ReportWriter;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataConnectorWriter;
 import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSDataSourceWriter;
+import org.plazmaforge.framework.report.storage.xml.datastorage.XMLDSParameterWriter;
 
 /**
  * @author ohapon
@@ -120,7 +122,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
     protected void writeReportContent(Report report, Element node) {
 	//writeProperties(report, node);
 	
-	//writeParameters(report, node);
+	writeParameters(report, node);
 	//writeVariables(report, node);
 	writeDataConnectors(report, node);
 	writeDataSources(report, node);
@@ -128,6 +130,30 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	writeTemplates(report, node);
     }
     
+    
+    // PARAMETERS    
+    protected void writeParameters(Report report, Element node) {
+	Element childNode = buildParametersNode(report);
+	if (childNode != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildParametersNode(Report report) {
+	if (!report.hasParameters()) {
+	    return null;
+	}
+	List<DSParameter> parameters = report.getParameters();
+	Element parentNode = createElement(XML_PARAMETERS);
+	Element childNode = null;
+	XMLDSParameterWriter writer = new XMLDSParameterWriter();
+	for (DSParameter parameter : parameters) {
+	    childNode =	createElement(XML_PARAMETER);
+	    writer.writeParameter(parameter, childNode);
+	    addChild(parentNode, childNode);
+	}
+	return parentNode;
+    }
     
     // DATA-CONNECTORS    
     protected void writeDataConnectors(Report report, Element node) {
@@ -194,7 +220,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
 	Element childNode = null;
 	XMLTemplateWriter writer = new XMLTemplateWriter();
 	for (Template template : templates) {
-	    childNode = 	createElement(XML_TEMPLATE);
+	    childNode = createElement(XML_TEMPLATE);
 	    writer.writeTemplate(template, childNode);
 	    addChild(parentNode, childNode);
 	}
