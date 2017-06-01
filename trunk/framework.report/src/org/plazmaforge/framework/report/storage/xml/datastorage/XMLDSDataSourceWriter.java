@@ -32,6 +32,7 @@ import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSDataSource;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSFilter;
+import org.plazmaforge.framework.core.datastorage.DSOrder;
 import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
@@ -67,11 +68,10 @@ public class XMLDSDataSourceWriter extends XMLAbstractWriter {
 	    addChild(node, childNode);
 	}
 	
-	// TODO
 	writeParameters(dataSource, node);
 	writeFields(dataSource, node);
 	writeFilters(dataSource, node);
-	//writeOrders(dataSource, node);
+	writeOrders(dataSource, node);
     }
     
     
@@ -132,7 +132,7 @@ public class XMLDSDataSourceWriter extends XMLAbstractWriter {
     }
 
     protected Element buildFiltersNode(DSDataSource dataSource) {
-	if (!dataSource.hasFields()) {
+	if (!dataSource.hasFilters()) {
 	    return null;
 	}
 	List<DSFilter> filters = dataSource.getFilters();
@@ -142,6 +142,30 @@ public class XMLDSDataSourceWriter extends XMLAbstractWriter {
 	for (DSFilter filter : filters) {
 	    childNode =	createElement(XML_FILTER);
 	    writer.writeFilter(filter, childNode);
+	    addChild(parentNode, childNode);
+	}
+	return parentNode;
+    }    
+
+    // ORDERS    
+    protected void writeOrders(DSDataSource dataSource, Element node) {
+	Element childNode = buildOrdersNode(dataSource);
+	if (childNode != null) {
+	    addChild(node, childNode);
+	}
+    }
+
+    protected Element buildOrdersNode(DSDataSource dataSource) {
+	if (!dataSource.hasOrders()) {
+	    return null;
+	}
+	List<DSOrder> orders = dataSource.getOrders();
+	Element parentNode = createElement(XML_ORDERS);
+	Element childNode = null;
+	XMLDSOrderWriter writer = new XMLDSOrderWriter();
+	for (DSOrder order : orders) {
+	    childNode =	createElement(XML_ORDER);
+	    writer.writeOrder(order, childNode);
 	    addChild(parentNode, childNode);
 	}
 	return parentNode;

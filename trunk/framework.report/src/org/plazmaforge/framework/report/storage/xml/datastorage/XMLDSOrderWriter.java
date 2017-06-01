@@ -28,9 +28,12 @@ package org.plazmaforge.framework.report.storage.xml.datastorage;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.core.datastorage.DSExpressionFilter;
+import org.plazmaforge.framework.core.datastorage.DSExpressionOrder;
 import org.plazmaforge.framework.core.datastorage.DSField;
 import org.plazmaforge.framework.core.datastorage.DSFieldFilter;
+import org.plazmaforge.framework.core.datastorage.DSFieldOrder;
 import org.plazmaforge.framework.core.datastorage.DSFilter;
+import org.plazmaforge.framework.core.datastorage.DSOrder;
 import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
 
 
@@ -38,19 +41,19 @@ import org.plazmaforge.framework.report.storage.xml.XMLAbstractWriter;
  * @author ohapon
  * 
  */
-public class XMLDSFilterWriter extends XMLAbstractWriter {
+public class XMLDSOrderWriter extends XMLAbstractWriter {
     
     
-    public void writeFilter(DSFilter filter, Element node) {
+    public void writeOrder(DSOrder order, Element node) {
 
 	
-	if (filter instanceof DSFieldFilter) {
+	if (order instanceof DSFieldOrder) {
 
-	    // => 1. FieldFilter
-	    DSFieldFilter fieldFilter = (DSFieldFilter) filter;
+	    // => 1. FieldOrder
+	    DSFieldOrder fieldOrder = (DSFieldOrder) order;
 	    
 	    // field
-	    DSField field = fieldFilter.getField();
+	    DSField field = fieldOrder.getField();
 		
 	    // field name
 	    String fieldName = field == null ? null : field.getName();
@@ -59,26 +62,20 @@ public class XMLDSFilterWriter extends XMLAbstractWriter {
 		setStringValue(node, XML_ATTR_FIELD, fieldName);
 	    }
 
-	    // operator
-	    if (fieldFilter.getOperator() != null) {
-		setStringValue(node, XML_ATTR_OPERATOR, fieldFilter.getOperator());
+	    // asc
+	    if (!fieldOrder.isAsc()) {
+		setBooleanValue(node, XML_ATTR_ASC, fieldOrder.isAsc());
 	    }
 
-	    // value
-	    if (fieldFilter.getValue() != null) {
-		String dataType = field == null ? null : field.getDataType();
-		String sValue = getTString(dataType, fieldFilter.getValue());
-		setStringValue(node, XML_VALUE, sValue);
-	    }
 	    
-	} else if (filter instanceof DSExpressionFilter) {
+	} else if (order instanceof DSExpressionOrder) {
 	    
-	    // => 2. ExpressionFilter
-	    DSExpressionFilter expressionField = (DSExpressionFilter) filter;
-	    if (expressionField.hasExpressionText()) {
+	    // => 2. ExpressionOrder
+	    DSExpressionOrder expressionOrder = (DSExpressionOrder) order;
+	    if (expressionOrder.hasExpressionText()) {
 		Element expressionNode = createElement(XML_EXPRESSION);
 		addChild(node, expressionNode);
-		setExpression(expressionField.getExpression(), expressionNode,	USE_DATA_TYPE_IN_EXPRESSION);
+		setExpression(expressionOrder.getExpression(), expressionNode,	USE_DATA_TYPE_IN_EXPRESSION);
 	    }
 	}
 	

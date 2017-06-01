@@ -98,6 +98,7 @@ public class XMLCellWriter extends XMLAbstractWriter {
 	// expression
 	if (cell.getExpression() != null) {
 	    valueNode = createElement(XML_EXPRESSION);
+	    addChild(node, valueNode);
 	    setExpression(cell.getExpression(), valueNode, USE_DATA_TYPE_IN_EXPRESSION);
 	}
 	

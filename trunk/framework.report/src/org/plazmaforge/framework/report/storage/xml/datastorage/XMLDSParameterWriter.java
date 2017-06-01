@@ -47,6 +47,7 @@ public class XMLDSParameterWriter extends XMLAbstractWriter {
 	    DSExpressionParameter expressionParameter = (DSExpressionParameter) parameter;
 	    if (expressionParameter.hasExpressionText()) {
 		Element expressionNode = createElement(XML_EXPRESSION);
+		addChild(node, expressionNode);
 		setExpression(expressionParameter.getExpression(), expressionNode, USE_DATA_TYPE_IN_EXPRESSION);
 	    }
 	}
@@ -59,8 +60,8 @@ public class XMLDSParameterWriter extends XMLAbstractWriter {
    	// defaultValue
    	if (parameter.getDefaultValue() != null) {
    	    Element childNode = createElement(XML_DEFAULT_VALUE);
-   	    setContentValue(childNode, parameter.getDefaultValue(), parameter.getDataType());
    	    addChild(node, childNode);
+   	    setContentValue(childNode, parameter.getDefaultValue(), parameter.getDataType());
    	}
 	
     }

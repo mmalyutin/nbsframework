@@ -50,6 +50,7 @@ public class XMLDSFieldWriter extends XMLAbstractWriter {
 	    DSExpressionField expressionField = (DSExpressionField) field;
 	    if (expressionField.hasExpressionText()) {
 		Element expressionNode = createElement(XML_EXPRESSION);
+		addChild(node, expressionNode);
 		setExpression(expressionField.getExpression(), expressionNode,	USE_DATA_TYPE_IN_EXPRESSION);
 	    }
 	}
