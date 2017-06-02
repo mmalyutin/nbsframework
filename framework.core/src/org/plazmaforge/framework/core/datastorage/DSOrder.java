@@ -48,6 +48,28 @@ public abstract class DSOrder implements Serializable {
     public void setAsc(boolean asc) {
         this.asc = asc;
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + (asc ? 1231 : 1237);
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DSOrder other = (DSOrder) obj;
+	if (asc != other.asc)
+	    return false;
+	return true;
+    }
     
     
 

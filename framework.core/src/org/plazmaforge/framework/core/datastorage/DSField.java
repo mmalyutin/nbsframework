@@ -228,6 +228,75 @@ public class DSField extends ComplexLocalizedIdentifier implements HasDataType, 
     }
 
     @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result + align;
+	result = prime * result
+		+ ((dataType == null) ? 0 : dataType.hashCode());
+	result = prime * result + displaySize;
+	result = prime * result + (foreignKey ? 1231 : 1237);
+	result = prime * result + ((format == null) ? 0 : format.hashCode());
+	result = prime * result + (isFixedType ? 1231 : 1237);
+	result = prime * result
+		+ ((nativeType == null) ? 0 : nativeType.hashCode());
+	result = prime * result + nativeTypeCode;
+	result = prime * result + ((path == null) ? 0 : path.hashCode());
+	result = prime * result + (primaryKey ? 1231 : 1237);
+	result = prime * result + scale;
+	result = prime * result + size;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DSField other = (DSField) obj;
+	if (align != other.align)
+	    return false;
+	if (dataType == null) {
+	    if (other.dataType != null)
+		return false;
+	} else if (!dataType.equals(other.dataType))
+	    return false;
+	if (displaySize != other.displaySize)
+	    return false;
+	if (foreignKey != other.foreignKey)
+	    return false;
+	if (format == null) {
+	    if (other.format != null)
+		return false;
+	} else if (!format.equals(other.format))
+	    return false;
+	if (isFixedType != other.isFixedType)
+	    return false;
+	if (nativeType == null) {
+	    if (other.nativeType != null)
+		return false;
+	} else if (!nativeType.equals(other.nativeType))
+	    return false;
+	if (nativeTypeCode != other.nativeTypeCode)
+	    return false;
+	if (path == null) {
+	    if (other.path != null)
+		return false;
+	} else if (!path.equals(other.path))
+	    return false;
+	if (primaryKey != other.primaryKey)
+	    return false;
+	if (scale != other.scale)
+	    return false;
+	if (size != other.size)
+	    return false;
+	return true;
+    }
+
+    @Override
     public String toString() {
 	return "DSField[name=" + getName()
 		+ ", path=" + path 
