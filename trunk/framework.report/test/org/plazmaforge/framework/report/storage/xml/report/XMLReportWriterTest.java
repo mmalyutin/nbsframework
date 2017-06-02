@@ -28,6 +28,7 @@ package org.plazmaforge.framework.report.storage.xml.report;
 
 
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.plazmaforge.framework.datastorage.DataStorage;
@@ -59,7 +60,14 @@ public class XMLReportWriterTest extends TestCase {
 	
 	String reportString1 = sw.toString(); 
 	System.out.println(reportString1);
-
+	
+	// Read the report
+	StringReader sr = new StringReader(reportString1);
+	XMLReportReader reader = new XMLReportReader();
+	
+	Report report2 = reader.readReport(sr); 
+	
+	assertEquals(report1, report2);
     }
 
     
