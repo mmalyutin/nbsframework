@@ -154,6 +154,67 @@ public class DSVariable extends ComplexLocalizedIdentifier implements HasDataTyp
 	}
     }
 
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result
+		+ ((aggregation == null) ? 0 : aggregation.hashCode());
+	result = prime * result
+		+ ((dataType == null) ? 0 : dataType.hashCode());
+	result = prime * result
+		+ ((expression == null) ? 0 : expression.hashCode());
+	result = prime * result
+		+ ((initExpression == null) ? 0 : initExpression.hashCode());
+	result = prime * result
+		+ ((resetName == null) ? 0 : resetName.hashCode());
+	result = prime * result
+		+ ((resetType == null) ? 0 : resetType.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DSVariable other = (DSVariable) obj;
+	if (aggregation == null) {
+	    if (other.aggregation != null)
+		return false;
+	} else if (!aggregation.equals(other.aggregation))
+	    return false;
+	if (dataType == null) {
+	    if (other.dataType != null)
+		return false;
+	} else if (!dataType.equals(other.dataType))
+	    return false;
+	if (expression == null) {
+	    if (other.expression != null)
+		return false;
+	} else if (!expression.equals(other.expression))
+	    return false;
+	if (initExpression == null) {
+	    if (other.initExpression != null)
+		return false;
+	} else if (!initExpression.equals(other.initExpression))
+	    return false;
+	if (resetName == null) {
+	    if (other.resetName != null)
+		return false;
+	} else if (!resetName.equals(other.resetName))
+	    return false;
+	if (resetType == null) {
+	    if (other.resetType != null)
+		return false;
+	} else if (!resetType.equals(other.resetType))
+	    return false;
+	return true;
+    }
+
     public String toString() {
 	return "DSVariable[name=" + getName() 
 		+ ", dataType=" + dataType 

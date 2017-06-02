@@ -357,6 +357,65 @@ public class DSBaseDataSource extends AbstractDataSource implements DSDataSource
 	    expressions.add(exprsession);
 	}
     }
+
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result + ((fields == null) ? 0 : fields.hashCode());
+	result = prime * result + ((filters == null) ? 0 : filters.hashCode());
+	result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+	result = prime * result + ((orders == null) ? 0 : orders.hashCode());
+	result = prime * result
+		+ ((parameters == null) ? 0 : parameters.hashCode());
+	result = prime * result
+		+ ((variables == null) ? 0 : variables.hashCode());
+	return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DSBaseDataSource other = (DSBaseDataSource) obj;
+	if (fields == null) {
+	    if (other.fields != null)
+		return false;
+	} else if (!fields.equals(other.fields))
+	    return false;
+	if (filters == null) {
+	    if (other.filters != null)
+		return false;
+	} else if (!filters.equals(other.filters))
+	    return false;
+	if (groups == null) {
+	    if (other.groups != null)
+		return false;
+	} else if (!groups.equals(other.groups))
+	    return false;
+	if (orders == null) {
+	    if (other.orders != null)
+		return false;
+	} else if (!orders.equals(other.orders))
+	    return false;
+	if (parameters == null) {
+	    if (other.parameters != null)
+		return false;
+	} else if (!parameters.equals(other.parameters))
+	    return false;
+	if (variables == null) {
+	    if (other.variables != null)
+		return false;
+	} else if (!variables.equals(other.variables))
+	    return false;
+	return true;
+    }
     
     
 }

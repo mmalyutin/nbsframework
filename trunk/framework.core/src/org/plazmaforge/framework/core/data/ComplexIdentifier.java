@@ -85,6 +85,39 @@ public class ComplexIdentifier extends BaseIdentifier implements DataHolder, Pro
 	}
         return propertyHolder;
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result
+		+ ((dataHolder == null) ? 0 : dataHolder.hashCode());
+	result = prime * result
+		+ ((propertyHolder == null) ? 0 : propertyHolder.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	ComplexIdentifier other = (ComplexIdentifier) obj;
+	if (dataHolder == null) {
+	    if (other.dataHolder != null)
+		return false;
+	} else if (!dataHolder.equals(other.dataHolder))
+	    return false;
+	if (propertyHolder == null) {
+	    if (other.propertyHolder != null)
+		return false;
+	} else if (!propertyHolder.equals(other.propertyHolder))
+	    return false;
+	return true;
+    }
     
     ////
     

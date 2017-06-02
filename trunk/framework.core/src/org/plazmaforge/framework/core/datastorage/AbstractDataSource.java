@@ -131,5 +131,62 @@ public abstract class AbstractDataSource extends BaseLocalizedIdentifier {
     public int getDimensionCount() {
 	return dimensions == null ? 0 : dimensions.size();
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime
+		* result
+		+ ((dataConnectorName == null) ? 0 : dataConnectorName
+			.hashCode());
+	result = prime * result
+		+ ((dimensions == null) ? 0 : dimensions.hashCode());
+	result = prime * result
+		+ ((parentName == null) ? 0 : parentName.hashCode());
+	result = prime * result + ((query == null) ? 0 : query.hashCode());
+	result = prime * result + (standalone ? 1231 : 1237);
+	result = prime * result + ((type == null) ? 0 : type.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	AbstractDataSource other = (AbstractDataSource) obj;
+	if (dataConnectorName == null) {
+	    if (other.dataConnectorName != null)
+		return false;
+	} else if (!dataConnectorName.equals(other.dataConnectorName))
+	    return false;
+	if (dimensions == null) {
+	    if (other.dimensions != null)
+		return false;
+	} else if (!dimensions.equals(other.dimensions))
+	    return false;
+	if (parentName == null) {
+	    if (other.parentName != null)
+		return false;
+	} else if (!parentName.equals(other.parentName))
+	    return false;
+	if (query == null) {
+	    if (other.query != null)
+		return false;
+	} else if (!query.equals(other.query))
+	    return false;
+	if (standalone != other.standalone)
+	    return false;
+	if (type == null) {
+	    if (other.type != null)
+		return false;
+	} else if (!type.equals(other.type))
+	    return false;
+	return true;
+    }
     
 }
