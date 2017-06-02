@@ -124,6 +124,46 @@ public class CSVDataConnector extends AbstractFileDataConnector {
 	}
 	return value1.equalsIgnoreCase(value2);
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result
+		+ ((columnDelimiter == null) ? 0 : columnDelimiter.hashCode());
+	result = prime * result
+		+ ((firstRowHeader == null) ? 0 : firstRowHeader.hashCode());
+	result = prime * result
+		+ ((rowDelimiter == null) ? 0 : rowDelimiter.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	CSVDataConnector other = (CSVDataConnector) obj;
+	if (columnDelimiter == null) {
+	    if (other.columnDelimiter != null)
+		return false;
+	} else if (!columnDelimiter.equals(other.columnDelimiter))
+	    return false;
+	if (firstRowHeader == null) {
+	    if (other.firstRowHeader != null)
+		return false;
+	} else if (!firstRowHeader.equals(other.firstRowHeader))
+	    return false;
+	if (rowDelimiter == null) {
+	    if (other.rowDelimiter != null)
+		return false;
+	} else if (!rowDelimiter.equals(other.rowDelimiter))
+	    return false;
+	return true;
+    }
     
     
 
