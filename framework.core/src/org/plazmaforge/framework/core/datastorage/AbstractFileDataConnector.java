@@ -37,12 +37,19 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 
     public static final String PROPERTY_ENCODING = "encoding";
     
+    
+    
     private String folder;
     
     private String file;
 
     private String encoding;
     
+    private String query;
+    
+    private String dateFormat;
+    
+    private String numberFormat;    
 
     public String getFolder() {
         return folder;
@@ -68,14 +75,43 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
         this.encoding = encoding;
     }
 
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public String getNumberFormat() {
+        return numberFormat;
+    }
+
+    public void setNumberFormat(String numberFormat) {
+        this.numberFormat = numberFormat;
+    }
+
     @Override
     public int hashCode() {
 	final int prime = 31;
 	int result = super.hashCode();
 	result = prime * result
+		+ ((dateFormat == null) ? 0 : dateFormat.hashCode());
+	result = prime * result
 		+ ((encoding == null) ? 0 : encoding.hashCode());
 	result = prime * result + ((file == null) ? 0 : file.hashCode());
 	result = prime * result + ((folder == null) ? 0 : folder.hashCode());
+	result = prime * result
+		+ ((numberFormat == null) ? 0 : numberFormat.hashCode());
+	result = prime * result + ((query == null) ? 0 : query.hashCode());
 	return result;
     }
 
@@ -88,6 +124,11 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 	if (getClass() != obj.getClass())
 	    return false;
 	AbstractFileDataConnector other = (AbstractFileDataConnector) obj;
+	if (dateFormat == null) {
+	    if (other.dateFormat != null)
+		return false;
+	} else if (!dateFormat.equals(other.dateFormat))
+	    return false;
 	if (encoding == null) {
 	    if (other.encoding != null)
 		return false;
@@ -103,9 +144,20 @@ public abstract class AbstractFileDataConnector extends AbstractDataConnector {
 		return false;
 	} else if (!folder.equals(other.folder))
 	    return false;
+	if (numberFormat == null) {
+	    if (other.numberFormat != null)
+		return false;
+	} else if (!numberFormat.equals(other.numberFormat))
+	    return false;
+	if (query == null) {
+	    if (other.query != null)
+		return false;
+	} else if (!query.equals(other.query))
+	    return false;
 	return true;
     }
 
+   
   
     
 }

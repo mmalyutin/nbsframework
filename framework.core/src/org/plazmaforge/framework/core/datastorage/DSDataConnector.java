@@ -51,12 +51,5 @@ public interface DSDataConnector extends LocalizedIdentifier {
      */
     String getType();
     
-    String getUsername();
-    
-    void setUsername(String username);
-    
-    String getPassword();
-    
-    void setPassword(String password);
 
 }
