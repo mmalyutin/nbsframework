@@ -39,13 +39,33 @@ public class SQLDataConnector extends AbstractDataConnector {
     public static final String PROPERTY_URL = "url";
     public static final String PROPERTY_DRIVER = "driver";    
     
+
+    private String driver;
+
     private String url;
     
-    private String driver;
+    private String username;
+    
+    private String password;
+    
+    private String query; // experimental
     
     public SQLDataConnector() {
     }
 
+    @Override
+    public String getType() {
+	return TYPE;
+    }
+    
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+    
     public String getUrl() {
         return url;
     }
@@ -54,17 +74,28 @@ public class SQLDataConnector extends AbstractDataConnector {
         this.url = url;
     }
 
-    public String getDriver() {
-        return driver;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDriver(String driver) {
-        this.driver = driver;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override
-    public String getType() {
-	return TYPE;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     @Override
@@ -72,7 +103,12 @@ public class SQLDataConnector extends AbstractDataConnector {
 	final int prime = 31;
 	int result = super.hashCode();
 	result = prime * result + ((driver == null) ? 0 : driver.hashCode());
+	result = prime * result
+		+ ((password == null) ? 0 : password.hashCode());
+	result = prime * result + ((query == null) ? 0 : query.hashCode());
 	result = prime * result + ((url == null) ? 0 : url.hashCode());
+	result = prime * result
+		+ ((username == null) ? 0 : username.hashCode());
 	return result;
     }
 
@@ -90,14 +126,29 @@ public class SQLDataConnector extends AbstractDataConnector {
 		return false;
 	} else if (!driver.equals(other.driver))
 	    return false;
+	if (password == null) {
+	    if (other.password != null)
+		return false;
+	} else if (!password.equals(other.password))
+	    return false;
+	if (query == null) {
+	    if (other.query != null)
+		return false;
+	} else if (!query.equals(other.query))
+	    return false;
 	if (url == null) {
 	    if (other.url != null)
 		return false;
 	} else if (!url.equals(other.url))
 	    return false;
+	if (username == null) {
+	    if (other.username != null)
+		return false;
+	} else if (!username.equals(other.username))
+	    return false;
 	return true;
     }
-    
+
     
 
 }
