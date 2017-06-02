@@ -56,7 +56,7 @@ public abstract class AbstractXLSDataProducer extends AbstractDataProducer imple
 	AbstractXLSDataConnector xlsDataConnector = (AbstractXLSDataConnector) dataConnector;
 	
 	String file = xlsDataConnector.getFile();
-	Boolean firstRowHeader = xlsDataConnector.isFirstRowHeader();
+	Boolean firstRowHeader = xlsDataConnector.getFirstRowHeader();
 	String dateFormat = xlsDataConnector.getDateFormat();
 	String numberFormat = xlsDataConnector.getNumberFormat();
 	
