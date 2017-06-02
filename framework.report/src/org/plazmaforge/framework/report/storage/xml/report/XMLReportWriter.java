@@ -190,7 +190,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
     }
 
     protected Element buildDataConnectorsNode(Report report) {
-	if (!report.hasTemplates()) {
+	if (!report.hasDataConnectors()) {
 	    return null;
 	}
 	List<DSDataConnector> dataConnectors = report.getDataConnectors();
@@ -214,7 +214,7 @@ public class XMLReportWriter extends XMLAbstractReportWriter implements	ReportWr
     }
 
     protected Element buildDataSourcesNode(Report report) {
-	if (!report.hasTemplates()) {
+	if (!report.hasDataSources()) {
 	    return null;
 	}
 	List<DSDataSource> dataSources = report.getDataSources();

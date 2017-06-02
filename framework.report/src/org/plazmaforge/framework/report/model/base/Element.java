@@ -95,7 +95,7 @@ public class Element implements Serializable, HasExpressionBuilder {
    
 
     public int getX() {
-        return getPosition().getX();
+        return position == null ? 0 : position.getX();
     }
 
     public void setX(int x) {
@@ -111,7 +111,7 @@ public class Element implements Serializable, HasExpressionBuilder {
     }
 
     public int getY() {
-        return getPosition().getY();
+        return position == null ? 0 : position.getY();
     }
 
     public void setY(int y) {
@@ -127,7 +127,7 @@ public class Element implements Serializable, HasExpressionBuilder {
     }
     
     public int getWidth() {
-        return getSize().getWidth();
+        return size == null ? 0 : size.getWidth();
     }
 
     public void setWidth(int width) {
@@ -143,7 +143,7 @@ public class Element implements Serializable, HasExpressionBuilder {
     }
     
     public int getHeight() {
-        return getSize().getHeight();
+        return size == null ? 0: size.getHeight();
     }
 
     public void setHeight(int height) {
