@@ -426,5 +426,118 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 	
 	
     }
+
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((bandModel == null) ? 0 : bandModel.hashCode());
+	result = prime * result + ((caption == null) ? 0 : caption.hashCode());
+	result = prime * result
+		+ ((cellBorderRule == null) ? 0 : cellBorderRule.hashCode());
+	result = prime * result
+		+ ((cellLine == null) ? 0 : cellLine.hashCode());
+	result = prime * result
+		+ ((columnLine == null) ? 0 : columnLine.hashCode());
+	result = prime * result
+		+ ((columnModel == null) ? 0 : columnModel.hashCode());
+	result = prime * result
+		+ ((description == null) ? 0 : description.hashCode());
+	result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((name == null) ? 0 : name.hashCode());
+	result = prime * result
+		+ ((pageSetup == null) ? 0 : pageSetup.hashCode());
+	result = prime * result + (paging ? 1231 : 1237);
+	result = prime * result + (reportFooterOnPage ? 1231 : 1237);
+	result = prime * result + (reportHeaderOnPage ? 1231 : 1237);
+	result = prime * result + ((rowLine == null) ? 0 : rowLine.hashCode());
+	result = prime * result + ((type == null) ? 0 : type.hashCode());
+	return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Template other = (Template) obj;
+	if (bandModel == null) {
+	    if (other.bandModel != null)
+		return false;
+	} else if (!bandModel.equals(other.bandModel))
+	    return false;
+	if (caption == null) {
+	    if (other.caption != null)
+		return false;
+	} else if (!caption.equals(other.caption))
+	    return false;
+	if (cellBorderRule != other.cellBorderRule)
+	    return false;
+	if (cellLine == null) {
+	    if (other.cellLine != null)
+		return false;
+	} else if (!cellLine.equals(other.cellLine))
+	    return false;
+	if (columnLine == null) {
+	    if (other.columnLine != null)
+		return false;
+	} else if (!columnLine.equals(other.columnLine))
+	    return false;
+	if (columnModel == null) {
+	    if (other.columnModel != null)
+		return false;
+	} else if (!columnModel.equals(other.columnModel))
+	    return false;
+	if (description == null) {
+	    if (other.description != null)
+		return false;
+	} else if (!description.equals(other.description))
+	    return false;
+	if (groups == null) {
+	    if (other.groups != null)
+		return false;
+	} else if (!groups.equals(other.groups))
+	    return false;
+	if (id == null) {
+	    if (other.id != null)
+		return false;
+	} else if (!id.equals(other.id))
+	    return false;
+	if (name == null) {
+	    if (other.name != null)
+		return false;
+	} else if (!name.equals(other.name))
+	    return false;
+	if (pageSetup == null) {
+	    if (other.pageSetup != null)
+		return false;
+	} else if (!pageSetup.equals(other.pageSetup))
+	    return false;
+	if (paging != other.paging)
+	    return false;
+	if (reportFooterOnPage != other.reportFooterOnPage)
+	    return false;
+	if (reportHeaderOnPage != other.reportHeaderOnPage)
+	    return false;
+	if (rowLine == null) {
+	    if (other.rowLine != null)
+		return false;
+	} else if (!rowLine.equals(other.rowLine))
+	    return false;
+	if (type == null) {
+	    if (other.type != null)
+		return false;
+	} else if (!type.equals(other.type))
+	    return false;
+	return true;
+    }
+
     
 }

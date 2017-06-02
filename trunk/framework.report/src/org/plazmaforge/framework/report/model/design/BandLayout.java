@@ -65,6 +65,34 @@ public class BandLayout implements Serializable {
     public void setLastHeight(int lastHeight) {
         this.lastHeight = lastHeight;
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + firstHeight;
+	result = prime * result + height;
+	result = prime * result + lastHeight;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	BandLayout other = (BandLayout) obj;
+	if (firstHeight != other.firstHeight)
+	    return false;
+	if (height != other.height)
+	    return false;
+	if (lastHeight != other.lastHeight)
+	    return false;
+	return true;
+    }
     
     
     
