@@ -275,5 +275,101 @@ public class TemplateStructure implements Serializable {
 	return (band == null || !band.isVisible()) ? null : band;
     }
 
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((bandLayouts == null) ? 0 : bandLayouts.hashCode());
+	result = prime * result
+		+ ((columnFooter == null) ? 0 : columnFooter.hashCode());
+	result = prime * result
+		+ ((columnHeader == null) ? 0 : columnHeader.hashCode());
+	result = prime * result + ((detail == null) ? 0 : detail.hashCode());
+	result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+	result = prime * result + ((noData == null) ? 0 : noData.hashCode());
+	result = prime * result
+		+ ((pageFooter == null) ? 0 : pageFooter.hashCode());
+	result = prime * result
+		+ ((pageHeader == null) ? 0 : pageHeader.hashCode());
+	result = prime
+		* result
+		+ ((reportBackground == null) ? 0 : reportBackground.hashCode());
+	result = prime * result
+		+ ((reportFooter == null) ? 0 : reportFooter.hashCode());
+	result = prime * result
+		+ ((reportHeader == null) ? 0 : reportHeader.hashCode());
+	return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	TemplateStructure other = (TemplateStructure) obj;
+	if (bandLayouts == null) {
+	    if (other.bandLayouts != null)
+		return false;
+	} else if (!bandLayouts.equals(other.bandLayouts))
+	    return false;
+	if (columnFooter == null) {
+	    if (other.columnFooter != null)
+		return false;
+	} else if (!columnFooter.equals(other.columnFooter))
+	    return false;
+	if (columnHeader == null) {
+	    if (other.columnHeader != null)
+		return false;
+	} else if (!columnHeader.equals(other.columnHeader))
+	    return false;
+	if (detail == null) {
+	    if (other.detail != null)
+		return false;
+	} else if (!detail.equals(other.detail))
+	    return false;
+	if (groups == null) {
+	    if (other.groups != null)
+		return false;
+	} else if (!groups.equals(other.groups))
+	    return false;
+	if (noData == null) {
+	    if (other.noData != null)
+		return false;
+	} else if (!noData.equals(other.noData))
+	    return false;
+	if (pageFooter == null) {
+	    if (other.pageFooter != null)
+		return false;
+	} else if (!pageFooter.equals(other.pageFooter))
+	    return false;
+	if (pageHeader == null) {
+	    if (other.pageHeader != null)
+		return false;
+	} else if (!pageHeader.equals(other.pageHeader))
+	    return false;
+	if (reportBackground == null) {
+	    if (other.reportBackground != null)
+		return false;
+	} else if (!reportBackground.equals(other.reportBackground))
+	    return false;
+	if (reportFooter == null) {
+	    if (other.reportFooter != null)
+		return false;
+	} else if (!reportFooter.equals(other.reportFooter))
+	    return false;
+	if (reportHeader == null) {
+	    if (other.reportHeader != null)
+		return false;
+	} else if (!reportHeader.equals(other.reportHeader))
+	    return false;
+	return true;
+    }
+
     
 }

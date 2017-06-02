@@ -141,4 +141,35 @@ public class ReportGroup extends DSExpressionGroup implements BandModel, HasExpr
 	    }
 	}
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result
+		+ ((bandModel == null) ? 0 : bandModel.hashCode());
+	result = prime * result + (startOnNewPage ? 1231 : 1237);
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	ReportGroup other = (ReportGroup) obj;
+	if (bandModel == null) {
+	    if (other.bandModel != null)
+		return false;
+	} else if (!bandModel.equals(other.bandModel))
+	    return false;
+	if (startOnNewPage != other.startOnNewPage)
+	    return false;
+	return true;
+    }
+    
+    
 }

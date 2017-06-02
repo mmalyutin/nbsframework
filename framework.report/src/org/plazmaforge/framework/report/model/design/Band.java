@@ -190,5 +190,61 @@ public class Band extends Container implements HasCellBorder, RowModel {
 	    }
 	}
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result
+		+ ((cellLine == null) ? 0 : cellLine.hashCode());
+	result = prime * result
+		+ ((columnLine == null) ? 0 : columnLine.hashCode());
+	result = prime * result
+		+ ((contentType == null) ? 0 : contentType.hashCode());
+	result = prime * result + ((rowLine == null) ? 0 : rowLine.hashCode());
+	result = prime * result
+		+ ((rowModel == null) ? 0 : rowModel.hashCode());
+	result = prime * result + ((type == null) ? 0 : type.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Band other = (Band) obj;
+	if (cellLine == null) {
+	    if (other.cellLine != null)
+		return false;
+	} else if (!cellLine.equals(other.cellLine))
+	    return false;
+	if (columnLine == null) {
+	    if (other.columnLine != null)
+		return false;
+	} else if (!columnLine.equals(other.columnLine))
+	    return false;
+	if (contentType != other.contentType)
+	    return false;
+	if (rowLine == null) {
+	    if (other.rowLine != null)
+		return false;
+	} else if (!rowLine.equals(other.rowLine))
+	    return false;
+	if (rowModel == null) {
+	    if (other.rowModel != null)
+		return false;
+	} else if (!rowModel.equals(other.rowModel))
+	    return false;
+	if (type == null) {
+	    if (other.type != null)
+		return false;
+	} else if (!type.equals(other.type))
+	    return false;
+	return true;
+    }
     
 }

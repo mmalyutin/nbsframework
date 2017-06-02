@@ -179,10 +179,14 @@ public class BaseReportFiller implements ReportFiller {
 	// Prepare template fillers
 	List<Template> templates = report.getTemplates();
 	
-	
-	Map<Template, TemplateFiller> templateFillers = new HashMap<Template, TemplateFiller>();
+	int templateCount = templates.size();
+	TemplateFiller[] templateFillers = new TemplateFiller[templateCount];
 	boolean first = true;
-	for (Template template: templates) {
+	Template template = null;
+	
+	for (int i = 0; i < templateCount; i++) {
+	    
+	    template = templates.get(i);
 	    
 	    // FIRST TEMPLATE
 	    if (first) {
@@ -201,7 +205,8 @@ public class BaseReportFiller implements ReportFiller {
 	    if (templateFiller == null) {
 		throw new RTException("Can't fill template. TemplateFiller not found. TemplateType = '" + templateType + "'");
 	    }
-	    templateFillers.put(template, templateFiller);
+	    templateFillers[i] = templateFiller;
+	    
 	}
 	
 	if (parameters == null) {
@@ -263,8 +268,9 @@ public class BaseReportFiller implements ReportFiller {
 	context.setMainData(dataSet);
 	
 	// Fill report templates
-	for (Template template: templates) {
-	    TemplateFiller templateFiller = templateFillers.get(template);
+	for (int i = 0; i < templateCount; i++) {
+	    template = templates.get(i);
+	    TemplateFiller templateFiller = templateFillers[i];
 	    templateFiller.fillTemplate(context, template);
 	}
 	

@@ -104,6 +104,51 @@ public class GroupSection implements Serializable {
     public void setModify(boolean modify) {
         this.modify = modify;
     }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((group == null) ? 0 : group.hashCode());
+	result = prime * result
+		+ ((groupFooter == null) ? 0 : groupFooter.hashCode());
+	result = prime * result
+		+ ((groupHeader == null) ? 0 : groupHeader.hashCode());
+	result = prime * result + index;
+	result = prime * result + (modify ? 1231 : 1237);
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	GroupSection other = (GroupSection) obj;
+	if (group == null) {
+	    if (other.group != null)
+		return false;
+	} else if (!group.equals(other.group))
+	    return false;
+	if (groupFooter == null) {
+	    if (other.groupFooter != null)
+		return false;
+	} else if (!groupFooter.equals(other.groupFooter))
+	    return false;
+	if (groupHeader == null) {
+	    if (other.groupHeader != null)
+		return false;
+	} else if (!groupHeader.equals(other.groupHeader))
+	    return false;
+	if (index != other.index)
+	    return false;
+	if (modify != other.modify)
+	    return false;
+	return true;
+    }
     
     
 }
