@@ -48,6 +48,11 @@ import junit.framework.TestCase;
  */
 public class XMLReportWriterTest extends TestCase {
 
+    protected void setUp() throws Exception {
+	// Initialize DataStorage: Register base DataProducer factories
+	 DataStorage.init();
+    }
+    
     public void testWrite() throws Exception {
 	
 	Report report1 = createTestReport();
@@ -67,29 +72,40 @@ public class XMLReportWriterTest extends TestCase {
 	
 	Report report2 = reader.readReport(sr); 
 	
+	// Compare report1 and report2
 	assertEquals(report1, report2);
     }
 
     
     public void testReadFromInputStream() throws Exception {
 	
-	  // Initialize DataStorage: Register base DataProducer factories 
-	    DataStorage.init();
-	    
+	// Read the report (from file)    
 	XMLReportReader reader = new XMLReportReader();
-	InputStream is = ReportEngine.class.getResourceAsStream("resources/reports/Report3.report.xml");
-	Report report = reader.readReport(is);
+	InputStream is = ReportEngine.class.getResourceAsStream("resources/reports/ReportNormalize.report.xml");
+	Report report1 = reader.readReport(is);
 	
-	assertNotNull(report);
+	assertNotNull(report1);
 
 	XMLReportWriter writer = new XMLReportWriter();
 	
-	// Write the report
+	// Write the report (to string writer)
 	StringWriter sw = new StringWriter();
-	writer.writeReport(report, sw);
+	writer.writeReport(report1, sw);
 	
 	String reportString1 = sw.toString(); 
 	System.out.println(reportString1);
+
+	// Read the report (from string reader)
+	StringReader sr = new StringReader(reportString1);
+	reader = new XMLReportReader();
+	
+	Report report2 = reader.readReport(sr); 
+	
+	assertNotNull(report2);
+
+	// Compare report1 and report2
+	assertEquals(report1, report2);
+	
 	
 	/*
 	// Get report attributes

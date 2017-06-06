@@ -61,6 +61,7 @@ public class XMLGroupWriter extends XMLAbstractReportWriter {
 	// expression
 	if (group.hasExpressionText()) {
 	    Element expressionNode = createElement(XML_EXPRESSION);
+	    addChild(node, expressionNode);
 	    setExpression(group.getExpression(), expressionNode, USE_DATA_TYPE_IN_EXPRESSION);
 	}
 	
