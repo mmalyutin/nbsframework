@@ -31,7 +31,11 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.datastorage.DataStorage;
+import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
+import org.plazmaforge.framework.datastorage.support.json.JSONDataConnector;
+import org.plazmaforge.framework.datastorage.support.xml.XMLDataConnector;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
 import org.plazmaforge.framework.report.model.base.grid.Column;
@@ -53,7 +57,7 @@ public class XMLReportWriterTest extends TestCase {
 	 DataStorage.init();
     }
     
-    public void testWrite() throws Exception {
+    public void testSimpleWrite() throws Exception {
 	
 	Report report1 = createTestReport();
 	
@@ -77,7 +81,7 @@ public class XMLReportWriterTest extends TestCase {
     }
 
     
-    public void testReadFromInputStream() throws Exception {
+    public void testFileReadWrite() throws Exception {
 	
 	// Read the report (from file)    
 	XMLReportReader reader = new XMLReportReader();
@@ -126,6 +130,38 @@ public class XMLReportWriterTest extends TestCase {
 	*/
 
     }
+    
+    
+    public void testDataConnectorWrite() throws Exception {
+	Report report1 = new Report();
+	
+	DSDataConnector dataConnector1 = createTestCSVDataConnector();
+	DSDataConnector dataConnector2 = createTestXMLDataConnector();
+	DSDataConnector dataConnector3 = createTestJSONDataConnector();
+	
+	report1.addDataConnector(dataConnector1);
+	report1.addDataConnector(dataConnector2);
+	report1.addDataConnector(dataConnector3);
+	
+	XMLReportWriter writer = new XMLReportWriter();
+	
+	// Write the report
+	StringWriter sw = new StringWriter();
+	writer.writeReport(report1, sw);
+	
+	String reportString1 = sw.toString(); 
+	System.out.println(reportString1);
+	
+	// Read the report
+	StringReader sr = new StringReader(reportString1);
+	XMLReportReader reader = new XMLReportReader();
+	
+	Report report2 = reader.readReport(sr); 
+	
+	// Compare report1 and report2
+	assertEquals(report1, report2);
+	
+    }
 
     private Report createTestReport() {
 	
@@ -165,6 +201,68 @@ public class XMLReportWriterTest extends TestCase {
 	row.addCell(cell);
 	
 	return report;
+    }
+    
+    private CSVDataConnector createTestCSVDataConnector() {
+	
+	CSVDataConnector dataConnector = new CSVDataConnector();
+	
+	
+	dataConnector.setId("csv_id_1234567890");
+	dataConnector.setName("csv_name_1234567890");
+	dataConnector.setCaption("csv_caption_1234567890");
+	dataConnector.setDescription("csv_description_1234567890");
+	
+	dataConnector.setFile("csv_file_1234567890");
+	dataConnector.setEncoding("cp1234567890");
+	dataConnector.setColumnDelimiter(";");
+	dataConnector.setRowDelimiter("#NIX");
+	dataConnector.setFirstRowHeader(true);
+	dataConnector.setDateFormat("dd-MM-yyyy");
+	dataConnector.setNumberFormat("#.00");
+	
+	
+	return dataConnector;
+    }
+
+    private XMLDataConnector createTestXMLDataConnector() {
+	
+	XMLDataConnector dataConnector = new XMLDataConnector();
+	
+	
+	dataConnector.setId("xml_id_1234567890");
+	dataConnector.setName("xml_name_1234567890");
+	dataConnector.setCaption("xml_caption_1234567890");
+	dataConnector.setDescription("xml_description_1234567890");
+	
+	dataConnector.setFile("xml_file_1234567890");
+	dataConnector.setEncoding("cp1234567890");
+	dataConnector.setDateFormat("dd.MM.yyyy");
+	dataConnector.setNumberFormat("#.000");
+	
+	dataConnector.setQuery("root/nodes");
+	
+	return dataConnector;
+    }
+
+    private JSONDataConnector createTestJSONDataConnector() {
+	
+	JSONDataConnector dataConnector = new JSONDataConnector();
+	
+	
+	dataConnector.setId("json_id_1234567890");
+	dataConnector.setName("json_name_1234567890");
+	dataConnector.setCaption("json_caption_1234567890");
+	dataConnector.setDescription("json_description_1234567890");
+	
+	dataConnector.setFile("json_file_1234567890");
+	dataConnector.setEncoding("cp1234567890");
+	dataConnector.setDateFormat("yyyy.MM.dd");
+	dataConnector.setNumberFormat("#0.000");
+	
+	dataConnector.setQuery("root.nodes");
+	
+	return dataConnector;
     }
     
 }

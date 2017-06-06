@@ -550,10 +550,10 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
 	String sValue = null;
 
    	// id
-   	//sValue = getStringValue(node, XML_ATTR_ID);
-   	//if (sValue != null) {
-   	//    identifier.setId(sValue);
-   	//}
+   	sValue = getStringValue(node, XML_ATTR_ID);
+   	if (sValue != null) {
+   	    identifier.setId(sValue);
+   	}
 	
    	// name
    	sValue = getStringValue(node, XML_ATTR_NAME);

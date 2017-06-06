@@ -35,6 +35,8 @@ public interface XMLInfo {
     // BASE
     //////////////////////////////////////////////////////////////
 
+    String XML_ATTR_ID = "id";
+    
     String XML_ATTR_NAME = "name";
     
     String XML_ATTR_CAPTION = "caption";
