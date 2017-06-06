@@ -57,6 +57,8 @@ public class XMLDSDataConnectorReader extends XMLAbstractReportReader {
 	
 	try {
 	    dataConnector = createDataConnector(type);
+	    readIdentifier(node, dataConnector);
+	    
 	    PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
 	    if (propertyProvider == null) {
 		throw new DSException("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());

@@ -298,9 +298,9 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
     protected void writeIdentifier(LocalizedIdentifier identifier, Element node) {
 
      	// id
-  	//if (identifier.getId() != null) {
-  	//    setStringValue(node, XML_ATTR_ID, identifier.getId());
-  	//}
+  	if (identifier.getId() != null) {
+  	    setStringValue(node, XML_ATTR_ID, identifier.getId());
+  	}
   	
      	// name
   	if (identifier.getName() != null) {

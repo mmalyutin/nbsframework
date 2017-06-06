@@ -61,6 +61,9 @@ public class XMLDSDataConnectorWriter extends XMLAbstractReportWriter {
 	    setStringValue(node, XML_ATTR_TYPE, type);
 	}
 	try {
+	    
+	    writeIdentifier(dataConnector, node);
+	    
 	    PropertyProvider propertyProvider = propertyProviderFactory.getPropertyProvider(dataConnector.getClass());
 	    if (propertyProvider == null) {
 		throw new DSException("PropertyProvider is not initialized. PropertyProviderFactory: " + propertyProviderFactory.getClass());
