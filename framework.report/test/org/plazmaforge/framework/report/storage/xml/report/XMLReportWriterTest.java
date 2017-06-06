@@ -35,6 +35,9 @@ import org.plazmaforge.framework.core.datastorage.DSDataConnector;
 import org.plazmaforge.framework.datastorage.DataStorage;
 import org.plazmaforge.framework.datastorage.support.csv.CSVDataConnector;
 import org.plazmaforge.framework.datastorage.support.json.JSONDataConnector;
+import org.plazmaforge.framework.datastorage.support.sql.SQLDataConnector;
+import org.plazmaforge.framework.datastorage.support.xls.XLSDataConnector;
+import org.plazmaforge.framework.datastorage.support.xlsx.XLSXDataConnector;
 import org.plazmaforge.framework.datastorage.support.xml.XMLDataConnector;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
@@ -138,10 +141,16 @@ public class XMLReportWriterTest extends TestCase {
 	DSDataConnector dataConnector1 = createTestCSVDataConnector();
 	DSDataConnector dataConnector2 = createTestXMLDataConnector();
 	DSDataConnector dataConnector3 = createTestJSONDataConnector();
+	DSDataConnector dataConnector4 = createTestXLSDataConnector();
+	DSDataConnector dataConnector5 = createTestXLSXDataConnector();
+	DSDataConnector dataConnector6 = createTestSQLDataConnector();
 	
 	report1.addDataConnector(dataConnector1);
 	report1.addDataConnector(dataConnector2);
 	report1.addDataConnector(dataConnector3);
+	report1.addDataConnector(dataConnector4);
+	report1.addDataConnector(dataConnector5);
+	report1.addDataConnector(dataConnector6);
 	
 	XMLReportWriter writer = new XMLReportWriter();
 	
@@ -264,5 +273,57 @@ public class XMLReportWriterTest extends TestCase {
 	
 	return dataConnector;
     }
+    
+    private XLSDataConnector createTestXLSDataConnector() {
+	
+	XLSDataConnector dataConnector = new XLSDataConnector();
+	
+	
+	dataConnector.setId("xls_id_1234567890");
+	dataConnector.setName("xls_name_1234567890");
+	dataConnector.setCaption("xls_caption_1234567890");
+	dataConnector.setDescription("xls_description_1234567890");
+	
+	dataConnector.setFile("xls_file_1234567890");
+	dataConnector.setFirstRowHeader(true);
+	
+	return dataConnector;
+    }
+
+    private XLSXDataConnector createTestXLSXDataConnector() {
+	
+	XLSXDataConnector dataConnector = new XLSXDataConnector();
+	
+	
+	dataConnector.setId("xlsx_id_1234567890");
+	dataConnector.setName("xlsx_name_1234567890");
+	dataConnector.setCaption("xlsx_caption_1234567890");
+	dataConnector.setDescription("xlsx_description_1234567890");
+	
+	dataConnector.setFile("xlsx_file_1234567890");
+	dataConnector.setFirstRowHeader(true);
+	
+	return dataConnector;
+    }
+
+    private SQLDataConnector createTestSQLDataConnector() {
+	
+	SQLDataConnector dataConnector = new SQLDataConnector();
+	
+	
+	dataConnector.setId("sql_id_1234567890");
+	dataConnector.setName("sql_name_1234567890");
+	dataConnector.setCaption("sql_caption_1234567890");
+	dataConnector.setDescription("sql_description_1234567890");
+	
+	dataConnector.setDriver("org.mydb.jdbcDriver");
+	dataConnector.setUrl("jdbc:mydb:database");
+	dataConnector.setUsername("myuser");
+	dataConnector.setPassword("mypassword");
+	//dataConnector.setPassword("");
+	
+	return dataConnector;
+    }
+    
     
 }
