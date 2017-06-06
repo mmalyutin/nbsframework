@@ -42,6 +42,8 @@ public class XMLDSParameterWriter extends XMLAbstractWriter {
     
     public void writeParameter(DSParameter parameter, Element node) {
 
+	writeIdentifier(parameter, node);
+	
 	// expression
 	if (parameter instanceof DSExpressionParameter) {
 	    DSExpressionParameter expressionParameter = (DSExpressionParameter) parameter;
