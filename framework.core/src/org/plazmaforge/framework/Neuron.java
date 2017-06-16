@@ -129,8 +129,8 @@ public class Neuron {
 	//if ( value > 0.001 && value < 0.002) return 1; else return 0;
 	
 	//return Math.round(value * 100);
-	//return value * 100;
-	return value;
+	return value * 100;
+	//return value;
 	//return value * 1000000000;
 	
 	//return 1 / (1 + Math.pow(2.7, (-1 * value) ));
@@ -172,13 +172,13 @@ public class Neuron {
   		    double error = originalOut - output; // получаем ошибку
   		    double error2 = Math.abs(error);
   			
-  		    //gError += Math.abs(error); // суммируем ошибку в модуле
-  		    gError += error; // суммируем ошибку в модуле
+  		    gError += Math.abs(error); // суммируем ошибку в модуле
+  		    //gError += error; // суммируем ошибку в модуле
   			
   		    for ( int j = 0; j < inputs.length; j++ ) {
   			//weights[j] += 0.001 * error * inputs[j]; // старый вес + скорость * ошибку * i-ый вход
   			//weights[j] += 0.0001 * error * inputs[j]; // старый вес + скорость * ошибку * i-ый вход
-  			weights[j] += 1 * error * inputs[j]; // старый вес + скорость * ошибку * i-ый вход
+  			weights[j] += 0.001 * error * inputs[j]; // старый вес + скорость * ошибку * i-ый вход
   			//weights[j] += 0.00000000001 * error * inputs[j]; // старый вес + скорость * ошибку * i-ый вход
   		    }
   				
@@ -192,10 +192,11 @@ public class Neuron {
   		
   	//} while (gError != 0); // пока gError не равно 0, выполняем код
   	//} while (gError <= 0.000000001); // пока gError не равно 0, выполняем код
-    	//} while (gError <= 0.0000000001); // пока gError не равно 0, выполняем код
-  	} while (gError <= 0.00000000000000000000000000000000000000000000000000000000000000001); // пока gError не равно 0, выполняем код
+    	} while (gError >= 0.000001); // пока gError не равно 0, выполняем код
+  	//} while (gError >= 0.000000000000000000000000000000000000000000000000001); // пока gError не равно 0, выполняем код
   	
-       
+  	System.out.println("EE");
+       System.out.println(gError);
       }
     
     private Neuron h1;
@@ -301,8 +302,9 @@ public class Neuron {
   		    double error = ESUM / (i + 1);
   		    
   		    gError = error;
-  		    
-  		    
+  		  
+  		    System.out.println(error);
+  		  
   		    //==============================================================================================
   		    double deltaO1 = delta * FPOH(o1.getOutput());
   			
@@ -339,7 +341,7 @@ public class Neuron {
   	//} while (gError != 0); // пока gError не равно 0, выполняем код
   	//} while (gError <= 0.000000001); // пока gError не равно 0, выполняем код
     	//} while (gError <= 0.0000000001); // пока gError не равно 0, выполняем код
-  	} while (gError <= 0.00000000000000000000000000000000000000000000000000000000000000001); // пока gError не равно 0, выполняем код
+  	} while (gError >= 0.00000000000000000000000000000000000000000000000000000000000000001); // пока gError не равно 0, выполняем код
   	
        
       }    

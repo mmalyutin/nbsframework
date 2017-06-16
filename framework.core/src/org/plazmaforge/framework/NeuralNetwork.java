@@ -25,9 +25,18 @@ package org.plazmaforge.framework;
 public class NeuralNetwork {
 
 
+    static double learnDataAND[][] = {
+	{0,0, 0},
+	{1,0, 0},
+	{0,1, 0},
+	{0,0, 0},
+	{1,0, 0},
+	{1,1, 0}
+    };
+
     
     // AND LEAR DATA
-    static double learnDataAND[][] = {
+    static double learnDataAND2[][] = {
 	{0,0, 0},
 	{1,0, 0},
 	{0,1, 0},
@@ -1269,7 +1278,7 @@ public class NeuralNetwork {
 	// AND Neuron
 	Neuron neuronAND = new Neuron();
 	neuronAND.initInput(2);
-	neuronAND.trainZZZ(learnDataAND);
+	neuronAND.train(learnDataAND);
 	
 	// AND
 	double testDataAND[][] = {
@@ -1283,7 +1292,7 @@ public class NeuralNetwork {
 	System.out.println("Test AND Neuron") ;
 	System.out.println("=========================================") ;
 	
-	processNeuronZZZ(neuronAND, testDataAND);
+	processNeuron(neuronAND, testDataAND);
 	
 	/*
 	// OR Neuron
