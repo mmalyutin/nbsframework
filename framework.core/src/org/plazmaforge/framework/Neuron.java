@@ -94,6 +94,7 @@ public class Neuron {
 
     protected double normalizeZZZ(double value) {
 	return 1 / (1 + Math.pow(2.7, (-1 * value)));
+	//return 1 / (1 + Math.pow(2.7, (-4*(value-0.5))));
     }
     
     public void summator() {
@@ -153,7 +154,7 @@ public class Neuron {
   	
   	double[] items;
   	double originalOut;
-  	
+
   	do {
   		gError = 0; // обнуляем счётчик
   		it++; // увеличиваем на 1 итерации
@@ -270,6 +271,25 @@ public class Neuron {
   	o1 = new Neuron();
   	o1.initInput(2);
   	
+  	double w1 = 0.45;
+  	double w2 = 0.78;
+  	double w3 = -0.12;
+  	double w4 = 0.13;
+  	double w5 = 1.5;
+  	double w6 = -2.3;
+  	
+  	//h1.getWeights()[0] = w1;
+  	//h2.getWeights()[0] = w2;
+  	
+  	//h1.getWeights()[1] = w3;
+  	//h2.getWeights()[1] = w4;
+  	
+  	//o1.getWeights()[0] = w5;
+  	//o1.getWeights()[1] = w6;
+  	
+  	int BREAK_ITERATION = 1000000;
+  	int PRINT_STEP_ITERATION = BREAK_ITERATION / 100;
+  		
   	do {
   		gError = 0; // обнуляем счётчик
   		it++; // увеличиваем на 1 итерации
@@ -303,36 +323,58 @@ public class Neuron {
   		    
   		    gError = error;
   		  
-  		    System.out.println(error);
+  		    //System.out.println();
+  		    //System.out.println(error);
   		  
   		    //==============================================================================================
   		    double deltaO1 = delta * FPOH(o1.getOutput());
   			
   		    // H1: CALCULATE
-  		    double deltaH1 = h1.getOutput() * (o1.getWeights()[0]);
+  		    double deltaH1 =  FPOH(h1.getOutput()) * (o1.getWeights()[0] * deltaO1);
   		    double gradH1 = grad(h1, deltaO1);
   		    changeWeight(gradH1, o1, 0);
   		    
   		    // H1: CALCULATE
-  		    double deltaH2 = h2.getOutput() * (o1.getWeights()[1]);
+  		    double deltaH2 = FPOH(h2.getOutput()) * (o1.getWeights()[1] * deltaO1);
   		    double gradH2 = grad(h2, deltaO1);
   		    changeWeight(gradH2, o1, 1);
   		  
-  		    double gradH1_1 = grad(inputs[0], deltaH1);
-  		    double gradH1_2 = grad(inputs[0], deltaH2);
+  		    double gradH1_1 = grad(inputs[0], deltaH1); // w1
+  		    double gradH2_1 = grad(inputs[0], deltaH2); // w2
   		    
-  		    double gradH2_1 = grad(inputs[1], deltaH1);
-  		    double gradH2_2 = grad(inputs[1], deltaH2);
+  		    double gradH1_2 = grad(inputs[1], deltaH1); // w3
+  		    double gradH2_2 = grad(inputs[1], deltaH2); // w4
   		    
   		    changeWeight(gradH1_1, h1, 0);
-  		    changeWeight(gradH1_2, h1, 1);
-  		    
   		    changeWeight(gradH2_1, h2, 0);
+  		    
+  		    changeWeight(gradH1_2, h1, 1);
   		    changeWeight(gradH2_2, h2, 1);
+
+  		    
+  		    
+  		    
+  		    /////////////////////////////////////////
+  		  w1 = h1.getWeights()[0];
+  		  w2 = h2.getWeights()[0];
+  		  	
+  		  w3 = h1.getWeights()[1];
+  		  w4 = h2.getWeights()[1];
+  		  	
+  		  w5 = o1.getWeights()[0];
+  		  w6 = o1.getWeights()[1];
+  		    
+  		  //System.out.println("w1=" + w1 + ", w2=" + w2 + ", w3=" + w3 + ", w4=" + w4 + ", w5=" + w5 + ", w6=" + w6);
+  		  //System.out.println("output=" + o1.getOutput());
   		    
   		}
-  		if (it > 10000) {
-  		    System.out.print(10000);
+  		if (it % PRINT_STEP_ITERATION == 0) {
+  		  System.out.println("itr=" + it);
+  		}
+  		if (it > BREAK_ITERATION) {
+  		    System.out.print("BREAK: " + gError);
+  		    break;
+  		    //System.out.print(10000);
   		}
   		
   		
@@ -341,7 +383,9 @@ public class Neuron {
   	//} while (gError != 0); // пока gError не равно 0, выполняем код
   	//} while (gError <= 0.000000001); // пока gError не равно 0, выполняем код
     	//} while (gError <= 0.0000000001); // пока gError не равно 0, выполняем код
-  	} while (gError >= 0.00000000000000000000000000000000000000000000000000000000000000001); // пока gError не равно 0, выполняем код
+  	//} while (gError >= 0.000000000000000001); // пока gError не равно 0, выполняем код
+  	} while (gError >= 0.001); // пока gError не равно 0, выполняем код
+  	//} while (gError >= 0.00000000000000000000000000000000000000000000000000000000000000001); // пока gError не равно 0, выполняем код
   	
        
       }    
