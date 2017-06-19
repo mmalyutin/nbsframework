@@ -31,7 +31,7 @@ public class NeuralNetwork {
 	{0,1, 0},
 	{0,0, 0},
 	{1,0, 0},
-	{1,1, 0}
+	{1,1, 1}
     };
 
     
@@ -1278,21 +1278,49 @@ public class NeuralNetwork {
 	// AND Neuron
 	Neuron neuronAND = new Neuron();
 	neuronAND.initInput(2);
-	neuronAND.train(learnDataAND);
+
+	
+	double learnDataAND[][] = {
+		{0,0, 0},
+		{0,1, 1},		
+		{1,0, 1},
+		{1,1, 0}		
+	    };
+
+	//neuronAND.trainZZZ(learnDataAND2);
+	neuronAND.trainZZZ(learnDataXOR);
 	
 	// AND
-	double testDataAND[][] = {
+	double testDataAND2[][] = {
 		{0,0, 0},
-		{1,0, 0},
-		{0,1, 0},
-		{1,1, 1}		
+		{0,1, 1},		
+		{1,0, 1},
+		{1,1, 0}		
 	    };
-	
 
+	double testDataAND[][] = {
+	{0,0, 0},
+	{1,0, 0},
+	{0,1, 0},
+	{0,0, 0},
+	{1,0, 0},
+	{1,1, 1}
+
+	    };	
+
+	// XOR
+	double testDataXOR[][] = {
+		{0,0, 0},
+		{1,0, 1},
+		{0,1, 1},
+		{1,1, 0}		
+	    };
+
+	
 	System.out.println("Test AND Neuron") ;
 	System.out.println("=========================================") ;
 	
-	processNeuron(neuronAND, testDataAND);
+	processNeuronZZZ(neuronAND, testDataXOR);
 	
 	/*
 	// OR Neuron
@@ -1373,13 +1401,17 @@ public class NeuralNetwork {
 	    neuron.setInputs(java.util.Arrays.copyOf(data[p],  data[p].length - 1));
 	    neuron.calculate();
 	    double originalOut = data[p][2];
-	    System.out.println("" + neuron.getOutput() + "  <->  " + originalOut +  (originalOut != neuron.getOutput() ? (" FAIL (" + deltaStr(originalOut, neuron.getOutput()) + ")") : "")) ;
+	    double originalOut2 = originalOut;
+	    if (originalOut == 0) {
+		originalOut2 = 1e-84d; //Double.MIN_VALUE;
+	    }
+	    System.out.println("" + neuron.getOutput() + "  <->  " + originalOut +  (originalOut != neuron.getOutput() ? (" FAIL (" + deltaStr(originalOut2, neuron.getOutput()) + ")") : "")) ;
 	}
     }
     
 
-    private String deltaStr(double a, double b) {
-	double delta = ((a - b) / b) * 100d; 
+    private String deltaStr(double originalValue, double calculateValue) {
+	double delta = ((originalValue - calculateValue) / originalValue) * 100d; 
 	return "" + delta + " %";
     }
     
