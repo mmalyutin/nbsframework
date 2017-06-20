@@ -100,6 +100,42 @@ public class ReportContext {
      * End Y position
      */
     private int endY;
+
+    
+    /**
+     * Page width 
+     */
+    private int pageWidth;
+    
+    /**
+     * Page height
+     */
+    private int pageHeight;
+    
+    
+    /**
+     * Page margin left
+     */
+    private int pageMarginLeft;
+    
+
+    /**
+     * Page margin top
+     */
+    private int pageMarginTop;
+    
+    
+    /**
+     * Page margin right
+     */
+    private int pageMarginRight;
+
+
+    /**
+     * Page margin bottom
+     */
+    private int pageMarginBottom;
+
     
     /**
      * Printable width 
@@ -314,6 +350,54 @@ public class ReportContext {
     public void setEndY(int endY) {
         this.endY = endY;
     }
+    
+    public int getPageWidth() {
+        return pageWidth;
+    }
+
+    public void setPageWidth(int pageWidth) {
+        this.pageWidth = pageWidth;
+    }
+
+    public int getPageHeight() {
+        return pageHeight;
+    }
+
+    public void setPageHeight(int pageHeight) {
+        this.pageHeight = pageHeight;
+    }
+
+    public int getPageMarginLeft() {
+        return pageMarginLeft;
+    }
+
+    public void setPageMarginLeft(int pageMarginLeft) {
+        this.pageMarginLeft = pageMarginLeft;
+    }
+
+    public int getPageMarginTop() {
+        return pageMarginTop;
+    }
+
+    public void setPageMarginTop(int pageMarginTop) {
+        this.pageMarginTop = pageMarginTop;
+    }
+
+    public int getPageMarginRight() {
+        return pageMarginRight;
+    }
+
+    public void setPageMarginRight(int pageMarginRight) {
+        this.pageMarginRight = pageMarginRight;
+    }
+
+    public int getPageMarginBottom() {
+        return pageMarginBottom;
+    }
+
+    public void setPageMarginBottom(int pageMarginBottom) {
+        this.pageMarginBottom = pageMarginBottom;
+    }
 
     public int getPageAreaWidth() {
         return pageAreaWidth;
@@ -427,6 +511,13 @@ public class ReportContext {
 	this.endX = 0;
 	this.startY = 0;
 	this.endY = 0;
+
+	this.pageWidth = 0;
+	this.pageHeight = 0;
+	this.pageMarginLeft = 0;
+	this.pageMarginTop = 0;
+	this.pageMarginRight = 0;
+	this.pageMarginBottom = 0;
 	
 	this.pageAreaWidth = 0;
 	this.pageAreaHeight = 0;

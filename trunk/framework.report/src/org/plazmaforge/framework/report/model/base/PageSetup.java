@@ -31,6 +31,11 @@ package org.plazmaforge.framework.report.model.base;
  *
  */
 public class PageSetup {
+    
+    
+    public static final PageFormat DEFAULT_PAGE_FRMAT = PageFormat.A4;
+    
+    
 
     private String format;
     
@@ -52,8 +57,12 @@ public class PageSetup {
     public Size getSize() {
 	if (size == null) {
 	    size = new Size();
-	    size.setWidth(595);  //210
-	    size.setHeight(842); //297
+	    
+	    //size.setWidth(595);  //210
+	    //size.setHeight(842); //297
+	    
+	    size.setWidth((int) PageFormat.toPT(DEFAULT_PAGE_FRMAT.getWidth()));   //210
+	    size.setHeight((int) PageFormat.toPT(DEFAULT_PAGE_FRMAT.getHeight())); //297
 	}
         return size;
     }
@@ -62,6 +71,10 @@ public class PageSetup {
         this.size = size;
     }
 
+    public void setSize(Integer width, Integer height) {
+        this.size = new Size(width, height);
+    }
+    
     public boolean hasSize() {
 	return size != null;
     }
@@ -79,6 +92,14 @@ public class PageSetup {
 
     public void setMargin(Margin margin) {
         this.margin = margin;
+    }
+
+    public void setMargin(Integer margin) {
+        this.margin = new Margin(margin);
+    }
+
+    public void setMargin(Integer top, Integer right, Integer bottom, Integer left) {
+        this.margin = new Margin(top, right, bottom, left);
     }
     
     public boolean hasMargin() {

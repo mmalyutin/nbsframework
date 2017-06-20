@@ -25,10 +25,44 @@
  */
 package org.plazmaforge.framework.report.fill;
 
+import org.plazmaforge.framework.report.model.base.PageFormat;
+import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.Size;
+import org.plazmaforge.framework.util.StringUtils;
+
 /**
  * @author ohapon
  *
  */
 public class AbstractTemplateFiller extends AbstractFiller {
 
+    
+    
+    protected Size getPageSize(PageSetup pageSetup) {
+	
+	if (pageSetup == null) {
+	    return getPageSize(PageSetup.DEFAULT_PAGE_FRMAT);
+	}
+	
+	String format = pageSetup.getFormat();
+	format = StringUtils.normalizeString(format);
+	if (format == null || format.equalsIgnoreCase("Custom")) {
+	    return pageSetup.getSize();
+	}
+
+	PageFormat pageFormat = PageFormat.find(format);
+	
+	return getPageSize(pageFormat);
+    }
+    
+    protected Size getPageSize(PageFormat pageFormat) {
+	if (pageFormat == null) {
+	    pageFormat = PageSetup.DEFAULT_PAGE_FRMAT;
+	}
+	int width = pageFormat.getWidth();
+	int height = pageFormat.getHeight();
+	Size size = new Size((int) PageFormat.toPT(width), (int) PageFormat.toPT(height));
+	return size;
+    }
+    
 }

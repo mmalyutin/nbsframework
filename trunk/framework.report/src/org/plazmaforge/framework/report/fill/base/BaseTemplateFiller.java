@@ -42,7 +42,9 @@ import org.plazmaforge.framework.report.fill.AbstractTemplateFiller;
 import org.plazmaforge.framework.report.fill.TemplateFiller;
 import org.plazmaforge.framework.report.fill.process.ReportContext;
 import org.plazmaforge.framework.report.fill.process.ReportScope;
+import org.plazmaforge.framework.report.model.base.Margin;
 import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.BandType;
 import org.plazmaforge.framework.report.model.design.GroupSection;
@@ -62,16 +64,45 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 
     public void fillTemplate(ReportContext context, Template template) throws RTException {
 	
-	PageSetup pageSetup = template.getPageSetup();
-
+	
 	context.resetTemplate();
+	
+	
+	PageSetup pageSetup = template.getPageSetup();
+	
+	int pageWidth = 0;
+	int pageHeight = 0;
+	int pageMarginLeft = 0;
+	int pageMarginTop = 0;
+	int pageMarginRight = 0;
+	int pageMarginBottom = 0;
+	
+	Size pageSize = getPageSize(pageSetup);
+	
+	// page size
+	pageWidth = pageSize.getWidth();
+	pageHeight = pageSize.getHeight();
+	
+	// page margin
+	pageMarginLeft = pageSetup.getMargin().getLeft();
+	pageMarginTop = pageSetup.getMargin().getTop();
+	pageMarginRight = pageSetup.getMargin().getRight();
+	pageMarginBottom = pageSetup.getMargin().getBottom();
+	
+	context.setPageWidth(pageWidth);
+	context.setPageHeight(pageHeight);
+	context.setPageMarginLeft(pageMarginLeft);
+	context.setPageMarginTop(pageMarginTop);
+	context.setPageMarginRight(pageMarginRight);
+	context.setPageMarginBottom(pageMarginBottom);
+	
 	context.setPaging(template.isPaging());
-	context.setStartX(pageSetup.getMargin().getLeft());
-	context.setEndX(pageSetup.getSize().getWidth() - pageSetup.getMargin().getRight());
+	context.setStartX(pageMarginLeft);
+	context.setEndX(pageWidth - pageMarginRight);
 	context.setPageAreaWidth(context.getEndX() - context.getStartX());
 	
-	context.setStartY(pageSetup.getMargin().getTop());
-	context.setEndY(pageSetup.getSize().getHeight() - pageSetup.getMargin().getBottom());
+	context.setStartY(pageMarginTop);
+	context.setEndY(pageHeight - pageMarginBottom);
 	context.setPageAreaHeight(context.getEndY() - context.getStartY());
 	
 	if (context.getPageAreaWidth() <= 0) {
@@ -275,21 +306,24 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
     }
     
     protected Page createPage(ReportContext context) {
-	
-	Template template = context.getTemplate();
-	PageSetup pageSetup = template.getPageSetup();
-	
 	Page page = new Page();
 	
+	//Template template = context.getTemplate();
+	//PageSetup pageSetup = template.getPageSetup();
 	// Set page size
-	if (pageSetup.hasSize()) {
-	    page.setSize(pageSetup.getSize().clone());
-	}
-
+	//if (pageSetup.hasSize()) {
+	//    page.setSize(pageSetup.getSize().clone());
+	//}
 	// Set page margin
-	if (pageSetup.hasMargin()) {
-	    page.setMargin(pageSetup.getMargin().clone());
-	}
+	//if (pageSetup.hasMargin()) {
+	//    page.setMargin(pageSetup.getMargin().clone());
+	//}
+	
+	// Set page size
+	page.setSize(new Size(context.getPageWidth(), context.getPageHeight()));
+	
+	// Set page margin
+	page.setMargin(new Margin(context.getPageMarginTop(), context.getPageMarginRight(), context.getPageMarginBottom(), context.getPageMarginLeft()));
 	
 	return page;
     }
