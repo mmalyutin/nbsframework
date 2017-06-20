@@ -102,6 +102,8 @@ public class ReportContext {
     private int endY;
 
     
+    private int totalHeight;
+    
     /**
      * Page width 
      */
@@ -351,6 +353,14 @@ public class ReportContext {
         this.endY = endY;
     }
     
+    public int getTotalHeight() {
+        return totalHeight;
+    }
+
+    public void setTotalHeight(int totalHeight) {
+        this.totalHeight = totalHeight;
+    }
+
     public int getPageWidth() {
         return pageWidth;
     }
@@ -512,6 +522,8 @@ public class ReportContext {
 	this.startY = 0;
 	this.endY = 0;
 
+	this.totalHeight = 0;
+	
 	this.pageWidth = 0;
 	this.pageHeight = 0;
 	this.pageMarginLeft = 0;

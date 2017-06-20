@@ -588,6 +588,10 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 	return heightNew - heightOld;
     }
     
+    @Override
+    protected int calculateTotalHeight(ReportContext context) {
+	return calculateTotalHeight(context, null, null);
+    }
     
     /**
      * Calculate total height:

@@ -70,6 +70,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	PageSetup pageSetup = template.getPageSetup();
 	
+	boolean paging = template.isPaging();
 	int pageWidth = 0;
 	int pageHeight = 0;
 	int pageMarginLeft = 0;
@@ -96,7 +97,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	context.setPageMarginRight(pageMarginRight);
 	context.setPageMarginBottom(pageMarginBottom);
 	
-	context.setPaging(template.isPaging());
+	context.setPaging(paging);
 	context.setStartX(pageMarginLeft);
 	context.setEndX(pageWidth - pageMarginRight);
 	context.setPageAreaWidth(context.getEndX() - context.getStartX());
@@ -233,9 +234,21 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	}
 
 	fillReportFooter(context, reportFooter);
-	fillPageFooter(context, pageFooter);	
+	fillPageFooter(context, pageFooter);
+	
+
+	//TODO	
+	//int totalHeight = calculateTotalHeight(context);
+	//context.setTotalHeight(totalHeight);
+
+	//if (!paging) {
+	//   context.getPage().setHeight(totalHeight);
+	//}
 	
     }
+    
+    protected abstract int calculateTotalHeight(ReportContext context);
+    
     
     protected boolean next(ReportContext context) throws RTException {
 
