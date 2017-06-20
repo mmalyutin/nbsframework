@@ -126,10 +126,15 @@ public class UWTCanvasExporter extends AbstractBaseExporter {
   	int marginLeft = 0;
   	int marginTop = 0;
   	
-  	PageSetup pageSetup = page.getPageSetup(); 
-  	if (pageSetup != null) {
-  	    marginLeft = pageSetup.getMargin().getLeft();
-  	    marginTop = pageSetup.getMargin().getTop();
+  	//PageSetup pageSetup = page.getPageSetup(); 
+  	//if (pageSetup != null) {
+  	//    marginLeft = pageSetup.getMargin().getLeft();
+  	//    marginTop = pageSetup.getMargin().getTop();
+  	//}
+  	
+  	if (page.hasMargin()) {
+  	    marginLeft = page.getMargin().getLeft();
+  	    marginTop = page.getMargin().getTop();
   	}
   	
   	// shift offsets by margin

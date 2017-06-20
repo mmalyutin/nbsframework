@@ -49,15 +49,16 @@ public class Page extends Container {
         this.document = document;
     }
 
-    public PageSetup getPageSetup() {
-	return document == null ? null : document.getPageSetup();
-    }
+//    public PageSetup getPageSetup() {
+//	return document == null ? null : document.getPageSetup();
+//    }
     
     public int getDisplayWidth() {
 	if (hasWidth()) {
 	    return getWidth();
 	}
-	return getPageSetup() == null ? 0 : getPageSetup().getSize().getWidth();
+	//return getPageSetup() == null ? 0 : getPageSetup().getSize().getWidth();
+	return 0;
     }
     
   
@@ -65,7 +66,8 @@ public class Page extends Container {
 	if (hasHeight()) {
 	    return getHeight();
 	}
-	return getPageSetup() == null ? 0 : getPageSetup().getSize().getHeight();
+	//return getPageSetup() == null ? 0 : getPageSetup().getSize().getHeight();
+	return 0;
     }
     
 //    @Override
