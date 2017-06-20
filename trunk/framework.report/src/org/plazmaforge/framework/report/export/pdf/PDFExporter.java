@@ -189,15 +189,19 @@ public class PDFExporter extends AbstractBaseExporter {
 	int pageCount = document.getPageCount();
 	List<Page> pages = document.getPages();
 	
-	PageSetup pageSetup = document.getPage(0).getPageSetup();
-	Size pageSize = pageSetup.getSize();
-	Margin pageMargin = pageSetup.getMargin();
+	//PageSetup pageSetup = document.getPage(0).getPageSetup();
+	//Size pageSize = pageSetup.getSize();
+	//Margin pageMargin = pageSetup.getMargin();
+
+	Page page = document.getPage(0);
+	Size pageSize = page.getSize();
+	Margin pageMargin = page.getMargin();
 	
 	pdfDocument.setPageSize(new Rectangle(pageSize.getWidth(), pageSize.getHeight()));
 	pdfDocument.setMargins(pageMargin.getLeft(), pageMargin.getTop(), pageMargin.getRight(), pageMargin.getBottom());
 
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
-	    Page page = pages.get(pageIndex);
+	    page = pages.get(pageIndex);
 	    writePage(page, pageIndex);
 	}
 
