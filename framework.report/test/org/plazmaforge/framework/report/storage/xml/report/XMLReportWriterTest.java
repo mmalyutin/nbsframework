@@ -204,12 +204,6 @@ public class XMLReportWriterTest extends TestCase {
 	template.setPageSetup(pageSetup);
 
 	
-	template.getPageSetup().getMargin().setLeft(5);
-	template.getPageSetup().getMargin().setTop(10);
-	template.getPageSetup().getMargin().setRight(15);	
-	template.getPageSetup().getMargin().setBottom(20);
-
-	
 	template.addColumn(new Column(100));
 	template.addColumn(new Column(150));
 	template.addColumn(new Column(200));
