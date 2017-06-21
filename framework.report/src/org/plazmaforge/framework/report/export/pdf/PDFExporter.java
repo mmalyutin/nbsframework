@@ -37,7 +37,6 @@ import org.plazmaforge.framework.report.model.base.Border;
 import org.plazmaforge.framework.report.model.base.BorderRegion;
 import org.plazmaforge.framework.report.model.base.Element;
 import org.plazmaforge.framework.report.model.base.Margin;
-import org.plazmaforge.framework.report.model.base.PageSetup;
 import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
@@ -61,6 +60,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 // lowagie -> itextpdf
@@ -72,6 +72,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 public class PDFExporter extends AbstractBaseExporter {
     
+    public static int MAX_PAGE_SIZE = 14000;
     
     public static final short ALIGN_LEFT = com.itextpdf.text.Element.ALIGN_LEFT;
     public static final short ALIGN_CENTER = com.itextpdf.text.Element.ALIGN_CENTER;
@@ -91,6 +92,8 @@ public class PDFExporter extends AbstractBaseExporter {
     
     protected boolean mandatoryFont;
     protected boolean fontFromFile;
+    
+    protected SoftPageEvent softPageEvent;
     
     @Override
     public void exportDocument(Document document) throws RTException {
@@ -152,7 +155,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	    writer = PdfWriter.getInstance(pdfDocument, os);
 	    writer.setCloseStream(false);
 
-	    pdfDocument.open();
+	    //pdfDocument.open();
 	} catch (Exception ex) {
 	    throw new RTException(ex);
 	}
@@ -197,16 +200,96 @@ public class PDFExporter extends AbstractBaseExporter {
 	Size pageSize = page.getSize();
 	Margin pageMargin = page.getMargin();
 	
-	pdfDocument.setPageSize(new Rectangle(pageSize.getWidth(), pageSize.getHeight()));
-	pdfDocument.setMargins(pageMargin.getLeft(), pageMargin.getTop(), pageMargin.getRight(), pageMargin.getBottom());
 
+	int pageWidth = pageSize.getWidth();
+	int pageHeight = pageSize.getHeight();
+	
+	int restPageHeight = 0;
+	int softPageCount = 0;
+	int softPageHeight = 0;
+	if (pageHeight > MAX_PAGE_SIZE) {
+	    
+	    softPageHeight = MAX_PAGE_SIZE;
+
+	    softPageCount = pageHeight / softPageHeight;
+	    restPageHeight = pageHeight - (softPageCount * softPageHeight);
+	    if (restPageHeight > 0) {
+		softPageCount++;
+	    }
+	    
+	    pageHeight = softPageHeight;
+	}
+	
+	if (restPageHeight > 0) {
+	    
+	    softPageEvent = new SoftPageEvent();
+	    softPageEvent.setPageCount(softPageCount);
+	    softPageEvent.setPageWidth(pageWidth);
+	    softPageEvent.setPageHeight(pageHeight);
+	    softPageEvent.setLastPageHeight(restPageHeight);
+	    
+	    writer.setPageEvent(softPageEvent);
+	    
+	}
+	
+	pdfDocument.setPageSize(new Rectangle(pageWidth, pageHeight));
+	pdfDocument.setMargins(pageMargin.getLeft(), pageMargin.getTop(), pageMargin.getRight(), pageMargin.getBottom());
+	
+	pdfDocument.open();
+	
 	for (int pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 	    page = pages.get(pageIndex);
+	    
+	    if (softPageEvent != null && pageIndex > 0) {
+		softPageEvent.resetPageNumber();
+	    }
+	    
 	    writePage(page, pageIndex);
 	}
 
     }
 
+    class SoftPageEvent extends PdfPageEventHelper {
+	
+	private int pageCount;
+	private int pageNumber;
+	
+	private int pageWidth;
+	private int pageHeight;
+	private int lastPageHeight;
+	
+	public void setPageCount(int pageCount) {
+	    this.pageCount = pageCount;
+	}
+
+	public void setPageWidth(int pageWidth) {
+	    this.pageWidth = pageWidth;
+	}
+
+	public void setPageHeight(int pageHeight) {
+	    this.pageHeight = pageHeight;
+	}
+
+	public void setLastPageHeight(int lastPageHeight) {
+	    this.lastPageHeight = lastPageHeight;
+	}
+
+	public void onStartPage(PdfWriter writer,  com.itextpdf.text.Document document) {
+	    pageNumber++;
+	}
+	
+	public void onEndPage(PdfWriter writer,  com.itextpdf.text.Document document) {
+	    if (pageNumber == pageCount - 1) {
+		// before last page
+		document.setPageSize(new Rectangle(pageWidth, lastPageHeight));
+	    }
+	}
+	
+	public void resetPageNumber() {
+	    pageNumber = 0;
+	}
+    }
+    
     protected void writePage(Page page, int pageIndex) throws RTException, IOException, DocumentException {
 	
 	offsetX = 0;
@@ -845,6 +928,7 @@ public class PDFExporter extends AbstractBaseExporter {
 	return new com.itextpdf.text.Font(baseFont, fontSize, fontStyle, fontColor);
 	
     }
+    
     
     
 }
