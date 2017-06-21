@@ -240,10 +240,13 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	//TODO	
 	//int totalHeight = calculateTotalHeight(context);
 	//context.setTotalHeight(totalHeight);
-
-	//if (!paging) {
-	//   context.getPage().setHeight(totalHeight);
-	//}
+	if (!paging) {
+	    int totalHeight = calculateTotalHeight(context);
+	    context.setTotalHeight(totalHeight);
+	    
+	    // No paging - one page - current page in context
+	    context.getPage().setHeight(totalHeight);
+	}
 	
     }
     
