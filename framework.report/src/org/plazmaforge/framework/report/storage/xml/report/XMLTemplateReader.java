@@ -97,6 +97,12 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	    template.setRowLine(rowLine);
 	}
 	
+	// paging
+	booleanValue = getBooleanValue(node, XML_ATTR_PAGING);
+	if (booleanValue != null) {
+	   template.setPaging(booleanValue);
+	}
+	
 	// report-header-on-page
 	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_HEADER_ON_PAGE);
 	if (booleanValue != null) {

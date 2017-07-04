@@ -122,7 +122,7 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     /**
      * True if need paging
      */
-    private boolean paging;
+    private Boolean paging;
     
     
     private boolean reportHeaderOnPage;
@@ -133,7 +133,6 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
     public Template() {
 	bandModel = new BaseBandModel();
 	columnModel = new BaseColumnModel();
-	paging = true;
     }
     
     
@@ -373,11 +372,11 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
  	return pageSetup != null;
     }
     
-    public boolean isPaging() {
+    public Boolean getPaging() {
         return paging;
     }
 
-    public void setPaging(boolean paging) {
+    public void setPaging(Boolean paging) {
         this.paging = paging;
     }
 
@@ -450,7 +449,7 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
 	result = prime * result
 		+ ((pageSetup == null) ? 0 : pageSetup.hashCode());
-	result = prime * result + (paging ? 1231 : 1237);
+	result = prime * result + ((paging == null) ? 0 : paging.hashCode());
 	result = prime * result + (reportFooterOnPage ? 1231 : 1237);
 	result = prime * result + (reportHeaderOnPage ? 1231 : 1237);
 	result = prime * result + ((rowLine == null) ? 0 : rowLine.hashCode());
@@ -520,7 +519,10 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 		return false;
 	} else if (!pageSetup.equals(other.pageSetup))
 	    return false;
-	if (paging != other.paging)
+	if (paging == null) {
+	    if (other.paging != null)
+		return false;
+	} else if (!paging.equals(other.paging))
 	    return false;
 	if (reportFooterOnPage != other.reportFooterOnPage)
 	    return false;

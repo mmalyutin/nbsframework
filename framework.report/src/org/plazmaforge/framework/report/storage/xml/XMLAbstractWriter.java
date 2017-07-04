@@ -238,42 +238,52 @@ public class XMLAbstractWriter extends XMLWorker implements XMLInfo {
    	}
     }
     
-    protected void setBorderPenByAttributes(Pen pen, Element element, String borderAttribute) {
+    protected void setBorderPenByAttributes(Pen pen, Element element,
+	    String borderAttribute) {
 	if (pen == null) {
 	    return;
 	}
-	
+
 	if (borderAttribute == null) {
-   	    borderAttribute = XML_ATTR_BORDER;
-   	}
-	
-	if (pen == Pen.NONE) {
-	    setStringValue(element, borderAttribute, NONE);
+	    borderAttribute = XML_ATTR_BORDER;
+	}
+
+	setPenByAttributes(pen, element, borderAttribute);
+
+    }
+
+    protected void setPenByAttributes(Pen pen, Element element, String penAttribute) {
+	if (pen == null) {
 	    return;
 	}
-	
+
+	if (pen == Pen.NONE) {
+	    setStringValue(element, penAttribute, NONE);
+	    return;
+	}
+
 	if (pen.isEmpty()) {
 	    return;
 	}
-	 
+
 	// width
-	float width = pen.getLineWidth() <= 0 ? 1f: pen.getLineWidth();
-	//setFloatValue(element, borderAttribute, width);
-	
-	//TODO: Temp solution. Fix after float 'Size' and 'Point'
+	float width = pen.getLineWidth() <= 0 ? 1f : pen.getLineWidth();
+	// setFloatValue(element, borderAttribute, width);
+
+	// TODO: Temp solution. Fix after float 'Size' and 'Point'
 	width = Math.round(width);
-   	setIntegerValue(element, borderAttribute, (int) width);
-   	
-  	// style
-  	int lineStyle = pen.getLineStyle();
-  	//TODO
-  	//setStringValue(element, borderAttribute + "-style", style);
-  	
-  	// color
-  	Color color = pen.getLineColor();
-  	setColor(element, borderAttribute + "-color", color);
+	setIntegerValue(element, penAttribute, (int) width);
+
+	// style
+	int lineStyle = pen.getLineStyle();
+	String style = formatLineStyle(lineStyle, true);
+	setStringValue(element, penAttribute + "-style", style);
+
+	// color
+	Color color = pen.getLineColor();
+	setColor(element, penAttribute + "-color", color);
     }
-    
+
     ////
 
     protected void setExpression(DSExpression expression, Element node) {

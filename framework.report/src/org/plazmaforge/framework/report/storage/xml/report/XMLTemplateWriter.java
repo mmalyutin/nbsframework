@@ -62,21 +62,23 @@ public class XMLTemplateWriter extends XMLAbstractReportWriter {
 	}
 	
 	// cell-line: ONLY FOR Table report
-	Pen cellLine = template.getCellLine();
-	if (cellLine != null) {
-	    setBorderPenByAttributes(cellLine, node, XML_ATTR_CELL_LINE);
+	if (template.getCellLine() != null) {
+	   setPenByAttributes(template.getCellLine(), node, XML_ATTR_CELL_LINE);
 	}
 
 	// column-line: ONLY FOR Table report
-	Pen columnLine = template.getColumnLine();
-	if (columnLine != null) {
-	    setBorderPenByAttributes(columnLine, node, XML_ATTR_COLUMN_LINE);
+	if (template.getColumnLine() != null) {
+	    setPenByAttributes(template.getColumnLine(), node, XML_ATTR_COLUMN_LINE);
 	}
 
 	// row-line: ONLY FOR Table report
-	Pen rowLine = template.getRowLine();
-	if (rowLine != null) {
-	    setBorderPenByAttributes(rowLine, node, XML_ATTR_ROW_LINE);
+	if (template.getRowLine() != null) {
+	   setPenByAttributes(template.getRowLine(), node, XML_ATTR_ROW_LINE);
+	}
+	
+	// paging
+	if (template.getPaging() != null) {
+	   setBooleanValue(node, XML_ATTR_PAGING, template.getPaging());
 	}
 	
 	// report-header-on-page
