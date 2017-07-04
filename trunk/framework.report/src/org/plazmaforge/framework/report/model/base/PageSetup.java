@@ -33,7 +33,7 @@ package org.plazmaforge.framework.report.model.base;
 public class PageSetup {
     
     
-    public static final PageFormat DEFAULT_PAGE_FRMAT = PageFormat.A4;
+    public static final PageFormat DEFAULT_PAGE_FORMAT = PageFormat.A4;
     
     
 
@@ -61,8 +61,8 @@ public class PageSetup {
 	    //size.setWidth(595);  //210
 	    //size.setHeight(842); //297
 	    
-	    size.setWidth((int) PageFormat.toPT(DEFAULT_PAGE_FRMAT.getWidth()));   //210
-	    size.setHeight((int) PageFormat.toPT(DEFAULT_PAGE_FRMAT.getHeight())); //297
+	    size.setWidth((int) PageFormat.toPT(DEFAULT_PAGE_FORMAT.getWidth()));   //210
+	    size.setHeight((int) PageFormat.toPT(DEFAULT_PAGE_FORMAT.getHeight())); //297
 	}
         return size;
     }

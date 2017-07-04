@@ -320,47 +320,53 @@ public class XMLAbstractReader extends XMLWorker implements XMLInfo  {
     }
     
     protected Pen getBorderPenByAttributes(Element node, String borderAttribute) {
-	
-   	if (node == null) {
-   	    return null;
-   	}
-   	
-   	if (borderAttribute == null) {
-   	    borderAttribute = XML_ATTR_BORDER;
-   	}
+	if (node == null) {
+	    return null;
+	}
+	if (borderAttribute == null) {
+	    borderAttribute = XML_ATTR_BORDER;
+	}
+	return getPenByAttributes(node, borderAttribute);
+    }
 
-   	String value = getStringValue(node, borderAttribute);
-   	if (isNone(value)) {
-   	    return Pen.NONE;
-   	}
-   	
-   	// width
-   	Float width = getFloatValue(value);
-   	
-   	 // style
-   	String style = getStringValue(node, borderAttribute + "-style");
-   	
-   	// color
-   	Color color = getColor(node, borderAttribute + "-color");
-   	
-   	if (width == null && style == null && color == null) {
-   	    return null;
-   	}
-   	
-   	Pen pen = new Pen();
-   	if (width != null) {
-   	    pen.setLineWidth(width);
-   	}
-   	if (style != null) {
-   	    //TODO
-   	    //pen.setLineStyle(styleValue);
-   	}
-   	if (color != null) {
-   	    pen.setLineColor(color);
-   	}
-   	
-   	// Normalize pen
-   	return pen.isEmpty() ? null : pen;
+    protected Pen getPenByAttributes(Element node, String penAttribute) {
+	if (node == null) {
+	    return null;
+	}
+	String value = getStringValue(node, penAttribute);
+	if (isNone(value)) {
+	    return Pen.NONE;
+	}
+
+	// width
+	Float width = getFloatValue(value);
+
+	// style
+	String style = getStringValue(node, penAttribute + "-style");
+
+	// color
+	Color color = getColor(node, penAttribute + "-color");
+
+	if (width == null && style == null && color == null) {
+	    return null;
+	}
+	
+	Pen pen = new Pen();
+	if (width != null) {
+	    pen.setLineWidth(width);
+	}
+
+	if (style != null) {
+	    byte lineStyle = parseLineStyle(style);
+	    pen.setLineStyle(lineStyle);
+	}
+
+	if (color != null) {
+	    pen.setLineColor(color);
+	}
+
+	// Normalize pen
+	return pen.isEmpty() ? null : pen;
     }
     
     protected Border getBorderByAttributes(Element node) {

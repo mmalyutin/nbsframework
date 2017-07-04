@@ -37,6 +37,7 @@ import org.plazmaforge.framework.core.datastorage.DSParameter;
 import org.plazmaforge.framework.core.datastorage.DSVariable;
 import org.plazmaforge.framework.core.datastorage.HasExpressionBuilder;
 import org.plazmaforge.framework.report.model.base.Element;
+import org.plazmaforge.framework.report.model.base.PageFormat;
 
 /**
  * @author ohapon
@@ -44,6 +45,12 @@ import org.plazmaforge.framework.report.model.base.Element;
  */
 public class Report implements Serializable, LocalizedIdentifier, HasExpressionBuilder {
 
+    
+    public static final Boolean DEFAULT_PROPERTY_PAGING = true;
+    
+    public static final PageFormat DEFAULT_PROPERTY_PAGE_FORMAT = PageFormat.A4;
+    
+    
     private static final long serialVersionUID = 2207663710009758227L;
     
     /**

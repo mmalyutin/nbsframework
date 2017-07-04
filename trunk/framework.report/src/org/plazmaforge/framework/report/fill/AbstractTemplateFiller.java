@@ -41,7 +41,7 @@ public class AbstractTemplateFiller extends AbstractFiller {
     protected Size getPageSize(PageSetup pageSetup) {
 	
 	if (pageSetup == null) {
-	    return getPageSize(PageSetup.DEFAULT_PAGE_FRMAT);
+	    return getPageSize(PageSetup.DEFAULT_PAGE_FORMAT);
 	}
 	
 	String format = pageSetup.getFormat();
@@ -57,7 +57,7 @@ public class AbstractTemplateFiller extends AbstractFiller {
     
     protected Size getPageSize(PageFormat pageFormat) {
 	if (pageFormat == null) {
-	    pageFormat = PageSetup.DEFAULT_PAGE_FRMAT;
+	    pageFormat = PageSetup.DEFAULT_PAGE_FORMAT;
 	}
 	int width = pageFormat.getWidth();
 	int height = pageFormat.getHeight();

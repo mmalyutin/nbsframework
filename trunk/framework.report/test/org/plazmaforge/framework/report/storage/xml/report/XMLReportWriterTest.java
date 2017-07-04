@@ -41,13 +41,16 @@ import org.plazmaforge.framework.datastorage.support.xlsx.XLSXDataConnector;
 import org.plazmaforge.framework.datastorage.support.xml.XMLDataConnector;
 import org.plazmaforge.framework.report.ReportEngine;
 import org.plazmaforge.framework.report.model.base.PageSetup;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.Size;
 import org.plazmaforge.framework.report.model.base.grid.Cell;
+import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.base.grid.Row;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.Template;
+import org.plazmaforge.framework.uwt.graphics.Color;
 
 import junit.framework.TestCase;
 
@@ -186,11 +189,17 @@ public class XMLReportWriterTest extends TestCase {
 	
 	Template template = new Template();
 	template.setType("Table");
+	template.setPaging(true);
 	
 	template.setId("TEMPLATE-1");
 	template.setName("Template1");
 	template.setCaption("Template 1");
 	template.setDescription("Template Description 1");
+	
+	template.setCellBorderRule(CellBorderRule.ROW_INNER);
+	template.setCellLine(new Pen(1, Pen.LINE_STYLE_SOLID, Color.RED));
+	template.setColumnLine(new Pen(2, Pen.LINE_STYLE_DOUBLE, Color.YELLOW));
+	template.setRowLine(new Pen(3, Pen.LINE_STYLE_DASHED, Color.GREEN));
 	
 	PageSetup pageSetup = new PageSetup();
 	

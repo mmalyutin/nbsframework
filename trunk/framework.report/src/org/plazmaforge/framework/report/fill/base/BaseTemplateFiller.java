@@ -70,7 +70,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	
 	PageSetup pageSetup = template.getPageSetup();
 	
-	boolean paging = template.isPaging();
+	boolean paging = template.getPaging() == null ? Report.DEFAULT_PROPERTY_PAGING : template.getPaging();
 	int pageWidth = 0;
 	int pageHeight = 0;
 	int pageMarginLeft = 0;

@@ -25,6 +25,7 @@ package org.plazmaforge.framework.report.storage.xml;
 import org.jdom.Element;
 import org.plazmaforge.framework.core.data.formatter.FormatterManager;
 import org.plazmaforge.framework.core.data.formatter.RWFormatterManager;
+import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.CellBorderRule;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.builder.formatter.type.ColorFormatter;
@@ -278,5 +279,50 @@ public class XMLWorker {
      protected boolean isNone(String value) {
 	 return value == null ? false: value.equalsIgnoreCase(NONE); 
      }
+     
+    ////
+
+    protected byte parseLineStyle(String style) {
+	if (style == null) {
+	    return Pen.LINE_STYLE_SOLID;
+	}
+
+	if ("solid".equalsIgnoreCase(style)) {
+	    return Pen.LINE_STYLE_SOLID;
+	}
+	if ("dashed".equalsIgnoreCase(style)) {
+	    return Pen.LINE_STYLE_DASHED;
+	}
+	if ("dotted".equalsIgnoreCase(style)) {
+	    return Pen.LINE_STYLE_DOTTED;
+	}
+	if ("double".equalsIgnoreCase(style)) {
+	    return Pen.LINE_STYLE_DOUBLE;
+	}
+
+	return Pen.LINE_STYLE_SOLID;
+
+    }
+
+    protected String formatLineStyle(int styleCode) {
+	return formatLineStyle(styleCode, false);
+    }
+
+    protected String formatLineStyle(int styleCode, boolean optimize) {
+	if (styleCode == Pen.LINE_STYLE_SOLID) {
+	    return optimize ? null : "solid";
+	}
+	if (styleCode == Pen.LINE_STYLE_DASHED) {
+	    return "dashed";
+	}
+	if (styleCode == Pen.LINE_STYLE_DOTTED) {
+	    return "dotted";
+	}
+	if (styleCode == Pen.LINE_STYLE_DOUBLE) {
+	    return "double";
+	}
+
+	return null;
+    }
      
 }
