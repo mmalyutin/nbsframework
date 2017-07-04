@@ -55,7 +55,7 @@ import org.plazmaforge.framework.util.SystemUtils;
  */
 public class ReportTool {
     
-    private static final String LINE = "============================================================"; 
+    private static final String LINE = "================================================================================"; 
     
     private boolean log;
     
@@ -304,7 +304,7 @@ public class ReportTool {
 	}
 	
 	System.out.println("Args");
-	System.out.println("==============================================");
+	System.out.println(LINE);
 	for (int i = 0; i < args.length; i++ ) {
 	    System.out.println("arg[" + i + "]='" + args[i] + "'");
 	}
