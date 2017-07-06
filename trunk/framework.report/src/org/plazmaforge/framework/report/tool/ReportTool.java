@@ -40,7 +40,6 @@ import org.plazmaforge.framework.report.ReportManager;
 import org.plazmaforge.framework.report.model.design.Report;
 import org.plazmaforge.framework.report.model.design.ReportParameters;
 import org.plazmaforge.framework.report.model.document.Document;
-import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.util.SystemUtils;
 
 /**
@@ -197,7 +196,7 @@ public class ReportTool {
 	}
 	
 	String prefix = "data-connector.";
-	Map<String, String> result = CoreUtils.toFilterMap(properties, prefix, true);
+	Map<String, String> result = SystemUtils.toFilterMap(properties, prefix, true);
 	if (result == null || result.isEmpty()) {
 	    return null;
 	}

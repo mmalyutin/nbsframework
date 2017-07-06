@@ -1067,24 +1067,5 @@ public class StringUtils {
  	return textFormat(obj, DEFAULT_COLS, DEFAULT_ERROR_ROWS);
      }
     
-    public static boolean isJavaIdentifier(String str) {
-	str = normalizeString(str);
-	if (str == null) {
-	    return false;
-	}
-	boolean start = true;
-	boolean valid = true;
-	for (char b : str.toCharArray()) {
-	    if (start) {
-		valid = valid && Character.isJavaIdentifierStart(b);
-		start = false;
-	    } else {
-		valid = valid && Character.isJavaIdentifierPart(b);
-	    }
-	    if (!valid) {
-		return false;
-	    }
-	}
-	return true;
-    }
+   
 }

@@ -32,7 +32,6 @@ import java.util.Set;
 
 import org.plazmaforge.framework.core.data.Destroyer;
 import org.plazmaforge.framework.core.data.Initializer;
-import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.util.SystemUtils;
 
 /**
@@ -49,7 +48,7 @@ public class AbstractDesktopApplication extends Application {
      * @return
      */
     public static Map<String, String> getProperties(String[] args) {
-	Map<String, String> properties = CoreUtils.toMap(SystemUtils.loadProperties(args));
+	Map<String, String> properties = SystemUtils.toMap(SystemUtils.loadProperties(args));
 	return properties;
     }
     

@@ -38,6 +38,7 @@ import org.plazmaforge.framework.core.exception.DSException;
 import org.plazmaforge.framework.datastorage.support.sql.SQLDataConnector;
 import org.plazmaforge.framework.datastorage.support.sql.SQLDataProducerFactory;
 import org.plazmaforge.framework.util.StringUtils;
+import org.plazmaforge.framework.util.SystemUtils;
 
 /**
  * 
@@ -371,7 +372,7 @@ public class DataManager {
 	    type = connectionString.substring(0, index);
 	    index = index + 2; // ::
 	    connection = index == connectionString.length() ? null : connectionString.substring(index);
-	} else if (StringUtils.isJavaIdentifier(connectionString)) {
+	} else if (SystemUtils.isJavaIdentifier(connectionString)) {
 	    type = connectionString;
 	} else {
 	    connection = connectionString;

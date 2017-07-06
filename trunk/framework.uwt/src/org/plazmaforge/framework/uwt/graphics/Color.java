@@ -188,7 +188,8 @@ public class Color extends Resource {
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + Float.floatToIntBits(alpha);
+	//result = prime * result + Float.floatToIntBits(alpha);
+	result = prime * result + (int) alpha;
 	result = prime * result + blue;
 	result = prime * result + green;
 	result = prime * result + red;
@@ -204,7 +205,8 @@ public class Color extends Resource {
 	if (getClass() != obj.getClass())
 	    return false;
 	Color other = (Color) obj;
-	if (Float.floatToIntBits(alpha) != Float.floatToIntBits(other.alpha))
+	//if (Float.floatToIntBits(alpha) != Float.floatToIntBits(other.alpha))
+	if (alpha != other.alpha)
 	    return false;
 	if (blue != other.blue)
 	    return false;

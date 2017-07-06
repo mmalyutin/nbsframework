@@ -23,9 +23,11 @@ package org.plazmaforge.framework.util;
 
 import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 
 /**
@@ -204,4 +206,82 @@ public class SystemUtils {
       	return properties;
     }    
    
+    public static void transferProperties(Properties properties,
+	    Map<String, String> map) {
+	if (properties == null || map == null) {
+	    return;
+	}
+	Set<Object> keySet = properties.keySet();
+	for (Object key : keySet) {
+	    if (key == null) {
+		continue;
+	    }
+	    map.put(key.toString(), properties.getProperty(key.toString()));
+	}
+    }
+
+    public static Map<String, String> toMap(Properties properties) {
+	if (properties == null) {
+	    return null;
+	}
+	Map<String, String> map = new HashMap<String, String>();
+	transferProperties(properties, map);
+	return map;
+    }
+
+    public static Map<String, String> toFilterMap(Properties properties,
+	    String prefix) {
+	return toFilterMap(properties, prefix, false);
+    }
+
+    public static Map<String, String> toFilterMap(Properties properties,
+	    String prefix, boolean removePrefix) {
+	if (properties == null || prefix == null || prefix.isEmpty()) {
+	    return null;
+	}
+	Set<Object> keys = properties.keySet();
+	Map<String, String> result = new HashMap<String, String>();
+	String name = null;
+	String value = null;
+	for (Object key : keys) {
+	    if (key == null) {
+		continue;
+	    }
+	    name = key.toString();
+	    if (!name.startsWith(prefix)) {
+		continue;
+	    }
+	    value = properties.getProperty(name);
+	    if (removePrefix) {
+		if (name.length() == prefix.length()) {
+		    name = null;
+		} else {
+		    name = name.substring(prefix.length());
+		}
+	    }
+	    result.put(name, value);
+	}
+	return result;
+    }
+      
+    public static boolean isJavaIdentifier(String str) {
+	str = StringUtils.normalizeString(str);
+	if (str == null) {
+	    return false;
+	}
+	boolean start = true;
+	boolean valid = true;
+	for (char b : str.toCharArray()) {
+	    if (start) {
+		valid = valid && Character.isJavaIdentifierStart(b);
+		start = false;
+	    } else {
+		valid = valid && Character.isJavaIdentifierPart(b);
+	    }
+	    if (!valid) {
+		return false;
+	    }
+	}
+	return true;
+    }
 }
