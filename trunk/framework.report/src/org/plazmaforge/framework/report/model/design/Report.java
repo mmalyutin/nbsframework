@@ -45,10 +45,13 @@ import org.plazmaforge.framework.report.model.base.PageFormat;
  */
 public class Report implements Serializable, LocalizedIdentifier, HasExpressionBuilder {
 
+    public static final PageFormat DEFAULT_PROPERTY_PAGE_FORMAT = PageFormat.A4;
     
     public static final Boolean DEFAULT_PROPERTY_PAGING = true;
     
-    public static final PageFormat DEFAULT_PROPERTY_PAGE_FORMAT = PageFormat.A4;
+    public static final Boolean DEFAULT_PROPERTY_REPORT_HEADER_ON_OWN_PAGE = false;
+    
+    public static final Boolean DEFAULT_PROPERTY_REPORT_FOOTER_ON_OWN_PAGE = false;
     
     
     private static final long serialVersionUID = 2207663710009758227L;

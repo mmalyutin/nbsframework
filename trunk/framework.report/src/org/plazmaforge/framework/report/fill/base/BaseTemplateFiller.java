@@ -71,6 +71,10 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	PageSetup pageSetup = template.getPageSetup();
 	
 	boolean paging = template.getPaging() == null ? Report.DEFAULT_PROPERTY_PAGING : template.getPaging();
+	boolean reportHeaderOnPage = template.getReportHeaderOnOwnPage() == null ? Report.DEFAULT_PROPERTY_REPORT_HEADER_ON_OWN_PAGE : template.getReportHeaderOnOwnPage();
+	boolean reportFooterOnPage = template.getReportFooterOnOwnPage() == null ? Report.DEFAULT_PROPERTY_REPORT_FOOTER_ON_OWN_PAGE : template.getReportFooterOnOwnPage();
+	
+	
 	int pageWidth = 0;
 	int pageHeight = 0;
 	int pageMarginLeft = 0;
@@ -168,8 +172,7 @@ public abstract class BaseTemplateFiller extends AbstractTemplateFiller implemen
 	fillPageHeader(context, pageHeader);
 	fillReportHeader(context, reportHeader);
 	
-	boolean reportHeaderOnPage = template.isReportHeaderOnPage();
-	boolean reportFooterOnPage = template.isReportFooterOnPage();
+	
 	
 	if (context.isFillBand(BandType.ReportHeader) && reportHeaderOnPage) {
 	    context.pushBand(BandType.ColumnFooter);

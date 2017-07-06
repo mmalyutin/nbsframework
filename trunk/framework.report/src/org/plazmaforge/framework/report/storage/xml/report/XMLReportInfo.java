@@ -58,8 +58,8 @@ public interface XMLReportInfo extends XMLInfo {
     
     String XML_ATTR_PAGING = "paging";
     
-    String XML_ATTR_REPORT_HEADER_ON_PAGE = "report-header-on-page";
+    String XML_ATTR_REPORT_HEADER_ON_OWN_PAGE = "report-header-on-own-page";
     
-    String XML_ATTR_REPORT_FOOTER_ON_PAGE = "report-footer-on-page";
+    String XML_ATTR_REPORT_FOOTER_ON_OWN_PAGE = "report-footer-on-own-page";
     
 }

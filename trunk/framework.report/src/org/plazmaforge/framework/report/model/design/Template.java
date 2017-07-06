@@ -124,10 +124,15 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
      */
     private Boolean paging;
     
-    
-    private boolean reportHeaderOnPage;
-    
-    private boolean reportFooterOnPage;
+    /**
+     * True if need create new own page for ReportHeader
+     */
+    private Boolean reportHeaderOnOwnPage;
+
+    /**
+     * True if need create new own page for ReportFooter
+     */
+    private Boolean reportFooterOnOwnPage;
     
     
     public Template() {
@@ -380,21 +385,25 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
         this.paging = paging;
     }
 
-    public boolean isReportHeaderOnPage() {
-        return reportHeaderOnPage;
+    public Boolean getReportHeaderOnOwnPage() {
+        return reportHeaderOnOwnPage;
     }
 
-    public void setReportHeaderOnPage(boolean reportHeaderOnPage) {
-        this.reportHeaderOnPage = reportHeaderOnPage;
+
+    public void setReportHeaderOnOwnPage(Boolean reportHeaderOnOwnPage) {
+        this.reportHeaderOnOwnPage = reportHeaderOnOwnPage;
     }
 
-    public boolean isReportFooterOnPage() {
-        return reportFooterOnPage;
+
+    public Boolean getReportFooterOnOwnPage() {
+        return reportFooterOnOwnPage;
     }
 
-    public void setReportFooterOnPage(boolean reportFooterOnPage) {
-        this.reportFooterOnPage = reportFooterOnPage;
+
+    public void setReportFooterOnOwnPage(Boolean reportFooterOnOwnPage) {
+        this.reportFooterOnOwnPage = reportFooterOnOwnPage;
     }
+
 
     @Override
     public List<DSExpression> buildExpressions() {
@@ -450,8 +459,8 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 	result = prime * result
 		+ ((pageSetup == null) ? 0 : pageSetup.hashCode());
 	result = prime * result + ((paging == null) ? 0 : paging.hashCode());
-	result = prime * result + (reportFooterOnPage ? 1231 : 1237);
-	result = prime * result + (reportHeaderOnPage ? 1231 : 1237);
+	result = prime * result + (reportHeaderOnOwnPage == null ? 0 : reportHeaderOnOwnPage.hashCode());
+	result = prime * result + (reportFooterOnOwnPage == null ? 0 : reportFooterOnOwnPage.hashCode());
 	result = prime * result + ((rowLine == null) ? 0 : rowLine.hashCode());
 	result = prime * result + ((type == null) ? 0 : type.hashCode());
 	return result;
@@ -524,9 +533,15 @@ public class Template implements Serializable, LocalizedIdentifier, ColumnModel,
 		return false;
 	} else if (!paging.equals(other.paging))
 	    return false;
-	if (reportFooterOnPage != other.reportFooterOnPage)
+	if (reportHeaderOnOwnPage == null) {
+	    if (other.reportHeaderOnOwnPage != null)
+		return false;
+	} else if (!reportHeaderOnOwnPage.equals(other.reportHeaderOnOwnPage))
 	    return false;
-	if (reportHeaderOnPage != other.reportHeaderOnPage)
+	if (reportFooterOnOwnPage == null) {
+	    if (other.reportFooterOnOwnPage != null)
+		return false;
+	} else if (!reportFooterOnOwnPage.equals(other.reportFooterOnOwnPage))
 	    return false;
 	if (rowLine == null) {
 	    if (other.rowLine != null)

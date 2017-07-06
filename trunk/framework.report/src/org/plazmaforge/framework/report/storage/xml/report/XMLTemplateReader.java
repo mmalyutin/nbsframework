@@ -103,16 +103,16 @@ public class XMLTemplateReader extends XMLAbstractReportReader {
 	   template.setPaging(booleanValue);
 	}
 	
-	// report-header-on-page
-	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_HEADER_ON_PAGE);
+	// report-header-on-own-page
+	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_HEADER_ON_OWN_PAGE);
 	if (booleanValue != null) {
-	    template.setReportHeaderOnPage(booleanValue);
+	    template.setReportHeaderOnOwnPage(booleanValue);
 	}
 	
-	// report-footer-on-page
-	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_FOOTER_ON_PAGE);
+	// report-footer-on-own-page
+	booleanValue = getBooleanValue(node, XML_ATTR_REPORT_FOOTER_ON_OWN_PAGE);
 	if (booleanValue != null) {
-	    template.setReportFooterOnPage(booleanValue);
+	    template.setReportFooterOnOwnPage(booleanValue);
 	}
 	
     }
