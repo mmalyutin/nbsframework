@@ -26,6 +26,9 @@
 			<attribute name="type" type="string"/> <!--  TableTemplate -->
 			<attribute name="paging" type="boolean"/>
 			
+			<attribute name="report-header-on-own-page" type="boolean"/>
+			<attribute name="report-footer-on-own-page" type="boolean"/>
+			
 			<attribute name="cell-border-rule" type="string"/>
 			
 			<attribute name="cell-line" type="string"/>
