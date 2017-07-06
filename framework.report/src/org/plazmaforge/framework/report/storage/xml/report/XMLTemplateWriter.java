@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.plazmaforge.framework.report.model.base.PageSetup;
-import org.plazmaforge.framework.report.model.base.Pen;
 import org.plazmaforge.framework.report.model.base.grid.Column;
 import org.plazmaforge.framework.report.model.design.Band;
 import org.plazmaforge.framework.report.model.design.ReportGroup;
@@ -81,14 +80,14 @@ public class XMLTemplateWriter extends XMLAbstractReportWriter {
 	   setBooleanValue(node, XML_ATTR_PAGING, template.getPaging());
 	}
 	
-	// report-header-on-page
-	if (template.isReportHeaderOnPage()) {
-	    setBooleanValue(node, XML_ATTR_REPORT_HEADER_ON_PAGE, template.isReportHeaderOnPage());
+	// report-header-on-own-page
+	if (template.getReportHeaderOnOwnPage() != null) {
+	    setBooleanValue(node, XML_ATTR_REPORT_HEADER_ON_OWN_PAGE, template.getReportHeaderOnOwnPage());
 	}
 
-	// report-footer-on-page
-	if (template.isReportFooterOnPage()) {
-	    setBooleanValue(node, XML_ATTR_REPORT_FOOTER_ON_PAGE, template.isReportFooterOnPage());
+	// report-footer-on-own-page
+	if (template.getReportFooterOnOwnPage() != null) {
+	    setBooleanValue(node, XML_ATTR_REPORT_FOOTER_ON_OWN_PAGE, template.getReportFooterOnOwnPage());
 	}
 	
 	
