@@ -116,7 +116,9 @@ public class TableTemplateFiller extends BaseTemplateFiller {
 
 	    // Add blank row with rest height
 	    Row row = createBlankRow(context);
-	    row.setHeight(pageFooterY - offsetY);
+	    
+	    int magicDelta = 3; // TODO: Critical magic delta (2-3). May be incorrect calculate total height
+	    row.setHeight(pageFooterY - offsetY - magicDelta); 
 	    
 	    // Add blank cell
 	    Cell cell = createBlankCell(context);
