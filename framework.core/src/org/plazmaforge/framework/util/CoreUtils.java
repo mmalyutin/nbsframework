@@ -99,60 +99,7 @@ public class CoreUtils {
 	}
     }     
      
-    public static void transferProperties(Properties properties, Map<String, String> map) {
-	if (properties == null || map == null) {
-	    return;
-	}
-	Set<Object> keySet = properties.keySet();
-	for (Object key: keySet) {
-	    if (key == null) {
-		continue;
-	    }
-	    map.put(key.toString(), properties.getProperty(key.toString()));
-	}
-    }
-    
-    public static Map<String, String> toMap(Properties properties) {
-	if (properties == null) {
-	    return null;
-	}
-	Map<String, String> map = new HashMap<String, String>();
-	transferProperties(properties, map);
-	return map;
-    }
-    
-    public static Map<String, String> toFilterMap(Properties properties, String prefix) {
-	return toFilterMap(properties, prefix, false);
-    }
-    
-    public static Map<String, String> toFilterMap(Properties properties, String prefix, boolean removePrefix) {
-	if (properties == null || prefix == null || prefix.isEmpty()) {
-	    return null;
-	}
-	Set<Object> keys = properties.keySet();
-	Map<String, String> result = new HashMap<String, String>();
-	String name = null;
-	String value = null;
-	for (Object key : keys) {
-	    if (key == null) {
-		continue;
-	    }
-	    name = key.toString();
-	    if (!name.startsWith(prefix)) {
-		continue;
-	    }
-	    value = properties.getProperty(name);
-	    if (removePrefix) {
-		if (name.length() == prefix.length()) {
-		    name = null;
-		} else {
-		    name = name.substring(prefix.length());
-		}
-	    }
-	    result.put(name, value);
-	}
-	return result;
-    }
+  
     
     public static String getSimpleClassName(String className) {
 	if (className == null) {
