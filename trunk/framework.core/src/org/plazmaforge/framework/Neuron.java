@@ -24,7 +24,7 @@ package org.plazmaforge.framework;
 
 public class Neuron {
 
-    
+    // test
     private double inputs[]; 	// Input
     private double output; 	// Output
     private double[] weights;	// Weights
