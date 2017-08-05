@@ -22,48 +22,15 @@
 
 package org.plazmaforge.framework.uwt.widget;
 
-import java.util.Date;
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public interface HasFormat {
 
-public class DateField extends AbstractField<Date> implements IField<Date>, HasFormat {
+   String getFormat();
 
-    private String format;
-    
-    @Override
-    protected void configure() {
-	super.configure();
-	configureFormat();
-    }
-  
-    protected void configureFormat() {
-	if (getFormat() != null) {
-	    return;
-	}    
-	String format = getConfigFormat();
-	if (format != null) {
-	    setFormat(format);
-	}
-    }
-    
-    protected String getConfigFormat() {
-	return getConfigProperty(CONFIG_FORMAT_DATE);
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-        fireChangeProperty(PROPERTY_FORMAT, format);
-    }
-    
-
-    public Date getDate() {
-	return getDate(getValue());
-    }
-    
-    public void setDate(Date date) {
-	setValue(date);
-    }
+   void setFormat(String format);
     
 }
