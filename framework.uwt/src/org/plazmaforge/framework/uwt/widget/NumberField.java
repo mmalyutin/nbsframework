@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.widget;
 
 
-public class NumberField extends AbstractField<Number> {
+public class NumberField extends AbstractField<Number> implements HasFormat {
 
     private String format;
   
