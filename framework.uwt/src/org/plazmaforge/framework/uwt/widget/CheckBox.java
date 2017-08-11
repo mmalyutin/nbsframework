@@ -27,10 +27,20 @@ import org.plazmaforge.framework.uwt.event.SelectionListener;
 public class CheckBox extends AbstractField<Boolean> {
     
     /**
-     * Text label of the checkbox
+     * Text label of the check box
      */
     private String text;
     
+    
+    public CheckBox() {
+	super();
+    }
+
+    public CheckBox(String text) {
+	super();
+	this.text = text;
+    }
+
     public String getText() {
         return text;
     }
