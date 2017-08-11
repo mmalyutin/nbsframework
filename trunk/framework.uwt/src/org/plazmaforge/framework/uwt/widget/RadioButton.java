@@ -24,6 +24,14 @@ package org.plazmaforge.framework.uwt.widget;
 
 public class RadioButton extends CheckBox {
 
+    public RadioButton() {
+	super();
+    }
+
+    public RadioButton(String text) {
+	super(text);
+    }
+
     public RadioGroup getGroup() {
         return (RadioGroup) getParent();
     }
