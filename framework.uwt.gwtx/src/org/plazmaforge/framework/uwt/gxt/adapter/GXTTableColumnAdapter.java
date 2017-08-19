@@ -38,9 +38,6 @@ import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 
@@ -100,22 +97,16 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	    
 	    // Get pattern
 	    String pattern = (String) value;
-
-	  //DISABLE:MIGRATION
-	    // Number format
-//	    NumberFormat numberFormat = GWTUtils.createNumberFormat(pattern);
-//	    if (numberFormat != null ) {
-//		xColumn.setNumberFormat(numberFormat);
-//		return;
-//	    }
-//	    
-//	    // Date format
-//	    DateTimeFormat dateTimeFormat = GWTUtils.createDateTimeFormat(pattern);
-//	    if (dateTimeFormat != null ) {
-//		xColumn.setDateTimeFormat(dateTimeFormat);
-//		return;
-//	    }
+	    if (pattern == null) {
+		return;
+	    }
 	    
+	    //TODO: maybe type=dataType
+	    Cell cell = GWTUtils.createCell(null, pattern);
+	    if (cell == null) {
+		return;
+	    }
+	    xColumn.setCell(cell);
 	    return;
 	    
 	} else if (TableColumn.PROPERTY_ALIGN.equals(name)) {

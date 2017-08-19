@@ -24,31 +24,72 @@ package org.plazmaforge.framework.uwt.gwt;
 
 import java.util.Date;
 
+import org.plazmaforge.framework.core.type.TypeUtils;
+
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.sencha.gxt.cell.core.client.NumberCell;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GWTUtils {
     
     public static Cell<?> createCell(String type) {
-	
-	//TODO
-	
-	if (type == null) {
+	return createCell(type, null);
+    }
+    
+    public static Cell<?> createCell(String type, String pattern) {
+	if (type == null && pattern == null) {
 	    return null;
 	}
-	if ("Float".equals(type)) {
-	    return createNumberCell(Float.class);
-	} else 	if ("Double".equals(type)) {
-	    return createNumberCell(Double.class);
+	Class klass = TypeUtils.getClass(type);
+	if (klass == null  && pattern == null) {
+	    return null;
 	}
+	
+	if (klass == null) {
+	    
+	    NumberFormat formatter1 = createNumberFormat(pattern);
+	    if (formatter1 != null) {
+		NumberCell<?> cell = createNumberCell(Number.class, formatter1);
+		return cell;
+	    }
+	    
+	    DateTimeFormat formatter2 = createDateTimeFormat(pattern);
+	    if (formatter2 != null) {
+		DateCell cell = createDateCell(formatter2);
+		return cell;
+	    }
+	    
+	    return null;
+	}
+	
+	if (TypeUtils.isLikeNumberType(type)) {
+	    NumberFormat formatter = createNumberFormat(pattern);
+	    NumberCell<?> cell = createNumberCell(klass, formatter);
+	    return cell;
+	} else if (TypeUtils.isLikeDateType(type) || TypeUtils.isLikeDateType(type)) {
+	    DateTimeFormat formatter = createDateTimeFormat(pattern);
+	    DateCell cell = createDateCell(formatter);
+	    return cell;
+	}
+	
 	return null;
 
     }
     
-    public static <T extends Number> NumberCell<T> createNumberCell(Class<T> type) {
-	return new NumberCell<T>();
+ 
+    public static <T extends Number> NumberCell<T> createNumberCell(Class<T> type, NumberFormat format) {
+	return format == null ? new NumberCell<T>() : new NumberCell<T>(format);
+    }
+    
+    public static DateCell createDateCell(DateTimeFormat format) {
+	return format == null ? new DateCell() : new DateCell(format);
     }
     
     public static NumberFormat createNumberFormat(String pattern) {
