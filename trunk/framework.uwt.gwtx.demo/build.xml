@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project name="plazma-framework-uwt-gwt-demo" default="create-war">
+
+	<property file="build.properties" />
+
+	<target name="create-war">
+		<mkdir dir="${dist.dir}" />
+		<war basedir="webapp" destfile="${dist.dir}/${install.gwt.gxt.demo}-${version}.war" webxml="webapp/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<webinf dir="webapp/WEB-INF/">
+				<!--<include name="**/*.jar" />-->
+				<include name="**/*.*" />
+			</webinf>
+			<lib dir="${dist.dir}">
+				<include name="plazma-framework-core-${version}.jar" />
+				<include name="plazma-framework-uwt-${version}.jar" />
+				<include name="plazma-framework-uwt-demo-${version}.jar" />
+				<include name="plazma-framework-uwt-gxt-${version}.jar" />
+			</lib>
+			<lib dir="${lib.dir}">
+				<include name="jdom_1_0.jar" />
+				<include name="validation-api-1.0.0.GA.jar" />
+			</lib>
+		</war>
+	</target>
+
+
+	<target name="create-uwt-gwt-gxt-demo-install" description="Create UWT-GWT-GXT demo installation" depends="create-war">
+
+		<mkdir dir="${install.gwt.gxt.demo.dir}" />
+
+		<!-- Copy distribution WAR file to installation directory -->
+		<copy todir="${install.gwt.gxt.demo.dir}" preservelastmodified="true" flatten="true">
+			<fileset dir="${dist.dir}" includes="${install.gwt.gxt.demo}-${version}.war" />
+		</copy>
+		
+		<!-- Raname distribution WAR file to 'uwt.war' -->
+		<rename src="${install.gwt.gxt.demo.dir}/${install.gwt.gxt.demo}-${version}.war" dest="${install.gwt.gxt.demo.dir}/uwt.war" />
+
+		<copy todir="${install.gwt.gxt.demo.dir}" preservelastmodified="true" flatten="true">
+			<fileset dir="${basedir}" includes="install.txt" />
+		</copy>
+		
+		<!-- Create installation ZIP file --> 
+		<zip destfile="${target.dir}/${install.gwt.gxt.demo}-${version}.zip" basedir="${install.gwt.gxt.demo.dir}" />
+
+		<!-- Clear installation directory -->
+		<delete dir="${install.gwt.gxt.demo.dir}" />
+		
+	</target>
+
+	<!--
+	<target name="default" depends="create-war, deploy"/>
+	<target name="deploy">
+		<copy file="uwt.war" todir="." />
+	</target>
+	-->
+
+</project>

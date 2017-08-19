@@ -1,0 +1,16 @@
+
+Installation:
+
+ 1. Unpack installation zip file.
+ 
+ 3. Copy uwt.war to <webapps> directory.
+ 
+ <webapps> directory:
+    
+  Tomcat: <tomcat>/webapps
+  
+  Jetty: <jetty>/webapps
+  
+  JBoss: <jboss>/server/default/deploy
+  
+  GlassFish: <glassfish>/domains/domain1/autodeploy
