@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<project name="plazma-framework-uwt-gwt" default="create-gxt-jar">
+
+	<property file="build.properties"/>
+
+	<target name="create-jar-all" description="Create All UWT-GXT jar files" depends="create-gxt-jar, create-gxt-source-jar, create-gwt-jar"/>
+	
+    <target name="create-gxt-jar" description="Create UWT-GXT jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.gxt.jar}"  basedir="${classes.dir}">
+        	<include name="com/google/**"/>
+            <include name="org/plazmaforge/framework/uwt/gxt/**"/>
+        	<include name="org/plazmaforge/framework/*"/>
+        	<include name="org/plazmaforge/framework/uwt/gwt/GWTUtils.class"/>
+        </jar>
+    </target>
+
+    <target name="create-gxt-source-jar" description="Create UWT-GXT Source jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.gxt.source.jar}"  basedir="${src.dir}">
+        	<include name="com/google/**"/>
+            <include name="org/plazmaforge/framework/uwt/gxt/**"/>
+        	<include name="org/plazmaforge/framework/*"/>
+        	<include name="org/plazmaforge/framework/uwt/gwt/GWTUtils.java"/>
+        </jar>
+    </target>
+
+	
+	
+    <target name="create-gwt-jar" description="Create UWT-GWT jar file">
+    	<mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/${module.gwt.jar}"  basedir="${classes.dir}">
+        	<include name="com/google/**"/>
+            <include name="org/plazmaforge/framework/uwt/gwt/**"/>
+        	<include name="org/plazmaforge/framework/*"/>
+        </jar>
+    </target>
+
+</project>
