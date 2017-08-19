@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>	
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.demo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.gwtx"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/gxt.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
+</classpath>
