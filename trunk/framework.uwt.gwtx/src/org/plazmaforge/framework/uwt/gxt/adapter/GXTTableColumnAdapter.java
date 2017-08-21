@@ -51,13 +51,13 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	
 	TableColumn column = (TableColumn) element;
-	Table table = column.getTable();
+	Table<?> table = column.getTable();
 	
 	XGrid xGrid = (XGrid) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData> cm = xGrid.getColumnModel();
 	
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
-	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty()), column.getWidth(), getSafeString(column.getText()));
+	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty(), table.getPropertyProvider(), column.getValueProvider()), column.getWidth(), getSafeString(column.getText()));
 	xColumn.setGrid(xGrid);
 	
 	// Create cell by data type

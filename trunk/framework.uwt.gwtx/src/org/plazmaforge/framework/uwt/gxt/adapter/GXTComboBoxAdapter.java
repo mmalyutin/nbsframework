@@ -45,9 +45,10 @@ import com.sencha.gxt.data.shared.ListStore;
 public class GXTComboBoxAdapter extends GXTViewerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
+	ComboBox<?> comboBox = (ComboBox<?>) element; 
 	
 	ListStore<ModelData> store = createXDefaultListStore();
-	XComboBox xComboBox = new XComboBox(store, createXLabelProvider(null));
+	XComboBox xComboBox = new XComboBox(store, createXLabelProvider(comboBox.getDisplayProperty(), comboBox.getPropertyProvider()));
 
 	xComboBox.setTypeAhead(true);
 	xComboBox.setTriggerAction(TriggerAction.ALL); // Important to correct selection a item by click DOWN button
@@ -62,7 +63,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	ComboBox comboBox = (ComboBox) element; 
+	ComboBox<?> comboBox = (ComboBox<?>) element; 
 	XComboBox xComboBox = getCheckBox(element.getDelegate());
 	if (xComboBox == null) {
 	    return;
@@ -84,13 +85,13 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	} else if (ComboBox.PROPERTY_DATA_LIST.equals(name)) {
 	    
 	    // Get DataList
-	    List dataList = (List) value;
+	    List<?> dataList = (List<?>) value;
 	    
 	    // Populate ListStore by flat DataList
 	    ListStore<ModelData> store = xComboBox.getStore();
 	    store.clear();
 	    
-	    populateListStore(comboBox, dataList, store);
+	    populateListStore2(comboBox, dataList, store);
 	    
 	    return;
 	} else if (ComboBox.PROPERTY_DISPLAY_PROPERTY.equals(name)) {

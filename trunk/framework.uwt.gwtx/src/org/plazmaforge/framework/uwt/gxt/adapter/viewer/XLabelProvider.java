@@ -22,8 +22,10 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter.viewer;
 
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTHelper;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
-
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
 /**
  * 
  * @author ohapon
@@ -31,7 +33,22 @@ import org.plazmaforge.framework.uwt.gxt.data.ModelData;
  */
 public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<ModelData> {
 
+    /**
+     * Property of bean
+     */
     private String property;
+    
+    /**
+     * Real bean PropertyProvider
+     */
+    private PropertyProvider propertyProvider;
+    
+    /**
+     * Real bean ValueProvider
+     */
+    private ValueProvider valueProvider;
+    
+
     
     public XLabelProvider() {
 	super();
@@ -40,6 +57,30 @@ public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<
     public XLabelProvider(String property) {
 	super();
 	this.property = property;
+    }
+    
+    public XLabelProvider(String property, PropertyProvider propertyProvider) {
+ 	super();
+ 	this.property = property;
+ 	this.propertyProvider = propertyProvider;
+    }
+
+    public XLabelProvider(String property, ValueProvider valueProvider) {
+  	super();
+  	this.property = property;
+  	this.valueProvider = valueProvider;
+    }
+    
+    public XLabelProvider(ValueProvider valueProvider) {
+  	super();
+  	this.valueProvider = valueProvider;
+    }
+    
+    public XLabelProvider(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+	super();
+	this.property = property;
+	this.propertyProvider = propertyProvider;
+	this.valueProvider = valueProvider;
     }
 
     public String getProperty() {
@@ -50,6 +91,22 @@ public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<
         this.property = property;
     }
     
+    public PropertyProvider getPropertyProvider() {
+        return propertyProvider;
+    }
+
+    public void setPropertyProvider(PropertyProvider propertyProvider) {
+        this.propertyProvider = propertyProvider;
+    }
+
+    public ValueProvider getValueProvider() {
+        return valueProvider;
+    }
+
+    public void setValueProvider(ValueProvider valueProvider) {
+        this.valueProvider = valueProvider;
+    }    
+    
     ////
 
     @Override
@@ -57,7 +114,32 @@ public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<
 	if (item == null) {
 	    return null;
 	}
-	Object value = item.get(property == null ? "toString" : property);
+	Object bean = null;
+	Object value = null;
+	
+	// Check ValueProvider
+	if (valueProvider != null) {
+	    bean = getBean(item);
+	    value = valueProvider.getValue(bean);
+	    return toString(value);
+	}
+	
+	// Check PropertyProvider
+	if (propertyProvider != null) {
+	    bean = getBean(item);
+	    value = propertyProvider.getValue(bean, property);
+	    toString(value);
+	}
+	
+	value = item.get(property == null ? "toString" : property);
+	return toString(value);
+    }
+    
+    protected String toString(Object value) {
 	return value == null ? null : value.toString();
+    }
+    
+    protected Object getBean(ModelData item) {
+	return GXTHelper.getBean(item);
     }
 }

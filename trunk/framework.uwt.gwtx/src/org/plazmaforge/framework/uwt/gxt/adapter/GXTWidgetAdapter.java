@@ -22,6 +22,8 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
@@ -431,12 +433,34 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return GXTHelper.createXDefaultListStore();
     }
         
+    
+    //
+    // XLabelProvider
+    //    
     protected XLabelProvider createXLabelProvider(String property) {
 	return GXTHelper.createXLabelProvider(property);
     }
     
+    protected XLabelProvider createXLabelProvider(String property, PropertyProvider propertyProvider) {
+	return GXTHelper.createXLabelProvider(property, propertyProvider);
+    }
+
+    protected XLabelProvider createXLabelProvider(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+	return GXTHelper.createXLabelProvider(property, propertyProvider, valueProvider);
+    }
+    
+    //
+    // XValueProvider
+    //    
     protected XValueProvider createXValueProvider(String property) {
 	return GXTHelper.createXValueProvider(property);
     }
 
+    protected XValueProvider createXValueProvider(String property, PropertyProvider propertyProvider) {
+ 	return GXTHelper.createXValueProvider(property, propertyProvider);
+    }
+    
+    protected XValueProvider createXValueProvider(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+  	return GXTHelper.createXValueProvider(property, propertyProvider, valueProvider);
+    }
 }

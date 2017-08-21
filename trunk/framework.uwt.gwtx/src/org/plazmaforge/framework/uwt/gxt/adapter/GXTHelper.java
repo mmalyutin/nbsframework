@@ -25,6 +25,8 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import java.util.Date;
 
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.UIObject;
@@ -510,13 +512,33 @@ public class GXTHelper {
   	return new ListStore<ModelData>(createXDefaultModelKeyProvider());
     }    
     
+    //
+    // XLabelProvider
+    //
     public static XLabelProvider createXLabelProvider(String property) {
  	return new XLabelProvider(property);
     }
     
+    public static XLabelProvider createXLabelProvider(String property, PropertyProvider propertyProvider) {
+  	return new XLabelProvider(property, propertyProvider);
+    }
+   
+    public static XLabelProvider createXLabelProvider(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+  	return new XLabelProvider(property, propertyProvider, valueProvider);
+    }
     
+    //
+    // XValueProvider
+    //
     public static XValueProvider createXValueProvider(String property) {
  	return new XValueProvider(property);
-     }    
+    } 
     
+    public static XValueProvider createXValueProvider(String property, PropertyProvider propertyProvider) {
+ 	return new XValueProvider(property, propertyProvider);
+    }      
+    
+    public static XValueProvider createXValueProvider(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+   	return new XValueProvider(property, propertyProvider, valueProvider);
+    }        
 }

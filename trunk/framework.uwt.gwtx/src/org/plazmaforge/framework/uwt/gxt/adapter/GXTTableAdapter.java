@@ -127,7 +127,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	    // Populate ListStore by flat DataList
 	    com.sencha.gxt.data.shared.ListStore<ModelData> store = xGrid.getStore();
 	    store.clear();
-	    populateListStore(table, dataList, store);
+	    populateListStore2(table, dataList, store);
 	    
 	    xGrid.reconfigure(store, xGrid.getColumnModel());
 	    return;
