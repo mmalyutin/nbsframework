@@ -204,35 +204,49 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 	return GXTHelper.getBean(model);
     }
     
-    
-    /**
-     * Populate ListStore by dataList
-     * @param table
-     * @param dataList
-     * @param store
-     */
-    public void populateListStore(IViewer viewer, List dataList, ListStore<ModelData> store) {
-	PropertyProvider propertyProvider = null;
-	Map<String, ValueProvider> valueProviders = null;
-	
-	if (viewer != null) {
-	    propertyProvider = viewer.getPropertyProvider();
-	    if (viewer instanceof Table) {
-		valueProviders = createValueProviders(((Table) viewer).getColumns());
-	    }
+    public void populateListStore2(IViewer<?> viewer, List<?> dataList, ListStore<ModelData> store) {
+	if (dataList == null) {
+	    return;
 	}
-	
 	List<ModelData> models = new ArrayList<ModelData>();
-	if (dataList != null) {
-	    for (Object data : dataList) {
+	for (Object data : dataList) {
 
-		// Create wrap of data
-		ModelData model = createModel(data, propertyProvider, valueProviders);
-		models.add(model);
-	    }
+	    // Create wrap of data
+	    ModelData model = createModel(data);
+	    models.add(model);
 	}
 	store.addAll(models);
     }
+
+    
+//    /**
+//     * Populate ListStore by dataList
+//     * @param table
+//     * @param dataList
+//     * @param store
+//     */
+//    public void populateListStore(IViewer viewer, List dataList, ListStore<ModelData> store) {
+//	PropertyProvider propertyProvider = null;
+//	Map<String, ValueProvider> valueProviders = null;
+//	
+//	if (viewer != null) {
+//	    propertyProvider = viewer.getPropertyProvider();
+//	    if (viewer instanceof Table) {
+//		valueProviders = createValueProviders(((Table) viewer).getColumns());
+//	    }
+//	}
+//	
+//	List<ModelData> models = new ArrayList<ModelData>();
+//	if (dataList != null) {
+//	    for (Object data : dataList) {
+//
+//		// Create wrap of data
+//		ModelData model = createModel(data, propertyProvider, valueProviders);
+//		models.add(model);
+//	    }
+//	}
+//	store.addAll(models);
+//    }
 
     /**
      * Populate TreeStore by dataList

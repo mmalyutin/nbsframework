@@ -29,6 +29,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.widget.XListBox;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.ListBox;
@@ -45,13 +46,12 @@ import com.sencha.gxt.data.shared.ListStore;
 public class GXTListBoxAdapter extends GXTViewerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
+	ListBox<?> listBox = (ListBox<?>) element;
 	
 	ListStore<ModelData> store = createXDefaultListStore();
-	XValueProvider xValueProvider = createXValueProvider(null);
-	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = new com.sencha.gxt.widget.core.client.ListView<ModelData, Object>(store, xValueProvider);
+	XValueProvider xValueProvider = createXValueProvider(listBox.getDisplayProperty(), listBox.getPropertyProvider());
+	XListBox xListBox = new XListBox(store, xValueProvider);
 	
-	
-	//xListBox.setDisplayProperty("toString");
 	xListBox.setWidth(IField.DEFAULT_WIDTH); // TODO
 	xListBox.setHeight(IField.DEFAULT_LIST_HEIGHT); // TODO
 	
@@ -64,15 +64,15 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 	return xListBox;
     }
 
-    protected com.sencha.gxt.widget.core.client.ListView<ModelData, Object> getListBox(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.ListView<ModelData, Object>) delegate;
+    protected XListBox getListBox(Object delegate) {
+	return (XListBox) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	ListBox listBox = (ListBox) element;
+	ListBox<?> listBox = (ListBox<?>) element;
 	
-	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = getListBox(element.getDelegate());
+	XListBox xListBox = getListBox(element.getDelegate());
 	if (xListBox == null) {
 	    return;
 	}
@@ -101,18 +101,18 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 	} else if (ListBox.PROPERTY_DATA_LIST.equals(name)) {
 	    
 	    // Get DataList
-	    List dataList = (List) value;
+	    List<?> dataList = (List<?>) value;
 	    
 	    // Populate ListStore by flat DataList
 	    com.sencha.gxt.data.shared.ListStore<ModelData> store = xListBox.getStore();
 	    store.clear();
 	    
-	    populateListStore(listBox, dataList, store);
+	    populateListStore2(listBox, dataList, store);
 	    
 	    return;
 	} else if (ListBox.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
-	    //DISABLE:MIGRATION
-	    //xListBox.setDisplayProperty(getSafeString(value));
+	    XValueProvider xLabelProvider = (XValueProvider) xListBox.getValueProvider();
+	    xLabelProvider.setProperty((String) value);
 	    return;
 	}
 
