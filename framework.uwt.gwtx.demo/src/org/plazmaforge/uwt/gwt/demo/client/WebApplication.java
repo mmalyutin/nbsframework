@@ -55,6 +55,7 @@ import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 import org.plazmaforge.framework.uwt.widget.tool.CoolBar;
 import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
 import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
+import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
 import com.sencha.gxt.widget.core.client.container.Viewport;
 
@@ -307,39 +308,39 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	Product p = new Product();
 	
-	Table<Product> table = new Table<Product>();
+	Tree<Product> table = new Tree<Product>();
 	
-	TableColumn tableColumn = new TableColumn();
-	tableColumn.setText("ID");
-	tableColumn.setProperty("id");
-	tableColumn.setValueProvider(new ValueProvider() {
-
-	    @Override
-	    public Object getValue(Object element) {
-		// TODO Auto-generated method stub
-		return "# " + ((Product) element).getId();
-	    }
-
-	    @Override
-	    public void setValue(Object element, Object value) {
-		// TODO Auto-generated method stub
-		
-	    }
-	    
-	});
-	table.addColumn(tableColumn);
-	
-	TableColumn tableColumn2 = new TableColumn();
-	tableColumn2.setText("Name");
-	tableColumn2.setProperty("name");
-	table.addColumn(tableColumn2);
-	
-	TableColumn tableColumn3 = new TableColumn();
-	tableColumn3.setText("Price");
-	tableColumn3.setProperty("price");
-	tableColumn3.setDataType("Float");
-	tableColumn3.setAlign(HorizontalAlign.RIGHT);
-	table.addColumn(tableColumn3);
+//	TableColumn tableColumn = new TableColumn();
+//	tableColumn.setText("ID");
+//	tableColumn.setProperty("id");
+//	tableColumn.setValueProvider(new ValueProvider() {
+//
+//	    @Override
+//	    public Object getValue(Object element) {
+//		// TODO Auto-generated method stub
+//		return "# " + ((Product) element).getId();
+//	    }
+//
+//	    @Override
+//	    public void setValue(Object element, Object value) {
+//		// TODO Auto-generated method stub
+//		
+//	    }
+//	    
+//	});
+//	table.addColumn(tableColumn);
+//	
+//	TableColumn tableColumn2 = new TableColumn();
+//	tableColumn2.setText("Name");
+//	tableColumn2.setProperty("name");
+//	table.addColumn(tableColumn2);
+//	
+//	TableColumn tableColumn3 = new TableColumn();
+//	tableColumn3.setText("Price");
+//	tableColumn3.setProperty("price");
+//	tableColumn3.setDataType("Float");
+//	tableColumn3.setAlign(HorizontalAlign.RIGHT);
+//	table.addColumn(tableColumn3);
 	
 	List<Product> dataList2 = new ArrayList<Product>();
 	dataList2.add(new Product("100", "C-100", "Name-100", 123.45f));

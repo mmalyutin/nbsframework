@@ -81,7 +81,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTToggleButtonAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTToolBarAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTToolItemAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTToolSeparatorAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTTreeAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTTreeAdapter;
 //import org.plazmaforge.framework.uwt.gxt.adapter.GXTVerticalLayoutAdapter;
 //import org.plazmaforge.framework.uwt.gxt.adapter.GXTWindowAdapter;
 //import org.plazmaforge.framework.uwt.gxt.core.GXTPropertyProviderFactory;
@@ -162,7 +162,7 @@ public class UWT_GXT {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.Table.class, new GXTTableAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.TableColumn.class, new GXTTableColumnAdapter());
 	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new GXTTreeAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new GXTTreeAdapter());
 	
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new GXTTabPanelAdapter());
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabItem.class, new GXTTabItemAdapter());

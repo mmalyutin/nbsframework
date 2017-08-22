@@ -247,6 +247,21 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 //	}
 //	store.addAll(models);
 //    }
+    
+    public void populateTreeStore2(IViewer viewer, List dataList, TreeStore<ModelData> store) {
+	if (dataList == null) {
+	    return;
+	}
+   	
+   	List<ModelData> models = new ArrayList<ModelData>();
+   	for (Object data : dataList) {
+
+	    // Create wrap of data
+	    ModelData model = createModel(data);
+	    models.add(model);
+	}
+   	store.add(models); // TODO: DISABLE:MIGRATION Maybe need flag addChildren=true	
+       }
 
     /**
      * Populate TreeStore by dataList

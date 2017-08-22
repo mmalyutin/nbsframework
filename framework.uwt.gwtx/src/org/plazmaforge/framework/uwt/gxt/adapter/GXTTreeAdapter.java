@@ -25,10 +25,12 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
-import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTreeCellRenderer;
+import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+//import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTreeCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
@@ -36,32 +38,37 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
-import com.sencha.gxt.ui.client.data.ModelData;
+import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
-import com.sencha.gxt.widget.core.client.treegrid.TreeGridCellRenderer;
-import com.sencha.gxt.widget.core.client.treepanel.TreeStyle;
+import com.sencha.gxt.widget.core.client.tree.TreeStyle;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTTreeAdapter extends GXTViewerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	
-	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig> columns = new ArrayList<ColumnConfig>();
-	Tree tree =  (Tree) element;
+	Tree<?> tree =  (Tree<?>) element;
 	
 	// Create first column to emulate column header
-	XColumnConfig xColumn = new XColumnConfig();
-	xColumn.setId("0"); // By default ID is index of column
-	xColumn.setRenderer(new TreeGridCellRenderer<ModelData>());
+	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = new ArrayList<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>>();
+	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider("toString", tree.getPropertyProvider(), null), 100, ""); //TODO
+	//xColumn.setId("0"); // By default ID is index of column
+	//xColumn.setRenderer(new TreeGridCellRenderer<ModelData>());
 	columns.add(xColumn);
+	
+	
+	com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData> cm = new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns);
+	com.sencha.gxt.data.shared.TreeStore<ModelData> store = new com.sencha.gxt.data.shared.TreeStore<ModelData>(GXTHelper.createXDefaultModelKeyProvider());
+	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = new com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData>(store, cm, xColumn);
 
-	com.sencha.gxt.widget.core.client.grid.ColumnModel cm = newcom.sencha.gxt.widget.core.client.grid.ColumnModel(columns);
-	com.sencha.gxt.ui.client.store.TreeStore<ModelData> store = new  com.sencha.gxt.ui.client.store.TreeStore<ModelData>();
-	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = new com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData>(store, cm);
-
-	xTree.setColumnLines(false);
+	//DISABLE:MIGRATION
+	//xTree.setColumnLines(false);
 	xTree.setHideHeaders(true);
 	
 	TreeStyle treeStyle = xTree.getStyle();
@@ -70,16 +77,19 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	treeStyle.setNodeOpenIcon(null);
 	treeStyle.setNodeCloseIcon(null);
 	
-	AbstractImagePrototype plusImage = createImage(element,	"widget/plus.gif");
-	AbstractImagePrototype minusImage = createImage(element, "widget/minus.gif");
-	if (plusImage != null && minusImage != null) {
-	    treeStyle.setJointCollapsedIcon(plusImage);
-	    treeStyle.setJointExpandedIcon(minusImage);
-	}
+	//DISABLE:MIGRATION
+	//AbstractImagePrototype plusImage = createImage(element,	"widget/plus.gif");
+	//AbstractImagePrototype minusImage = createImage(element, "widget/minus.gif");
+	//if (plusImage != null && minusImage != null) {
+	//    treeStyle.setJointCollapsedIcon(plusImage);
+	//    treeStyle.setJointExpandedIcon(minusImage);
+	//}
 	    
 	// Assign first column
 	xColumn.setGrid(xTree);
-	xColumn.setRenderer(new GXTTreeCellRenderer<ModelData>(tree));
+	
+	//DISABLE:MIGRATION
+	//xColumn.setRenderer(new GXTTreeCellRenderer<ModelData>(tree));
 
 	xTree.setWidth(Table.DEFAULT_WIDTH); // TODO
 	xTree.setHeight(150 /*Table.DEFAULT_HEIGHT*/); // TODO
@@ -113,9 +123,10 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
       	if (Tree.PROPERTY_NODE_ICON.equals(icon)) {
       	    
       	    // Node Icon -> Open and Close icon
-      	    AbstractImagePrototype i = createImage(tree, tree.getNodeIcon());
-      	    treeStyle.setNodeOpenIcon(i);
-      	    treeStyle.setNodeCloseIcon(i);
+      	    //DISABLE:MIGRATION
+      	    //AbstractImagePrototype i = createImage(tree, tree.getNodeIcon());
+      	    //treeStyle.setNodeOpenIcon(i);
+      	    //treeStyle.setNodeCloseIcon(i);
       	    return;
       	}
       	
@@ -149,7 +160,8 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	    return;
 	} else if (Table.PROPERTY_LINES_VISIBLE.equals(name)) {
 	    // TODO: Only column lines. Must implement row lines
-	    xTree.setColumnLines(booleanValue(value));
+	    //DISABLE:MIGRATION
+	    //xTree.setColumnLines(booleanValue(value));
 	    return;
 	} else if (Table.PROPERTY_HEADER_VISIBLE.equals(name)) {
 	    xTree.setHideHeaders(!booleanValue(value)); // inverse value
@@ -161,10 +173,10 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	    
 	    // Populate TreeStore by flat DataList
 	    // TODO We need use TreeDataProvider to populate TreeStore
-	    com.sencha.gxt.ui.client.store.TreeStore<ModelData> store = xTree.getTreeStore();
-	    store.removeAll();
+	    com.sencha.gxt.data.shared.TreeStore<ModelData> store = xTree.getTreeStore();
+	    store.clear();
 	    
-	    populateTreeStore(tree, dataList, store);
+	    populateTreeStore2(tree, dataList, store);
 	    
 //	    List<ModelData> models = new ArrayList<ModelData>();
 //	    if  (dataList != null) {
@@ -178,13 +190,15 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 //	    }
 //	    store.add(models, true);
 	    
-	    xTree.reconfigure(store, xTree.getColumnModel());
+	    //xTree.reconfigure(store, xTree.getColumnModel(), null);
+	    
 	    return;
 	} else if (Tree.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
 	    
+	    //DISABLE:MIGRATION
 	    // Get first emulate column
-	    XColumnConfig xColumn = getFantomColumn(xTree);
-	    xColumn.setId((String) value);
+	    //XColumnConfig xColumn = getFantomColumn(xTree);
+	    //xColumn.setId((String) value);
 	    return;
 	} else if (Tree.PROPERTY_DISPLAY_FORMAT.equals(name)) {
 	    
@@ -193,29 +207,31 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	    // Get first emulate column
 	    XColumnConfig xColumn = getFantomColumn(xTree);
 	    
+	    //DISABLE:MIGRATION
 	    // Number format
-	    NumberFormat numberFormat = GWTUtils.createNumberFormat(pattern);
-	    if (numberFormat != null ) {
-		xColumn.setNumberFormat(numberFormat);
-		return;
-	    }
-	    
-	    // Date format
-	    DateTimeFormat dateTimeFormat = GWTUtils.createDateTimeFormat(pattern);
-	    if (dateTimeFormat != null ) {
-		xColumn.setDateTimeFormat(dateTimeFormat);
-		return;
-	    }
+//	    NumberFormat numberFormat = GWTUtils.createNumberFormat(pattern);
+//	    if (numberFormat != null ) {
+//		xColumn.setNumberFormat(numberFormat);
+//		return;
+//	    }
+//	    
+//	    // Date format
+//	    DateTimeFormat dateTimeFormat = GWTUtils.createDateTimeFormat(pattern);
+//	    if (dateTimeFormat != null ) {
+//		xColumn.setDateTimeFormat(dateTimeFormat);
+//		return;
+//	    }
 	    
 	    return;
 	    
 	} else if (Tree.PROPERTY_LABEL_PROVIDER.equals(name)) {
 	    
-	    GXTTreeCellRenderer renderer = getTreeCellRenderer(tree, xTree);
-	    renderer.setLabelProvider((LabelProvider) value);
+	    //DISABLE:MIGRATION
+	    //GXTTreeCellRenderer renderer = getTreeCellRenderer(tree, xTree);
+	    //renderer.setLabelProvider((LabelProvider) value);
 	    
 	    // Update leaf/open/close icon if need
-	    updateIcons(tree, xTree, null);
+	    //updateIcons(tree, xTree, null);
 	    
 	    return;
 	    
@@ -263,17 +279,18 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
     }
     
 
-    protected GXTTreeCellRenderer getTreeCellRenderer(Tree tree,com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree) {
-	XColumnConfig xColumn = getFantomColumn(xTree);
-
-	GXTTreeCellRenderer renderer = (GXTTreeCellRenderer) xColumn.getRenderer();
-	if (renderer == null) {
-	    renderer = new GXTTreeCellRenderer(tree);
-	    xColumn.setRenderer(renderer);
-	}
-	
-	return renderer;
-    }
+    //DISABLE:MIGRATION
+//    protected GXTTreeCellRenderer getTreeCellRenderer(Tree tree,com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree) {
+//	XColumnConfig xColumn = getFantomColumn(xTree);
+//
+//	GXTTreeCellRenderer renderer = (GXTTreeCellRenderer) xColumn.getRenderer();
+//	if (renderer == null) {
+//	    renderer = new GXTTreeCellRenderer(tree);
+//	    xColumn.setRenderer(renderer);
+//	}
+//	
+//	return renderer;
+//    }
     
     
     
