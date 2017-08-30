@@ -47,6 +47,11 @@ public class Dictionary extends BaseModel {
 	super(id);
 	this.name = name;
     }
+
+    @Override
+    public String toString() {
+	return "Dictionary[name=" + name + "]";
+    }
     
     
 }
