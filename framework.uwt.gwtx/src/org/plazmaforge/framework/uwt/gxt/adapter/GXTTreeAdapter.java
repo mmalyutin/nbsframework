@@ -30,6 +30,7 @@ import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
+import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
 //import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTreeCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
@@ -38,20 +39,14 @@ import org.plazmaforge.framework.uwt.widget.LabelProvider;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
-
 import com.sencha.gxt.data.client.loader.RpcProxy;
-import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.loader.ChildTreeStoreBinding;
 import com.sencha.gxt.data.shared.loader.TreeLoader;
-import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.tree.TreeStyle;
-import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.user.client.Command;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -67,8 +62,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	
 	// Create first column to emulate column header
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = new ArrayList<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>>();
-	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider("toString", tree.getPropertyProvider(), null), 100, "Name"); //TODO
-	//xColumn.setId("0"); // By default ID is index of column
+	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(tree.getDisplayProperty(), tree.getPropertyProvider(), null), 100, "");
 	//xColumn.setRenderer(new TreeGridCellRenderer<ModelData>());
 	columns.add(xColumn);
 	
@@ -79,7 +73,15 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 
 	//DISABLE:MIGRATION
 	//xTree.setColumnLines(false);
-	//xTree.setHideHeaders(true);
+	xTree.setHideHeaders(true);
+	    
+        xTree.setWidth(Table.DEFAULT_WIDTH); // TODO
+	xTree.setHeight(150 /*Table.DEFAULT_HEIGHT*/); // TODO
+	
+	//tree.setAutoWidth(true);
+	//tree.setAutoHeight(true);
+	
+        xTree.getView().setForceFit(true);	
 	
 	TreeStyle treeStyle = xTree.getStyle();
 	
@@ -89,17 +91,14 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	
 	//treeStyle.setJointCloseIcon(null);
 	//treeStyle.setJointOpenIcon(null);
-	
-	
-	      
 	      
 	//DISABLE:MIGRATION
-	//AbstractImagePrototype plusImage = createImage(element,	"widget/plus.gif");
-	//AbstractImagePrototype minusImage = createImage(element, "widget/minus.gif");
-	//if (plusImage != null && minusImage != null) {
-	//    treeStyle.setJointCollapsedIcon(plusImage);
-	//    treeStyle.setJointExpandedIcon(minusImage);
-	//}
+	ImageResource plusImage = createImage(element, "widget/plus.gif");
+	ImageResource minusImage = createImage(element, "widget/minus.gif");
+	if (plusImage != null && minusImage != null) {
+	    //treeStyle.setJointCloseIcon(plusImage);
+	    //treeStyle.setJointOpenIcon(minusImage);
+	}
 	    
 	// Assign first column
 	xColumn.setGrid(xTree);
@@ -107,65 +106,17 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	//DISABLE:MIGRATION
 	//xColumn.setRenderer(new GXTTreeCellRenderer<ModelData>(tree));
 
-	
-	      //TreeBundle bundle = GWT.create(TreeBundle.class);
-        
         ////
         TreeLoader loader = null;
         if (tree.getDataProvider() != null && tree.getDataProvider() instanceof TreeProvider) {
-            loader = createTreeLoader((TreeProvider) tree.getDataProvider());
+            loader = createTreeLoader((TreeProvider) tree.getDataProvider(), store);
             if (loader != null) {
-        	loader.addLoadHandler(new ChildTreeStoreBinding<ModelData>(store)); // IMPORTANT! Very critical line!
         	xTree.setTreeLoader(loader);
-        	//loader.load();
             }
         }
         ////
         
-        
-        xTree.setWidth(Table.DEFAULT_WIDTH); // TODO
-	xTree.setHeight(150 /*Table.DEFAULT_HEIGHT*/); // TODO
-	
-	//tree.setAutoWidth(true);
-	//tree.setAutoHeight(true);
-	
-        //xTree.getView().setForceFit(true);
-        
 	addToParent(getContent(parent.getDelegate()), xTree, element); // Add to parent
-	
-	final TreeLoader loader2 = loader;
-	//xTree.setAutoLoad(true);
-	if (loader != null) {
-	    
-//	      Scheduler.get().scheduleDeferred(new Command() {
-//		        public void execute () {
-//		            GWT.log("Start loading...");
-//		        	
-//		        	
-//		      });
-		
-
-//	      Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
-//
-//		@Override
-//		public boolean execute() {
-//		    loader2.load();
-//	        	xTree.getTreeView().refresh(true);
-//	        
-//		    return false;
-//		}
-//		  
-//	      }, 3000);
-	      
-	    //GWT.log("Start laoding...");
-    	
-    	//loader.load();
-    	//com.sencha.gxt.widget.core.client.container.Container c = getContent(parent.getDelegate());
-    	//Tree.refresh(null);
-	    
-	    
-        }
-	
 	return xTree;
     }
 
@@ -188,10 +139,9 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
       	if (Tree.PROPERTY_NODE_ICON.equals(icon)) {
       	    
       	    // Node Icon -> Open and Close icon
-      	    //DISABLE:MIGRATION
-      	    //AbstractImagePrototype i = createImage(tree, tree.getNodeIcon());
-      	    //treeStyle.setNodeOpenIcon(i);
-      	    //treeStyle.setNodeCloseIcon(i);
+      	    ImageResource image = createImage(tree, tree.getNodeIcon());
+      	    treeStyle.setNodeOpenIcon(image);
+      	    treeStyle.setNodeCloseIcon(image);
       	    return;
       	}
       	
@@ -233,47 +183,31 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	    return;
 	} else if (Table.PROPERTY_DATA_LIST.equals(name)) {
 	    
-	    //DISABLE:MIGRATION
-	    
 	    // Get DataList
-	    List dataList = (List) value;
+	    List<?> dataList = (List<?>) value;
 	    
 	    // Populate TreeStore by flat DataList
-	    // TODO We need use TreeDataProvider to populate TreeStore
 	    com.sencha.gxt.data.shared.TreeStore<ModelData> store = xTree.getTreeStore();
 	    store.clear();
 	    
 	    populateTreeStore2(tree, dataList, store);
 	    
-	    
-//	    List<ModelData> models = new ArrayList<ModelData>();
-//	    if  (dataList != null) {
-//		for (Object data: dataList) {
-//		    
-//		    // Create wrap of data
-//		    ModelData model = createModel(data);
-//		    GXTTreeDataModel treeModel = new GXTTreeDataModel(model, store, (TreeProvider) tree.getDataProvider()); 
-//		    models.add(treeModel);
-//		}
-//	    }
-//	    store.add(models, true);
-	    
-	    //xTree.reconfigure(store, xTree.getColumnModel(), null);
-	    
 	    return;
 	} else if (Tree.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
 	    
-	    //DISABLE:MIGRATION
 	    // Get first emulate column
-	    //XColumnConfig xColumn = getFantomColumn(xTree);
-	    //xColumn.setId((String) value);
+	    XColumnConfig<?> xColumn = getFantomColumn(xTree);
+	    XValueProvider xValueProvider = (XValueProvider) xColumn.getValueProvider();
+	    xValueProvider.setProperty((String) value);
+	    
 	    return;
 	} else if (Tree.PROPERTY_DISPLAY_FORMAT.equals(name)) {
+
+	    // Get first emulate column
+	    XColumnConfig<?> xColumn = getFantomColumn(xTree);
 	    
 	    // Get pattern
 	    String pattern = (String) value;
-	    // Get first emulate column
-	    XColumnConfig xColumn = getFantomColumn(xTree);
 	    
 	    //DISABLE:MIGRATION
 	    // Number format
@@ -409,66 +343,47 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	super.addListener(element, eventType, listener);
     }
 
-    private TreeLoader createTreeLoader(final TreeProvider provider) {
+    private TreeLoader<ModelData> createTreeLoader(final TreeProvider provider, com.sencha.gxt.data.shared.TreeStore<ModelData> store) {
 	if (provider == null) {
 	    return null;
 	}
 	RpcProxy<ModelData, List<ModelData>> proxy = new RpcProxy<ModelData, List<ModelData>>() {
 	    
-	    //@Override
-	    //public void load(ModelData loadConfig, final Callback<ModelData, Throwable> callback) {
-		
-	    //}
-	    
+
 	    @Override
-	    public void load(ModelData loadConfig, AsyncCallback<List<ModelData>> callback2) {
-		
-		//GWT.log("Callback=" + callback2);
-		//GWT.log("loadConfig=" + GXTHelper.getBean(loadConfig));
-		//List<ModelData> result = new ArrayList<ModelData>();
-		//callback2.onSuccess(result);
-		
-		//callback2.onFailure(new Exception("LOLO"));
-		//if (true) return;
-		
+	    public void load(ModelData loadConfig, AsyncCallback<List<ModelData>> callback) {
 		
 		Object parent = GXTHelper.getBean(loadConfig);
-		List children =  parent == null ? provider.getList() : provider.getChildren(parent);
-		
-		//GWT.log("SIZE=" + (children == null ? 0 : children.size()));
-		
+		List<?> children =  parent == null ? provider.getList() : provider.getChildren(parent);
+	
 		List<ModelData> result = new ArrayList<ModelData>();
 		if (children == null) {
-		    callback2.onSuccess(result);
+		    callback.onSuccess(result);
 		    return;
 		}
 		
-		
 		for (Object data : children) {
-
 		    // Create wrap of data
 		    ModelData model = createModel(data);
-		    //GWT.log("Model=" + model.get("toString"));
-		    //model.set("toString", value)
 		    result.add(model);
 		}
 		
-		callback2.onSuccess(result);
-		//return;
+		callback.onSuccess(result);
 	    }
 	};
 
 	TreeLoader<ModelData> loader = new TreeLoader<ModelData>(proxy) {
+	    
 	    @Override
 	    public boolean hasChildren(ModelData parent) {
-		//GWT.log("hasChildren1");
 		Object p = GXTHelper.getBean(parent);
-		//GWT.log("hasChildren2");
-		//return p == null ? true : false; // provider.hasChildren(parent);
-		return provider.hasChildren(p);
-		//return true;
+		return p == null ? false : provider.hasChildren(p);
 	    }
 	};
+	
+	// IMPORTANT! Initialize Load Handler. Very critical line!
+	loader.addLoadHandler(new ChildTreeStoreBinding<ModelData>(store));
+	
 	
 	return loader;
 	
