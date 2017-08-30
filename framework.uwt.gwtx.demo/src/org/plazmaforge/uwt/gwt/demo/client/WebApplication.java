@@ -10,6 +10,7 @@ import org.plazmaforge.framework.core.data.Initializer;
 import org.plazmaforge.framework.core.data.Parameters;
 import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.core.data.object.IData;
+import org.plazmaforge.framework.core.data.provider.TreeProvider;
 import org.plazmaforge.framework.core.logging.Logger;
 import org.plazmaforge.framework.core.resource.CacheResourceProvider;
 import org.plazmaforge.framework.core.resource.Resource;
@@ -21,6 +22,7 @@ import org.plazmaforge.framework.uwt.ApplicationContext;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
 import org.plazmaforge.framework.uwt.demo.DemoApplicationBuilder;
+import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.UWT_GXT;
@@ -308,7 +310,7 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	Product p = new Product();
 	
-	Tree<Product> table = new Tree<Product>();
+	Tree<Group> table = new Tree<Group>();
 	
 //	TableColumn tableColumn = new TableColumn();
 //	tableColumn.setText("ID");
@@ -342,11 +344,71 @@ public class WebApplication extends Application implements EntryPoint {
 //	tableColumn3.setAlign(HorizontalAlign.RIGHT);
 //	table.addColumn(tableColumn3);
 	
-	List<Product> dataList2 = new ArrayList<Product>();
-	dataList2.add(new Product("100", "C-100", "Name-100", 123.45f));
-	dataList2.add(new Product("200", "C-200", "Name-200", 234.56f));
+	//List<Product> dataList2 = new ArrayList<Product>();
+	//dataList2.add(new Product("100", "C-100", "Name-100", 123.45f));
+	//dataList2.add(new Product("200", "C-200", "Name-200", 234.56f));
 	
-	table.setItems(dataList2);
+	//table.setItems(dataList2);
+	
+	final List<Group> groupList = new ArrayList<Group>();
+
+	// Group 1
+	Group group = new Group();
+	group.setName("Group 1");
+	groupList.add(group);
+
+	Group group1_1 = new Group();
+	group1_1.setName("Group 1.1");
+	group.addChildren(group1_1);
+
+	Group group1_2 = new Group();
+	group1_2.setName("Group 1.2");
+	group.addChildren(group1_2);
+
+	
+	// Group 2
+	group = new Group();
+	group.setName("Group 2");
+	groupList.add(group);
+	
+	Group group2_1 = new Group();
+	group2_1.setName("Group 2.1");
+	group.addChildren(group2_1);
+
+	Group group2_2 = new Group();
+	group2_2.setName("Group 2.2");
+	group.addChildren(group2_2);
+	
+	// Group 3
+	group = new Group();
+	group.setName("Group 3");
+	groupList.add(group);
+
+	TreeProvider<Group> dataProvider = new TreeProvider<Group>() {
+	    
+	    @Override
+	    public List<Group> getList() {
+		return groupList;
+	    }
+	    
+	    @Override
+	    public boolean hasChildren(Group element) {
+		return element.hasChildren();
+	    }
+	    
+	    @Override
+	    public Group getParent(Group element) {
+		return null;
+	    }
+	    
+	    @Override
+	    public List<Group> getChildren(Group parent) {
+		return parent.getChildren();
+	    }
+	};
+	
+	table.setDataProvider(dataProvider, true);
+	
 	uwtContainer.add(table);
 	
 	
