@@ -407,6 +407,7 @@ public class WebApplication extends Application implements EntryPoint {
 	    }
 	};
 	
+	table.setDisplayProperty("name");
 	table.setDataProvider(dataProvider, true);
 	
 	uwtContainer.add(table);
