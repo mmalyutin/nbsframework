@@ -24,17 +24,18 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
 //import com.sencha.gxt.ui.client.Style.Orientation;
 import com.sencha.gxt.widget.core.client.container.Container;
-import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 
 
 public class GXTCompositeAdapter extends GXTControlAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
-	FlowLayoutContainer xComposite = new FlowLayoutContainer();
+	XLayoutContainer xComposite = new XLayoutContainer();
+	//FlowLayoutContainer xComposite = new FlowLayoutContainer();
 	//xComposite.setLayout(createDefaultCompositeLayout());
 	
 	//TODO: STUB
