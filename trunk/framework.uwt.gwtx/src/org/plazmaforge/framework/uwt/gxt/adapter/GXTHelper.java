@@ -33,7 +33,6 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
-import org.plazmaforge.framework.uwt.gxt.adapter.viewer.ProviderModelData;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XModelKeyProvider;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
@@ -137,11 +136,12 @@ public class GXTHelper {
 	if (model instanceof BeanModel) {
 	    return ((BeanModel) model).getBean();
 	}
-	if (model instanceof ProviderModelData) {
-	    return ((ProviderModelData) model).getBean();
-	}
 	
-	//DISABLE:MIGRATION
+	
+	//if (model instanceof ProviderModelData) {
+	//    return ((ProviderModelData) model).getBean();
+	//}
+	
 	//if (model instanceof GXTTreeDataModel) {
 	//    return getBean(((GXTTreeDataModel) model).getModel());
 	//}

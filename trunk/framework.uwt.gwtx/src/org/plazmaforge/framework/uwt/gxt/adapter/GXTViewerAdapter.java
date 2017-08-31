@@ -27,21 +27,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.plazmaforge.framework.core.data.PropertyProvider;
+
 import org.plazmaforge.framework.core.data.ValueProvider;
-import org.plazmaforge.framework.core.data.provider.TreeProvider;
-import org.plazmaforge.framework.uwt.gxt.adapter.viewer.ProviderModelData;
 import org.plazmaforge.framework.uwt.gxt.data.BaseModel;
 import org.plazmaforge.framework.uwt.gxt.data.BeanModel;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
 import org.plazmaforge.framework.uwt.widget.IViewer;
-import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
-import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
-import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.TreeStore;
 
 
@@ -82,38 +76,6 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 	return model;
     }
 
-    /**
-     * Create <code>ModelData</code> by Bean, PropertyProvider, ValueProviders
-     * @param bean
-     * @param propertyProvider
-     * @return
-     */
-    protected ModelData createModel(Object bean, PropertyProvider propertyProvider, Map<String, ValueProvider> valueProviders) {
-	ModelData modelData = null;
-	if (valueProviders != null && valueProviders.isEmpty()) {
-	    valueProviders = null;
-	}
-	if (propertyProvider == null) {
-	    modelData = createModel(bean);
-	    if (valueProviders == null) {
-		return modelData;
-	    }
-	} else {
-	    modelData = null;
-	}
-	ProviderModelData providerModelData = new ProviderModelData(bean, modelData, propertyProvider, valueProviders);
-	return providerModelData;
-    }
-
-    /**
-     * Create <code>ModelData</code> by Bean and PropertyProvider
-     * @param bean
-     * @param propertyProvider
-     * @return
-     */
-    protected ModelData createModel(Object bean, PropertyProvider propertyProvider) {
-	return createModel(bean, propertyProvider, null);
-    }
 
     /**
      * Find Model in store by bean
@@ -167,22 +129,8 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 	if (model != null) {
 	    return model;
 	}
-	
-	// If model not found then create new model
-	PropertyProvider propertyProvider = null;
-	Map<String, ValueProvider> valueProviders = null;
-	
-	if (viewer != null) {
-	    propertyProvider = viewer.getPropertyProvider();
-	    if (viewer instanceof Table) {
-		valueProviders = createValueProviders(((Table) viewer).getColumns());
-	    }
-	}
-	
-	model = createModel(bean, propertyProvider, valueProviders);
-	
+	model = createModel(bean);
 	return model;
-	
     }
     
     /**
@@ -217,38 +165,8 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 	}
 	store.addAll(models);
     }
-
     
-//    /**
-//     * Populate ListStore by dataList
-//     * @param table
-//     * @param dataList
-//     * @param store
-//     */
-//    public void populateListStore(IViewer viewer, List dataList, ListStore<ModelData> store) {
-//	PropertyProvider propertyProvider = null;
-//	Map<String, ValueProvider> valueProviders = null;
-//	
-//	if (viewer != null) {
-//	    propertyProvider = viewer.getPropertyProvider();
-//	    if (viewer instanceof Table) {
-//		valueProviders = createValueProviders(((Table) viewer).getColumns());
-//	    }
-//	}
-//	
-//	List<ModelData> models = new ArrayList<ModelData>();
-//	if (dataList != null) {
-//	    for (Object data : dataList) {
-//
-//		// Create wrap of data
-//		ModelData model = createModel(data, propertyProvider, valueProviders);
-//		models.add(model);
-//	    }
-//	}
-//	store.addAll(models);
-//    }
-    
-    public void populateTreeStore2(IViewer viewer, List dataList, TreeStore<ModelData> store) {
+    public void populateTreeStore2(IViewer viewer, List<?> dataList, TreeStore<ModelData> store) {
 	if (dataList == null) {
 	    return;
 	}
@@ -261,41 +179,6 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 	    models.add(model);
 	}
    	store.add(models); // TODO: DISABLE:MIGRATION Maybe need flag addChildren=true	
-       }
-
-    /**
-     * Populate TreeStore by dataList
-     * @param viewer
-     * @param dataList
-     * @param store
-     */
-    public void populateTreeStore(IViewer viewer, List dataList, TreeStore<ModelData> store) {
-	
-	PropertyProvider propertyProvider = null;
-	Map<String, ValueProvider> valueProviders = null;
-	
-	if (viewer != null) {
-	    propertyProvider = viewer.getPropertyProvider();
-	    if (viewer instanceof Tree) {
-		valueProviders = createValueProviders(((Tree) viewer).getColumns());
-	    }
-	}
-	
-	List<ModelData> models = new ArrayList<ModelData>();
-	if (dataList != null) {
-	    for (Object data : dataList) {
-
-		// Create wrap of data
-		ModelData model = createModel(data, propertyProvider, valueProviders);
-		
-		//DISABLE:MIGRATION
-		//GXTTreeDataModel treeModel = new GXTTreeDataModel(model, store,	(TreeProvider) viewer.getDataProvider());
-		//models.add(treeModel);
-		
-	    }
-	}
-	store.add(models); // TODO: Maybe need flag addChildren=true
-	
     }
 
     protected Map<String, ValueProvider> createValueProviders(List<TableColumn> columns) {
