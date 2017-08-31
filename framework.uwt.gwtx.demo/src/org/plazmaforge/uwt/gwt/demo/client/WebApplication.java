@@ -308,47 +308,49 @@ public class WebApplication extends Application implements EntryPoint {
 //	
 //	uwtContainer.add(listBox);
 	
-	Product p = new Product();
 	
-	Tree<Group> table = new Tree<Group>();
+	Table<Product> table = new Table<Product>();
 	
-//	TableColumn tableColumn = new TableColumn();
-//	tableColumn.setText("ID");
-//	tableColumn.setProperty("id");
-//	tableColumn.setValueProvider(new ValueProvider() {
-//
-//	    @Override
-//	    public Object getValue(Object element) {
-//		// TODO Auto-generated method stub
-//		return "# " + ((Product) element).getId();
-//	    }
-//
-//	    @Override
-//	    public void setValue(Object element, Object value) {
-//		// TODO Auto-generated method stub
-//		
-//	    }
-//	    
-//	});
-//	table.addColumn(tableColumn);
-//	
-//	TableColumn tableColumn2 = new TableColumn();
-//	tableColumn2.setText("Name");
-//	tableColumn2.setProperty("name");
-//	table.addColumn(tableColumn2);
-//	
-//	TableColumn tableColumn3 = new TableColumn();
-//	tableColumn3.setText("Price");
-//	tableColumn3.setProperty("price");
-//	tableColumn3.setDataType("Float");
-//	tableColumn3.setAlign(HorizontalAlign.RIGHT);
-//	table.addColumn(tableColumn3);
+	TableColumn tableColumn = new TableColumn();
+	tableColumn.setText("ID");
+	tableColumn.setProperty("id");
+	tableColumn.setValueProvider(new ValueProvider() {
+
+	    @Override
+	    public Object getValue(Object element) {
+		// TODO Auto-generated method stub
+		return "# " + ((Product) element).getId();
+	    }
+
+	    @Override
+	    public void setValue(Object element, Object value) {
+		// TODO Auto-generated method stub
+		
+	    }
+	    
+	});
+	table.addColumn(tableColumn);
 	
-	//List<Product> dataList2 = new ArrayList<Product>();
-	//dataList2.add(new Product("100", "C-100", "Name-100", 123.45f));
-	//dataList2.add(new Product("200", "C-200", "Name-200", 234.56f));
+	TableColumn tableColumn2 = new TableColumn();
+	tableColumn2.setText("Name");
+	tableColumn2.setProperty("name");
+	table.addColumn(tableColumn2);
 	
-	//table.setItems(dataList2);
+	TableColumn tableColumn3 = new TableColumn();
+	tableColumn3.setText("Price");
+	tableColumn3.setProperty("price");
+	tableColumn3.setDataType("Float");
+	tableColumn3.setAlign(HorizontalAlign.RIGHT);
+	table.addColumn(tableColumn3);
+	
+	List<Product> dataList2 = new ArrayList<Product>();
+	dataList2.add(new Product("100", "C-100", "Name-100", 123.45f));
+	dataList2.add(new Product("200", "C-200", "Name-200", 234.56f));
+	
+	table.setItems(dataList2);
+	
+	uwtContainer.add(table);
+	
 	
 	final List<Group> groupList = new ArrayList<Group>();
 
@@ -407,10 +409,11 @@ public class WebApplication extends Application implements EntryPoint {
 	    }
 	};
 	
-	table.setDisplayProperty("name");
-	table.setDataProvider(dataProvider, true);
+	Tree<Group> tree = new Tree<Group>();
+	tree.setDisplayProperty("name");
+	tree.setDataProvider(dataProvider, true);
 	
-	uwtContainer.add(table);
+	uwtContainer.add(tree);
 	
 	
 	uwtContainer.activateUI(true);
