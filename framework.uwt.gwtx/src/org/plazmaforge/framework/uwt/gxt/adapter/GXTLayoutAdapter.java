@@ -24,6 +24,9 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+
+import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * 
@@ -37,4 +40,5 @@ public abstract class GXTLayoutAdapter extends AbstractUIAdapter {
 	
     }
     
+    public abstract HasWidgets createContainer(XLayout xLayout);
 }

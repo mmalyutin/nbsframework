@@ -23,8 +23,13 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XVerticalLayout;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
+
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.sencha.gxt.widget.core.client.container.HBoxLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
 
 /**
  * 
@@ -36,5 +41,5 @@ public class GXTVerticalLayoutAdapter extends GXTBoxLayoutAdapter {
     protected XBoxLayout createLayout(BoxLayout layout) {
 	return new XVerticalLayout();
     }
-    
+
 }

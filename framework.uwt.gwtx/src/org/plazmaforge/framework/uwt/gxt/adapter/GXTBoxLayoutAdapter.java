@@ -24,7 +24,13 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
+
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.sencha.gxt.widget.core.client.container.HBoxLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
+
 import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
 
 /**
@@ -47,6 +53,16 @@ public class GXTBoxLayoutAdapter extends GXTLayoutAdapter {
 
     protected XBoxLayout getXBoxLayout(Object delegate) {
 	return (XBoxLayout) delegate;
+    }
+
+    @Override
+    public HasWidgets createContainer(XLayout xLayout) {
+	com.sencha.gxt.core.client.Style.Orientation xOrientation = xLayout == null ? null : ((XBoxLayout) xLayout).getOrientation();
+	if (xOrientation == com.sencha.gxt.core.client.Style.Orientation.VERTICAL) {
+	    return new VBoxLayoutContainer();
+	}
+	// by default
+	return new HBoxLayoutContainer();
     }
     
     
