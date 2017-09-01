@@ -28,16 +28,10 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.widget.core.client.button.TextButton;
-import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.HBoxLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
-import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
-import com.sencha.gxt.widget.core.client.event.SelectEvent;
-import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+
 
 /**
  * 
@@ -46,49 +40,28 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
  */
 public class XLayoutContainer extends SimpleContainer  {
     
-    public static final String DEFAULT_LAYOUT_TYPE = "flow";
-
-    public static final String[] LAYOUT_TYPES = new String[] {"flow", "horizontal", "vertical", "border"};
-
     private HasWidgets container;
-    private String layoutType;
-    
-    //ONLY-FOR-TEST
-    private Label testLabel;
-    private Label layoutLabel;
-    private TextButton layoutButton;
-    
+      
     public XLayoutContainer() {
         super();
-        init(DEFAULT_LAYOUT_TYPE);
-    }
-   
-    public XLayoutContainer(String layoutType) {
-	super();
-	init(layoutType);
-    }
-
-    private void init(String layoutType) {
-        this.layoutType = layoutType;
-        
-        initContainer();
-
-        //buildContainer();
-        //updateState();
+        initContainer(null);
         doLayout();
     }
-    
-    protected void initContainer() {
-	container = createContainer();
-	setWidget((Widget) container);
-    }
-    
-    public void setLayout(String layoutType) {
-	this.layoutType = layoutType;
-	rebuildContainer();
+   
+    public XLayoutContainer(HasWidgets container) {
+	super();
+	initContainer(container);
 	doLayout();
     }
 
+    protected void initContainer(HasWidgets container) {
+	if (container == null) {
+	    container =  createDefaultContainer();
+	}
+	this.container = container;
+	setWidget((Widget) container);
+    }
+    
     @Override
     public void add(Widget child) {
 	container.add(child);
@@ -99,32 +72,25 @@ public class XLayoutContainer extends SimpleContainer  {
 	return container.remove(child);
     }
     
-    protected HasWidgets createContainer() {
-        if ("flow".equals(layoutType)) {
-            return new FlowLayoutContainer();
-        } else if ("horizontal".equals(layoutType)) {
-            //return new HorizontalLayoutContainer();
-            return new HBoxLayoutContainer();
-        } else if ("vertical".equals(layoutType)) {
-            //return new VerticalLayoutContainer();
-            return new VBoxLayoutContainer();
-        } else if ("border".equals(layoutType)) {
-            return new BorderLayoutContainer();
-        }
-
-        // by default
+    protected HasWidgets createDefaultContainer() {
         return new FlowLayoutContainer();
     }
 
-   
-    protected void rebuildContainer() {
+    public void setContainer(HasWidgets container) {
         List<Widget> children = getContainerChildren();
+        
+        // Remove children from old container
         resetContainerChildren(children);
 
-        initContainer();
+        // Set new container 
+        initContainer(container);
+        
+        // Add children to new container
         addContainerChildren(children);
+        
+        doLayout();
     }
-
+  
     protected List<Widget> getContainerChildren() {
         Iterator<Widget> widgets = container.iterator();
         List<Widget> children = new ArrayList<Widget>();
@@ -133,7 +99,6 @@ public class XLayoutContainer extends SimpleContainer  {
         }
         return children.isEmpty() ? null : children;
     }
-
     
     protected void resetContainerChildren(List<Widget> children) {
         if (children == null) {
@@ -144,7 +109,6 @@ public class XLayoutContainer extends SimpleContainer  {
             container.remove(child);
         }       
     }
-
    
     protected void addContainerChildren(List<Widget> children) {
         if (children == null) {
@@ -163,57 +127,6 @@ public class XLayoutContainer extends SimpleContainer  {
         for (Widget child : children) {
             container.add(child);           
         }
-    }
-    
-
-    //ONLY-FOR-TEST
-    protected void buildContainer() {
-	testLabel = new Label("Test Label-1");
-	layoutLabel = new Label("Layout: ");
-	layoutButton = new TextButton("Change Layout");
-	layoutButton.addSelectHandler(new SelectHandler() {
-
-	    @Override
-	    public void onSelect(SelectEvent event) {
-		doChangeLayout();
-	    }
-
-	});
-
-	container.add(testLabel);
-	container.add(layoutLabel);
-	container.add(layoutButton);
-    }
-    
-
-    //ONLY-FOR-TEST
-    protected void doChangeLayout() {
-	int index = -1;
-	
-	// Find index of current layout
-	for (int i = 0; i < LAYOUT_TYPES.length; i++) {
-	    if (layoutType.equals(LAYOUT_TYPES[i])) {
-		index = i;
-		break;
-	    }
-	}
-	
-	// Set next index (+1)
-	if (index < 0 || index == LAYOUT_TYPES.length - 1) {
-	    index = 0;
-	} else {
-	    index++;
-	}
-	
-	layoutType = LAYOUT_TYPES[index];
-	rebuildContainer();
-	updateState();
-	doLayout();
-    }
-    
-    //ONLY-FOR-TEST
-    protected void updateState() {
-        layoutLabel.setText("Layout: " + layoutType);
     }
 
     
