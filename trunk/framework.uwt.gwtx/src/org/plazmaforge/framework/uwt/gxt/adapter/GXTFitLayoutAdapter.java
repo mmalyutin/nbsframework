@@ -24,7 +24,11 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.layout.XFitLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
+
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 
 /**
  * 
@@ -49,5 +53,9 @@ public class GXTFitLayoutAdapter extends GXTLayoutAdapter {
 	return xLayout;
     }
 
+    @Override
+    public HasWidgets createContainer(XLayout xLayout) {
+	return new SimpleContainer();
+    }
       
 }

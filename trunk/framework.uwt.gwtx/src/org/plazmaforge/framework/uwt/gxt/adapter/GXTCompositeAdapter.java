@@ -23,17 +23,15 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
+import org.plazmaforge.framework.uwt.UIAdapter;
+import org.plazmaforge.framework.uwt.UIAdapterFactory;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.gxt.layout.XHorizontalLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
-import org.plazmaforge.framework.uwt.gxt.layout.XVerticalLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.sencha.gxt.widget.core.client.container.HBoxLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
 
 /**
  * 
@@ -47,7 +45,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	Composite composite = (Composite) element;
 	Layout layout = composite.getLayout();
 	
-	XLayoutContainer xComposite = createXLayoutContainer(layout);
+	XLayoutContainer xComposite = createLayoutContainer(layout);
 	
 	//TODO: STUB
 	if (parent == null) {
@@ -58,28 +56,34 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	return xComposite;
     }
     
-    protected XLayoutContainer createXLayoutContainer(Layout layout) {
-	HasWidgets container = getXContainer(layout);
+    protected XLayoutContainer createLayoutContainer(Layout layout) {
+	HasWidgets container = createContainer(layout);
 	return new XLayoutContainer(container) ;
     }
     
-    protected HasWidgets getXContainer(Layout layout) {
+    protected HasWidgets createContainer(Layout layout) {
 	XLayout xLayout = getXLayout(layout);
-	HasWidgets container = getXContainer(xLayout);
-	return container;
-    }
-    
-    protected HasWidgets getXContainer(XLayout xLayout) {
 	if (xLayout == null) {
 	    return null;
 	}
-	// TODO: Move to layout adapters
-	if (xLayout instanceof XHorizontalLayout) {
-	    return new HBoxLayoutContainer();
-	} else if (xLayout instanceof XVerticalLayout) {
-	    return new VBoxLayoutContainer();
+	
+	// Get UIAdapter for Layout
+	UIAdapter adapter = UIAdapterFactory.getAdapter(layout.getClass());
+	if (adapter == null) {
+	    return null;
 	}
-	return null;
+	
+	if (!(adapter instanceof GXTLayoutAdapter)) {
+	    //TODO: warning
+	    return null;
+	}
+		
+	// Create container by GXTLayoutAdapter
+	HasWidgets container = ((GXTLayoutAdapter) adapter).createContainer(xLayout);
+	
+	
+	//HasWidgets container = getXContainer(xLayout);
+	return container;
     }
     
     protected XLayout getXLayout(Layout layout) {
@@ -92,15 +96,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 
     //DISABLE:MIGRATION
   
-//    /**
-//     * Create default layout of composite
-//     * @return
-//     */
-//    protected com.sencha.gxt.widget.core.client.Layout createDefaultCompositeLayout() {
-//	// By default set RowLayout with horizontal orientation
-//	return new com.sencha.gxt.widget.core.client.layout.RowLayout(Orientation.HORIZONTAL);
-//    }
-//    
+
 //    
 //    @Override
 //    public void setProperty(UIObject element, String name, Object value) {
