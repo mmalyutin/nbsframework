@@ -22,19 +22,20 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XHorizontalLayout;
+import org.plazmaforge.framework.uwt.layout.BoxLayout;
 
 /**
  * 
  * @author ohapon
  *
  */
-public abstract class GXTLayoutAdapter extends AbstractUIAdapter {
+public class GXTHorizontalLayoutAdapter extends GXTBoxLayoutAdapter {
 
-    @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
-	
+    protected XBoxLayout createLayout(BoxLayout layout) {
+	return new XHorizontalLayout();
     }
     
+
 }

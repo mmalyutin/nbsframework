@@ -22,6 +22,11 @@
 
 package org.plazmaforge.framework.uwt.gxt.layout;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class XLayoutData {
 
     

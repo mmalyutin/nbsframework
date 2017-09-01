@@ -25,9 +25,13 @@ package org.plazmaforge.framework.uwt.gxt.layout;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
-import com.sencha.gxt.ui.client.util.Size;
+import com.sencha.gxt.core.client.util.Size;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class XCellData {
 
     private int column;

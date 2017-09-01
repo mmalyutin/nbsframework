@@ -20,14 +20,34 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.gxt.layout;
+package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import com.sencha.gxt.ui.client.Style.Orientation;
+import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.layout.XFitLayout;
+import org.plazmaforge.framework.uwt.layout.FitLayout;
 
-public class XVerticalLayout extends XBoxLayout {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class GXTFitLayoutAdapter extends GXTLayoutAdapter {
 
-    public XVerticalLayout() {
-	super(Orientation.VERTICAL);
+    
+    public Object createDelegate(UIObject parent, UIObject element) {
+	
+	FitLayout layout = (FitLayout) element;
+	
+	XFitLayout xLayout = new XFitLayout();
+	
+	// Margin
+	//xLayout.setMarginLeft(layout.getMarginLeft());
+	//xLayout.setMarginTop(layout.getMarginTop());
+	//xLayout.setMarginRight(layout.getMarginRight());
+	//xLayout.setMarginBottom(layout.getMarginBottom());
+	
+	return xLayout;
     }
 
+      
 }

@@ -24,17 +24,26 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.layout.XHorizontalLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
-//import com.sencha.gxt.ui.client.Style.Orientation;
-import com.sencha.gxt.widget.core.client.container.Container;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTCompositeAdapter extends GXTControlAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
-	XLayoutContainer xComposite = new XLayoutContainer();
+	
+	Composite composite = (Composite) element;
+	Layout layout = composite.getLayout();
+	
+	XLayoutContainer xComposite = createXLayoutContainer(layout);
+	
 	//FlowLayoutContainer xComposite = new FlowLayoutContainer();
 	//xComposite.setLayout(createDefaultCompositeLayout());
 	
@@ -45,6 +54,32 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	
 	addToParent(getContent(parent.getDelegate()), xComposite, element);
 	return xComposite;
+    }
+    
+    protected XLayoutContainer createXLayoutContainer(Layout layout) {
+	XLayout xLayout = getXLayout(layout);
+	String layoutType = getXLayoutType(xLayout);
+	return layoutType == null ? new XLayoutContainer() : new XLayoutContainer(layoutType) ;
+    }
+    
+    protected String getXLayoutType(XLayout xLayout) {
+	if (xLayout == null) {
+	    return null;
+	}
+	if (xLayout instanceof XHorizontalLayout) {
+	    return "horizontal";
+	} else if (xLayout instanceof XHorizontalLayout) {
+	    return "vertical";
+	}
+	return null;
+    }
+    
+    protected XLayout getXLayout(Layout layout) {
+	if (layout == null) {
+	    return null;
+	}
+	layout.activateUI();
+	return (XLayout) layout.getDelegate();
     }
 
     //DISABLE:MIGRATION

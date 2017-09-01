@@ -20,32 +20,31 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.gxt.adapter;
+package org.plazmaforge.framework.uwt.gxt.layout;
 
-import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
-import org.plazmaforge.framework.uwt.layout.FitLayout;
+import com.google.gwt.user.client.ui.Widget;
 
-public class GXTFitLayoutAdapter extends GXTLayoutAdapter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public abstract class XLayout  {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
-	
-	FitLayout layout = (FitLayout) element;
-	
-	com.sencha.gxt.widget.core.client.layout.FitLayout xLayout = newcom.sencha.gxt.widget.core.client.layout.FitLayout();
-	
-	// Margin
-	//xLayout.setMarginLeft(layout.getMarginLeft());
-	//xLayout.setMarginTop(layout.getMarginTop());
-	//xLayout.setMarginRight(layout.getMarginRight());
-	//xLayout.setMarginBottom(layout.getMarginBottom());
-	
-	return xLayout;
+    protected XLayoutData getXLayoutData(Widget widget) {
+	if (widget == null) {
+	    return null;
+	}
+	Object layoutData = widget.getLayoutData();
+	if (layoutData == null) {
+	    return null;
+	}
+	if (!(layoutData instanceof XLayoutData)) {
+	    return null;
+	}
+	return (XLayoutData) layoutData;
     }
 
-    protected XGridLayout getXGridLayout(Object delegate) {
-	return (XGridLayout) delegate;
-    }
-    
+
 }

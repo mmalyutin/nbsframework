@@ -22,13 +22,32 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
+import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
 
-public class GXTVerticalLayoutAdapter extends GXTBoxLayoutAdapter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class GXTBoxLayoutAdapter extends GXTLayoutAdapter {
 
-    protected XBoxLayout createLayout(BoxLayout layout) {
-	return new XBoxLayout(com.sencha.gxt.ui.client.Style.Orientation.VERTICAL);
+    
+    public Object createDelegate(UIObject parent, UIObject element) {
+	BoxLayout layout = (BoxLayout) element;  
+	XBoxLayout xLayout = createLayout(layout);
+	return xLayout;
     }
+    
+    protected XBoxLayout createLayout(BoxLayout layout) {
+	return new XBoxLayout(layout.getOrientation().equals(Orientation.HORIZONTAL) ? com.sencha.gxt.core.client.Style.Orientation.HORIZONTAL : com.sencha.gxt.core.client.Style.Orientation.VERTICAL);
+    }
+
+    protected XBoxLayout getXBoxLayout(Object delegate) {
+	return (XBoxLayout) delegate;
+    }
+    
     
 }

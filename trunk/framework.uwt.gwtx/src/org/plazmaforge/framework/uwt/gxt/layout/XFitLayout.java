@@ -19,17 +19,13 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
+package org.plazmaforge.framework.uwt.gxt.layout;
 
-package org.plazmaforge.framework.uwt.gxt.adapter;
-
-import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
-import org.plazmaforge.framework.uwt.layout.BoxLayout;
-
-public class GXTHorizontalLayoutAdapter extends GXTBoxLayoutAdapter {
-
-    protected XBoxLayout createLayout(BoxLayout layout) {
-	return new XBoxLayout(com.sencha.gxt.ui.client.Style.Orientation.HORIZONTAL);
-    }
-    
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class XFitLayout extends XLayout {
 
 }
