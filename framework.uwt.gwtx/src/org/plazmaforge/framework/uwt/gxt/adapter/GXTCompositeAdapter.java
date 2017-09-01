@@ -26,9 +26,14 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.layout.XHorizontalLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XVerticalLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
+
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.sencha.gxt.widget.core.client.container.HBoxLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
 
 /**
  * 
@@ -44,9 +49,6 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	
 	XLayoutContainer xComposite = createXLayoutContainer(layout);
 	
-	//FlowLayoutContainer xComposite = new FlowLayoutContainer();
-	//xComposite.setLayout(createDefaultCompositeLayout());
-	
 	//TODO: STUB
 	if (parent == null) {
 	    return xComposite;
@@ -57,19 +59,25 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
     }
     
     protected XLayoutContainer createXLayoutContainer(Layout layout) {
-	XLayout xLayout = getXLayout(layout);
-	String layoutType = getXLayoutType(xLayout);
-	return layoutType == null ? new XLayoutContainer() : new XLayoutContainer(layoutType) ;
+	HasWidgets container = getXContainer(layout);
+	return new XLayoutContainer(container) ;
     }
     
-    protected String getXLayoutType(XLayout xLayout) {
+    protected HasWidgets getXContainer(Layout layout) {
+	XLayout xLayout = getXLayout(layout);
+	HasWidgets container = getXContainer(xLayout);
+	return container;
+    }
+    
+    protected HasWidgets getXContainer(XLayout xLayout) {
 	if (xLayout == null) {
 	    return null;
 	}
+	// TODO: Move to layout adapters
 	if (xLayout instanceof XHorizontalLayout) {
-	    return "horizontal";
-	} else if (xLayout instanceof XHorizontalLayout) {
-	    return "vertical";
+	    return new HBoxLayoutContainer();
+	} else if (xLayout instanceof XVerticalLayout) {
+	    return new VBoxLayoutContainer();
 	}
 	return null;
     }
