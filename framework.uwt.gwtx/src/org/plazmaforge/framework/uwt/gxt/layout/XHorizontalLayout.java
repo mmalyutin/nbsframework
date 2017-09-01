@@ -20,21 +20,20 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.gxt.adapter;
+package org.plazmaforge.framework.uwt.gxt.layout;
 
-import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import com.sencha.gxt.core.client.Style.Orientation;
 
 /**
  * 
  * @author ohapon
  *
  */
-public abstract class GXTLayoutAdapter extends AbstractUIAdapter {
+public class XHorizontalLayout extends XBoxLayout {
 
-    @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
-	
+    public XHorizontalLayout() {
+	super(Orientation.HORIZONTAL);
     }
+
     
 }

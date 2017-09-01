@@ -22,13 +22,17 @@
 
 package org.plazmaforge.framework.uwt.gxt.layout;
 
-import com.sencha.gxt.ui.client.Style.Orientation;
+import com.sencha.gxt.core.client.Style.Orientation;
 
-public class XHorizontalLayout extends XBoxLayout {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class XVerticalLayout extends XBoxLayout {
 
-    public XHorizontalLayout() {
-	super(Orientation.HORIZONTAL);
+    public XVerticalLayout() {
+	super(Orientation.VERTICAL);
     }
 
-    
 }

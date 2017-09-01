@@ -20,20 +20,21 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.gxt.layout;
+package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import com.sencha.gxt.ui.client.Style.Orientation;
-import com.sencha.gxt.widget.core.client.layout.RowLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XVerticalLayout;
+import org.plazmaforge.framework.uwt.layout.BoxLayout;
 
-public class XBoxLayout extends RowLayout {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class GXTVerticalLayoutAdapter extends GXTBoxLayoutAdapter {
 
-    public XBoxLayout() {
-	super(Orientation.HORIZONTAL);
+    protected XBoxLayout createLayout(BoxLayout layout) {
+	return new XVerticalLayout();
     }
-
-    public XBoxLayout(Orientation orientation) {
-	super(orientation);
-    }
-
     
 }

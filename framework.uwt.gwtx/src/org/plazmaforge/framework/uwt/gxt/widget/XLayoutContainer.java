@@ -82,6 +82,12 @@ public class XLayoutContainer extends SimpleContainer  {
 	container = createContainer();
 	setWidget((Widget) container);
     }
+    
+    public void setLayout(String layoutType) {
+	this.layoutType = layoutType;
+	rebuildContainer();
+	doLayout();
+    }
 
     @Override
     public void add(Widget child) {

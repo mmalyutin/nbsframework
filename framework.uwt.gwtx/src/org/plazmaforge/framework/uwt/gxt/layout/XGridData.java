@@ -24,7 +24,11 @@
 package org.plazmaforge.framework.uwt.gxt.layout;
 
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class XGridData extends XLayoutData {
 
     /**
