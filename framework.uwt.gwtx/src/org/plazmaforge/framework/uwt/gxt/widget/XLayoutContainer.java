@@ -62,6 +62,10 @@ public class XLayoutContainer extends SimpleContainer  {
 	setWidget((Widget) container);
     }
     
+    public void relayout() {
+	doLayout();
+    }
+    
     @Override
     public void add(Widget child) {
 	container.add(child);
@@ -91,6 +95,10 @@ public class XLayoutContainer extends SimpleContainer  {
         doLayout();
     }
   
+    public HasWidgets getContainer() {
+        return container;
+    }
+
     protected List<Widget> getContainerChildren() {
         Iterator<Widget> widgets = container.iterator();
         List<Widget> children = new ArrayList<Widget>();

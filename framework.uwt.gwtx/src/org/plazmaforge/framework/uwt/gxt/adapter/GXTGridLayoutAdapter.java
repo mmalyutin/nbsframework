@@ -23,9 +23,20 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasWidgets;
+
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 
     
@@ -51,7 +62,28 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
     protected XGridLayout getXGridLayout(Object delegate) {
 	return (XGridLayout) delegate;
     }
+
+    @Override
+    public HasWidgets createContainer(XLayout xLayout) {
+	XGridLayout xGridLayout = (XGridLayout) xLayout;
+	FlexTable table  = new  FlexTable();
+	return table;
+    }
     
+    @Override
+    public void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+	HasWidgets container = parent.getContainer();
+	if (!(container instanceof FlexTable)) {
+	    throw new UWTException("Container is not GWT-FlexTable");
+	}
+	FlexTable table  = (FlexTable) container;
+	
+	//TODO: Simple implementation GridLayout: column = 1, rows = children 
+	int rowCount = table.getRowCount();
+	table.setWidget(rowCount, 0, widget);
+	
+	//parent.relayout();
+    }
    
     
 
