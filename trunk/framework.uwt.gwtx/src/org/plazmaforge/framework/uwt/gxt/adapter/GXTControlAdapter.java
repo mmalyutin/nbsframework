@@ -22,28 +22,21 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
+import org.plazmaforge.framework.uwt.UIAdapter;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Style.Orientation;
+import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
-import org.plazmaforge.framework.uwt.gxt.widget.IXField;
+import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Control;
-import org.plazmaforge.framework.uwt.widget.IField;
+import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Listener;
-import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
-import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
 import com.google.gwt.core.client.GWT;
-import com.sencha.gxt.data.shared.LabelProvider;
-import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.data.shared.ModelKeyProvider;
-import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData;
-
-
+import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * 
@@ -53,70 +46,143 @@ import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderL
 public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 
 
-    
-
+    /**
+     * Add widget to parent
+     * @param parent
+     * @param widget
+     * @param element
+     */
     protected void addToParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
-	
-	
-	
-	if (parent instanceof com.sencha.gxt.widget.core.client.container.Container) {
-	    
-	   com.sencha.gxt.widget.core.client.container.Container layoutContainer = (com.sencha.gxt.widget.core.client.container.Container) parent; 
-	    if (element != null) {
-		UIObject p = element.getUIParent();
-		if (p instanceof SplitPanel) {
-		    SplitPanel splitPanel = (SplitPanel) p;
-		    int count = splitPanel.getChildrenCount();
-		    Orientation orientation = splitPanel.getOrientation();
-		    if (orientation == null) {
-			orientation = Orientation.HORIZONTAL;
-		    }
-		    
-		    //DISABLE:MIGRATION
-		    /*
-		    if (count == 1) {
-			// First element
-			BorderLayoutData ld = new BorderLayoutData(orientation.equals(Orientation.HORIZONTAL) ? LayoutRegion.WEST : LayoutRegion.NORTH);
-			ld.setSplit(true);
-			//ld.setSize(200); // TODO
-			widget.setLayoutData(ld);
-			layoutContainer.add(widget, ld);
-			return;
-		    } else if (count == 2) {
-			// Second element
-			BorderLayoutData ld = new BorderLayoutData(LayoutRegion.CENTER);
-			//ld.setSplit(true);
-			//ld.setSize(200); // TODO
-			widget.setLayoutData(ld);
-			layoutContainer.add(widget, ld);
-			return;
-		    }
-		    */
-		}
-	    }
-	    layoutContainer.add(widget);
-	} else if (parent instanceof com.google.gwt.user.client.ui.Panel) {
-	    ((com.google.gwt.user.client.ui.Panel) parent).add(widget);
-	} else {
-	    // TODO: Must implement other parent type
-	    throw new RuntimeException("Can not add widget to parent. Parent is not container");
+	if (!(parent instanceof HasWidgets)) {
+	    throw new UWTException("Can not add widget to parent. Parent is not container: " + parent.getClass().getName());
 	}
 	
+	//GXT-Container
+	if (parent instanceof com.sencha.gxt.widget.core.client.container.Container) {
+	    addChild((com.sencha.gxt.widget.core.client.container.Container) parent, widget, element);
+	    return;
+	}
 	
+	//GWT-Panel
+	if (parent instanceof com.google.gwt.user.client.ui.Panel) {
+	    addChild((com.google.gwt.user.client.ui.Panel) parent, widget, element);
+	    return;
+	}
+
+	throw new UWTException("Can not add widget to parent. Parent is not supported: " + parent.getClass().getName());
     }
     
+    //GXT-Container
+    protected void addChild(com.sencha.gxt.widget.core.client.container.Container parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+	if (parent instanceof XLayoutContainer) {
+	    addChild((XLayoutContainer) parent, widget, element);
+	    return;
+	}
+	parent.add(widget);
+    }
+    
+    //GXT-Container: XLayoutContainer
+    protected void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+	UIObject p = element.getUIParent();
+	Layout layout = null;
+	
+	// Get layout
+	if (p != null && p instanceof Composite) {
+	    layout = ((Composite) p).getLayout();
+	}
+	
+	// No layout - default add
+	if (layout == null) {
+	    parent.add(widget);
+	    return;
+	}
+	
+	// Get UIAdapter for Layout
+	UIAdapter adapter = getAdapter(layout.getClass());
+	if (adapter == null) {
+	    //no way
+	    parent.add(widget);
+	    return;	    
+	}
+	
+	// Check adapter class
+	if (!(adapter instanceof GXTLayoutAdapter)) {
+	    //TODO: warning
+	    parent.add(widget);
+	    return;
+	}
+	
+	// Specific add - dependency layout
+	((GXTLayoutAdapter) adapter).addChild(parent, widget, element);
+    }    
+    
+    //GWT-Panel
+    protected void addChild(com.google.gwt.user.client.ui.Panel parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+	 parent.add(widget);
+    }    
+    
+    /**
+     * Remove widget form parent
+     * @param parent
+     * @param widget
+     */
     protected void removeFromParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget) {
+	if (!(parent instanceof HasWidgets)) {
+	    throw new UWTException("Can not remove widget to parent. Parent is not container: " + parent.getClass().getName());
+	}
+	
+	//GXT-Container
 	if (parent instanceof com.sencha.gxt.widget.core.client.container.Container) {
 	    ((com.sencha.gxt.widget.core.client.container.Container) parent).remove(widget);
-	} else if (parent instanceof com.google.gwt.user.client.ui.Panel) {
-	    ((com.google.gwt.user.client.ui.Panel) parent).remove(widget);
-	} else {    
-	    // TODO: Must implement other parent type
-	    throw new RuntimeException("Can not remove widget from parent. Parent is not container");
+	    return;
 	}
+	
+	//GWT-Panel
+	if (parent instanceof com.google.gwt.user.client.ui.Panel) {
+	    ((com.google.gwt.user.client.ui.Panel) parent).remove(widget);
+	    return;
+	} 
+	
+	throw new UWTException("Can not remove widget from parent. Parent is not supported: " + parent.getClass().getName());
     }
     
-    
+
+//   com.sencha.gxt.widget.core.client.container.Container layoutContainer = (com.sencha.gxt.widget.core.client.container.Container) parent; 
+//	    if (element != null) {
+//		UIObject p = element.getUIParent();
+//		if (p instanceof SplitPanel) {
+//		    SplitPanel splitPanel = (SplitPanel) p;
+//		    int count = splitPanel.getChildrenCount();
+//		    Orientation orientation = splitPanel.getOrientation();
+//		    if (orientation == null) {
+//			orientation = Orientation.HORIZONTAL;
+//		    }
+//		    
+//		    //DISABLE:MIGRATION
+//		    /*
+//		    if (count == 1) {
+//			// First element
+//			BorderLayoutData ld = new BorderLayoutData(orientation.equals(Orientation.HORIZONTAL) ? LayoutRegion.WEST : LayoutRegion.NORTH);
+//			ld.setSplit(true);
+//			//ld.setSize(200); // TODO
+//			widget.setLayoutData(ld);
+//			layoutContainer.add(widget, ld);
+//			return;
+//		    } else if (count == 2) {
+//			// Second element
+//			BorderLayoutData ld = new BorderLayoutData(LayoutRegion.CENTER);
+//			//ld.setSplit(true);
+//			//ld.setSize(200); // TODO
+//			widget.setLayoutData(ld);
+//			layoutContainer.add(widget, ld);
+//			return;
+//		    }
+//		    */
+//		}
+//	    }
+//	    layoutContainer.add(widget);
+     
+     
     @Override
     public void disposeDelegate(UIObject parent, UIObject element) {
 	com.google.gwt.user.client.ui.Widget  parentDelegate = (com.google.gwt.user.client.ui.Widget) getContent(parent.getDelegate());
