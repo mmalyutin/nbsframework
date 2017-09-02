@@ -36,7 +36,8 @@ public class GXTMenuBarAdapter extends GXTWidgetAdapter {
 	com.sencha.gxt.widget.core.client.container.Container xParent = (com.sencha.gxt.widget.core.client.container.Container) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.menu.MenuBar xMenuBar = new com.sencha.gxt.widget.core.client.menu.MenuBar();
 	xMenuBar.setHeight(25); // Fix height because we have big height if menubar has menus width submenu 
-	xParent.add(xMenuBar);
+	
+	addToParent(getContent(parent.getDelegate()), xMenuBar, element);
 	return xMenuBar;
     }
     
