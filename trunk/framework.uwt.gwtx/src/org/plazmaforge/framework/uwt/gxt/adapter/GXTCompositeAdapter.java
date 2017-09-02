@@ -24,7 +24,6 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
 import org.plazmaforge.framework.uwt.UIAdapter;
-import org.plazmaforge.framework.uwt.UIAdapterFactory;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
@@ -68,7 +67,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	}
 	
 	// Get UIAdapter for Layout
-	UIAdapter adapter = UIAdapterFactory.getAdapter(layout.getClass());
+	UIAdapter adapter = getAdapter(layout.getClass());
 	if (adapter == null) {
 	    return null;
 	}

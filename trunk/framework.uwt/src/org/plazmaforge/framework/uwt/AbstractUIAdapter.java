@@ -64,6 +64,10 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     
 
     // Utilities
+    
+    protected UIAdapter getAdapter(Class<?> uiObjectClass) {
+	return UIAdapterFactory.getAdapter(uiObjectClass);
+    }
 
     /**
      * Tests if this string starts with the specified prefix.
