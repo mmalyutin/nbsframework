@@ -50,7 +50,7 @@ import com.sencha.gxt.widget.core.client.event.GridEvent;
 
 public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 
-
+    @Override
     public void disposeDelegate(UIObject parent, UIObject element) {
 	
     }

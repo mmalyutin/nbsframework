@@ -39,6 +39,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
  */
 public class GXTCompositeAdapter extends GXTControlAdapter {
 
+    @Override
     public Object createDelegate(UIObject parent, UIObject element) {
 	
 	Composite composite = (Composite) element;
@@ -72,6 +73,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	    return null;
 	}
 	
+	// Check adapter class
 	if (!(adapter instanceof GXTLayoutAdapter)) {
 	    //TODO: warning
 	    return null;
