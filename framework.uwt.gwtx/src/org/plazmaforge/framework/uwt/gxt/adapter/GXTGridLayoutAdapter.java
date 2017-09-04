@@ -22,6 +22,9 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
@@ -29,8 +32,12 @@ import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * 
@@ -70,6 +77,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	return table;
     }
     
+    private boolean first = true;
+    
     @Override
     public void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
 	HasWidgets container = parent.getContainer();
@@ -78,13 +87,210 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	}
 	FlexTable table  = (FlexTable) container;
 	
-	//TODO: Simple implementation GridLayout: column = 1, rows = children 
-	int rowCount = table.getRowCount();
-	table.setWidget(rowCount, 0, widget);
+	//TODO: Simple implementation GridLayout: column = 1, rows = children
+	
+	int columnCount = 2;
+//	int rowCount = table.getRowCount();
+	
+//	if (first) {
+//	    first = false;
+//	    buildTestWidgets(table);
+//	    addChild(table, columnCount, widget);
+//	}
+	
+	addChild(table, columnCount, widget);
+	
+	//rowCount = table.getRowCount();
+	//table.setWidget(rowCount, 0, widget);
 	
 	//parent.relayout();
     }
    
-    
+    private void buildTestWidgets(FlexTable table) {
+	GWT.log("OUT: Start build test widgets...");
+	
+	//FlexCellFormatter cellFormatter = table.getFlexCellFormatter();
+	
+	
+	table.setWidget(0, 0, new Label("Horizontal: blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah"));
+	table.getFlexCellFormatter().setColSpan(0, 0, 2);
+	//table.getCellFormatter().set
+	
+	table.setWidget(0, 2, new Label("<div style='background-color: red'> Vertical: blah, </br> blah, blah, </br> blah, blah</div>"));
+	table.getFlexCellFormatter().setRowSpan(0, 2, 3);
+	
+	table.setWidget(1, 0, new Label("GWT-1.1"));
+	table.setWidget(1, 1, new Label("GWT-1.2"));
+	
+	table.setWidget(2, 0, new Label("GWT-2.1"));
+	table.setWidget(2, 1, new Label("GWT-2.2"));
+	
+	
+	int rowCount = table.getRowCount();
+	int cellCount = 0;
+	int colSpan = 0;
+	int rowSpan = 0;
+	Widget widget = null;
+	for (int row = 0; row < rowCount; row++) {
+	    cellCount = table.getCellCount(row);
+	    for (int column = 0; column < 3; column++) {
+		if (cellCount <= column) {
+		    widget = null;
+		    colSpan = 0;
+		    rowSpan = 0;
+		} else {
+		    widget = table.getWidget(row, column);
+		    colSpan = table.getFlexCellFormatter().getColSpan(row, column);
+		    rowSpan = table.getFlexCellFormatter().getRowSpan(row, column);
+		}
+		GWT.log("OUT: [" + row + ", " + column + "]: " + (widget == null ? "" : ("[" + colSpan + ", " + rowSpan + "]")));
+	    }
+	    // GWT.log("OUT: row=" + row + ", cellCount=" + cellCount);
 
+	}
+	
+    }
+    
+    private void addChild(FlexTable table, int lauoutColumnCount, Widget widget) {
+	
+
+	int rowCount = table.getRowCount();
+	if (rowCount == 0) {
+	    //TODO: colSpan, rowSpan
+	    table.setWidget(rowCount, 0, widget);
+	    return;
+	}
+	
+	// Real column count in the table
+	int columnCount = 0;
+	
+	// Cell count of a row 
+	// It is small/virtual cell without colSpan and rowSpan than starts from the row
+	int cellCount = 0;
+	
+	// Create array of column count of row 
+	// Only for small/virtual cells without colSpan and rowSpan than start from the row
+	int[] rowColumns = new int[rowCount];
+	
+	int colSpan = 0;
+	int rowSpan = 0;
+	//Widget widget = null;
+	//Cell cell = null;
+	List<Cell> cells = new ArrayList<Cell>();
+	
+	// Analyze table structure: find real cells (with colSpan and rowSpan)
+	for (int row = 0; row < rowCount; row++) {
+	    cellCount = table.getCellCount(row);
+	    rowColumns[row] = cellCount;
+	    
+	    // Calculate columnCount - max of cellCount
+	    if (cellCount > columnCount) {
+		columnCount = cellCount;
+	    }
+	    
+	    for (int column = 0; column < cellCount; column++) {
+
+		if (table.getWidget(row, column) == null) {
+		    continue;
+		}
+		colSpan = table.getFlexCellFormatter().getColSpan(row, column);
+		rowSpan = table.getFlexCellFormatter().getRowSpan(row, column);
+		
+		// Create new cell of widget
+		Cell cell = new Cell();
+		cell.column = column;		
+		cell.row = row;
+		cell.colSpan = colSpan;
+		cell.rowSpan = rowSpan;	
+		
+		cells.add(cell);
+		GWT.log("OUT: " + cell);
+	    }
+	}
+	
+
+	GWT.log("OUT: TableInfo [rowCount=" + rowCount + ", columnCount=" + columnCount + "]");
+	
+	// Fill cell matrix
+	boolean[][] matrix = new boolean[rowCount][columnCount];
+	
+	// Populate cell matrix
+	for (Cell cell: cells) {
+	    int startRow = cell.row;
+	    int endRow = cell.row + cell.rowSpan; // exclude
+	    int startColumn = cell.column;
+	    int endColumn = cell.column + cell.colSpan; // exclude	 
+	    
+	    for (int row = startRow; row < endRow; row++) {
+		for (int column = startColumn; column < endColumn; column++) {
+		    
+		    // Mark cell is not free
+		    matrix[row][column] = true;
+		}
+	    }
+	}
+	GWT.log("OUT: Matrix=" + matrix);
+	
+	// Find free cell
+	boolean growColumn = false;
+	boolean growRow = false;
+	
+	int freeRow = -1;
+	int freeColumn = -1;
+	Cell freeCell = null;
+	
+	for (int row = 0; row < rowCount; row++) {
+	    for (int column = 0; column < columnCount; column++) {
+		if (!matrix[row][column]) {
+		    freeCell = new Cell();
+		    freeCell.row = row;
+		    freeCell.column = column;
+		    
+		    // Cell found - break
+		    break;
+		}
+	    }
+	    
+	    // Cell found - break
+	    if (freeCell != null) {
+		break;
+	    }
+	    
+	    if (columnCount < lauoutColumnCount) {
+		growColumn = true;
+		
+		freeCell = new Cell();
+		freeCell.row = row;
+		freeCell.column = columnCount; // new column
+		
+		// Column is growing - break
+		break;
+	    }
+	    
+	}
+	if (freeCell == null) {
+	    growRow = true;
+
+	    freeCell = new Cell();
+	    freeCell.row = rowCount; // new row
+	    freeCell.column = 0;
+	    
+	}
+	GWT.log("OUT: FreeCell: " + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
+	
+	//table.setWidget(freeCell.row, freeCell.column, new Label("NEW Widget"));
+	table.setWidget(freeCell.row, freeCell.column, widget);
+	
+    }
+
+    public static class Cell {
+	int column;
+	int row;
+	int colSpan = 1;
+	int rowSpan = 1;
+	
+	public String toString() {
+	    return "Cell[column=" + column + ", row=" + row + ", colSpan=" + colSpan + ", rowSpan=" + rowSpan + "]";
+	}
+    }
 }
