@@ -34,7 +34,6 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -88,9 +87,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	FlexTable table  = (FlexTable) container;
 	
 	//TODO: Simple implementation GridLayout: column = 1, rows = children
-	
 	int columnCount = 2;
-//	int rowCount = table.getRowCount();
 	
 //	if (first) {
 //	    first = false;
@@ -99,10 +96,6 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 //	}
 	
 	addChild(table, columnCount, widget);
-	
-	//rowCount = table.getRowCount();
-	//table.setWidget(rowCount, 0, widget);
-	
 	//parent.relayout();
     }
    
@@ -110,12 +103,10 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	GWT.log("OUT: Start build test widgets...");
 	
 	//FlexCellFormatter cellFormatter = table.getFlexCellFormatter();
-	
-	
+
 	table.setWidget(0, 0, new Label("Horizontal: blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah"));
 	table.getFlexCellFormatter().setColSpan(0, 0, 2);
-	//table.getCellFormatter().set
-	
+
 	table.setWidget(0, 2, new Label("<div style='background-color: red'> Vertical: blah, </br> blah, blah, </br> blah, blah</div>"));
 	table.getFlexCellFormatter().setRowSpan(0, 2, 3);
 	
@@ -156,7 +147,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 
 	int rowCount = table.getRowCount();
 	if (rowCount == 0) {
-	    //TODO: colSpan, rowSpan
+	    //TODO: colSpan, rowSpan, alignment...
 	    table.setWidget(rowCount, 0, widget);
 	    return;
 	}
@@ -174,8 +165,6 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
 	int colSpan = 0;
 	int rowSpan = 0;
-	//Widget widget = null;
-	//Cell cell = null;
 	List<Cell> cells = new ArrayList<Cell>();
 	
 	// Analyze table structure: find real cells (with colSpan and rowSpan)
@@ -278,7 +267,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	}
 	GWT.log("OUT: FreeCell: " + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
 	
-	//table.setWidget(freeCell.row, freeCell.column, new Label("NEW Widget"));
+	//TODO: colSpan, rowSpan, alignment...
 	table.setWidget(freeCell.row, freeCell.column, widget);
 	
     }
