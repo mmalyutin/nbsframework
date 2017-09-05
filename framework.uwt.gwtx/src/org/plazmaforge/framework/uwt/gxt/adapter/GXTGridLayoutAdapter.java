@@ -121,8 +121,15 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
     protected void addChild(FlexTable table, int layoutColumnCount, Widget widget) {
 
 	int rowCount = table.getRowCount();
+	Cell freeCell = null;
 	if (rowCount == 0) {
-	    addWidget(table, null, widget);
+	    freeCell = new Cell();
+	    freeCell.row = 0;
+	    freeCell.column = 0;
+	    
+	    // Normalize only for colSpan: collapse
+	    normalizeCellSpan(freeCell, layoutColumnCount);
+	    addWidget(table, freeCell, widget);
 	    return;
 	}
 	
@@ -209,7 +216,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	boolean growColumn = false;
 	boolean growRow = false;
 	
-	Cell freeCell = null;
+	
 	
 	for (int row = 0; row < rowCount; row++) {
 	    for (int column = 0; column < columnCount; column++) {
@@ -250,29 +257,51 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	}
 	GWT.log("OUT: FreeCell: " + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
 	
-	normalizeCellSpan(freeCell, matrix, rowCount, columnCount, layoutColumnCount);
+	if (growRow || growColumn) {
+	    if (growColumn) {
+		// Normalize only for colSpan: collapse
+		normalizeCellSpan(freeCell, layoutColumnCount);
+	    }
+	    addWidget(table, freeCell, widget);
+	    return;
+	}
 	
+	// Normalize: collapse rowSpan and colSpan if need
+	normalizeCellSpan(freeCell, matrix, rowCount, columnCount, layoutColumnCount);
 	addWidget(table, freeCell, widget);
 
     }
 
+    protected void normalizeCellSpan(Cell cell) {
+	if (cell == null) {
+	    return;
+	}
+	if (cell.rowSpan < 1) {
+	    cell.rowSpan = 1; // fixed rowSpan
+	}
+	if (cell.colSpan < 1) {
+	    cell.colSpan = 1; // fixed colSpan
+	}
+    }
+    
+    protected void normalizeCellSpan(Cell cell, int layoutColumnCount) {
+	if (cell == null) {
+	    return;
+	}
+	normalizeCellSpan(cell);
+	if (cell.column + cell.colSpan > layoutColumnCount) {
+	    cell.colSpan = layoutColumnCount - cell.column;
+	}
+    }
 	    
     protected void normalizeCellSpan(Cell cell, boolean[][] matrix, int rowCount, int columnCount, int layoutColumnCount) {
 	if (cell == null) {
 	    return;
 	}
-
+	normalizeCellSpan(cell);
 	int rowSpan = cell.rowSpan;
 	int colSpan = cell.colSpan;
-	if (rowSpan < 1) {
-	    rowSpan = 1; // fixed rowSpan
-	    cell.rowSpan = rowSpan;
-	}
-	if (colSpan < 1) {
-	    colSpan = 1; // fixed colSpan
-	    cell.colSpan = colSpan;
-	}
-
+	
 	if (rowSpan == 1 && colSpan == 1) {
 	    // No span
 	    return;
