@@ -76,8 +76,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	return table;
     }
     
-    private boolean first = true;
-    
+   
     @Override
     public void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
 	HasWidgets container = parent.getContainer();
@@ -86,15 +85,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	}
 	FlexTable table  = (FlexTable) container;
 	
-	//TODO: Simple implementation GridLayout: column = 1, rows = children
+	//TODO: Simple implementation GridLayout: column = 2, rows = children
 	int columnCount = 2;
-	
-//	if (first) {
-//	    first = false;
-//	    buildTestWidgets(table);
-//	    addChild(table, columnCount, widget);
-//	}
-	
 	addChild(table, columnCount, widget);
 	//parent.relayout();
     }
@@ -142,7 +134,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
     }
     
-    private void addChild(FlexTable table, int lauoutColumnCount, Widget widget) {
+    private void addChild(FlexTable table, int layoutColumnCount, Widget widget) {
 	
 
 	int rowCount = table.getRowCount();
@@ -161,7 +153,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
 	// Create array of column count of row 
 	// Only for small/virtual cells without colSpan and rowSpan than start from the row
-	int[] rowColumns = new int[rowCount];
+	//int[] rowColumns = new int[rowCount];
 	
 	int colSpan = 0;
 	int rowSpan = 0;
@@ -170,7 +162,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	// Analyze table structure: find real cells (with colSpan and rowSpan)
 	for (int row = 0; row < rowCount; row++) {
 	    cellCount = table.getCellCount(row);
-	    rowColumns[row] = cellCount;
+	    
+	    //rowColumns[row] = cellCount;
 	    
 	    // Calculate columnCount - max of cellCount
 	    if (cellCount > columnCount) {
@@ -224,8 +217,6 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	boolean growColumn = false;
 	boolean growRow = false;
 	
-	int freeRow = -1;
-	int freeColumn = -1;
 	Cell freeCell = null;
 	
 	for (int row = 0; row < rowCount; row++) {
@@ -245,7 +236,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 		break;
 	    }
 	    
-	    if (columnCount < lauoutColumnCount) {
+	    if (columnCount < layoutColumnCount) {
 		growColumn = true;
 		
 		freeCell = new Cell();
@@ -267,11 +258,121 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	}
 	GWT.log("OUT: FreeCell: " + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
 	
+	normalizeCellSpan(freeCell, matrix, rowCount, columnCount, layoutColumnCount);
+	
 	//TODO: colSpan, rowSpan, alignment...
 	table.setWidget(freeCell.row, freeCell.column, widget);
 	
     }
 
+	    
+    protected void normalizeCellSpan(Cell cell, boolean[][] matrix, int rowCount, int columnCount, int layoutColumnCount) {
+	if (cell == null) {
+	    return;
+	}
+
+	int rowSpan = cell.rowSpan;
+	int colSpan = cell.colSpan;
+	if (rowSpan < 1) {
+	    rowSpan = 1; // fixed rowSpan
+	    cell.rowSpan = rowSpan;
+	}
+	if (colSpan < 1) {
+	    colSpan = 1; // fixed colSpan
+	    cell.colSpan = colSpan;
+	}
+
+	if (rowSpan == 1 && colSpan == 1) {
+	    // No span
+	    return;
+	}
+
+	int startRow = cell.row;
+	int startColumn = cell.column;
+
+	if (!matrix[startRow][startColumn]) {
+	    // Start cell is not free
+	    return;
+	}
+
+	int lastRow = rowCount - 1;
+	int lastColumn = columnCount - 1;
+
+	int endRow = startRow + rowSpan - 1; // include
+	int endColumn = startColumn + colSpan - 1; // include
+
+	int endRow2 = endRow;
+	int endColumn2 = endColumn;
+
+	// Collapse endRow2 if need
+	if (endRow2 > lastRow) {
+	    endRow2 = lastRow;
+	}
+
+	// Collapse endColumn2 if need
+	if (endColumn2 > lastColumn) {
+	    endColumn2 = lastColumn;
+	}
+
+	int stopRow = endRow2; // include
+	int stopColumn = endColumn2; // include
+
+	boolean stop = false;
+	for (int row = startRow; row <= endRow2; row++) {
+	    for (int column = startColumn; column <= endColumn2; column++) {
+
+		// Check free cell
+		// If cell is not free than processing stopColumn and stopRow
+		// We calculate stopColumn only for first row because column
+		// growing is priority!
+		if (!matrix[row][column]) {
+
+		    // Check before column
+		    // If before column is left than:
+		    // - first row: update stopColumn
+		    // - other row: update stopRow and stop processing
+
+		    if (column - 1 < stopColumn) {
+			if (row == startRow) {
+			    stopColumn = column - 1;
+			} else {
+			    stopRow = row - 1;
+			    stop = true;
+			    break;
+			}
+		    }
+
+		}
+	    }
+
+	    if (stop) {
+		break;
+	    }
+	}
+
+	int stopRowSpan = stopRow - startRow + 1;
+	int stopColSpan = stopColumn - startColumn + 1;
+
+	if (stopRowSpan < rowSpan) {
+	    // last row - grow
+	    if (stopRow == rowCount - 1) {
+		stopRowSpan = rowSpan;
+	    }
+	}
+
+	if (stopColSpan < colSpan) {
+	    // last column - grow
+	    if (stopColumn == columnCount - 1) {
+		stopColSpan = colSpan;
+	    }
+	}
+
+	cell.rowSpan = stopRowSpan;
+	cell.colSpan = stopColSpan;
+
+    }
+	    
+	
     public static class Cell {
 	int column;
 	int row;
