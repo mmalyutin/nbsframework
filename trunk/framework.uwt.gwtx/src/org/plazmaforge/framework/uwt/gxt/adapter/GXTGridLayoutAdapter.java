@@ -35,7 +35,6 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -91,56 +90,39 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	//parent.relayout();
     }
    
-    private void buildTestWidgets(FlexTable table) {
-	GWT.log("OUT: Start build test widgets...");
-	
-	//FlexCellFormatter cellFormatter = table.getFlexCellFormatter();
-
-	table.setWidget(0, 0, new Label("Horizontal: blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah"));
-	table.getFlexCellFormatter().setColSpan(0, 0, 2);
-
-	table.setWidget(0, 2, new Label("<div style='background-color: red'> Vertical: blah, </br> blah, blah, </br> blah, blah</div>"));
-	table.getFlexCellFormatter().setRowSpan(0, 2, 3);
-	
-	table.setWidget(1, 0, new Label("GWT-1.1"));
-	table.setWidget(1, 1, new Label("GWT-1.2"));
-	
-	table.setWidget(2, 0, new Label("GWT-2.1"));
-	table.setWidget(2, 1, new Label("GWT-2.2"));
-	
-	
-	int rowCount = table.getRowCount();
-	int cellCount = 0;
-	int colSpan = 0;
-	int rowSpan = 0;
-	Widget widget = null;
-	for (int row = 0; row < rowCount; row++) {
-	    cellCount = table.getCellCount(row);
-	    for (int column = 0; column < 3; column++) {
-		if (cellCount <= column) {
-		    widget = null;
-		    colSpan = 0;
-		    rowSpan = 0;
-		} else {
-		    widget = table.getWidget(row, column);
-		    colSpan = table.getFlexCellFormatter().getColSpan(row, column);
-		    rowSpan = table.getFlexCellFormatter().getRowSpan(row, column);
-		}
-		GWT.log("OUT: [" + row + ", " + column + "]: " + (widget == null ? "" : ("[" + colSpan + ", " + rowSpan + "]")));
-	    }
-	    // GWT.log("OUT: row=" + row + ", cellCount=" + cellCount);
-
+     
+    protected void addWidget(FlexTable table, Cell cell, Widget widget) {
+	if (widget == null) {
+	    return;
+	}
+	int row = 0;
+	int column = 0;
+	int rowSpan = 1;
+	int colSpan = 1;
+	if (cell != null) {
+	    row = cell.row;
+	    column = cell.column;
+	    rowSpan = cell.rowSpan;
+	    colSpan = cell.colSpan;
 	}
 	
+	// add widget to cell (row, column)
+	table.setWidget(row, column, widget);
+	
+	if (colSpan > 1) {
+	    table.getFlexCellFormatter().setColSpan(row, column, colSpan);
+	}
+	if (rowSpan > 1) {
+	    table.getFlexCellFormatter().setRowSpan(row, column, rowSpan);
+	}
+	//TODO: alignment...
     }
     
-    private void addChild(FlexTable table, int layoutColumnCount, Widget widget) {
-	
+    protected void addChild(FlexTable table, int layoutColumnCount, Widget widget) {
 
 	int rowCount = table.getRowCount();
 	if (rowCount == 0) {
-	    //TODO: colSpan, rowSpan, alignment...
-	    table.setWidget(rowCount, 0, widget);
+	    addWidget(table, null, widget);
 	    return;
 	}
 	
@@ -157,6 +139,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
 	int colSpan = 0;
 	int rowSpan = 0;
+	int tryColumnCount = 0;
 	List<Cell> cells = new ArrayList<Cell>();
 	
 	// Analyze table structure: find real cells (with colSpan and rowSpan)
@@ -166,17 +149,26 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	    //rowColumns[row] = cellCount;
 	    
 	    // Calculate columnCount - max of cellCount
-	    if (cellCount > columnCount) {
-		columnCount = cellCount;
-	    }
+	    //if (cellCount > columnCount) {
+		//columnCount = cellCount;
+	    //}
 	    
 	    for (int column = 0; column < cellCount; column++) {
 
 		if (table.getWidget(row, column) == null) {
+		    // No widget - no cell
 		    continue;
 		}
+		
 		colSpan = table.getFlexCellFormatter().getColSpan(row, column);
 		rowSpan = table.getFlexCellFormatter().getRowSpan(row, column);
+		
+		// Try calculate column count by new cell (column + colSpan)
+		tryColumnCount = column + colSpan;
+		if (tryColumnCount > columnCount) {
+		    columnCount = tryColumnCount;
+		}
+		
 		
 		// Create new cell of widget
 		Cell cell = new Cell();
@@ -260,9 +252,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
 	normalizeCellSpan(freeCell, matrix, rowCount, columnCount, layoutColumnCount);
 	
-	//TODO: colSpan, rowSpan, alignment...
-	table.setWidget(freeCell.row, freeCell.column, widget);
-	
+	addWidget(table, freeCell, widget);
+
     }
 
 	    
