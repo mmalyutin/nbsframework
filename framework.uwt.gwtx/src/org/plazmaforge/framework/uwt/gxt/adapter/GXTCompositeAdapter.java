@@ -57,12 +57,12 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
     }
     
     protected XLayoutContainer createLayoutContainer(Layout layout) {
-	HasWidgets container = createContainer(layout);
-	return new XLayoutContainer(container) ;
+	XLayout xLayout = getXLayout(layout);
+	HasWidgets container = createContainer(layout, xLayout);
+	return new XLayoutContainer(container, xLayout);
     }
     
-    protected HasWidgets createContainer(Layout layout) {
-	XLayout xLayout = getXLayout(layout);
+    protected HasWidgets createContainer(Layout layout, XLayout xLayout) {
 	if (xLayout == null) {
 	    return null;
 	}
@@ -82,8 +82,6 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	// Create container by GXTLayoutAdapter
 	HasWidgets container = ((GXTLayoutAdapter) adapter).createContainer(xLayout);
 	
-	
-	//HasWidgets container = getXContainer(xLayout);
 	return container;
     }
     

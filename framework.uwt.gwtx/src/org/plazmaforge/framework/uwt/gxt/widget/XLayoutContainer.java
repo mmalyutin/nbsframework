@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -41,16 +43,22 @@ import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 public class XLayoutContainer extends SimpleContainer  {
     
     private HasWidgets container;
+    
+    private XLayout layout;
+    
       
     public XLayoutContainer() {
-        super();
-        initContainer(null);
-        doLayout();
+        this(null, null);
     }
    
     public XLayoutContainer(HasWidgets container) {
+	this(container, null);
+    }
+    
+    public XLayoutContainer(HasWidgets container, XLayout layout) {
 	super();
 	initContainer(container);
+	this.layout = layout;
 	doLayout();
     }
 
@@ -97,6 +105,14 @@ public class XLayoutContainer extends SimpleContainer  {
   
     public HasWidgets getContainer() {
         return container;
+    }
+
+    public XLayout getLayout() {
+        return layout;
+    }
+
+    public void setLayout(XLayout layout) {
+        this.layout = layout;
     }
 
     protected List<Widget> getContainerChildren() {

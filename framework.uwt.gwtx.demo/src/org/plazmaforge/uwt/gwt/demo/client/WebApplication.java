@@ -26,6 +26,7 @@ import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.UWT_GXT;
+import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.layout.HorizontalLayout;
 import org.plazmaforge.framework.uwt.layout.VerticalLayout;
@@ -199,10 +200,11 @@ public class WebApplication extends Application implements EntryPoint {
     
     private void addTestControls() {
 	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.Composite();
-	uwtContainer.setLayout(new GridLayout());
+	uwtContainer.setLayout(new GridLayout(3));
 	
 	
 	ToolBar toolBar = new ToolBar();
+	toolBar.setLayoutData(new GridData(2, 1));
 	ToolItem toolItem1 = new ToolItem("New", new Image("widget/leaf.gif"));
 	ToolItem toolItem2 = new ToolItem("Open", new Image("widget/folder.gif"));
 	

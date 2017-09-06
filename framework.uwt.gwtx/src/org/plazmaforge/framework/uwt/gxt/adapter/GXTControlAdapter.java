@@ -63,6 +63,10 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    xControl.setEnabled(getBoolean(value));
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
 	    UIObject layoutData = (UIObject) value;
+	    if (layoutData == null) {
+		xControl.setLayoutData(null);
+		return;
+	    }
 	    layoutData.activateUI();
 	    xControl.setLayoutData(layoutData.getDelegate());
 	    return;
