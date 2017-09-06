@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.UWTException;
+import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
@@ -78,54 +79,46 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
    
     @Override
     public void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+
+	// Get container
 	HasWidgets container = parent.getContainer();
 	if (!(container instanceof FlexTable)) {
 	    throw new UWTException("Container is not GWT-FlexTable");
 	}
 	FlexTable table  = (FlexTable) container;
 	
-	//TODO: Simple implementation GridLayout: column = 2, rows = children
-	int columnCount = 2;
-	addChild(table, columnCount, widget);
+	// Get layout
+	XLayout xLayout = parent.getLayout();
+	if (!(xLayout instanceof XGridLayout)) {
+	    throw new UWTException("XLayout is not XGridLayout");
+	}
+	XGridLayout xGridLayout = (XGridLayout) xLayout;
+	
+	addChild(table, xGridLayout, widget);
 	//parent.relayout();
     }
    
-     
-    protected void addWidget(FlexTable table, Cell cell, Widget widget) {
-	if (widget == null) {
-	    return;
-	}
-	int row = 0;
-	int column = 0;
-	int rowSpan = 1;
-	int colSpan = 1;
-	if (cell != null) {
-	    row = cell.row;
-	    column = cell.column;
-	    rowSpan = cell.rowSpan;
-	    colSpan = cell.colSpan;
+ 
+    protected void addChild(FlexTable table, XGridLayout xGridLayout, Widget widget) {
+	
+	// Get layout info
+	int layoutColumnCount = xGridLayout.getColumnCount();
+	
+	// Get layout data info
+	Object xLayoutData = widget.getLayoutData();
+	XGridData xGridData = null;
+	if (xLayoutData != null && xLayoutData instanceof XGridData) {
+	    xGridData = (XGridData) xLayoutData;
 	}
 	
-	// add widget to cell (row, column)
-	table.setWidget(row, column, widget);
-	
-	if (colSpan > 1) {
-	    table.getFlexCellFormatter().setColSpan(row, column, colSpan);
-	}
-	if (rowSpan > 1) {
-	    table.getFlexCellFormatter().setRowSpan(row, column, rowSpan);
-	}
-	//TODO: alignment...
-    }
-    
-    protected void addChild(FlexTable table, int layoutColumnCount, Widget widget) {
-
 	int rowCount = table.getRowCount();
 	Cell freeCell = null;
 	if (rowCount == 0) {
 	    freeCell = new Cell();
 	    freeCell.row = 0;
 	    freeCell.column = 0;
+	    
+	    populateCellSpan(freeCell, xGridData);
 	    
 	    // Normalize only for colSpan: collapse
 	    normalizeCellSpan(freeCell, layoutColumnCount);
@@ -255,6 +248,9 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	    freeCell.column = 0;
 	    
 	}
+	
+	populateCellSpan(freeCell, xGridData);
+	
 	GWT.log("OUT: FreeCell: " + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
 	
 	if (growRow || growColumn) {
@@ -271,6 +267,45 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	addWidget(table, freeCell, widget);
 
     }
+    
+    protected void populateCellSpan(Cell cell, XGridData xLayoutData){
+	if  (xLayoutData == null) {
+	    return;
+	}
+	if (xLayoutData.getVerticalSpan() > 1) {
+	    cell.rowSpan = xLayoutData.getVerticalSpan();
+	}
+	if (xLayoutData.getHorizontalSpan() > 1) {
+	    cell.colSpan = xLayoutData.getHorizontalSpan();
+	}
+    }
+    
+    protected void addWidget(FlexTable table, Cell cell, Widget widget) {
+  	if (widget == null) {
+  	    return;
+  	}
+  	int row = 0;
+  	int column = 0;
+  	int rowSpan = 1;
+  	int colSpan = 1;
+  	if (cell != null) {
+  	    row = cell.row;
+  	    column = cell.column;
+  	    rowSpan = cell.rowSpan;
+  	    colSpan = cell.colSpan;
+  	}
+  	
+  	// add widget to cell (row, column)
+  	table.setWidget(row, column, widget);
+  	
+  	if (colSpan > 1) {
+  	    table.getFlexCellFormatter().setColSpan(row, column, colSpan);
+  	}
+  	if (rowSpan > 1) {
+  	    table.getFlexCellFormatter().setRowSpan(row, column, rowSpan);
+  	}
+  	//TODO: alignment...
+    }    
 
     protected void normalizeCellSpan(Cell cell) {
 	if (cell == null) {

@@ -51,7 +51,7 @@ public class GXTToolBarAdapter extends GXTCompositeAdapter {
 	    return;
 	}
 	
-	if (Composite.PROPERTY_LAYOUT.equals(name) || Composite.PROPERTY_LAYOUT_DATA.equals(name) || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Composite.PROPERTY_LAYOUT.equals(name) /*|| Composite.PROPERTY_LAYOUT_DATA.equals(name)*/ || Composite.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}

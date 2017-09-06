@@ -534,6 +534,9 @@ public class UIObject {
 	return initProperties.put(name, value);
     }
 
+    public void resetInitProperty(String name) {
+	initProperties.remove(name);
+    }
     
     /**
      * Activate the object:

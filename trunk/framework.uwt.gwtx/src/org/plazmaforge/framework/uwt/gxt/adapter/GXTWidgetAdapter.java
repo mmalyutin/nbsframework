@@ -69,6 +69,24 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    throw new UWTException("Can not add widget to parent. Parent is not container: " + parent.getClass().getName());
 	}
 	
+	// Force activate LayoutData
+	if (element instanceof Control) {
+	    Control control = (Control) element;
+	    Object layoutData = control.getLayoutData();
+	    if (layoutData != null && layoutData instanceof UIObject) {
+		UIObject uiLayoutData = (UIObject) layoutData;
+		uiLayoutData.activateUI();
+
+		// Set LayoutData to xControl
+		widget.setLayoutData(uiLayoutData.getDelegate());
+		
+		control.resetInitProperty(Control.PROPERTY_LAYOUT_DATA);
+		
+	    }
+	}
+	
+    
+	
 	//GXT-Container
 	if (parent instanceof com.sencha.gxt.widget.core.client.container.Container) {
 	    addChild((com.sencha.gxt.widget.core.client.container.Container) parent, widget, element);
