@@ -156,7 +156,12 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
 	    UIObject layoutData = (UIObject) value;
 	    
-	    layoutData.activateUI();
+	    Object xLayoutData = null;
+	    if (layoutData != null) {
+		layoutData.activateUI();
+		xLayoutData = layoutData.getDelegate();
+	    }
+	    
 	    java.awt.Container xParent = xControl.getParent();
 	    if (xParent == null) {
 		return;
@@ -168,7 +173,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	    }
 	    if (xLayout instanceof GridBagLayout) {
 		GridBagLayout xGridLayout = (GridBagLayout) xLayout;
-		GridBagConstraints xConstraints = (GridBagConstraints) layoutData.getDelegate();
+		GridBagConstraints xConstraints = (GridBagConstraints) xLayoutData;
 		xGridLayout.setConstraints(xControl, xConstraints);
 		Control control = (Control) element;
 		Composite parent = (Composite) control.getParent();
