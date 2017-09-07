@@ -23,6 +23,8 @@
  
 package org.plazmaforge.framework.uwt.gxt.layout;
 
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
+import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
 
 /**
  * 
@@ -58,9 +60,9 @@ public class XGridData extends XLayoutData {
     private int rowSpan;
 
     
-    private HorizontalAlignment horizontalAlign;
+    private HorizontalAlignmentConstant horizontalAlign;
     
-    private VerticalAlignment verticalAlign;
+    private VerticalAlignmentConstant verticalAlign;
 
     private boolean horizontalFlex;
     
@@ -73,8 +75,8 @@ public class XGridData extends XLayoutData {
 	super();
 	colSpan = 1;
 	rowSpan = 1;
-	horizontalAlign = DEFAULT_HORIZONTAL_ALIGN;
-	verticalAlign = DEFAULT_VERTICAL_ALIGN;
+	horizontalAlign = null ; //DEFAULT_HORIZONTAL_ALIGN;
+	verticalAlign = null; //DEFAULT_VERTICAL_ALIGN;
     }
 
     public int getColSpan() {
@@ -93,19 +95,19 @@ public class XGridData extends XLayoutData {
         this.rowSpan = rowSpan;
     }
 
-    public HorizontalAlignment getHorizontalAlign() {
+    public HorizontalAlignmentConstant getHorizontalAlign() {
         return horizontalAlign;
     }
 
-    public void setHorizontalAlign(HorizontalAlignment horizontalAlign) {
+    public void setHorizontalAlign(HorizontalAlignmentConstant horizontalAlign) {
         this.horizontalAlign = horizontalAlign;
     }
 
-    public VerticalAlignment getVerticalAlign() {
+    public VerticalAlignmentConstant getVerticalAlign() {
         return verticalAlign;
     }
 
-    public void setVerticalAlign(VerticalAlignment verticalAlign) {
+    public void setVerticalAlign(VerticalAlignmentConstant verticalAlign) {
         this.verticalAlign = verticalAlign;
     }
 
