@@ -53,9 +53,9 @@ public class XGridData extends XLayoutData {
 
     
     
-    private int horizontalSpan;
+    private int colSpan;
     
-    private int verticalSpan;
+    private int rowSpan;
 
     
     private HorizontalAlignment horizontalAlign;
@@ -71,26 +71,26 @@ public class XGridData extends XLayoutData {
     
     public XGridData() {
 	super();
-	horizontalSpan = 1;
-	verticalSpan = 1;
+	colSpan = 1;
+	rowSpan = 1;
 	horizontalAlign = DEFAULT_HORIZONTAL_ALIGN;
 	verticalAlign = DEFAULT_VERTICAL_ALIGN;
     }
 
-    public int getHorizontalSpan() {
-        return horizontalSpan;
+    public int getColSpan() {
+        return colSpan;
     }
 
-    public void setHorizontalSpan(int horizontalSpan) {
-        this.horizontalSpan = horizontalSpan;
+    public void setColSpan(int colSpan) {
+        this.colSpan = colSpan;
     }
 
-    public int getVerticalSpan() {
-        return verticalSpan;
+    public int getRowSpan() {
+        return rowSpan;
     }
 
-    public void setVerticalSpan(int verticalSpan) {
-        this.verticalSpan = verticalSpan;
+    public void setRowSpan(int rowSpan) {
+        this.rowSpan = rowSpan;
     }
 
     public HorizontalAlignment getHorizontalAlign() {

@@ -36,8 +36,8 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
    	GridData layoutData = (GridData) element;   
    	XGridData xLayoutData = new XGridData();
    	
-   	xLayoutData.setHorizontalSpan(layoutData.getColumnSpan());
-   	xLayoutData.setVerticalSpan(layoutData.getRowSpan());
+   	xLayoutData.setColSpan(layoutData.getColumnSpan());
+   	xLayoutData.setRowSpan(layoutData.getRowSpan());
    	
    	xLayoutData.setHorizontalFlex(layoutData.isHorizontalFlex());
    	xLayoutData.setVerticalFlex(layoutData.isVerticalFlex());
@@ -73,10 +73,10 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
 	    xLayoutData.setVerticalFlex(layoutData.isVerticalFlex());
 	    return;
 	} else if (eq(GridData.PROPERTY_COLUMN_SPAN, name)) {
-	    xLayoutData.setHorizontalSpan(layoutData.getColumnSpan());
+	    xLayoutData.setColSpan(layoutData.getColumnSpan());
 	    return;
 	} else if (eq(GridData.PROPERTY_ROW_SPAN, name)) {
-	    xLayoutData.setVerticalSpan(layoutData.getRowSpan());
+	    xLayoutData.setRowSpan(layoutData.getRowSpan());
 	    return;
 	}
 	
