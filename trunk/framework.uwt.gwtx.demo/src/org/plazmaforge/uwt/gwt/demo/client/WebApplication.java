@@ -232,7 +232,11 @@ public class WebApplication extends Application implements EntryPoint {
 	uwtContainer.add(menuBar);
 	
 	uwtContainer.add(new  org.plazmaforge.framework.uwt.widget.Label("UWT Migration!"));
-	uwtContainer.add(new Button("My Migration"));
+	
+	Button button = new Button("My Migration");
+	button.setLayoutData(new GridData(HorizontalAlign.FILL));
+	
+	uwtContainer.add(button);
 	
 	ToggleButton toggleButton1 = new ToggleButton("Toogle Button 1");
 	toggleButton1.setGroup("my");

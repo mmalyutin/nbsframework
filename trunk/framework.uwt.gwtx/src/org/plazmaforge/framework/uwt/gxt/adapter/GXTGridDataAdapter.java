@@ -25,6 +25,10 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
+
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.layout.GridData;
 
@@ -87,26 +91,26 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
     protected void populateHorizontalAlign(XGridData xLayoutData, GridData layoutData) {
    	HorizontalAlign hAlign = layoutData.getHorizontalAlign();
    	if (HorizontalAlign.LEFT.equals(hAlign)) { 
-   	    xLayoutData.setHorizontalAlign(XGridData.HorizontalAlignment.LEFT);
+   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_LEFT);
    	} else if (HorizontalAlign.RIGHT.equals(hAlign)) {
-   	    xLayoutData.setHorizontalAlign(XGridData.HorizontalAlignment.RIGHT);
+   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_RIGHT);
    	} else if (HorizontalAlign.CENTER.equals(hAlign)) {
-   	    xLayoutData.setHorizontalAlign(XGridData.HorizontalAlignment.CENTER);
+   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_CENTER);
    	} else if (HorizontalAlign.FILL.equals(hAlign)) {
-   	    xLayoutData.setHorizontalAlign(XGridData.HorizontalAlignment.FILL);
+   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_JUSTIFY);
    	}
     }
     
     protected void populateVerticalAlign(XGridData xLayoutData, GridData layoutData) {
    	VerticalAlign vAlign = layoutData.getVerticalAlign();
    	if (VerticalAlign.TOP.equals(vAlign)) { 
-   	    xLayoutData.setVerticalAlign(XGridData.VerticalAlignment.TOP);
+   	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_TOP);
    	} else if (VerticalAlign.BOTTOM.equals(vAlign)) {
-   	    xLayoutData.setVerticalAlign(XGridData.VerticalAlignment.BOTTOM);
+   	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_BOTTOM);
    	} else if (VerticalAlign.MIDDLE.equals(vAlign)) {
-   	    xLayoutData.setVerticalAlign(XGridData.VerticalAlignment.MIDDLE);
+   	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_MIDDLE);
    	} else if (VerticalAlign.FILL.equals(vAlign)) {
-   	    xLayoutData.setVerticalAlign(XGridData.VerticalAlignment.FILL);
+   	    //xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_JJUSTIFY); // TODO: MIGRATE
    	}
     }
 

@@ -36,6 +36,8 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
+import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -308,6 +310,12 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	if (xLayoutData.getColSpan() > 1) {
 	    cell.colSpan = xLayoutData.getColSpan();
 	}
+	if (xLayoutData.getVerticalAlign() != null) {
+	    cell.verticalAlign = xLayoutData.getVerticalAlign();
+	}
+	if (xLayoutData.getHorizontalAlign() != null) {
+	    cell.horizontalAlign = xLayoutData.getHorizontalAlign();
+	}
     }
     
     protected void addWidget(FlexTable table, Cell cell, Widget widget) {
@@ -318,11 +326,16 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
   	int column = 0;
   	int rowSpan = 1;
   	int colSpan = 1;
+  	HorizontalAlignmentConstant horizontalAlign = null;
+	VerticalAlignmentConstant verticalAlign = null;
+	
   	if (cell != null) {
   	    row = cell.row;
   	    column = cell.column;
   	    rowSpan = cell.rowSpan;
   	    colSpan = cell.colSpan;
+  	    horizontalAlign = cell.horizontalAlign;
+  	    verticalAlign = cell.verticalAlign;
   	}
   	
   	// add widget to cell (row, column)
@@ -335,13 +348,19 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
   	
   	table.setWidget(row, cellCount, widget);
   	
-  	FlexCellFormatter f = table.getFlexCellFormatter();
   	if (colSpan > 0) {
   	    table.getFlexCellFormatter().setColSpan(row, column, colSpan);
   	}
   	if (rowSpan > 0) {
   	    table.getFlexCellFormatter().setRowSpan(row, column, rowSpan);
   	}
+  	if (horizontalAlign != null) {
+  	    table.getFlexCellFormatter().setHorizontalAlignment(row, column, horizontalAlign);
+  	}
+  	if (verticalAlign != null) {
+  	    table.getFlexCellFormatter().setVerticalAlignment(row, column, verticalAlign);
+  	}
+  	
   	GWT.log("OUT: addCell[row=" + row + ", cell=" + cellCount + ", rowSpan=" + rowSpan + ", colSpan=" + colSpan + "]");
 
   	/*
@@ -498,6 +517,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	int rowSpan = 1;
 	int colSpan = 1;
 	
+	HorizontalAlignmentConstant horizontalAlign;
+	VerticalAlignmentConstant verticalAlign;
 	
 	public String toString() {
 	    return "Cell[row=" + row + ", column=" + column + ", rowSpan=" + rowSpan + ", colSpan=" + colSpan +  "]";
