@@ -35,7 +35,9 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -139,7 +141,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
 	int colSpan = 0;
 	int rowSpan = 0;
-	int tryColumnCount = 0;
+	//int tryColumnCount = 0;
 	List<Cell> cells = new ArrayList<Cell>();
 	
 	// Analyze table structure: find real cells (with colSpan and rowSpan)
@@ -153,32 +155,55 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 		//columnCount = cellCount;
 	    //}
 	    
-	    for (int column = 0; column < cellCount; column++) {
+	    // Set by default start column = 0
+	    int column = 0;
+	    for (int cellInex = 0; cellInex < cellCount; cellInex++) {
 
-		if (table.getWidget(row, column) == null) {
+		if (table.getWidget(row, cellInex) == null) {
 		    // No widget - no cell
 		    continue;
 		}
 		
-		colSpan = table.getFlexCellFormatter().getColSpan(row, column);
-		rowSpan = table.getFlexCellFormatter().getRowSpan(row, column);
+		colSpan = table.getFlexCellFormatter().getColSpan(row, cellInex);
+		rowSpan = table.getFlexCellFormatter().getRowSpan(row, cellInex);
 		
-		// Try calculate column count by new cell (column + colSpan)
-		tryColumnCount = column + colSpan;
-		if (tryColumnCount > columnCount) {
-		    columnCount = tryColumnCount;
-		}
+		// Calculate shift for column by before rows with cells with rowSpan
+		int shift = 0;
+		do {
+		    shift = getColumnShift(cells, row, column);
+		    if (shift > 0) {
+			column += shift;
+		    }
+		} while (shift > 0);
 		
 		
 		// Create new cell of widget
 		Cell cell = new Cell();
-		cell.column = column;		
+		cell.column = column;
 		cell.row = row;
 		cell.colSpan = colSpan;
-		cell.rowSpan = rowSpan;	
-		
+		cell.rowSpan = rowSpan;
+
 		cells.add(cell);
-		GWT.log("OUT: " + cell);
+		GWT.log("OUT: out" + cell);	
+		
+		// Calculate new column (column + colSpan)
+		
+		column += colSpan;
+		
+		// Calculate new column count
+		if (column > columnCount) {
+		    columnCount = column;
+		}
+		
+		
+//		tryColumnCount = column + colSpan;
+//		if (tryColumnCount > columnCount) {
+//		    columnCount = tryColumnCount;
+//		}
+		
+		
+		
 	    }
 	}
 	
@@ -251,7 +276,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	
 	populateCellSpan(freeCell, xGridData);
 	
-	GWT.log("OUT: FreeCell: " + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
+	GWT.log("OUT: free" + freeCell + ", growColumn=" + growColumn + ", growRow=" + growRow);
 	
 	if (growRow || growColumn) {
 	    if (growColumn) {
@@ -266,6 +291,21 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	normalizeCellSpan(freeCell, matrix, rowCount, columnCount, layoutColumnCount);
 	addWidget(table, freeCell, widget);
 
+    }
+    
+    protected int getColumnShift(List<Cell> cells, int row, int column) {
+	 if (cells == null || cells.isEmpty()) {
+	     return 0;
+	 }
+	 for (Cell cell : cells) {
+	     if (cell.column != column || cell.row >= row) {
+		 continue;
+	     }
+	     if (cell.row + cell.rowSpan > row) {
+		 return cell.colSpan;
+	     }
+	 }
+	 return 0;
     }
     
     protected void populateCellSpan(Cell cell, XGridData xLayoutData){
@@ -296,14 +336,47 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
   	}
   	
   	// add widget to cell (row, column)
-  	table.setWidget(row, column, widget);
+  	int rowCount = table.getRowCount();
+  	int cellCount = 0;
+  	if (rowCount > 0 && row < rowCount) {
+  	    cellCount = table.getCellCount(row);
+  	}
   	
-  	if (colSpan > 1) {
+  	
+  	table.setWidget(row, cellCount, widget);
+  	
+  	FlexCellFormatter f = table.getFlexCellFormatter();
+  	if (colSpan > 0) {
   	    table.getFlexCellFormatter().setColSpan(row, column, colSpan);
   	}
-  	if (rowSpan > 1) {
+  	if (rowSpan > 0) {
   	    table.getFlexCellFormatter().setRowSpan(row, column, rowSpan);
   	}
+  	GWT.log("OUT: addCell[row=" + row + ", cell=" + cellCount + ", rowSpan=" + rowSpan + ", colSpan=" + colSpan + "]");
+
+  	/*
+  	cellCount = table.getCellCount(row);
+  	GWT.log("OUT: cellCount: " + cellCount + "");
+  	
+  	// Find magic empty cell
+  	Widget w = null;
+  	int k = -1;
+  	for (int i= 0; i < cellCount; i++) {
+  	    w = table.getWidget(row, i);
+  	    GWT.log("OUT: cell:" + i + ", widget=" + w);
+  	    if (w == null) {
+  		k = i;
+  	    }
+  	}
+  	
+  	// Remove magic empty cell
+  	if (k > -1) {
+  	  GWT.log("OUT: removeCell[row=" + row + ", column="+ k + "]");
+  	  table.removeCell(row, k);
+  	    
+  	}
+  	*/
+  	
   	//TODO: alignment...
     }    
 
@@ -429,13 +502,15 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	    
 	
     public static class Cell {
-	int column;
+	
 	int row;
-	int colSpan = 1;
+	int column;
 	int rowSpan = 1;
+	int colSpan = 1;
+	
 	
 	public String toString() {
-	    return "Cell[column=" + column + ", row=" + row + ", colSpan=" + colSpan + ", rowSpan=" + rowSpan + "]";
+	    return "Cell[row=" + row + ", column=" + column + ", rowSpan=" + rowSpan + ", colSpan=" + colSpan +  "]";
 	}
     }
 }
