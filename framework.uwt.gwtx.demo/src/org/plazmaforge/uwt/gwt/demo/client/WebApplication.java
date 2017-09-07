@@ -228,18 +228,24 @@ public class WebApplication extends Application implements EntryPoint {
 	menuBar.addItem(menu1);
 	menuBar.addItem(menuItem1);
 	
+	//menuBar.setLayoutData(new GridData(1, 1));
 	uwtContainer.add(menuBar);
 	
 	uwtContainer.add(new  org.plazmaforge.framework.uwt.widget.Label("UWT Migration!"));
 	uwtContainer.add(new Button("My Migration"));
 	
 	ToggleButton toggleButton1 = new ToggleButton("Toogle Button 1");
-	ToggleButton toggleButton2 = new ToggleButton("Toogle Button 2");
 	toggleButton1.setGroup("my");
+	uwtContainer.add(toggleButton1);
+		
+	
+	ToggleButton toggleButton2 = new ToggleButton("Toogle Button 2");
+	
 	toggleButton2.setGroup("my");
 		
-	uwtContainer.add(toggleButton1);
+
 	uwtContainer.add(toggleButton2);
+	
 	
 	RadioGroup radioGroup = new RadioGroup();
 	RadioButton ratioButton1 = new RadioButton("Yes");
