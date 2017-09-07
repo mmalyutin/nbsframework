@@ -37,7 +37,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -132,28 +131,14 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	int columnCount = 0;
 	
 	// Cell count of a row 
-	// It is small/virtual cell without colSpan and rowSpan than starts from the row
 	int cellCount = 0;
-	
-	// Create array of column count of row 
-	// Only for small/virtual cells without colSpan and rowSpan than start from the row
-	//int[] rowColumns = new int[rowCount];
-	
 	int colSpan = 0;
 	int rowSpan = 0;
-	//int tryColumnCount = 0;
 	List<Cell> cells = new ArrayList<Cell>();
 	
 	// Analyze table structure: find real cells (with colSpan and rowSpan)
 	for (int row = 0; row < rowCount; row++) {
 	    cellCount = table.getCellCount(row);
-	    
-	    //rowColumns[row] = cellCount;
-	    
-	    // Calculate columnCount - max of cellCount
-	    //if (cellCount > columnCount) {
-		//columnCount = cellCount;
-	    //}
 	    
 	    // Set by default start column = 0
 	    int column = 0;
@@ -188,7 +173,6 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 		GWT.log("OUT: out" + cell);	
 		
 		// Calculate new column (column + colSpan)
-		
 		column += colSpan;
 		
 		// Calculate new column count
@@ -196,21 +180,13 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 		    columnCount = column;
 		}
 		
-		
-//		tryColumnCount = column + colSpan;
-//		if (tryColumnCount > columnCount) {
-//		    columnCount = tryColumnCount;
-//		}
-		
-		
-		
 	    }
 	}
 	
 
 	GWT.log("OUT: TableInfo [rowCount=" + rowCount + ", columnCount=" + columnCount + "]");
 	
-	// Fill cell matrix
+	// Fill cell matrix (true - cell is not free)
 	boolean[][] matrix = new boolean[rowCount][columnCount];
 	
 	// Populate cell matrix
@@ -235,7 +211,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	boolean growRow = false;
 	
 	
-	
+	// Find free cell in matrix to add new widget
 	for (int row = 0; row < rowCount; row++) {
 	    for (int column = 0; column < columnCount; column++) {
 		if (!matrix[row][column]) {
@@ -293,15 +269,29 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 
     }
     
+    /**
+     * Find a cell in before rows with rowSpan than can cover 
+     * current cell (row, column) and return shift of column
+     * 
+     * @param cells
+     * @param row - current row
+     * @param column - current column
+     * @return shift of column (colSpan of found cell)
+     */
     protected int getColumnShift(List<Cell> cells, int row, int column) {
 	 if (cells == null || cells.isEmpty()) {
 	     return 0;
 	 }
 	 for (Cell cell : cells) {
+	     
+	     // Only current column and before rows (without current row)
 	     if (cell.column != column || cell.row >= row) {
 		 continue;
 	     }
+	     
+	     // Only cell with rowSpan than can cover current cell (row, column)
 	     if (cell.row + cell.rowSpan > row) {
+		 // shift
 		 return cell.colSpan;
 	     }
 	 }
@@ -312,11 +302,11 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 	if  (xLayoutData == null) {
 	    return;
 	}
-	if (xLayoutData.getVerticalSpan() > 1) {
-	    cell.rowSpan = xLayoutData.getVerticalSpan();
+	if (xLayoutData.getRowSpan() > 1) {
+	    cell.rowSpan = xLayoutData.getRowSpan();
 	}
-	if (xLayoutData.getHorizontalSpan() > 1) {
-	    cell.colSpan = xLayoutData.getHorizontalSpan();
+	if (xLayoutData.getColSpan() > 1) {
+	    cell.colSpan = xLayoutData.getColSpan();
 	}
     }
     
