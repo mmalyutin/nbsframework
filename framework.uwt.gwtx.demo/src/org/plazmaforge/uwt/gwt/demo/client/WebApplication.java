@@ -263,7 +263,10 @@ public class WebApplication extends Application implements EntryPoint {
 	uwtContainer.add(new Slider());
 	
 	uwtContainer.add(new TextField());
-	uwtContainer.add(new TextArea());
+	
+	TextArea textArea = new TextArea();
+	textArea.setLayoutData(new GridData(HorizontalAlign.FILL));
+	uwtContainer.add(textArea);
 	
 	uwtContainer.add(new PasswordField());
 	uwtContainer.add(new DateField());
