@@ -35,7 +35,6 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -345,6 +344,14 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
   	    cellCount = table.getCellCount(row);
   	}
   	
+  	/*
+	if (widget instanceof TextButton) {
+	    XSimpleContainer c = new XSimpleContainer();
+	    c.setWidget(widget);
+	    c.setWidth("100%");
+	    widget = c;
+	}
+	*/
   	
   	table.setWidget(row, cellCount, widget);
   	
@@ -355,7 +362,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
   	    table.getFlexCellFormatter().setRowSpan(row, column, rowSpan);
   	}
   	if (horizontalAlign != null) {
-  	    table.getFlexCellFormatter().setHorizontalAlignment(row, column, horizontalAlign);
+  	   table.getFlexCellFormatter().setHorizontalAlignment(row, column, horizontalAlign);
+  	    
   	}
   	if (verticalAlign != null) {
   	    table.getFlexCellFormatter().setVerticalAlignment(row, column, verticalAlign);
@@ -385,8 +393,6 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
   	    
   	}
   	*/
-  	
-  	//TODO: alignment...
     }    
 
     protected void normalizeCellSpan(Cell cell) {

@@ -97,7 +97,9 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
    	} else if (HorizontalAlign.CENTER.equals(hAlign)) {
    	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_CENTER);
    	} else if (HorizontalAlign.FILL.equals(hAlign)) {
-   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_JUSTIFY);
+   	    // TODO: Horizontal fill is not implemented
+   	    //xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_JUSTIFY);
+   	    xLayoutData.setHorizontalAlign(null);
    	}
     }
     
@@ -110,7 +112,9 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
    	} else if (VerticalAlign.MIDDLE.equals(vAlign)) {
    	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_MIDDLE);
    	} else if (VerticalAlign.FILL.equals(vAlign)) {
-   	    //xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_JJUSTIFY); // TODO: MIGRATE
+   	    // TODO: Vertical fill is not implemented
+   	    //xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_JJUSTIFY);
+   	    xLayoutData.setVerticalAlign(null);
    	}
     }
 
