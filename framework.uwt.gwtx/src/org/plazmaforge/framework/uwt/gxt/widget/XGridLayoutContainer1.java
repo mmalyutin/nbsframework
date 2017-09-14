@@ -36,6 +36,10 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConst
 /**
  * FlexTable grid layout implementation 
  * 
+ * Problems:
+ * - Horizontal/Vertical cell filling
+ * - onResize
+ * 
  * @author ohapon
  *
  */
@@ -55,8 +59,14 @@ public class XGridLayoutContainer1 extends FlexTable {
     public XGridLayout getGridLayout() {
         return gridLayout;
     }
-
-    public void addChild(Widget widget) {
+    
+    @Override
+    public void add(Widget child) {
+	addChild(child);
+    }
+    
+    protected void addChild(Widget widget) {
+	
 	
 	// Get layout info
 	int layoutColumnCount = gridLayout.getColumnCount();
