@@ -65,7 +65,7 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
     @Override
     public HasWidgets createContainer(XLayout xLayout) {
 	//XGridLayoutContainer1 gridLayoutContainer = new  XGridLayoutContainer1((XGridLayout) xLayout);
-	XGridLayoutContainer2 gridLayoutContainer = new  XGridLayoutContainer2(/*(XGridLayout) xLayout*/);
+	XGridLayoutContainer2 gridLayoutContainer = new  XGridLayoutContainer2((XGridLayout) xLayout);
 	return gridLayoutContainer;
     }
     
