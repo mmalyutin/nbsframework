@@ -26,10 +26,9 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
+import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
+import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 import org.plazmaforge.framework.uwt.layout.GridData;
 
 
@@ -90,31 +89,39 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
 
     protected void populateHorizontalAlign(XGridData xLayoutData, GridData layoutData) {
    	HorizontalAlign hAlign = layoutData.getHorizontalAlign();
+   	if (hAlign == null) {
+   	    xLayoutData.setHorizontalAlign(null);
+   	    return;
+   	}
    	if (HorizontalAlign.LEFT.equals(hAlign)) { 
-   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_LEFT);
+   	    xLayoutData.setHorizontalAlign(HorizontalAlignment.LEFT);
    	} else if (HorizontalAlign.RIGHT.equals(hAlign)) {
-   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_RIGHT);
+   	    xLayoutData.setHorizontalAlign(HorizontalAlignment.RIGHT);
    	} else if (HorizontalAlign.CENTER.equals(hAlign)) {
-   	    xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_CENTER);
+   	    xLayoutData.setHorizontalAlign(HorizontalAlignment.CENTER);
    	} else if (HorizontalAlign.FILL.equals(hAlign)) {
-   	    // TODO: Horizontal fill is not implemented
-   	    //xLayoutData.setHorizontalAlign(HasHorizontalAlignment.ALIGN_JUSTIFY);
+   	    xLayoutData.setHorizontalAlign(HorizontalAlignment.FILL);
+   	} else {
    	    xLayoutData.setHorizontalAlign(null);
    	}
     }
     
     protected void populateVerticalAlign(XGridData xLayoutData, GridData layoutData) {
    	VerticalAlign vAlign = layoutData.getVerticalAlign();
-   	if (VerticalAlign.TOP.equals(vAlign)) { 
-   	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_TOP);
-   	} else if (VerticalAlign.BOTTOM.equals(vAlign)) {
-   	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_BOTTOM);
-   	} else if (VerticalAlign.MIDDLE.equals(vAlign)) {
-   	    xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_MIDDLE);
-   	} else if (VerticalAlign.FILL.equals(vAlign)) {
-   	    // TODO: Vertical fill is not implemented
-   	    //xLayoutData.setVerticalAlign(HasVerticalAlignment.ALIGN_JJUSTIFY);
+   	if (vAlign == null) {
    	    xLayoutData.setVerticalAlign(null);
+   	    return;
+   	}
+   	if (VerticalAlign.TOP.equals(vAlign)) { 
+   	    xLayoutData.setVerticalAlign(VerticalAlignment.TOP);
+   	} else if (VerticalAlign.BOTTOM.equals(vAlign)) {
+   	    xLayoutData.setVerticalAlign(VerticalAlignment.BOTTOM);
+   	} else if (VerticalAlign.MIDDLE.equals(vAlign)) {
+   	    xLayoutData.setVerticalAlign(VerticalAlignment.MIDDLE);
+   	} else if (VerticalAlign.FILL.equals(vAlign)) {
+   	    xLayoutData.setVerticalAlign(VerticalAlignment.FILL);
+   	} else {
+   	    xLayoutData.setVerticalAlign(null); 
    	}
     }
 

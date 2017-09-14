@@ -25,10 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
+import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
+import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
@@ -274,12 +278,38 @@ public class XGridLayoutContainer1 extends FlexTable {
 	if (xLayoutData.getColSpan() > 1) {
 	    cell.colSpan = xLayoutData.getColSpan();
 	}
-	if (xLayoutData.getVerticalAlign() != null) {
-	    cell.verticalAlign = xLayoutData.getVerticalAlign();
+	cell.verticalAlign = toVerticalAlign(xLayoutData.getVerticalAlign());
+	cell.horizontalAlign = toHorizontalAlign(xLayoutData.getHorizontalAlign());
+    }
+    
+    protected VerticalAlignmentConstant toVerticalAlign(VerticalAlignment vAlign) {
+	if (vAlign == null) {
+	    return null;
 	}
-	if (xLayoutData.getHorizontalAlign() != null) {
-	    cell.horizontalAlign = xLayoutData.getHorizontalAlign();
+	if (VerticalAlignment.TOP.equals(vAlign)) { 
+   	    return HasVerticalAlignment.ALIGN_TOP;
+   	} else if (VerticalAlignment.BOTTOM.equals(vAlign)) {
+   	    return HasVerticalAlignment.ALIGN_BOTTOM;
+   	} else if (VerticalAlignment.MIDDLE.equals(vAlign)) {
+   	    return HasVerticalAlignment.ALIGN_MIDDLE;
+   	}
+	// VerticalAlignment.FILL ignore
+	return null;
+    }
+    
+    protected HorizontalAlignmentConstant toHorizontalAlign(HorizontalAlignment hAlign) {
+	if (hAlign == null) {
+	    return null;
 	}
+	if (HorizontalAlignment.LEFT.equals(hAlign)) {
+	    return HasHorizontalAlignment.ALIGN_LEFT;
+	} else if (HorizontalAlignment.RIGHT.equals(hAlign)) {
+	    return HasHorizontalAlignment.ALIGN_RIGHT;
+	} else if (HorizontalAlignment.CENTER.equals(hAlign)) {
+	    return HasHorizontalAlignment.ALIGN_CENTER;
+	}
+	// HorizontalAlignment.FILL ignore
+	return null;
     }
     
     protected void addWidget(Cell cell, Widget widget) {
