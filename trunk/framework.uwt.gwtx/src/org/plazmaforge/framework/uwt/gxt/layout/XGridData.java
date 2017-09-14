@@ -23,9 +23,6 @@
  
 package org.plazmaforge.framework.uwt.gxt.layout;
 
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
-import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
-
 /**
  * 
  * @author ohapon
@@ -52,17 +49,15 @@ public class XGridData extends XLayoutData {
     
     public static VerticalAlignment DEFAULT_VERTICAL_ALIGN = VerticalAlignment.MIDDLE;  
     
-
-    
     
     private int colSpan;
     
     private int rowSpan;
 
     
-    private HorizontalAlignmentConstant horizontalAlign;
+    private HorizontalAlignment horizontalAlign;
     
-    private VerticalAlignmentConstant verticalAlign;
+    private VerticalAlignment verticalAlign;
 
     private boolean horizontalFlex;
     
@@ -75,59 +70,58 @@ public class XGridData extends XLayoutData {
 	super();
 	colSpan = 1;
 	rowSpan = 1;
-	horizontalAlign = null ; //DEFAULT_HORIZONTAL_ALIGN;
-	verticalAlign = null; //DEFAULT_VERTICAL_ALIGN;
+	horizontalAlign = DEFAULT_HORIZONTAL_ALIGN;
+	verticalAlign = DEFAULT_VERTICAL_ALIGN;
     }
 
     public int getColSpan() {
-        return colSpan;
+	return colSpan;
     }
 
     public void setColSpan(int colSpan) {
-        this.colSpan = colSpan;
+	this.colSpan = colSpan;
     }
 
     public int getRowSpan() {
-        return rowSpan;
+	return rowSpan;
     }
 
     public void setRowSpan(int rowSpan) {
-        this.rowSpan = rowSpan;
+	this.rowSpan = rowSpan;
     }
 
-    public HorizontalAlignmentConstant getHorizontalAlign() {
-        return horizontalAlign;
+    public HorizontalAlignment getHorizontalAlign() {
+	return horizontalAlign;
     }
 
-    public void setHorizontalAlign(HorizontalAlignmentConstant horizontalAlign) {
-        this.horizontalAlign = horizontalAlign;
+    public void setHorizontalAlign(HorizontalAlignment horizontalAlign) {
+	this.horizontalAlign = horizontalAlign;
     }
 
-    public VerticalAlignmentConstant getVerticalAlign() {
-        return verticalAlign;
+    public VerticalAlignment getVerticalAlign() {
+	return verticalAlign;
     }
 
-    public void setVerticalAlign(VerticalAlignmentConstant verticalAlign) {
-        this.verticalAlign = verticalAlign;
+    public void setVerticalAlign(VerticalAlignment verticalAlign) {
+	this.verticalAlign = verticalAlign;
     }
 
     public boolean isHorizontalFlex() {
-        return horizontalFlex;
+	return horizontalFlex;
     }
 
     public void setHorizontalFlex(boolean horizontalFlex) {
-        this.horizontalFlex = horizontalFlex;
+	this.horizontalFlex = horizontalFlex;
     }
 
     public boolean isVerticalFlex() {
-        return verticalFlex;
+	return verticalFlex;
     }
 
     public void setVerticalFlex(boolean verticalFlex) {
-        this.verticalFlex = verticalFlex;
+	this.verticalFlex = verticalFlex;
     }
 
-    
     public boolean isFreeWidth() {
 	return (!isHorizontalFlex() && !HorizontalAlignment.FILL.equals(horizontalAlign));
     }
@@ -137,13 +131,13 @@ public class XGridData extends XLayoutData {
     }
 
     ////
-    
+
     public boolean isForceComputeSize() {
-        return forceComputeSize;
+	return forceComputeSize;
     }
 
     public void setForceComputeSize(boolean forceComputeSize) {
-        this.forceComputeSize = forceComputeSize;
+	this.forceComputeSize = forceComputeSize;
     }
     
     
