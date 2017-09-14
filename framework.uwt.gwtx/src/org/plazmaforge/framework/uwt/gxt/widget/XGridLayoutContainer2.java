@@ -29,6 +29,7 @@ import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Widget;
@@ -40,6 +41,7 @@ import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.widget.core.client.Component;
 import com.sencha.gxt.widget.core.client.container.InsertResizeContainer;
+import com.sencha.gxt.widget.core.client.grid.Grid;
 
 /**
  * 
@@ -168,6 +170,10 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	
 	// Get size of container (style or computed)
 	Size size = container.getStyleSize();
+	
+	if (debug) {
+	    dumpContainerSize(size.getWidth(), size.getHeight());
+	}
 
 	if (GXTLogConfiguration.loggingIsEnabled()) {
 	    logger.finest(getId() + " doLayout  size: " + size);
@@ -313,8 +319,8 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  		c.setLayoutData(layoutData);
  	    }
  	
- 	    boolean needCalculateWidth = hWidth == -1 || layoutData.getWidth() == -1 || layoutData.isHorizontalFlex();
- 	    boolean needCalculateHeight = hHeight == -1 || layoutData.getHeight() == -1 || layoutData.isVerticalFlex();
+ 	    boolean needCalculateWidth = hWidth == -1 || layoutData.getCurrentWidth() == -1 || layoutData.isHorizontalFlex();
+ 	    boolean needCalculateHeight = hHeight == -1 || layoutData.getCurrentHeight() == -1 || layoutData.isVerticalFlex();
  		    
  	    if (needCalculateWidth || needCalculateHeight) {
  		
@@ -747,7 +753,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 
  	    //if (layout) {
  		setPosition(c, x, y);
- 		//setSize(c, childWidth, childHeight);
+ 		setSize(c, childWidth, childHeight);
  	    //}
  	    
  	    maxWidth = Math.max(maxWidth, childWidth);
@@ -825,8 +831,41 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	
 	int width = Util.parseInt(widget.getElement().getStyle().getProperty("width"), Style.DEFAULT);	
 	int height = Util.parseInt(widget.getElement().getStyle().getProperty("height"), Style.DEFAULT);
+	
+//	if (widget instanceof Grid) {
+//	    Grid grid = (Grid) widget;
+//	    int columnCount = grid.getColumnModel().getColumnCount();
+//	    int columnWidth = 0;
+//	    
+//	    if (columnCount > 0) {
+//		for (int i = 0; i < columnCount; i++) {
+//		    columnWidth += grid.getColumnModel().getColumnWidth(i);
+//		}
+//		
+//	    }
+//	    
+//	    log("Grid: StyleSize: width=" + width + ", height=" + height);
+//	    log("Grid: OffsetSize: width=" + widget.getOffsetWidth() + ", height=" + widget.getOffsetHeight());
+//	    //log("Grid: StyleSize: width=" + width);
+//	}
+	
 	if (width == -1) {
 	    width = widget.getOffsetWidth();
+	    if (widget instanceof Grid) {
+		Grid grid = (Grid) widget;
+		int columnCount = grid.getColumnModel().getColumnCount();
+		int columnWidth = 0;
+		if (columnCount > 0) {
+		    for (int i = 0; i < columnCount; i++) {
+			columnWidth += grid.getColumnModel().getColumnWidth(i);
+		    }
+
+		}
+		width = columnWidth;
+		log("Grid: StyleSize: width=" + width + ", height=" + height);
+		log("Grid: OffsetSize: width=" + widget.getOffsetWidth() + ", height=" + widget.getOffsetHeight());
+		// log("Grid: StyleSize: width=" + width);
+	    }
 	}
 	if (height == -1) {
 	    height = widget.getOffsetHeight();
@@ -860,34 +899,30 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 //	return ((Boolean) data);
 //    }
 //    
-//    protected void dumpContainerSize(Container<?> container, int width, int height) {
-//	if (container == null) {
-//	    System.out.println("container: null");
-//	    return;
-//	}
-//	System.out.println("container: width=" + width + ", height=" + height);	
-//    }
+    protected void dumpContainerSize(int width, int height) {
+	log("container: width=" + width + ", height=" + height);	
+    }
     
     protected void dumpSizes(XCellData[] cells) {
 	if (cells == null || cells.length == 0) {
-	    System.out.println("sizes: empty");
+	    log("sizes: empty");
 	    return;
 	}
-	System.out.println("sizes:");
+	log("sizes:");
 	for (int k = 0; k < cells.length; k++) {
-	    System.out.println("cell[" + k + "]: width=" + cells[k].getSize().getWidth() + ", height=" + cells[k].getSize().getHeight());
+	    log("cell[" + k + "]: width=" + cells[k].getSize().getWidth() + ", height=" + cells[k].getSize().getHeight());
 	}
     }
     
     protected void dumpColumns(String title, int[] columns) {
 	String t = title == null ? "columns" : title;
 	if (columns == null || columns.length == 0) {
-	    System.out.println(t + ": empty");
+	    log(t + ": empty");
 	    return;
 	}
-	System.out.println(t + ":");
+	log(t + ":");
 	for (int k = 0; k < columns.length; k++) {
-	    System.out.println("column[" + k + "]=" + columns[k]);
+	    log("column[" + k + "]=" + columns[k]);
 	}
     }
     
@@ -898,4 +933,8 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
     protected void dumpFlexColumns(int[] columns) {
 	dumpColumns("flex-columns", columns);
     }    
+    
+    protected void log(String message){
+	GWT.log(message);
+    }
 }
