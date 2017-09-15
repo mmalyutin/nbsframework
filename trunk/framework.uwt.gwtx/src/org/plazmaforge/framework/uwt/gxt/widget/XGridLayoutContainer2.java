@@ -32,6 +32,7 @@ import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.GXTLogConfiguration;
 import com.sencha.gxt.core.client.Style;
@@ -42,6 +43,7 @@ import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.widget.core.client.Component;
 import com.sencha.gxt.widget.core.client.container.InsertResizeContainer;
 import com.sencha.gxt.widget.core.client.grid.Grid;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 /**
  * 
@@ -319,23 +321,48 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  		c.setLayoutData(layoutData);
  	    }
  	
- 	    boolean needCalculateWidth = hWidth == -1 || layoutData.getCurrentWidth() == -1 || layoutData.isHorizontalFlex();
- 	    boolean needCalculateHeight = hHeight == -1 || layoutData.getCurrentHeight() == -1 || layoutData.isVerticalFlex();
+ 	    /*
+ 	    boolean needCalculateWidth = hWidth == -1 || layoutData.getPreferredWidth() == -1 || layoutData.isHorizontalFlex();
+ 	    boolean needCalculateHeight = hHeight == -1 || layoutData.getPreferredHeight() == -1 || layoutData.isVerticalFlex();
  		    
  	    if (needCalculateWidth || needCalculateHeight) {
  		
  		// First compute size
- 		Size childSize = computeSize(c/*, hWidth, hHeight*/);
+ 		Size preferredSize = computePreferredSize(c);
  		
  		if (needCalculateWidth) {
- 		    layoutData.setCurrentWidth(layoutData.getWidth() == -1 ? childSize.getWidth(): layoutData.getWidth());
+ 		    layoutData.setPreferredWidth(layoutData.getWidth() == -1 ? preferredSize.getWidth(): layoutData.getWidth());
  		}
  		
  		if (needCalculateHeight) {
- 		    layoutData.setCurrentHeight(layoutData.getHeight() == -1 ? childSize.getHeight() : layoutData.getHeight());
+ 		    layoutData.setPreferredHeight(layoutData.getHeight() == -1 ? preferredSize.getHeight() : layoutData.getHeight());
  		}
 
- 	    }
+ 	    }*/
+ 	    
+ 	    // Initialize preferred size
+  	    // 1. by layout data size 
+	    if (layoutData.getPreferredWidth() == -1) {
+		layoutData.setPreferredWidth(layoutData.getWidth());
+	    }
+	    if (layoutData.getPreferredHeight() == -1) {
+		layoutData.setPreferredHeight(layoutData.getHeight());
+	    }
+
+	    // 2. by compute size
+	    if (layoutData.getPreferredWidth() == -1 || layoutData.getPreferredHeight() == -1) {
+
+		// First compute size
+		Size preferredSize = computePreferredSize(c);
+		
+		if (layoutData.getPreferredWidth() == -1) {
+		    layoutData.setPreferredWidth(preferredSize.getWidth());
+		}
+		
+		if (layoutData.getPreferredHeight() == -1) {
+		    layoutData.setPreferredHeight(preferredSize.getHeight());
+		}
+	    }
  	    
  	    int columnSpan = layoutData.getColSpan();
  	    if (columnSpan <= 0 ) {
@@ -413,7 +440,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    cell.setVerticalAlign(layoutData.getVerticalAlign());
  	    cell.setHorizontalFlex(layoutData.isHorizontalFlex());
  	    cell.setVerticalFlex(layoutData.isVerticalFlex());
- 	    cell.setSize(new Size(layoutData.getCurrentWidth(), layoutData.getCurrentHeight()));
+ 	    cell.setSize(new Size(layoutData.getPreferredWidth(), layoutData.getPreferredHeight()));
  	    
  	    cells[i] = cell; 
  	    
@@ -822,15 +849,19 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	applyLayout(widget, width, height);
     }
     
-    protected Size computeSize(Widget widget) {
+    protected Size computePreferredSize(Widget widget) {
 	if (widget == null) {
 	    return new Size(0, 0);
 	}
-	//int width = widget.getOffsetWidth();
-	//int height = widget.getOffsetHeight();
 	
-	int width = Util.parseInt(widget.getElement().getStyle().getProperty("width"), Style.DEFAULT);	
-	int height = Util.parseInt(widget.getElement().getStyle().getProperty("height"), Style.DEFAULT);
+	int styleWidth = Util.parseInt(widget.getElement().getStyle().getProperty("width"), Style.DEFAULT);	
+	int styleHeight = Util.parseInt(widget.getElement().getStyle().getProperty("height"), Style.DEFAULT);
+	
+	int offsetWidth = widget.getOffsetWidth();
+	int offsetHeight = widget.getOffsetHeight();	
+	
+	int width = styleWidth;
+	int height = styleHeight;
 	
 //	if (widget instanceof Grid) {
 //	    Grid grid = (Grid) widget;
@@ -850,38 +881,47 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 //	}
 	
 	if (width == -1) {
-	    width = widget.getOffsetWidth();
-	    if (widget instanceof Grid) {
-		Grid grid = (Grid) widget;
-		int columnCount = grid.getColumnModel().getColumnCount();
-		int columnWidth = 0;
-		if (columnCount > 0) {
-		    for (int i = 0; i < columnCount; i++) {
-			columnWidth += grid.getColumnModel().getColumnWidth(i);
-		    }
-
-		}
-		width = columnWidth;
-		log("Grid: StyleSize: width=" + width + ", height=" + height);
-		log("Grid: OffsetSize: width=" + widget.getOffsetWidth() + ", height=" + widget.getOffsetHeight());
-		// log("Grid: StyleSize: width=" + width);
+	    width = computeMinWidth(widget);
+	    if (width == -1) {
+		width = offsetWidth;
 	    }
 	}
 	if (height == -1) {
-	    height = widget.getOffsetHeight();
+	    height = offsetHeight;
 	}
 	
-	if (width < 20) {
-	    width = 20;
-	}
-	if (height < 20) {
-	    height = 20;
-	}
+//	if (width < 20) {
+//	    width = 20;
+//	}
+//	if (height < 20) {
+//	    height = 20;
+//	}
 
+//	if (widget instanceof Label) {
+//	    log("Label: StyleSize: width=" + styleWidth + ", height=" + styleHeight);
+//	    log("Label: OffsetSize: width=" + offsetWidth + ", height=" + offsetHeight);
+//	}
 	
 	return new Size(width, height);
     }
 
+    protected int computeMinWidth(Widget widget) {
+	if (widget == null) {
+	    return -1;
+	}
+	if (widget instanceof Label) {
+	    return widget.getOffsetWidth() + 1;
+	}
+	if (widget instanceof Grid) {
+	    Grid<?> grid = (Grid<?>) widget;
+	    return grid.getColumnModel().getTotalWidth();
+	}
+	if (widget instanceof ToolBar) {
+	    return widget.getOffsetWidth() + 10;
+	}
+	return -1;
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // DEBUG
