@@ -34,9 +34,9 @@ public abstract class XLayoutData {
     
     private int height = -1;
 
-    private int currentWidth = -1;
+    private int preferredWidth = -1;
     
-    private int currentHeight = -1;
+    private int preferredHeight = -1;
 
 
     public int getWidth() {
@@ -54,23 +54,21 @@ public abstract class XLayoutData {
     public void setHeight(int height) {
         this.height = height;
     }
-
-    
-    
-    public int getCurrentWidth() {
-        return currentWidth;
+   
+    public int getPreferredWidth() {
+        return preferredWidth;
     }
 
-    public void setCurrentWidth(int currentWidth) {
-        this.currentWidth = currentWidth;
+    public void setPreferredWidth(int preferredWidth) {
+        this.preferredWidth = preferredWidth;
     }
 
-    public int getCurrentHeight() {
-        return currentHeight;
+    public int getPreferredHeight() {
+        return preferredHeight;
     }
 
-    public void setCurrentHeight(int currentHeight) {
-        this.currentHeight = currentHeight;
+    public void setPreferredHeight(int preferredHeight) {
+        this.preferredHeight = preferredHeight;
     }
 
     /**
