@@ -23,7 +23,6 @@ package org.plazmaforge.framework.uwt.gxt.widget;
 
 import java.util.logging.Logger;
 
-import org.plazmaforge.framework.uwt.gxt.layout.XCellData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
@@ -282,7 +281,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	int column = 0;
  	int row = 0;
  	int rowCount = 1;
- 	XCellData[] cells = new XCellData[count];
+ 	Cell[] cells = new Cell[count];
  	int prevColumnSpan = 0;
  	boolean useFlexColumns = false;
  	boolean useFlexRows = false;
@@ -364,9 +363,9 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 		}
 	    }
  	    
- 	    int columnSpan = layoutData.getColSpan();
- 	    if (columnSpan <= 0 ) {
- 		columnSpan = 1;
+ 	    int colSpan = layoutData.getColSpan();
+ 	    if (colSpan <= 0 ) {
+ 		colSpan = 1;
  	    }
  	    int rowSpan = layoutData.getRowSpan();
  	    if (rowSpan <= 0 ) {
@@ -395,14 +394,14 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    
  	    
  	    // Fix column span
- 	    if (column + columnSpan > columnCount) {
- 		columnSpan = columnCount - column;
+ 	    if (column + colSpan > columnCount) {
+ 		colSpan = columnCount - column;
  	    }
  	    if (rowSpan > 1) {
  		rowCount = rowCount + (rowSpan - 1);
  	    }
  	    
- 	    prevColumnSpan = columnSpan;
+ 	    prevColumnSpan = colSpan;
  	    
  	    
  	    ////
@@ -410,7 +409,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    // Find free space for cell if need
  	    // Previous components can fill current cell
  	    
- 	    if  (!isFree(cells, column, row, columnSpan, rowSpan)) {
+ 	    if  (!isFree(cells, column, row, colSpan, rowSpan)) {
  		boolean isFindSpace = false;
  		while (!isFindSpace) {
  		    // last column
@@ -420,7 +419,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  		    } else {
  			column++;
  		    }
- 		    isFindSpace = isFree(cells, column, row, columnSpan, rowSpan);
+ 		    isFindSpace = isFree(cells, column, row, colSpan, rowSpan);
  		}
  		
  		// increment rowCount if need 
@@ -431,16 +430,16 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 
  	    ////
  	    
- 	    XCellData cell = new XCellData();
- 	    cell.setColumn(column);
- 	    cell.setRow(row);
- 	    cell.setColumnSpan(columnSpan);
- 	    cell.setRowSpan(rowSpan);
- 	    cell.setHorizontalAlign(layoutData.getHorizontalAlign());
- 	    cell.setVerticalAlign(layoutData.getVerticalAlign());
- 	    cell.setHorizontalFlex(layoutData.isHorizontalFlex());
- 	    cell.setVerticalFlex(layoutData.isVerticalFlex());
- 	    cell.setSize(new Size(layoutData.getPreferredWidth(), layoutData.getPreferredHeight()));
+ 	    Cell cell = new Cell();
+ 	    cell.column = column;
+ 	    cell.row = row;
+ 	    cell.colSpan = colSpan;
+ 	    cell.rowSpan = rowSpan;
+ 	    cell.horizontalAlign = layoutData.getHorizontalAlign();
+ 	    cell.verticalAlign = layoutData.getVerticalAlign();
+ 	    cell.horizontalFlex = layoutData.isHorizontalFlex();
+ 	    cell.verticalFlex = layoutData.isVerticalFlex();
+ 	    cell.preferredSize = new Size(layoutData.getPreferredWidth(), layoutData.getPreferredHeight());
  	    
  	    cells[i] = cell; 
  	    
@@ -483,12 +482,12 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    
  	    // Components
  	    for (int i = 0; i < count; i++) {
- 		XCellData cell = cells[i];
+ 		Cell cell = cells[i];
  		int ch = 0;
- 		if (cell.getRow() == k) {
+ 		if (cell.row == k) {
  		    
- 		    int rowSpan = cell.getRowSpan();
- 		    ch = cells[i].getSize().getHeight();
+ 		    int rowSpan = cell.rowSpan;
+ 		    ch = cells[i].preferredSize.getHeight();
 
  		    if (rowSpan > 1) {
  			
@@ -505,7 +504,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  			ch = 0;
  		    }
  		    
- 		    if (useFlexRows && cell.isVerticalFlex()) {
+ 		    if (useFlexRows && cell.verticalFlex) {
  			// Transfer flex marker to current and next rows
  			for (int z = k; z < k + rowSpan; z++) {
  			    flexRows[z] = true;
@@ -526,13 +525,13 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    
  	    // Components
  	    for (int i = 0; i < count; i++) {
- 		XCellData cell = cells[i];
+ 		Cell cell = cells[i];
  		int cw = 0;
- 		if (cell.getColumn() == k) {
+ 		if (cell.column == k) {
  		    
- 		    int columnSpan = cell.getColumnSpan();
+ 		    int columnSpan = cell.colSpan;
  		    
- 		    cw = cells[i].getSize().getWidth();
+ 		    cw = cells[i].preferredSize.getWidth();
  		    
 
  		    // DISABLE
@@ -557,7 +556,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  			cw = 0;
  		    }
  		    
- 		    if (useFlexColumns && cell.isHorizontalFlex()) {
+ 		    if (useFlexColumns && cell.horizontalFlex) {
  			
  			// Transfer flex marker to current and next columns
  			for (int z = k; z < k + columnSpan; z++) {
@@ -643,25 +642,25 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	// POINT-4: Render components
  	for (int i = 0; i < count; i++) {
  	    
- 	    XCellData cell = cells[i];
+ 	    Cell cell = cells[i];
  	    Widget c = getWidget(i);
  	   
  	    int offsetColumn = 0;
- 	    for (int k = 0; k < cell.getColumn(); k++) {
+ 	    for (int k = 0; k < cell.column; k++) {
  		offsetColumn += columnWidth[k];
  	    }
  	    int offsetRow = 0;
- 	    for (int k = 0; k < cell.getRow(); k++) {
+ 	    for (int k = 0; k < cell.row; k++) {
  		offsetRow += rowHeight[k];
  	    }
  	    int offsetSpacingColumns = 0; // Previous column spacing
- 	    if (horizontalSpacing > 0 && cell.getColumn() > 0) {
- 		offsetSpacingColumns = cell.getColumn() * horizontalSpacing; 
+ 	    if (horizontalSpacing > 0 && cell.column > 0) {
+ 		offsetSpacingColumns = cell.column * horizontalSpacing; 
  	    }
 
  	    int offsetSpacingRows = 0; // Previous row spacing
- 	    if (verticalSpacing > 0 && cell.getRow() > 0) {
- 		offsetSpacingRows = cell.getRow() * verticalSpacing; 
+ 	    if (verticalSpacing > 0 && cell.row > 0) {
+ 		offsetSpacingRows = cell.row * verticalSpacing; 
  	    }
 
  	    int cellX = offsetX + offsetColumn + offsetSpacingColumns;
@@ -670,35 +669,35 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    int x = cellX;
  	    int y = cellY;
  	    
- 	    HorizontalAlignment hAlign = cell.getHorizontalAlign();
+ 	    HorizontalAlignment hAlign = cell.horizontalAlign;
  	    if (hAlign == null) {
  		hAlign = XGridData.DEFAULT_HORIZONTAL_ALIGN;
  	    }
- 	    VerticalAlignment vAlign = cell.getVerticalAlign();
+ 	    VerticalAlignment vAlign = cell.verticalAlign;
  	    if (vAlign == null) {
  		vAlign = XGridData.DEFAULT_VERTICAL_ALIGN;
  	    }
  	    
  	    int cellWidth = 0;
  	    // Calculate width of cell with column span and horizontal spacing 
- 	    for (int k = cell.getColumn(); k < cell.getColumn() + cell.getColumnSpan(); k++) {
+ 	    for (int k = cell.column; k < cell.column + cell.colSpan; k++) {
  		cellWidth += columnWidth[k];
- 		if (k > cell.getColumn()) { 
+ 		if (k > cell.column) { 
  		    cellWidth += horizontalSpacing;
  		}
  	    }
  	    
  	    int cellHeight = 0;
  	    // Calculate height of cell with row span and vertical spacing
- 	    for (int k = cell.getRow(); k < cell.getRow() + cell.getRowSpan(); k++) {
+ 	    for (int k = cell.row; k < cell.row+ cell.rowSpan; k++) {
  		cellHeight += rowHeight[k];
- 		if (k > cell.getRow()) { 
+ 		if (k > cell.row) { 
  		    cellHeight += verticalSpacing;
  		}
  	    }
  	   
 
- 	    int childWidth = cells[i].getSize().getWidth();
+ 	    int childWidth = cells[i].preferredSize.getWidth();
  	    
  	    //LF
  	    if (childWidth == -1) {
@@ -715,7 +714,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    }
  	    
  	    
- 	    int childHeight = cells[i].getSize().getHeight();
+ 	    int childHeight = cells[i].preferredSize.getHeight();
  	    
  	    //LF
  	    if (childHeight == -1) {
@@ -738,7 +737,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  		childWidth = cellWidth;
 
  		// Special fix for last component in row. We have problem with ToolBar in CoolBar
- 		if (cell.getColumn() == columnCount - 1 && childWidth > 0 /*&& (c instanceof ToolBar)*/) {
+ 		if (cell.column == columnCount - 1 && childWidth > 0 /*&& (c instanceof ToolBar)*/) {
  		    childWidth -= 1;
  		}
 
@@ -816,17 +815,17 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
      * @param rowSpan
      * @return
      */
-    private boolean isFree(XCellData[] cells, int column, int row, int columnSpan, int rowSpan) {
+    private boolean isFree(Cell[] cells, int column, int row, int columnSpan, int rowSpan) {
 	if (cells == null || cells.length == 0) {
 	    return true;
 	}
-	for (XCellData c: cells) {
+	for (Cell c: cells) {
 	    if (c == null) {
 		return true;
 	    }
-	    if (column >= c.getColumn() && row >= c.getRow() 
-		    && column + columnSpan <= c.getColumn() + c.getColumnSpan()
-		    && row + rowSpan <= c.getRow() + c.getRowSpan()) {
+	    if (column >= c.column && row >= c.row 
+		    && column + columnSpan <= c.column + c.colSpan
+		    && row + rowSpan <= c.row + c.rowSpan) {
 		return false;
 	    }
 	}
@@ -943,14 +942,14 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	log("container: width=" + width + ", height=" + height);	
     }
     
-    protected void dumpSizes(XCellData[] cells) {
+    protected void dumpSizes(Cell[] cells) {
 	if (cells == null || cells.length == 0) {
 	    log("sizes: empty");
 	    return;
 	}
 	log("sizes:");
 	for (int k = 0; k < cells.length; k++) {
-	    log("cell[" + k + "]: width=" + cells[k].getSize().getWidth() + ", height=" + cells[k].getSize().getHeight());
+	    log("cell[" + k + "]: width=" + cells[k].preferredSize.getWidth() + ", height=" + cells[k].preferredSize.getHeight());
 	}
     }
     
@@ -977,4 +976,27 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
     protected void log(String message){
 	GWT.log(message);
     }
+    
+    public static class Cell {
+
+	public int column;
+
+	public int row;
+
+	public int colSpan = 1;
+
+	public int rowSpan = 1;
+
+	public HorizontalAlignment horizontalAlign = XGridData.DEFAULT_HORIZONTAL_ALIGN;
+
+	public VerticalAlignment verticalAlign = XGridData.DEFAULT_VERTICAL_ALIGN;
+
+	public boolean horizontalFlex;
+
+	public boolean verticalFlex;
+
+	public Size preferredSize;
+
+    }
+
 }
