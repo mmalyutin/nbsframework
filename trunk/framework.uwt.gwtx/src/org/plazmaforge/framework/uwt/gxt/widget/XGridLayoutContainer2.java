@@ -30,6 +30,7 @@ import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -103,66 +104,8 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
     protected XElement getLayoutContainer() {
 	return getElement();
     }
-
-    //@Override
-    protected void doLayout1() {
-	
-	XElement container = getLayoutContainer();
-	
-	// Get size of container (style or computed)
-	Size size = container.getStyleSize();
-
-	if (GXTLogConfiguration.loggingIsEnabled()) {
-	    logger.finest(getId() + " doLayout  size: " + size);
-	}
-	
-	int w = size.getWidth(); // - getScrollOffset();
-	int h = size.getHeight();
-
-	int styleHeight = Util.parseInt(container.getStyle().getProperty("height"), Style.DEFAULT);
-	int styleWidth = Util.parseInt(container.getStyle().getProperty("width"), Style.DEFAULT);
-
-	boolean findWidth = styleWidth == -1;
-	boolean findHeight = styleHeight == -1;
-
-	if (GXTLogConfiguration.loggingIsEnabled()) {
-	    logger.finest(getId() + " findWidth: " + findWidth + " findHeight: " + findHeight);
-	}
-	
-	int count = getWidgetCount();
-	int offsetY = 0;
-	for (int i = 0; i < count; i++) {
-
-	    Widget widget = getWidget(i);
-	    if (!widget.isVisible()) {
-		continue;
-	    }
-	    widget.addStyleName(CommonStyles.get().positionable());
-	    widget.getElement().getStyle().setMargin(0, Unit.PX);
-
-	    boolean component = widget instanceof Component;
-	    Component c = null;
-	    if (component) {
-		c = (Component) widget;
-	    }
-
-	    int x = 5;
-	    int y = offsetY;
-	    if (component) {
-		c.setPosition(x, y);
-	    } else {
-		XElement.as(widget.getElement()).setLeftTop(x, y);
-	    }
-	    
-	    offsetY += (widget.getOffsetHeight() + 5);
-
-	}
-	
-    }
-    
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+      
+    @Override
     protected void doLayout() {
 	
 	boolean debug = true;
@@ -180,19 +123,13 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	    logger.finest(getId() + " doLayout  size: " + size);
 	}
 	
-	
-
-	int styleHeight = Util.parseInt(container.getStyle().getProperty("height"), Style.DEFAULT);
-	int styleWidth = Util.parseInt(container.getStyle().getProperty("width"), Style.DEFAULT);
+	int styleHeight = getStyleHeight(container);
+	int styleWidth = getStyleWidth(container);
 
 	boolean findWidth = styleWidth == -1;
 	boolean findHeight = styleHeight == -1;
 	
-	
 	/////////
-	
-	//int hWidth = 0;
-	//int hHeight = 0;
 	
 	int hWidth = size.getWidth(); // - getScrollOffset();
 	int hHeight = size.getHeight();
@@ -302,13 +239,13 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	// Calculate sizes and create cells
  	// One cell - one component
  	for (int i = 0; i < count; i++) {
- 	    Widget c = getWidget(i);
+ 	    Widget widget = getWidget(i);
  	    
  	    // Set absolute position mode
- 	    c.addStyleName(CommonStyles.get().positionable());
-	    c.getElement().getStyle().setMargin(0, Unit.PX);
+ 	    widget.addStyleName(CommonStyles.get().positionable());
+	    widget.getElement().getStyle().setMargin(0, Unit.PX);
  	    
- 	    Object ld = c.getLayoutData();
+ 	    Object ld = widget.getLayoutData();
  	    XGridData layoutData = null;
  	    if (ld != null && ld instanceof XGridData) {
  		layoutData = (XGridData) ld;
@@ -317,7 +254,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  		layoutData = new XGridData();
  		
  		// Set or override Layout Data
- 		c.setLayoutData(layoutData);
+ 		widget.setLayoutData(layoutData);
  	    }
  	
  	    /*
@@ -352,7 +289,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	    if (layoutData.getPreferredWidth() == -1 || layoutData.getPreferredHeight() == -1) {
 
 		// First compute size
-		Size preferredSize = computePreferredSize(c);
+		Size preferredSize = computePreferredSize(widget);
 		
 		if (layoutData.getPreferredWidth() == -1) {
 		    layoutData.setPreferredWidth(preferredSize.getWidth());
@@ -480,7 +417,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	for (int k = 0; k < rowCount; k++) {
  	    int rowH = 0;
  	    
- 	    // Components
+ 	    // Widgets
  	    for (int i = 0; i < count; i++) {
  		Cell cell = cells[i];
  		int ch = 0;
@@ -523,7 +460,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	for (int k = 0; k < columnCount; k++) {
  	    int columnW = columnWidth[k];
  	    
- 	    // Components
+ 	    // Widgets
  	    for (int i = 0; i < count; i++) {
  		Cell cell = cells[i];
  		int cw = 0;
@@ -643,7 +580,7 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	for (int i = 0; i < count; i++) {
  	    
  	    Cell cell = cells[i];
- 	    Widget c = getWidget(i);
+ 	    Widget widget = getWidget(i);
  	   
  	    int offsetColumn = 0;
  	    for (int k = 0; k < cell.column; k++) {
@@ -697,60 +634,60 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    }
  	   
 
- 	    int childWidth = cells[i].preferredSize.getWidth();
+ 	    int widgetWidth = cells[i].preferredSize.getWidth();
  	    
  	    //LF
- 	    if (childWidth == -1) {
- 		childWidth = c.getOffsetWidth();
+ 	    if (widgetWidth == -1) {
+ 		widgetWidth = widget.getOffsetWidth();
  	    }
  	    
  	    //DEBUG-FIX
- 	    if (childWidth == 0) {
+ 	    if (widgetWidth == 0) {
  		//componentWidth = 10;
  	    }
  	    
- 	    if (childWidth > cellWidth) {
- 		childWidth = cellWidth;
+ 	    if (widgetWidth > cellWidth) {
+ 		widgetWidth = cellWidth;
  	    }
  	    
  	    
- 	    int childHeight = cells[i].preferredSize.getHeight();
+ 	    int widgetHeight = cells[i].preferredSize.getHeight();
  	    
  	    //LF
- 	    if (childHeight == -1) {
- 		childHeight = c.getOffsetHeight();
+ 	    if (widgetHeight == -1) {
+ 		widgetHeight = widget.getOffsetHeight();
  	    }
 
  	    //DEBUG-FIX
- 	    if (childHeight == 0) {
+ 	    if (widgetHeight == 0) {
  		//componentHeight = 10;
  	    }
 
- 	    if (childHeight > cellHeight) {
- 		childHeight = cellHeight;
+ 	    if (widgetHeight > cellHeight) {
+ 		widgetHeight = cellHeight;
  	    }
  	    
  	    
  	    // HORIZONTAL
  	    if (HorizontalAlignment.FILL.equals(hAlign)) {
  		// Fill align
- 		childWidth = cellWidth;
+ 		widgetWidth = cellWidth;
 
  		// Special fix for last component in row. We have problem with ToolBar in CoolBar
- 		if (cell.column == columnCount - 1 && childWidth > 0 /*&& (c instanceof ToolBar)*/) {
- 		    childWidth -= 1;
+ 		if (cell.column == columnCount - 1 && widgetWidth > 0 /*&& (c instanceof ToolBar)*/) {
+ 		    widgetWidth -= 1;
  		}
 
  	    } else if (HorizontalAlignment.RIGHT.equals(hAlign)) {
  		// Right align
- 		int d = cellWidth - childWidth;
+ 		int d = cellWidth - widgetWidth;
  		if (d < 0) {
  		    d = 0;
  		}
  		x = cellX  + d;
  	    } else if (HorizontalAlignment.CENTER.equals(hAlign)) {
  		// Center align
- 		int d = cellWidth - childWidth;
+ 		int d = cellWidth - widgetWidth;
  		if (d < 0) {
  		    d = 0;
  		}
@@ -760,17 +697,17 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    // VERTICAL
  	    if (VerticalAlignment.FILL.equals(vAlign)) {
  		// Fill align
- 		childHeight = cellHeight;
+ 		widgetHeight = cellHeight;
  	    } else if (VerticalAlignment.BOTTOM.equals(vAlign)) {
  		// Bottom align
- 		int d = cellHeight - childHeight;
+ 		int d = cellHeight - widgetHeight;
  		if (d < 0) {
  		    d = 0;
  		}
  		y = cellY  + d;
  	    } else if (VerticalAlignment.MIDDLE.equals(vAlign)) {
  		// Middle align
- 		int d = cellHeight - childHeight;
+ 		int d = cellHeight - widgetHeight;
  		if (d < 0) {
  		    d = 0;
  		}
@@ -778,15 +715,15 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    }
 
  	    //if (layout) {
- 		setPosition(c, x, y);
- 		setSize(c, childWidth, childHeight);
+ 		setPosition(widget, x, y);
+ 		setSize(widget, widgetWidth, widgetHeight);
  	    //}
  	    
- 	    maxWidth = Math.max(maxWidth, childWidth);
- 	    maxHeight = Math.max(maxHeight, childHeight);
+ 	    maxWidth = Math.max(maxWidth, widgetWidth);
+ 	    maxHeight = Math.max(maxHeight, widgetHeight);
 
- 	    int w = x - marginLeft + childWidth;
- 	    int h = y - marginTop + childHeight;
+ 	    int w = x - marginLeft + widgetWidth;
+ 	    int h = y - marginTop + widgetHeight;
  	    
  	    // Calculate children area
  	    childrenWidth = Math.max(childrenWidth, w);
@@ -800,9 +737,6 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
  	    computeWidth = childrenWidth + marginLeft + marginRight;
  	    computeHeight = childrenHeight + marginTop + marginBottom;
  	}
- 	
-// 	Size computeSize = computeTrim(container, computeWidth, computeHeight);
-// 	return computeSize;
  	
      }    
     
@@ -853,31 +787,14 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	    return new Size(0, 0);
 	}
 	
-	int styleWidth = Util.parseInt(widget.getElement().getStyle().getProperty("width"), Style.DEFAULT);	
-	int styleHeight = Util.parseInt(widget.getElement().getStyle().getProperty("height"), Style.DEFAULT);
+	int styleWidth = getStyleWidth(widget); 	
+	int styleHeight = getStyleHeight(widget);
 	
 	int offsetWidth = widget.getOffsetWidth();
 	int offsetHeight = widget.getOffsetHeight();	
 	
 	int width = styleWidth;
 	int height = styleHeight;
-	
-//	if (widget instanceof Grid) {
-//	    Grid grid = (Grid) widget;
-//	    int columnCount = grid.getColumnModel().getColumnCount();
-//	    int columnWidth = 0;
-//	    
-//	    if (columnCount > 0) {
-//		for (int i = 0; i < columnCount; i++) {
-//		    columnWidth += grid.getColumnModel().getColumnWidth(i);
-//		}
-//		
-//	    }
-//	    
-//	    log("Grid: StyleSize: width=" + width + ", height=" + height);
-//	    log("Grid: OffsetSize: width=" + widget.getOffsetWidth() + ", height=" + widget.getOffsetHeight());
-//	    //log("Grid: StyleSize: width=" + width);
-//	}
 	
 	if (width == -1) {
 	    width = computeMinWidth(widget);
@@ -903,7 +820,27 @@ public class XGridLayoutContainer2 extends InsertResizeContainer {
 	
 	return new Size(width, height);
     }
+    
+    protected int getStyleWidth(Widget widget) {
+	return getStyleWidth(widget.getElement());
+    }
 
+    protected int getStyleHeight(Widget widget) {
+	return getStyleHeight(widget.getElement());
+    }
+    
+    protected int getStyleWidth(Element element) {
+	return getPropertyInt(element, "width", Style.DEFAULT); 
+    }
+
+    protected int getStyleHeight(Element element) {
+	return getPropertyInt(element, "height", Style.DEFAULT); 
+    }
+ 
+    protected int getPropertyInt(Element element, String property, int def) {
+	return Util.parseInt(element.getStyle().getProperty(property), def);
+    }
+    
     protected int computeMinWidth(Widget widget) {
 	if (widget == null) {
 	    return -1;
