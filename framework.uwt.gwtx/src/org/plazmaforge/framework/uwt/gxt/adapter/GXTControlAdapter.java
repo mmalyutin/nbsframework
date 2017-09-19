@@ -58,9 +58,9 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    return;
 	}
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    xControl.setVisible(getBoolean(value));
+	    xControl.setVisible(asBoolean(value));
 	} else if (Control.PROPERTY_ENABLED.equals(name)) {
-	    xControl.setEnabled(getBoolean(value));
+	    xControl.setEnabled(asBoolean(value));
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
 	    UIObject layoutData = (UIObject) value;
 	    if (layoutData == null) {

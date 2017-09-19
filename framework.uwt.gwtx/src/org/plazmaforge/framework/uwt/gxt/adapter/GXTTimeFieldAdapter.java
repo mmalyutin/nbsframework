@@ -22,8 +22,6 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import java.util.Date;
-
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.TimeField;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -56,10 +54,10 @@ public class GXTTimeFieldAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (TimeField.PROPERTY_VALUE.equals(name)) {
-	    xTimeField.setValue((Date) value);
+	    xTimeField.setValue(asDate(value));
 	    return;
 	} else if (TimeField.PROPERTY_FORMAT.equals(name)) {
-	    xTimeField.setFormat(DateTimeFormat.getFormat(getString(value)));
+	    xTimeField.setFormat(DateTimeFormat.getFormat(asString(value)));
 	    return;
 	} 
 	

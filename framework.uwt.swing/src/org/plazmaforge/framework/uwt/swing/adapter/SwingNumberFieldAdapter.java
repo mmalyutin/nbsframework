@@ -47,10 +47,10 @@ public class SwingNumberFieldAdapter extends SwingControlAdapter {
 	    return;
 	}
 	if (NumberField.PROPERTY_VALUE.equals(name)) {
-	    xNumberField.setValue((Number) value);
+	    xNumberField.setValue(asNumber(value));
 	    return;
 	} else if (NumberField.PROPERTY_FORMAT.equals(name)) {
-	    xNumberField.setPattern(getString(value));
+	    xNumberField.setPattern(asString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

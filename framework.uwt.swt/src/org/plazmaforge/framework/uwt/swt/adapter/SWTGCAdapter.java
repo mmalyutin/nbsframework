@@ -183,14 +183,14 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 	    }
 	    if (args.length == 3) {
 		//System.out.println("Text Font: size=" + xGC.getFont().getFontData()[0].getHeight() + ", name=" + xGC.getFont().getFontData()[0].getName());
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		setForegroundAlpha(xGC, gc);
 		//xGC.drawText(text, x, y, true); // true - without filling background
 		drawText(gc, xGC, text, x, y);
 	    } else if (args.length == 4) {
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		int angle = intValue(args[3]);
@@ -204,7 +204,7 @@ public class SWTGCAdapter extends SWTAbstractAdapter {
 		return null;
 	    }
 	    if (args.length >= 5) {
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		int width = intValue(args[3]);

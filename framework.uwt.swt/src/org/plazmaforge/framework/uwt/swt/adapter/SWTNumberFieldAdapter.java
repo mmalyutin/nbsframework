@@ -52,7 +52,7 @@ public class SWTNumberFieldAdapter extends SWTControlAdapter {
 	    xNumberField.setValue(value);
 	    return;
 	} else if (NumberField.PROPERTY_FORMAT.equals(name)) {
-	    xNumberField.setPattern(getString(value));
+	    xNumberField.setPattern(asString(value));
 	    return;
 	}
 	

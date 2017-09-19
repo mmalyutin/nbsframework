@@ -54,7 +54,7 @@ public class SwingRadioButtonAdapter extends SwingButtonAdapter {
 	    return;
 	}
 	if (eq(Button.PROPERTY_SELECTED, name)) {
-	    xRadioButton.setSelected(getBoolean(value));
+	    xRadioButton.setSelected(asBoolean(value));
 	    return;
 	} 
 	

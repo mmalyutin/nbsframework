@@ -63,10 +63,10 @@ public class GXTNumberFieldAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (NumberField.PROPERTY_VALUE.equals(name)) {
-	    xNumberField.setValue(getNumber(value));
+	    xNumberField.setValue(asNumber(value));
 	    return;
 	} if (NumberField.PROPERTY_FORMAT.equals(name)) {
-	    String format = getString(value);
+	    String format = asString(value);
 	    xNumberField.setFormat(getNumberFormat(format));
 	    return;
 	} if (NumberField.PROPERTY_DATA_TYPE.equals(name)) {

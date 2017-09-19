@@ -51,7 +51,7 @@ public class SWTDateTimeFieldAdapter extends SWTControlAdapter {
 	    xDateTimeField.setValue(value);
 	    return;
 	} else if (DateTimeField.PROPERTY_FORMAT.equals(name)) {
-	    xDateTimeField.setPattern(getString(value));
+	    xDateTimeField.setPattern(asString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

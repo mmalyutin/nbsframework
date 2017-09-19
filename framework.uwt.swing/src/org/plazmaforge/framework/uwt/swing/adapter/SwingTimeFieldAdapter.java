@@ -52,7 +52,7 @@ public class SwingTimeFieldAdapter extends SwingControlAdapter {
 	    xTimeField.setDate((Date) value);
 	    return;
 	} else if (eq(TimeField.PROPERTY_FORMAT, name)) {
-	    xTimeField.setPattern(getString(value));
+	    xTimeField.setPattern(asString(value));
 	    return;
 	} 
 	super.setProperty(element, name, value);

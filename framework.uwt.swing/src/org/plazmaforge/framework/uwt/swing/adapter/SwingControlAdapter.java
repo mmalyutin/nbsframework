@@ -110,9 +110,9 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	javax.swing.JComponent xJControl = null;
 	
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    xControl.setVisible(getBoolean(value));
+	    xControl.setVisible(asBoolean(value));
 	} else if (Control.PROPERTY_ENABLED.equals(name)) {
-	    xControl.setEnabled(getBoolean(value));
+	    xControl.setEnabled(asBoolean(value));
 	} else if (Control.PROPERTY_WIDTH.equals(name)) {
 	    int width = (Integer) value;
 	    
