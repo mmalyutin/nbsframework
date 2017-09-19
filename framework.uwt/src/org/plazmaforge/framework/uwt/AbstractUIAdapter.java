@@ -24,6 +24,8 @@ package org.plazmaforge.framework.uwt;
 
 import java.util.Date;
 
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -193,6 +195,14 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     protected Date asDate(Object value) {
 	return (Date) value;
     }    
+    
+    protected Color asColor(Object value) {
+ 	return (Color) value;
+    } 
+    
+    protected Font asFont(Object value) {
+	return (Font) value;
+    }
     
     protected boolean booleanValue(Object value) {
  	return value == null ? false : asBoolean(value);
