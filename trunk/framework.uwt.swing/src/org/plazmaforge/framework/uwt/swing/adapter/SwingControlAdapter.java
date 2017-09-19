@@ -34,8 +34,6 @@ import java.util.List;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Color;
-import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.swing.layout.XCardLayout;
@@ -189,17 +187,14 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	    return;
 	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {
 	    xControl = getViewContent(xControl);
-	    Color color = (Color) value;
-	    xControl.setBackground(getColor(color));
+	    xControl.setBackground(getColor(asColor(value)));
 	    return;
 	} else if (Composite.PROPERTY_FOREGROUND.equals(name)) {
 	    xControl = getViewContent(xControl);
-	    Color color = (Color) value;
-	    xControl.setForeground(getColor(color));
+	    xControl.setForeground(getColor(asColor(value)));
 	    return;
 	} else if (Control.PROPERTY_FONT.equals(name)) {
-	    Font font = (Font) value;
-	    xControl.setFont(getFont(font));
+	    xControl.setFont(getFont(asFont(value)));
 	    return;
 	} else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
 	    xControl = getViewContent(xControl);

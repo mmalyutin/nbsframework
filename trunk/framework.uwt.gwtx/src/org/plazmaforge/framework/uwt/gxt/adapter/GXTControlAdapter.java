@@ -71,84 +71,19 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    xControl.setLayoutData(layoutData.getDelegate());
 	    return;
 	} else if (Control.PROPERTY_WIDTH.equals(name)) {
-	    Integer v = (Integer) value;
-	    setWidth(xControl, v);
-	    
-	    //xControl.setWidth(v == null ? 0 : (v));
-	    //xWidget.setStyleAttribute("width", v == null ? "0" : (v.toString() + ""));
-	    
+	    setWidth(xControl, asInteger(value));
 	    return;
 	} else if (Control.PROPERTY_HEIGHT.equals(name)) {
-	    Integer v = (Integer) value;
-	    setHeight(xControl, v);
-	    
-	    //xControl.setHeight(v == null ? "0" : (v.toString() + ""));
-	    //xWidget.setStyleAttribute("height", v == null ? "0" : (v.toString() + ""));
-	    
+	    setHeight(xControl, asInteger(value));
 	    return;
 	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {
-	    Color color = (Color) value;
-	    String colorString = getColorString(color);
-	    
-	    //DISABLE:MIGRATION
-	    /*
-	    if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
-		
-		//Special hard code to set style to content panel
-		//TODO: Must optimize code
-		com.sencha.gxt.widget.core.client.ContentPanel contentPanel = (com.sencha.gxt.widget.core.client.ContentPanel) xControl;
-		String baseStyle = contentPanel.getBodyStyle();
-		contentPanel.setBodyStyle(applyStyle(baseStyle, "background", colorString));
-		
-		return;
-	    }
-	    
-	    xControl.setStyleAttribute("background", colorString);
-	    */
-	    
+	    setColorAttribute(xControl, "background", asColor(value));
 	    return;
 	} else if (Composite.PROPERTY_FOREGROUND.equals(name)) {
-	    Color color = (Color) value;
-	    String colorString = getColorString(color);
-	    
-	    //DISABLE:MIGRATION
-	    /*
-	    if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
-		
-		//Special hard code to set style to content panel
-		//TODO: Must optimize code
-		com.sencha.gxt.widget.core.client.ContentPanel contentPanel = (com.sencha.gxt.widget.core.client.ContentPanel) xControl;
-		String baseStyle = contentPanel.getBodyStyle();
-		contentPanel.setBodyStyle(applyStyle(baseStyle, "color", colorString));
-		
-		return;
-	    }
-	    
-	    xControl.setStyleAttribute("color", colorString);
-	    */
-	    
-	    
+	    setColorAttribute(xControl, "color", asColor(value));
 	    return;	    
 	} else if (Composite.PROPERTY_FONT.equals(name)) {
-	    Font font = (Font) value;
-	    String fontString = getFontString(font);
-	    
-	  //DISABLE:MIGRATION
-	    /*
-	    if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
-		
-		//Special hard code to set style to content panel
-		//TODO: Must optimize code
-		com.sencha.gxt.widget.core.client.ContentPanel contentPanel = (com.sencha.gxt.widget.core.client.ContentPanel) xControl;
-		String baseStyle = contentPanel.getBodyStyle();
-		contentPanel.setBodyStyle(applyStyle(baseStyle, "font", fontString));
-		
-		return;
-	    }
-	    
-	    xControl.setStyleAttribute("font", fontString);
-	    */
-	    
+	    setFontAttribute(xControl, "font", asFont(value));
 	    return;	    
 	} else if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
 	    xControl.setToolTip(getSafeString(value));
@@ -163,7 +98,38 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	super.setProperty(element, name, value);
     }
 
-   
+    protected void setColorAttribute(com.sencha.gxt.widget.core.client.Component xControl, String attribute, Color color) {
+	String value = getColorString(color);
+	String style = attribute + ": " + value;
+	if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
+
+	    // Special hard code to set style to content panel
+	    // TODO: Must optimize code
+	    com.sencha.gxt.widget.core.client.ContentPanel contentPanel = (com.sencha.gxt.widget.core.client.ContentPanel) xControl;
+	    contentPanel.setBodyStyle(style);
+
+	    return;
+	}
+	if (!attribute.equalsIgnoreCase("color")) {
+	    attribute = attribute + "Color";
+	}
+	xControl.getElement().getStyle().setProperty(attribute, value);
+    }
+    
+    protected void setFontAttribute(com.sencha.gxt.widget.core.client.Component xControl, String attribute, Font font) {
+	String value = getFontString(font);
+	String style = attribute + ": " + value;
+	if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
+
+	    // Special hard code to set style to content panel
+	    // TODO: Must optimize code
+	    com.sencha.gxt.widget.core.client.ContentPanel contentPanel = (com.sencha.gxt.widget.core.client.ContentPanel) xControl;
+	    contentPanel.setBodyStyle(style);
+
+	    return;
+	}
+	xControl.getElement().getStyle().setProperty(attribute, value);
+    }
     
     @Override
     public Object getProperty(UIObject element, String name) {

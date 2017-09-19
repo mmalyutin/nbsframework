@@ -95,16 +95,13 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
 	    xControl.setToolTipText(getSafeString(value));
 	    return;
 	} else if (Control.PROPERTY_BACKGROUND.equals(name)) {
-	    Color color = (Color) value;
-	    xControl.setBackground(getColor(color));
+	    xControl.setBackground(getColor(asColor(value)));
 	    return;
 	} else if (Control.PROPERTY_FOREGROUND.equals(name)) {
-	    Color color = (Color) value;
-	    xControl.setForeground(getColor(color));
+	    xControl.setForeground(getColor(asColor(value)));
 	    return;
 	} else if (Control.PROPERTY_FONT.equals(name)) {
-	    Font font = (Font) value;
-	    xControl.setFont(getFont(font));
+	    xControl.setFont(getFont(asFont(value)));
 	    return;
 	} else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
 	    Menu menu = (Menu) value;
