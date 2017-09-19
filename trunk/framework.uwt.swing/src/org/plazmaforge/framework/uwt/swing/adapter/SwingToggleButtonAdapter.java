@@ -72,11 +72,11 @@ public class SwingToggleButtonAdapter extends SwingButtonAdapter {
 	    return;
 	}
 	if (Button.PROPERTY_SELECTED.equals(name)) {
-	    xToogleButton.setSelected(getBoolean(value));
+	    xToogleButton.setSelected(asBoolean(value));
 	    return;
 	} else if (Button.PROPERTY_GROUP.equals(name)) {
 	    UIObject parent = element.getUIParent();
-	    String groupName = getString(value);
+	    String groupName = asString(value);
 	    String groupKey = getGroupKey(groupName);
 
 	    // Get Swing ButtonGroup from UWT parent

@@ -69,7 +69,7 @@ public class GXTRadioButtonAdapter extends GXTCheckBoxAdapter {
 	    return;
 	}
 	if (Button.PROPERTY_SELECTED.equals(name)) {
-	    xRadioButton.setValue(getBoolean(value));
+	    xRadioButton.setValue(asBoolean(value));
 	    return;
 	}
 	

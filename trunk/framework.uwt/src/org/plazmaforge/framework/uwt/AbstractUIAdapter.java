@@ -106,17 +106,14 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 	return pattern;
     }
     
-    protected String getString(Object value) {
-	return (String) value;
-    }
-
+  
     protected String getSafeString(Object value) {
 	return value == null ? "" : (String) value;
     }
 
     
     protected String getHtmlString(Object value, boolean wrapTag) {
-	return toHtml(getString(value), wrapTag);
+	return toHtml(asString(value), wrapTag);
     }
 
     protected String getHtmlString(Object value) {
@@ -169,31 +166,49 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 	return toHtml(str, false);
     }
 
-
-    protected Date getDate(Object value) {
-	return (Date) value;
+    protected String asString(Object value) {
+  	return (String) value;
     }
-    
 
-    protected Boolean getBoolean(Object value) {
+    protected Boolean asBoolean(Object value) {
 	return (Boolean) value;
     }
 
-    protected boolean booleanValue(Object value) {
-	return value == null ? false : getBoolean(value);
-    }
-
-    protected Integer getInteger(Object value) {
-	return (Integer) value;
-    }
-
-    protected Number getNumber(Object value) {
+    protected Number asNumber(Object value) {
 	return (Number) value;
     }
-
-    protected int intValue(Object value) {
-	return value == null ? 0 : getInteger(value);
+    
+    protected Integer asInteger(Object value) {
+	return (Integer) value;
     }
+    
+    protected Float asFloat(Object value) {
+	return (Float) value;
+    }
+    
+    protected Double asDouble(Object value) {
+	return (Double) value;
+    }
+    
+    protected Date asDate(Object value) {
+	return (Date) value;
+    }    
+    
+    protected boolean booleanValue(Object value) {
+ 	return value == null ? false : asBoolean(value);
+    }
+    
+    protected int intValue(Object value) {
+	return value == null ? 0 : asInteger(value);
+    }
+
+    protected float floatValue(Object value) {
+	return value == null ? 0f : asFloat(value);
+    }
+
+    protected double doubleValue(Object value) {
+	return value == null ? 0d : asDouble(value);
+    }  
    
     ////
  

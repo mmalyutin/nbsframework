@@ -22,8 +22,6 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import java.util.Date;
-
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.swt.widget.XDateField;
@@ -50,10 +48,10 @@ public class SWTDateFieldAdapter extends SWTControlAdapter {
 	    return;
 	}
 	if (DateField.PROPERTY_VALUE.equals(name)) {
-	    xDateField.setDate((Date) value);
+	    xDateField.setDate(asDate(value));
 	    return;
 	} else if (DateField.PROPERTY_FORMAT.equals(name)) {
-	    xDateField.setPattern(getString(value));
+	    xDateField.setPattern(asString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

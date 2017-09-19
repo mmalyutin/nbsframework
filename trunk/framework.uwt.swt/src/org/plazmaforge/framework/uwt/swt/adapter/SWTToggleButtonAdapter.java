@@ -63,7 +63,7 @@ public class SWTToggleButtonAdapter extends SWTButtonAdapter {
 	    onToggleEvent(xButton, selected);
 	    return;
 	} else if (ToggleButton.PROPERTY_GROUP.equals(name)) {
-	    xButton.setData(ToggleButton.PROPERTY_GROUP, getString(value));
+	    xButton.setData(ToggleButton.PROPERTY_GROUP, asString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

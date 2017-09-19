@@ -46,7 +46,7 @@ public class SwingIntegerFieldAdapter extends SwingNumberFieldAdapter {
 	    return;
 	}
 	if (NumberField.PROPERTY_VALUE.equals(name)) {
-	    xIntegerField.setValue(getInteger(value));
+	    xIntegerField.setValue(asInteger(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

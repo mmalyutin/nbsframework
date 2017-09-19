@@ -105,7 +105,7 @@ public class SwingMenuItemAdapter extends SwingWidgetAdapter {
 	    }
 	    return;
 	} else if (eq(MenuItem.PROPERTY_ENABLED, name)) {
-	    xMenuItem.setEnabled(getBoolean(value));
+	    xMenuItem.setEnabled(asBoolean(value));
 	    return;
 	} else if (eq(MenuItem.PROPERTY_TOOL_TIP, name)) {
 	    xMenuItem.setToolTipText(getSafeString(value));

@@ -69,9 +69,9 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
 	    return;
 	}
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    xControl.setVisible(getBoolean(value));
+	    xControl.setVisible(asBoolean(value));
 	} if (Control.PROPERTY_ENABLED.equals(name)) {
-	    xControl.setEnabled(getBoolean(value));    
+	    xControl.setEnabled(asBoolean(value));    
 	} else if (Control.PROPERTY_WIDTH.equals(name)) {
 	    org.eclipse.swt.graphics.Point point = xControl.getSize();
 	    point.x = (Integer) value;

@@ -71,7 +71,7 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 	ToggleButton toggleButton = (ToggleButton) element;
 	UIObject parent = element.getUIParent();
 	if (Button.PROPERTY_SELECTED.equals(name)) {
-	    xToggleButton.setValue(getBoolean(value));
+	    xToggleButton.setValue(asBoolean(value));
 	    return;
 	} else if (Button.PROPERTY_GROUP.equals(name)) {
 	    
@@ -83,7 +83,7 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 	    }
 	    
 	    // Add element form NEW ToggleGroup
-	    String newGroupName = getString(value);
+	    String newGroupName = asString(value);
 	    if (newGroupName != null) {
 		ToggleGroup newGroup = getToggleGroup(parent, newGroupName, true);
 		newGroup.add(xToggleButton);

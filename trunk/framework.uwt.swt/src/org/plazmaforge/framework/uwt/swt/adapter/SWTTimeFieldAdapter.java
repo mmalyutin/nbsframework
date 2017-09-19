@@ -51,7 +51,7 @@ public class SWTTimeFieldAdapter extends SWTControlAdapter {
 	    xTimeField.setValue(value);
 	    return;
 	} else if (TimeField.PROPERTY_FORMAT.equals(name)) {
-	    xTimeField.setPattern(getString(value));
+	    xTimeField.setPattern(asString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

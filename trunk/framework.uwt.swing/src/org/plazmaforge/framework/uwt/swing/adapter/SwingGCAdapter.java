@@ -180,14 +180,14 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	    }
 	    if (args.length == 3) {
 		int fontHeight = xGC.getFont().getSize();
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]) + fontHeight;
 		setForeground(xGC, gc);
 		xGC.drawString(text, x, y);
 	    } else if (args.length == 4) {
 		int fontHeight = xGC.getFont().getSize();
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]) + fontHeight;     // TODO: WHY(?) fontHeight
 		int y = intValue(args[2]) /*+ fontHeight*/; // TODO: WHY(?) fontHeight
 		int angle = intValue(args[3]);
@@ -202,7 +202,7 @@ public class SwingGCAdapter extends SwingAbstractAdapter {
 	    }
 	    if (args.length >= 5) {
 		int fontHeight = xGC.getFont().getSize();
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);// + fontHeight; //TODO
 		int width = intValue(args[3]);

@@ -49,7 +49,7 @@ public class SWTIntegerFieldAdapter extends SWTNumberFieldAdapter {
 	    return;
 	}
 	if (NumberField.PROPERTY_VALUE.equals(name)) {
-	    xIntegerField.setValue(getInteger(value));
+	    xIntegerField.setValue(asInteger(value));
 	    return;
 	}
 	
