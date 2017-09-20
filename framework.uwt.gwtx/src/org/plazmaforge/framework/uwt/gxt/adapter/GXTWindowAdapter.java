@@ -32,12 +32,14 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Window;
 
-import com.sencha.gxt.ui.client.util.Size;
-import com.sencha.gxt.widget.core.client.Layout;
 import com.sencha.gxt.widget.core.client.container.Container;
-import com.sencha.gxt.widget.core.client.layout.FitLayout;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.resources.client.ImageResource;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTWindowAdapter extends GXTCompositeAdapter {
     
     private static final String SYS_PROPERTY_FORCE_CLOSE = "$forceClose"; 
@@ -49,18 +51,22 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	return createWindow(xParent, window);
     }
     
-    protectedcom.sencha.gxt.widget.core.client.Window createWindow(final Object xParent, final Window window) {
-	finalcom.sencha.gxt.widget.core.client.Window xWindow = newcom.sencha.gxt.widget.core.client.Window();
+    protected com.sencha.gxt.widget.core.client.Window createWindow(final Object xParent, final Window window) {
+	final com.sencha.gxt.widget.core.client.Window xWindow = new com.sencha.gxt.widget.core.client.Window();
 	xWindow.setModal(window.isModal());
 	xWindow.setResizable(window.isResizable());
 	
 	// UPDATE DECORATION
 	updateDecoration(window, xWindow);
 	
-	addNotifierListener(window, xWindow);
+	//TODO: DISABLE:MIGRATION
+	//addNotifierListener(window, xWindow);
+	
 	return xWindow;
     }
     
+    //TODO: DISABLE:MIGRATION
+    /*
     protected void addNotifierListener(final Window window, finalcom.sencha.gxt.widget.core.client.Window xWindow) {
 	final Notifier notifier = window.getNotifier(); 
 	xWindow.addListener(com.sencha.gxt.ui.client.event.Events.BeforeHide, new com.sencha.gxt.ui.client.event.Listener<com.sencha.gxt.ui.client.event.WindowEvent>() {
@@ -108,6 +114,8 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	
 	
     }
+    */
+    
     
     protected void updateDecoration(Window window,com.sencha.gxt.widget.core.client.Window xWindow) {
 	boolean closable = window.isUndecorated() ? false : window.isClosable();  
@@ -123,23 +131,25 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	Object delegate = element.getDelegate();
-	if (delegate == null || !(delegate instanceofcom.sencha.gxt.widget.core.client.Window)) {
+	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return;
 	}
 	com.sencha.gxt.widget.core.client.Window xWindow = (com.sencha.gxt.widget.core.client.Window) delegate;
 	if (Window.PROPERTY_TITLE.equals(name)) {
-	    xWindow.setHeading(getSafeString(value));
+	    xWindow.setHeading(asSafeString(value));
 	    return;
 	} else if (Window.PROPERTY_ICON.equals(name)) {
-	    AbstractImagePrototype xImage = createImage(element, (Image) value);
-	    if (xImage != null) {
-		xWindow.setIcon(xImage);
+	    ImageResource xIcon = createImage(element, asImage(value));
+	    if (xIcon != null) {
+		//TODO: DISABLE:MIGRATION
+		//xWindow.setIcon(xIcon);
 	    }
 	    return;
 	} else if (Window.PROPERTY_ICON_PATH.equals(name)) {
-	    AbstractImagePrototype xImage = createImage(element, (String) value);
-	    if (xImage != null) {
-		xWindow.setIcon(xImage);
+	    ImageResource xIcon = createImage(element, asString(value));
+	    if (xIcon != null) {
+		//TODO: DISABLE:MIGRATION
+		//xWindow.setIcon(xImage);
 	    }
 	    return;
 	} else if (Window.PROPERTY_WIDTH.equals(name)) {
@@ -156,7 +166,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     @Override
     public Object invoke(UIObject element, String methodName, Object[] args) {
 	Object delegate = element.getDelegate();
-	if (delegate == null || !(delegate instanceofcom.sencha.gxt.widget.core.client.Window)) {
+	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return null;
 	}
 	Window window = (Window) element;
@@ -166,11 +176,17 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	} else if (Window.METHOD_CLOSE.equals(methodName)) {
 	    doClose(window, xWindow);
 	} else if (Window.METHOD_LAYOUT.equals(methodName)) {
-	    doLayout(xWindow);
+	    
+	    //TODO: DISABLE:MIGRATION
+	    //doLayout(xWindow);
 	    return null;
+	    
 	} else if (Window.METHOD_PACK.equals(methodName) ) {
-	    doPack(xWindow);
+	    
+	    //TODO: DISABLE:MIGRATION
+	    //doPack(xWindow);
 	    return null;
+	    
 	} else if (Window.METHOD_CENTER.equals(methodName) ) {
 	    xWindow.center();
 	    return null;
@@ -193,7 +209,8 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	return super.invoke(element, methodName, args);
     }
 
-    
+    //TODO: DISABLE:MIGRATION
+    /*
     protected void doLayout(com.sencha.gxt.widget.core.client.Window xWindow) {
 	xWindow.layout(true);
     }
@@ -230,12 +247,18 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	int fixDeltaHeight = 40; // TODO: Window trim height
 	xWindow.setSize(size.width + fixDeltaWidth, size.height + fixDeltaHeight);
     }
+    */
 
     protected void doOpen(Window window,com.sencha.gxt.widget.core.client.Window xWindow) {
 	xWindow.setVisible(true);
-	doLayout(xWindow);
+	
+	//TODO: DISABLE:MIGRATION
+	//doLayout(xWindow);
+	
 	if (window.isPack()) {
-	    doPack(xWindow);
+	    
+	    //TODO: DISABLE:MIGRATION
+	    //doPack(xWindow);
 	}
 	if (window.isCenter()) {
 	    xWindow.center();
@@ -265,6 +288,8 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	window.setData(SYS_PROPERTY_FORCE_CLOSE, forceClose);
     }
     
+    //TODO: DISABLE:MIGRATION
+    /*
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
 	Window window = (Window) element;
@@ -378,5 +403,6 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	component.removeListener(com.sencha.gxt.ui.client.event.Events.Maximize, getListener(widget, listener)); // TODO Maximize = Deiconify (?)
     }    
     
-
+*/
+    
 }

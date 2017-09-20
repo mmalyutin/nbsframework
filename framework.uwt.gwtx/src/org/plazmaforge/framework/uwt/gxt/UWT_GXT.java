@@ -42,7 +42,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTCoolBarAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTDateFieldAdapter;
 //import org.plazmaforge.framework.uwt.gxt.adapter.GXTDesktopAdapter;
 //import org.plazmaforge.framework.uwt.gxt.adapter.GXTDesktopItemAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTDialogAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTDialogAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTFitLayoutAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTGCAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTGridDataAdapter;
@@ -64,7 +64,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTPanelAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTPasswordFieldAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTRadioButtonAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTRadioGroupAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTFrameAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTFrameAdapter;
 //import org.plazmaforge.framework.uwt.gxt.adapter.GXTSeparatorAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSliderAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSpinnerFieldAdapter;
@@ -83,7 +83,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTToolItemAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTToolSeparatorAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTTreeAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTVerticalLayoutAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTWindowAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTWindowAdapter;
 //import org.plazmaforge.framework.uwt.gxt.core.GXTPropertyProviderFactory;
 
 public class UWT_GXT {
@@ -118,9 +118,9 @@ public class UWT_GXT {
 
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.Application.class, new GXTApplicationAdapter());
 	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Window.class, new GXTWindowAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new GXTFrameAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new GXTDialogAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Window.class, new GXTWindowAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new GXTFrameAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new GXTDialogAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Composite.class, new GXTCompositeAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new GXTPanelAdapter());

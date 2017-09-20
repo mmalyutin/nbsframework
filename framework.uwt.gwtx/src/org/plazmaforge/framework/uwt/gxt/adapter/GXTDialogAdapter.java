@@ -23,39 +23,30 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Frame;
-import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
+import org.plazmaforge.framework.uwt.widget.Window;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class GXTDialogAdapter extends GXTWindowAdapter {
 
-public class GXTFrameAdapter extends GXTWindowAdapter {
-    
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {
-	Frame frame = (Frame) element;
-	if (frame.isRootFrame()) {
-	    return "StubFrame";
-	}
-	return createWindow(null, frame);
+	Window window = (Window) element;
+	Object xParent = parent == null ? null: parent.getDelegate();
+	return createWindow(xParent, window);
     }
+
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	Object delegate = element.getDelegate();
-	if (delegate == null || !(delegate instanceofcom.sencha.gxt.widget.core.client.Window)) {
+	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return;
 	}
-	com.sencha.gxt.widget.core.client.Window xFrame = (com.sencha.gxt.widget.core.client.Window) delegate;
-	if (Frame.PROPERTY_MENU_BAR.equals(name)) {
-	    MenuBar menuBar = (MenuBar) value;
-	    if (menuBar != null) {
-		//menuBar.activate();
-		//xFrame.setMenuBar(menuBar.getDelegate()); 
-	    }
-	    return;
-	}
-
+	//TODO
 	super.setProperty(element, name, value);
     }
-    
-
 }
