@@ -33,7 +33,11 @@ import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTableModel;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingTableColumnAdapter extends SwingWidgetAdapter {
 
     @Override
@@ -80,7 +84,7 @@ public class SwingTableColumnAdapter extends SwingWidgetAdapter {
 	    //do nothing because 'property' of column doesn't use in Swing Table
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
-	    xTableColumn.setHeaderValue(getSafeString(value));
+	    xTableColumn.setHeaderValue(asSafeString(value));
 	    return;
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
 	    xTableColumn.setWidth(intValue(value));

@@ -27,6 +27,11 @@ import org.plazmaforge.framework.uwt.swing.widget.XTitlePanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingTitlePanelAdapter extends SwingPanelAdapter {
 
     
@@ -50,7 +55,7 @@ public class SwingTitlePanelAdapter extends SwingPanelAdapter {
 	}
 	
 	if (eq(GroupPanel.PROPERTY_TEXT, name)) {
-	    xTitlePanel.setTitle(getSafeString(value));
+	    xTitlePanel.setTitle(asSafeString(value));
 	    return;
 	}
 	

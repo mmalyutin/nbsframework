@@ -57,7 +57,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData> cm = xGrid.getColumnModel();
 	
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
-	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty(), table.getPropertyProvider(), column.getValueProvider()), column.getWidth(), getSafeString(column.getText()));
+	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty(), table.getPropertyProvider(), column.getValueProvider()), column.getWidth(), asSafeString(column.getText()));
 	xColumn.setGrid(xGrid);
 	
 	// Create cell by data type
@@ -85,18 +85,18 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	
 	if (TableColumn.PROPERTY_PROPERTY.equals(name)) {
 	    XValueProvider xValueProvider = (XValueProvider) xColumn.getValueProvider();
-	    xValueProvider.setProperty((String) value);
+	    xValueProvider.setProperty(asString(value));
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
-	    xColumn.setHeader((String) value);
+	    xColumn.setHeader(asString(value));
 	    return;
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
-	    xColumn.setWidth((Integer) value);
+	    xColumn.setWidth(asInteger(value));
 	    return;
 	} else if (TableColumn.PROPERTY_FORMAT.equals(name)) {
 	    
 	    // Get pattern
-	    String pattern = (String) value;
+	    String pattern = asString(value);
 	    if (pattern == null) {
 		return;
 	    }

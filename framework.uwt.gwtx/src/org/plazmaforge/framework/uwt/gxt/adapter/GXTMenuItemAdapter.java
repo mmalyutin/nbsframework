@@ -24,7 +24,6 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
@@ -74,22 +73,22 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 	    return;
 	}
 	if (eq(name, MenuItem.PROPERTY_TEXT)) {
-	    xMenuItem.setText(getSafeString(value));
+	    xMenuItem.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON)) {
-	    ImageResource xIcon = createImage(element, (Image) value);
+	    ImageResource xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
 		xMenuItem.setIcon(xIcon);
 	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON_PATH)) {
-	    ImageResource xIcon = createImage(element, (String) value);
+	    ImageResource xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
 		xMenuItem.setIcon(xIcon);
 	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_TOOL_TIP)) {
-	    xMenuItem.setToolTip(getSafeString(value));
+	    xMenuItem.setToolTip(asSafeString(value));
 	    return;
 	}
 

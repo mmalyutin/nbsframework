@@ -25,11 +25,15 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTButtonAdapter extends SWTControlAdapter {
 
 
@@ -67,16 +71,16 @@ public class SWTButtonAdapter extends SWTControlAdapter {
 	    return;
 	}
 	if (eq(name, Button.PROPERTY_TEXT)) {
-	    xButton.setText(getSafeString(value));
+	    xButton.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, Button.PROPERTY_ICON)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (Image) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
 		xButton.setImage(xIcon);
 	    }
 	    return;
 	} else if (eq(name, Button.PROPERTY_ICON_PATH)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (String) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
 		xButton.setImage(xIcon);
 	    }

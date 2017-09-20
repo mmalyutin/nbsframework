@@ -27,6 +27,11 @@ import org.plazmaforge.framework.uwt.swing.widget.XTextArea;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextArea;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingTextAreaAdapter extends SwingControlAdapter {
 
 
@@ -49,7 +54,7 @@ public class SwingTextAreaAdapter extends SwingControlAdapter {
 	    return;
 	}
 	if (eq(TextArea.PROPERTY_VALUE, name)) {
-	    xTextArea.setText(getSafeString(value));
+	    xTextArea.setText(asSafeString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

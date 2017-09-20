@@ -28,6 +28,11 @@ import org.plazmaforge.framework.uwt.swt.widget.XTextField;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextField;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTTextFieldAdapter extends SWTControlAdapter {
 
 
@@ -51,7 +56,7 @@ public class SWTTextFieldAdapter extends SWTControlAdapter {
 	    return;
 	}
 	if (TextField.PROPERTY_VALUE.equals(name)) {
-	    xTextField.setText(getSafeString(value));
+	    xTextField.setText(asSafeString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

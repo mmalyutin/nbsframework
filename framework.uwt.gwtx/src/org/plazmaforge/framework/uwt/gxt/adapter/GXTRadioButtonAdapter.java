@@ -43,7 +43,7 @@ public class GXTRadioButtonAdapter extends GXTCheckBoxAdapter {
 	
 	// Initialize
 	RadioButton radioButton = (RadioButton) element;
-	String text = getSafeString(radioButton.getText());
+	String text = asSafeString(radioButton.getText());
 	xRadioButton.setBoxLabel(text);
 	xRadioButton.setHeight(20);
 	

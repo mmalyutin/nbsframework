@@ -44,6 +44,11 @@ import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 
 
@@ -182,7 +187,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	    xControl = getViewContent(xControl);
 	    if (xControl instanceof javax.swing.JComponent) {
 		xJControl = (javax.swing.JComponent) xControl;
-		xJControl.setToolTipText(getSafeString(value));
+		xJControl.setToolTipText(asSafeString(value));
 	    }
 	    return;
 	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {

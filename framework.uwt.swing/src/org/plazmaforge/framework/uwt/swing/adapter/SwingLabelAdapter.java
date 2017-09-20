@@ -23,9 +23,13 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Label;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingLabelAdapter extends SwingControlAdapter {
 
 
@@ -66,21 +70,21 @@ public class SwingLabelAdapter extends SwingControlAdapter {
 	if (Label.PROPERTY_TEXT.equals(name)) {
 	    // TODO: Experimental solution
 	    // Convert text to HTML ('\n' -> '<br>')
-	    String text = getSafeString(value);
+	    String text = asSafeString(value);
 	    String html = toHtml(text);
 	    if (!text.equals(html)) {
 		text = "<html>" + text + "</html>";
 	    }
-	    xLabel.setText(getSafeString(value));
+	    xLabel.setText(asSafeString(value));
 	    return;
 	} else if (Label.PROPERTY_ICON.equals(name)) {
-	    javax.swing.Icon xIcon = createImageIcon(element, (Image) value);
+	    javax.swing.Icon xIcon = createImageIcon(element, asImage(value));
 	    if (xIcon != null) {
 		xLabel.setIcon(xIcon);
 	    }
 	    return;
 	} else if (Label.PROPERTY_ICON_PATH.equals(name)) {
-	    javax.swing.Icon xIcon = createImageIcon(element, (String) value);
+	    javax.swing.Icon xIcon = createImageIcon(element, asString(value));
 	    if (xIcon != null) {
 		xLabel.setIcon(xIcon);
 	    }

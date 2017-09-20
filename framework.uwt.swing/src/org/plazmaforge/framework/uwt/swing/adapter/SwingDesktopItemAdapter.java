@@ -29,6 +29,11 @@ import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktop;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktopItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingDesktopItemAdapter extends SwingCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -47,7 +52,7 @@ public class SwingDesktopItemAdapter extends SwingCompositeAdapter {
 	    return;
 	}
 	if (DesktopItem.PROPERTY_TITLE.equals(name)) {
-	    xDesktopItem.setTitle(getSafeString(value));
+	    xDesktopItem.setTitle(asSafeString(value));
 	    return;
 	}
 

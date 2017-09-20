@@ -26,13 +26,18 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.swing.widget.XGroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingGroupPanelAdapter extends SwingPanelAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	GroupPanel groupPanel = (GroupPanel) element;
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XGroupPanel xGroupPanel = new XGroupPanel();
-	xGroupPanel.setTitle(getSafeString(groupPanel.getTitle()));
+	xGroupPanel.setTitle(asSafeString(groupPanel.getTitle()));
 	addToParent(xParent, xGroupPanel, element);
 	return xGroupPanel;
     }
@@ -46,7 +51,7 @@ public class SwingGroupPanelAdapter extends SwingPanelAdapter {
 	}
 	
 	if (GroupPanel.PROPERTY_TITLE.equals(name)) {
-	    xGroupPanel.setTitle(getSafeString(value));
+	    xGroupPanel.setTitle(asSafeString(value));
 	    return;
 	}
 	

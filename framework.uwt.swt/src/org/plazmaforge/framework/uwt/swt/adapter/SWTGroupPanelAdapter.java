@@ -26,6 +26,11 @@ import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTGroupPanelAdapter extends SWTPanelAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -33,7 +38,7 @@ public class SWTGroupPanelAdapter extends SWTPanelAdapter {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Group xGroupPanel = new org.eclipse.swt.widgets.Group(xParent, SWT.NONE);
 	//xGroupPanel.setBackgroundMode(SWT.INHERIT_DEFAULT);
-	xGroupPanel.setText(getSafeString(groupPanel.getTitle()));
+	xGroupPanel.setText(asSafeString(groupPanel.getTitle()));
 	addToParent(xParent, xGroupPanel, element);
 	return xGroupPanel;
     }
@@ -46,7 +51,7 @@ public class SWTGroupPanelAdapter extends SWTPanelAdapter {
 	}
 	
 	if (GroupPanel.PROPERTY_TITLE.equals(name)) {
-	    xGroupPanel.setText(getSafeString(value));
+	    xGroupPanel.setText(asSafeString(value));
 	    return;
 	}
 	

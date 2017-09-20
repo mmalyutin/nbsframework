@@ -30,6 +30,11 @@ import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.Link;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingLinkAdapter extends SwingControlAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -59,7 +64,7 @@ public class SwingLinkAdapter extends SwingControlAdapter {
 	    return;
 	}
 	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLink.setText(getSafeString(value));
+	    xLink.setText(asSafeString(value));
 	    return;
 	}  
 	
