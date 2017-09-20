@@ -28,11 +28,15 @@ import org.eclipse.swt.events.ArmListener;
 import org.eclipse.swt.widgets.ToolTip;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTMenuItemAdapter extends SWTWidgetAdapter {
 
     public static final String SYS_PROPETY_TOOL_TIP = "$toolTip";
@@ -84,16 +88,16 @@ public class SWTMenuItemAdapter extends SWTWidgetAdapter {
 	}
 	
 	if (eq(name, MenuItem.PROPERTY_TEXT)) {
-	    xMenuItem.setText(getSafeString(value));
+	    xMenuItem.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (Image) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
 		xMenuItem.setImage(xIcon);
 	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON_PATH)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (String) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
 		xMenuItem.setImage(xIcon);
 	    }
@@ -128,7 +132,7 @@ public class SWTMenuItemAdapter extends SWTWidgetAdapter {
 		    }
 		});
 	    }
-	    toolTip.setText(getSafeString(value));
+	    toolTip.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ENABLED)) {
 	    xMenuItem.setEnabled(booleanValue(value));

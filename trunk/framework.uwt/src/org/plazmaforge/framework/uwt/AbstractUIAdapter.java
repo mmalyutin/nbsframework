@@ -26,6 +26,7 @@ import java.util.Date;
 
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
+import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -109,9 +110,7 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     }
     
   
-    protected String getSafeString(Object value) {
-	return value == null ? "" : (String) value;
-    }
+ 
 
     
     protected String getHtmlString(Object value, boolean wrapTag) {
@@ -123,11 +122,11 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     }
 
     protected String getLinkString(Object value) {
-	return toLink(getSafeString(value));
+	return toLink(asSafeString(value));
     }
 
     protected String getSafeHtmlString(Object value, boolean wrapTag) {
-	return toHtml(getSafeString(value), wrapTag);
+	return toHtml(asSafeString(value), wrapTag);
     }
 
     protected String getSafeHtmlString(Object value) {
@@ -172,6 +171,10 @@ public abstract class AbstractUIAdapter implements UIAdapter {
   	return (String) value;
     }
 
+    protected String asSafeString(Object value) {
+	return value == null ? "" : (String) value;
+    }
+    
     protected Boolean asBoolean(Object value) {
 	return (Boolean) value;
     }
@@ -202,6 +205,10 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     
     protected Font asFont(Object value) {
 	return (Font) value;
+    }
+    
+    protected Image asImage(Object value) {
+	return (Image) value;
     }
     
     protected boolean booleanValue(Object value) {

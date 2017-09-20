@@ -39,7 +39,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = new com.sencha.gxt.widget.core.client.form.CheckBox();
 	CheckBox checkBox = (CheckBox) element;
-	String text = getSafeString(checkBox.getText());
+	String text = asSafeString(checkBox.getText());
 	xCheckBox.setBoxLabel(text); // Set empty box label because we have NullPointerException if set box label late.
 	addToParent(getContent(parent.getDelegate()), xCheckBox, element);  // Add to parent
 	return xCheckBox;
@@ -56,7 +56,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (CheckBox.PROPERTY_TEXT.equals(name)) {
-	    xCheckBox.setBoxLabel(getSafeString(value));
+	    xCheckBox.setBoxLabel(asSafeString(value));
 	    return;
 	} else if (CheckBox.PROPERTY_VALUE.equals(name)) {
 	    xCheckBox.setValue(booleanValue(value));

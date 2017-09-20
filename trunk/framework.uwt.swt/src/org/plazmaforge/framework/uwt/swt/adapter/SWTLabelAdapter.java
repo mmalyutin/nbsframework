@@ -24,9 +24,13 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Label;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTLabelAdapter extends SWTControlAdapter {
 
 
@@ -65,17 +69,17 @@ public class SWTLabelAdapter extends SWTControlAdapter {
 	    return;
 	}
 	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLabel.setText(getSafeString(value));
+	    xLabel.setText(asSafeString(value));
 	    layout(xLabel);
 	    return;
 	} else if (Label.PROPERTY_ICON.equals(name)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (Image) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
 		xLabel.setImage(xIcon);
 	    }
 	    return;
 	} else if (Label.PROPERTY_ICON_PATH.equals(name)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (String) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
 		xLabel.setImage(xIcon);
 	    }

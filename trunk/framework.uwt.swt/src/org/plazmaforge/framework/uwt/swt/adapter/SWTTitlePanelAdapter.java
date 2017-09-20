@@ -27,6 +27,11 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTTitlePanelAdapter extends SWTPanelAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -61,7 +66,7 @@ public class SWTTitlePanelAdapter extends SWTPanelAdapter {
 	}
 	
 	if (GroupPanel.PROPERTY_TEXT.equals(name)) {
-	    xTitlePanel.setText(getSafeString(value));
+	    xTitlePanel.setText(asSafeString(value));
 	    return;
 	}
 	

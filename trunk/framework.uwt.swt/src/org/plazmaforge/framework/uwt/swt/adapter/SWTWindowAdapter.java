@@ -29,7 +29,6 @@ import org.plazmaforge.framework.core.data.Notifier;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -47,6 +46,11 @@ import org.plazmaforge.framework.uwt.widget.Window;
 //
 ////////////////////////////////////////////////////////////
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTWindowAdapter extends SWTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -216,16 +220,16 @@ public class SWTWindowAdapter extends SWTCompositeAdapter {
 	    return;
 	}
 	if (Window.PROPERTY_TITLE.equals(name)) {
-	    xWindow.setText(getSafeString(value));
+	    xWindow.setText(asSafeString(value));
 	    return;
 	} else if (Window.PROPERTY_ICON.equals(name)) {
-	    org.eclipse.swt.graphics.Image xImage = createImage(element, (Image) value);
+	    org.eclipse.swt.graphics.Image xImage = createImage(element, asImage(value));
 	    if (xImage != null) {
 		xWindow.setImage(xImage);
 	    }
 	    return;
 	} else if (Window.PROPERTY_ICON_PATH.equals(name)) {
-	    org.eclipse.swt.graphics.Image xImage = createImage(element, (String) value);
+	    org.eclipse.swt.graphics.Image xImage = createImage(element, asString(value));
 	    if (xImage != null) {
 		xWindow.setImage(xImage);
 	    }

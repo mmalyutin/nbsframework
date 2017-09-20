@@ -26,7 +26,11 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTLabelAdapter extends GXTControlAdapter {
     
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -62,7 +66,7 @@ public class GXTLabelAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLabel.setText(getSafeString(value));
+	    xLabel.setText(asSafeString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

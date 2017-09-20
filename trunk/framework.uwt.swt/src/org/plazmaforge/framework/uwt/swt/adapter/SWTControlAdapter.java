@@ -24,12 +24,15 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Color;
-import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class SWTControlAdapter extends SWTWidgetAdapter {
 
 
@@ -92,7 +95,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
 	    xControl.setLayoutData(layoutData.getDelegate());
 	    return;
 	} else if (Control.PROPERTY_TOOL_TIP.equals(name)) {
-	    xControl.setToolTipText(getSafeString(value));
+	    xControl.setToolTipText(asSafeString(value));
 	    return;
 	} else if (Control.PROPERTY_BACKGROUND.equals(name)) {
 	    xControl.setBackground(getColor(asColor(value)));

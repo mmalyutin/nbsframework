@@ -33,6 +33,11 @@ import org.plazmaforge.framework.uwt.widget.ComboBox;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTComboBoxAdapter extends SWTControlAdapter {
 
 
@@ -56,7 +61,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
 	    return;
 	}
 	if (ComboBox.PROPERTY_TEXT.equals(name)) {
-	    xComboBox.setText(getSafeString(value));
+	    xComboBox.setText(asSafeString(value));
 	    return;
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
 	    xComboBox.setValue(value);
@@ -82,7 +87,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
 	    
 	    return;
 	} else if (ComboBox.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
-	    xComboBox.setDisplayProperty(getSafeString(value));
+	    xComboBox.setDisplayProperty(asSafeString(value));
 	    return;
 	}
 	

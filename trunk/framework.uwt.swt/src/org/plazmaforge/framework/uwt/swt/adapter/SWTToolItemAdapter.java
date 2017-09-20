@@ -25,12 +25,16 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTToolItemAdapter extends SWTWidgetAdapter {
 
 
@@ -75,16 +79,16 @@ public class SWTToolItemAdapter extends SWTWidgetAdapter {
 	}
 	
 	if (ToolItem.PROPERTY_TEXT.equals(name)) {
-	    xToolItem.setText(getSafeString(value));
+	    xToolItem.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_ICON)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (Image) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
 		xToolItem.setImage(xIcon);
 	    }
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_ICON_PATH)) {
-	    org.eclipse.swt.graphics.Image xIcon = createImage(element, (String) value);
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
 		xToolItem.setImage(xIcon);
 	    }
@@ -93,7 +97,7 @@ public class SWTToolItemAdapter extends SWTWidgetAdapter {
 	    xToolItem.setEnabled(booleanValue(value));
 	    return;
 	} else if (ToolItem.PROPERTY_TOOL_TIP.equals(name)) {
-	    xToolItem.setToolTipText(getSafeString(value));
+	    xToolItem.setToolTipText(asSafeString(value));
 	    return;
 	}
 	

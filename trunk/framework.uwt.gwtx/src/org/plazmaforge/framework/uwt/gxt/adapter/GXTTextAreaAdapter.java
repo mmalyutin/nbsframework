@@ -53,7 +53,7 @@ public class GXTTextAreaAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (TextArea.PROPERTY_VALUE.equals(name)) {
-	    xTextArea.setValue(getSafeString(value));
+	    xTextArea.setValue(asSafeString(value));
 	    return;
 	} 
 	super.setProperty(element, name, value);

@@ -24,7 +24,6 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
@@ -82,22 +81,22 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (eq(name, ToolItem.PROPERTY_TEXT)) {
-	    xButton.setText(getSafeString(value));
+	    xButton.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_ICON)) {
-	    ImageResource xIcon = createImage(element, (Image) value);
+	    ImageResource xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
 		xButton.setIcon(xIcon);
 	    }
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_ICON_PATH)) {
-	    ImageResource xIcon = createImage(element, (String) value);
+	    ImageResource xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
 		xButton.setIcon(xIcon);
 	    }
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_TOOL_TIP)) {
-	    xButton.setToolTip(getSafeString(value));
+	    xButton.setToolTip(asSafeString(value));
 	    return;
 	}
 

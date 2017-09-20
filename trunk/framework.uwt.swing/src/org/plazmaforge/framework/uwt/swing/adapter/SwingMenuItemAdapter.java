@@ -24,11 +24,15 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingMenuItemAdapter extends SwingWidgetAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -90,16 +94,16 @@ public class SwingMenuItemAdapter extends SwingWidgetAdapter {
 	    return;
 	}
 	if (eq(name, MenuItem.PROPERTY_TEXT)) {
-	    xMenuItem.setText(getSafeString(value));
+	    xMenuItem.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON)) {
-	    javax.swing.Icon xIcon = createImageIcon(element, (Image) value);
+	    javax.swing.Icon xIcon = createImageIcon(element, asImage(value));
 	    if (xIcon != null) {
 		xMenuItem.setIcon(xIcon);
 	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON_PATH)) {
-	    javax.swing.Icon xIcon = createImageIcon(element, (String) value);
+	    javax.swing.Icon xIcon = createImageIcon(element, asString(value));
 	    if (xIcon != null) {
 		xMenuItem.setIcon(xIcon);
 	    }
@@ -108,7 +112,7 @@ public class SwingMenuItemAdapter extends SwingWidgetAdapter {
 	    xMenuItem.setEnabled(asBoolean(value));
 	    return;
 	} else if (eq(MenuItem.PROPERTY_TOOL_TIP, name)) {
-	    xMenuItem.setToolTipText(getSafeString(value));
+	    xMenuItem.setToolTipText(asSafeString(value));
 	    return;
 	}
 	

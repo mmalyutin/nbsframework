@@ -61,7 +61,7 @@ public class GXTLinkAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLink.setText(getSafeString(value));
+	    xLink.setText(asSafeString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

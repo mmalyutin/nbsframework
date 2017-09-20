@@ -31,7 +31,6 @@ import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -39,6 +38,11 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Window;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingWindowAdapter extends SwingCompositeAdapter {
 
     
@@ -159,13 +163,13 @@ public class SwingWindowAdapter extends SwingCompositeAdapter {
 	
 	// Common properties
 	if (Window.PROPERTY_ICON.equals(name)) {
-	    javax.swing.ImageIcon xImage = createImageIcon(element, (Image) value);
+	    javax.swing.ImageIcon xImage = createImageIcon(element, asImage(value));
 	    if (xImage != null) {
 		xWindow.setIconImage(xImage.getImage());
 	    }
 	    return;
 	} else if (Window.PROPERTY_ICON_PATH.equals(name)) {
-	    javax.swing.ImageIcon xImage = createImageIcon(element, (String) value);
+	    javax.swing.ImageIcon xImage = createImageIcon(element, asString(value));
 	    if (xImage != null) {
 		xWindow.setIconImage(xImage.getImage());
 	    }
@@ -181,7 +185,7 @@ public class SwingWindowAdapter extends SwingCompositeAdapter {
 	    return;
 	}
 	if (Frame.PROPERTY_TITLE.equals(name)) {
-	    xFrame.setTitle(getSafeString(value));
+	    xFrame.setTitle(asSafeString(value));
 	    return;
 	
 	} else if (Frame.PROPERTY_MENU_BAR.equals(name)) {
@@ -200,7 +204,7 @@ public class SwingWindowAdapter extends SwingCompositeAdapter {
 	    return;
 	}
 	if (Frame.PROPERTY_TITLE.equals(name)) {
-	    xDialog.setTitle(getSafeString(value));
+	    xDialog.setTitle(asSafeString(value));
 	    return;
 	} else if (Frame.PROPERTY_MENU_BAR.equals(name)) {
 	    MenuBar menuBar = (MenuBar) value;
