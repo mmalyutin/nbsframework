@@ -58,7 +58,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTMenuAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTMenuBarAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTMenuItemAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTMenuSeparatorAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTMessageBoxAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTMessageBoxAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTNumberFieldAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTPanelAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTPasswordFieldAdapter;
@@ -178,7 +178,7 @@ public class UWT_GXT {
 //	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.CoolBar.class, new GXTCoolBarAdapter());
 //	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.MessageBox.class, new GXTMessageBoxAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.MessageBox.class, new GXTMessageBoxAdapter());
 //
 //	
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.Desktop.class, new GXTDesktopAdapter());
