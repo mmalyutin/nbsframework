@@ -41,6 +41,7 @@ import org.plazmaforge.framework.uwt.widget.ImageBox;
 import org.plazmaforge.framework.uwt.widget.IntegerField;
 import org.plazmaforge.framework.uwt.widget.Link;
 import org.plazmaforge.framework.uwt.widget.ListBox;
+import org.plazmaforge.framework.uwt.widget.MessageBox;
 import org.plazmaforge.framework.uwt.widget.NumberField;
 import org.plazmaforge.framework.uwt.widget.PasswordField;
 import org.plazmaforge.framework.uwt.widget.RadioButton;
@@ -436,6 +437,8 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	
 	uwtContainer.activateUI(true);
+	
+	MessageBox.information("Application was started!");
 	
 	viewport.add((Widget) uwtContainer.getDelegate());
     }

@@ -133,6 +133,10 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 	return getSafeHtmlString(value, false);
     }
 
+    protected String toSafeString(Object value) {
+ 	return value == null ? "" : value.toString();
+    }
+    
     /**
      * Convert string to HTML
      * @param str
