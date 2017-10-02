@@ -65,7 +65,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTPasswordFieldAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTRadioButtonAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTRadioGroupAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTFrameAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTSeparatorAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTSeparatorAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSliderAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSpinnerFieldAdapter;
 //import org.plazmaforge.framework.uwt.gxt.adapter.GXTSplitPanelAdapter;
@@ -101,20 +101,6 @@ public class UWT_GXT {
     }
 
     private static void initAdapters() {
-
-	//// STUB
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.Application.class, new GXTApplicationAdapter());
-//	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Label.class, new GXTLabelAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Button.class, new GXTButtonAdapter());
-//	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Composite.class, new GXTCompositeAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new GXTPanelAdapter());
-	
-	
-	
-	
-        // DISABLE:MIGRATION
 
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.Application.class, new GXTApplicationAdapter());
 	
@@ -187,7 +173,7 @@ public class UWT_GXT {
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.graphics.GC.class, new GXTGCAdapter());
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Canvas.class, new GXTCanvasAdapter());
 //	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Separator.class, new GXTSeparatorAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Separator.class, new GXTSeparatorAdapter());
 
 
 	
