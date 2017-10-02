@@ -25,13 +25,19 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.widget.XSeparator;
 
+
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTSeparatorAdapter extends GXTControlAdapter {
 
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {
-	XSeparator xLabel = new XSeparator(); //TODO
-	addToParent(getContent(parent.getDelegate()), xLabel, element);
-	return xLabel;
+	XSeparator xSeparator = new XSeparator();
+	addToParent(getContent(parent.getDelegate()), xSeparator, element);
+	return xSeparator;
     }
 
 }

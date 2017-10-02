@@ -22,33 +22,40 @@
 
 package org.plazmaforge.framework.uwt.gxt.widget;
 
-import com.sencha.gxt.ui.client.Style.Orientation;
-import com.sencha.gxt.ui.client.core.XDOM;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.sencha.gxt.core.client.dom.XDOM;
 import com.sencha.gxt.widget.core.client.Component;
-import com.google.gwt.user.client.Element;
 
-public class XSeparator extends BoxComponent {
+import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
-    private Orientation orientation = Orientation.HORIZONTAL;
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class XSeparator extends Component {
+
+    public static final Orientation DEFAULT_ORIENTATION = Orientation.HORIZONTAL;
+	    
+    private Orientation orientation;
     
     public XSeparator() {
-	//setText(".");
-	//setStyleAttribute("borderBottom", "1px  solid");
+	this(DEFAULT_ORIENTATION);
     }
     
     public XSeparator(Orientation orientation) {
 	super();
-	this.orientation = orientation;
+	this.orientation = orientation == null ? DEFAULT_ORIENTATION : orientation;
+	String borderAttribute = orientation == Orientation.HORIZONTAL ? "border-bottom" : "border-left";
+	SafeHtmlBuilder builder = new SafeHtmlBuilder();
+	builder.appendHtmlConstant("<div style=\"font-size: 1px; line-height: 1px; margin: 2px 3px; " + borderAttribute + ": 1px solid;\">&#160;</div>");
+	setElement((Element) XDOM.create(builder.toSafeHtml()));
     }
 
-    @Override
-    protected void onRender(Element target, int index) {
-	//TODO: Must analyze orientation
-	//Element span = XDOM.create("<span class=x-menu-sep>&#160;</span>");
-	Element span = XDOM.create("<div style=\"font-size: 1px; line-height: 1px; margin: 2px 3px; border-bottom: 1px solid;\">&#160;</div>");
-	setElement(span, target, index);
-	//fly(target).addStyleName("x-menu-sep-li");
+    public Orientation getOrientation() {
+        return orientation;
     }
-    
+
     
 }
