@@ -39,6 +39,7 @@ import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
 import org.plazmaforge.framework.uwt.widget.IntegerField;
+import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.Link;
 import org.plazmaforge.framework.uwt.widget.ListBox;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
@@ -57,6 +58,9 @@ import org.plazmaforge.framework.uwt.widget.menu.Menu;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 import org.plazmaforge.framework.uwt.widget.menu.MenuSeparator;
+import org.plazmaforge.framework.uwt.widget.panel.CollapsePanel;
+import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
+import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 import org.plazmaforge.framework.uwt.widget.tool.CoolBar;
@@ -433,7 +437,26 @@ public class WebApplication extends Application implements EntryPoint {
 	tree.setDisplayProperty("name");
 	tree.setDataProvider(dataProvider, true);
 	
+	GroupPanel gp = new GroupPanel();
+	gp.setTitle("GroupPanel");
+	gp.add(new Label("Label"));
+	gp.add(new Button("Button"));
+	
+	TitlePanel tp = new TitlePanel();
+	tp.setTitle("TitlePanel");
+	tp.add(new Label("Label"));
+	tp.add(new Button("Button"));
+	
+	CollapsePanel cp = new CollapsePanel();
+	cp.setTitle("CollapsePanel");
+	cp.add(new Label("Label"));
+	cp.add(new Button("Button"));
+	
 	uwtContainer.add(tree);
+	
+	uwtContainer.add(gp);
+	uwtContainer.add(tp);
+	uwtContainer.add(cp);
 	
 	
 	uwtContainer.activateUI(true);

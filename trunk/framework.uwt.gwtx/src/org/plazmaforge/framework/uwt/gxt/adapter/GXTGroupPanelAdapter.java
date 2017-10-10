@@ -23,39 +23,47 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.gxt.widget.XContentPanel;
+import org.plazmaforge.framework.uwt.gxt.widget.XGroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
-import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 
-public class GXTTitlePanelAdapter extends GXTPanelAdapter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class GXTGroupPanelAdapter extends GXTPanelAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
-	TitlePanel titlePanel = (TitlePanel) element;
-	XContentPanel xTitlePanel = new XContentPanel();
-	xTitlePanel.setAnimCollapse(false);
-	xTitlePanel.setCollapsible(false);
-	if (titlePanel.getTitle() != null) {
-	    xTitlePanel.getHeader().setText(titlePanel.getTitle());
+	GroupPanel groupPanel = (GroupPanel) element;
+	XGroupPanel xGroupPanel = new XGroupPanel();
+	
+	if (groupPanel.getTitle() != null) {
+	    //xGroupPanel.setTitle(groupPanel.getTitle());
+	    xGroupPanel.setHeading(groupPanel.getTitle());
 	}
-	xTitlePanel.setLayout(createDefaultCompositeLayout()); 
-	addToParent(getContent(parent.getDelegate()), xTitlePanel, element);
-	return xTitlePanel;
+	
+	//TODO: DISABLE:MIGRATION
+	//xGroupPanel.setLayout(createDefaultCompositeLayout());
+	
+	addToParent(getContent(parent.getDelegate()), xGroupPanel, element);
+	return xGroupPanel;
     }
-
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	XContentPanel xTitlePanel = (XContentPanel) element.getDelegate();
-	if (xTitlePanel == null) {
+	XGroupPanel xGroupPanel = (XGroupPanel) element.getDelegate();
+	if (xGroupPanel == null) {
 	    return;
 	}
 	
-	if (GroupPanel.PROPERTY_TEXT.equals(name)) {
-	    xTitlePanel.getHeader().setText(getSafeString(value));
+	if (GroupPanel.PROPERTY_TITLE.equals(name)) {
+	    xGroupPanel.setTitle(asSafeString(value));
 	    return;
 	}
 	
 	super.setProperty(element, name, value);
     }
 
+    
+    
 }

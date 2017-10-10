@@ -23,35 +23,48 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.gxt.widget.XGroupPanel;
-import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
+import org.plazmaforge.framework.uwt.gxt.widget.XContentPanel;
+import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 
-public class GXTGroupPanelAdapter extends GXTPanelAdapter {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class GXTTitlePanelAdapter extends GXTPanelAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
-	GroupPanel groupPanel = (GroupPanel) element;
-	XGroupPanel xGroupPanel = new XGroupPanel();
-	xGroupPanel.setTitle(getSafeString(groupPanel.getTitle()));
-	xGroupPanel.setLayout(createDefaultCompositeLayout());
-	addToParent(getContent(parent.getDelegate()), xGroupPanel, element);
-	return xGroupPanel;
+	TitlePanel titlePanel = (TitlePanel) element;
+	XContentPanel xTitlePanel = new XContentPanel();
+	xTitlePanel.setAnimCollapse(false);
+	xTitlePanel.setCollapsible(false);
+	
+	if (titlePanel.getTitle() != null) {
+	    //xTitlePanel.getHeader().setText(titlePanel.getTitle());
+	    xTitlePanel.setHeading(titlePanel.getTitle());
+	}
+	
+	//TODO: DISABLE:MIGRATION
+	//xTitlePanel.setLayout(createDefaultCompositeLayout());
+	
+	addToParent(getContent(parent.getDelegate()), xTitlePanel, element);
+	return xTitlePanel;
     }
+
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	XGroupPanel xGroupPanel = (XGroupPanel) element.getDelegate();
-	if (xGroupPanel == null) {
+	XContentPanel xTitlePanel = (XContentPanel) element.getDelegate();
+	if (xTitlePanel == null) {
 	    return;
 	}
 	
-	if (GroupPanel.PROPERTY_TITLE.equals(name)) {
-	    xGroupPanel.setTitle(getSafeString(value));
+	if (TitlePanel.PROPERTY_TITLE.equals(name)) {
+	    xTitlePanel.getHeader().setText(asSafeString(value));
 	    return;
 	}
 	
 	super.setProperty(element, name, value);
     }
 
-    
-    
 }

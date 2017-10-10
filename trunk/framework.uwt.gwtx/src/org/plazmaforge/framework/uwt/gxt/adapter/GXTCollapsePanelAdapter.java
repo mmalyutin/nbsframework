@@ -26,6 +26,11 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.widget.XContentPanel;
 import org.plazmaforge.framework.uwt.widget.panel.CollapsePanel;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTCollapsePanelAdapter extends GXTTitlePanelAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -33,10 +38,14 @@ public class GXTCollapsePanelAdapter extends GXTTitlePanelAdapter {
 	XContentPanel xCollapsePanel = new XContentPanel();
 	xCollapsePanel.setAnimCollapse(false);
 	xCollapsePanel.setCollapsible(true);
+	
 	if (collapsePanel.getTitle() != null) {
 	    xCollapsePanel.getHeader().setText(collapsePanel.getTitle());
 	}
-	xCollapsePanel.setLayout(createDefaultCompositeLayout()); 
+	
+	//TODO: DISABLE:MIGRATION
+	//xCollapsePanel.setLayout(createDefaultCompositeLayout()); 
+	
 	addToParent(getContent(parent.getDelegate()), xCollapsePanel, element);
 	return xCollapsePanel;
     }
