@@ -20,7 +20,7 @@
  * ohapon@users.sourceforge.net
  */
 
-package org.plazmaforge.framework.uwt.gxt.widget;
+package org.plazmaforge.framework.uwt.gxt.legacy;
 
 import java.util.ArrayList;
 import java.util.Iterator;
