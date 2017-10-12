@@ -45,6 +45,8 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	Composite composite = (Composite) element;
 	Layout layout = composite.getLayout();
 	
+	// Default implementation with special container wrapper
+	// Create internal content by layout
 	XLayoutContainer xComposite = createLayoutContainer(layout);
 	
 	//TODO: STUB

@@ -28,16 +28,22 @@ import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class XComboBox extends ComboBox<ModelData> {
 
    
-    public XComboBox(ListStore<ModelData> store, LabelProvider<ModelData> labelProvider) {	super(store, labelProvider);
-	
+    public XComboBox(ListStore<ModelData> store, LabelProvider<ModelData> labelProvider) {
+	super(store, labelProvider);
+
 	autoComplete = false;
-	//setTypeAhead(false);
-	
-	//DISABLE:MIGRATION
-	//setTriggerAction(TriggerAction.ALL);
+	// setTypeAhead(false);
+
+	// DISABLE:MIGRATION
+	// setTriggerAction(TriggerAction.ALL);
     }
  
 }
