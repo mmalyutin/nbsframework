@@ -23,38 +23,42 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.widget.XSplitPanel;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
 import com.sencha.gxt.widget.core.client.container.Container;
-import com.sencha.gxt.widget.core.client.layout.BorderLayout;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTSplitPanelAdapter extends GXTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
-	LayoutContainer xSplitPanel = new LayoutContainer();
-	xSplitPanel.setLayout(new BorderLayout());
+	XSplitPanel xSplitPanel = new XSplitPanel();
 	addToParent(getContent(parent.getDelegate()), xSplitPanel, element);
 	return xSplitPanel;
     }
 
   
-    
-    @Override
-    public void setProperty(UIObject element, String name, Object value) {
-	
-	Object delegate = element.getDelegate();
-	if (delegate == null) {
-	    return;
-	}
-	
-	if (delegate instanceof LayoutContainer) {
-	    LayoutContainer container = (LayoutContainer) delegate;
-	    if (SplitPanel.PROPERTY_LAYOUT.equals(name)) {
-		//ignore
-		return;
-	    }
-	}
-	
-	super.setProperty(element, name, value);
-    }
+//    
+//    @Override
+//    public void setProperty(UIObject element, String name, Object value) {
+//	
+//	Object delegate = element.getDelegate();
+//	if (delegate == null) {
+//	    return;
+//	}
+//	
+//	if (delegate instanceof LayoutContainer) {
+//	    LayoutContainer container = (LayoutContainer) delegate;
+//	    if (SplitPanel.PROPERTY_LAYOUT.equals(name)) {
+//		//ignore
+//		return;
+//	    }
+//	}
+//	
+//	super.setProperty(element, name, value);
+//    }
 }
