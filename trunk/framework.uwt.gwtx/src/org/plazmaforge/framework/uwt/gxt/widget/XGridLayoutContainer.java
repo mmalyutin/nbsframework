@@ -50,16 +50,16 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
  * @author ohapon
  *
  */
-public class XGridLayoutContainer2 extends InsertResizeContainer {
+public class XGridLayoutContainer extends InsertResizeContainer {
     
-    private static Logger logger = Logger.getLogger(XGridLayoutContainer2.class.getName());
+    private static Logger logger = Logger.getLogger(XGridLayoutContainer.class.getName());
 
     private XGridLayout gridLayout;
     
-    public XGridLayoutContainer2() {
+    public XGridLayoutContainer() {
 	this(new XGridLayout());
     }
-    public XGridLayoutContainer2(XGridLayout gridLayout) {
+    public XGridLayoutContainer(XGridLayout gridLayout) {
 	super();
 	this.gridLayout = gridLayout;
 	setElement(Document.get().createDivElement());

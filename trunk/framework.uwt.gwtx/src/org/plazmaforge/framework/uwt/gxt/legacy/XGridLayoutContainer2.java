@@ -19,7 +19,7 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
-package org.plazmaforge.framework.uwt.gxt.widget;
+package org.plazmaforge.framework.uwt.gxt.legacy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +47,15 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConst
  * @author ohapon
  *
  */
-public class XGridLayoutContainer1 extends FlexTable {
+public class XGridLayoutContainer2 extends FlexTable {
 
     private XGridLayout gridLayout;
     
-    public XGridLayoutContainer1() {
+    public XGridLayoutContainer2() {
 	this(new XGridLayout());
     }
 
-    public XGridLayoutContainer1(XGridLayout gridLayout) {
+    public XGridLayoutContainer2(XGridLayout gridLayout) {
 	super();
 	this.gridLayout = gridLayout;
     }

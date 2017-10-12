@@ -25,8 +25,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
-import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer1;
-import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer2;
+import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -64,8 +63,8 @@ public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 
     @Override
     public HasWidgets createContainer(XLayout xLayout) {
-	//XGridLayoutContainer1 gridLayoutContainer = new  XGridLayoutContainer1((XGridLayout) xLayout);
-	XGridLayoutContainer2 gridLayoutContainer = new  XGridLayoutContainer2((XGridLayout) xLayout);
+	//XGridLayoutContainer2 gridLayoutContainer = new  XGridLayoutContainer2((XGridLayout) xLayout);
+	XGridLayoutContainer gridLayoutContainer = new  XGridLayoutContainer((XGridLayout) xLayout);
 	return gridLayoutContainer;
     }
     
