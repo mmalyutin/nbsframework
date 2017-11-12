@@ -56,6 +56,8 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 
     private XGridLayout gridLayout;
     
+    protected boolean debugMode;
+    
     public XGridLayoutContainer() {
 	this(new XGridLayout());
     }
@@ -108,7 +110,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     @Override
     protected void doLayout() {
 	
-	boolean debug = true;
+	boolean debug = isDebug();
 	
 	XElement container = getLayoutContainer();
 	
@@ -384,7 +386,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  	
  	// DEBUG
  	if (debug) {
- 	    dumpSizes(cells);
+ 	    dumpCells(cells);
  	}
  	
  	int[] columnWidth = new int[columnCount];  
@@ -787,6 +789,17 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	    return new Size(0, 0);
 	}
 	
+	boolean debug = isDebug();
+	
+//	if (widget instanceof XSplitPanel) {
+//	    debug = true;
+//	    
+//	    XElement e = ((XSplitPanel) widget).getElement();
+//	    Size s = e.getFrameSize();
+//	    log("DEBUG: FrameSize: width=" + s.getWidth() + ", height=" + s.getHeight());
+//	    
+//	}
+	
 	int styleWidth = getStyleWidth(widget); 	
 	int styleHeight = getStyleHeight(widget);
 	
@@ -813,19 +826,21 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 //	    height = 20;
 //	}
 
-//	if (widget instanceof Label) {
-//	    log("Label: StyleSize: width=" + styleWidth + ", height=" + styleHeight);
-//	    log("Label: OffsetSize: width=" + offsetWidth + ", height=" + offsetHeight);
-//	}
+	if (debug) {
+	    boolean warningMarker = styleWidth == -1 && styleHeight == -1 && offsetWidth == 0 && offsetHeight == 0;
+	    String widgetName = widget.getClass().getSimpleName() + (warningMarker ? " (!)" : "");
+	    logDebug("StyleSize : [" + styleWidth + ", " + styleHeight + "], " + widgetName);
+	    logDebug("OffsetSize: [" + offsetWidth + ", " + offsetHeight + "], " + widgetName);
+	}
 	
 	return new Size(width, height);
     }
     
     protected int getStyleWidth(Widget widget) {
-	return getStyleWidth(widget.getElement());
+	return getStyleWidth(widget.getElement()); 
     }
 
-    protected int getStyleHeight(Widget widget) {
+    protected int getStyleHeight(Widget widget) { 
 	return getStyleHeight(widget.getElement());
     }
     
@@ -864,41 +879,37 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-//    protected boolean isDebug(BoxComponent component) {
-//	if (component == null) {
-//	    return false;
-//	}
-//	Object data = component.getData("debugLayout");
-//	if (data == null || !(data instanceof Boolean)) {
-//	    return false;
-//	}
-//	return ((Boolean) data);
-//    }
-//    
-    protected void dumpContainerSize(int width, int height) {
-	log("container: width=" + width + ", height=" + height);	
+    protected boolean isDebug() {
+	return debugMode;
     }
     
-    protected void dumpSizes(Cell[] cells) {
+    protected void dumpContainerSize(int width, int height) {
+	logDebug("container: width=" + width + ", height=" + height);	
+    }
+    
+    protected void dumpCells(Cell[] cells) {
 	if (cells == null || cells.length == 0) {
-	    log("sizes: empty");
+	    logDebug("\nDump cells: empty");
 	    return;
 	}
-	log("sizes:");
+	logDebug("\nDump cells:");
+	Cell cell = null;
 	for (int k = 0; k < cells.length; k++) {
-	    log("cell[" + k + "]: width=" + cells[k].preferredSize.getWidth() + ", height=" + cells[k].preferredSize.getHeight());
+	    cell = cells[k];
+	    logDebug("cell[" + k + "]: [" + cell.column + ", " + cell.row + "], [" + cell.colSpan + ", " + cell.rowSpan + "]"
+	    + ", size=[" + cell.preferredSize.getWidth() + ", " + cell.preferredSize.getHeight() + "]");
 	}
     }
     
     protected void dumpColumns(String title, int[] columns) {
-	String t = title == null ? "columns" : title;
+	String name = title == null ? "columns" : title;
 	if (columns == null || columns.length == 0) {
-	    log(t + ": empty");
+	    logDebug("\nDump " + name + ": empty");
 	    return;
 	}
-	log(t + ":");
+	logDebug("\nDump " + name + ":");
 	for (int k = 0; k < columns.length; k++) {
-	    log("column[" + k + "]=" + columns[k]);
+	    logDebug("column[" + k + "]: width=" + columns[k]);
 	}
     }
     
@@ -910,7 +921,10 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	dumpColumns("flex-columns", columns);
     }    
     
-    protected void log(String message){
+    protected void logDebug(String message) {
+	if (!debugMode || message == null) {
+	    return;
+	}
 	GWT.log(message);
     }
     

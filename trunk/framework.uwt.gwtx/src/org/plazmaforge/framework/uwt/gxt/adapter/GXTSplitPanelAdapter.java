@@ -37,6 +37,12 @@ public class GXTSplitPanelAdapter extends GXTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	XSplitPanel xSplitPanel = new XSplitPanel();
+
+	// TODO: STUB
+	if (parent == null) {
+	    return xSplitPanel;
+	}
+
 	addToParent(getContent(parent.getDelegate()), xSplitPanel, element);
 	return xSplitPanel;
     }
