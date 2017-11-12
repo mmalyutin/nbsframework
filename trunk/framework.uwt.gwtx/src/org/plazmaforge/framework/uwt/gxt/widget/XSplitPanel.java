@@ -21,6 +21,8 @@
  */
 package org.plazmaforge.framework.uwt.gxt.widget;
 
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.Style.LayoutRegion;
 import com.sencha.gxt.core.client.Style.Orientation;
@@ -43,32 +45,58 @@ public class XSplitPanel extends BorderLayoutContainer {
     // Array of regions. Set by orientation
     private LayoutRegion[] regions;
     
+    protected boolean debugMode;
+    
     public XSplitPanel() {
 	this(Orientation.HORIZONTAL);
     }
 
     public XSplitPanel(Orientation orientation) {
 	super();
+
+	// TODO: Stub solution
+	getElement().getStyle().setOverflow(Overflow.VISIBLE);
+
 	this.orientation = orientation == null ? Orientation.HORIZONTAL : orientation;
 	initRegions();
     }
 
     public Orientation getOrientation() {
-        return orientation;
+	return orientation;
     }
 
     public void setRegionWidget(LayoutRegion region, Widget child, BorderLayoutData layoutData) {
 	switch (region) {
-	case CENTER:
+	case CENTER: {
 	    setCenterWidget(child, layoutData);
-	case NORTH:
+	    logDebug("setWidget: " + region);
+	    break;
+	}
+
+	case NORTH: {
 	    setNorthWidget(child, layoutData);
-	case EAST:
+	    logDebug("setWidget: " + region);
+	    break;
+	}
+
+	case EAST: {
 	    setEastWidget(child, layoutData);
-	case SOUTH:
+	    logDebug("setWidget: " + region);
+	    break;
+	}
+
+	case SOUTH: {
 	    setSouthWidget(child, layoutData);
-	case WEST:
+	    logDebug("setWidget: " + region);
+	    break;
+	}
+
+	case WEST: {
 	    setWestWidget(child, layoutData);
+	    logDebug("setWidget: " + region);
+	    break;
+	}
+
 	}
     }
     
@@ -76,7 +104,7 @@ public class XSplitPanel extends BorderLayoutContainer {
 	regions = new LayoutRegion[2];
 	if (orientation == Orientation.HORIZONTAL) {
 	    regions[0] = LayoutRegion.WEST;
-	    regions[1] = /*LayoutRegion.CENTER;*/ LayoutRegion.EAST;
+	    regions[1] = LayoutRegion.CENTER; /*LayoutRegion.EAST*/;
 	} else {
 	    regions[0] = LayoutRegion.NORTH;
 	    regions[1] = LayoutRegion.CENTER; //LayoutRegion.SOUTH;
@@ -121,26 +149,80 @@ public class XSplitPanel extends BorderLayoutContainer {
 	return super.remove(child);
     }
 
+
     protected void addChild(Widget child) {
-	LayoutRegion region = getFreeRegion();
 	
-	ContentPanel wrapper = new ContentPanel();
-	wrapper.add(child);
-
-	BorderLayoutData d = createBorderLayoutData();
-	
-	setRegionWidget(region, wrapper, d);
-    }
-
-    protected BorderLayoutData createBorderLayoutData() {
-	return createBorderLayoutData(DEFAULT_SIZE);
-    }
-    
-    protected BorderLayoutData createBorderLayoutData(double size) {
-	BorderLayoutData d = new BorderLayoutData(size);
+	/*
+	// Example  
+	ContentPanel cp = new ContentPanel();
+	cp.setHeading("North");
+	cp.add(new Label("North Content"));
+	BorderLayoutData d = new BorderLayoutData(.20);
 	d.setMargins(new Margins(5));
 	d.setCollapsible(true);
 	d.setSplit(true);
+	setNorthWidget(cp, d);
+
+	cp = new ContentPanel();
+	cp.setHeading("West");
+	cp.add(new Label("West Content"));
+	d = new BorderLayoutData(.20);
+	d.setMargins(new Margins(0, 5, 5, 5));
+	d.setCollapsible(true);
+	d.setSplit(true);
+	d.setCollapseMini(true);
+	setWestWidget(cp, d);
+
+	cp = new ContentPanel();
+	cp.setHeading("Center");
+	cp.add(new Label("Center Content"));
+	d = new BorderLayoutData();
+	d.setMargins(new Margins(0, 5, 5, 0));
+	setCenterWidget(cp, d);
+	*/
+	    
+	    
+	LayoutRegion region = getFreeRegion();
+	ContentPanel cp = new ContentPanel();
+	cp.setHeaderVisible(false);
+	//cp.setHeading("Title: " + region);
+	cp.add(child);
+	
+	BorderLayoutData d = createBorderLayoutData(region);
+	setRegionWidget(region, cp, d);
+	logDebug("Region: " + region);
+    }
+
+    protected BorderLayoutData createBorderLayoutData(LayoutRegion region) {
+	return createBorderLayoutData(region, 0);
+    }
+    
+    protected BorderLayoutData createBorderLayoutData(LayoutRegion region, double size) {
+	BorderLayoutData d = new BorderLayoutData();
+	
+	// set size from layout data
+	if (size > 0) {
+	    d.setSize(size); 
+	}
+	
+	// non center region
+	if (region != LayoutRegion.CENTER) {
+	    d.setCollapsible(true);	// collapsible button when header is visible
+	    d.setSplit(true); 		// split panels by mouse
+	    
+	    //if (size <= 0 ) {
+	    //	d.setSize(100); // set default size of non center region
+	    //}
+	}
+	
+	d.setMargins(new Margins(0, 5, 5, 0));
 	return d;
+    }
+    
+    protected void logDebug(String message) {
+	if (!debugMode || message == null) {
+	    return;
+	}
+	GWT.log(message);
     }
 }
