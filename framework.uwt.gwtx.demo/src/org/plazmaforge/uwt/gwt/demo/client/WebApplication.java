@@ -58,8 +58,8 @@ import org.plazmaforge.framework.uwt.widget.menu.Menu;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 import org.plazmaforge.framework.uwt.widget.menu.MenuSeparator;
-import org.plazmaforge.framework.uwt.widget.panel.CollapsePanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
+import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
@@ -206,6 +206,21 @@ public class WebApplication extends Application implements EntryPoint {
     private void addTestControls() {
 	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.Composite();
 	uwtContainer.setLayout(new GridLayout(3));
+	
+	//uwtContainer.setLayout(new GridLayout(1));
+	
+
+	/*
+	sp.activateUI(true);
+	viewport.add((Widget) sp.getDelegate());
+	*/
+	
+	
+	//uwtContainer.add(sp);
+	//uwtContainer.activateUI(true);
+	
+	//MessageBox.information("Application was started!");
+	//viewport.add((Widget) uwtContainer.getDelegate());
 	
 	
 	ToolBar toolBar = new ToolBar();
@@ -447,21 +462,19 @@ public class WebApplication extends Application implements EntryPoint {
 	tp.add(new Label("Label"));
 	tp.add(new Button("Button"));
 	
-	CollapsePanel cp = new CollapsePanel();
-	cp.setTitle("CollapsePanel");
-	cp.add(new Label("Label"));
-	cp.add(new Button("Button"));
-	
 	uwtContainer.add(tree);
 	
-	uwtContainer.add(gp);
-	uwtContainer.add(tp);
-	uwtContainer.add(cp);
+	SplitPanel sp = new SplitPanel();
+	sp.setLayoutData(new GridData(HorizontalAlign.FILL));
+	sp.add(new Label("Button-1"));
+	sp.add(new Label("Button-2"));
 	
+	
+	uwtContainer.add(sp);
 	
 	uwtContainer.activateUI(true);
 	
-	MessageBox.information("Application was started!");
+	//MessageBox.information("Application was started!");
 	
 	viewport.add((Widget) uwtContainer.getDelegate());
     }
