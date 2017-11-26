@@ -25,8 +25,11 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
-import com.sencha.gxt.widget.core.client.TabItem;
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTTabPanelAdapter extends GXTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -48,11 +51,14 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
  		if (index == null) {
  		    return null;
  		}
- 		TabItem item = xTabPanel.getItem(index);
+ 		//TODO:MIGRATE: Need get a tab item by index
+ 		com.sencha.gxt.widget.core.client.TabItemConfig item = null; // xTabPanel.getItem(index);
  		if (item == null) {
  		    return null;
  		}
- 		xTabPanel.setSelection(item);
+ 		//TODO:MIGRATE
+ 		// Need select the tab item
+ 		//xTabPanel.setSelection(item);
  	    }
  	    return null;
  	}

@@ -23,22 +23,37 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.graphics.Image;
+import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
+import com.google.gwt.resources.client.ImageResource;
+
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTTabItemAdapter extends GXTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	
 	com.sencha.gxt.widget.core.client.TabPanel xParent = (com.sencha.gxt.widget.core.client.TabPanel) parent.getDelegate();
-	com.sencha.gxt.widget.core.client.TabItem xTabItem = new com.sencha.gxt.widget.core.client.TabItem();
+	com.sencha.gxt.widget.core.client.TabItemConfig xTabItem = new com.sencha.gxt.widget.core.client.TabItemConfig();
+	TabItem tabItem = (TabItem) element;
+	
+	
+	if (tabItem.getTitle() != null) {
+	    xTabItem.setText(asSafeString(tabItem.getTitle()));
+	}
 	
 	// Add default Layout
-	xTabItem.setLayout(createDefaultCompositeLayout());
+	//TODO:MIGRATION
+	//xTabItem.setLayout(createDefaultCompositeLayout());
 
+	XLayoutContainer content = new XLayoutContainer();
+	
 	// Special adding
-	xParent.add(xTabItem);
+	xParent.add(content, xTabItem);
 	
 	return xTabItem;
     }
@@ -46,21 +61,21 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.TabItem xTabItem = (com.sencha.gxt.widget.core.client.TabItem) element.getDelegate();
+	com.sencha.gxt.widget.core.client.TabItemConfig xTabItem = (com.sencha.gxt.widget.core.client.TabItemConfig) element.getDelegate();
 	if (xTabItem == null) {
 	    return;
 	}
 	if (TabItem.PROPERTY_TITLE.equals(name)) {
-	    xTabItem.setText((String) value);
+	    xTabItem.setText(asSafeString(value));
 	    return;
 	} else if (TabItem.PROPERTY_ICON.equals(name)) {
-	    AbstractImagePrototype xImage = createImage(element, (Image) value);
+	    ImageResource xImage = createImage(element, asImage(value));
 	    if (xImage != null) {
 		xTabItem.setIcon(xImage);
 	    }
 	    return;
 	} else if (TabItem.PROPERTY_ICON_PATH.equals(name)) {
-	    AbstractImagePrototype xImage = createImage(element, (String) value);
+	    ImageResource xImage = createImage(element, asString(value));
 	    if (xImage != null) {
 		xTabItem.setIcon(xImage);
 	    }
