@@ -69,8 +69,8 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTSeparatorAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSliderAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSpinnerFieldAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTSplitPanelAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTTabItemAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTTabPanelAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTTabItemAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTTabPanelAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTTableAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTTableColumnAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTTextAreaAdapter;
@@ -150,8 +150,8 @@ public class UWT_GXT {
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new GXTTreeAdapter());
 	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new GXTTabPanelAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabItem.class, new GXTTabItemAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new GXTTabPanelAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabItem.class, new GXTTabItemAdapter());
 //	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.MenuBar.class, new GXTMenuBarAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.Menu.class, new GXTMenuAdapter());
