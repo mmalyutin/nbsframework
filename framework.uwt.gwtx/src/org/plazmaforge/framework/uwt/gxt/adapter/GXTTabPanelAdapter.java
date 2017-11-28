@@ -24,6 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 //import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
+import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
 
 
 /**
@@ -36,7 +37,7 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
     public static final int DEFAULT_TAB_PANEL_WIDTH = 450;
     
     public Object createDelegate(UIObject parent, UIObject element) {
-	com.sencha.gxt.widget.core.client.TabPanel xTabPanel = new com.sencha.gxt.widget.core.client.TabPanel();
+	XTabPanel xTabPanel = new XTabPanel();
 	xTabPanel.setTabScroll(true);
 	xTabPanel.setAnimScroll(true);
 	xTabPanel.setWidth(DEFAULT_TAB_PANEL_WIDTH);
