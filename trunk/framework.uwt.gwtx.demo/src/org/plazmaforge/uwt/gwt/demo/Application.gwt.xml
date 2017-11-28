@@ -2,37 +2,77 @@
 
 <module rename-to='application'>
 
-  <!-- Inherit the core Web Toolkit stuff    
-  
+  <!-- Inherit the core Web Toolkit stuff                             -->
+  <!--
   <inherits name="com.google.gwt.core.Core" />
   <inherits name="com.google.gwt.user.UserAgent" />
+  -->
   
-                       -->
   <!-- <inherits name='com.google.gwt.user.User'/> -->
-  <!-- <inherits name="com.extjs.gxt.ui.GXT"/> -->
   <inherits name='com.sencha.gxt.ui.GXT'/>
   
 
-  <!-- Inherit the default GWT style sheet                        -->
-  <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/> -->
-  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
-  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
-  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <!-- Inherit the default GWT style sheet                            -->
+  <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/>       -->
+  <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>     -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>         -->
 
-  <!-- Other module inherits                                      -->
+  <!-- Other module inherits                                          -->
   <inherits name='org.plazmaforge.framework.Core'/>
   <inherits name='org.plazmaforge.framework.UWT'/>
-  <inherits name='org.plazmaforge.framework.UWTModule'/> <!--  UWT.GXT -->
+  <inherits name='org.plazmaforge.framework.UWTModule'/> <!-- UWT.GXT -->
   <inherits name='org.plazmaforge.framework.UWTDemo'/>
 
-  <!-- Specify the app entry point class.                         -->
+  <!-- Specify the app entry point class.                             -->
   <entry-point class='org.plazmaforge.uwt.gwt.demo.client.WebApplication'/>
 
-  <!-- Specify the paths for translatable code                    -->
+  <!-- Specify the paths for translatable code                        -->
   <source path='client'/>
   <source path='shared'/>
+  
+  <!-- IMPORTANT: Add styles.                                              -->
+  <stylesheet src="reset.css"/>
+  
+  
+  <!-- Include all base GXT themes and set the app to check for url params to activate a different one -->
+  <inherits name="com.sencha.gxt.theme.blue.Blue" />
+  <inherits name="com.sencha.gxt.theme.gray.Gray" />
+  
+  
+  <!--
+  <inherits name="com.sencha.gxt.theme.neptune.Theme" />
+  <inherits name="com.sencha.gxt.theme.triton.Theme" />
+  -->
+  
+  <set-property name="gxt.theme" value="blue,gray" />
+  <property-provider name="gxt.theme"><![CDATA[
+    if (window.location.pathname.indexOf('blue') != -1 || window.location.search.indexOf('blue') != -1) {
+      return "blue";
+    }
+    if (window.location.pathname.indexOf('gray') != -1 || window.location.search.indexOf('gray') != -1) {
+      return "gray";
+    }
+   
 
+    return "blue";
+  ]]></property-provider>
+
+  <!--
+   <set-property name="gxt.css3.enabled" value="false">
+    <any>
+      <when-property-is name="gxt.theme" value="blue" />
+      <when-property-is name="gxt.theme" value="gray" />
+    </any>
+  </set-property>
+  -->
+  
+  <!-- IMPORTANT: CSS legacy -->
   <set-configuration-property name="CssResource.legacy" value="true" />
+  
+  <set-configuration-property name="CssResource.enableGss" value="true" />
+  <set-configuration-property name="CssResource.style" value="pretty" />
+
         
   <!-- <extend-configuration-property name="rpc.whitelist" value="org.plazmaforge.uwt.gwt.demo.shared.TestBean"/> -->
   <!-- <set-configuration-property name="rpc.whitelist" value="org.plazmaforge.uwt.gwt.demo.shared.TestBean"/> -->
@@ -42,8 +82,22 @@
   <!-- GXT: BeanModelGenerator for ModelMarker                    -->
   <!-- GXT: Use own BeanModelGenerator for other marker           -->
   
-<!--   <generate-with class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelGenerator">
+  <!--
+  <generate-with class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelGenerator">
         <when-type-assignable class="org.plazmaforge.framework.uwt.gxt.core.XBeanModelLookup"/>
   </generate-with>
- -->
+  -->
+ 
+  <!-- collapse properties for fewer permutations -->
+  <!--
+  <collapse-property name="gxt.device" values="phone, tablet" />
+  <collapse-property name="gxt.theme" values="blue, gray" />
+
+  <collapse-property name="gxt.user.agent" values="air, safari*, chrome*, gecko*, ie11" />
+  <collapse-property name="user.agent" values="safari*, gecko*" />
+
+  <collapse-property name="gxt.user.agent" values="ie8, ie9, ie10" />
+  <collapse-property name="user.agent" values="ie*" />
+  -->
+ 
 </module>
