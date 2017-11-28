@@ -57,7 +57,7 @@ public class XTabItem extends TabItemConfig {
 	if (parent == null) {
 	    return null;
 	}
-	return parent.findWidget(this);
+	return parent.getWidget(this);
     }
 
 }

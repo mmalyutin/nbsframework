@@ -25,6 +25,11 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingTabItemAdapter extends SwingCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
@@ -34,11 +39,13 @@ public class SwingTabItemAdapter extends SwingCompositeAdapter {
    	xTabItem.setLayout(createDefaultCompositeLayout());
    	TabItem tabItem = (TabItem) element;
    	
+   	// Get text
    	String title = tabItem.getTitle();
    	if (title == null) {
    	    title = "";
    	}
    	
+   	// Get icon
    	javax.swing.Icon xIcon = createImageIcon(element, tabItem.getIcon());
    	
    	// Special add
@@ -47,5 +54,10 @@ public class SwingTabItemAdapter extends SwingCompositeAdapter {
    	return xTabItem; 
    }
     
+    @Override
+    public void setProperty(UIObject element, String name, Object value) {
+	//TODO: text, icon
+	super.setProperty(element, name, value);
+    }
 
 }

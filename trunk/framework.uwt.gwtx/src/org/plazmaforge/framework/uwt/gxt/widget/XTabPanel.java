@@ -67,7 +67,12 @@ public class XTabPanel extends TabPanel {
 	((XTabItem) config).setParent(this);
     }
     
-    public Widget findWidget(TabItemConfig config) {
+    /**
+     * Returns widget by TabItem
+     * @param config
+     * @return
+     */
+    public Widget getWidget(TabItemConfig config) {
 	if (config == null) {
 	    return null;
 	}

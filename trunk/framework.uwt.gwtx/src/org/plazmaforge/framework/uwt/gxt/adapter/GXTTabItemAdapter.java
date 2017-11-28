@@ -44,8 +44,16 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	XTabItem xTabItem = new XTabItem();
 	TabItem tabItem = (TabItem) element;
 	
-	if (tabItem.getTitle() != null) {
-	    xTabItem.setText(asSafeString(tabItem.getTitle()));
+	// Get text
+	String text = tabItem.getTitle();
+	if (text != null) {
+	    xTabItem.setText(text);
+	}
+	
+	// Get icon
+	ImageResource xIcon = createImage(element, tabItem.getIcon());
+	if (xIcon != null) {
+	    xTabItem.setIcon(xIcon);
 	}
 	
 	// Add default Layout
@@ -64,7 +72,7 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.TabItemConfig xTabItem = (com.sencha.gxt.widget.core.client.TabItemConfig) element.getDelegate();
+	XTabItem xTabItem = (XTabItem) element.getDelegate();
 	if (xTabItem == null) {
 	    return;
 	}
@@ -72,15 +80,15 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	    xTabItem.setText(asSafeString(value));
 	    return;
 	} else if (TabItem.PROPERTY_ICON.equals(name)) {
-	    ImageResource xImage = createImage(element, asImage(value));
-	    if (xImage != null) {
-		xTabItem.setIcon(xImage);
+	    ImageResource xIcon = createImage(element, asImage(value));
+	    if (xIcon != null) {
+		xTabItem.setIcon(xIcon);
 	    }
 	    return;
 	} else if (TabItem.PROPERTY_ICON_PATH.equals(name)) {
-	    ImageResource xImage = createImage(element, asString(value));
-	    if (xImage != null) {
-		xTabItem.setIcon(xImage);
+	    ImageResource xIcon = createImage(element, asString(value));
+	    if (xIcon != null) {
+		xTabItem.setIcon(xIcon);
 	    }
 	    return;
 	}

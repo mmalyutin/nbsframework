@@ -475,13 +475,19 @@ public class WebApplication extends Application implements EntryPoint {
 	uwtContainer.add(sp);
 	
 	TabPanel tabPanel = new TabPanel();
-	TabItem tabItem = new TabItem("TabItem-1");
+	TabItem tabItem = new TabItem("TabItem-1", new Image("widget/leaf.gif"));
 	tabItem.add(new Label("TabLabel-1"));
 	tabPanel.add(tabItem);
 	
-	tabItem = new TabItem("TabItem-2");
+	tabItem = new TabItem("TabItem-2", new Image("widget/folder.gif"));
 	tabItem.add(new Label("TabLabel-2"));
 	tabPanel.add(tabItem);
+	
+	tabItem = new TabItem("TabItem-3", new Image("widget/folder.gif"));
+	tabItem.add(new Label("TabLabel-3"));
+	tabPanel.add(tabItem);
+	
+	tabPanel.setActiveItem(tabItem);
 	
 	uwtContainer.add(tabPanel);
 	

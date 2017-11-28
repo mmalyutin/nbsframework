@@ -25,6 +25,9 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 //import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
+import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
+
+import com.google.gwt.user.client.ui.Widget;
 
 
 /**
@@ -47,30 +50,24 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
     }
    
     
-//    @Override
-//    public Object invoke(UIObject element, String methodName, Object[] args) {
-//	com.sencha.gxt.widget.core.client.TabPanel xTabPanel = (com.sencha.gxt.widget.core.client.TabPanel) element.getDelegate();
-// 	if (xTabPanel == null) {
-// 	    return null;
-// 	}
-// 	if (TabPanel.METHOD_SET_ACTIVE_ITEM.equals(methodName)) {
-// 	    if (args != null && args.length > 0) {
-// 		Integer index = (Integer) args[0];
-// 		if (index == null) {
-// 		    return null;
-// 		}
-// 		//TODO:MIGRATE: Need get a tab item by index
-// 		com.sencha.gxt.widget.core.client.TabItemConfig item = null; // xTabPanel.getItem(index);
-// 		if (item == null) {
-// 		    return null;
-// 		}
-// 		//TODO:MIGRATE
-// 		// Need select the tab item
-// 		//xTabPanel.setSelection(item);
-// 	    }
-// 	    return null;
-// 	}
-// 	
-// 	return super.invoke(element, methodName, args);
-//    }
+    @Override
+    public Object invoke(UIObject element, String methodName, Object[] args) {
+	XTabPanel xTabPanel = (XTabPanel) element.getDelegate();
+ 	if (xTabPanel == null) {
+ 	    return null;
+ 	}
+ 	if (TabPanel.METHOD_SET_ACTIVE_ITEM.equals(methodName)) {
+ 	    if (args != null && args.length > 0) {
+ 		Integer index = (Integer) args[0];
+ 		if (index == null) {
+ 		    return null;
+ 		}
+ 		Widget widget = xTabPanel.getWidget(index);
+  		xTabPanel.setActiveWidget(widget);
+ 	    }
+ 	    return null;
+ 	}
+ 	
+ 	return super.invoke(element, methodName, args);
+    }
 }
