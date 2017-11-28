@@ -32,6 +32,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
+import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
 import org.plazmaforge.framework.uwt.widget.Composite;
 //import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -65,6 +66,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param element
      */
     protected void addToParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+	
+	if (parent == null) {
+	    throw new UWTException("Can not add widget to parent. Parent is null");
+	}
+	
 	if (!(parent instanceof HasWidgets)) {
 	    throw new UWTException("Can not add widget to parent. Parent is not container: " + parent.getClass().getName());
 	}
@@ -266,6 +272,9 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @return
      */
     protected com.google.gwt.user.client.ui.Widget getContent(Object delegate) {
+	if (delegate instanceof XTabItem) {
+	    return  ((XTabItem) delegate).getWidget();
+	}
 	//DISABLE:MIGRATION
 	//if (delegate instanceof XDesktopItem) {
 	//    return ((XDesktopItem) delegate).getContent();

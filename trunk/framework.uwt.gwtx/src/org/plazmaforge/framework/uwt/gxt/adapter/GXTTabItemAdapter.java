@@ -24,6 +24,8 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
+import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
+import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
 import com.google.gwt.resources.client.ImageResource;
@@ -38,8 +40,8 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 
 	
-	com.sencha.gxt.widget.core.client.TabPanel xParent = (com.sencha.gxt.widget.core.client.TabPanel) parent.getDelegate();
-	com.sencha.gxt.widget.core.client.TabItemConfig xTabItem = new com.sencha.gxt.widget.core.client.TabItemConfig();
+	XTabPanel xParent = (XTabPanel) parent.getDelegate();
+	XTabItem xTabItem = new XTabItem();
 	TabItem tabItem = (TabItem) element;
 	
 	if (tabItem.getTitle() != null) {
