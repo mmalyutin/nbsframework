@@ -24,18 +24,35 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
+
+/**
+ * 
+ * @author ohapon
+ *
+ */
 
 public class SWTTabItemAdapter extends SWTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
    	org.eclipse.swt.widgets.TabFolder xParent = (org.eclipse.swt.widgets.TabFolder) getContent(parent.getDelegate());
    	org.eclipse.swt.widgets.TabItem xTabItem = new org.eclipse.swt.widgets.TabItem(xParent, SWT.BORDER);
+   	TabItem tabItem = (TabItem) element;
    	
+	// Get text
+	String text = tabItem.getTitle();
+	if (text != null) {
+	    xTabItem.setText(text);
+	}
+
+	// Get icon
+	org.eclipse.swt.graphics.Image xImage = createImage(element, tabItem.getIcon());
+	if (xImage != null) {
+	    xTabItem.setImage(xImage);
+	}
+   		
    	org.eclipse.swt.widgets.Composite xContent = createDefaultContent(xParent, SWT.BORDER);
-   	
-   	//org.eclipse.swt.widgets.Composite xContent = new org.eclipse.swt.widgets.Composite(xParent, SWT.BORDER);
+    	//org.eclipse.swt.widgets.Composite xContent = new org.eclipse.swt.widgets.Composite(xParent, SWT.BORDER);
    	//xContent.setLayout(createDefaultCompositeLayout());
    	
    	xTabItem.setControl(xContent);
@@ -54,16 +71,16 @@ public class SWTTabItemAdapter extends SWTCompositeAdapter {
 	    return;
 	}
 	if (TabItem.PROPERTY_TITLE.equals(name)) {
-	    xTabItem.setText((String) value); 
+	    xTabItem.setText(asString(value)); 
 	    return;
 	} else 	if (TabItem.PROPERTY_ICON.equals(name)) {
-	    org.eclipse.swt.graphics.Image xImage = createImage(element, (Image) value);
+	    org.eclipse.swt.graphics.Image xImage = createImage(element, asImage(value));
 	    if (xImage != null) {
 		xTabItem.setImage(xImage);
 	    }
 	    return;
 	} else if (TabItem.PROPERTY_ICON_PATH.equals(name)) {
-	    org.eclipse.swt.graphics.Image xImage = createImage(element, (String) value);
+	    org.eclipse.swt.graphics.Image xImage = createImage(element, asString(value));
 	    if (xImage != null) {
 		xTabItem.setImage(xImage);
 	    }

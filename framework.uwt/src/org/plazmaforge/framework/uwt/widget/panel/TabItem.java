@@ -40,19 +40,22 @@ public class TabItem extends Composite implements HasTitleIcon {
     private Image icon;
     
     
-    
     public TabItem() {
     }
     
     public TabItem(String title) {
-	setTitle(title);
+	this.title = title;
     }
 
+    public TabItem(String title, Image icon) {
+	super();
+	this.title = title;
+	this.icon = icon;
+    }
 
     public TabPanel getTabPanel() {
 	return (TabPanel) getParent();
     }
-    
     
     public void setParent(Widget parent) {
 	if (!(parent instanceof TabPanel)) {
@@ -61,11 +64,9 @@ public class TabItem extends Composite implements HasTitleIcon {
 	super.setParent(parent);
     }
 
-
     public String getTitle() {
         return title;
     }
-
 
     public void setTitle(String title) {
         this.title = title;
@@ -82,13 +83,15 @@ public class TabItem extends Composite implements HasTitleIcon {
     }
 
     public void setIcon(String path) {
-        if (icon == null) {
-	    icon = new Image();
-	}
-        icon.setPath(path);
+        doGetIcon().setPath(path);
         fireChangeProperty(PROPERTY_ICON_PATH, path);
     }
 
-    
-    
+    protected Image doGetIcon() {
+	if (icon == null) {
+	    icon = new Image();
+	}
+	return icon;
+    }
+
 }
