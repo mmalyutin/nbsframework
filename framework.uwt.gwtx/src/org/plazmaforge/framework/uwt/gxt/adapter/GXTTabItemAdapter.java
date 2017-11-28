@@ -36,11 +36,11 @@ import com.google.gwt.resources.client.ImageResource;
 public class GXTTabItemAdapter extends GXTCompositeAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
+
 	
 	com.sencha.gxt.widget.core.client.TabPanel xParent = (com.sencha.gxt.widget.core.client.TabPanel) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.TabItemConfig xTabItem = new com.sencha.gxt.widget.core.client.TabItemConfig();
 	TabItem tabItem = (TabItem) element;
-	
 	
 	if (tabItem.getTitle() != null) {
 	    xTabItem.setText(asSafeString(tabItem.getTitle()));
@@ -58,6 +58,7 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	return xTabItem;
     }
     
+
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	

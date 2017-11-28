@@ -23,7 +23,8 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
+//import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
+
 
 /**
  * 
@@ -32,37 +33,43 @@ import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
  */
 public class GXTTabPanelAdapter extends GXTCompositeAdapter {
 
+    public static final int DEFAULT_TAB_PANEL_WIDTH = 450;
+    
     public Object createDelegate(UIObject parent, UIObject element) {
 	com.sencha.gxt.widget.core.client.TabPanel xTabPanel = new com.sencha.gxt.widget.core.client.TabPanel();
+	xTabPanel.setTabScroll(true);
+	xTabPanel.setAnimScroll(true);
+	xTabPanel.setWidth(DEFAULT_TAB_PANEL_WIDTH);
+	
 	addToParent(getContent(parent.getDelegate()), xTabPanel, element); // Add to parent. Use super method
 	return xTabPanel;
     }
+   
     
-    
-    @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
-	com.sencha.gxt.widget.core.client.TabPanel xTabPanel = (com.sencha.gxt.widget.core.client.TabPanel) element.getDelegate();
- 	if (xTabPanel == null) {
- 	    return null;
- 	}
- 	if (TabPanel.METHOD_SET_ACTIVE_ITEM.equals(methodName)) {
- 	    if (args != null && args.length > 0) {
- 		Integer index = (Integer) args[0];
- 		if (index == null) {
- 		    return null;
- 		}
- 		//TODO:MIGRATE: Need get a tab item by index
- 		com.sencha.gxt.widget.core.client.TabItemConfig item = null; // xTabPanel.getItem(index);
- 		if (item == null) {
- 		    return null;
- 		}
- 		//TODO:MIGRATE
- 		// Need select the tab item
- 		//xTabPanel.setSelection(item);
- 	    }
- 	    return null;
- 	}
- 	
- 	return super.invoke(element, methodName, args);
-    }
+//    @Override
+//    public Object invoke(UIObject element, String methodName, Object[] args) {
+//	com.sencha.gxt.widget.core.client.TabPanel xTabPanel = (com.sencha.gxt.widget.core.client.TabPanel) element.getDelegate();
+// 	if (xTabPanel == null) {
+// 	    return null;
+// 	}
+// 	if (TabPanel.METHOD_SET_ACTIVE_ITEM.equals(methodName)) {
+// 	    if (args != null && args.length > 0) {
+// 		Integer index = (Integer) args[0];
+// 		if (index == null) {
+// 		    return null;
+// 		}
+// 		//TODO:MIGRATE: Need get a tab item by index
+// 		com.sencha.gxt.widget.core.client.TabItemConfig item = null; // xTabPanel.getItem(index);
+// 		if (item == null) {
+// 		    return null;
+// 		}
+// 		//TODO:MIGRATE
+// 		// Need select the tab item
+// 		//xTabPanel.setSelection(item);
+// 	    }
+// 	    return null;
+// 	}
+// 	
+// 	return super.invoke(element, methodName, args);
+//    }
 }

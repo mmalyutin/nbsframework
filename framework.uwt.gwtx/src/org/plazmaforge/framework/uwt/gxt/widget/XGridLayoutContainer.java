@@ -41,6 +41,7 @@ import com.sencha.gxt.core.client.resources.CommonStyles;
 import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.widget.core.client.Component;
+import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.container.InsertResizeContainer;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
@@ -56,7 +57,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 
     private XGridLayout gridLayout;
     
-    protected boolean debugMode;
+    protected boolean debugMode = true;
     
     public XGridLayoutContainer() {
 	this(new XGridLayout());
@@ -772,6 +773,9 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	if (widget == null) {
 	    return;
 	}
+	//if (widget instanceof TabPanel ){
+	//    return;
+	//}
 	if (widget instanceof Component) {
 	    Component c = (Component) widget;
 	    c.setPosition(x, y);
@@ -781,6 +785,9 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     }
 
     protected void setSize(Widget widget, int width, int height) {
+	//if (widget instanceof TabPanel ){
+	//    return;
+	//}
 	applyLayout(widget, width, height);
     }
     
@@ -816,7 +823,10 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	    }
 	}
 	if (height == -1) {
-	    height = offsetHeight;
+	    height = computeMinHeight(widget);
+	    if (height == -1) {
+		height = offsetHeight;
+	    }
 	}
 	
 //	if (width < 20) {
@@ -870,9 +880,23 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	if (widget instanceof ToolBar) {
 	    return widget.getOffsetWidth() + 10;
 	}
+	if (widget instanceof TabPanel) {
+	    TabPanel tabPanel = (TabPanel) widget;
+	    return tabPanel.getTabWidth();
+	}
 	return -1;
     }
     
+    protected int computeMinHeight(Widget widget) {
+	if (widget == null) {
+	    return -1;
+	}
+	if (widget instanceof TabPanel) {
+	    //TabPanel tabPanel = (TabPanel) widget;
+	    return widget.getOffsetHeight() + 10;
+	}
+	return -1;	
+    }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // DEBUG
