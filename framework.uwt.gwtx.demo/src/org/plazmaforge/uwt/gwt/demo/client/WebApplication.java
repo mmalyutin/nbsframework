@@ -60,6 +60,8 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 import org.plazmaforge.framework.uwt.widget.menu.MenuSeparator;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
+import org.plazmaforge.framework.uwt.widget.panel.TabItem;
+import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
@@ -69,7 +71,6 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
 import com.sencha.gxt.widget.core.client.container.Viewport;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -203,6 +204,7 @@ public class WebApplication extends Application implements EntryPoint {
 	//viewport.layout(true);
     }
     
+ 
     private void addTestControls() {
 	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.Composite();
 	uwtContainer.setLayout(new GridLayout(3));
@@ -471,6 +473,18 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	
 	uwtContainer.add(sp);
+	
+	TabPanel tabPanel = new TabPanel();
+	TabItem tabItem = new TabItem("TabItem-1");
+	tabItem.add(new Label("TabLabel-1"));
+	tabPanel.add(tabItem);
+	
+	tabItem = new TabItem("TabItem-2");
+	tabItem.add(new Label("TabLabel-2"));
+	tabPanel.add(tabItem);
+	
+	uwtContainer.add(tabPanel);
+	
 	
 	uwtContainer.activateUI(true);
 	
