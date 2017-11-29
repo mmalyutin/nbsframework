@@ -41,7 +41,7 @@ public class SWTToggleButtonAdapter extends SWTButtonAdapter {
 	}
 	xToggleButton.addSelectionListener(createToggleListener());
 	
-	addToParent(xParent, xToggleButton, element);
+	addChild(xParent, xToggleButton, element);
 	return xToggleButton;
     }
 

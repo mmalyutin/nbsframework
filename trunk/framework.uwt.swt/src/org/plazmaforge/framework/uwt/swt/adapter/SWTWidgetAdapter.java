@@ -32,14 +32,20 @@ import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
-    protected org.eclipse.swt.widgets.Widget getWidget(Object delegate) {
+    //Cast
+    protected final org.eclipse.swt.widgets.Widget getWidget(Object delegate) {
 	return (org.eclipse.swt.widgets.Widget) delegate;
     }
     
-    protected org.eclipse.swt.widgets.Control getControl(Object delegate) {
+    //Cast
+    protected final org.eclipse.swt.widgets.Control getControl(Object delegate) {
 	return (org.eclipse.swt.widgets.Control) delegate;
     }
 
@@ -49,7 +55,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
      * @param delegate
      * @return
      */
-    protected org.eclipse.swt.widgets.Composite getContent(Object delegate) {
+    protected final org.eclipse.swt.widgets.Composite getContent(Object delegate) {
 	if (delegate instanceof org.eclipse.swt.widgets.TabItem) {
 	    return (org.eclipse.swt.widgets.Composite) ((org.eclipse.swt.widgets.TabItem) delegate).getControl();    
 	} else if (delegate instanceof XDesktopItem) {
@@ -61,7 +67,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     }
 
     
-    protected void addToParent(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Widget xWidget, UIObject element) {
+    protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Widget xWidget, UIObject element) {
 	//do nothing
     }
 

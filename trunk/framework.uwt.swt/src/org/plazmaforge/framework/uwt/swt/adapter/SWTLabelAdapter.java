@@ -51,7 +51,7 @@ public class SWTLabelAdapter extends SWTControlAdapter {
 	    xLabel.setImage(xIcon);
 	}		
 		
-	addToParent(xParent, xLabel, element);
+	addChild(xParent, xLabel, element);
 	return xLabel;
     }
     

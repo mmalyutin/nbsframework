@@ -81,7 +81,7 @@ public class SWTTreeAdapter extends SWTCompositeAdapter {
 	    
 	});
 	
-	addToParent(xParent, xTree, element);
+	addChild(xParent, xTree, element);
 	return xTree;
     }
     

@@ -36,7 +36,7 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Composite xComposite = new org.eclipse.swt.widgets.Composite(xParent, SWT.NONE);
 	//xComposite.setBackgroundMode(SWT.INHERIT_DEFAULT);
-	addToParent(xParent, xComposite, element);
+	addChild(xParent, xComposite, element);
 	return xComposite;
     }
 

@@ -34,7 +34,7 @@ public class SWTTextAreaAdapter extends SWTTextFieldAdapter {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XTextArea xTextArea = new XTextArea(xParent, SWT.BORDER);
 	xTextArea.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(xParent, xTextArea, element);
+	addChild(xParent, xTextArea, element);
 	return xTextArea;
     }
 

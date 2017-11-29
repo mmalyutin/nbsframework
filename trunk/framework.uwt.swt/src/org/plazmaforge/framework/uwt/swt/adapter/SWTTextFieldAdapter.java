@@ -40,7 +40,7 @@ public class SWTTextFieldAdapter extends SWTControlAdapter {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XTextField xTextField = new XTextField(xParent, SWT.BORDER);
 	xTextField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(xParent, xTextField, element);
+	addChild(xParent, xTextField, element);
 	return xTextField;
     }
 

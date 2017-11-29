@@ -49,7 +49,7 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
 	org.eclipse.jface.viewers.ListViewer xListViewer = new org.eclipse.jface.viewers.ListViewer(xListBox);
 	xListBox.setData(SYS_PROPETY_LIST_VIEWER, xListViewer);
 	xListBox.setData(SYS_PROPETY_LIST_BOX, listBox);
-	addToParent(xParent, xListBox, element);
+	addChild(xParent, xListBox, element);
 	return xListBox;
     }
     

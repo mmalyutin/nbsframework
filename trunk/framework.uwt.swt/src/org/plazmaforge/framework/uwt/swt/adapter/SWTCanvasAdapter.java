@@ -43,7 +43,7 @@ public class SWTCanvasAdapter extends SWTControlAdapter {
 		canvas.repaint(gc);
 	    }
 	});
-	addToParent(xParent, xCanvas, element);
+	addChild(xParent, xCanvas, element);
 	return xCanvas;
     }
     

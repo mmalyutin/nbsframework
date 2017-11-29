@@ -45,7 +45,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	Combo xComboBox = new Combo(xParent, SWT.BORDER);
 	//ComboViewer viewer = new ComboViever(xComboBox); 
-	addToParent(xParent, xComboBox, element);
+	addChild(xParent, xComboBox, element);
 	return xComboBox;
     }
 

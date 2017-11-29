@@ -43,7 +43,7 @@ public class SWTImageBoxAdapter extends SWTControlAdapter {
 	    xImageBox.setImage(xImage);
 	}		
 		
-	addToParent(xParent, xImageBox, element);
+	addChild(xParent, xImageBox, element);
 	return xImageBox;
     }
     

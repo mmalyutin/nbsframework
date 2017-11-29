@@ -34,7 +34,7 @@ public class SWTMenuBarAdapter extends SWTWidgetAdapter {
 	org.eclipse.swt.widgets.Decorations xParent = (org.eclipse.swt.widgets.Decorations) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Menu xMenu = new org.eclipse.swt.widgets.Menu(xParent, SWT.BAR);
 	
-	addToParent(xParent, xMenu, element);
+	addChild(xParent, xMenu, element);
 	return xMenu;
     }
 

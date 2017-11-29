@@ -32,7 +32,7 @@ public class SWTIntegerFieldAdapter extends SWTNumberFieldAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XIntegerField xIntegerField = new XIntegerField(xParent, SWT.BORDER);
-	addToParent(xParent, xIntegerField, element);
+	addChild(xParent, xIntegerField, element);
 	return xIntegerField;
     }
 

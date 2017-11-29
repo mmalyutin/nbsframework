@@ -55,7 +55,7 @@ public class SWTButtonAdapter extends SWTControlAdapter {
 	    xButton.setImage(xIcon);
 	}
 	
-	addToParent(xParent, xButton, element);
+	addChild(xParent, xButton, element);
 	return xButton;
     }
 

@@ -53,7 +53,7 @@ public class SWTTitlePanelAdapter extends SWTPanelAdapter {
 	if (title != null) {
 	    xTitlePanel.setText(title);
 	}
-	addToParent(xParent, xTitlePanel, element);
+	addChild(xParent, xTitlePanel, element);
 	return xTitlePanel;
     }
     

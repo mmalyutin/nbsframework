@@ -36,7 +36,7 @@ public class SWTRadioGroupAdapter extends SWTCompositeAdapter {
 	// To emulate RadioGroup we use Composite
 	org.eclipse.swt.widgets.Composite xRadioGroup = new org.eclipse.swt.widgets.Composite(xParent, SWT.NONE);
 	xRadioGroup.setLayout(new RowLayout(SWT.HORIZONTAL));
-	addToParent(xParent, xRadioGroup, element);
+	addChild(xParent, xRadioGroup, element);
 	return xRadioGroup;
     }
 
