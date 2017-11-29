@@ -35,9 +35,19 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 
 public abstract class AbstractUIAdapter implements UIAdapter {
 
+    public static final String MESSAGE_CANT_ADD_WIDGET  = "Can not add widget to parent";
+    
+    public static final String MESSAGE_CANT_REMOVE_WIDGET  = "Can not remove widget from parent";
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Default implementations
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	
     }
     
     @Override
@@ -52,21 +62,22 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 
     @Override
     public void checkDelegate(UIObject element) {
-	
     }
     
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
-	
     }
     
     @Override
     public void removeListener(UIObject element, String eventType, Listener listener) {
-	
     }
     
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
     // Utilities
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////    
     
     protected UIAdapter getAdapter(Class<?> uiObjectClass) {
 	return UIAdapterFactory.getAdapter(uiObjectClass);
@@ -108,10 +119,7 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 	}
 	return pattern;
     }
-    
-  
  
-
     
     protected String getHtmlString(Object value, boolean wrapTag) {
 	return toHtml(asString(value), wrapTag);
@@ -170,6 +178,13 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     protected String toHtml(String str) {
 	return toHtml(str, false);
     }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Cast methods
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////        
 
     protected String asString(Object value) {
   	return (String) value;

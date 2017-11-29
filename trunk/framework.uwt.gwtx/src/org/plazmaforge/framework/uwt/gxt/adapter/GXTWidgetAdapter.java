@@ -57,8 +57,33 @@ import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.widget.core.client.event.GridEvent;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
-
+    
+   
+    // Check
+    protected void checkNullParent(com.google.gwt.user.client.ui.Widget parent, String title) {
+	if (parent == null) {
+	    throw new UWTException(title + ". Parent is null");
+	}
+    }
+    
+    // Check
+    protected void checkContainerParent(com.google.gwt.user.client.ui.Widget parent, String title) {
+	if (!(parent instanceof HasWidgets)) {
+	    throw new UWTException(title + ". Parent is not container: " + parent.getClass().getName());
+	}
+    } 
+    
+    // Throw
+    protected void throwUnsupportParent(com.google.gwt.user.client.ui.Widget parent, String title) {
+	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
+    }     
+    
     /**
      * Add widget to parent
      * @param parent
@@ -67,13 +92,8 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      */
     protected void addToParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
 	
-	if (parent == null) {
-	    throw new UWTException("Can not add widget to parent. Parent is null");
-	}
-	
-	if (!(parent instanceof HasWidgets)) {
-	    throw new UWTException("Can not add widget to parent. Parent is not container: " + parent.getClass().getName());
-	}
+	checkNullParent(parent, MESSAGE_CANT_ADD_WIDGET);
+	checkContainerParent(parent, MESSAGE_CANT_ADD_WIDGET);
 	
 	// Force activate LayoutData
 	if (element instanceof Control) {
@@ -91,8 +111,6 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    }
 	}
 	
-    
-	
 	//GXT-Container
 	if (parent instanceof com.sencha.gxt.widget.core.client.container.Container) {
 	    addChild((com.sencha.gxt.widget.core.client.container.Container) parent, widget, element);
@@ -105,7 +123,8 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    return;
 	}
 
-	throw new UWTException("Can not add widget to parent. Parent is not supported: " + parent.getClass().getName());
+	throwUnsupportParent(parent, MESSAGE_CANT_ADD_WIDGET);
+
     }
     
     //GXT-Container
@@ -163,9 +182,9 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param widget
      */
     protected void removeFromParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget) {
-	if (!(parent instanceof HasWidgets)) {
-	    throw new UWTException("Can not remove widget to parent. Parent is not container: " + parent.getClass().getName());
-	}
+	
+	checkNullParent(parent, MESSAGE_CANT_REMOVE_WIDGET);
+	checkContainerParent(parent, MESSAGE_CANT_REMOVE_WIDGET);
 	
 	//GXT-Container
 	if (parent instanceof com.sencha.gxt.widget.core.client.container.Container) {
@@ -179,7 +198,8 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    return;
 	} 
 	
-	throw new UWTException("Can not remove widget from parent. Parent is not supported: " + parent.getClass().getName());
+	throwUnsupportParent(parent, MESSAGE_CANT_REMOVE_WIDGET);
+
     }
     
 
