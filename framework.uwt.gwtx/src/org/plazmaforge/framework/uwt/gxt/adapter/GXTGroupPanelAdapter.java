@@ -45,7 +45,7 @@ public class GXTGroupPanelAdapter extends GXTPanelAdapter {
 	//TODO: DISABLE:MIGRATION
 	//xGroupPanel.setLayout(createDefaultCompositeLayout());
 	
-	addToParent(getContent(parent.getDelegate()), xGroupPanel, element);
+	addChild(getContent(parent.getDelegate()), xGroupPanel, element);
 	return xGroupPanel;
     }
     

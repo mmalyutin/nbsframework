@@ -46,7 +46,7 @@ public class GXTLinkAdapter extends GXTControlAdapter {
 	if (text != null) {
 	    xLink.setText(text);
 	}
-	addToParent(getContent(parent.getDelegate()), xLink, element);
+	addChild(getContent(parent.getDelegate()), xLink, element);
 	return xLink;
     }
 

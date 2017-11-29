@@ -41,7 +41,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 	CheckBox checkBox = (CheckBox) element;
 	String text = asSafeString(checkBox.getText());
 	xCheckBox.setBoxLabel(text); // Set empty box label because we have NullPointerException if set box label late.
-	addToParent(getContent(parent.getDelegate()), xCheckBox, element);  // Add to parent
+	addChild(getContent(parent.getDelegate()), xCheckBox, element);  // Add to parent
 	return xCheckBox;
     }
 

@@ -47,7 +47,7 @@ public class GXTTitlePanelAdapter extends GXTPanelAdapter {
 	//TODO: DISABLE:MIGRATION
 	//xTitlePanel.setLayout(createDefaultCompositeLayout());
 	
-	addToParent(getContent(parent.getDelegate()), xTitlePanel, element);
+	addChild(getContent(parent.getDelegate()), xTitlePanel, element);
 	return xTitlePanel;
     }
 

@@ -42,7 +42,7 @@ public class GXTNumberFieldAdapter extends GXTControlAdapter {
 	
 	com.sencha.gxt.widget.core.client.form.NumberField<?> xNumberField = createNumberField(dataType, format);
 	//delegate.setStyleAttribute("align", "right");
-	addToParent(getContent(parent.getDelegate()), xNumberField, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xNumberField, element); // Add to parent
 	return xNumberField;
     }
 

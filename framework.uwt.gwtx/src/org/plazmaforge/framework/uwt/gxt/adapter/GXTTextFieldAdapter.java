@@ -36,7 +36,7 @@ public class GXTTextFieldAdapter extends GXTControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	com.sencha.gxt.widget.core.client.form.TextField xTextField = new com.sencha.gxt.widget.core.client.form.TextField();
 	xTextField.setWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(getContent(parent.getDelegate()), xTextField, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xTextField, element); // Add to parent
 	return xTextField;
     }
 

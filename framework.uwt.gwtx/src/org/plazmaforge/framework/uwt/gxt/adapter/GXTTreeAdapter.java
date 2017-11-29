@@ -116,7 +116,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
         }
         ////
         
-	addToParent(getContent(parent.getDelegate()), xTree, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xTree, element); // Add to parent
 	return xTree;
     }
 

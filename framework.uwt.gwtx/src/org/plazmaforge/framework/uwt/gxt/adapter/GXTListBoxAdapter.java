@@ -59,7 +59,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 	//xListBox.setAutoHeight(true);
         //xListBox.getView().setForceFit(true);
         
-	addToParent(getContent(parent.getDelegate()), xListBox, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xListBox, element); // Add to parent
 	
 	return xListBox;
     }

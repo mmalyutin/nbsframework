@@ -35,7 +35,7 @@ public class GXTPasswordFieldAdapter extends GXTTextFieldAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
    	com.sencha.gxt.widget.core.client.form.PasswordField xPasswordField = new com.sencha.gxt.widget.core.client.form.PasswordField();
    	xPasswordField.setWidth(IField.DEFAULT_TEXT_WIDTH);
-   	addToParent(getContent(parent.getDelegate()), xPasswordField, element); // Add to parent
+   	addChild(getContent(parent.getDelegate()), xPasswordField, element); // Add to parent
    	return xPasswordField;
     }
 }

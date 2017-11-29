@@ -43,7 +43,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 	Button button = (Button) element;
 	initButton(xButton, button);
 	
-	addToParent(getContent(parent.getDelegate()), xButton, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xButton, element); // Add to parent
 	return xButton;
     }
 

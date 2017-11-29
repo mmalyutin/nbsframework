@@ -39,7 +39,7 @@ public class GXTTimeFieldAdapter extends GXTControlAdapter {
 	com.sencha.gxt.widget.core.client.form.TimeField xTimeField = new com.sencha.gxt.widget.core.client.form.TimeField();
 	
 	xTimeField.setTriggerAction(TriggerAction.ALL); // Important to correct selection a item by click DOWN button
-	addToParent(getContent(parent.getDelegate()), xTimeField, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xTimeField, element); // Add to parent
 	return xTimeField;
     }
 

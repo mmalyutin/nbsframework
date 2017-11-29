@@ -47,7 +47,7 @@ public class GXTImageBoxAdapter extends GXTControlAdapter {
 	    xImageBox.setResource(xImage);
 	}
 	
-	addToParent(getContent(parent.getDelegate()), xImageBox, element);
+	addChild(getContent(parent.getDelegate()), xImageBox, element);
 	return xImageBox;
     }
 
@@ -63,13 +63,13 @@ public class GXTImageBoxAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (Button.PROPERTY_IMAGE.equals(name)) {
-	    ImageResource xImage = createImage(element, (Image) value);
+	    ImageResource xImage = createImage(element, asImage(value));
 	    if (xImage != null) {
 		xImageBox.setResource(xImage);
 	    }
 	    return;
 	} else if (Button.PROPERTY_IMAGE_PATH.equals(name)) {
-	    ImageResource xImage = createImage(element, (String) value);
+	    ImageResource xImage = createImage(element, asString(value));
 	    if (xImage != null) {
 		xImageBox.setResource(xImage);
 	    }

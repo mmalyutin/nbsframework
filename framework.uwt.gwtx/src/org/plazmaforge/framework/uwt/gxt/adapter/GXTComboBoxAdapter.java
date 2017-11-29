@@ -53,7 +53,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	xComboBox.setTypeAhead(true);
 	xComboBox.setTriggerAction(TriggerAction.ALL); // Important to correct selection a item by click DOWN button
 	
-	addToParent(getContent(parent.getDelegate()), xComboBox, element);  // Add to parent
+	addChild(getContent(parent.getDelegate()), xComboBox, element);  // Add to parent
 	return xComboBox;
     }
 

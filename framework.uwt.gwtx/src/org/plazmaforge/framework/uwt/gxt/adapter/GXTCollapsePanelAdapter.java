@@ -46,7 +46,7 @@ public class GXTCollapsePanelAdapter extends GXTTitlePanelAdapter {
 	//TODO: DISABLE:MIGRATION
 	//xCollapsePanel.setLayout(createDefaultCompositeLayout()); 
 	
-	addToParent(getContent(parent.getDelegate()), xCollapsePanel, element);
+	addChild(getContent(parent.getDelegate()), xCollapsePanel, element);
 	return xCollapsePanel;
     }
     
