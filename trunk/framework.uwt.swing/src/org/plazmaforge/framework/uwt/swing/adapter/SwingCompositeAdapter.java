@@ -34,7 +34,7 @@ public class SwingCompositeAdapter extends SwingControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	javax.swing.JPanel xComposite = new javax.swing.JPanel();
-	addToParent(xParent, xComposite, element);
+	addChild(xParent, xComposite, element);
 	return xComposite;
     }
     

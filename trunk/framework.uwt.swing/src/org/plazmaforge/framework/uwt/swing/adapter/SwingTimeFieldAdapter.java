@@ -34,7 +34,7 @@ public class SwingTimeFieldAdapter extends SwingControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	XTimeField xTimeField = new XTimeField();
-	addToParent(xParent, xTimeField, element);
+	addChild(xParent, xTimeField, element);
 	return xTimeField;
     }
 

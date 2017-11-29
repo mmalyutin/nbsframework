@@ -33,7 +33,7 @@ public class SwingSplitPanelAdapter extends SwingCompositeAdapter {
 	SplitPanel p = (SplitPanel) element;
 	int orientation = getSplitOrientation(p.getOrientation());
 	javax.swing.JSplitPane xSplitPanel = new javax.swing.JSplitPane(orientation);
-	addToParent(xParent, xSplitPanel, element);
+	addChild(xParent, xSplitPanel, element);
 	return xSplitPanel;
     }
 

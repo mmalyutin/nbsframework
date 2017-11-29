@@ -46,7 +46,7 @@ public class SwingSeparatorAdapter extends SwingControlAdapter {
 	javax.swing.JSeparator xLabel = new javax.swing.JSeparator(xOrientation);
 	xLabel.setPreferredSize(xSize);
 	
-	addToParent(xParent, xLabel, element);	
+	addChild(xParent, xLabel, element);	
 	return xLabel;
     }
 

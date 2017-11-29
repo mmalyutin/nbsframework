@@ -39,7 +39,7 @@ public class SwingTextAreaAdapter extends SwingControlAdapter {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XTextArea xTextArea = new XTextArea();
 	xTextArea.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(xParent, xTextArea, element);
+	addChild(xParent, xTextArea, element);
 	return xTextArea;
     }
 

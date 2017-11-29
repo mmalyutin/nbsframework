@@ -76,7 +76,7 @@ public class SwingTableAdapter extends SwingCompositeAdapter {
 	// Add scroll wrapper because the JTable has not scrolling 
 	JScrollPane scrollpane = new XScrollPane(xTable);
 	
-	addToParent(xParent, scrollpane, element);	
+	addChild(xParent, scrollpane, element);	
 	return scrollpane; 
     }
 

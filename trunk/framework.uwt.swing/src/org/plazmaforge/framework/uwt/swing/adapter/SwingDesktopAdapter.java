@@ -33,7 +33,7 @@ public class SwingDesktopAdapter extends SwingCompositeAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
    	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
    	XDesktop xDesktop  = new XDesktop();
-   	addToParent(xParent, xDesktop, element);	
+   	addChild(xParent, xDesktop, element);	
    	return xDesktop; 
    }
     

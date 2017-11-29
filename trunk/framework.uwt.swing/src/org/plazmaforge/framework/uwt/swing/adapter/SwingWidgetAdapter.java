@@ -35,12 +35,13 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 public abstract class SwingWidgetAdapter extends SwingAbstractAdapter {
 
     
-    
-    protected java.awt.Component getComponent(Object delegate) {
+    //Cast
+    protected final java.awt.Component getComponent(Object delegate) {
 	return (java.awt.Component) delegate;
     }
 
-    protected java.awt.Container getContainer(Object delegate) {
+    //Cast
+    protected final java.awt.Container getContainer(Object delegate) {
 	return (java.awt.Container) delegate;
     }
 
@@ -104,7 +105,7 @@ public abstract class SwingWidgetAdapter extends SwingAbstractAdapter {
      * @param delegate
      * @return
      */
-    protected javax.swing.JTable getJTable(Object delegate) {
+    protected final javax.swing.JTable getJTable(Object delegate) {
    	return (javax.swing.JTable) getScrollComponent(delegate);
     }
 
@@ -113,7 +114,7 @@ public abstract class SwingWidgetAdapter extends SwingAbstractAdapter {
      * @param delegate
      * @return
      */
-    protected javax.swing.JTree getJTree(Object delegate) {
+    protected final javax.swing.JTree getJTree(Object delegate) {
    	return (javax.swing.JTree) getScrollComponent(delegate);
     }
 

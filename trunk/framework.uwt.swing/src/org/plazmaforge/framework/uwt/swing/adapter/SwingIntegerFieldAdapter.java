@@ -31,7 +31,7 @@ public class SwingIntegerFieldAdapter extends SwingNumberFieldAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XIntegerField xIntegerField = new XIntegerField();
-	addToParent(xParent, xIntegerField, element);	
+	addChild(xParent, xIntegerField, element);	
 	return xIntegerField;
     }
 

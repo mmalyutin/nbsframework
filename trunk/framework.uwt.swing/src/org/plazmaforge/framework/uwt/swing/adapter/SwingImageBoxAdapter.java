@@ -42,7 +42,7 @@ public class SwingImageBoxAdapter extends SwingControlAdapter {
 	    xImageBox.setIcon(xImage);
 	}
 
-	addToParent(xParent, xImageBox, element);	
+	addChild(xParent, xImageBox, element);	
 	return xImageBox;
     }
 

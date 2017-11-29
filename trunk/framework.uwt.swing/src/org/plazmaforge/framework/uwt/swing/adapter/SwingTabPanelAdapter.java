@@ -33,7 +33,7 @@ public class SwingTabPanelAdapter extends SwingCompositeAdapter {
    	
    	javax.swing.JTabbedPane xTabPanel = new javax.swing.JTabbedPane();
 
-   	addToParent(xParent, xTabPanel, element);	
+   	addChild(xParent, xTabPanel, element);	
    	return xTabPanel; 
    }
     

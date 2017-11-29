@@ -32,7 +32,7 @@ public class SwingDateFieldAdapter extends SwingControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	XDateField xDateField = new XDateField();
-	addToParent(xParent, xDateField, element);
+	addChild(xParent, xDateField, element);
 	return xDateField;
     }
 

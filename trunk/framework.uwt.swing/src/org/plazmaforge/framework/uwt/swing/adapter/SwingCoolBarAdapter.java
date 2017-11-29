@@ -38,7 +38,7 @@ public class SwingCoolBarAdapter extends SwingCompositeAdapter {
 	javax.swing.BoxLayout xLayout = new javax.swing.BoxLayout(xCoolBar, javax.swing.BoxLayout.X_AXIS);
 	xCoolBar.setLayout(xLayout);
 	
-	addToParent(xContainer, xCoolBar, element);
+	addChild(xContainer, xCoolBar, element);
 	
 	return xCoolBar;
     }
