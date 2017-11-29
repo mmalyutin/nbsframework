@@ -40,7 +40,7 @@ public class SWTSeparatorAdapter extends SWTControlAdapter {
 	    xOrientation = SWT.HORIZONTAL;
 	}
 	org.eclipse.swt.widgets.Label xLabel = new org.eclipse.swt.widgets.Label(xParent, SWT.SEPARATOR | xOrientation);
-	addToParent(xParent, xLabel, element);
+	addChild(xParent, xLabel, element);
 	return xLabel;
 
     }

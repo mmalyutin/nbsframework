@@ -32,7 +32,7 @@ public class SWTRadioButtonAdapter extends SWTButtonAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Button xButton = new org.eclipse.swt.widgets.Button(xParent, SWT.RADIO);
-	addToParent(xParent, xButton, element);
+	addChild(xParent, xButton, element);
 	return xButton;
     }
 

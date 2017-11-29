@@ -34,7 +34,7 @@ public class SWTSplitPanelAdapter extends SWTCompositeAdapter {
 	SplitPanel p = (SplitPanel) element; 
 	int style = getSplitOrientation(p.getOrientation());
 	org.eclipse.swt.custom.SashForm xSplitPanel = new org.eclipse.swt.custom.SashForm(xParent, style);
-	addToParent(xParent, xSplitPanel, element);
+	addChild(xParent, xSplitPanel, element);
 	return xSplitPanel;
     }
     

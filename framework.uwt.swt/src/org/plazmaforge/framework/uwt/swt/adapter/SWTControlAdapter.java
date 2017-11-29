@@ -41,7 +41,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
      * @param parent
      * @param widget
      */
-    protected void addToParent(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Control xControl, UIObject element) {
+    protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Control xControl, UIObject element) {
 	org.eclipse.swt.widgets.Layout xLayout = xParent.getLayout();
 	if (xLayout == null) {
 	    return;

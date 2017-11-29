@@ -47,7 +47,7 @@ public class SWTCollapsePanelAdapter extends SWTTitlePanelAdapter {
 	if (title != null) {
 	    xCollapsePanel.setText(title);
 	}
-	addToParent(xParent, xCollapsePanel, element);
+	addChild(xParent, xCollapsePanel, element);
 	return xCollapsePanel;
     }
 

@@ -80,7 +80,7 @@ public class SWTScrollPanelAdapter extends SWTPanelAdapter {
    	xComposite.setContent(xContent);
 
 	//xComposite.setBackgroundMode(SWT.INHERIT_DEFAULT);
-	addToParent(xParent, xComposite, element);
+	addChild(xParent, xComposite, element);
 	return xComposite;
     }
 

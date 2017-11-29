@@ -32,7 +32,7 @@ public class SWTDateTimeFieldAdapter extends SWTControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XDateTimeField xDateTimeField = new XDateTimeField(xParent, SWT.BORDER);
-	addToParent(xParent, xDateTimeField, element);
+	addChild(xParent, xDateTimeField, element);
 	return xDateTimeField;
     }
 

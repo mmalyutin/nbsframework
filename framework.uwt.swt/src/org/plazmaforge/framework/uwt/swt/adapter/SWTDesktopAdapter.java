@@ -36,7 +36,7 @@ public class SWTDesktopAdapter extends SWTCompositeAdapter {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XDesktop xDesktop = new XDesktop(xParent, SWT.NONE);
 	//xDesktop.setBackgroundMode(SWT.INHERIT_DEFAULT);
-	addToParent(xParent, xDesktop, element);
+	addChild(xParent, xDesktop, element);
 	return xDesktop;
     }
     

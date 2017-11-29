@@ -31,7 +31,7 @@ public class SWTTabPanelAdapter extends SWTCompositeAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
    	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
    	org.eclipse.swt.widgets.TabFolder xTabPanel = new org.eclipse.swt.widgets.TabFolder(xParent, SWT.NONE);
-   	addToParent(xParent, xTabPanel, element);
+   	addChild(xParent, xTabPanel, element);
    	return xTabPanel;
    }
    

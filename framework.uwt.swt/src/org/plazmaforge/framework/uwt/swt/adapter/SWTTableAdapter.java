@@ -107,7 +107,7 @@ public class SWTTableAdapter extends SWTCompositeAdapter {
 	xTable.setData(SYS_PROPETY_TABLE, table); // Assign UWT Table
 	
 	xTableViewer.setCellModifier(createCellModifier(xTableViewer));
-	addToParent(xParent, xTable, element);
+	addChild(xParent, xTable, element);
 	return xTable;
     }
     

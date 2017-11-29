@@ -39,7 +39,7 @@ public class SWTGroupPanelAdapter extends SWTPanelAdapter {
 	org.eclipse.swt.widgets.Group xGroupPanel = new org.eclipse.swt.widgets.Group(xParent, SWT.NONE);
 	//xGroupPanel.setBackgroundMode(SWT.INHERIT_DEFAULT);
 	xGroupPanel.setText(asSafeString(groupPanel.getTitle()));
-	addToParent(xParent, xGroupPanel, element);
+	addChild(xParent, xGroupPanel, element);
 	return xGroupPanel;
     }
     

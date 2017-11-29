@@ -32,7 +32,7 @@ public class SWTCheckBoxAdapter extends SWTButtonAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Button xCheckBox = new org.eclipse.swt.widgets.Button(xParent, SWT.CHECK);
-	addToParent(xParent, xCheckBox, element);
+	addChild(xParent, xCheckBox, element);
 	return xCheckBox;
     }
 

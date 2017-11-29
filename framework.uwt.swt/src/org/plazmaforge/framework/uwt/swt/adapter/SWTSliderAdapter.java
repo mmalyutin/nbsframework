@@ -31,7 +31,7 @@ public class SWTSliderAdapter extends SWTControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Scale xSlider = new org.eclipse.swt.widgets.Scale(xParent, SWT.NONE);
-	addToParent(xParent, xSlider, element);
+	addChild(xParent, xSlider, element);
 	return xSlider;
     }
 

@@ -46,7 +46,7 @@ public class SWTSpinnerFieldAdapter extends SWTControlAdapter {
 	
 	org.eclipse.swt.widgets.Spinner xSpinner = new org.eclipse.swt.widgets.Spinner(xParent, SWT.BORDER);
 	xSpinner.setValues(value, minValue, maxValue, decimals, incrementValue, pageIncrement);
-	addToParent(xParent, xSpinner, element);
+	addChild(xParent, xSpinner, element);
 	return xSpinner;
     }
 

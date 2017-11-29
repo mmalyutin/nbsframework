@@ -46,7 +46,7 @@ public class SWTLinkAdapter extends SWTControlAdapter {
 	}
 
 	
-	addToParent(xParent, xLink, element);
+	addChild(xParent, xLink, element);
 	return xLink;
     }
     

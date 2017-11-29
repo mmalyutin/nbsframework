@@ -34,7 +34,7 @@ public class SWTPasswordFieldAdapter extends SWTTextFieldAdapter {
 	XTextField xPasswordField = new XTextField(xParent, SWT.BORDER);
 	xPasswordField.setEchoChar('*'); // Set echo char for password text
 	xPasswordField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(xParent, xPasswordField, element);
+	addChild(xParent, xPasswordField, element);
 	return xPasswordField;
     }
 }
