@@ -25,26 +25,21 @@ import java.util.logging.Logger;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
+import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.GXTLogConfiguration;
-import com.sencha.gxt.core.client.Style;
 import com.sencha.gxt.core.client.dom.XElement;
 import com.sencha.gxt.core.client.resources.CommonStyles;
 import com.sencha.gxt.core.client.util.Size;
-import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.widget.core.client.Component;
-import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.container.InsertResizeContainer;
-import com.sencha.gxt.widget.core.client.grid.Grid;
-import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
+
 
 /**
  * 
@@ -126,8 +121,8 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	    logger.finest(getId() + " doLayout  size: " + size);
 	}
 	
-	int styleHeight = getStyleHeight(container);
-	int styleWidth = getStyleWidth(container);
+	int styleHeight = GXTUtils.getStyleHeight(container);
+	int styleWidth = GXTUtils.getStyleWidth(container);
 
 	boolean findWidth = styleWidth == -1;
 	boolean findHeight = styleHeight == -1;
@@ -807,8 +802,8 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 //	    
 //	}
 	
-	int styleWidth = getStyleWidth(widget); 	
-	int styleHeight = getStyleHeight(widget);
+	int styleWidth = GXTUtils.getStyleWidth(widget); 	
+	int styleHeight = GXTUtils.getStyleHeight(widget);
 	
 	int offsetWidth = widget.getOffsetWidth();
 	int offsetHeight = widget.getOffsetHeight();	
@@ -817,13 +812,13 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	int height = styleHeight;
 	
 	if (width == -1) {
-	    width = computeMinWidth(widget);
+	    width = GXTUtils.computeMinWidth(widget);
 	    if (width == -1) {
 		width = offsetWidth;
 	    }
 	}
 	if (height == -1) {
-	    height = computeMinHeight(widget);
+	    height = GXTUtils.computeMinHeight(widget);
 	    if (height == -1) {
 		height = offsetHeight;
 	    }
@@ -846,57 +841,6 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	return new Size(width, height);
     }
     
-    protected int getStyleWidth(Widget widget) {
-	return getStyleWidth(widget.getElement()); 
-    }
-
-    protected int getStyleHeight(Widget widget) { 
-	return getStyleHeight(widget.getElement());
-    }
-    
-    protected int getStyleWidth(Element element) {
-	return getPropertyInt(element, "width", Style.DEFAULT); 
-    }
-
-    protected int getStyleHeight(Element element) {
-	return getPropertyInt(element, "height", Style.DEFAULT); 
-    }
- 
-    protected int getPropertyInt(Element element, String property, int def) {
-	return Util.parseInt(element.getStyle().getProperty(property), def);
-    }
-    
-    protected int computeMinWidth(Widget widget) {
-	if (widget == null) {
-	    return -1;
-	}
-	if (widget instanceof Label) {
-	    return widget.getOffsetWidth() + 1;
-	}
-	if (widget instanceof Grid) {
-	    Grid<?> grid = (Grid<?>) widget;
-	    return grid.getColumnModel().getTotalWidth();
-	}
-	if (widget instanceof ToolBar) {
-	    return widget.getOffsetWidth() + 10;
-	}
-	if (widget instanceof TabPanel) {
-	    TabPanel tabPanel = (TabPanel) widget;
-	    return tabPanel.getTabWidth();
-	}
-	return -1;
-    }
-    
-    protected int computeMinHeight(Widget widget) {
-	if (widget == null) {
-	    return -1;
-	}
-	if (widget instanceof TabPanel) {
-	    //TabPanel tabPanel = (TabPanel) widget;
-	    return widget.getOffsetHeight() + 10;
-	}
-	return -1;	
-    }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // DEBUG
