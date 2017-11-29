@@ -45,7 +45,7 @@ public class SwingSpinnerFieldAdapter extends SwingControlAdapter {
 	javax.swing.JSpinner xSpinner = new  javax.swing.JSpinner(model);
 	javax.swing.JSpinner.NumberEditor xEditor = new javax.swing.JSpinner.NumberEditor(xSpinner, pattern);
 	xSpinner.setEditor(xEditor);
-	addToParent(xParent, xSpinner, element);	
+	addChild(xParent, xSpinner, element);	
 	return xSpinner;
     }
 

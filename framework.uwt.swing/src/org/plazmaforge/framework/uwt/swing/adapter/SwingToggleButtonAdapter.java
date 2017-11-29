@@ -36,7 +36,7 @@ public class SwingToggleButtonAdapter extends SwingButtonAdapter {
 		
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JToggleButton xToogleButton = new javax.swing.JToggleButton();
-	addToParent(xParent, xToogleButton, element);
+	addChild(xParent, xToogleButton, element);
 	
 	if (toggleButton.getGroup() == null) {
 	    return xToogleButton;

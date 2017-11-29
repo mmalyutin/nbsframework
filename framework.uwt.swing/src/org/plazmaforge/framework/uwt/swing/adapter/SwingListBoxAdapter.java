@@ -44,7 +44,7 @@ public class SwingListBoxAdapter extends SwingControlAdapter {
 	xListBox.setCellRenderer(new SwingListCellRenderer(listBox));
 	
 	JScrollPane scrollpane = new XScrollPane(xListBox);
-	addToParent(xParent, scrollpane, element);	
+	addChild(xParent, scrollpane, element);	
 	return scrollpane; 
     }
     

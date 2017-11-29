@@ -41,7 +41,7 @@ public class SwingComboBoxAdapter extends SwingControlAdapter {
 	ComboBox comboBox = (ComboBox) element;
 	XComboBox xComboBox = new XComboBox( new SwingComboBoxModel(comboBox));
 	xComboBox.setRenderer(new SwingComboBoxCellRenderer(comboBox));
-	addToParent(xParent, xComboBox, element);
+	addChild(xParent, xComboBox, element);
 	return xComboBox;
     }
 

@@ -51,7 +51,7 @@ public class SwingLabelAdapter extends SwingControlAdapter {
 	    xLabel.setIcon(xIcon);
 	}
 
-	addToParent(xParent, xLabel, element);	
+	addChild(xParent, xLabel, element);	
 	return xLabel;
     }
 

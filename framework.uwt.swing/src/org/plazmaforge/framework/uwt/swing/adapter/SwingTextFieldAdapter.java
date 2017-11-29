@@ -39,7 +39,7 @@ public class SwingTextFieldAdapter extends SwingControlAdapter {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XTextField xTextField = new XTextField();
 	xTextField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(xParent, xTextField, element);
+	addChild(xParent, xTextField, element);
 	return xTextField;
     }
 

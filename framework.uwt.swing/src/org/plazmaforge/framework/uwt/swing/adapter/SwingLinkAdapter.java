@@ -47,7 +47,7 @@ public class SwingLinkAdapter extends SwingControlAdapter {
 	if (text != null) {
 	    xLink.setText(text);
 	}
-	addToParent(xParent, xLink, element);	
+	addChild(xParent, xLink, element);	
 	return xLink;
     }
 

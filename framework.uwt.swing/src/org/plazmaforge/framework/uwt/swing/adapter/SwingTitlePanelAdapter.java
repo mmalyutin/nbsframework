@@ -43,7 +43,7 @@ public class SwingTitlePanelAdapter extends SwingPanelAdapter {
 	if (title != null) {
 	    xTitlePanel.setTitle(title);
 	}
-	addToParent(xParent, xTitlePanel, element);
+	addChild(xParent, xTitlePanel, element);
 	return xTitlePanel;
     }
     

@@ -38,7 +38,7 @@ public class SwingGroupPanelAdapter extends SwingPanelAdapter {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XGroupPanel xGroupPanel = new XGroupPanel();
 	xGroupPanel.setTitle(asSafeString(groupPanel.getTitle()));
-	addToParent(xParent, xGroupPanel, element);
+	addChild(xParent, xGroupPanel, element);
 	return xGroupPanel;
     }
     

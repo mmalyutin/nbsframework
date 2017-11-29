@@ -30,7 +30,7 @@ public class SwingRadioButtonAdapter extends SwingButtonAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JRadioButton xRadioButton = new javax.swing.JRadioButton();
-	addToParent(xParent, xRadioButton, element);
+	addChild(xParent, xRadioButton, element);
 	
 	// Get Swing ButtonGroup
 	javax.swing.ButtonGroup group = (javax.swing.ButtonGroup) parent.getData(SwingRadioGroupAdapter.SYS_PROPERTY_GROUP);

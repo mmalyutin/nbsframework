@@ -31,7 +31,7 @@ public class SwingSliderAdapter extends SwingControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JSlider xSlider = new  javax.swing.JSlider();
-	addToParent(xParent, xSlider, element);	
+	addChild(xParent, xSlider, element);	
 	return xSlider;
     }
 

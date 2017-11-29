@@ -44,7 +44,7 @@ public class SwingCanvasAdapter extends SwingControlAdapter {
 		canvas.repaint(gc);
 	    }
 	};
-	addToParent(xParent, xCanvas, element);
+	addChild(xParent, xCanvas, element);
 	return xCanvas;
     }
     

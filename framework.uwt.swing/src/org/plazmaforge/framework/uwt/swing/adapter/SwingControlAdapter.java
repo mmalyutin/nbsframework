@@ -52,7 +52,13 @@ import org.plazmaforge.framework.uwt.widget.menu.Menu;
 public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 
 
-    protected void addToParent(java.awt.Container xParent, java.awt.Component xElement, UIObject element) {
+    /**
+     * Add child to parent
+     * @param xParent
+     * @param xElement
+     * @param element
+     */
+    protected void addChild(java.awt.Container xParent, java.awt.Component xElement, UIObject element) {
 	LayoutManager xLayout = xParent.getLayout();
 	
 	/*

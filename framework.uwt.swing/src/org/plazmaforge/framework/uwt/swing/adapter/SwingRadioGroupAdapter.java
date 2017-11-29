@@ -43,7 +43,7 @@ public class SwingRadioGroupAdapter extends SwingCompositeAdapter {
 	// To emulate RadioGroup we use JPanel
 	javax.swing.JPanel xRadioGroup = new javax.swing.JPanel();
 	xRadioGroup.setLayout(new FlowLayout(FlowLayout.LEFT));
-	addToParent(xParent, xRadioGroup, element);
+	addChild(xParent, xRadioGroup, element);
 	return xRadioGroup;
     }
 

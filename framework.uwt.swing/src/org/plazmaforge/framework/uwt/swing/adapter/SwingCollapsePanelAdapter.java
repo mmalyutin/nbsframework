@@ -37,7 +37,7 @@ public class SwingCollapsePanelAdapter extends SwingTitlePanelAdapter {
 	if (title != null) {
 	    xCollapsePanel.setTitle(title);
 	}
-	addToParent(xParent, xCollapsePanel, element);
+	addChild(xParent, xCollapsePanel, element);
 	return xCollapsePanel;
     }
     

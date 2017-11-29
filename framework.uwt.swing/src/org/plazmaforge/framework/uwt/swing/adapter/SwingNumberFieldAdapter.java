@@ -32,7 +32,7 @@ public class SwingNumberFieldAdapter extends SwingControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XNumberField xNumberField = new XNumberField();
-	addToParent(xParent, xNumberField, element);	
+	addChild(xParent, xNumberField, element);	
 	return xNumberField;
     }
 

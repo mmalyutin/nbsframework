@@ -32,7 +32,7 @@ public class SwingPasswordFieldAdapter extends SwingTextFieldAdapter {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XPasswordField xPasswordField = new XPasswordField();
 	xPasswordField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
-	addToParent(xParent, xPasswordField, element);
+	addChild(xParent, xPasswordField, element);
 	return xPasswordField;
     }
 }
