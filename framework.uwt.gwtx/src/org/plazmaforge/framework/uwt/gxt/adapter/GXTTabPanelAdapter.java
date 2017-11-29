@@ -27,6 +27,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.Widget;
 
 
@@ -52,17 +53,23 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
     
     @Override
     public Object invoke(UIObject element, String methodName, Object[] args) {
+	GWT.log("Call invoke method: " + methodName);
 	XTabPanel xTabPanel = (XTabPanel) element.getDelegate();
  	if (xTabPanel == null) {
+ 	   GWT.log("Call invoke method: Delegate is null");
  	    return null;
  	}
  	if (TabPanel.METHOD_SET_ACTIVE_ITEM.equals(methodName)) {
+ 	    // TODO: For init delegate only. Maybe need convert to property. See Desktop too.
  	    if (args != null && args.length > 0) {
+ 		
  		Integer index = (Integer) args[0];
+ 		GWT.log("Call method: index=" + index);
  		if (index == null) {
  		    return null;
  		}
  		Widget widget = xTabPanel.getWidget(index);
+ 		GWT.log("Call method: widget=" + index);
   		xTabPanel.setActiveWidget(widget);
  	    }
  	    return null;

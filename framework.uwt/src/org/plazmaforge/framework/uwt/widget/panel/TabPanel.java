@@ -130,6 +130,7 @@ public class TabPanel extends Panel {
 	if (!isValidChildIndex(index)) {
 	    return;
 	}
+	// TODO: For init delegate only. Maybe need convert to property. See Desktop too.
 	getAdapter().invoke(this, METHOD_SET_ACTIVE_ITEM, new Object[] {index});
     }
     
