@@ -37,7 +37,7 @@ public class GXTCoolBarAdapter extends GXTCompositeAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	XCoolBar xCoolBar = new XCoolBar();
 
-	addToParent(getContent(parent.getDelegate()), xCoolBar, element);
+	addChild(getContent(parent.getDelegate()), xCoolBar, element);
 	return xCoolBar;
     }
     

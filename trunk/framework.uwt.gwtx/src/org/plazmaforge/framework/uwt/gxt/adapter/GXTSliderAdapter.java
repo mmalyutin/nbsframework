@@ -35,7 +35,7 @@ public class GXTSliderAdapter extends GXTControlAdapter {
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {
 	com.sencha.gxt.widget.core.client.Slider xSlider = new com.sencha.gxt.widget.core.client.Slider();
-	addToParent(getContent(parent.getDelegate()), xSlider, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xSlider, element); // Add to parent
 	return xSlider;
     }
 

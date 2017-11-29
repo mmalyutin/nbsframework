@@ -90,7 +90,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param widget
      * @param element
      */
-    protected void addToParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+    protected void addChild(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
 	
 	checkNullParent(parent, MESSAGE_CANT_ADD_WIDGET);
 	checkContainerParent(parent, MESSAGE_CANT_ADD_WIDGET);
@@ -181,7 +181,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param parent
      * @param widget
      */
-    protected void removeFromParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget) {
+    protected void removeChild(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget) {
 	
 	checkNullParent(parent, MESSAGE_CANT_REMOVE_WIDGET);
 	checkContainerParent(parent, MESSAGE_CANT_REMOVE_WIDGET);
@@ -243,7 +243,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     public void disposeDelegate(UIObject parent, UIObject element) {
 	com.google.gwt.user.client.ui.Widget  parentDelegate = (com.google.gwt.user.client.ui.Widget) getContent(parent.getDelegate());
 	com.google.gwt.user.client.ui.Widget delegate = getWidget(element.getDelegate());
-	removeFromParent(parentDelegate, delegate);
+	removeChild(parentDelegate, delegate);
     }
 
 

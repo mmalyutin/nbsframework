@@ -42,7 +42,7 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 	ToggleButton toggleButton = (ToggleButton) element;
 	
 	initButton(xToggleButton, toggleButton);
-	addToParent(getContent(parent.getDelegate()), xToggleButton, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xToggleButton, element); // Add to parent
 	
 	String groupName = toggleButton.getGroup();
 	if (groupName == null) {

@@ -54,7 +54,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	    return xComposite;
 	}
 	
-	addToParent(getContent(parent.getDelegate()), xComposite, element);
+	addChild(getContent(parent.getDelegate()), xComposite, element);
 	return xComposite;
     }
     

@@ -90,7 +90,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	//Reset auto resize mode
         //xGrid.getView().setForceFit(true);
                 
-	addToParent(getContent(parent.getDelegate()), xGrid, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xGrid, element); // Add to parent
 	
 	return xGrid;
     }

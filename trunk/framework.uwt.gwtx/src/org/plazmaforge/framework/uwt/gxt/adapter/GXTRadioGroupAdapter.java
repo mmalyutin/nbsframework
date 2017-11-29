@@ -44,7 +44,7 @@ public class GXTRadioGroupAdapter extends GXTCompositeAdapter {
 	ToggleGroup group = new ToggleGroup();
 	element.setData(SYS_PROPERTY_GROUP, group);
 	
-	addToParent(getContent(parent.getDelegate()), xRadioGroup, element);
+	addChild(getContent(parent.getDelegate()), xRadioGroup, element);
 	
 	return xRadioGroup;
     }

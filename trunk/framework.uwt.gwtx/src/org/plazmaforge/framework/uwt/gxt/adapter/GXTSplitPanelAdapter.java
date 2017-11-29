@@ -43,7 +43,7 @@ public class GXTSplitPanelAdapter extends GXTCompositeAdapter {
 	    return xSplitPanel;
 	}
 
-	addToParent(getContent(parent.getDelegate()), xSplitPanel, element);
+	addChild(getContent(parent.getDelegate()), xSplitPanel, element);
 	return xSplitPanel;
     }
 

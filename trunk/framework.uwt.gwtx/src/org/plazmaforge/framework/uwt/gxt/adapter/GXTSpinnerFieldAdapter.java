@@ -79,7 +79,7 @@ public class GXTSpinnerFieldAdapter extends GXTControlAdapter {
 	xSpinner.setMaxValue(nMaxValue);
 	xSpinner.setIncrement(nIncrementValue);
 	
-	addToParent(getContent(parent.getDelegate()), xSpinner, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xSpinner, element); // Add to parent
 	return xSpinner;
     }
     

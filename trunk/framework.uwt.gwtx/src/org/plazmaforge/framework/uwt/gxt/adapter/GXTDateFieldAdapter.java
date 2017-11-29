@@ -40,7 +40,7 @@ public class GXTDateFieldAdapter extends GXTControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	String format = ((HasFormat) element).getFormat();
 	com.sencha.gxt.widget.core.client.form.DateField xDateField = createDateField(format);
-	addToParent(getContent(parent.getDelegate()), xDateField, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xDateField, element); // Add to parent
 	return xDateField;
     }
 

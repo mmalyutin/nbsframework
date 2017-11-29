@@ -46,16 +46,16 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
 	xTabPanel.setAnimScroll(true);
 	xTabPanel.setWidth(DEFAULT_TAB_PANEL_WIDTH);
 	
-	addToParent(getContent(parent.getDelegate()), xTabPanel, element); // Add to parent. Use super method
+	addChild(getContent(parent.getDelegate()), xTabPanel, element); // Add to parent. Use super method
 	return xTabPanel;
     }
    
     
     @Override
     public Object invoke(UIObject element, String methodName, Object[] args) {
-	GWT.log("Call invoke method: " + methodName);
 	XTabPanel xTabPanel = (XTabPanel) element.getDelegate();
  	if (xTabPanel == null) {
+ 	    //TODO
  	   GWT.log("Call invoke method: Delegate is null");
  	    return null;
  	}
@@ -64,12 +64,10 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
  	    if (args != null && args.length > 0) {
  		
  		Integer index = (Integer) args[0];
- 		GWT.log("Call method: index=" + index);
  		if (index == null) {
  		    return null;
  		}
  		Widget widget = xTabPanel.getWidget(index);
- 		GWT.log("Call method: widget=" + index);
   		xTabPanel.setActiveWidget(widget);
  	    }
  	    return null;

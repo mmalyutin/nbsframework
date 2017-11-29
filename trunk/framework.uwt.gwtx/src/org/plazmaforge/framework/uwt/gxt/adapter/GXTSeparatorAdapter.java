@@ -36,7 +36,7 @@ public class GXTSeparatorAdapter extends GXTControlAdapter {
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {
 	XSeparator xSeparator = new XSeparator();
-	addToParent(getContent(parent.getDelegate()), xSeparator, element);
+	addChild(getContent(parent.getDelegate()), xSeparator, element);
 	return xSeparator;
     }
 

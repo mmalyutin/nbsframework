@@ -39,7 +39,7 @@ public class GXTToolBarAdapter extends GXTCompositeAdapter {
 	HasWidgets xParent = (HasWidgets) parent.getDelegate(); // = (com.sencha.gxt.widget.core.client.container.Container) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.toolbar.ToolBar xToolBar = new com.sencha.gxt.widget.core.client.toolbar.ToolBar();
 	
-	addToParent(getContent(parent.getDelegate()), xToolBar, element); // Add to parent. Use super method
+	addChild(getContent(parent.getDelegate()), xToolBar, element); // Add to parent. Use super method
 	return xToolBar;
     }
     

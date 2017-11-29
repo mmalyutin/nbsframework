@@ -40,7 +40,7 @@ public class GXTIntegerFieldAdapter extends GXTNumberFieldAdapter {
 	
 	com.sencha.gxt.widget.core.client.form.NumberField<?> xNumberField = createNumberField("Integer", null);
 	//delegate.setStyleAttribute("align", "right");
-	addToParent(getContent(parent.getDelegate()), xNumberField, element); // Add to parent
+	addChild(getContent(parent.getDelegate()), xNumberField, element); // Add to parent
 	return xNumberField;
     }
     

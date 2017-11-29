@@ -50,7 +50,7 @@ public class GXTLabelAdapter extends GXTControlAdapter {
 	//    delegate.setIcon(xIcon);
 	//}
 	
-	addToParent(getContent(parent.getDelegate()), xLabel, element);
+	addChild(getContent(parent.getDelegate()), xLabel, element);
 	return xLabel;
     }
 
