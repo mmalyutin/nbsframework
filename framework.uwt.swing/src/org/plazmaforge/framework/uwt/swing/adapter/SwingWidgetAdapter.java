@@ -25,6 +25,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 import javax.swing.JScrollPane;
 
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.TypedEvent;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.swing.widget.XTitlePanel;
@@ -34,13 +35,31 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 
 public abstract class SwingWidgetAdapter extends SwingAbstractAdapter {
 
+    // Check
+    protected void checkNullParent(java.awt.Component parent, String title) {
+	if (parent == null) {
+	    throw new UWTException(title + ". Parent is null");
+	}
+    }
     
-    //Cast
+    // Check
+    protected void checkContainerParent(java.awt.Component parent, String title) {
+	if (!(parent instanceof java.awt.Container)) {
+	    throw new UWTException(title + ". Parent is not container: " + parent.getClass().getName());
+	}
+    } 
+    
+    // Throw
+    protected void throwUnsupportParent(java.awt.Component parent, String title) {
+	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
+    }     
+    
+    // Cast
     protected final java.awt.Component getComponent(Object delegate) {
 	return (java.awt.Component) delegate;
     }
 
-    //Cast
+    // Cast
     protected final java.awt.Container getContainer(Object delegate) {
 	return (java.awt.Container) delegate;
     }

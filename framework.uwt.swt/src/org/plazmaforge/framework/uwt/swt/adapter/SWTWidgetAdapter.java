@@ -26,11 +26,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.UWT;
+import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.swt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
+
 
 /**
  * 
@@ -39,12 +41,32 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  */
 public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
-    //Cast
+    // Check
+    protected void checkNullParent(org.eclipse.swt.widgets.Widget parent, String title) {
+	if (parent == null) {
+	    throw new UWTException(title + ". Parent is null");
+	}
+    }
+    
+    // Check
+    protected void checkContainerParent(org.eclipse.swt.widgets.Widget parent, String title) {
+	if (!(parent instanceof org.eclipse.swt.widgets.Composite)) {
+	    throw new UWTException(title + ". Parent is not container: " + parent.getClass().getName());
+	}
+    } 
+    
+    // Throw
+    protected void throwUnsupportParent(org.eclipse.swt.widgets.Widget parent, String title) {
+	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
+    }     
+    
+    
+    // Cast
     protected final org.eclipse.swt.widgets.Widget getWidget(Object delegate) {
 	return (org.eclipse.swt.widgets.Widget) delegate;
     }
     
-    //Cast
+    // Cast
     protected final org.eclipse.swt.widgets.Control getControl(Object delegate) {
 	return (org.eclipse.swt.widgets.Control) delegate;
     }
