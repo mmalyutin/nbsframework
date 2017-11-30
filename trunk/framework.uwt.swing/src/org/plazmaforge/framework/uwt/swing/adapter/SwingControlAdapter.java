@@ -59,6 +59,10 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
      * @param element
      */
     protected void addChild(java.awt.Container xParent, java.awt.Component xElement, UIObject element) {
+	
+	checkNullParent(xParent, MESSAGE_CANT_ADD_WIDGET);
+	checkContainerParent(xParent, MESSAGE_CANT_ADD_WIDGET);
+	
 	LayoutManager xLayout = xParent.getLayout();
 	
 	/*
