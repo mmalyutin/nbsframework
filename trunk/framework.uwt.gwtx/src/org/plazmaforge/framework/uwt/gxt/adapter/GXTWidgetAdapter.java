@@ -41,6 +41,7 @@ import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
+import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 
 //import com.sencha.gxt.ui.client.event.BaseEvent;
@@ -50,12 +51,12 @@ import com.google.gwt.core.client.GWT;
 //import com.sencha.gxt.ui.client.event.GridEvent;
 
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.widget.core.client.event.GridEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
 
 /**
  * 
@@ -203,45 +204,9 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
 
-//   com.sencha.gxt.widget.core.client.container.Container layoutContainer = (com.sencha.gxt.widget.core.client.container.Container) parent; 
-//	    if (element != null) {
-//		UIObject p = element.getUIParent();
-//		if (p instanceof SplitPanel) {
-//		    SplitPanel splitPanel = (SplitPanel) p;
-//		    int count = splitPanel.getChildrenCount();
-//		    Orientation orientation = splitPanel.getOrientation();
-//		    if (orientation == null) {
-//			orientation = Orientation.HORIZONTAL;
-//		    }
-//		    
-//		    //DISABLE:MIGRATION
-//		    /*
-//		    if (count == 1) {
-//			// First element
-//			BorderLayoutData ld = new BorderLayoutData(orientation.equals(Orientation.HORIZONTAL) ? LayoutRegion.WEST : LayoutRegion.NORTH);
-//			ld.setSplit(true);
-//			//ld.setSize(200); // TODO
-//			widget.setLayoutData(ld);
-//			layoutContainer.add(widget, ld);
-//			return;
-//		    } else if (count == 2) {
-//			// Second element
-//			BorderLayoutData ld = new BorderLayoutData(LayoutRegion.CENTER);
-//			//ld.setSplit(true);
-//			//ld.setSize(200); // TODO
-//			widget.setLayoutData(ld);
-//			layoutContainer.add(widget, ld);
-//			return;
-//		    }
-//		    */
-//		}
-//	    }
-//	    layoutContainer.add(widget);
-     
-     
     @Override
     public void disposeDelegate(UIObject parent, UIObject element) {
-	com.google.gwt.user.client.ui.Widget  parentDelegate = (com.google.gwt.user.client.ui.Widget) getContent(parent.getDelegate());
+	com.google.gwt.user.client.ui.Widget  parentDelegate = getContent(parent.getDelegate());
 	com.google.gwt.user.client.ui.Widget delegate = getWidget(element.getDelegate());
 	removeChild(parentDelegate, delegate);
     }
@@ -495,6 +460,116 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	// do nothing
     }
     
+    
+    
+    // KEY DOWN
+    protected com.google.gwt.event.dom.client.KeyDownHandler createKeyDownListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.KeyDownHandler xListener = new com.google.gwt.event.dom.client.KeyDownHandler() {
+
+	    @Override
+	    public void onKeyDown(com.google.gwt.event.dom.client.KeyDownEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }
+    
+    
+    // KEY UP
+    protected com.google.gwt.event.dom.client.KeyUpHandler createKeyUpListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.KeyUpHandler xListener = new com.google.gwt.event.dom.client.KeyUpHandler() {
+
+	    @Override
+	    public void onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    } 
+    
+    
+    
+    
+    // SELECTION
+    protected com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler createSelectionListener(Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler xListener = new com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler() {
+
+	    @Override
+	    public void onSelect(SelectEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    } 
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Events
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     * Create UWT Event by GWT <code>KeyCodeEvent</code>
+     * @param e
+     * @return
+     */
+    protected Event createEvent(com.google.gwt.event.dom.client.KeyCodeEvent<?> e) {
+        Event event = new Event();
+        com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
+	if (nativeEvent != null) {
+	    event.setKeyCode(nativeEvent.getKeyCode());
+	    event.setCharacter((char) nativeEvent.getCharCode()); // TODO: Must analyze int -> char (Unicode) ???
+	    int nativeButton = nativeEvent.getButton(); 
+	    int button = 0;
+	    if (nativeButton == NativeEvent.BUTTON_LEFT) {
+		button = 1;
+	    } else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
+		button = 2;
+	    } else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
+		button = 3;
+	    }
+	    event.setButton(button);
+	    event.setX(nativeEvent.getClientX());
+	    event.setY(nativeEvent.getClientY());
+	    
+	    int stateMask = 0;
+	    if (nativeEvent.getShiftKey()) {
+		stateMask |= KeyEvent.SHIFT_MASK;
+	    }
+	    if (nativeEvent.getCtrlKey()) {
+		stateMask |= KeyEvent.CTRL_MASK;
+	    }
+	    if (nativeEvent.getMetaKey()) {
+		stateMask |= KeyEvent.META_MASK;
+	    }
+	    if (nativeEvent.getAltKey()) {
+		stateMask |= KeyEvent.ALT_MASK;
+	    }
+	    event.setStateMask(stateMask);
+
+	    // TODO: No info ?
+	    //event.setCount(count) 
+	    
+	}        
+        return event;
+    }    
+    
+    
+    protected Event createEvent(com.sencha.gxt.widget.core.client.event.SelectEvent  e) {
+	 Event event = new Event();
+	 Context context = e.getContext();
+	 if (context != null) {
+	     event.setIndex(context.getIndex());    
+	 }
+	 return event;
+    }
 
     // DISABLE:MIGRATION
     /**

@@ -24,6 +24,8 @@ import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
 import org.plazmaforge.framework.uwt.demo.DemoApplicationBuilder;
 import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
+import org.plazmaforge.framework.uwt.event.SelectionEvent;
+import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.UWT_GXT;
 import org.plazmaforge.framework.uwt.layout.GridData;
@@ -256,6 +258,13 @@ public class WebApplication extends Application implements EntryPoint {
 	uwtContainer.add(new  org.plazmaforge.framework.uwt.widget.Label("UWT Migration!"));
 	
 	Button button = new Button("My Migration");
+	button.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("Test selection listener");
+	    }
+	});
 	button.setLayoutData(new GridData(HorizontalAlign.FILL));
 	
 	uwtContainer.add(button);

@@ -29,9 +29,11 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
+import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
 import com.google.gwt.core.client.GWT;
+
 
 /**
  * 
@@ -172,32 +174,35 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	xControl.setPixelSize(toDimension(width), toDimension(height));
     }
     
+    
+    
+    
+    // KEY DOWN
+    @Override
+    protected void addKeyDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createKeyDownListener(widget, listener), com.google.gwt.event.dom.client.KeyDownEvent.getType());
+    }    
+    
+    @Override
+    protected void removeKeyDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnKeyDown, getListener(widget, listener)); //TODO
+    }
+    
+
+    // KEY UP
+    @Override
+    protected void addKeyUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createKeyUpListener(widget, listener), com.google.gwt.event.dom.client.KeyUpEvent.getType());
+    }
+
+    @Override
+    protected void removeKeyUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnKeyUp, getListener(widget, listener)); //TODO
+    }
+
+    
+    
     // DISABLE:MIGRATION
-//    // KEY DOWN
-//    @Override
-//    protected void addKeyDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnKeyDown, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeKeyDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnKeyDown, getListener(widget, listener));
-//    }
-//
-//    
-//    
-//    // KEY UP
-//    @Override
-//    protected void addKeyUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnKeyUp, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeKeyUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnKeyUp, getListener(widget, listener));
-//    }
-//
-//    
 //    
 //    // MOUSE DOWN
 //    @Override

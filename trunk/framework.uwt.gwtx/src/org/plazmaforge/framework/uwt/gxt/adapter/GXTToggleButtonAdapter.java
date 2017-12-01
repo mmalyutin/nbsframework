@@ -57,14 +57,14 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 	return xToggleButton;
     }
 
-    protected com.sencha.gxt.widget.core.client.button.ToggleButton getToggleButton(Object delegate) {
+    protected com.sencha.gxt.widget.core.client.button.ToggleButton asToggleButton(Object delegate) {
 	return (com.sencha.gxt.widget.core.client.button.ToggleButton) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.button.ToggleButton xToggleButton = getToggleButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.ToggleButton xToggleButton = asToggleButton(element.getDelegate());
 	if (xToggleButton == null) {
 	    return;
 	}
