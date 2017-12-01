@@ -491,7 +491,104 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return xListener;
     } 
     
+    // MOUSE DOWN
+    protected com.google.gwt.event.dom.client.MouseDownHandler createMouseDownListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.MouseDownHandler xListener = new com.google.gwt.event.dom.client.MouseDownHandler() {
+
+	    @Override
+	    public void onMouseDown(com.google.gwt.event.dom.client.MouseDownEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }
     
+    // MOUSE UP
+    protected com.google.gwt.event.dom.client.MouseUpHandler createMouseUpListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.MouseUpHandler xListener = new com.google.gwt.event.dom.client.MouseUpHandler() {
+
+	    @Override
+	    public void onMouseUp(com.google.gwt.event.dom.client.MouseUpEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }  
+    
+    
+    // MOUSE CLICK
+    protected com.google.gwt.event.dom.client.ClickHandler createMouseClickListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.ClickHandler xListener = new com.google.gwt.event.dom.client.ClickHandler() {
+
+	    @Override
+	    public void onClick(com.google.gwt.event.dom.client.ClickEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }      
+    
+    // MOUSE DOUBLE CLICK
+    protected com.google.gwt.event.dom.client.DoubleClickHandler createMouseDoubleClickListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.DoubleClickHandler xListener = new com.google.gwt.event.dom.client.DoubleClickHandler() {
+
+	    @Override
+	    public void onDoubleClick(com.google.gwt.event.dom.client.DoubleClickEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }       
+    
+    // MOUSE MOVE
+    protected com.google.gwt.event.dom.client.MouseMoveHandler createMouseMoveListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.MouseMoveHandler xListener = new com.google.gwt.event.dom.client.MouseMoveHandler() {
+
+	    @Override
+	    public void onMouseMove(com.google.gwt.event.dom.client.MouseMoveEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }      
+    
+    // MOUSE IN
+    protected com.google.gwt.event.dom.client.MouseOverHandler createMouseInListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.MouseOverHandler xListener = new com.google.gwt.event.dom.client.MouseOverHandler() {
+
+	    @Override
+	    public void onMouseOver(com.google.gwt.event.dom.client.MouseOverEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }       
+    
+    // MOUSE OUT
+    protected com.google.gwt.event.dom.client.MouseOutHandler createMouseOutListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.MouseOutHandler xListener = new com.google.gwt.event.dom.client.MouseOutHandler() {
+
+	    @Override
+	    public void onMouseOut(com.google.gwt.event.dom.client.MouseOutEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }    
     
     
     // SELECTION
@@ -523,44 +620,88 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     protected Event createEvent(com.google.gwt.event.dom.client.KeyCodeEvent<?> e) {
         Event event = new Event();
         com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
-	if (nativeEvent != null) {
-	    event.setKeyCode(nativeEvent.getKeyCode());
-	    event.setCharacter((char) nativeEvent.getCharCode()); // TODO: Must analyze int -> char (Unicode) ???
-	    int nativeButton = nativeEvent.getButton(); 
-	    int button = 0;
-	    if (nativeButton == NativeEvent.BUTTON_LEFT) {
-		button = 1;
-	    } else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
-		button = 2;
-	    } else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
-		button = 3;
-	    }
-	    event.setButton(button);
-	    event.setX(nativeEvent.getClientX());
-	    event.setY(nativeEvent.getClientY());
-	    
-	    int stateMask = 0;
-	    if (nativeEvent.getShiftKey()) {
-		stateMask |= KeyEvent.SHIFT_MASK;
-	    }
-	    if (nativeEvent.getCtrlKey()) {
-		stateMask |= KeyEvent.CTRL_MASK;
-	    }
-	    if (nativeEvent.getMetaKey()) {
-		stateMask |= KeyEvent.META_MASK;
-	    }
-	    if (nativeEvent.getAltKey()) {
-		stateMask |= KeyEvent.ALT_MASK;
-	    }
-	    event.setStateMask(stateMask);
+        if (nativeEvent == null) {
+            return event;
+        }
+	event.setKeyCode(nativeEvent.getKeyCode());
+	event.setCharacter((char) nativeEvent.getCharCode()); // TODO: Must analyze int -> char (Unicode) ???
+	
+	int nativeButton = nativeEvent.getButton();
+	int button = 0;
+	if (nativeButton == NativeEvent.BUTTON_LEFT) {
+	    button = 1;
+	} else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
+	    button = 2;
+	} else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
+	    button = 3;
+	}
+	event.setButton(button);
+	event.setX(nativeEvent.getClientX());
+	event.setY(nativeEvent.getClientY());
 
-	    // TODO: No info ?
-	    //event.setCount(count) 
+	int stateMask = 0;
+	if (nativeEvent.getShiftKey()) {
+	    stateMask |= KeyEvent.SHIFT_MASK;
+	}
+	if (nativeEvent.getCtrlKey()) {
+	    stateMask |= KeyEvent.CTRL_MASK;
+	}
+	if (nativeEvent.getMetaKey()) {
+	    stateMask |= KeyEvent.META_MASK;
+	}
+	if (nativeEvent.getAltKey()) {
+	    stateMask |= KeyEvent.ALT_MASK;
+	}
+	event.setStateMask(stateMask);
+
+	// TODO: No info ?
+	// event.setCount(count)
 	    
-	}        
         return event;
     }    
     
+    
+    protected Event createEvent(com.google.gwt.event.dom.client.MouseEvent<?> e) {
+	Event event = new Event();
+	com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
+	if (nativeEvent == null) {
+	    return event;
+	}
+
+	int nativeButton = nativeEvent.getButton();
+	int button = 0;
+	if (nativeButton == NativeEvent.BUTTON_LEFT) {
+	    button = 1;
+	} else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
+	    button = 2;
+	} else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
+	    button = 3;
+	}
+	
+	event.setButton(button);
+	event.setX(nativeEvent.getClientX());
+	event.setY(nativeEvent.getClientY());
+
+	int stateMask = 0;
+	if (nativeEvent.getShiftKey()) {
+	    stateMask |= KeyEvent.SHIFT_MASK;
+	}
+	if (nativeEvent.getCtrlKey()) {
+	    stateMask |= KeyEvent.CTRL_MASK;
+	}
+	if (nativeEvent.getMetaKey()) {
+	    stateMask |= KeyEvent.META_MASK;
+	}
+	if (nativeEvent.getAltKey()) {
+	    stateMask |= KeyEvent.ALT_MASK;
+	}
+	event.setStateMask(stateMask);
+
+	// TODO: No info ?
+	// event.setCount(count)
+
+	return event;
+    }
     
     protected Event createEvent(com.sencha.gxt.widget.core.client.event.SelectEvent  e) {
 	 Event event = new Event();

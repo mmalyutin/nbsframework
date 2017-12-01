@@ -200,98 +200,93 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnKeyUp, getListener(widget, listener)); //TODO
     }
 
+        
+    // MOUSE DOWN
+    @Override
+    protected void addMouseDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseDownListener(widget, listener), com.google.gwt.event.dom.client.MouseDownEvent.getType());
+    }
+
+    @Override
+    protected void removeMouseDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseDown, getListener(widget, listener));
+    }
     
     
-    // DISABLE:MIGRATION
-//    
-//    // MOUSE DOWN
-//    @Override
-//    protected void addMouseDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnMouseDown, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeMouseDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseDown, getListener(widget, listener));
-//    }
-//
-//    
-//    
-//    // MOUSE UP
-//    @Override
-//    protected void addMouseUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnMouseUp, createListener(widget, listener));
-//    }
-//    
-//    @Override
-//    protected void removeMouseUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseUp, getListener(widget, listener));
-//    }
-//    
-//
-//
-//    // MOUSE CLICK
-//    @Override
-//    protected void addMouseClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnClick, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeMouseClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnClick, getListener(widget, listener));
-//    }
-//    
-//    
-//    
-//    // MOUSE DOUBLE CLICK
-//    @Override
-//    protected void addMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnDoubleClick, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnDoubleClick, getListener(widget, listener));
-//    }
-//    
-//    
-//    
-//    // MOUSE MOVE
-//    @Override
-//    protected void addMouseMoveListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnMouseMove, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeMouseMoveListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseMove, getListener(widget, listener));
-//    }
-//    
-//    
-//
-//    // MOUSE IN
-//    @Override
-//    protected void addMouseInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnMouseOver, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeMouseInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseOver, getListener(widget, listener));
-//    }
-//
-//    
-//    
-//    // MOUSE OUT
-//    @Override
-//    protected void addMouseOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnMouseOut, createListener(widget, listener));
-//    }
-//    
-//    @Override
-//    protected void removeMouseOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseOut, getListener(widget, listener));
-//    }
+    // MOUSE UP
+    @Override
+    protected void addMouseUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseUpListener(widget, listener), com.google.gwt.event.dom.client.MouseUpEvent.getType());
+    }
+    
+    @Override
+    protected void removeMouseUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseUp, getListener(widget, listener));
+    }
+
+    
+    // MOUSE CLICK
+    @Override
+    protected void addMouseClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseClickListener(widget, listener), com.google.gwt.event.dom.client.ClickEvent.getType());
+    }
+
+    @Override
+    protected void removeMouseClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnClick, getListener(widget, listener));
+    }
+        
+    
+    // MOUSE DOUBLE CLICK
+    @Override
+    protected void addMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseDoubleClickListener(widget, listener), com.google.gwt.event.dom.client.DoubleClickEvent.getType());
+    }
+
+    @Override
+    protected void removeMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnDoubleClick, getListener(widget, listener));
+    }
+
+    
+    // MOUSE MOVE
+    @Override
+    protected void addMouseMoveListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseMoveListener(widget, listener), com.google.gwt.event.dom.client.MouseMoveEvent.getType());
+    }
+
+    @Override
+    protected void removeMouseMoveListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseMove, getListener(widget, listener));
+    }
+        
+
+    // MOUSE IN
+    @Override
+    protected void addMouseInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseInListener(widget, listener), com.google.gwt.event.dom.client.MouseOverEvent.getType());
+    }
+
+    @Override
+    protected void removeMouseInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseOver, getListener(widget, listener));
+    }
+    
+    
+    // MOUSE OUT
+    @Override
+    protected void addMouseOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createMouseOutListener(widget, listener), com.google.gwt.event.dom.client.MouseOutEvent.getType());
+    }
+    
+    @Override
+    protected void removeMouseOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseOut, getListener(widget, listener));
+    }
+
+    
+    
+    // DISABLE:MIGRATION    
 //
 //    
 //    
