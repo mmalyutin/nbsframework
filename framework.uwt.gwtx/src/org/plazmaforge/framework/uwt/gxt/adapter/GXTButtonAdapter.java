@@ -27,6 +27,7 @@ import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
+import org.plazmaforge.framework.uwt.widget.Widget;
 
 import com.google.gwt.resources.client.ImageResource;
 
@@ -47,7 +48,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 	return xButton;
     }
 
-    protected void initButton(com.sencha.gxt.widget.core.client.button.CellButtonBase xButton, Button button) {
+    protected void initButton(com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton, Button button) {
 	// Get text
 	String text = button.getText();
 	if (text != null) {
@@ -64,14 +65,14 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 
     ////
     
-    protected com.sencha.gxt.widget.core.client.button.CellButtonBase getButton(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.button.CellButtonBase) delegate;
+    protected com.sencha.gxt.widget.core.client.button.CellButtonBase<?> asButton(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.button.CellButtonBase<?>) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.button.CellButtonBase xButton = getButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
@@ -97,23 +98,22 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 	
     }
     
-    //DISABLE:MIGRATION
-//
-//    @Override
-//    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.Select, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener));
-//    }
+
+    @Override
+    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addHandler(createSelectionListener(widget, listener), com.sencha.gxt.widget.core.client.event.SelectEvent.getType());
+    }
+
+    @Override
+    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener)); //TODO
+    }
 
     
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.button.CellButtonBase xButton = getButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
@@ -129,7 +129,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.button.CellButtonBase xButton = getButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
