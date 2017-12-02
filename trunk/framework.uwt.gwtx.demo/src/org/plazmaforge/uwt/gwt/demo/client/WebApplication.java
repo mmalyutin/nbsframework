@@ -26,6 +26,8 @@ import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
 import org.plazmaforge.framework.uwt.event.FocusEvent;
 import org.plazmaforge.framework.uwt.event.FocusListener;
+import org.plazmaforge.framework.uwt.event.MouseEvent;
+import org.plazmaforge.framework.uwt.event.MouseListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -257,7 +259,34 @@ public class WebApplication extends Application implements EntryPoint {
 	//menuBar.setLayoutData(new GridData(1, 1));
 	uwtContainer.add(menuBar);
 	
-	uwtContainer.add(new  org.plazmaforge.framework.uwt.widget.Label("UWT Migration!"));
+	org.plazmaforge.framework.uwt.widget.Label label = new org.plazmaforge.framework.uwt.widget.Label("UWT Migration!");
+	label.addMouseListener(new MouseListener() {
+	    
+	    @Override
+	    public void mouseUp(MouseEvent e) {
+		GWT.log("Label: mouseUp: x=" + e.getX() +", y=" + e.getY());
+		
+	    }
+	    
+	    @Override
+	    public void mouseDown(MouseEvent e) {
+		GWT.log("Label: mouseDown: x=" + e.getX() +", y=" + e.getY());
+		
+	    }
+	    
+	    @Override
+	    public void mouseDoubleClick(MouseEvent e) {
+		GWT.log("Label: mouseDoubleClick: x=" + e.getX() +", y=" + e.getY());
+		
+	    }
+	    
+	    @Override
+	    public void mouseClick(MouseEvent e) {
+		GWT.log("Label: mouseClick: x=" + e.getX() +", y=" + e.getY());
+		
+	    }
+	});
+	uwtContainer.add(label);
 	
 	Button button = new Button("My Migration");
 	button.addSelectionListener(new SelectionListener() {

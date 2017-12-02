@@ -303,21 +303,21 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected void addKeyDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addKeyDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeKeyDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeKeyDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
 
     
-    protected void addKeyUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addKeyUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
-    protected void removeKeyUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeKeyUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
@@ -327,40 +327,40 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     // MOUSE LISTENERS
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    protected void addMouseDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addMouseDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeMouseDownListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeMouseDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
 
-    protected void addMouseUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addMouseUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeMouseUpListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	// do nothing
-    }
-
-    
-    
-    protected void addMouseClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	// do nothing
-    }
-    
-    protected void removeMouseClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeMouseUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
     
     
-    protected void addMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addMouseClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
-    protected void removeMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeMouseClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+    
+    protected void addMouseDoubleClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseDoubleClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
@@ -371,31 +371,31 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected void addMouseMoveListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addMouseMoveListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeMouseMoveListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	// do nothing
-    }
-
-    
-    
-    protected void addMouseInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	// do nothing
-    }
-    
-    protected void removeMouseInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeMouseMoveListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
     
-
-    protected void addMouseOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    
+    protected void addMouseInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
-    protected void removeMouseOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeMouseInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+
+    protected void addMouseOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
     
@@ -406,21 +406,21 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected void addFocusInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addFocusInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeFocusInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeFocusInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
     
     
-    protected void addFocusOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addFocusOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeFocusOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeFocusOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
 	// do nothing
     }
 
