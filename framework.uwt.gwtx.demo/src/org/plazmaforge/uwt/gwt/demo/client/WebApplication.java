@@ -24,6 +24,8 @@ import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
 import org.plazmaforge.framework.uwt.demo.DemoApplicationBuilder;
 import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
+import org.plazmaforge.framework.uwt.event.FocusEvent;
+import org.plazmaforge.framework.uwt.event.FocusListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -293,7 +295,22 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	uwtContainer.add(new Slider());
 	
-	uwtContainer.add(new TextField());
+	TextField textField = new TextField();
+	textField.addFocusListener(new FocusListener() {
+	    
+	    @Override
+	    public void focusOut(FocusEvent e) {
+		GWT.log("TextField: Focus Lost");
+		
+	    }
+	    
+	    @Override
+	    public void focusIn(FocusEvent e) {
+		GWT.log("TextField: Focus Input");
+		
+	    }
+	});
+	uwtContainer.add(textField);
 	
 	TextArea textArea = new TextArea();
 	textArea.setLayoutData(new GridData(HorizontalAlign.FILL));
