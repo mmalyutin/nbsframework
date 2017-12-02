@@ -284,37 +284,34 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnMouseOut, getListener(widget, listener));
     }
 
+   
+    // FOCUS IN
+    @Override
+    protected void addFocusInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createFocusInListener(widget, listener), com.google.gwt.event.dom.client.FocusEvent.getType());
+    }
+    
+    @Override
+    protected void removeFocusInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnFocus, getListener(widget, listener));
+    }
+     
+
+    // FOCUS OUT
+    @Override
+    protected void addFocusOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	component.addDomHandler(createFocusOutListener(widget, listener), com.google.gwt.event.dom.client.BlurEvent.getType());
+    }
+
+    @Override
+    protected void removeFocusOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+	//component.removeListener(com.sencha.gxt.ui.client.event.Events.OnBlur, getListener(widget, listener));
+    }
     
     
-    // DISABLE:MIGRATION    
-//
+    
 //    
-//    
-//    // FOCUS IN
-//    @Override
-//    protected void addFocusInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnFocus, createListener(widget, listener));
-//    }
-//    
-//    @Override
-//    protected void removeFocusInListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnFocus, getListener(widget, listener));
-//    }
-//    
-//    
-//
-//    // FOCUS OUT
-//    @Override
-//    protected void addFocusOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.OnBlur, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeFocusOutListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.OnBlur, getListener(widget, listener));
-//    }
-//    
-//    
+    // DISABLE:MIGRATION  
 //    
 //    // ENTER
 //    @Override

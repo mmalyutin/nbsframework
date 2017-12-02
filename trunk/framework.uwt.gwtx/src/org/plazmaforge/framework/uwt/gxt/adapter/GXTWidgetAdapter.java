@@ -43,13 +43,6 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
-
-//import com.sencha.gxt.ui.client.event.BaseEvent;
-//import com.sencha.gxt.ui.client.event.BoxComponentEvent;
-//import com.sencha.gxt.ui.client.event.ComponentEvent;
-//import com.sencha.gxt.ui.client.event.DomEvent;
-//import com.sencha.gxt.ui.client.event.GridEvent;
-
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.sencha.gxt.data.shared.LabelProvider;
@@ -491,6 +484,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return xListener;
     } 
     
+    
     // MOUSE DOWN
     protected com.google.gwt.event.dom.client.MouseDownHandler createMouseDownListener(Widget widget, final Listener listener) {
 	com.google.gwt.event.dom.client.MouseDownHandler xListener = new com.google.gwt.event.dom.client.MouseDownHandler() {
@@ -591,6 +585,35 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }    
     
     
+    // FOCUS IN
+    protected com.google.gwt.event.dom.client.FocusHandler createFocusInListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.FocusHandler xListener = new com.google.gwt.event.dom.client.FocusHandler() {
+
+	    @Override
+	    public void onFocus(com.google.gwt.event.dom.client.FocusEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }          
+    
+    // FOCUS OUT
+    protected com.google.gwt.event.dom.client.BlurHandler createFocusOutListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.BlurHandler xListener = new com.google.gwt.event.dom.client.BlurHandler() {
+
+	    @Override
+	    public void onBlur(com.google.gwt.event.dom.client.BlurEvent e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }      
+    
+    
     // SELECTION
     protected com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler createSelectionListener(Widget widget, final Listener listener) {
 	com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler xListener = new com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler() {
@@ -612,96 +635,51 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    /**
-     * Create UWT Event by GWT <code>KeyCodeEvent</code>
-     * @param e
-     * @return
-     */
-    protected Event createEvent(com.google.gwt.event.dom.client.KeyCodeEvent<?> e) {
-        Event event = new Event();
-        com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
-        if (nativeEvent == null) {
-            return event;
-        }
+    protected Event createEvent(com.google.gwt.event.dom.client.DomEvent<?> e) {
+  	Event event = new Event();
+  	com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
+  	if (nativeEvent == null) {
+  	    return event;
+  	}
+  	
 	event.setKeyCode(nativeEvent.getKeyCode());
 	event.setCharacter((char) nativeEvent.getCharCode()); // TODO: Must analyze int -> char (Unicode) ???
 	
-	int nativeButton = nativeEvent.getButton();
-	int button = 0;
-	if (nativeButton == NativeEvent.BUTTON_LEFT) {
-	    button = 1;
-	} else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
-	    button = 2;
-	} else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
-	    button = 3;
-	}
-	event.setButton(button);
-	event.setX(nativeEvent.getClientX());
-	event.setY(nativeEvent.getClientY());
 
-	int stateMask = 0;
-	if (nativeEvent.getShiftKey()) {
-	    stateMask |= KeyEvent.SHIFT_MASK;
-	}
-	if (nativeEvent.getCtrlKey()) {
-	    stateMask |= KeyEvent.CTRL_MASK;
-	}
-	if (nativeEvent.getMetaKey()) {
-	    stateMask |= KeyEvent.META_MASK;
-	}
-	if (nativeEvent.getAltKey()) {
-	    stateMask |= KeyEvent.ALT_MASK;
-	}
-	event.setStateMask(stateMask);
+  	int nativeButton = nativeEvent.getButton();
+  	int button = 0;
+  	if (nativeButton == NativeEvent.BUTTON_LEFT) {
+  	    button = 1;
+  	} else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
+  	    button = 2;
+  	} else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
+  	    button = 3;
+  	}
+  	
+  	event.setButton(button);
+  	event.setX(nativeEvent.getClientX());
+  	event.setY(nativeEvent.getClientY());
 
-	// TODO: No info ?
-	// event.setCount(count)
-	    
-        return event;
+  	int stateMask = 0;
+  	if (nativeEvent.getShiftKey()) {
+  	    stateMask |= KeyEvent.SHIFT_MASK;
+  	}
+  	if (nativeEvent.getCtrlKey()) {
+  	    stateMask |= KeyEvent.CTRL_MASK;
+  	}
+  	if (nativeEvent.getMetaKey()) {
+  	    stateMask |= KeyEvent.META_MASK;
+  	}
+  	if (nativeEvent.getAltKey()) {
+  	    stateMask |= KeyEvent.ALT_MASK;
+  	}
+  	event.setStateMask(stateMask);
+
+  	// TODO: No info ?
+  	// event.setCount(count)
+
+  	return event;
     }    
-    
-    
-    protected Event createEvent(com.google.gwt.event.dom.client.MouseEvent<?> e) {
-	Event event = new Event();
-	com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
-	if (nativeEvent == null) {
-	    return event;
-	}
-
-	int nativeButton = nativeEvent.getButton();
-	int button = 0;
-	if (nativeButton == NativeEvent.BUTTON_LEFT) {
-	    button = 1;
-	} else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
-	    button = 2;
-	} else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
-	    button = 3;
-	}
-	
-	event.setButton(button);
-	event.setX(nativeEvent.getClientX());
-	event.setY(nativeEvent.getClientY());
-
-	int stateMask = 0;
-	if (nativeEvent.getShiftKey()) {
-	    stateMask |= KeyEvent.SHIFT_MASK;
-	}
-	if (nativeEvent.getCtrlKey()) {
-	    stateMask |= KeyEvent.CTRL_MASK;
-	}
-	if (nativeEvent.getMetaKey()) {
-	    stateMask |= KeyEvent.META_MASK;
-	}
-	if (nativeEvent.getAltKey()) {
-	    stateMask |= KeyEvent.ALT_MASK;
-	}
-	event.setStateMask(stateMask);
-
-	// TODO: No info ?
-	// event.setCount(count)
-
-	return event;
-    }
     
     protected Event createEvent(com.sencha.gxt.widget.core.client.event.SelectEvent  e) {
 	 Event event = new Event();
