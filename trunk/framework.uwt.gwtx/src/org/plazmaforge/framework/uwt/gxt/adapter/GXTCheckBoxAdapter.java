@@ -45,13 +45,13 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 	return xCheckBox;
     }
 
-    protected com.sencha.gxt.widget.core.client.form.CheckBox getCheckBox(Object delegate) {
+    protected com.sencha.gxt.widget.core.client.form.CheckBox asCheckBox(Object delegate) {
 	return (com.sencha.gxt.widget.core.client.form.CheckBox) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = asCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return;
 	}
@@ -68,7 +68,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 
     @Override
     public Object getProperty(UIObject element, String name) {
-	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = asCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return null;
 	}
@@ -80,21 +80,21 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 
     
     @Override
-    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	//TODO: Not implemented
-	//component.addListener(com.sencha.gxt.ui.client.event.Events.Select, createListener(listener));
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO: Not implemented: No SelectionEvent in CheckBox. Maybe use ChangeEvent or CheckCell
+	//xWidget.addListener(com.sencha.gxt.ui.client.event.Events.Select, createListener(listener));
     }
 
     @Override
-    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	//TODO: Not implemented
-	//component.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(listener));
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO: Not implemented: No SelectionEvent in CheckBox. Maybe use ChangeEvent or CheckCell
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(listener));
     }
     
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = asCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return;
 	}
@@ -110,7 +110,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.CheckBox xCheckBox = asCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return;
 	}

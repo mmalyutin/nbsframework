@@ -234,6 +234,14 @@ public class WebApplication extends Application implements EntryPoint {
 	ToolBar toolBar = new ToolBar();
 	toolBar.setLayoutData(new GridData(2, 1));
 	ToolItem toolItem1 = new ToolItem("New", new Image("widget/leaf.gif"));
+	toolItem1.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("ToolItem: Test selection listener");
+	    }
+	});
+
 	ToolItem toolItem2 = new ToolItem("Open", new Image("widget/folder.gif"));
 	
 	toolBar.addItem(toolItem1);
@@ -246,6 +254,14 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	Menu menu1 = new Menu("Menu 1");
 	MenuItem menuItem1_1 = new MenuItem("Menu 1.1");
+	menuItem1_1.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("MenuItem: Test selection listener");
+	    }
+	});
+
 	MenuItem menuItem1_2 = new MenuItem("Menu 1.2");
 	menu1.addItem(menuItem1_1);
 	menu1.addItem(new MenuSeparator());
@@ -293,7 +309,7 @@ public class WebApplication extends Application implements EntryPoint {
 	    
 	    @Override
 	    public void select(SelectionEvent event) {
-		MessageBox.information("Test selection listener");
+		MessageBox.information("Button: Test selection listener");
 	    }
 	});
 	button.setLayoutData(new GridData(HorizontalAlign.FILL));
@@ -360,6 +376,13 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	ToolBar toolBar2 = new ToolBar();
 	ToolItem toolItem21 = new ToolItem("New", new Image("widget/leaf.gif"));
+	toolItem21.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("ToolItem-New: Test selection listener");
+	    }
+	});
 	ToolItem toolItem22 = new ToolItem("Open", new Image("widget/folder.gif"));
 	
 	toolBar2.add(toolItem21);

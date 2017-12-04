@@ -44,6 +44,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
@@ -200,7 +201,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     @Override
     public void disposeDelegate(UIObject parent, UIObject element) {
 	com.google.gwt.user.client.ui.Widget  parentDelegate = getContent(parent.getDelegate());
-	com.google.gwt.user.client.ui.Widget delegate = getWidget(element.getDelegate());
+	com.google.gwt.user.client.ui.Widget delegate = asWidget(element.getDelegate());
 	removeChild(parentDelegate, delegate);
     }
 
@@ -211,7 +212,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param delegate
      * @return
      */
-    protected com.google.gwt.user.client.ui.Widget getWidget(Object delegate) {
+    protected final com.google.gwt.user.client.ui.Widget asWidget(Object delegate) {
 	return (com.google.gwt.user.client.ui.Widget) delegate;
     }
 
@@ -220,7 +221,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param delegate
      * @return
      */
-    protected com.sencha.gxt.widget.core.client.Component getComponent(Object delegate) {
+    protected final com.sencha.gxt.widget.core.client.Component asComponent(Object delegate) {
 	return (com.sencha.gxt.widget.core.client.Component) delegate;
     }
 
@@ -230,7 +231,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param delegate
      * @return
      */
-    protected com.sencha.gxt.widget.core.client.container.Container getContainer(Object delegate) {
+    protected final com.sencha.gxt.widget.core.client.container.Container asContainer(Object delegate) {
 	return (com.sencha.gxt.widget.core.client.container.Container) delegate;
     }
     
@@ -265,7 +266,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	com.sencha.gxt.widget.core.client.Component xWidget = (com.sencha.gxt.widget.core.client.Component) getComponent(element.getDelegate());
+	com.sencha.gxt.widget.core.client.Component xWidget = (com.sencha.gxt.widget.core.client.Component) asComponent(element.getDelegate());
 	if (xWidget == null) {
 	    return;
 	}
@@ -303,21 +304,21 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected void addKeyDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addKeyDownListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeKeyDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeKeyDownListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
 
     
-    protected void addKeyUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addKeyUpListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
-    protected void removeKeyUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeKeyUpListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
@@ -327,40 +328,40 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     // MOUSE LISTENERS
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    protected void addMouseDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addMouseDownListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeMouseDownListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeMouseDownListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
 
-    protected void addMouseUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addMouseUpListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeMouseUpListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
-	// do nothing
-    }
-
-    
-    
-    protected void addMouseClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
-	// do nothing
-    }
-    
-    protected void removeMouseClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeMouseUpListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
     
     
-    protected void addMouseDoubleClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addMouseClickListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
-    protected void removeMouseDoubleClickListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeMouseClickListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+    
+    protected void addMouseDoubleClickListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseDoubleClickListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
@@ -371,31 +372,31 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected void addMouseMoveListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addMouseMoveListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeMouseMoveListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
-	// do nothing
-    }
-
-    
-    
-    protected void addMouseInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
-	// do nothing
-    }
-    
-    protected void removeMouseInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeMouseMoveListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
     
-
-    protected void addMouseOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    
+    protected void addMouseInListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
-    protected void removeMouseOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeMouseInListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+
+    protected void addMouseOutListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseOutListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
@@ -406,21 +407,21 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected void addFocusInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addFocusInListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeFocusInListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeFocusInListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
     
     
-    protected void addFocusOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void addFocusOutListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeFocusOutListener(com.google.gwt.user.client.ui.Widget component, Widget widget, Listener listener) {
+    protected void removeFocusOutListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
@@ -431,11 +432,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
@@ -614,7 +615,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }      
     
     
-    // SELECTION
+    // SELECTION-GXT
     protected com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler createSelectionListener(Widget widget, final Listener listener) {
 	com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler xListener = new com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler() {
 
@@ -627,6 +628,22 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	widget.assignListener(listener, xListener);
 	return xListener;
     } 
+    
+    // SELECTION-GWT (item)
+    protected  <T> com.google.gwt.event.logical.shared.SelectionHandler<T> createSelectionListener(Class<T> klass, Widget widget, final Listener listener) {
+	com.google.gwt.event.logical.shared.SelectionHandler<T> xListener = new com.google.gwt.event.logical.shared.SelectionHandler<T>() {
+
+	
+
+	    @Override
+	    public void onSelection(com.google.gwt.event.logical.shared.SelectionEvent<T> e) {
+		listener.handleEvent(createEvent(e));
+		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }     
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -688,6 +705,12 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	     event.setIndex(context.getIndex());    
 	 }
 	 return event;
+    }
+    
+    protected Event createEvent(com.google.gwt.event.logical.shared.SelectionEvent<?> e) {
+	Event event = new Event();
+	//event.setItem(item); // TODO
+	return event;
     }
 
     // DISABLE:MIGRATION

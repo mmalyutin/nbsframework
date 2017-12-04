@@ -64,7 +64,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 	return xListBox;
     }
 
-    protected XListBox getListBox(Object delegate) {
+    protected XListBox asListBox(Object delegate) {
 	return (XListBox) delegate;
     }
     
@@ -72,7 +72,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     public void setProperty(UIObject element, String name, Object value) {
 	ListBox<?> listBox = (ListBox<?>) element;
 	
-	XListBox xListBox = getListBox(element.getDelegate());
+	XListBox xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {
 	    return;
 	}
@@ -122,7 +122,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     @Override
     public Object getProperty(UIObject element, String name) {
 	
-	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = getListBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {
 	    return null;
 	}
@@ -143,23 +143,24 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     }
     
     
+
     //DISABLE:MIGRATION
-//    @Override
-//    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+//  @Override
+//  protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
 //	((com.sencha.gxt.widget.core.client.ListView<ModelData, Object>) component).getSelectionModel().addListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, createListener(widget, listener));
-//    }
+//  }
 //
-//    @Override
-//    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+//  @Override
+//  protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
 //	((com.sencha.gxt.widget.core.client.ListView<ModelData, Object>) component).getSelectionModel().removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, getListener(widget, listener));
-//    }
-    
+//  }
+
     
     
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = getListBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {
 	    return;
 	}
@@ -179,7 +180,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = getListBox(element.getDelegate());
+	com.sencha.gxt.widget.core.client.ListView<ModelData, Object> xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {
 	    return;
 	}

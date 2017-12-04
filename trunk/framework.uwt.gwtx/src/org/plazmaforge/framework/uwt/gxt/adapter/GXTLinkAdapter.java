@@ -50,13 +50,13 @@ public class GXTLinkAdapter extends GXTControlAdapter {
 	return xLink;
     }
 
-    protected com.google.gwt.user.client.ui.Anchor getLink(Object delegate) {
+    protected com.google.gwt.user.client.ui.Anchor asLink(Object delegate) {
 	return (com.google.gwt.user.client.ui.Anchor) delegate;
     }
 
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	com.google.gwt.user.client.ui.Anchor xLink = getLink(element.getDelegate());
+	com.google.gwt.user.client.ui.Anchor xLink = asLink(element.getDelegate());
 	if (xLink == null) {
 	    return;
 	}
@@ -71,16 +71,15 @@ public class GXTLinkAdapter extends GXTControlAdapter {
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
 	Control control = (Control) element;
-	com.google.gwt.user.client.ui.Anchor xLink = getLink(element.getDelegate());
+	com.google.gwt.user.client.ui.Anchor xLink = asLink(element.getDelegate());
 	if (xLink == null) {
 	    return;
 	}
 
-	//DISABLE:MIGRATION
-//	if (eq(Events.Selection, eventType)) {
-//	    addMouseClickListener(xButton, control, listener);
-//	    return;
-//	} 
+	if (eq(Events.Selection, eventType)) {
+	    addMouseClickListener(xLink, control, listener);
+	    return;
+	} 
 	
 	super.addListener(element, eventType, listener);
     }
@@ -88,16 +87,15 @@ public class GXTLinkAdapter extends GXTControlAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, Listener listener) {
 	Control control = (Control) element;
-	com.google.gwt.user.client.ui.Anchor xLink = getLink(element.getDelegate());
+	com.google.gwt.user.client.ui.Anchor xLink = asLink(element.getDelegate());
 	if (xLink == null) {
 	    return;
 	}
 
-	//DISABLE:MIGRATION
-//	if (eq(Events.Selection, eventType)) {
-//	    removeMouseClickListener(xButton, control, listener);
-//	    return;
-//	} 
+	if (eq(Events.Selection, eventType)) {
+	    removeMouseClickListener(xLink, control, listener);
+	    return;
+	} 
 	
 	super.removeListener(element, eventType, listener);
     }
