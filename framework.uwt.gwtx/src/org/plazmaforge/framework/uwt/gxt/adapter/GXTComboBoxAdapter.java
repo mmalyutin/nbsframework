@@ -135,27 +135,17 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     }
     
     
-//    @Override
-//    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
-//	xWidget.addHandler(createSelectionListener(widget, listener), com.sencha.gxt.widget.core.client.event.SelectEvent.getType());
-//    }
-//
-//    @Override
-//    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
-//	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener)); //TODO
-//    }
-    
-    //DISABLE:MIGRATION
-//  
-//  @Override
-//  protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, createListener(widget, listener));
-//  }
-//
-//  @Override
-//  protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, getListener(widget, listener));
-//  }    
+    @Override
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// GWT Selection (item)
+	xWidget.addHandler(createMSelectionListener(widget, listener), 
+		com.google.gwt.event.logical.shared.SelectionEvent.getType());
+    }
+
+    @Override
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener)); //TODO
+    }    
     
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {

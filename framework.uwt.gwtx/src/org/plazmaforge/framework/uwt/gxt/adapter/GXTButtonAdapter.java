@@ -101,6 +101,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 
     @Override
     protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// GXT Selection (context)
 	xWidget.addHandler(createSelectionListener(widget, listener), com.sencha.gxt.widget.core.client.event.SelectEvent.getType());
     }
 

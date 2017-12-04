@@ -408,6 +408,14 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	
 	ComboBox<Product> comboBox = new ComboBox<Product>();
+	comboBox.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("ComboBox: Test selection listener");
+	    }
+	});
+	
 	List<Product> dataList = new ArrayList<Product>();
 	dataList.add(new Product("Red"));
 	dataList.add(new Product("Green"));
@@ -417,15 +425,24 @@ public class WebApplication extends Application implements EntryPoint {
 	uwtContainer.add(comboBox);
 	
 	
-//	ListBox<Product> listBox = new ListBox<Product>();
-//	List<Product> listBoxData = new ArrayList<Product>();
-//	listBoxData.add(new Product("Red++"));
-//	listBoxData.add(new Product("Green++"));
-//	
-//	listBox.setItems(listBoxData);
-//	listBox.setDisplayProperty("id");
-//	
-//	uwtContainer.add(listBox);
+	ListBox<Product> listBox = new ListBox<Product>();
+	listBox.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("ListBox: Test selection listener");
+		
+	    }
+	});
+	
+	List<Product> listBoxData = new ArrayList<Product>();
+	listBoxData.add(new Product("Red++"));
+	listBoxData.add(new Product("Green++"));
+	
+	listBox.setItems(listBoxData);
+	listBox.setDisplayProperty("id");
+	
+	uwtContainer.add(listBox);
 	
 	
 	Table<Product> table = new Table<Product>();

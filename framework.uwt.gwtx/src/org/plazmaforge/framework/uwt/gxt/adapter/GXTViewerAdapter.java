@@ -33,6 +33,8 @@ import org.plazmaforge.framework.uwt.gxt.data.BaseModel;
 import org.plazmaforge.framework.uwt.gxt.data.BeanModel;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
 import org.plazmaforge.framework.uwt.widget.IViewer;
+import org.plazmaforge.framework.uwt.widget.Listener;
+import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 import com.sencha.gxt.data.shared.ListStore;
@@ -198,5 +200,16 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
     }
     
   
-    
+    protected com.google.gwt.event.logical.shared.SelectionHandler<ModelData> createMSelectionListener(Widget widget, final Listener listener) {
+  	com.google.gwt.event.logical.shared.SelectionHandler<ModelData> xListener = new com.google.gwt.event.logical.shared.SelectionHandler<ModelData>() {
+
+  	    @Override
+  	    public void onSelection(com.google.gwt.event.logical.shared.SelectionEvent<ModelData> e) {
+  		listener.handleEvent(createEvent(e));
+
+  	    }
+  	};
+  	widget.assignListener(listener, xListener);
+  	return xListener;
+     }  
 }
