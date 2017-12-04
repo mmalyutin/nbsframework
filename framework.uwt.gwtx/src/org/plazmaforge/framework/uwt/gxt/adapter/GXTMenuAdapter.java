@@ -37,7 +37,7 @@ public class GXTMenuAdapter extends GXTWidgetAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	
-	com.google.gwt.user.client.ui.Widget xWidget = getWidget(parent.getDelegate());
+	com.google.gwt.user.client.ui.Widget xWidget = asWidget(parent.getDelegate());
 
 	Menu menu = (Menu) element;
 	

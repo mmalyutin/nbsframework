@@ -67,8 +67,8 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
 
     ////
     
-    protected com.sencha.gxt.widget.core.client.button.CellButtonBase getButton(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.button.CellButtonBase) delegate;
+    protected com.sencha.gxt.widget.core.client.button.CellButtonBase<?> asButton(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.button.CellButtonBase<?>) delegate;
     }
     
     @Override
@@ -76,7 +76,7 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
 	
 	//TODO: ToolItem can be not only Button
 	
-	com.sencha.gxt.widget.core.client.button.CellButtonBase xButton = getButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
@@ -105,24 +105,23 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
 	
     }
 
-    //DISABLE:MIGRATION
-//    @Override
-//    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.Select, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener));
-//    }
+    
+    @Override
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createSelectionListener(widget, listener), com.sencha.gxt.widget.core.client.event.SelectEvent.getType());
+    }
 
+    @Override
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener)); //TODO
+    }
     
     
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
 	Widget widget = (Widget) element;
 	//TODO: ToolItem can be not only Button
-	com.sencha.gxt.widget.core.client.button.CellButtonBase xButton = getButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
@@ -139,7 +138,7 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
     public void removeListener(UIObject element, String eventType, Listener listener) {
 	Widget widget = (Widget) element;
 	//TODO: ToolItem can be not only Button
-	com.sencha.gxt.widget.core.client.button.CellButtonBase xButton = getButton(element.getDelegate());
+	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}

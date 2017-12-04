@@ -60,15 +60,16 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 	return xMenuItem;
     }
 
-    ////
-    
+    protected com.sencha.gxt.widget.core.client.menu.MenuItem asMenuItem(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.menu.MenuItem) delegate;
+    }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
 	//TODO: ToolItem can be not only Button
 	
-	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = getMenuItem(element.getDelegate());
+	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = asMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
 	    return;
 	}
@@ -96,30 +97,29 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 	super.setProperty(element, name, value);
 	
     }    
-    protected com.sencha.gxt.widget.core.client.menu.MenuItem getMenuItem(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.menu.MenuItem) delegate;
+
+
+    @Override
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// GWT Selection (item)
+	xWidget.addHandler(createSelectionListener(com.sencha.gxt.widget.core.client.menu.MenuItem.class, widget, listener), 
+		com.google.gwt.event.logical.shared.SelectionEvent.getType());
     }
 
-    //DISABLE:MIGRATION
-//    @Override
-//    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.Select, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener));
-//    }
+    @Override
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener)); //TODO
+    }
 
     
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
-	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = getMenuItem(element.getDelegate());
+	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = asMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
 	    return;
 	}
-
+	
 	if (eq(Events.Selection, eventType)) {
 	    addSelectionListener(xMenuItem, widget, listener);
 	    return;
@@ -131,7 +131,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
-	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = getMenuItem(element.getDelegate());
+	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = asMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
 	    return;
 	}

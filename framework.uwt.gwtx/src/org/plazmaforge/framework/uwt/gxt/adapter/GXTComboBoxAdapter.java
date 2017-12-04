@@ -57,14 +57,14 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	return xComboBox;
     }
 
-    protected XComboBox getCheckBox(Object delegate) {
+    protected XComboBox asCheckBox(Object delegate) {
 	return (XComboBox) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	ComboBox<?> comboBox = (ComboBox<?>) element; 
-	XComboBox xComboBox = getCheckBox(element.getDelegate());
+	XComboBox xComboBox = asCheckBox(element.getDelegate());
 	if (xComboBox == null) {
 	    return;
 	}
@@ -108,7 +108,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     @Override
     public Object getProperty(UIObject element, String name) {
 	
-	XComboBox xComboBox = getCheckBox(element.getDelegate());
+	XComboBox xComboBox = asCheckBox(element.getDelegate());
 	if (xComboBox == null) {
 	    return null;
 	}
@@ -135,22 +135,32 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     }
     
     
-    //DISABLE:MIGRATION
-//    
 //    @Override
-//    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.addListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, createListener(widget, listener));
+//    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+//	xWidget.addHandler(createSelectionListener(widget, listener), com.sencha.gxt.widget.core.client.event.SelectEvent.getType());
 //    }
 //
 //    @Override
-//    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	component.removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, getListener(widget, listener));
+//    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+//	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Select, getListener(widget, listener)); //TODO
 //    }
+    
+    //DISABLE:MIGRATION
+//  
+//  @Override
+//  protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+//	component.addListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, createListener(widget, listener));
+//  }
+//
+//  @Override
+//  protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+//	component.removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, getListener(widget, listener));
+//  }    
     
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	XComboBox xComboBox = getCheckBox(element.getDelegate());
+	XComboBox xComboBox = asCheckBox(element.getDelegate());
 	if (xComboBox == null) {
 	    return;
 	}
@@ -166,7 +176,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	XComboBox xComboBox = getCheckBox(element.getDelegate());
+	XComboBox xComboBox = asCheckBox(element.getDelegate());
 	if (xComboBox == null) {
 	    return;
 	}
