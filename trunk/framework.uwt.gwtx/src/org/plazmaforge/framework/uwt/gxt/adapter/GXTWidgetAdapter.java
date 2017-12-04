@@ -615,7 +615,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }      
     
     
-    // SELECTION-GXT
+    // SELECTION-GXT (context: Button, ToolItem)
     protected com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler createSelectionListener(Widget widget, final Listener listener) {
 	com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler xListener = new com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler() {
 
@@ -629,7 +629,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return xListener;
     } 
     
-    // SELECTION-GWT (item)
+    // SELECTION-GWT (item: MenuItem (!))
     protected  <T> com.google.gwt.event.logical.shared.SelectionHandler<T> createSelectionListener(Class<T> klass, Widget widget, final Listener listener) {
 	com.google.gwt.event.logical.shared.SelectionHandler<T> xListener = new com.google.gwt.event.logical.shared.SelectionHandler<T>() {
 

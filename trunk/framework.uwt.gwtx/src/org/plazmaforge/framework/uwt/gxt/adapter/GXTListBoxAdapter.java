@@ -141,21 +141,19 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 	return super.getProperty(element, name);
 	
     }
-    
-    
+  
+    @Override
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// GWT Selection (item)
+	asListBox(xWidget).getSelectionModel().addSelectionHandler(createMSelectionListener(widget, listener));
+    }
 
-    //DISABLE:MIGRATION
-//  @Override
-//  protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	((com.sencha.gxt.widget.core.client.ListView<ModelData, Object>) component).getSelectionModel().addListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, createListener(widget, listener));
-//  }
-//
-//  @Override
-//  protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	((com.sencha.gxt.widget.core.client.ListView<ModelData, Object>) component).getSelectionModel().removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, getListener(widget, listener));
-//  }
-
-    
+    @Override
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// ((com.sencha.gxt.widget.core.client.ListView<ModelData, Object>)
+	// component).getSelectionModel().removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange,
+	// getListener(widget, listener));
+    }
     
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
