@@ -308,23 +308,17 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnBlur, getListener(widget, listener));
     }
     
+
+    // KEY ENTER
+    @Override
+    protected void addEnterListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addDomHandler(createKEnterListener(widget, listener), com.google.gwt.event.dom.client.KeyUpEvent.getType());
+	xWidget.addDomHandler(createMouseDoubleClickListener(widget, listener), com.google.gwt.event.dom.client.DoubleClickEvent.getType());
+    }
     
-    
-//    
-    // DISABLE:MIGRATION  
-//    
-//    // ENTER
-//    @Override
-//    protected void addEnterListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	xWidget.addListener(com.sencha.gxt.ui.client.event.Events.OnKeyPress, createKEnterListener(listener));
-//	xWidget.addListener(com.sencha.gxt.ui.client.event.Events.OnDoubleClick, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeEnterListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnKeyPress, getListener(widget, listener, 0));
-//	xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnDoubleClick, getListener(widget, listener, 1));
-//    }
+    protected void removeEnterListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+ 	// TODO
+    }
 
     
     
