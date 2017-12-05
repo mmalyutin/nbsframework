@@ -446,7 +446,14 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	
 	Table<Product> table = new Table<Product>();
-	
+	table.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("Table: Test selection listener");
+	    }
+	});
+
 	TableColumn tableColumn = new TableColumn();
 	tableColumn.setText("ID");
 	tableColumn.setProperty("id");
@@ -546,6 +553,14 @@ public class WebApplication extends Application implements EntryPoint {
 	};
 	
 	Tree<Group> tree = new Tree<Group>();
+	tree.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		MessageBox.information("Tree: Test selection listener");
+	    }
+	});
+	
 	tree.setDisplayProperty("name");
 	tree.setDataProvider(dataProvider, true);
 	

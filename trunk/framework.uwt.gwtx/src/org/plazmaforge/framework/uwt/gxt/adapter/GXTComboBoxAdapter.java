@@ -138,7 +138,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     @Override
     protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// GWT Selection (item)
-	xWidget.addHandler(createMSelectionListener(widget, listener), 
+	xWidget.addHandler(createModelSelectionListener(widget, listener), 
 		com.google.gwt.event.logical.shared.SelectionEvent.getType());
     }
 

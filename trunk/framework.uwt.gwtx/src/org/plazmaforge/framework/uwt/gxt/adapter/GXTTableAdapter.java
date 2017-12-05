@@ -95,14 +95,14 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	return xGrid;
     }
 
-    protected XGrid getGrid(Object delegate) {
+    protected XGrid asGrid(Object delegate) {
 	return (XGrid) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	Table table = (Table) element;
-	XGrid xGrid = getGrid(element.getDelegate());
+	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
 	    return;
 	}
@@ -191,7 +191,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     
     @Override
     public Object getProperty(UIObject element, String name) {
-	XGrid xGrid = getGrid(element.getDelegate());
+	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
 	    return null;
 	}
@@ -207,7 +207,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     @Override
     public Object invoke(UIObject element, String methodName, Object[] args) {
 	if (Table.METHOD_GET_SELECTION_INDEX.equals(methodName)) {
-	    XGrid xGrid = getGrid(element.getDelegate());
+	    XGrid xGrid = asGrid(element.getDelegate());
 	    if (xGrid == null) {
 		return -1;
 	    }
@@ -218,22 +218,21 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	return super.invoke(element, methodName, args);
     }
 
-    //DISABLE:MIGRATION
-//    @Override
-//    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	((com.sencha.gxt.widget.core.client.grid.Grid<ModelData>) component).getSelectionModel().addListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, createListener(widget, listener));
-//    }
-//
-//    @Override
-//    protected void removeSelectionListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-//	((com.sencha.gxt.widget.core.client.grid.Grid<ModelData>) component).getSelectionModel().removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange, getListener(widget, listener));
-//    }
-
+    @Override
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// GWT Selection (item)
+	asGrid(xWidget).getSelectionModel().addSelectionHandler(createModelSelectionListener(widget, listener));
+    }
+    
+    @Override
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//asGrid(xWidget).getSelectionModel().removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange,// getListener(widget, listener)); //TODO
+    }
     
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	XGrid xGrid = getGrid(element.getDelegate());
+	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
 	    return;
 	}
@@ -253,7 +252,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     @Override
     public void removeListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	XGrid xGrid = getGrid(element.getDelegate());
+	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
 	    return;
 	}
