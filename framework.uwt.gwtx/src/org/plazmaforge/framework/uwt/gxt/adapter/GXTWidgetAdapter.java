@@ -446,11 +446,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected void addEnterListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void addEnterListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
 
-    protected void removeEnterListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
+    protected void removeEnterListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
     
@@ -639,6 +639,27 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    public void onSelection(com.google.gwt.event.logical.shared.SelectionEvent<T> e) {
 		listener.handleEvent(createEvent(e));
 		
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }     
+    
+    // KEY ENTER
+    protected com.google.gwt.event.dom.client.KeyUpHandler createKEnterListener(Widget widget, final Listener listener) {
+	com.google.gwt.event.dom.client.KeyUpHandler xListener = new com.google.gwt.event.dom.client.KeyUpHandler() {
+
+	    @Override
+	    public void onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent e) {
+		com.google.gwt.dom.client.NativeEvent nativeEvent = e.getNativeEvent();
+		if (nativeEvent == null) {
+		    return;
+		}
+		int keyCode = nativeEvent.getKeyCode();
+		if (keyCode != com.google.gwt.event.dom.client.KeyCodes.KEY_ENTER) {
+		    return;
+		}
+		listener.handleEvent(createEvent(e));
 	    }
 	};
 	widget.assignListener(listener, xListener);
