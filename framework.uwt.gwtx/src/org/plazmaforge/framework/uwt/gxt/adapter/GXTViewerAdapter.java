@@ -200,7 +200,7 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
     }
     
   
-    protected com.google.gwt.event.logical.shared.SelectionHandler<ModelData> createMSelectionListener(Widget widget, final Listener listener) {
+    protected com.google.gwt.event.logical.shared.SelectionHandler<ModelData> createModelSelectionListener(Widget widget, final Listener listener) {
   	com.google.gwt.event.logical.shared.SelectionHandler<ModelData> xListener = new com.google.gwt.event.logical.shared.SelectionHandler<ModelData>() {
 
   	    @Override

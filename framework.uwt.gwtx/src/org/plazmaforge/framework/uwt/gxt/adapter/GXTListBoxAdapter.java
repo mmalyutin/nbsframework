@@ -145,7 +145,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     @Override
     protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// GWT Selection (item)
-	asListBox(xWidget).getSelectionModel().addSelectionHandler(createMSelectionListener(widget, listener));
+	asListBox(xWidget).getSelectionModel().addSelectionHandler(createModelSelectionListener(widget, listener));
     }
 
     @Override

@@ -37,6 +37,7 @@ import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
 import org.plazmaforge.framework.uwt.widget.Listener;
+import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 import com.sencha.gxt.data.client.loader.RpcProxy;
@@ -120,7 +121,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	return xTree;
     }
 
-    protected void updateIcons(Tree tree,com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree, String icon) {
+    protected void updateIcons(Tree<?> tree, com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree, String icon) {
 	
 	TreeStyle treeStyle = xTree.getStyle();
       	LabelProvider labelProvider = tree.getLabelProvider();
@@ -157,15 +158,15 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
       	
     }    
     
-    protected com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> getTree(Object delegate) {
+    protected com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> asTree(Object delegate) {
 	return (com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData>) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = getTree(element.getDelegate());
-	Tree tree = (Tree) element;
+	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = asTree(element.getDelegate());
+	Tree<?> tree = (Tree<?>) element;
 	
 	if (xTree == null) {
 	    return;
@@ -272,11 +273,11 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
      * @param xTree
      * @return
      */
-    protected XColumnConfig getFantomColumn(com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree) {
-	com.sencha.gxt.widget.core.client.grid.ColumnModel cm = xTree.getColumnModel();
+    protected XColumnConfig<?> getFantomColumn(com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree) {
+	com.sencha.gxt.widget.core.client.grid.ColumnModel<?> cm = xTree.getColumnModel();
 	
 	// Get first emulate column
-	XColumnConfig xColumn = (XColumnConfig) cm.getColumn(0);
+	XColumnConfig<?> xColumn = (XColumnConfig<?>) cm.getColumn(0);
 	return xColumn;
     }
     
@@ -316,18 +317,24 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
     protected void addMouseDoubleClickListener(com.sencha.gxt.widget.core.client.Component component, final Listener listener) {
 	component.addListener(Events.CellDoubleClick, createListener(listener));
     }
-
-    @Override
-    protected void addSelectionListener(com.sencha.gxt.widget.core.client.Component component, final Listener listener) {
-	((com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData>) component).getSelectionModel().addListener(Events.SelectionChange, createListener(listener));
-    }
     */
 
     
     @Override
+    protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	// GWT Selection (item)
+	asTree(xWidget).getSelectionModel().addSelectionHandler(createModelSelectionListener(widget, listener));
+    }
+    
+    @Override
+    protected void removeSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//getTree(xWidget).getSelectionModel().removeListener(com.sencha.gxt.ui.client.event.Events.SelectionChange,// getListener(widget, listener)); //TODO
+    }    
+    
+    @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = getTree(element.getDelegate());
+	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = asTree(element.getDelegate());
 	if (xTree == null) {
 	    return;
 	}
