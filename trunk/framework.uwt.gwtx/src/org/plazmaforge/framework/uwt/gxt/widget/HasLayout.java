@@ -19,47 +19,13 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
-
 package org.plazmaforge.framework.uwt.gxt.widget;
-
-import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
-
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.widget.core.client.ContentPanel;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XContentPanel extends ContentPanel implements HasLayout {
-
-    private XLayoutContainer content;
-
-    public XContentPanel() {
-	super();
-	initContent(null, null);
-    }
-    
-    public XContentPanel(HasWidgets container, XLayout layout) {
-	super();
-	initContent(container, layout);
-    }
-    
-    protected void initContent(HasWidgets container, XLayout layout) {
-	content = new XLayoutContainer(container, layout);
-	super.add(content);
-    }
-     
-    @Override
-    public void add(Widget child) {
-	content.add(child);
-    }
-
-    @Override
-    public boolean remove(Widget child) {
-	return content.remove(child);
-    }    
+public interface HasLayout {
 
 }
