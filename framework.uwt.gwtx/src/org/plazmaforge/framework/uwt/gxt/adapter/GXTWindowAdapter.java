@@ -28,12 +28,15 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.widget.XWindow;
+import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Window;
 
-import com.sencha.gxt.widget.core.client.container.Container;
+
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * 
@@ -52,7 +55,20 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
     
     protected com.sencha.gxt.widget.core.client.Window createWindow(final Object xParent, final Window window) {
-	final com.sencha.gxt.widget.core.client.Window xWindow = new com.sencha.gxt.widget.core.client.Window();
+	
+	Layout layout = window.getLayout();
+	XLayout xLayout = getXLayout(layout);
+	
+	// WARNING!
+	// The com.sencha.gxt.widget.core.client.Window is a ContentPanel
+	// The content of the Window is a SimpleContainer
+	// The SimpleContainer has ONLY ONE child !
+	// To resolve this problems we use own implementation of com.sencha.gxt.widget.core.client.Window
+	
+	HasWidgets container = createContainer(layout, xLayout);
+	XWindow xWindow = new XWindow(container, xLayout);
+	
+	//final com.sencha.gxt.widget.core.client.Window xWindow = new com.sencha.gxt.widget.core.client.Window();
 	xWindow.setModal(window.isModal());
 	xWindow.setResizable(window.isResizable());
 	
@@ -61,6 +77,10 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	
 	//TODO: DISABLE:MIGRATION
 	//addNotifierListener(window, xWindow);
+	
+	
+	
+	
 	
 	return xWindow;
     }

@@ -43,6 +43,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	
 	Composite composite = (Composite) element;
+	
 	Layout layout = composite.getLayout();
 	
 	// Default implementation with special container wrapper
@@ -62,6 +63,12 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	XLayout xLayout = getXLayout(layout);
 	HasWidgets container = createContainer(layout, xLayout);
 	return new XLayoutContainer(container, xLayout);
+    }
+    
+    protected HasWidgets createContainer(Composite composite) {
+	Layout layout = composite.getLayout();
+	XLayout xLayout = getXLayout(layout);
+	return createContainer(layout, xLayout);
     }
     
     protected HasWidgets createContainer(Layout layout, XLayout xLayout) {
