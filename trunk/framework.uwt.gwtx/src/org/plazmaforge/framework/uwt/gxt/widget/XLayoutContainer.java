@@ -31,6 +31,7 @@ import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.resources.CommonStyles;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 
@@ -42,11 +43,24 @@ import com.sencha.gxt.widget.core.client.container.SimpleContainer;
  */
 public class XLayoutContainer extends SimpleContainer  {
     
+    private String id;
+    
     private HasWidgets container;
     
     private XLayout layout;
     
+    private int shiftX;
+    
+    private int shiftY;    
       
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public XLayoutContainer() {
         this(null, null);
     }
@@ -61,7 +75,26 @@ public class XLayoutContainer extends SimpleContainer  {
 	this.layout = layout;
 	doLayout();
     }
-
+    
+    public int getShiftX() {
+        return shiftX;
+    }
+    
+    public void setShiftX(int shiftX) {
+        this.shiftX = shiftX;
+    }
+    
+    public int getShiftY() {
+        return shiftY;
+    }
+    
+    public void setShiftY(int shiftY) {
+        this.shiftY = shiftY;
+    }    
+    public void setAbsolutePosition() {
+	getContainerTarget().makePositionable(true);
+	 //widget.addStyleName(CommonStyles.get().positionable());
+    }
     protected void initContainer(HasWidgets container) {
 	if (container == null) {
 	    container =  createDefaultContainer();

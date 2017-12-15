@@ -25,7 +25,9 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIAdapter;
 import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -49,6 +51,14 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	// Default implementation with special container wrapper
 	// Create internal content by layout
 	XLayoutContainer xComposite = createLayoutContainer(layout);
+	
+	// TODO: debug mode
+	if (composite.getData("$debug") != null) {
+	    if (xComposite.getContainer() != null && xComposite.getContainer() instanceof XGridLayoutContainer) {
+		((XGridLayoutContainer) xComposite.getContainer()).setDebugMode(true);
+	    }
+	}
+	
 	
 	//TODO: STUB
 	if (parent == null) {

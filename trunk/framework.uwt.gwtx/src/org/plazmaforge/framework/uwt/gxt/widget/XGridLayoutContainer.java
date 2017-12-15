@@ -31,6 +31,8 @@ import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style.Overflow;
+import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.GXTLogConfiguration;
@@ -52,7 +54,11 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 
     private XGridLayout gridLayout;
     
-    protected boolean debugMode = true;
+    protected boolean debugMode;// = true;
+    
+    private int shiftX;
+    
+    private int shiftY;
     
     public XGridLayoutContainer() {
 	this(new XGridLayout());
@@ -61,7 +67,13 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	super();
 	this.gridLayout = gridLayout;
 	setElement(Document.get().createDivElement());
-	//getContainerTarget().makePositionable(false);
+    }
+    
+     
+  
+    
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
     
     public XGridLayout getGridLayout() {
@@ -103,10 +115,15 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	return getElement();
     }
       
+ 
+    
     @Override
     protected void doLayout() {
 	
 	boolean debug = isDebug();
+	fixedShift(debug);
+
+
 	
 	XElement container = getLayoutContainer();
 	
@@ -241,6 +258,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  	    
  	    // Set absolute position mode
  	    widget.addStyleName(CommonStyles.get().positionable());
+ 	    //widget.getElement().getStyle().setPosition(Position.ABSOLUTE);
 	    widget.getElement().getStyle().setMargin(0, Unit.PX);
  	    
  	    Object ld = widget.getLayoutData();
@@ -713,7 +731,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  	    }
 
  	    //if (layout) {
- 		setPosition(widget, x, y);
+ 		setPosition(widget, x + shiftX, y + shiftY);
  		setSize(widget, widgetWidth, widgetHeight);
  	    //}
  	    
@@ -839,6 +857,38 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	}
 	
 	return new Size(width, height);
+    }
+    
+    protected void fixedShift(boolean debug) {
+	Widget parent = getParent();
+	if (parent == null || !(parent instanceof XLayoutContainer)) {
+	    return;
+	}
+
+	if (debug) {
+	    GWT.log("parent-1=" + parent.getClass());
+	}
+	parent = parent.getParent();
+	if (parent == null) {
+	    return;
+	}
+	if (debug) {
+	    GWT.log("parent-2=" + parent.getClass());
+	}
+
+	parent = parent.getParent();
+	if (parent == null || !(parent instanceof XLayoutContainer)) {
+	    return;
+	}
+	if (debug) {
+	    GWT.log("parent-3=" + parent.getClass());
+	}
+	XLayoutContainer xLayoutContainer = (XLayoutContainer) parent;
+	shiftX = xLayoutContainer.getShiftX();
+	shiftY = xLayoutContainer.getShiftY();
+	if (debug) {
+	    GWT.log("shiftY=" + shiftY);
+	}
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
