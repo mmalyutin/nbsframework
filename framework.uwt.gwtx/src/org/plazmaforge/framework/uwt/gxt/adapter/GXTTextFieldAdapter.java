@@ -26,6 +26,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextField;
 
+
 /**
  * 
  * @author ohapon
@@ -40,14 +41,14 @@ public class GXTTextFieldAdapter extends GXTControlAdapter {
 	return xTextField;
     }
 
-    protected com.sencha.gxt.widget.core.client.form.TextField getTextField(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.form.TextField) delegate;
+    protected com.sencha.gxt.widget.core.client.form.ValueBaseField<String> getTextField(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.form.ValueBaseField<String>) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.form.TextField xTextField = getTextField(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.ValueBaseField<String> xTextField = getTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return;
 	}
@@ -64,7 +65,7 @@ public class GXTTextFieldAdapter extends GXTControlAdapter {
     @Override
     public Object getProperty(UIObject element, String name) {
 	
-	com.sencha.gxt.widget.core.client.form.TextField xTextField = getTextField(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.ValueBaseField<String> xTextField = getTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return null;
 	}
