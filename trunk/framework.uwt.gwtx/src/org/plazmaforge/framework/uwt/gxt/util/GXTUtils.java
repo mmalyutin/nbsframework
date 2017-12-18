@@ -21,6 +21,8 @@
  */
 package org.plazmaforge.framework.uwt.gxt.util;
 
+import org.plazmaforge.framework.uwt.gxt.widget.XCoolBar;
+
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -74,8 +76,8 @@ public class GXTUtils {
 	int styleWidth = GXTUtils.getStyleWidth(widget);
 	int styleHeight = GXTUtils.getStyleHeight(widget);
 
-	int offsetWidth = widget.getOffsetWidth();
-	int offsetHeight = widget.getOffsetHeight();
+	int offsetWidth = GXTUtils.getOffsetWidth(widget);
+	int offsetHeight = GXTUtils.getOffsetHeight(widget);
 
 	int width = styleWidth;
 	int height = styleHeight;
@@ -94,6 +96,19 @@ public class GXTUtils {
 	}
 
 	return new Size(width, height);
+    }
+    
+    public static int getOffsetWidth(Widget widget) {
+	return widget.getOffsetWidth();
+    }
+
+    public static int getOffsetHeight(Widget widget) {
+	if (widget instanceof XCoolBar) {
+	    // TODO: Magic
+	    // Maybe widget.getOffsetHeight() - 63
+	    return 26;
+	}
+	return widget.getOffsetHeight();
     }
         
     /**

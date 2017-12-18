@@ -54,7 +54,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 
     private XGridLayout gridLayout;
     
-    protected boolean debugMode;// = true;
+    protected boolean debugMode = true;
     
     private int shiftX;
     
@@ -823,8 +823,8 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	int styleWidth = GXTUtils.getStyleWidth(widget); 	
 	int styleHeight = GXTUtils.getStyleHeight(widget);
 	
-	int offsetWidth = widget.getOffsetWidth();
-	int offsetHeight = widget.getOffsetHeight();	
+	int offsetWidth = GXTUtils.getOffsetWidth(widget);
+	int offsetHeight = GXTUtils.getOffsetHeight(widget);	
 	
 	int width = styleWidth;
 	int height = styleHeight;
