@@ -26,11 +26,13 @@
 package org.plazmaforge.framework.uwt.demo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.CallbackAdapter;
 import org.plazmaforge.framework.core.data.object.IData;
+import org.plazmaforge.framework.core.logging.Logger;
 import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.ApplicationView;
 import org.plazmaforge.framework.uwt.UIObject;
@@ -54,9 +56,11 @@ import org.plazmaforge.framework.uwt.event.SelectionAdapter;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.form.IForm;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
+import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.storage.TemplateProviderAsync;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Frame;
+import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
 import org.plazmaforge.framework.uwt.widget.Window;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
@@ -83,14 +87,28 @@ public class DemoApplicationBuilder {
      */
     private Map<String, IForm<?>> formStore = new HashMap<String, IForm<?>>(); 
 
-
+    private static final Logger logger = Logger.getLogger(DemoApplicationBuilder.class.getName());
+    
     private TabPanel tabPanel;
     
     
     
     public void populateFrame(Frame frame) {
 	// Create application view
-	ApplicationView appView = new ApplicationView();
+	ApplicationView appView = new ApplicationView() {
+	    
+	    // TODO: For GXT only
+	    // Remove this method (createContent()) after implementation setLayout in GXTComposteAdapter
+	    @Override
+	    protected Composite createContent() {
+		Composite content = new Composite();
+		FitLayout layout = new FitLayout();
+		layout.resetMargin();
+		content.setLayout(layout);
+	        return content;
+	    }
+	};
+	
 	appView.create();
 	frame.add(appView);
 	populate(appView);
@@ -295,7 +313,7 @@ public class DemoApplicationBuilder {
 	parent.add(tabPanel);
 	
 	addTabItem(tabPanel, "Fields", new FieldTab());
-	addTabItem(tabPanel, "Advanced", new AdvancedTab());
+	//addTabItem(tabPanel, "Advanced", new AdvancedTab());
 	addTabItem(tabPanel, "Labels", new LabelTab());
 	addTabItem(tabPanel, "Buttons", new ButtonTab());
 	addTabItem(tabPanel, "List", new ListTab());
@@ -305,9 +323,9 @@ public class DemoApplicationBuilder {
 	addTabItem(tabPanel, "Layouts", new LayoutTab());
 	addTabItem(tabPanel, "Panels", new PanelTab());
 	addTabItem(tabPanel, "Windows", new WindowTab());
-	addTabItem(tabPanel, "Desktop", new DesktopTab());
-	addTabItem(tabPanel, "Canvas", new CanvasTab());
-	addTabItem(tabPanel, "Charts", new ChartTab());
+//	addTabItem(tabPanel, "Desktop", new DesktopTab());
+//	addTabItem(tabPanel, "Canvas", new CanvasTab());
+//	addTabItem(tabPanel, "Charts", new ChartTab());
 	
    }
    
@@ -429,6 +447,7 @@ public class DemoApplicationBuilder {
 	    
 	    @Override
 	    public void onSuccess(IData result) {
+		dump(result);
 		UIObject object = null;
 		if (result != null) {
 		    object = (UIObject) uiBuilder.buildObject(result);
@@ -445,5 +464,50 @@ public class DemoApplicationBuilder {
 	});
 
     }
+    
+    private void dump(IData data) {
+	logger.info("DUMP!!!");
+	//System.out.println("DUMP!!!");
+	StringBuffer buf = new StringBuffer();
+	addData(buf, data);
+	String toString = buf.toString();
+	logger.info(toString());
+    }
+    
+    private void addData(StringBuffer buf, IData data) {
+	if (data == null) {
+	    buf.append("{null}");
+	    return;
+	}
+	buf.append("\n{");
+	List<String> properties = data.getPropertyNames();
+	for (String property: properties) {
+	   
+	    if ("$parent".equals(property)) {
+		continue;
+	    }
+	    buf.append("\n" + property + "=");
+	    
+	    Object value = data.get(property);
+	    addValue(buf, value);
 
+	}
+	buf.append("\n}");
+    }
+
+    private void addValue(StringBuffer buf, Object value) {
+	if (value instanceof IData) {
+	    addData(buf, (IData) value);
+	} else if (value instanceof List) {
+	    List list = (List) value;
+	    buf.append("[");
+	    for (Object v : list) {
+		addValue(buf, v);
+		//buf.append("," + v);
+	    }
+	    buf.append("]");
+	} else {
+	    buf.append("" + value);
+	}
+    }
 }
