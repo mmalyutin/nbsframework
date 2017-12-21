@@ -72,8 +72,8 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	
 	// TODO: WARNING! Add magic shift by Y for content of TabItem for GridLayout only
 	// We have problem with position of elements in GridLayout
-	content.setShiftY(MAGIC_TAB_HEIGHT);
-	//content.setAbsolutePosition();
+	//content.setShiftY(MAGIC_TAB_HEIGHT);
+	content.setAbsolutePosition(true);
 
 	// Special adding
 	xParent.add(content, xTabItem);

@@ -54,23 +54,31 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 
     private XGridLayout gridLayout;
     
-    protected boolean debugMode = true;
+    protected boolean debugMode;// = true;
     
     private int shiftX;
     
     private int shiftY;
     
+    /**
+     * Initialize flag
+     */
+    private boolean init;
+    
     public XGridLayoutContainer() {
 	this(new XGridLayout());
     }
+    
     public XGridLayoutContainer(XGridLayout gridLayout) {
 	super();
 	this.gridLayout = gridLayout;
 	setElement(Document.get().createDivElement());
     }
-    
-     
-  
+
+    private void setAbsolutePosition() {
+  	XElement container = getLayoutContainer();
+  	container.getStyle().setPosition(Position.ABSOLUTE);
+    } 
     
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
@@ -121,9 +129,19 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     protected void doLayout() {
 	
 	boolean debug = isDebug();
-	fixedShift(debug);
-
-
+	if (!init) {
+	    init = true;
+	    boolean isAbsolutePosition = isParentAbsolutePosition(debug);
+	    if (isAbsolutePosition) {
+		setAbsolutePosition();
+	    }
+	    
+//	    fixedShift(debug);
+//	    if (shiftY > 0) {
+//		shiftY = 0;
+//		setAbsolutePosition();
+//	    }
+	}
 	
 	XElement container = getLayoutContainer();
 	
@@ -889,6 +907,38 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	if (debug) {
 	    GWT.log("shiftY=" + shiftY);
 	}
+    }
+    
+    protected boolean isParentAbsolutePosition(boolean debug) {
+	Widget parent = getParent();
+	if (parent == null || !(parent instanceof XLayoutContainer)) {
+	    return false;
+	}
+
+	if (debug) {
+	    GWT.log("parent-1=" + parent.getClass());
+	}
+	parent = parent.getParent();
+	if (parent == null) {
+	    return false;
+	}
+	if (debug) {
+	    GWT.log("parent-2=" + parent.getClass());
+	}
+
+	parent = parent.getParent();
+	if (parent == null || !(parent instanceof XLayoutContainer)) {
+	    return false;
+	}
+	if (debug) {
+	    GWT.log("parent-3=" + parent.getClass());
+	}
+	XLayoutContainer xLayoutContainer = (XLayoutContainer) parent;
+	boolean isAbsolutePosition = xLayoutContainer.isAbsolutePosition();
+	if (debug) {
+	    GWT.log("isAbsolutePosition=" + isAbsolutePosition);
+	}
+	return isAbsolutePosition;
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
