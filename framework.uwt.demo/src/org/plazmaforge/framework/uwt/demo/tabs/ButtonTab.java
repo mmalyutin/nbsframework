@@ -35,13 +35,10 @@ import org.plazmaforge.framework.uwt.widget.panel.Panel;
 public class ButtonTab extends AbstractTab {
 
     public ButtonTab() {
-	//setLayout(new VerticalLayout());
     }
 
     protected void createUI() {
 	//VerticalLayout layout = new VerticalLayout();
-	
-	//TODO:MIGRATION
 	setLayout(new GridLayout());
 	
 	Composite panel = createTextButtonPanel();

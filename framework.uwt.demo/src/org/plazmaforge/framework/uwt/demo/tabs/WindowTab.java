@@ -50,8 +50,7 @@ public class WindowTab extends AbstractTab {
 
     @Override
     protected void createUI() {
-	//TODO:MIGRATION
-	//setLayout(new GridLayout());
+	setLayout(new GridLayout());
 	
 	Composite panel = createButtonPanel();
 	add(panel);
@@ -61,9 +60,6 @@ public class WindowTab extends AbstractTab {
     
     private Panel createButtonPanel() {
 	Panel panel = new Panel();
-	
-	panel.setData("$debug", true);
-	
 	panel.setLayout(new GridLayout(4));
 	
 
