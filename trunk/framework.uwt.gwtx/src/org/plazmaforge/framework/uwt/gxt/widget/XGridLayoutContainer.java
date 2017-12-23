@@ -31,10 +31,8 @@ import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.core.client.GXTLogConfiguration;
 import com.sencha.gxt.core.client.dom.XElement;
 import com.sencha.gxt.core.client.resources.CommonStyles;
 import com.sencha.gxt.core.client.util.Size;
@@ -117,12 +115,36 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	return getElement();
     }
       
- 
+    protected Size getLayoutSize() {
+	XElement container = getLayoutContainer();
+	
+	// Get size of container (style or computed)
+	Size size = container.getStyleSize();
+	return size;
+    }
     
     @Override
     protected void doLayout() {
+	Size size = getLayoutSize();
+	int hWidth = size.getWidth(); // - getScrollOffset();
+	int hHeight = size.getHeight();
+	computeSize(hWidth, hHeight, true);
+    }
+	
+    public Size computeSize() {
+	Size size = getLayoutSize();
+	int hWidth = size.getWidth(); // - getScrollOffset();
+	int hHeight = size.getHeight();
+	return computeSize(hWidth, hHeight, false);
+    }
+    
+    public Size computeSize(int hWidth, int hHeight, boolean layout) {
 	
 	boolean debug = isDebug();
+	if (debug) {
+	    logDebug("LAYOUT: " + (layout ? "doLayout" : "computeSize"));
+	    dumpContainerSize(hWidth, hHeight);
+	}
 	
 	// FIX: TabItem.layout - disable set absolute position
 	/*
@@ -141,30 +163,6 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	}
 	*/
 	
-	XElement container = getLayoutContainer();
-	
-	// Get size of container (style or computed)
-	Size size = container.getStyleSize();
-	
-	if (debug) {
-	    dumpContainerSize(size.getWidth(), size.getHeight());
-	}
-
-	if (GXTLogConfiguration.loggingIsEnabled()) {
-	    logger.finest(getId() + " doLayout  size: " + size);
-	}
-	
-	int styleHeight = GXTUtils.getStyleHeight(container);
-	int styleWidth = GXTUtils.getStyleWidth(container);
-
-	boolean findWidth = styleWidth == -1;
-	boolean findHeight = styleHeight == -1;
-	
-	/////////
-	
-	int hWidth = size.getWidth(); // - getScrollOffset();
-	int hHeight = size.getHeight();
-
  	// Width of container
  	int containerWidth = hWidth;
  	
@@ -746,10 +744,10 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  		y = cellY  + d / 2;
  	    }
 
- 	    //if (layout) {
+ 	    if (layout) {
  		setPosition(widget, x /*+ shiftX*/, y /*+ shiftY*/);
  		setSize(widget, widgetWidth, widgetHeight);
- 	    //}
+ 	    }
  	    
  	    maxWidth = Math.max(maxWidth, widgetWidth);
  	    maxHeight = Math.max(maxHeight, widgetHeight);
@@ -770,6 +768,14 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  	    computeHeight = childrenHeight + marginTop + marginBottom;
  	}
  	
+ 	if (hWidth > computeWidth) {
+ 	   computeWidth = hWidth;
+ 	}
+ 	if (hHeight > computeHeight) {
+  	   computeHeight = hHeight;
+  	}
+ 	
+ 	return new Size(computeWidth, computeHeight);
      }    
     
     /**
@@ -802,9 +808,6 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	if (widget == null) {
 	    return;
 	}
-	//if (widget instanceof TabPanel ){
-	//    return;
-	//}
 	if (widget instanceof Component) {
 	    Component c = (Component) widget;
 	    c.setPosition(x, y);
@@ -814,9 +817,6 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     }
 
     protected void setSize(Widget widget, int width, int height) {
-	//if (widget instanceof TabPanel ){
-	//    return;
-	//}
 	applyLayout(widget, width, height);
     }
     
@@ -826,15 +826,6 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	}
 	
 	boolean debug = isDebug();
-	
-//	if (widget instanceof XSplitPanel) {
-//	    debug = true;
-//	    
-//	    XElement e = ((XSplitPanel) widget).getElement();
-//	    Size s = e.getFrameSize();
-//	    log("DEBUG: FrameSize: width=" + s.getWidth() + ", height=" + s.getHeight());
-//	    
-//	}
 	
 	int styleWidth = GXTUtils.getStyleWidth(widget); 	
 	int styleHeight = GXTUtils.getStyleHeight(widget);
@@ -847,24 +838,22 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	
 	if (width == -1) {
 	    width = GXTUtils.computeMinWidth(widget);
-	    if (width == -1) {
-		width = offsetWidth;
-	    }
 	}
+	    
 	if (height == -1) {
 	    height = GXTUtils.computeMinHeight(widget);
+	}
+	
+	if (width == -1 || height == -1) {
+	    Size computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
+	    if (width == -1) {
+		width = computeSize.getWidth();
+	    }
 	    if (height == -1) {
-		height = offsetHeight;
+		height = computeSize.getHeight();
 	    }
 	}
 	
-//	if (width < 20) {
-//	    width = 20;
-//	}
-//	if (height < 20) {
-//	    height = 20;
-//	}
-
 	if (debug) {
 	    boolean warningMarker = styleWidth == -1 && styleHeight == -1 && offsetWidth == 0 && offsetHeight == 0;
 	    String widgetName = widget.getClass().getSimpleName() + (warningMarker ? " (!)" : "");

@@ -22,12 +22,15 @@
 package org.plazmaforge.framework.uwt.gxt.util;
 
 import org.plazmaforge.framework.uwt.gxt.widget.XCoolBar;
+import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
+import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.Style;
 import com.sencha.gxt.core.client.util.Size;
+import com.sencha.gxt.core.client.util.TextMetrics;
 import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.grid.Grid;
@@ -69,34 +72,78 @@ public class GXTUtils {
      * @return
      */
     public static Size computePreferredSize(Widget widget) {
+	
+	int styleWidth = GXTUtils.getStyleWidth(widget); 	
+	int styleHeight = GXTUtils.getStyleHeight(widget);
+	
+	//int offsetWidth = GXTUtils.getOffsetWidth(widget);
+	//int offsetHeight = GXTUtils.getOffsetHeight(widget);	
+	
+	int width = styleWidth;
+	int height = styleHeight;
+	
+	if (width == -1) {
+	    width = GXTUtils.computeMinWidth(widget);
+	}
+	    
+	if (height == -1) {
+	    height = GXTUtils.computeMinHeight(widget);
+	}
+	
+	if (width == -1 || height == -1) {
+	    Size computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
+	    if (width == -1) {
+		width = computeSize.getWidth();
+	    }
+	    if (height == -1) {
+		height = computeSize.getHeight();
+	    }
+	}
+	return new Size(width, height);
+    }
+    
+    public static Size computeSize(int hWidth, int hHeight, Widget widget) {
+	
 	if (widget == null) {
 	    return new Size(0, 0);
 	}
-
-	int styleWidth = GXTUtils.getStyleWidth(widget);
-	int styleHeight = GXTUtils.getStyleHeight(widget);
-
-	int offsetWidth = GXTUtils.getOffsetWidth(widget);
-	int offsetHeight = GXTUtils.getOffsetHeight(widget);
-
-	int width = styleWidth;
-	int height = styleHeight;
-
-	if (width == -1) {
-	    width = GXTUtils.computeMinWidth(widget);
-	    if (width == -1) {
-		width = offsetWidth;
+	
+	// Fixed size of Label
+	// When we use ' ' in text methods getOffsetWidth/Height return incorrect values
+	if (widget instanceof Label) {
+	    Label label = (Label) widget;
+	    String text = label.getText();
+	    if (text == null) {
+		text = "";
+	    }
+	    TextMetrics metrics = TextMetrics.get();
+	    metrics.bind(widget.getElement());
+	    Size size = metrics.getSize(text);
+	    size.setWidth(size.getWidth() + 1);
+	    return size;
+	}
+	if (widget instanceof XLayoutContainer) {
+	    XLayoutContainer xLayoutContainer = (XLayoutContainer) widget;
+	    if (xLayoutContainer.getContainer() instanceof XGridLayoutContainer) {
+		return ((XGridLayoutContainer) xLayoutContainer.getContainer()).computeSize(hWidth, hHeight, false);
 	    }
 	}
-	if (height == -1) {
-	    height = GXTUtils.computeMinHeight(widget);
-	    if (height == -1) {
-		height = offsetHeight;
-	    }
-	}
-
-	return new Size(width, height);
+	
+	return getOffsetSize(widget);
     }
+    
+    public static Size getOffsetSize(Widget widget) {
+	if (widget == null) {
+	    return new Size(0, 0);
+	}
+	if (widget instanceof XCoolBar) {
+	    // TODO: Magic
+	    // Maybe widget.getOffsetHeight() - 63
+	    return new Size(widget.getOffsetWidth(), 26);
+	}
+	return new Size(widget.getOffsetWidth(), widget.getOffsetHeight());
+    }
+    
     
     public static int getOffsetWidth(Widget widget) {
 	return widget.getOffsetWidth();
@@ -120,9 +167,9 @@ public class GXTUtils {
 	if (widget == null) {
 	    return -1;
 	}
-	if (widget instanceof Label) {
-	    return widget.getOffsetWidth() + 1;
-	}
+	//if (widget instanceof Label) {
+	//    return widget.getOffsetWidth() + 1;
+	//}
 	if (widget instanceof Grid) {
 	    Grid<?> grid = (Grid<?>) widget;
 	    return grid.getColumnModel().getTotalWidth();
