@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 
+import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -48,11 +49,9 @@ public class XLayoutContainer extends SimpleContainer  {
     
     private XLayout layout;
     
-    private int shiftX;
-    
-    private int shiftY;    
-    
-    private boolean absolutePosition;
+    //private int shiftX;
+    //private int shiftY;    
+    //private boolean absolutePosition;
     
       
     public String getId() {
@@ -73,33 +72,35 @@ public class XLayoutContainer extends SimpleContainer  {
     
     public XLayoutContainer(HasWidgets container, XLayout layout) {
 	super();
+	
+	//Stub solution
+	//getElement().getStyle().setOverflow(Overflow.VISIBLE);
+
 	initContainer(container);
 	this.layout = layout;
 	doLayout();
     }
     
-    public int getShiftX() {
-        return shiftX;
-    }
-    
-    public void setShiftX(int shiftX) {
-        this.shiftX = shiftX;
-    }
-    
-    public int getShiftY() {
-        return shiftY;
-    }
-    
-    public void setShiftY(int shiftY) {
-        this.shiftY = shiftY;
-    }
-    
-    public boolean isAbsolutePosition() {
-        return absolutePosition;
-    }
+    //public int getShiftX() {
+    //    return shiftX;
+    //}
+    //public void setShiftX(int shiftX) {
+    //    this.shiftX = shiftX;
+    //}
+    //public int getShiftY() {
+    //    return shiftY;
+    //}
+    //public void setShiftY(int shiftY) {
+    //    this.shiftY = shiftY;
+    //}
+    //public boolean isAbsolutePosition() {
+    //    return absolutePosition;
+    //}
 
-    public void setAbsolutePosition(boolean absolutePosition) {
-        this.absolutePosition = absolutePosition;
+    public void setAbsolutePosition() {
+        //this.absolutePosition = absolutePosition;
+        // FIX: TabItem.layout - enable absolute position
+        getElement().getStyle().setPosition(Position.ABSOLUTE);
     }
 
     protected void initContainer(HasWidgets container) {
