@@ -41,7 +41,9 @@ public class MessageTab extends AbstractTab {
     @Override
     protected void createUI() {
 	//VerticalLayout layout = new VerticalLayout();
-	setLayout(new GridLayout());
+	
+	//TODO:MIGRATION
+	//setLayout(new GridLayout());
 	
 	Composite panel = createTextButtonPanel();
 	add(panel);
