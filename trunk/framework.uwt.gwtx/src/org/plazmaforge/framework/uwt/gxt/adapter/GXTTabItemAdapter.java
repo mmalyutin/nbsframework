@@ -38,7 +38,7 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public class GXTTabItemAdapter extends GXTCompositeAdapter {
 
-    public static final int MAGIC_TAB_HEIGHT = 30;
+    //public static final int MAGIC_TAB_HEIGHT = 30;
 	    
     public Object createDelegate(UIObject parent, UIObject element) {
 
@@ -59,21 +59,18 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	    xTabItem.setIcon(xIcon);
 	}
 	
-	// Add default Layout
-	//TODO:MIGRATION
-	//xTabItem.setLayout(createDefaultCompositeLayout());
-
-	//XLayoutContainer content = new XLayoutContainer();
 	Layout layout = tabItem.getLayout();
 	
 	// Default implementation with special container wrapper
 	// Create internal content by layout
 	XLayoutContainer content = createLayoutContainer(layout);
 	
-	// TODO: WARNING! Add magic shift by Y for content of TabItem for GridLayout only
+	// Add magic shift by Y for content of TabItem for GridLayout only
 	// We have problem with position of elements in GridLayout
-	//content.setShiftY(MAGIC_TAB_HEIGHT);
-	content.setAbsolutePosition(true);
+	// content.setShiftY(MAGIC_TAB_HEIGHT);
+	
+	// Set absolute position of content of TabItem
+	content.setAbsolutePosition();
 
 	// Special adding
 	xParent.add(content, xTabItem);

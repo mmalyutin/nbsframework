@@ -31,7 +31,6 @@ import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Widget;
@@ -56,14 +55,9 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     
     protected boolean debugMode;// = true;
     
-    private int shiftX;
-    
-    private int shiftY;
-    
-    /**
-     * Initialize flag
-     */
-    private boolean init;
+    //private int shiftX;
+    //private int shiftY;
+    //private boolean init;
     
     public XGridLayoutContainer() {
 	this(new XGridLayout());
@@ -75,10 +69,10 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	setElement(Document.get().createDivElement());
     }
 
-    private void setAbsolutePosition() {
-  	XElement container = getLayoutContainer();
-  	container.getStyle().setPosition(Position.ABSOLUTE);
-    } 
+    //private void setAbsolutePosition() {
+    //	XElement container = getLayoutContainer();
+    // 	container.getStyle().setPosition(Position.ABSOLUTE);
+    //} 
     
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
@@ -129,6 +123,9 @@ public class XGridLayoutContainer extends InsertResizeContainer {
     protected void doLayout() {
 	
 	boolean debug = isDebug();
+	
+	// FIX: TabItem.layout - disable set absolute position
+	/*
 	if (!init) {
 	    init = true;
 	    boolean isAbsolutePosition = isParentAbsolutePosition(debug);
@@ -136,12 +133,13 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 		setAbsolutePosition();
 	    }
 	    
-//	    fixedShift(debug);
-//	    if (shiftY > 0) {
-//		shiftY = 0;
-//		setAbsolutePosition();
-//	    }
+	    //fixedShift(debug);
+	    //if (shiftY > 0) {
+		//shiftY = 0;
+		//setAbsolutePosition();
+	    //}
 	}
+	*/
 	
 	XElement container = getLayoutContainer();
 	
@@ -749,7 +747,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  	    }
 
  	    //if (layout) {
- 		setPosition(widget, x + shiftX, y + shiftY);
+ 		setPosition(widget, x /*+ shiftX*/, y /*+ shiftY*/);
  		setSize(widget, widgetWidth, widgetHeight);
  	    //}
  	    
@@ -877,6 +875,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	return new Size(width, height);
     }
     
+    /*
     protected void fixedShift(boolean debug) {
 	Widget parent = getParent();
 	if (parent == null || !(parent instanceof XLayoutContainer)) {
@@ -940,6 +939,7 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	}
 	return isAbsolutePosition;
     }
+    */
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
