@@ -41,6 +41,7 @@ import com.google.gwt.cell.client.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 
+
 /**
  * 
  * @author ohapon
@@ -57,27 +58,32 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData> cm = xGrid.getColumnModel();
 	
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
-	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty(), table.getPropertyProvider(), column.getValueProvider()), column.getWidth(), asSafeString(column.getText()));
+	
+	XColumnConfig<?> xColumn = createColumn(table, column);
 	xColumn.setGrid(xGrid);
-	
-	// Create cell by data type
-	Cell cell = GWTUtils.createCell(column.getDataType());
-	if (cell != null) {
-	    xColumn.setCell(cell);    
-	}
-	
-	// Set sortable mode of column
 	setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); 
+
 	columns.add(xColumn);
+
 	xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns));
+	
 	return xColumn;
     }
     
+    public XColumnConfig<?> createColumn(Table<?> table,  TableColumn column) {
+	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty(), table.getPropertyProvider(), column.getValueProvider()), 100 /*column.getWidth()*/, asSafeString(column.getText()));
+	// Create cell by data type
+	Cell cell = GWTUtils.createCell(column.getDataType());
+	if (cell != null) {
+	    xColumn.setCell(cell);
+	}
+	return xColumn;
+    }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	TableColumn column = (TableColumn) element;
-	XColumnConfig<?> xColumn = (XColumnConfig) element.getDelegate();
+	XColumnConfig<?> xColumn = (XColumnConfig<?>) element.getDelegate();
 	if (xColumn == null) {
 	    return;
 	}
@@ -151,14 +157,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	//super.setProperty(element, name, value);
     }
     
-    protected void reconfigure(com.sencha.gxt.widget.core.client.grid.Grid grid) {
-	if (grid == null) {
-	    return;
-	}
-	grid.reconfigure(grid.getStore(), grid.getColumnModel());
-    }
-    
-    protected void setSortable(XColumnConfig<?> xColumn, boolean isTableSortable, boolean isColumnSortable) {
+    public void setSortable(XColumnConfig<?> xColumn, boolean isTableSortable, boolean isColumnSortable) {
 	boolean isSortable = isTableSortable && isColumnSortable;
 	//xColumn.setMenuDisabled(!isSortable); // MENU IS DISABLED ALWAYS
 	xColumn.setSortable(isSortable);
