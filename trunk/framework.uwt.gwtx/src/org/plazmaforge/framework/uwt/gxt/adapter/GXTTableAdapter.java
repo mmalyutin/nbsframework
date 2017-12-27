@@ -29,6 +29,7 @@ import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.gxt.widget.XGrid;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -36,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Viewer.AutoResizeColumns;
 import org.plazmaforge.framework.uwt.widget.Viewer.SelectionMode;
 import org.plazmaforge.framework.uwt.widget.table.Table;
-
+import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 import com.sencha.gxt.widget.core.client.grid.CellSelectionModel;
 import com.sencha.gxt.widget.core.client.grid.CheckBoxSelectionModel;
@@ -59,36 +60,57 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	XGrid xGrid = new  XGrid(store, cm);
 	xGrid.setTable(table); // Assign UWT Table
 	
+	 List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = null;// = CoreUtils.cloneList(cm.getColumns());
+	 
 	if (table.isCheckSelection()) {
 	    CheckBoxSelectionModel<ModelData> selectionModel = new CheckBoxSelectionModel<ModelData>();
 	    //selectionModel.setSelectionMode(Style.SelectionMode.SIMPLE);
 	    xGrid.setSelectionModel(selectionModel);
 
-	    List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
+	    //List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
 	
-	    //XColumnConfig xColumn = new XColumnConfig();
-	    //xColumn.setGrid(xGrid);
-	    //xColumn.setId("" + columns.size()); // By default ID is index of column
-	    //setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); // Set sortable mode of column
-	    //columns.add(xColumn);
-	    
+	    if (columns == null) {
+		columns = CoreUtils.cloneList(cm.getColumns());
+	    }
 	    ColumnConfig<ModelData, ?> xColumn = selectionModel.getColumn();
 	    columns.add(xColumn);
 	    
-	    xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns));
+	    //xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns));
 
 	}
+	
+	int columnCount = table.getColumnCount();
+	if (columnCount > 0) {
+	    if (columns == null) {
+		columns = CoreUtils.cloneList(cm.getColumns());
+	    }
+	    GXTTableColumnAdapter adapter = new GXTTableColumnAdapter();
+	    for (int i = 0; i < columnCount; i++) {
+		TableColumn column = table.getColumn(i);
+		XColumnConfig<?> xColumn = adapter.createColumn(table, column);
+		xColumn.setGrid(xGrid);
+		adapter.setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); 
+		columns.add(xColumn);
+	    }
 
-	//xGrid.setWidth(Table.DEFAULT_WIDTH); // TODO
+	}
+	
+	if  (columns != null) {
+	    xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns));
+	}
+	
+	table.resetInitProperty(Table.PROPERTY_COLUMNS);
+	
+	xGrid.setWidth(Table.DEFAULT_WIDTH); // TODO
 	xGrid.setHeight(150 /*Table.DEFAULT_HEIGHT*/); // TODO
 	
 	//DISABLE:MIGRATION
 	//xGrid.setAutoWidth(true);
-	
 	//xGrid.setAutoHeight(true);
 	
+	//xGrid.getView().setAutoFill(true);
 	//Reset auto resize mode
-        //xGrid.getView().setForceFit(true);
+	//xGrid.getView().setForceFit(true);
                 
 	addChild(getContent(parent.getDelegate()), xGrid, element); // Add to parent
 	
@@ -214,6 +236,8 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	    ModelData data = xGrid.getSelectionModel().getSelectedItem();
 	    com.sencha.gxt.data.shared.ListStore<ModelData> store = xGrid.getStore();
 	    return store.indexOf(data); 
+	} else if ("forceLayout".endsWith(methodName) ){
+
 	}
 	return super.invoke(element, methodName, args);
     }
