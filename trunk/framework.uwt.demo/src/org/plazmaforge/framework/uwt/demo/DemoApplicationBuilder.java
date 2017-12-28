@@ -313,7 +313,7 @@ public class DemoApplicationBuilder {
 	parent.add(tabPanel);
 	
 	addTabItem(tabPanel, "Fields", new FieldTab());
-	//addTabItem(tabPanel, "Advanced", new AdvancedTab());
+	addTabItem(tabPanel, "Advanced", new AdvancedTab());
 	addTabItem(tabPanel, "Labels", new LabelTab());
 	addTabItem(tabPanel, "Buttons", new ButtonTab());
 	addTabItem(tabPanel, "List", new ListTab());
