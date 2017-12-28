@@ -24,6 +24,8 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import java.util.List;
 
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
@@ -40,8 +42,6 @@ import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
-
-
 /**
  * 
  * @author ohapon
@@ -56,13 +56,14 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	
 	XGrid xGrid = (XGrid) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.grid.ColumnModel<Model> cm = xGrid.getColumnModel();
-	
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = CoreUtils.cloneList(cm.getColumns());
 	
+	// Create column
 	XColumnConfig<?> xColumn = createColumn(table, column);
 	xColumn.setGrid(xGrid);
 	setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); 
 
+	// Add column
 	columns.add(xColumn);
 
 	xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<Model>(columns));
@@ -70,15 +71,40 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	return xColumn;
     }
     
-    public XColumnConfig<?> createColumn(Table<?> table,  TableColumn column) {
-	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(column.getProperty(), table.getPropertyProvider(), column.getValueProvider()), 100 /*column.getWidth()*/, asSafeString(column.getText()));
+    public XColumnConfig<?> createColumn(Table<?> table, TableColumn column) {
+	
+	// Get columns properties
+	String property = column.getProperty();
+	PropertyProvider<?> propertyProvider = table.getPropertyProvider();
+	ValueProvider<?> valueProvider = column.getValueProvider();
+	String text = column.getText();
+	int width = column.getWidth();
+	HorizontalAlign align = column.getAlign();
+	
+	// Create column
+	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(property, propertyProvider, valueProvider), width, asSafeString(text));
+	
 	// Create cell by data type
 	Cell cell = GWTUtils.createCell(column.getDataType());
 	if (cell != null) {
 	    xColumn.setCell(cell);
 	}
+	
+	setAlign(xColumn, align);
 	return xColumn;
     }
+    
+    
+    protected void setAlign(XColumnConfig<?> xColumn, HorizontalAlign align) {
+	if (HorizontalAlign.LEFT.equals(align)) {
+	    xColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+	} else if (HorizontalAlign.RIGHT.equals(align)) {
+	    xColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+	} else if (HorizontalAlign.CENTER.equals(align)) {
+	    xColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+	}
+    }
+    
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
@@ -117,13 +143,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	    
 	} else if (TableColumn.PROPERTY_ALIGN.equals(name)) {
 	    HorizontalAlign align = (HorizontalAlign) value;
-	    if (HorizontalAlign.LEFT.equals(align)) {
-		xColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-	    } else if (HorizontalAlign.RIGHT.equals(align)) {
-		xColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-	    } else if (HorizontalAlign.CENTER.equals(align)) {
-		xColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    }
+	    setAlign(xColumn, align);
 	    return;
 //	    
 //	} else if (TableColumn.PROPERTY_LABEL_PROVIDER.equals(name)) {
