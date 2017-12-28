@@ -53,33 +53,30 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	
-	Table table = (Table) element;
+	Table<?> table = (Table<?>) element;
 	List<ColumnConfig<Model, ?>> configs = new ArrayList<ColumnConfig<Model, ?>>(); 
 	com.sencha.gxt.widget.core.client.grid.ColumnModel<Model> cm = new com.sencha.gxt.widget.core.client.grid.ColumnModel<Model>(configs);
 	com.sencha.gxt.data.shared.ListStore<Model> store = createXDefaultListStore();
 	XGrid xGrid = new  XGrid(store, cm);
 	xGrid.setTable(table); // Assign UWT Table
 	
-	 List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = null;// = CoreUtils.cloneList(cm.getColumns());
-	 
+	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = null;
+	int columnCount = table.getColumnCount();
+	if (table.isCheckSelection() || columnCount > 0) {
+	    columns = CoreUtils.cloneList(cm.getColumns());
+	}
+	
+	// Multi selection mode
 	if (table.isCheckSelection()) {
 	    CheckBoxSelectionModel<Model> selectionModel = new CheckBoxSelectionModel<Model>();
 	    //selectionModel.setSelectionMode(Style.SelectionMode.SIMPLE);
 	    xGrid.setSelectionModel(selectionModel);
 
-	    //List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
-	
-	    if (columns == null) {
-		columns = CoreUtils.cloneList(cm.getColumns());
-	    }
 	    ColumnConfig<Model, ?> xColumn = selectionModel.getColumn();
 	    columns.add(xColumn);
-	    
-	    //xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns));
-
 	}
-	
-	int columnCount = table.getColumnCount();
+
+	// Add columns
 	if (columnCount > 0) {
 	    if (columns == null) {
 		columns = CoreUtils.cloneList(cm.getColumns());
@@ -92,7 +89,6 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 		adapter.setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); 
 		columns.add(xColumn);
 	    }
-
 	}
 	
 	if  (columns != null) {
@@ -123,7 +119,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	Table table = (Table) element;
+	Table<?> table = (Table<?>) element;
 	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
 	    return;
@@ -144,7 +140,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	} else if (Table.PROPERTY_DATA_LIST.equals(name)) {
 	    
 	    // Get DataList
-	    List dataList = (List) value;
+	    List<?> dataList = (List<?>) value;
 	    
 	    // Populate ListStore by flat DataList
 	    com.sencha.gxt.data.shared.ListStore<Model> store = xGrid.getStore();
@@ -158,7 +154,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	    int index = (Integer) value;
 	    
 	    //DISABLE:MIGRATION
-	    //ModelData data = store.getAt(index);
+	    //Model data = store.getAt(index);
 	    
 	    
 	    List<Model> list = new ArrayList<Model>();
@@ -236,8 +232,6 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	    Model data = xGrid.getSelectionModel().getSelectedItem();
 	    com.sencha.gxt.data.shared.ListStore<Model> store = xGrid.getStore();
 	    return store.indexOf(data); 
-	} else if ("forceLayout".endsWith(methodName) ){
-
 	}
 	return super.invoke(element, methodName, args);
     }
