@@ -30,7 +30,7 @@ import java.util.Map;
 
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.ValueProvider;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 
 /**
@@ -39,7 +39,7 @@ import org.plazmaforge.framework.uwt.gxt.data.ModelData;
  * @author ohapon
  *
  */
-public class ProviderModelData implements ModelData {
+public class ProviderModelData implements Model {
 
     private static final List<String> properties = new ArrayList<String>();
     
@@ -57,7 +57,7 @@ public class ProviderModelData implements ModelData {
     /**
      * Original model data
      */
-    private ModelData modelData;
+    private Model modelData;
     
     
     /**
@@ -73,7 +73,7 @@ public class ProviderModelData implements ModelData {
     
     
     
-    public ProviderModelData(Object bean, ModelData modelData, PropertyProvider propertyProvider, Map<String, ValueProvider> valueProviders) {
+    public ProviderModelData(Object bean, Model modelData, PropertyProvider propertyProvider, Map<String, ValueProvider> valueProviders) {
 	super();
 	this.bean = bean;
 	this.modelData = modelData;

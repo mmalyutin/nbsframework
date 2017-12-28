@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
 import org.plazmaforge.framework.uwt.widget.Composite;
@@ -862,7 +862,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
         
  
     
-    protected ListStore<ModelData> createXDefaultListStore() {
+    protected ListStore<Model> createXDefaultListStore() {
 	return GXTHelper.createXDefaultListStore();
     }
         

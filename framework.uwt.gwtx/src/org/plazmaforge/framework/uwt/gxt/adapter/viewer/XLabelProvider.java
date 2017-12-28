@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter.viewer;
 
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTHelper;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.ValueProvider;
 /**
@@ -31,7 +31,7 @@ import org.plazmaforge.framework.core.data.ValueProvider;
  * @author ohapon
  *
  */
-public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<ModelData> {
+public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<Model> {
 
     /**
      * Property of bean
@@ -110,7 +110,7 @@ public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<
     ////
 
     @Override
-    public String getLabel(ModelData item) {
+    public String getLabel(Model item) {
 	if (item == null) {
 	    return null;
 	}
@@ -139,7 +139,7 @@ public class XLabelProvider implements com.sencha.gxt.data.shared.LabelProvider<
 	return value == null ? null : value.toString();
     }
     
-    protected Object getBean(ModelData item) {
+    protected Object getBean(Model item) {
 	return GXTHelper.getBean(item);
     }
 }

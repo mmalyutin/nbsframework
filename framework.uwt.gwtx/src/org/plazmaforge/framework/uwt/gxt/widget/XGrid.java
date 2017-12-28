@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.widget;
 
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 
 import com.sencha.gxt.data.shared.ListStore;
@@ -35,14 +35,14 @@ import com.sencha.gxt.widget.core.client.grid.GridSelectionModel;
  * @author ohapon
  *
  */
-public class XGrid extends Grid<ModelData> /*EditorGrid<M>*/ {
+public class XGrid extends Grid<Model> /*EditorGrid<M>*/ {
 
-    public XGrid(ListStore<ModelData> store, ColumnModel<ModelData> cm) {
+    public XGrid(ListStore<Model> store, ColumnModel<Model> cm) {
 	super(store, cm);
 
 	
 	// Set default SelectionModel: SINGLE ROW SELECTION
-	GridSelectionModel<ModelData> selectionModel = new GridSelectionModel<ModelData>();
+	GridSelectionModel<Model> selectionModel = new GridSelectionModel<Model>();
 	
 	//DISABLE:MIGRATION
 	//selectionModel.setSelectionMode(Style.SelectionMode.SINGLE);

@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
@@ -42,7 +42,7 @@ import com.sencha.gxt.widget.core.client.menu.MenuItem;
  *
  * See ColumnHeader.updateSortIcon(int colIndex, SortDir dir)
  */
-public class XGridView extends GridView<ModelData> {
+public class XGridView extends GridView<Model> {
 
 
     private boolean ownSortable;
@@ -77,7 +77,7 @@ public class XGridView extends GridView<ModelData> {
 	column.setData("$sortDir", sortDir);
     }
 
-    protected void onHeaderClick(Grid<ModelData> grid, int colIndex) {
+    protected void onHeaderClick(Grid<Model> grid, int colIndex) {
 	this.headerColumnIndex = colIndex;
 	if (!headerDisabled && cm.isSortable(colIndex)) {
 	    // Get column by index

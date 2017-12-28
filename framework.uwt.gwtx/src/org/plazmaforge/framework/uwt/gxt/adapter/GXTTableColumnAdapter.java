@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.gxt.widget.XGrid;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
@@ -55,9 +55,9 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	Table<?> table = column.getTable();
 	
 	XGrid xGrid = (XGrid) parent.getDelegate();
-	com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData> cm = xGrid.getColumnModel();
+	com.sencha.gxt.widget.core.client.grid.ColumnModel<Model> cm = xGrid.getColumnModel();
 	
-	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = CoreUtils.cloneList(cm.getColumns());
+	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = CoreUtils.cloneList(cm.getColumns());
 	
 	XColumnConfig<?> xColumn = createColumn(table, column);
 	xColumn.setGrid(xGrid);
@@ -65,7 +65,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 
 	columns.add(xColumn);
 
-	xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns));
+	xGrid.reconfigure(xGrid.getStore(), new com.sencha.gxt.widget.core.client.grid.ColumnModel<Model>(columns));
 	
 	return xColumn;
     }

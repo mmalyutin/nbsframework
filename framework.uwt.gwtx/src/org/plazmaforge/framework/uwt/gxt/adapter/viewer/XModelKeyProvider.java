@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter.viewer;
 
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XModelKeyProvider implements com.sencha.gxt.data.shared.ModelKeyProvider<ModelData> {
+public class XModelKeyProvider implements com.sencha.gxt.data.shared.ModelKeyProvider<Model> {
 
     private String property;
     
@@ -53,7 +53,7 @@ public class XModelKeyProvider implements com.sencha.gxt.data.shared.ModelKeyPro
     ////
     
     @Override
-    public String getKey(ModelData item) {
+    public String getKey(Model item) {
 	if (item == null) {
 	    return null;
 	}

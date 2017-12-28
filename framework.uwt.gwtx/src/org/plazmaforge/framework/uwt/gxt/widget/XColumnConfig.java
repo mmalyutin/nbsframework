@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.widget;
 
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.sencha.gxt.core.client.ValueProvider;
@@ -35,32 +35,32 @@ import com.sencha.gxt.widget.core.client.grid.Grid;
  *
  * @param <N>
  */
-public class XColumnConfig<N> extends ColumnConfig<ModelData, N> {
+public class XColumnConfig<N> extends ColumnConfig<Model, N> {
 
-    private Grid<ModelData> grid;
+    private Grid<Model> grid;
 
   
    
-    public Grid<ModelData> getGrid() {
+    public Grid<Model> getGrid() {
         return grid;
     }
 
-    public XColumnConfig(ValueProvider<ModelData, N> valueProvider, int width, SafeHtml header) {
+    public XColumnConfig(ValueProvider<Model, N> valueProvider, int width, SafeHtml header) {
 	super(valueProvider, width, header);
 	init();
     }
 
-    public XColumnConfig(ValueProvider<ModelData, N> valueProvider, int width, String header) {
+    public XColumnConfig(ValueProvider<Model, N> valueProvider, int width, String header) {
 	super(valueProvider, width, header);
 	init();
     }
 
-    public XColumnConfig(ValueProvider<ModelData, N> valueProvider, int width) {
+    public XColumnConfig(ValueProvider<Model, N> valueProvider, int width) {
 	super(valueProvider, width);
 	init();
     }
 
-    public XColumnConfig(ValueProvider<ModelData, N> valueProvider) {
+    public XColumnConfig(ValueProvider<Model, N> valueProvider) {
 	super(valueProvider);
 	init();
     }
@@ -70,7 +70,7 @@ public class XColumnConfig<N> extends ColumnConfig<ModelData, N> {
 	setSortable(false);
     }
 
-    public void setGrid(Grid<ModelData> grid) {
+    public void setGrid(Grid<Model> grid) {
 	this.grid = grid;
     }
 

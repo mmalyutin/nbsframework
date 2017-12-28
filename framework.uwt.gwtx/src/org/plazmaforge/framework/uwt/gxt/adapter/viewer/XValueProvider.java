@@ -25,14 +25,14 @@ package org.plazmaforge.framework.uwt.gxt.adapter.viewer;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTHelper;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XValueProvider implements com.sencha.gxt.core.client.ValueProvider<ModelData, Object> {
+public class XValueProvider implements com.sencha.gxt.core.client.ValueProvider<Model, Object> {
 
     /**
      * Property of bean
@@ -110,7 +110,7 @@ public class XValueProvider implements com.sencha.gxt.core.client.ValueProvider<
     ////
         
     @Override
-    public Object getValue(ModelData item) {
+    public Object getValue(Model item) {
 	
 	Object bean = null;
 	
@@ -130,7 +130,7 @@ public class XValueProvider implements com.sencha.gxt.core.client.ValueProvider<
     }
 
     @Override
-    public void setValue(ModelData item, Object value) {
+    public void setValue(Model item, Object value) {
 	
 	Object bean = null;
 	
@@ -156,7 +156,7 @@ public class XValueProvider implements com.sencha.gxt.core.client.ValueProvider<
 	return null;
     }
 
-    protected Object getBean(ModelData item) {
+    protected Object getBean(Model item) {
  	return GXTHelper.getBean(item);
     }    
 }

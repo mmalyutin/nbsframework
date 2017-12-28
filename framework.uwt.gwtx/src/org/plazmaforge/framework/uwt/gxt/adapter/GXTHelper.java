@@ -40,7 +40,7 @@ import org.plazmaforge.framework.uwt.gxt.core.XBeanModelFactory;
 import org.plazmaforge.framework.uwt.gxt.core.XBeanModelLookup;
 import org.plazmaforge.framework.uwt.gxt.data.BaseModel;
 import org.plazmaforge.framework.uwt.gxt.data.BeanModel;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 import org.plazmaforge.framework.uwt.util.UWTHelper;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
@@ -129,7 +129,7 @@ public class GXTHelper {
      * @param model
      * @return
      */
-    public static Object getBean(ModelData model) {
+    public static Object getBean(Model model) {
 	if (model == null) {
 	    return null;
 	}
@@ -160,7 +160,7 @@ public class GXTHelper {
      * @param property
      * @return
      */
-    public static Object getValue(ModelData model, String property) {
+    public static Object getValue(Model model, String property) {
 	return model == null ? null : model.get(property);
     }
     
@@ -508,8 +508,8 @@ public class GXTHelper {
 	return new XModelKeyProvider();
     }
        
-    public static ListStore<ModelData> createXDefaultListStore() {
-  	return new ListStore<ModelData>(createXDefaultModelKeyProvider());
+    public static ListStore<Model> createXDefaultListStore() {
+  	return new ListStore<Model>(createXDefaultModelKeyProvider());
     }    
     
     //

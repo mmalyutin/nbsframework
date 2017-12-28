@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 //import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTreeCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -62,15 +62,15 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	Tree<?> tree =  (Tree<?>) element;
 	
 	// Create first column to emulate column header
-	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>> columns = new ArrayList<com.sencha.gxt.widget.core.client.grid.ColumnConfig<ModelData, ?>>();
+	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = new ArrayList<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>>();
 	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(tree.getDisplayProperty(), tree.getPropertyProvider(), null), 100, "");
 	//xColumn.setRenderer(new TreeGridCellRenderer<ModelData>());
 	columns.add(xColumn);
 	
 	
-	com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData> cm = new com.sencha.gxt.widget.core.client.grid.ColumnModel<ModelData>(columns);
-	com.sencha.gxt.data.shared.TreeStore<ModelData> store = new com.sencha.gxt.data.shared.TreeStore<ModelData>(GXTHelper.createXDefaultModelKeyProvider());
-	final com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = new com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData>(store, cm, xColumn);
+	com.sencha.gxt.widget.core.client.grid.ColumnModel<Model> cm = new com.sencha.gxt.widget.core.client.grid.ColumnModel<Model>(columns);
+	com.sencha.gxt.data.shared.TreeStore<Model> store = new com.sencha.gxt.data.shared.TreeStore<Model>(GXTHelper.createXDefaultModelKeyProvider());
+	final com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree = new com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model>(store, cm, xColumn);
 
 	//DISABLE:MIGRATION
 	//xTree.setColumnLines(false);
@@ -121,7 +121,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	return xTree;
     }
 
-    protected void updateIcons(Tree<?> tree, com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree, String icon) {
+    protected void updateIcons(Tree<?> tree, com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree, String icon) {
 	
 	TreeStyle treeStyle = xTree.getStyle();
       	LabelProvider labelProvider = tree.getLabelProvider();
@@ -158,14 +158,14 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
       	
     }    
     
-    protected com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> asTree(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData>) delegate;
+    protected com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> asTree(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model>) delegate;
     }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = asTree(element.getDelegate());
+	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree = asTree(element.getDelegate());
 	Tree<?> tree = (Tree<?>) element;
 	
 	if (xTree == null) {
@@ -188,7 +188,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	    List<?> dataList = (List<?>) value;
 	    
 	    // Populate TreeStore by flat DataList
-	    com.sencha.gxt.data.shared.TreeStore<ModelData> store = xTree.getTreeStore();
+	    com.sencha.gxt.data.shared.TreeStore<Model> store = xTree.getTreeStore();
 	    store.clear();
 	    
 	    populateTreeStore2(tree, dataList, store);
@@ -273,7 +273,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
      * @param xTree
      * @return
      */
-    protected XColumnConfig<?> getFantomColumn(com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree) {
+    protected XColumnConfig<?> getFantomColumn(com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree) {
 	com.sencha.gxt.widget.core.client.grid.ColumnModel<?> cm = xTree.getColumnModel();
 	
 	// Get first emulate column
@@ -334,7 +334,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
     @Override
     public void addListener(UIObject element, String eventType, final Listener listener) {
 	Control control = (Control) element;
-	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<ModelData> xTree = asTree(element.getDelegate());
+	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree = asTree(element.getDelegate());
 	if (xTree == null) {
 	    return;
 	}
@@ -350,20 +350,20 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	super.addListener(element, eventType, listener);
     }
 
-    private TreeLoader<ModelData> createTreeLoader(final TreeProvider provider, com.sencha.gxt.data.shared.TreeStore<ModelData> store) {
+    private TreeLoader<Model> createTreeLoader(final TreeProvider provider, com.sencha.gxt.data.shared.TreeStore<Model> store) {
 	if (provider == null) {
 	    return null;
 	}
-	RpcProxy<ModelData, List<ModelData>> proxy = new RpcProxy<ModelData, List<ModelData>>() {
+	RpcProxy<Model, List<Model>> proxy = new RpcProxy<Model, List<Model>>() {
 	    
 
 	    @Override
-	    public void load(ModelData loadConfig, AsyncCallback<List<ModelData>> callback) {
+	    public void load(Model loadConfig, AsyncCallback<List<Model>> callback) {
 		
 		Object parent = GXTHelper.getBean(loadConfig);
 		List<?> children =  parent == null ? provider.getList() : provider.getChildren(parent);
 	
-		List<ModelData> result = new ArrayList<ModelData>();
+		List<Model> result = new ArrayList<Model>();
 		if (children == null) {
 		    callback.onSuccess(result);
 		    return;
@@ -371,7 +371,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 		
 		for (Object data : children) {
 		    // Create wrap of data
-		    ModelData model = createModel(data);
+		    Model model = createModel(data);
 		    result.add(model);
 		}
 		
@@ -379,17 +379,17 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	    }
 	};
 
-	TreeLoader<ModelData> loader = new TreeLoader<ModelData>(proxy) {
+	TreeLoader<Model> loader = new TreeLoader<Model>(proxy) {
 	    
 	    @Override
-	    public boolean hasChildren(ModelData parent) {
+	    public boolean hasChildren(Model parent) {
 		Object p = GXTHelper.getBean(parent);
 		return p == null ? false : provider.hasChildren(p);
 	    }
 	};
 	
 	// IMPORTANT! Initialize Load Handler. Very critical line!
-	loader.addLoadHandler(new ChildTreeStoreBinding<ModelData>(store));
+	loader.addLoadHandler(new ChildTreeStoreBinding<Model>(store));
 	
 	
 	return loader;
