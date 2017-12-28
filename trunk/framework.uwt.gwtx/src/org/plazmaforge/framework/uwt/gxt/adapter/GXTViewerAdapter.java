@@ -67,9 +67,21 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
 	ModelData model = GXTHelper.createBeanModel(bean);
 	if (model == null) {
 	    
+	    //TODO
+	    String beanString = bean == null ? "" : bean.toString();
+	    if (bean.getClass().isArray()) {
+		BeanModel beanModel = new BeanModel();
+		beanModel.setBean(bean);
+		
+		beanModel.set("text", beanString);
+		beanModel.set("toString", beanString);
+
+		    
+		return beanModel;
+	    }
+	    
 	    // TODO
 	    Map<String, Object> properties = new HashMap<String, Object>();
-	    String beanString = bean == null ? "" : bean.toString();
 	    properties.put("text", beanString);
 	    properties.put("toString", beanString);
 	    

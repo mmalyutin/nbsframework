@@ -31,7 +31,7 @@ public class BeanModel extends BaseModel {
   protected Map<String, BeanModel> nestedModels = new FastMap<BeanModel>();
   protected List<String> beanProperties = new ArrayList<String>();
 
-  protected BeanModel() {
+  public BeanModel() {
 
   }
 
@@ -77,7 +77,7 @@ public class BeanModel extends BaseModel {
    * 
    * @param bean the bean
    */
-  protected void setBean(Object bean) {
+  public void setBean(Object bean) {
     this.bean = bean;
   }
 
