@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.plazmaforge.framework.core.data.ModelMarker;
 import org.plazmaforge.framework.uwt.gxt.data.BeanModel;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.data.NestedModelUtil;
 
 import com.sencha.gxt.core.shared.FastMap;
@@ -46,7 +46,7 @@ public class XBeanModelGenerator extends Generator {
     /**
      * GXT ModelData type
      */
-    protected JClassType modelDataType;
+    protected JClassType modelType;
 
     /**
      * List of bean packages
@@ -76,8 +76,8 @@ public class XBeanModelGenerator extends Generator {
      * 
      * @return
      */
-    protected Class<?> getModelDataClass() {
-	return ModelData.class;
+    protected Class<?> getModelClass() {
+	return Model.class;
     }
 
     public String[] getBeanPackages() {
@@ -97,7 +97,7 @@ public class XBeanModelGenerator extends Generator {
 	beanMarkerType = oracle.findType(getBeanMarkerClass().getName());
 
 	// GXT ModelData
-	modelDataType = oracle.findType(getModelDataClass().getName());
+	modelType = oracle.findType(getModelClass().getName());
 
 	// TODO: STUB
 	beanPackages = new String[] { "org.plazmaforge.framework.config.object",
@@ -290,7 +290,7 @@ public class XBeanModelGenerator extends Generator {
      */
 
     protected boolean isBeanMarker(JClassType type) {
-	if (type.equals(beanMarkerType) || type.isAssignableTo(modelDataType)) {
+	if (type.equals(beanMarkerType) || type.isAssignableTo(modelType)) {
 	    // Return false because type is marker interface
 	    // or type extends GXT ModelData
 	    return false;

@@ -27,7 +27,7 @@ import java.util.List;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XComboBox;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -47,7 +47,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	ComboBox<?> comboBox = (ComboBox<?>) element; 
 	
-	ListStore<ModelData> store = createXDefaultListStore();
+	ListStore<Model> store = createXDefaultListStore();
 	XComboBox xComboBox = new XComboBox(store, createXLabelProvider(comboBox.getDisplayProperty(), comboBox.getPropertyProvider()));
 
 	xComboBox.setTypeAhead(true);
@@ -75,11 +75,11 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	    
 	    return;
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
-	    ModelData model = findModelByBean(comboBox, xComboBox.getStore(), value);
+	    Model model = findModelByBean(comboBox, xComboBox.getStore(), value);
 	    xComboBox.setValue(model);
 	    return;
 	}  else if (ComboBox.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    ModelData model = findModelByIndex(xComboBox.getStore(), intValue(value));
+	    Model model = findModelByIndex(xComboBox.getStore(), intValue(value));
 	    xComboBox.setValue(model);
 	    return;	    
 	} else if (ComboBox.PROPERTY_DATA_LIST.equals(name)) {
@@ -88,7 +88,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	    List<?> dataList = (List<?>) value;
 	    
 	    // Populate ListStore by flat DataList
-	    ListStore<ModelData> store = xComboBox.getStore();
+	    ListStore<Model> store = xComboBox.getStore();
 	    store.clear();
 	    
 	    populateListStore2(comboBox, dataList, store);
@@ -119,11 +119,11 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	    return null;
 	    
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
-	    ModelData model = xComboBox.getValue();
+	    Model model = xComboBox.getValue();
 	    Object value = getBean(model);
 	    return value;
 	} else if (ComboBox.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    ModelData model = xComboBox.getValue();
+	    Model model = xComboBox.getValue();
 	    if (model == null) {
 		return -1;
 	    }

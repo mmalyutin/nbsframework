@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.widget;
 
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 import com.google.gwt.cell.client.Cell;
 import com.sencha.gxt.core.client.ValueProvider;
@@ -34,22 +34,22 @@ import com.sencha.gxt.widget.core.client.ListView;
  * @author ohapon
  *
  */
-public class XListBox extends ListView<ModelData, Object> {
+public class XListBox extends ListView<Model, Object> {
 
-    public XListBox(ListStore<ModelData> store, ValueProvider<ModelData, Object> valueProvider) {
+    public XListBox(ListStore<Model> store, ValueProvider<Model, Object> valueProvider) {
   	super(store, valueProvider);
     }
     
-    public XListBox(ListStore<ModelData> store, ValueProvider<ModelData, Object> valueProvider, Cell<Object> cell) {
+    public XListBox(ListStore<Model> store, ValueProvider<Model, Object> valueProvider, Cell<Object> cell) {
 	super(store, valueProvider, cell);
     }
 
-    public XListBox(ListStore<ModelData> store, ValueProvider<ModelData, Object> valueProvider, ListViewAppearance<ModelData> appearance) {
+    public XListBox(ListStore<Model> store, ValueProvider<Model, Object> valueProvider, ListViewAppearance<Model> appearance) {
 	super(store, valueProvider, appearance);
     }
 
-    public ValueProvider<ModelData, Object> getValueProvider() {
-	return (ValueProvider<ModelData, Object>) valueProvider;
+    public ValueProvider<Model, Object> getValueProvider() {
+	return (ValueProvider<Model, Object>) valueProvider;
     }
     
 

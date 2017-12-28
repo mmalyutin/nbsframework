@@ -10,7 +10,7 @@ import com.sencha.gxt.core.shared.FastMap;
 
 
 /**
- * A <code>ModelData</code> instance that wraps a bean. BeanModels cannot be
+ * A <code>Model</code> instance that wraps a bean. BeanModels cannot be
  * instantiated directly, rather, they are returned by {@link BeanModelFactory}.
  * 
  * <p/>

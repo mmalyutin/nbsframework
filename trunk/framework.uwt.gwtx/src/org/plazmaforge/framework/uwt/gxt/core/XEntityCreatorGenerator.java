@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.ModelMarker;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -58,7 +58,7 @@ public class XEntityCreatorGenerator extends Generator {
     /**
      * GXT ModelData type
      */
-    protected JClassType modelDataType;
+    protected JClassType modelType;
     
     /**
      * List of bean packages
@@ -91,8 +91,8 @@ public class XEntityCreatorGenerator extends Generator {
      * Override to use other class
      * @return
      */
-    protected Class<?> getModelDataClass() {
-	return ModelData.class;
+    protected Class<?> getModelClass() {
+	return Model.class;
     }
     
    
@@ -105,7 +105,7 @@ public class XEntityCreatorGenerator extends Generator {
 	      beanMarkerType = oracle.findType(getBeanMarkerClass().getName());
 	      
 	      // GXT ModelData
-	      modelDataType = oracle.findType(getModelDataClass().getName());
+	      modelType = oracle.findType(getModelClass().getName());
 
 	      // TODO: STUB
 	      beanPackages = new String[] {
@@ -192,7 +192,7 @@ public class XEntityCreatorGenerator extends Generator {
     }
 
     protected boolean isBeanMarker(JClassType type) {
-	if (type.equals(beanMarkerType) || type.isAssignableTo(modelDataType)) {
+	if (type.equals(beanMarkerType) || type.isAssignableTo(modelType)) {
 	    // Return false because type is marker interface
 	    // or type extends GXT ModelData
 	    return false;

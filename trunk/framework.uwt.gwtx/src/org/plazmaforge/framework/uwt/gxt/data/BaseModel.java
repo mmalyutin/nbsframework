@@ -3,19 +3,21 @@ package org.plazmaforge.framework.uwt.gxt.data;
 
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import com.sencha.gxt.core.shared.FastMap;
+import com.sencha.gxt.core.shared.FastSet;
 
 
 
 /**
- * <code>Models</code> are generic data structures that notify listeners when
- * changed. The structure allows a form of 'introspection' as all property names
+ * <code>Models</code> are generic data structures. 
+ * The structure allows a form of 'introspection' as all property names
  * and values can be queried and retrieved at runtime.
  * 
- * <p>
- * All events fired by the model will bubble to all parents.
- * </p>
  * 
  * <p>
  * Model objects implement <code>Serializable</code> and can therefore be used
@@ -23,39 +25,9 @@ import java.util.Map;
  * in remote procedure calls.
  * </p>
  * 
- * <dl>
- * <dt><b>Events:</b></dt>
- * 
- * <dd><b>Model.Add</b> : (source, item)<br>
- * <div>Fires after the button is selected.</div>
- * <ul>
- * <li>source : this</li>
- * <li>item : add item</li>
- * </ul>
- * </dd>
- * 
- * <dd><b>Model.Insert</b> : (source, item)<br>
- * <div>Fires after the button is selected.</div>
- * <ul>
- * <li>source : this</li>
- * <li>item : insert item</li>
- * <li>index : insert index</li>
- * </ul>
- * </dd>
- * 
- * <dd><b>Model.Update</b> : (source, item)<br>
- * <div>Fires after the button is selected.</div>
- * <ul>
- * <li>source : this</li>
- * <li>item : this</li>
- * </ul>
- * </dd>
- * </dl>
- * 
- * @see ChangeListener
  * @see Serializable
  */
-public class BaseModel extends BaseModelData implements ModelData /*Model*/, Serializable {
+public class BaseModel implements Model, Serializable {
 
   //protected transient ChangeEventSupport changeEventSupport;
 
@@ -75,6 +47,161 @@ public class BaseModel extends BaseModelData implements ModelData /*Model*/, Ser
     this();
     setProperties(properties);
   }
+  
+  
+  protected RpcMap map;
+  protected boolean allowNestedValues = true;
+//
+//  /**
+//   * Creates a new model data instance.
+//   */
+//  public BaseModelData() {
+//  }
+//
+//  /**
+//   * Creates a new model with the given properties.
+//   * 
+//   * @param properties the initial properties
+//   */
+//  public BaseModelData(Map<String, Object> properties) {
+//    super();
+//    setProperties(properties);
+//  }
+
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public <X> X get(String property) {
+    if (allowNestedValues && NestedModelUtil.isNestedProperty(property)) {
+      return (X) NestedModelUtil.getNestedValue(this, property);
+    }
+    if (map == null) {
+      return null;
+    }
+    int start = property.indexOf("[");
+    int end = property.indexOf("]");
+    X obj = null;
+    if (start > -1 && end > -1) {
+      Object o = map.get(property.substring(0, start));
+      String p = property.substring(start + 1, end);
+      if (o instanceof Object[]) {
+        obj = (X) ((Object[]) o)[Integer.valueOf(p)];
+      } else if (o instanceof List) {
+        obj = (X) ((List) o).get(Integer.valueOf(p));
+      } else if (o instanceof Map) {
+        obj = (X) ((Map) o).get(p);
+      }
+    } else {
+      obj = (X) map.get(property);
+    }
+    return obj;
+  }
+
+  /**
+   * Returns a property value.
+   * 
+   * @param property the property name
+   * @param valueWhenNull
+   * @return the value
+   */
+  @SuppressWarnings("unchecked")
+  public <X> X get(String property, X valueWhenNull) {
+    X value = (X) get(property);
+    return (value == null) ? valueWhenNull : value;
+  }
+
+  public Map<String, Object> getProperties() {
+    Map<String, Object> newMap = new FastMap<Object>();
+    if (map != null) {
+      newMap.putAll(map.getTransientMap());
+    }
+    return newMap;
+  }
+
+  public Collection<String> getPropertyNames() {
+    Set<String> set = new FastSet();
+    if (map != null) {
+      set.addAll(map.keySet());
+    }
+    return set;
+  }
+
+  /**
+   * Returns true if nested values are enabled.
+   * 
+   * @return the nested values state
+   */
+  public boolean isAllowNestedValues() {
+    return allowNestedValues;
+  }
+
+  @SuppressWarnings("unchecked")
+  public <X> X remove(String property) {
+    return map == null ? null : (X) map.remove(property);
+  }
+
+  /**
+   * Sets the property and fires an <i>Update</i> event.
+   * 
+   * @param property the property name
+   * @param value the property value
+   */
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public <X> X set(String property, X value) {
+    if (allowNestedValues && NestedModelUtil.isNestedProperty(property)) {
+      return (X) NestedModelUtil.setNestedValue(this, property, value);
+    }
+    if (map == null) {
+      map = new RpcMap();
+    }
+
+    int start = property.indexOf("[");
+    int end = property.indexOf("]");
+
+    if (start > -1 && end > -1) {
+      Object o = get(property.substring(0, start));
+      String p = property.substring(start + 1, end);
+      if (o instanceof Object[]) {
+        int i = Integer.valueOf(p);
+        Object[] oa = (Object[]) o;
+        X old = (X) oa[i];
+        oa[i] = value;
+        return old;
+      } else if (o instanceof List) {
+        int i = Integer.valueOf(p);
+        List list = (List) o;
+        return (X) list.set(i, value);
+      } else if (o instanceof Map) {
+        Map map = (Map) o;
+        return (X) map.put(p, value);
+      } else {
+        // not supported
+        return null;
+      }
+    } else {
+      return (X) map.put(property, value);
+    }
+
+  }
+
+  /**
+   * Sets whether nested properties are enabled (defaults to true).
+   * 
+   * @param allowNestedValues true to enable nested properties
+   */
+  public void setAllowNestedValues(boolean allowNestedValues) {
+    this.allowNestedValues = allowNestedValues;
+  }
+
+  /**
+   * Sets the properties.
+   * 
+   * @param properties the properties
+   */
+  public void setProperties(Map<String, Object> properties) {
+    for (String property : properties.keySet()) {
+      set(property, properties.get(property));
+    }
+  }
+  
 
 //  /**
 //   * Adds a listener to receive change events.
@@ -109,16 +236,16 @@ public class BaseModel extends BaseModelData implements ModelData /*Model*/, Ser
 //    /changeEventSupport.notify(evt);
 //  }
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public <X> X remove(String name) {
-    if (map != null && map.containsKey(name)) {
-      X oldValue = (X) super.remove(name);
-      //notifyPropertyChanged(name, null, oldValue);
-      return oldValue;
-    }
-    return null;
-  }
+//  @Override
+//  @SuppressWarnings("unchecked")
+//  public <X> X remove(String name) {
+//    if (map != null && map.containsKey(name)) {
+//      X oldValue = (X) super.remove(name);
+//      //notifyPropertyChanged(name, null, oldValue);
+//      return oldValue;
+//    }
+//    return null;
+//  }
 
   /**
    * Removes a previously added change listener.
@@ -133,12 +260,12 @@ public class BaseModel extends BaseModelData implements ModelData /*Model*/, Ser
 //    //changeEventSupport.removeChangeListeners();
 //  }
 
-  @Override
-  public <X> X set(String name, X value) {
-    X oldValue = super.set(name, value);
-    notifyPropertyChanged(name, value, oldValue);
-    return oldValue;
-  }
+//  @Override
+//  public <X> X set(String name, X value) {
+//    X oldValue = super.set(name, value);
+//    notifyPropertyChanged(name, value, oldValue);
+//    return oldValue;
+//  }
 
   public void setSilent(boolean silent) {
     //changeEventSupport.setSilent(silent);

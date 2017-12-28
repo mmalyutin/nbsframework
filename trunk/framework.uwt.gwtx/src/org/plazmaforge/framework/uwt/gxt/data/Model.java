@@ -9,13 +9,11 @@ import java.util.Map;
  * support a form of "introspection" as property names and values can be
  * retrieved at runtime.
  * 
- * <p/>
- * For models with event support see {@link Model}.
  * 
  * <p/>
- * For a default implementation see {@link BaseModelData}.
+ * For a default implementation see {@link BaseModel}.
  */
-public interface ModelData {
+public interface Model {
 
   /**
    * Returns the named property from this model instance.

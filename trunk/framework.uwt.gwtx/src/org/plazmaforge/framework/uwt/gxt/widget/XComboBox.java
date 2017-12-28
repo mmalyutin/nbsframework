@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.widget;
 
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
 import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
@@ -33,10 +33,10 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
  * @author ohapon
  *
  */
-public class XComboBox extends ComboBox<ModelData> {
+public class XComboBox extends ComboBox<Model> {
 
    
-    public XComboBox(ListStore<ModelData> store, LabelProvider<ModelData> labelProvider) {
+    public XComboBox(ListStore<Model> store, LabelProvider<Model> labelProvider) {
 	super(store, labelProvider);
 
 	autoComplete = false;

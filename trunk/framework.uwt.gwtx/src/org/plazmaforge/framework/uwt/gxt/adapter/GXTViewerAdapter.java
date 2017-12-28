@@ -31,7 +31,7 @@ import java.util.Map;
 import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.BaseModel;
 import org.plazmaforge.framework.uwt.gxt.data.BeanModel;
-import org.plazmaforge.framework.uwt.gxt.data.ModelData;
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.widget.IViewer;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -60,11 +60,11 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
      * @param bean
      * @return
      */
-    protected ModelData createModel(Object bean) {
+    protected Model createModel(Object bean) {
 	if (bean == null) {
 	    return new BaseModel();
 	}
-	ModelData model = GXTHelper.createBeanModel(bean);
+	Model model = GXTHelper.createBeanModel(bean);
 	if (model == null) {
 	    
 	    //TODO
@@ -97,13 +97,13 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
      * @param bean
      * @return
      */
-    protected ModelData findModelByBean(ListStore<ModelData> store, Object bean) {
+    protected Model findModelByBean(ListStore<Model> store, Object bean) {
 	if (bean == null) {
 	    return null;
 	}
-	List<ModelData> list = store.getAll();
+	List<Model> list = store.getAll();
 	String toString = null;
-	for (ModelData m: list) {
+	for (Model m: list) {
 	    if (m instanceof BeanModel) {
 		BeanModel bm = (BeanModel) m;
 		if (bean.equals(bm.getBean())) {
@@ -135,11 +135,11 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
      * @param bean
      * @return
      */
-    protected ModelData findModelByBean(IViewer viewer, ListStore<ModelData> store, Object bean) {
+    protected Model findModelByBean(IViewer viewer, ListStore<Model> store, Object bean) {
 	if (bean == null) {
 	    return null;
 	}
-	ModelData model = findModelByBean(store, bean);
+	Model model = findModelByBean(store, bean);
 	if (model != null) {
 	    return model;
 	}
@@ -153,7 +153,7 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
      * @param index
      * @return
      */
-    protected ModelData findModelByIndex(ListStore<ModelData> store, int index) {
+    protected Model findModelByIndex(ListStore<Model> store, int index) {
    	return store.get(index);
     }
     
@@ -162,34 +162,34 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
      * @param model
      * @return
      */
-    protected Object getBean(ModelData model) {
+    protected Object getBean(Model model) {
 	return GXTHelper.getBean(model);
     }
     
-    public void populateListStore2(IViewer<?> viewer, List<?> dataList, ListStore<ModelData> store) {
+    public void populateListStore2(IViewer<?> viewer, List<?> dataList, ListStore<Model> store) {
 	if (dataList == null) {
 	    return;
 	}
-	List<ModelData> models = new ArrayList<ModelData>();
+	List<Model> models = new ArrayList<Model>();
 	for (Object data : dataList) {
 
 	    // Create wrap of data
-	    ModelData model = createModel(data);
+	    Model model = createModel(data);
 	    models.add(model);
 	}
 	store.addAll(models);
     }
     
-    public void populateTreeStore2(IViewer viewer, List<?> dataList, TreeStore<ModelData> store) {
+    public void populateTreeStore2(IViewer viewer, List<?> dataList, TreeStore<Model> store) {
 	if (dataList == null) {
 	    return;
 	}
    	
-   	List<ModelData> models = new ArrayList<ModelData>();
+   	List<Model> models = new ArrayList<Model>();
    	for (Object data : dataList) {
 
 	    // Create wrap of data
-	    ModelData model = createModel(data);
+	    Model model = createModel(data);
 	    models.add(model);
 	}
    	store.add(models); // TODO: DISABLE:MIGRATION Maybe need flag addChildren=true	
@@ -212,11 +212,11 @@ public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
     }
     
   
-    protected com.google.gwt.event.logical.shared.SelectionHandler<ModelData> createModelSelectionListener(Widget widget, final Listener listener) {
-  	com.google.gwt.event.logical.shared.SelectionHandler<ModelData> xListener = new com.google.gwt.event.logical.shared.SelectionHandler<ModelData>() {
+    protected com.google.gwt.event.logical.shared.SelectionHandler<Model> createModelSelectionListener(Widget widget, final Listener listener) {
+  	com.google.gwt.event.logical.shared.SelectionHandler<Model> xListener = new com.google.gwt.event.logical.shared.SelectionHandler<Model>() {
 
   	    @Override
-  	    public void onSelection(com.google.gwt.event.logical.shared.SelectionEvent<ModelData> e) {
+  	    public void onSelection(com.google.gwt.event.logical.shared.SelectionEvent<Model> e) {
   		listener.handleEvent(createEvent(e));
 
   	    }
