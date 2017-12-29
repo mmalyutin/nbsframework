@@ -64,7 +64,23 @@ public class FormManager {
 	FormManager.formProvider = formProvider;
     }
     
+    public static String getFormLabel(IForm<?> form, boolean brackets) {
+	if (form == null) {
+	    return null;
+	}
+	// by Name
+	String label = form.getName();
+	if (label != null) {
+	    return brackets ? ("'" + label + "'") : label;
+	}
+	// by Class
+	label = form.getClass().getName();
+	return brackets ? ("[" + label + "]") : label;
+    }
     
+    public static String getFormLabel(IForm<?> form) {
+	return getFormLabel(form, false);
+    }
     /**
      * Open form by type (class name by default)
      * @param type
@@ -74,7 +90,7 @@ public class FormManager {
 	    throw new UWTException("Can't open form. Form type is null.");
 	}
 	if (formProvider == null) {
-	    throw new UWTException("Can't open form. FormProvider is not initialized.");
+	    throw new UWTException("Can't open form by type '" + type + "'. FormProvider is not initialized.");
 	}	
 	IForm<?> form = getForm(type);
 	if (form == null) {
@@ -96,7 +112,7 @@ public class FormManager {
 	    throw new UWTException("Can't open form. Form is null.");
 	}
 	if (formProvider == null) {
-	    throw new UWTException("Can't open form. FormProvider is not initialized.");
+	    throw new UWTException("Can't open form " + getFormLabel(form, true) + ". FormProvider is not initialized.");
 	}	
 	doOpen(form);
     }
@@ -125,7 +141,7 @@ public class FormManager {
 	    throw new UWTException("Can't close form. Form type is null.");
 	}
 	if (formProvider == null) {
-	    throw new UWTException("Can't close form. FormProvider is not initialized.");
+	    throw new UWTException("Can't close form by type '" + type + "'. FormProvider is not initialized.");
 	}	
 	IForm<?> form = getForm(type);
 	if (form == null) {
@@ -143,7 +159,7 @@ public class FormManager {
 	    throw new UWTException("Can't close form. Form is null.");
 	}
 	if (formProvider == null) {
-	    throw new UWTException("Can't close form. FormProvider is not initialized.");
+	    throw new UWTException("Can't close form " + getFormLabel(form, true) + ". FormProvider is not initialized.");
 	}	
 	doClose(form);
     }
