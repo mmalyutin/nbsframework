@@ -65,10 +65,10 @@ public class DesktopTab extends AbstractTab {
 	final UIBuilder uiBuilder = new UIBuilder();
 	
 	// Register Form Creator
-	FormManager.setFormCreator(new DemoFormCreator());
+	//FormManager.setFormCreator(new DemoFormCreator());
 	
 	// Register Form Provider
-	FormManager.setFormProvider(new DesktopFormProvider(application));
+	//FormManager.setFormProvider(new DesktopFormProvider(application));
 
 	
 	//DesktopItem desktopItem = desktop.addItem();

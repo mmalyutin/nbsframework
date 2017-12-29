@@ -54,6 +54,8 @@ import org.plazmaforge.framework.uwt.demo.tabs.WindowTab;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
 import org.plazmaforge.framework.uwt.event.SelectionAdapter;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
+import org.plazmaforge.framework.uwt.form.DesktopFormProvider;
+import org.plazmaforge.framework.uwt.form.FormManager;
 import org.plazmaforge.framework.uwt.form.IForm;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
@@ -122,6 +124,18 @@ public class DemoApplicationBuilder {
     }
 
     public void populateContent(Composite parent) {
+	
+
+	Application application = Application.getCurrent();
+	
+	// Register Form Creator
+	FormManager.setFormCreator(new DemoFormCreator());
+	
+	// Register Form Provider
+	FormManager.setFormProvider(new DesktopFormProvider(application));
+	
+	
+	
 	//parent.setBackground(Color.DARK_GRAY);
 	//populateTreeContent(parent);
 	populateTabContent(parent);
@@ -379,7 +393,7 @@ public class DemoApplicationBuilder {
 	if  (store) {
 	    form = formStore.get(path);
 	    if (form != null && !form.isClosed()) {
-		form.open();
+		doOpenForm(form);
 		return;
 	    }
 	}
@@ -390,10 +404,21 @@ public class DemoApplicationBuilder {
 		if (store) {
 		    formStore.put(path, form);
 		}
-		form.open();
+		doOpenForm(form);
 	    }
 	};
 	doBuildObject(application, path, callback);
+    }
+    
+    private void doOpenForm(IForm<?> form) {
+	if (form == null) {
+	    return;
+	}
+	try {
+	    form.open();
+	} catch (Throwable e) {
+	    MessageBox.error(e);
+	}
     }
 
     private void doOpenDialog(Application application, String path) {
