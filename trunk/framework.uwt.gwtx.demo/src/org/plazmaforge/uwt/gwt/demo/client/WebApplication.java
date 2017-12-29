@@ -24,6 +24,8 @@ import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
 import org.plazmaforge.framework.uwt.demo.DemoApplicationBuilder;
 import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
+import org.plazmaforge.framework.uwt.event.EnterEvent;
+import org.plazmaforge.framework.uwt.event.EnterListener;
 import org.plazmaforge.framework.uwt.event.FocusEvent;
 import org.plazmaforge.framework.uwt.event.FocusListener;
 import org.plazmaforge.framework.uwt.event.MouseEvent;
@@ -120,7 +122,7 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	///////////////////////////////////////////////////////////////
 	
-	RootPanel root = RootPanel.get("root");
+	RootPanel root =  RootPanel.get("root"); //RootPanel.get();
 	
 	///////////////////////////////////////////////////////////////
 	
@@ -198,19 +200,21 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	//viewport.add(new Label("GWT migration"));
 	
-	addTestControls();
+	//TODAY
+	//addTestControls();
 	
 	//DISABLE:MIGRATION
-	//Frame frame = getFrame();
-	//frame.setDelegate(viewport);
-	//DemoApplicationBuilder builder = new DemoApplicationBuilder();
-	//builder.populateFrame(frame);
+	Frame frame = getFrame();
+	frame.setDelegate(viewport);
+	DemoApplicationBuilder builder = new DemoApplicationBuilder();
+	builder.populateFrame(frame);
 	
 	//DISABLE:MIGRATION
 	//viewport.layout(true);
+	viewport.forceLayout();
     }
     
- 
+    
     private void addTestControls() {
 	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.Composite();
 	uwtContainer.setLayout(new GridLayout(3));
@@ -446,13 +450,52 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	
 	Table<Product> table = new Table<Product>();
-	table.addSelectionListener(new SelectionListener() {
+//	table.addSelectionListener(new SelectionListener() {
+//	    
+//	    @Override
+//	    public void select(SelectionEvent event) {
+//		MessageBox.information("Table: Test selection listener");
+//	    }
+//	});
+	
+	table.addEnterListener(new EnterListener() {
 	    
 	    @Override
-	    public void select(SelectionEvent event) {
-		MessageBox.information("Table: Test selection listener");
+	    public void enter(EnterEvent e) {
+		MessageBox.information("Table: Test Enter event");
+		
 	    }
 	});
+	/*
+	table.addMouseListener(new MouseListener() {
+	    
+
+	    @Override
+	    public void mouseClick(MouseEvent e) {
+		// TODO Auto-generated method stub
+		MessageBox.information("Table: Test MouseClick event");
+		
+	    }
+
+	    @Override
+	    public void mouseDoubleClick(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	    }
+
+	    @Override
+	    public void mouseDown(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	    }
+
+	    @Override
+	    public void mouseUp(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	    }
+	});
+	*/
 
 	TableColumn tableColumn = new TableColumn();
 	tableColumn.setText("ID");
@@ -599,14 +642,36 @@ public class WebApplication extends Application implements EntryPoint {
 	
 	tabPanel.setActiveItem(tabItem);
 	
+	TableColumn tableColumn41 = new TableColumn();
+	tableColumn41.setText("Price-1");
+	tableColumn41.setAlign(HorizontalAlign.RIGHT);
+	table.addColumn(tableColumn41);
+	
 	uwtContainer.add(tabPanel);
 	
+	TableColumn tableColumn42 = new TableColumn();
+	tableColumn42.setText("Price-2");
+	tableColumn42.setAlign(HorizontalAlign.RIGHT);
+	table.addColumn(tableColumn42);
 	
 	uwtContainer.activateUI(true);
+	
+	TableColumn tableColumn43 = new TableColumn();
+	tableColumn43.setText("Price-3");
+	tableColumn43.setAlign(HorizontalAlign.RIGHT);
+	table.addColumn(tableColumn43);
+	
 	
 	//MessageBox.information("Application was started!");
 	
 	viewport.add((Widget) uwtContainer.getDelegate());
+	
+	TableColumn tableColumn4 = new TableColumn();
+	tableColumn4.setText("Price777");
+	tableColumn4.setAlign(HorizontalAlign.RIGHT);
+	table.addColumn(tableColumn4);
+	
+
     }
     
     class WebServiceCallerFactory implements ServiceCallerFactory {
