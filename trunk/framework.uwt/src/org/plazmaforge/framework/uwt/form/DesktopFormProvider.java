@@ -95,7 +95,7 @@ public class DesktopFormProvider implements FormProvider {
     protected void openDesktopForm(IForm<?> form) {
 	Desktop desktop = getDesktop();
 	if (desktop == null) {
-	    throw new UWTException("Application Desktop is null");
+	    throw new UWTException("Can't open form " + FormManager.getFormLabel(form, true) + ". Application Desktop is null");
 	}
 	IDecorator decorator = form.getDecorator();
 	DesktopItem desktopItem = null;

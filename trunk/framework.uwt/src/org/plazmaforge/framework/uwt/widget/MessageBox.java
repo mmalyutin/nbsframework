@@ -134,7 +134,23 @@ public class MessageBox extends UIObject {
     public static void error(String message) {
 	openStatic(ERROR, null, message);
     }
+    
+    public static void error(Throwable e) {
+	String message = toErrorMessage(e);
+  	openStatic(ERROR, null, message);
+    }
 
+    private static String toErrorMessage(Throwable e) {
+	if (e == null) {
+	    return null;
+	}
+	String message = e.getMessage();
+	if (message == null) {
+	    message = e.toString();
+	}
+	return message;
+    }
+      
     
     public static void information(String title, String message, CallbackHandler handler) {
   	openStatic(INFORMATION, title, message, handler);
