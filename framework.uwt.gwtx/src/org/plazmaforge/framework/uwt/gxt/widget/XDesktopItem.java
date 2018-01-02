@@ -26,7 +26,11 @@ import org.plazmaforge.framework.core.data.Notifier;
 
 import com.google.gwt.user.client.ui.Widget;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class XDesktopItem {
 
     

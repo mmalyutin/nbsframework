@@ -45,10 +45,6 @@ public class XDesktop extends SimpleContainer {
     
     public XDesktop() {
 	super();
-	
-	//TODO:MIGRATION
-	//setLayout(new FitLayout());
-	
 	tabPanel = new DesktopTabPanel();
 	add(tabPanel);
 	tabPanel.setVisible(false);
@@ -58,13 +54,11 @@ public class XDesktop extends SimpleContainer {
 	
 	@Override
 	protected void close(Widget widget) {
-	    //TODO:MIGRATION
 	    XTabItem tabItem = (XTabItem) getConfig(widget);
 	    doClose(tabItem);
 	}
 	
 	public void forceClose(XTabItem item) {
-	    //TODO:MIGRATION
 	    Widget widget = item.getWidget();
 	    super.close(widget);
 	}
@@ -87,9 +81,6 @@ public class XDesktop extends SimpleContainer {
 	
 	XTabItem tabItem = new XTabItem();
 	tabItem.setClosable(true);
-	
-	//TODO:MIGRATION
-	//tabItem.setLayout(new FitLayout());
 	
 	XLayoutContainer content = new XLayoutContainer(new SimpleContainer());
 	
