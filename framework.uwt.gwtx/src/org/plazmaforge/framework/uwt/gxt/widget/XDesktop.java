@@ -28,17 +28,15 @@ import java.util.List;
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
 
-import com.sencha.gxt.widget.core.client.container.Container;
-import com.sencha.gxt.widget.core.client.TabItem;
-import com.sencha.gxt.widget.core.client.TabPanel;
-import com.sencha.gxt.widget.core.client.layout.FitLayout;
+import com.sencha.gxt.widget.core.client.container.SimpleContainer;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XDesktop extends LayoutContainer {
+public class XDesktop extends SimpleContainer {
 
     private DesktopTabPanel tabPanel;
     
@@ -47,21 +45,28 @@ public class XDesktop extends LayoutContainer {
     
     public XDesktop() {
 	super();
-	setLayout(new FitLayout());
+	
+	//TODO:MIGRATION
+	//setLayout(new FitLayout());
+	
 	tabPanel = new DesktopTabPanel();
 	add(tabPanel);
 	tabPanel.setVisible(false);
     }
 
-    class DesktopTabPanel extends TabPanel {
+    class DesktopTabPanel extends XTabPanel {
 	
 	@Override
-	protected void close(TabItem item) {
-	    doClose(item);
+	protected void close(Widget widget) {
+	    //TODO:MIGRATION
+	    XTabItem tabItem = (XTabItem) getConfig(widget);
+	    doClose(tabItem);
 	}
 	
-	public void forceClose(TabItem item) {
-	    super.close(item);
+	public void forceClose(XTabItem item) {
+	    //TODO:MIGRATION
+	    Widget widget = item.getWidget();
+	    super.close(widget);
 	}
 	
     }
@@ -71,28 +76,41 @@ public class XDesktop extends LayoutContainer {
      * Visible if count of items > 0
      */
     protected void updateState() {
-	boolean visible = getTabPanel().getItemCount() > 0;
+	boolean visible = getTabPanel().getWidgetCount() > 0;
 	getTabPanel().setVisible(visible);
     }
 
     public XDesktopItem createItem(String title) {
-	TabItem tabItem = new TabItem();
-	tabItem.setClosable(true);
-	tabItem.setLayout(new FitLayout());
+	
+	
 	XDesktopItem item = new XDesktopItem(this);
-	item.setContent(tabItem);
+	
+	XTabItem tabItem = new XTabItem();
+	tabItem.setClosable(true);
+	
+	//TODO:MIGRATION
+	//tabItem.setLayout(new FitLayout());
+	
+	XLayoutContainer content = new XLayoutContainer(new SimpleContainer());
+	
+	// Set absolute position of content of TabItem
+	content.setAbsolutePosition();
+
+	item.setShell(tabItem);
+	item.setContent(content);
 	if (title == null) {
 	    title = "";
 	}
+	
 	tabItem.setText(title);
-	getTabPanel().add(tabItem);
+	getTabPanel().add(content, tabItem);
 	items.add(item);
 	updateState();
 	return item;
     }
     
     protected void updateTitle(XDesktopItem item) {
-	TabItem tabItem = (TabItem) item.getContent();
+	XTabItem tabItem = (XTabItem) item.getShell();
 	String title = item.getTitle();
 	if (title == null) {
 	    title = "";
@@ -106,12 +124,12 @@ public class XDesktop extends LayoutContainer {
     }
 
     
-    protected XDesktopItem getItem(TabItem tabItem) {
+    protected XDesktopItem getItem(XTabItem tabItem) {
 	if (tabItem == null) {
 	    return null;
 	}
 	for (XDesktopItem item : items) {
-	    if (tabItem == item.getContent()) {
+	    if (tabItem == item.getShell()) {
 		return item;
 	    }
 	}
@@ -123,11 +141,11 @@ public class XDesktop extends LayoutContainer {
 	if (item == null) {
 	    throw new IllegalArgumentException("Item must be not null");
 	}
-	TabItem tabItem = (TabItem) item.getContent();
-	getTabPanel().setSelection(tabItem);
+	Widget widget = (Widget) item.getContent();
+	getTabPanel().setActiveWidget(widget);
     }
     
-    protected void doClose(final TabItem tabItem) {
+    protected void doClose(final XTabItem tabItem) {
 	
 	final XDesktopItem item = getItem(tabItem);
 	final Notifier client = item.getNotifier();

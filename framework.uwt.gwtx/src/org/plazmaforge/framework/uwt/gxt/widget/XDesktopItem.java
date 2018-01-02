@@ -24,8 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.widget;
 
 import org.plazmaforge.framework.core.data.Notifier;
 
-import com.sencha.gxt.widget.core.client.container.Container;
-import com.sencha.gxt.widget.core.client.container.Container;
+import com.google.gwt.user.client.ui.Widget;
 
 
 public class XDesktopItem {
@@ -35,7 +34,9 @@ public class XDesktopItem {
     
     private String title;
     
-    private Container content;
+    private Object shell;
+    
+    private Widget content;
 
     private Notifier notifier;
     
@@ -65,12 +66,19 @@ public class XDesktopItem {
         desktop.updateTitle(this);
     }
     
+    public Object getShell() {
+        return shell;
+    }
 
-    public Container getContent() {
+    public void setShell(Object shell) {
+        this.shell = shell;
+    }
+
+    public Widget getContent() {
         return content;
     }
 
-    public void setContent(Container content) {
+    public void setContent(Widget content) {
         this.content = content;
     }
 
@@ -86,8 +94,8 @@ public class XDesktopItem {
 	if (content == null) {
 	    return;
 	}
-	if (content instanceof LayoutContainer) {
-	    ((LayoutContainer) content).layout();
+	if (content instanceof com.sencha.gxt.widget.core.client.container.HasLayout) {
+	    ((com.sencha.gxt.widget.core.client.container.HasLayout) content).forceLayout();
 	}
     }
 }

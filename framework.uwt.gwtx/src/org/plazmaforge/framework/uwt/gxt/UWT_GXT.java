@@ -40,8 +40,8 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTComboBoxAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTCompositeAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTCoolBarAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTDateFieldAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTDesktopAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTDesktopItemAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTDesktopAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTDesktopItemAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTDialogAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTFitLayoutAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTGCAdapter;
@@ -167,8 +167,8 @@ public class UWT_GXT {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.MessageBox.class, new GXTMessageBoxAdapter());
 //
 //	
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.Desktop.class, new GXTDesktopAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.DesktopItem.class, new GXTDesktopItemAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.Desktop.class, new GXTDesktopAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.DesktopItem.class, new GXTDesktopItemAdapter());
 //	
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.graphics.GC.class, new GXTGCAdapter());
 //	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Canvas.class, new GXTCanvasAdapter());

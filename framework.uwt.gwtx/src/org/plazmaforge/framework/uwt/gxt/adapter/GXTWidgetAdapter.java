@@ -31,6 +31,7 @@ import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
+import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
 import org.plazmaforge.framework.uwt.widget.Composite;
@@ -255,9 +256,9 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    return  ((XTabItem) delegate).getWidget();
 	}
 	//DISABLE:MIGRATION
-	//if (delegate instanceof XDesktopItem) {
-	//    return ((XDesktopItem) delegate).getContent();
-	//}
+	if (delegate instanceof XDesktopItem) {
+	    return ((XDesktopItem) delegate).getContent();
+	}
 	return (com.google.gwt.user.client.ui.Widget) delegate;
     }
 

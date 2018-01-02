@@ -32,7 +32,7 @@ public class GXTDesktopAdapter extends GXTCompositeAdapter {
     
     public Object createDelegate(UIObject parent, UIObject element) {
 	XDesktop xDesktop = new XDesktop();
-	addToParent(getContent(parent.getDelegate()), xDesktop, element); // Add to parent. Use super method
+	addChild(getContent(parent.getDelegate()), xDesktop, element); // Add to parent. Use super method
 	return xDesktop;
     }
     

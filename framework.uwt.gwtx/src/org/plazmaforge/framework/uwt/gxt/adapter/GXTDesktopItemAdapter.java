@@ -35,7 +35,7 @@ public class GXTDesktopItemAdapter extends GXTCompositeAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	DesktopItem desktopItem = (DesktopItem) element;
 	XDesktop xDesktop = (XDesktop) parent.getDelegate();
-   	XDesktopItem xDesktopItem = xDesktop.createItem("");
+   	XDesktopItem xDesktopItem = xDesktop.createItem(desktopItem.getTitle());
    	xDesktopItem.setNotifier(createNotifier(desktopItem));
    	return xDesktopItem; 
    }
@@ -48,7 +48,7 @@ public class GXTDesktopItemAdapter extends GXTCompositeAdapter {
 	    return;
 	}
 	if (DesktopItem.PROPERTY_TITLE.equals(name)) {
-	    xDesktopItem.setTitle(getSafeString(value));
+	    xDesktopItem.setTitle(asSafeString(value));
 	    return;
 	} else if (DesktopItem.PROPERTY_CHILDREN.equals(name)) {
 	    xDesktopItem.layout();
