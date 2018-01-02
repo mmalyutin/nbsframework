@@ -29,13 +29,20 @@ import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktop;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTDesktopItemAdapter extends GXTCompositeAdapter {
     
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	DesktopItem desktopItem = (DesktopItem) element;
 	XDesktop xDesktop = (XDesktop) parent.getDelegate();
-   	XDesktopItem xDesktopItem = xDesktop.createItem(desktopItem.getTitle());
+	
+	String title = asSafeString(desktopItem.getTitle());
+   	XDesktopItem xDesktopItem = xDesktop.createItem(title);
    	xDesktopItem.setNotifier(createNotifier(desktopItem));
    	return xDesktopItem; 
    }

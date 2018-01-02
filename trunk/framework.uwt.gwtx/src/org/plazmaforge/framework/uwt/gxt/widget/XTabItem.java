@@ -59,5 +59,23 @@ public class XTabItem extends TabItemConfig {
 	}
 	return parent.getWidget(this);
     }
+    
+    @Override
+    public void setContent(String text) {
+	super.setContent(text);
+	update();
+    }
+    
+    public void update() {
+	if (parent == null) {
+	    return;
+	}
+	Widget widget = getWidget();
+	if (widget == null) {
+	    // TODO
+	    return;
+	}
+	parent.update(widget, this);
+    }
 
 }
