@@ -337,7 +337,7 @@ public class DemoApplicationBuilder {
 	addTabItem(tabPanel, "Layouts", new LayoutTab());
 	addTabItem(tabPanel, "Panels", new PanelTab());
 	addTabItem(tabPanel, "Windows", new WindowTab());
-//	addTabItem(tabPanel, "Desktop", new DesktopTab());
+	addTabItem(tabPanel, "Desktop", new DesktopTab());
 //	addTabItem(tabPanel, "Canvas", new CanvasTab());
 //	addTabItem(tabPanel, "Charts", new ChartTab());
 	
