@@ -25,12 +25,15 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.gxt.widget.XCanvas;
-import org.plazmaforge.framework.uwt.gxt.widget.XCanvas.PaintEvent;
 import org.plazmaforge.framework.uwt.widget.Canvas;
 
 import com.google.gwt.canvas.dom.client.CssColor;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTCanvasAdapter extends GXTControlAdapter {
 
     @Override
@@ -46,7 +49,6 @@ public class GXTCanvasAdapter extends GXTControlAdapter {
 		if (context2d == null) {
 		    return;
 		}
-		
 		GC gc = new GC();
 		initContext2d(context2d, gc);
 		gc.setDelegate(context2d);
@@ -58,7 +60,7 @@ public class GXTCanvasAdapter extends GXTControlAdapter {
 	    }	    
 	    
 	};
-	addToParent(getContent(parent.getDelegate()), xCanvas, element);
+	addChild(getContent(parent.getDelegate()), xCanvas, element);
 	return xCanvas;
     }
     
@@ -79,6 +81,18 @@ public class GXTCanvasAdapter extends GXTControlAdapter {
 	context2d.setFillStyle(fillStyle);
 	context2d.setStrokeStyle(strokeStyle);
 	context2d.setFont(font);
+	
+	//context2d.clearRect(0, 0, 1400, 1400);
+	
+	//context2d.setTransform(m11, m12, m21, m22, dx, dy);
+	
+	//context2d.restore();
+	//context2d.beginPath();
+	//context2d.rect(0, 0, 1400, 1400);
+
+
+	//context2d.closePath();
+	//context2d.fill();
 
     }
 

@@ -22,28 +22,27 @@
 
 package org.plazmaforge.framework.uwt.gxt.widget;
 
-import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
-
-import com.sencha.gxt.ui.client.event.ComponentEvent;
-import com.sencha.gxt.ui.client.event.DomEvent;
-import com.sencha.gxt.ui.client.event.Events;
-import com.sencha.gxt.ui.client.event.Listener;
-import com.sencha.gxt.widget.core.client.container.Container;
+import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.dom.client.Style.Position;
 
-public class XCanvas extends LayoutContainer {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public class XCanvas extends SimpleContainer {
 
     static final int height = 400;
     static final int width = 400;
 
-    
+    final Canvas canvas; 
+	    
     public XCanvas() {
 	super();
-	setLayout(new XGridLayout());
-	
-	
-	final Canvas canvas = Canvas.createIfSupported();
+
+	canvas = Canvas.createIfSupported();
 	if (canvas == null) {
 	    return;
 	}
@@ -56,31 +55,45 @@ public class XCanvas extends LayoutContainer {
 	// paint(new PaintEvent(canvas));
 	    
 	add(canvas);
-	addListener(Events.Render, new Listener<ComponentEvent>() {
-	        public void handleEvent(ComponentEvent be) {
-	            paint(new PaintEvent(canvas));
-	        }
-	});
+	
     }
     
-
+    @Override
+    protected void doLayout() {
+	if (widget != null && resize) {
+	    widget.getElement().getStyle().setPosition(Position.ABSOLUTE);
+	    resize = false;
+	}
+    }
+      
+    @Override
+    protected void onResize(int width, int height) {
+      super.onResize(width, height);
+      if (canvas == null) {
+	  return;
+      }
+      
+      paint(new PaintEvent(canvas));
+    }
+     
     protected void paint(PaintEvent e) {
 	// do nothing by default
     }
-
     
-    public static class PaintEvent extends DomEvent {
-
+    public static class PaintEvent {
+	
+	private Canvas canvas;
+	
 	public PaintEvent(Canvas canvas) {
-	    super(canvas);
+	    this.canvas = canvas;
 	}
 	
 	public Context2d getContext2d() {
-	    return getCanvas() == null ? null : getCanvas().getContext2d();
+	    return canvas == null ? null : canvas.getContext2d();
 	}
 	
 	public Canvas getCanvas() {
-	    return (Canvas) getSource();
+	    return canvas;
 	}
 	
 	
