@@ -39,8 +39,12 @@ public class SWTDesktopItemAdapter extends SWTWidgetAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	DesktopItem desktopItem = (DesktopItem) element;
 	XDesktop xDesktop = (XDesktop) getContent(parent.getDelegate());
-	XDesktopItem xDesktopItem = xDesktop.createItem("");
+	
+	String title = asSafeString(desktopItem.getTitle());
+	XDesktopItem xDesktopItem = xDesktop.createItem(title);
 	xDesktopItem.setNotifier(createNotifier(desktopItem));
+	
+	desktopItem.resetInitProperty(DesktopItem.PROPERTY_TITLE);
 	return xDesktopItem;
     }
     

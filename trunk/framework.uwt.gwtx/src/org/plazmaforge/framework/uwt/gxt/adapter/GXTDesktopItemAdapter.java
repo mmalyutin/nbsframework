@@ -29,6 +29,7 @@ import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktop;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 
+
 /**
  * 
  * @author ohapon
@@ -44,6 +45,8 @@ public class GXTDesktopItemAdapter extends GXTCompositeAdapter {
 	String title = asSafeString(desktopItem.getTitle());
    	XDesktopItem xDesktopItem = xDesktop.createItem(title);
    	xDesktopItem.setNotifier(createNotifier(desktopItem));
+   	
+   	desktopItem.resetInitProperty(DesktopItem.PROPERTY_TITLE);
    	return xDesktopItem; 
    }
 
