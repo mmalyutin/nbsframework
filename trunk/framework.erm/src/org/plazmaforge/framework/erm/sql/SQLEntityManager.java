@@ -8,6 +8,7 @@ import java.util.List;
 import org.plazmaforge.framework.erm.Configuration;
 import org.plazmaforge.framework.erm.EntityManager;
 import org.plazmaforge.framework.erm.ConfigurationRegister;
+import org.plazmaforge.framework.erm.ERMException;
 import org.plazmaforge.framework.erm.LoadMode;
 import org.plazmaforge.framework.core.criteria.Criteria;
 import org.plazmaforge.framework.sql.ConnectionHolder;
@@ -106,7 +107,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().loadById(getConnection(), entityClass, id);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity load error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity load error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
 
@@ -120,7 +122,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().load(getConnection(), entityClass, criteria);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity load error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity load error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
 
@@ -161,7 +164,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().findById(getConnection(), entityClass, id);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity find error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity find error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
 
@@ -175,7 +179,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().find(getConnection(), entityClass, criteria);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity find error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity find error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
 
@@ -214,7 +219,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().findAll(getConnection(), entityClass);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity select error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity select error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
 
@@ -228,7 +234,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().findAll(getConnection(), entityClass, criteria);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity select error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity select error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
     
@@ -243,7 +250,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().findAll(getConnection(), entityClass, criteria, loadMode);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity select error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity select error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
     
@@ -252,7 +260,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().findAll(getConnection(), entityClass, criteria, loadMode, hint);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity select error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity select error by class '" + entityClass + "'", ex);
+	    return null;
 	}
     }
 
@@ -291,7 +300,8 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    return getExecutor().insert(getConnection(), obj);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity insert error", ex);
+	    handleSQLException("Entity insert error", ex);
+	    return null;
 	}
     }
 
@@ -303,7 +313,7 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    getExecutor().update(getConnection(), obj);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity update error", ex);
+	    handleSQLException("Entity update error", ex);
 	}
     }
 
@@ -315,7 +325,7 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    getExecutor().save(getConnection(), obj);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity save error", ex);
+	    handleSQLException("Entity save error", ex);
 	}
     }
 
@@ -327,7 +337,7 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    getExecutor().delete(getConnection(), obj);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity delete error", ex);
+	    handleSQLException("Entity delete error", ex);
 	}
     }
 
@@ -340,7 +350,7 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    getExecutor().deleteById(getConnection(), entityClass, id);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entity delete error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entity delete error by class '" + entityClass + "'", ex);
 	}
     }
 
@@ -354,7 +364,7 @@ public class SQLEntityManager implements EntityManager {
 	try {
 	    getExecutor().deleteAllByIds(getConnection(), entityClass, ids);
 	} catch (SQLException ex) {
-	    throw new RuntimeException("Entities delete error by class '" + entityClass + "'", ex);
+	    handleSQLException("Entities delete error by class '" + entityClass + "'", ex);
 	}
     }
 
@@ -380,4 +390,12 @@ public class SQLEntityManager implements EntityManager {
 	return serializableValues;
     }
 
+    
+    protected void handleSQLException(String message, Throwable e) {
+	String m = e.getMessage();
+	if (m == null) {
+	    m = getClass().getName();
+	}
+	throw new ERMException(message + ": " + m);
+    }
 }
