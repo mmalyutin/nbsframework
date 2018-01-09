@@ -85,7 +85,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTToolSeparatorAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTTreeAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTVerticalLayoutAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTWindowAdapter;
-//import org.plazmaforge.framework.uwt.gxt.core.GXTPropertyProviderFactory;
+import org.plazmaforge.framework.uwt.gxt.core.GXTPropertyProviderFactory;
 
 public class UWT_GXT {
 
@@ -178,7 +178,7 @@ public class UWT_GXT {
 
 
 	
-	//getAttributes().put(ApplicationContext.CONFIG_PROPERTY_PROVIDER_FACTORY, new GXTPropertyProviderFactory());
+	getAttributes().put(ApplicationContext.CONFIG_PROPERTY_PROVIDER_FACTORY, new GXTPropertyProviderFactory());
 	
 	UWT.setUIType("GXT");
     }
