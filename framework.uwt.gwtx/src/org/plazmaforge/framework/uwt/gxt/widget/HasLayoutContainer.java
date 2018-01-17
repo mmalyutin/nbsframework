@@ -26,6 +26,6 @@ package org.plazmaforge.framework.uwt.gxt.widget;
  * @author ohapon
  *
  */
-public interface HasLayout {
+public interface HasLayoutContainer {
 
 }

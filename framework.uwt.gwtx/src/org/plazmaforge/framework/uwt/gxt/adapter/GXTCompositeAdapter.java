@@ -25,7 +25,6 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIAdapter;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
@@ -33,6 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.sencha.gxt.widget.core.client.container.HasLayout;
 
 /**
  * 
@@ -152,4 +152,18 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 //	container.setStyleAttribute("margin" + name, "" + value + "px");
 //    }
 
+    @Override
+    public Object invoke(UIObject element, String methodName, Object[] args) {
+	com.google.gwt.user.client.ui.Widget composite = getContent(element.getDelegate());
+	if (composite == null) {
+	    return null;
+	}
+
+	if (Composite.METHOD_LAYOUT.equals(methodName)) {
+	    if (composite instanceof HasLayout)
+		((HasLayout) composite).forceLayout();
+	    return null;
+	}
+	return super.invoke(element, methodName, args);
+    }
 }

@@ -24,7 +24,9 @@ package org.plazmaforge.framework.uwt.gxt.util;
 import org.plazmaforge.framework.uwt.gxt.widget.XCoolBar;
 import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
+import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -73,14 +75,48 @@ public class GXTUtils {
      */
     public static Size computePreferredSize(Widget widget) {
 	
+	// Style size
 	int styleWidth = GXTUtils.getStyleWidth(widget); 	
 	int styleHeight = GXTUtils.getStyleHeight(widget);
 	
+	// Offset size
 	//int offsetWidth = GXTUtils.getOffsetWidth(widget);
 	//int offsetHeight = GXTUtils.getOffsetHeight(widget);	
 	
+	// Compute size
+	int computeWidth = -1;
+	int computeHeight = -1;	
+	
+	// Set size. Style size is priority
 	int width = styleWidth;
 	int height = styleHeight;
+	
+	//if (width == -1) {
+	//    width = GXTUtils.computeMinWidth(widget);
+	//}
+	    
+	//if (height == -1) {
+	//    height = GXTUtils.computeMinHeight(widget);
+	//}
+	
+	// If style width/height is not setting then compute size
+	Size computeSize = null;
+	if (width == -1 || height == -1) {
+	    
+	    // Compute size of widget
+	    computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
+	    if (computeSize != null) {
+		computeWidth = computeSize.getWidth();
+		computeHeight = computeSize.getHeight();
+		if (width == -1) {
+		    width = computeWidth;
+		}
+		if (height == -1) {
+		    height = computeHeight;
+		}
+	    }
+
+	}
 	
 	if (width == -1) {
 	    width = GXTUtils.computeMinWidth(widget);
@@ -90,15 +126,6 @@ public class GXTUtils {
 	    height = GXTUtils.computeMinHeight(widget);
 	}
 	
-	if (width == -1 || height == -1) {
-	    Size computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
-	    if (width == -1) {
-		width = computeSize.getWidth();
-	    }
-	    if (height == -1) {
-		height = computeSize.getHeight();
-	    }
-	}
 	return new Size(width, height);
     }
     
@@ -122,11 +149,16 @@ public class GXTUtils {
 	    size.setWidth(size.getWidth() + 1);
 	    return size;
 	}
+	
 	if (widget instanceof XLayoutContainer) {
 	    XLayoutContainer xLayoutContainer = (XLayoutContainer) widget;
 	    if (xLayoutContainer.getContainer() instanceof XGridLayoutContainer) {
 		return ((XGridLayoutContainer) xLayoutContainer.getContainer()).computeSize(hWidth, hHeight, false);
 	    }
+	}
+	
+	if (widget instanceof XTabPanel) {
+	    return ((XTabPanel) widget).computeSize(hWidth, hHeight, false);
 	}
 	
 	return getOffsetSize(widget);
@@ -177,10 +209,10 @@ public class GXTUtils {
 	if (widget instanceof ToolBar) {
 	    return widget.getOffsetWidth() + 10;
 	}
-	if (widget instanceof TabPanel) {
-	    TabPanel tabPanel = (TabPanel) widget;
-	    return tabPanel.getTabWidth();
-	}
+	//if (widget instanceof TabPanel) {
+	//    TabPanel tabPanel = (TabPanel) widget;
+	//    return tabPanel.getTabWidth();
+	//}
 	return -1;
     }
 
@@ -193,10 +225,10 @@ public class GXTUtils {
 	if (widget == null) {
 	    return -1;
 	}
-	if (widget instanceof TabPanel) {
+	//if (widget instanceof TabPanel) {
 	    // TabPanel tabPanel = (TabPanel) widget;
-	    return widget.getOffsetHeight() + 10;
-	}
+	//    return widget.getOffsetHeight() + 10; // TODO:  + 200
+	//}
 	return -1;
     }
 }

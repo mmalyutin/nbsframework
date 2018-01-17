@@ -21,8 +21,11 @@
  */
 package org.plazmaforge.framework.uwt.gxt.widget;
 
+import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.widget.core.client.TabItemConfig;
 import com.sencha.gxt.widget.core.client.TabPanel;
 
@@ -90,5 +93,33 @@ public class XTabPanel extends TabPanel {
 	    }
 	}
 	return null;
+    }
+    
+    protected Size getOffsetSize() {
+	return GXTUtils.getOffsetSize(this);
+    }
+    
+    public Size computeSize(int hWidth, int hHeight, boolean layout) {
+	int count = getWidgetCount();
+	if (count == 0) {
+	    return getOffsetSize();
+	}
+	Widget widget = null;
+	Size ws = null;
+	int mWidth = 0;
+	int mHeight = 0;
+	for (int i = 0; i < count; i++) {
+	    widget = getWidget(i);
+	    ws = GXTUtils.computeSize(hWidth, hHeight, widget);
+	    if  (ws != null) {
+		if (ws.getWidth() > mWidth) {
+		    mWidth = ws.getWidth();
+		}
+		if (ws.getHeight() > mHeight) {
+		    mHeight = ws.getHeight();
+		}
+	    }
+	}
+	return new Size(mWidth, mHeight);
     }
 }

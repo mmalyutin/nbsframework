@@ -44,7 +44,7 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
 	XTabPanel xTabPanel = new XTabPanel();
 	xTabPanel.setTabScroll(true);
 	xTabPanel.setAnimScroll(true);
-	xTabPanel.setWidth(DEFAULT_TAB_PANEL_WIDTH);
+	//xTabPanel.setWidth(DEFAULT_TAB_PANEL_WIDTH);
 	
 	addChild(getContent(parent.getDelegate()), xTabPanel, element); // Add to parent. Use super method
 	return xTabPanel;
