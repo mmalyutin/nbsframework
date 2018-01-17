@@ -32,7 +32,7 @@ import com.sencha.gxt.widget.core.client.Window;
  * @author ohapon
  *
  */
-public class XWindow extends Window implements HasLayout {
+public class XWindow extends Window implements HasLayoutContainer {
 
     private XLayoutContainer content;
     

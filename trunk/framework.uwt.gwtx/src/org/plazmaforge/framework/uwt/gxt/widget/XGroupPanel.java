@@ -34,7 +34,7 @@ import com.sencha.gxt.widget.core.client.form.FieldSet;
  * @author ohapon
  *
  */
-public class XGroupPanel extends FieldSet /*XContentPanel*/ implements HasLayout {
+public class XGroupPanel extends FieldSet /*XContentPanel*/ implements HasLayoutContainer {
 
     private XLayoutContainer content;
 

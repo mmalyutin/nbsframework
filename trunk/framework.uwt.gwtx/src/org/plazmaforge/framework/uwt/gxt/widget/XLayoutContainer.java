@@ -111,10 +111,6 @@ public class XLayoutContainer extends SimpleContainer  {
 	setWidget((Widget) container);
     }
     
-    public void relayout() {
-	doLayout();
-    }
-    
     @Override
     public void add(Widget child) {
 	container.add(child);

@@ -33,7 +33,7 @@ import com.sencha.gxt.widget.core.client.ContentPanel;
  * @author ohapon
  *
  */
-public class XContentPanel extends ContentPanel implements HasLayout {
+public class XContentPanel extends ContentPanel implements HasLayoutContainer {
 
     private XLayoutContainer content;
 

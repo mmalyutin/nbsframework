@@ -827,14 +827,48 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	
 	boolean debug = isDebug();
 	
+	// Style size
 	int styleWidth = GXTUtils.getStyleWidth(widget); 	
 	int styleHeight = GXTUtils.getStyleHeight(widget);
 	
+	// Offset size
 	int offsetWidth = GXTUtils.getOffsetWidth(widget);
 	int offsetHeight = GXTUtils.getOffsetHeight(widget);	
+
+	// Compute size
+	int computeWidth = -1;
+	int computeHeight = -1;	
 	
+	// Set size. Style size is priority
 	int width = styleWidth;
 	int height = styleHeight;
+	
+	//if (width == -1) {
+	//    width = GXTUtils.computeMinWidth(widget);
+	//}
+	    
+	//if (height == -1) {
+	//    height = GXTUtils.computeMinHeight(widget);
+	//}
+	
+	// If style width/height is not setting then compute size
+	Size computeSize = null;
+	if (width == -1 || height == -1) {
+	    
+	    // Compute size of widget
+	    computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
+	    if (computeSize != null) {
+		computeWidth = computeSize.getWidth();
+		computeHeight = computeSize.getHeight();
+		if (width == -1) {
+		    width = computeWidth;
+		}
+		if (height == -1) {
+		    height = computeHeight;
+		}
+	    }
+
+	}
 	
 	if (width == -1) {
 	    width = GXTUtils.computeMinWidth(widget);
@@ -844,21 +878,12 @@ public class XGridLayoutContainer extends InsertResizeContainer {
 	    height = GXTUtils.computeMinHeight(widget);
 	}
 	
-	if (width == -1 || height == -1) {
-	    Size computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
-	    if (width == -1) {
-		width = computeSize.getWidth();
-	    }
-	    if (height == -1) {
-		height = computeSize.getHeight();
-	    }
-	}
-	
 	if (debug) {
 	    boolean warningMarker = styleWidth == -1 && styleHeight == -1 && offsetWidth == 0 && offsetHeight == 0;
 	    String widgetName = widget.getClass().getSimpleName() + (warningMarker ? " (!)" : "");
-	    logDebug("StyleSize : [" + styleWidth + ", " + styleHeight + "], " + widgetName);
-	    logDebug("OffsetSize: [" + offsetWidth + ", " + offsetHeight + "], " + widgetName);
+	    logDebug("StyleSize :  [" + styleWidth + ", " + styleHeight + "], " + widgetName);
+	    logDebug("OffsetSize:  [" + offsetWidth + ", " + offsetHeight + "], " + widgetName);
+	    logDebug("ComputeSize: [" + (computeSize == null ? "none" : ("" + computeWidth + ", " + computeHeight)) + "], " + widgetName);
 	}
 	
 	return new Size(width, height);
