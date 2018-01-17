@@ -27,11 +27,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 
@@ -41,7 +43,7 @@ import com.sencha.gxt.widget.core.client.container.SimpleContainer;
  * @author ohapon
  *
  */
-public class XLayoutContainer extends SimpleContainer  {
+public class XLayoutContainer extends SimpleContainer  implements HasComputeSize {
     
     private String id;
     
@@ -190,5 +192,15 @@ public class XLayoutContainer extends SimpleContainer  {
         }
     }
 
+    protected Size getOffsetSize() {
+	return GXTUtils.getOffsetSize(this);
+    }
+    
+    public Size computeSize(int hWidth, int hHeight, boolean layout) {
+	if (container == null || !(container instanceof XGridLayoutContainer)) {
+	    return getOffsetSize();
+	}
+	return ((XGridLayoutContainer) container).computeSize(hWidth, hHeight, false);
+    }
     
 }
