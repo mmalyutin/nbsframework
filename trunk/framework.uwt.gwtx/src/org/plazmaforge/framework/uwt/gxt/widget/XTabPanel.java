@@ -34,7 +34,7 @@ import com.sencha.gxt.widget.core.client.TabPanel;
  * @author ohapon
  *
  */
-public class XTabPanel extends TabPanel {
+public class XTabPanel extends TabPanel implements HasComputeSize {
 
     public XTabPanel() {
 	super();

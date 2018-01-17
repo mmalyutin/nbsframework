@@ -21,10 +21,8 @@
  */
 package org.plazmaforge.framework.uwt.gxt.util;
 
+import org.plazmaforge.framework.uwt.gxt.widget.HasComputeSize;
 import org.plazmaforge.framework.uwt.gxt.widget.XCoolBar;
-import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
-import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
-import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
@@ -34,7 +32,6 @@ import com.sencha.gxt.core.client.Style;
 import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.core.client.util.TextMetrics;
 import com.sencha.gxt.core.client.util.Util;
-import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
@@ -150,16 +147,20 @@ public class GXTUtils {
 	    return size;
 	}
 	
-	if (widget instanceof XLayoutContainer) {
-	    XLayoutContainer xLayoutContainer = (XLayoutContainer) widget;
-	    if (xLayoutContainer.getContainer() instanceof XGridLayoutContainer) {
-		return ((XGridLayoutContainer) xLayoutContainer.getContainer()).computeSize(hWidth, hHeight, false);
-	    }
+	if (widget instanceof HasComputeSize) {
+	    return ((HasComputeSize) widget).computeSize(hWidth, hHeight, false);
 	}
 	
-	if (widget instanceof XTabPanel) {
-	    return ((XTabPanel) widget).computeSize(hWidth, hHeight, false);
-	}
+//	if (widget instanceof XLayoutContainer) {
+//	    XLayoutContainer xLayoutContainer = (XLayoutContainer) widget;
+//	    if (xLayoutContainer.getContainer() instanceof XGridLayoutContainer) {
+//		return ((XGridLayoutContainer) xLayoutContainer.getContainer()).computeSize(hWidth, hHeight, false);
+//	    }
+//	}
+//	
+//	if (widget instanceof XTabPanel) {
+//	    return ((XTabPanel) widget).computeSize(hWidth, hHeight, false);
+//	}
 	
 	return getOffsetSize(widget);
     }
