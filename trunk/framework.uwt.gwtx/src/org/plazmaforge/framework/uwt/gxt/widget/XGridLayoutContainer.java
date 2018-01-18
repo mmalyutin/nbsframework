@@ -45,7 +45,7 @@ import com.sencha.gxt.widget.core.client.container.InsertResizeContainer;
  * @author ohapon
  *
  */
-public class XGridLayoutContainer extends InsertResizeContainer {
+public class XGridLayoutContainer extends InsertResizeContainer implements HasComputeSize {
     
     private static Logger logger = Logger.getLogger(XGridLayoutContainer.class.getName());
 
@@ -768,12 +768,19 @@ public class XGridLayoutContainer extends InsertResizeContainer {
  	    computeHeight = childrenHeight + marginTop + marginBottom;
  	}
  	
+ 	//GWT.log("PACK-(: hWidth=" + hWidth + ", hHeight=" + hHeight);
+ 	//GWT.log("PACK-): computeWidth=" + computeWidth + ", computeHeight=" + computeHeight);
+ 	
+ 	
+ 	//TODO: Analyze it
  	if (hWidth > computeWidth) {
  	   computeWidth = hWidth;
  	}
  	if (hHeight > computeHeight) {
   	   computeHeight = hHeight;
   	}
+ 	
+ 	
  	
  	return new Size(computeWidth, computeHeight);
      }    

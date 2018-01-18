@@ -197,10 +197,10 @@ public class XLayoutContainer extends SimpleContainer  implements HasComputeSize
     }
     
     public Size computeSize(int hWidth, int hHeight, boolean layout) {
-	if (container == null || !(container instanceof XGridLayoutContainer)) {
+	if (container == null || !(container instanceof HasComputeSize)) {
 	    return getOffsetSize();
 	}
-	return ((XGridLayoutContainer) container).computeSize(hWidth, hHeight, false);
+	return ((HasComputeSize) container).computeSize(hWidth, hHeight, false);
     }
     
 }
