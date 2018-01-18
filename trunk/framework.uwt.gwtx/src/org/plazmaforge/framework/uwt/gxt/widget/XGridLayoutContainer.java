@@ -306,6 +306,9 @@ public class XGridLayoutContainer extends InsertResizeContainer implements HasCo
 
  	    }*/
  	    
+ 	    int pWidth = layoutData.getPreferredWidth();
+ 	    int pHeight = layoutData.getPreferredHeight();
+ 	    
  	    // Initialize preferred size
   	    // 1. by layout data size 
 	    if (layoutData.getPreferredWidth() == -1) {
@@ -407,6 +410,13 @@ public class XGridLayoutContainer extends InsertResizeContainer implements HasCo
  	    cell.horizontalFlex = layoutData.isHorizontalFlex();
  	    cell.verticalFlex = layoutData.isVerticalFlex();
  	    cell.preferredSize = new Size(layoutData.getPreferredWidth(), layoutData.getPreferredHeight());
+ 	    
+ 	    
+ 	    //TODO: RESTORE LayoutData if compute size only
+ 	    if (!layout) {
+ 		layoutData.setPreferredWidth(pWidth);
+ 		layoutData.setPreferredHeight(pHeight);
+ 	    }
  	    
  	    cells[i] = cell; 
  	    
