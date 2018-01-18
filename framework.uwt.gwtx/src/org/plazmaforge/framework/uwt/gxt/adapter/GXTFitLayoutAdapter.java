@@ -29,7 +29,6 @@ import org.plazmaforge.framework.uwt.gxt.widget.XSimpleContainer;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 
 /**
  * 
@@ -57,7 +56,6 @@ public class GXTFitLayoutAdapter extends GXTLayoutAdapter {
     @Override
     public HasWidgets createContainer(XLayout xLayout) {
 	return new XSimpleContainer();
-	//return new SimpleContainer();
     }
       
 }
