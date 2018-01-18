@@ -200,7 +200,7 @@ public class XLayoutContainer extends SimpleContainer  implements HasComputeSize
 	if (container == null || !(container instanceof HasComputeSize)) {
 	    return getOffsetSize();
 	}
-	return ((HasComputeSize) container).computeSize(hWidth, hHeight, false);
+	return ((HasComputeSize) container).computeSize(hWidth, hHeight, layout);
     }
     
 }
