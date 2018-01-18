@@ -22,9 +22,12 @@
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.widget.core.client.Window;
 
 /**
@@ -59,5 +62,50 @@ public class XWindow extends Window implements HasLayoutContainer {
     @Override
     public boolean remove(Widget child) {
 	return content.remove(child);
-    }      
+    }   
+    
+    public void pack() {
+	//GWT.log("PACK-1");
+	if (content == null) {
+	    return;
+	}
+	Size frameSize = getFrameSize();
+	
+	// Compute size of content
+	Size computeSize = GXTUtils.computeSize(-1, -1, (Widget) content.getContainer());
+	//Size computeSize = GXTUtils.computePreferredSize(content);
+	if (computeSize == null) {
+	    //GWT.log("PACK-2: computeSize == null");
+	    return;
+	}
+	
+	
+	// Get frame size
+	int frameWidth = frameSize.getWidth();
+	int frameHeight = frameSize.getHeight();
+	
+	// Get compute size
+	int computeWidth = computeSize.getWidth()  + frameWidth;
+	int computeHeight = computeSize.getHeight()  + frameHeight + 20;
+
+	//GWT.log("PACK-2: frameSize  [" + frameWidth + ", " + frameHeight + "]");
+	//GWT.log("PACK-2: computeSize[" + computeWidth + ", " + computeHeight + "]");
+	
+	int width = 0;
+	int height = 0;
+	//if (computeWidth > 0 && frameWidth != computeWidth) {
+	    width = computeWidth; 
+	//}
+	//if  ((computeHeight > 0 && frameHeight != computeHeight)) {
+	    height = computeHeight; 
+	//}
+	
+	if (width > 0 && height > 0) {
+	    GWT.log("PACK-3: pizelSize[" + width + ", " + height + "]");
+	    setPixelSize(width, height);
+	    //getContainerTarget().setWidth(width);
+	    //getContainerTarget().setHeight(height);
+	    //forceLayout();
+	}
+    }
 }

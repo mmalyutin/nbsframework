@@ -137,7 +137,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     */
     
     
-    protected void updateDecoration(Window window,com.sencha.gxt.widget.core.client.Window xWindow) {
+    protected void updateDecoration(Window window, XWindow xWindow) {
 	boolean closable = window.isUndecorated() ? false : window.isClosable();  
 	boolean minimizable = window.isUndecorated() ? false : window.isMinimizable();
 	boolean maximizable = window.isUndecorated() ? false : window.isMaximizable();
@@ -154,7 +154,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return;
 	}
-	com.sencha.gxt.widget.core.client.Window xWindow = (com.sencha.gxt.widget.core.client.Window) delegate;
+	XWindow xWindow = (XWindow) delegate;
 	if (Window.PROPERTY_TITLE.equals(name)) {
 	    xWindow.setHeading(asSafeString(value));
 	    return;
@@ -190,7 +190,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	    return null;
 	}
 	Window window = (Window) element;
-	com.sencha.gxt.widget.core.client.Window xWindow = (com.sencha.gxt.widget.core.client.Window) delegate;
+	XWindow xWindow = (XWindow) delegate;
 	if (Window.METHOD_OPEN.equals(methodName)) {
 	    doOpen(window, xWindow);
 	} else if (Window.METHOD_CLOSE.equals(methodName)) {
@@ -198,13 +198,13 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	} else if (Window.METHOD_LAYOUT.equals(methodName)) {
 	    
 	    //TODO: DISABLE:MIGRATION
-	    //doLayout(xWindow);
+	    doLayout(xWindow);
 	    return null;
 	    
 	} else if (Window.METHOD_PACK.equals(methodName) ) {
 	    
 	    //TODO: DISABLE:MIGRATION
-	    //doPack(xWindow);
+	    doPack(xWindow);
 	    return null;
 	    
 	} else if (Window.METHOD_CENTER.equals(methodName) ) {
@@ -230,62 +230,65 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
 
     //TODO: DISABLE:MIGRATION
-    /*
-    protected void doLayout(com.sencha.gxt.widget.core.client.Window xWindow) {
-	xWindow.layout(true);
+
+    protected void doLayout(XWindow xWindow) {
+	xWindow.forceLayout();
     }
+
 
     
-    protected void doPack(com.sencha.gxt.widget.core.client.Window xWindow) {
-	LayoutContainer container = xWindow;
-	Layout layout = container.getLayout();
-	if (layout == null) {
-	    return;
-	}
-	if (!(layout instanceof XLayout)) {
-	    
-	    // TODO: Must use XLayout:computePreferredSize()
-	    if (!(layout instanceof FitLayout)) {
-		return;
-	    }
-	    com.google.gwt.user.client.ui.Widget parent = container.getItemCount() == 0 ? null : container.getWidget(0);
-	    if (parent == null) {
-		return;
-	    }
-	    if (!(parent instanceof LayoutContainer)) {
-		return;
-	    }
-	    container = (LayoutContainer) parent;
-	    layout = container.getLayout();
-	    if (!(layout instanceof XLayout)) {
-		return;
-	    }
-	}
+    protected void doPack(XWindow xWindow) {
+	xWindow.pack();
 	
-	Size size = ((XLayout) layout).computePreferredSize(container);
-	int fixDeltaWidth = 15;  // TODO: Window trim width
-	int fixDeltaHeight = 40; // TODO: Window trim height
-	xWindow.setSize(size.width + fixDeltaWidth, size.height + fixDeltaHeight);
+//	LayoutContainer container = xWindow;
+//	Layout layout = container.getLayout();
+//	if (layout == null) {
+//	    return;
+//	}
+//	if (!(layout instanceof XLayout)) {
+//	    
+//	    // TODO: Must use XLayout:computePreferredSize()
+//	    if (!(layout instanceof FitLayout)) {
+//		return;
+//	    }
+//	    com.google.gwt.user.client.ui.Widget parent = container.getItemCount() == 0 ? null : container.getWidget(0);
+//	    if (parent == null) {
+//		return;
+//	    }
+//	    if (!(parent instanceof LayoutContainer)) {
+//		return;
+//	    }
+//	    container = (LayoutContainer) parent;
+//	    layout = container.getLayout();
+//	    if (!(layout instanceof XLayout)) {
+//		return;
+//	    }
+//	}
+//	
+//	Size size = ((XLayout) layout).computePreferredSize(container);
+//	int fixDeltaWidth = 15;  // TODO: Window trim width
+//	int fixDeltaHeight = 40; // TODO: Window trim height
+//	xWindow.setSize(size.width + fixDeltaWidth, size.height + fixDeltaHeight);
     }
-    */
 
-    protected void doOpen(Window window,com.sencha.gxt.widget.core.client.Window xWindow) {
+
+    protected void doOpen(Window window, XWindow xWindow) {
 	xWindow.setVisible(true);
 	
 	//TODO: DISABLE:MIGRATION
-	//doLayout(xWindow);
+	doLayout(xWindow);
 	
 	if (window.isPack()) {
 	    
 	    //TODO: DISABLE:MIGRATION
-	    //doPack(xWindow);
+	    doPack(xWindow);
 	}
 	if (window.isCenter()) {
 	    xWindow.center();
 	}
     }
     
-    protected void doClose(Window window,com.sencha.gxt.widget.core.client.Window xWindow) {
+    protected void doClose(Window window, XWindow xWindow) {
 	setForceClose(window, true); // SET FORCE CLOSE
 	xWindow.setVisible(false);
 	if (window.isDisposeWhenClose()) {

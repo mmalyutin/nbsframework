@@ -24,7 +24,6 @@ package org.plazmaforge.framework.uwt.gxt.util;
 import org.plazmaforge.framework.uwt.gxt.widget.HasComputeSize;
 import org.plazmaforge.framework.uwt.gxt.widget.XCoolBar;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -126,6 +125,13 @@ public class GXTUtils {
 	return new Size(width, height);
     }
     
+//    public static Size computeSize2(int hWidth, int hHeight, Widget widget) {
+//	Size size = computeSize(hWidth, hHeight, widget);
+//	GWT.log("PACK-0: widget=" + widget.getClass().getSimpleName() + ", size=" + size);
+//	return size;
+//
+//    }
+    
     public static Size computeSize(int hWidth, int hHeight, Widget widget) {
 	
 	if (widget == null) {
@@ -150,17 +156,6 @@ public class GXTUtils {
 	if (widget instanceof HasComputeSize) {
 	    return ((HasComputeSize) widget).computeSize(hWidth, hHeight, false);
 	}
-	
-//	if (widget instanceof XLayoutContainer) {
-//	    XLayoutContainer xLayoutContainer = (XLayoutContainer) widget;
-//	    if (xLayoutContainer.getContainer() instanceof XGridLayoutContainer) {
-//		return ((XGridLayoutContainer) xLayoutContainer.getContainer()).computeSize(hWidth, hHeight, false);
-//	    }
-//	}
-//	
-//	if (widget instanceof XTabPanel) {
-//	    return ((XTabPanel) widget).computeSize(hWidth, hHeight, false);
-//	}
 	
 	return getOffsetSize(widget);
     }
