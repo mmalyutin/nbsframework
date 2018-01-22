@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.HasEnabled;
 
 
 /**
@@ -50,57 +50,77 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    return;
 	}
 	Object xElement = element.getDelegate();
-	if (!(xElement instanceof com.sencha.gxt.widget.core.client.Component)) {
-	    GWT.log("UWT: setProperty '"+  name + "' ignore. Element is not GXT xWidget. Class=" + xElement.getClass());
+	if (!(xElement instanceof com.google.gwt.user.client.ui.Widget)) {
+	    logUnsupportSetProperty(xElement, name);
 	    return;
-	    
-	}
-	com.sencha.gxt.widget.core.client.Component xControl = (com.sencha.gxt.widget.core.client.Component) asComponent(element.getDelegate());
-	if (xControl == null) {
-	    return;
-	}
+	}	
+	com.google.gwt.user.client.ui.Widget xWidget = asWidget(xElement);
+	
+	// GWT-All
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    xControl.setVisible(asBoolean(value));
+	    xWidget.setVisible(asBoolean(value));
+	    return;
 	} else if (Control.PROPERTY_ENABLED.equals(name)) {
-	    xControl.setEnabled(asBoolean(value));
+	    if (xWidget instanceof  HasEnabled) {
+		((HasEnabled) xWidget).setEnabled(asBoolean(value));
+	    } else {
+		logUnsupportSetProperty(xWidget, name);
+	    }
+	    return;
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
 	    UIObject layoutData = (UIObject) value;
 	    if (layoutData == null) {
-		xControl.setLayoutData(null);
+		xWidget.setLayoutData(null);
 		return;
 	    }
 	    layoutData.activateUI();
-	    xControl.setLayoutData(layoutData.getDelegate());
+	    xWidget.setLayoutData(layoutData.getDelegate());
 	    return;
 	} else if (Control.PROPERTY_WIDTH.equals(name)) {
-	    setWidth(xControl, asInteger(value));
+	    setWidth(xWidget, asInteger(value));
 	    return;
 	} else if (Control.PROPERTY_HEIGHT.equals(name)) {
-	    setHeight(xControl, asInteger(value));
+	    setHeight(xWidget, asInteger(value));
 	    return;
 	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {
-	    setColorAttribute(xControl, "background", asColor(value));
+	    setColorAttribute(xWidget, "background", asColor(value));
 	    return;
 	} else if (Composite.PROPERTY_FOREGROUND.equals(name)) {
-	    setColorAttribute(xControl, "color", asColor(value));
+	    setColorAttribute(xWidget, "color", asColor(value));
 	    return;	    
 	} else if (Composite.PROPERTY_FONT.equals(name)) {
-	    setFontAttribute(xControl, "font", asFont(value));
+	    setFontAttribute(xWidget, "font", asFont(value));
 	    return;	    
-	} else if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
-	    xControl.setToolTip(asSafeString(value));
-	    return;
-	}  else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
-	    Menu menu = (Menu) value;
-	    menu.activateUI();
-	    xControl.setContextMenu((com.sencha.gxt.widget.core.client.menu.Menu) menu.getDelegate());
-	    return;
+	}
+	
+	if (xWidget instanceof com.sencha.gxt.widget.core.client.Component) {
+
+	    // GXT-Component
+	    com.sencha.gxt.widget.core.client.Component xComponent = asComponent(xWidget);
+	    if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
+		xComponent.setToolTip(asSafeString(value));
+		return;
+	    } else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
+		Menu menu = (Menu) value;
+		menu.activateUI();
+		xComponent.setContextMenu((com.sencha.gxt.widget.core.client.menu.Menu) menu.getDelegate());
+		return;
+	    }
+
+	} else {
+	    
+	    // GWT-Widget
+	    if (Control.PROPERTY_TOOL_TIP.equals(name) || Control.PROPERTY_CONTEXT_MENU.equals(name)) {
+		logUnsupportSetProperty(xWidget, name);
+		return;
+	    }
+
 	}
 	
 	super.setProperty(element, name, value);
     }
 
-    protected void setColorAttribute(com.sencha.gxt.widget.core.client.Component xControl, String attribute, Color color) {
+    protected void setColorAttribute(com.google.gwt.user.client.ui.Widget xControl, String attribute, Color color) {
 	String value = getColorString(color);
 	String style = attribute + ": " + value;
 	if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
@@ -115,10 +135,10 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	if (!attribute.equalsIgnoreCase("color")) {
 	    attribute = attribute + "Color";
 	}
-	xControl.getElement().getStyle().setProperty(attribute, value);
+	getStyle(xControl).setProperty(attribute, value);
     }
     
-    protected void setFontAttribute(com.sencha.gxt.widget.core.client.Component xControl, String attribute, Font font) {
+    protected void setFontAttribute(com.google.gwt.user.client.ui.Widget xControl, String attribute, Font font) {
 	String value = getFontString(font);
 	String style = attribute + ": " + value;
 	if (xControl instanceof com.sencha.gxt.widget.core.client.ContentPanel) {
@@ -130,7 +150,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 
 	    return;
 	}
-	xControl.getElement().getStyle().setProperty(attribute, value);
+	getStyle(xControl).setProperty(attribute, value);
     }
     
     @Override
@@ -139,20 +159,22 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    return null;
 	}
 	Object xElement = element.getDelegate();
-	if (!(xElement instanceof com.sencha.gxt.widget.core.client.Component)) {
-	    GWT.log("UWT: getProperty '"+  name + "' ignore. Element is not GXT xWidget. Class=" + xElement.getClass());
+	if (!(xElement instanceof com.google.gwt.user.client.ui.Widget)) {
+	    logUnsupportGetProperty(xElement, name);
 	    return null;
-	}
+	}	
+	com.google.gwt.user.client.ui.Widget xWidget = asWidget(xElement);
 	
-	com.sencha.gxt.widget.core.client.Component xControl = (com.sencha.gxt.widget.core.client.Component) asComponent(element.getDelegate());
-	if (xControl == null) {
-	    return null;
-	}
-
+	// GWT-All
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    return xControl.isVisible();
+	    return xWidget.isVisible();
 	} else if (Control.PROPERTY_ENABLED.equals(name)) {
-	    return xControl.isEnabled();
+	    if (xWidget instanceof  HasEnabled) {
+		return ((HasEnabled) xWidget).isEnabled();
+	    } else {
+		logUnsupportGetProperty(xWidget, name);
+		return null;
+	    }
 	}
 	
 	return super.getProperty(element, name);
@@ -162,18 +184,33 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	return value == null ? -1: value;
     }
 
-    protected void setWidth(com.sencha.gxt.widget.core.client.Component xControl, Integer width) {
-	xControl.setWidth(toDimension(width));
+    protected void setWidth(com.google.gwt.user.client.ui.Widget xControl, Integer width) {
+	if (xControl instanceof com.sencha.gxt.widget.core.client.Component) {
+	    asComponent(xControl).setWidth(toDimension(width));
+	} else {
+	    //TODO
+	}
     }
   
-    protected void setHeight(com.sencha.gxt.widget.core.client.Component xControl, Integer height) {
-	xControl.setHeight(toDimension(height));
+    protected void setHeight(com.google.gwt.user.client.ui.Widget xControl, Integer height) {
+	if (xControl instanceof com.sencha.gxt.widget.core.client.Component) {
+	    asComponent(xControl).setHeight(toDimension(height));
+	} else {
+	    //TODO
+	}
     }
     
     protected void setSize(com.sencha.gxt.widget.core.client.Component xControl, Integer width, Integer height) {
 	xControl.setPixelSize(toDimension(width), toDimension(height));
     }
     
+    
+    protected com.google.gwt.dom.client.Style getStyle(com.google.gwt.user.client.ui.Widget xWidget) {
+	if (xWidget == null) {
+	    return null;
+	}
+	return xWidget.getElement().getStyle();
+    }
     
     
     

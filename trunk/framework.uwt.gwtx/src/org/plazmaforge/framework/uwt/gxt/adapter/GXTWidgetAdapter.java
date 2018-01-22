@@ -80,6 +80,18 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
     }     
     
+    protected void logUnsupportSetProperty(Object widget, String property) {
+	logUnsupportProperty("setProperty", widget, property);
+    }
+
+    protected void logUnsupportGetProperty(Object widget, String property) {
+	logUnsupportProperty("getProperty", widget, property);
+    }
+          
+    protected void logUnsupportProperty(String title, Object widget, String property) {
+  	GWT.log("UWT: " + title + ": Property '"+  property + "' is not supported. Class=" + widget.getClass().getName());
+    }
+    
     /**
      * Add widget to parent
      * @param parent
@@ -236,15 +248,6 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return (com.sencha.gxt.widget.core.client.container.Container) delegate;
     }
     
-    /**
-     * Return GXT Layout Container
-     * @param delegate
-     * @return
-     */
-//    protected com.sencha.gxt.widget.core.client.container.Container getLayoutContainer(Object delegate) {
-//	return (com.sencha.gxt.widget.core.client.container.Container) delegate;
-//    }
-    
 
     /**
      * Return general content of the delegate
@@ -255,7 +258,6 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	if (delegate instanceof XTabItem) {
 	    return  ((XTabItem) delegate).getWidget();
 	}
-	//DISABLE:MIGRATION
 	if (delegate instanceof XDesktopItem) {
 	    return ((XDesktopItem) delegate).getContent();
 	}
@@ -267,22 +269,40 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	com.sencha.gxt.widget.core.client.Component xWidget = (com.sencha.gxt.widget.core.client.Component) asComponent(element.getDelegate());
-	if (xWidget == null) {
+	if (element == null) {
+	    return;
+	}	
+	Object xElement = element.getDelegate();
+	if (!(xElement instanceof com.google.gwt.user.client.ui.Widget)) {
+	    logUnsupportSetProperty(xElement, name);
 	    return;
 	}
-	if (Control.PROPERTY_DATA.equals(name)) {
-	    // WARNING! BoxComponent has not method setData() without parameters
-	    // We use key 'uwt:data'
-	    xWidget.setData("uwt:data", value);
-	    return;
-	} else if (startsWith(name, Control.PROPERTY_DATA_PREFIX)) {
-	    // WARNING! We use '@' to separate 'data' and 'key' 
-	    String key = name.substring(Control.PROPERTY_DATA_PREFIX.length());
-	    xWidget.setData(key, value);
-	    return;	    
-	}
+	com.google.gwt.user.client.ui.Widget xWidget = asWidget(xElement);
 	
+	if (xWidget instanceof com.sencha.gxt.widget.core.client.Component) {
+	    
+	    //GXT-Component
+	    com.sencha.gxt.widget.core.client.Component xComponent = asComponent(xWidget);
+	    if (Control.PROPERTY_DATA.equals(name)) {
+		// WARNING! BoxComponent has not method setData() without parameters
+		// We use key 'uwt:data'
+		xComponent.setData("uwt:data", value);
+		return;
+	    } else if (startsWith(name, Control.PROPERTY_DATA_PREFIX)) {
+		// WARNING! We use '@' to separate 'data' and 'key'
+		String key = name.substring(Control.PROPERTY_DATA_PREFIX.length());
+		xComponent.setData(key, value);
+		return;
+	    }
+	} else {
+	    
+	    //GWT-Widget
+	    if (Control.PROPERTY_DATA.equals(name) || startsWith(name, Control.PROPERTY_DATA_PREFIX)) {
+		logUnsupportSetProperty(xWidget, name);
+		return;
+	    }
+	    
+	}
 	super.setProperty(element, name, value);
     }
     
