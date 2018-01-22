@@ -36,6 +36,8 @@ import com.sencha.gxt.widget.core.client.TabPanel;
  */
 public class XTabPanel extends TabPanel implements HasComputeSize {
 
+    public static final int MAGIC_TAB_HEIGHT = 30;
+    
     public XTabPanel() {
 	super();
     }
@@ -120,6 +122,6 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
 		}
 	    }
 	}
-	return new Size(mWidth, mHeight);
+	return new Size(mWidth, mHeight + MAGIC_TAB_HEIGHT);
     }
 }
