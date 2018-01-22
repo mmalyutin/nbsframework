@@ -38,8 +38,7 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public class GXTTabItemAdapter extends GXTCompositeAdapter {
 
-    //public static final int MAGIC_TAB_HEIGHT = 30;
-	    
+   
     public Object createDelegate(UIObject parent, UIObject element) {
 
 	
@@ -67,7 +66,7 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	
 	// Add magic shift by Y for content of TabItem for GridLayout only
 	// We have problem with position of elements in GridLayout
-	// content.setShiftY(MAGIC_TAB_HEIGHT);
+	// content.setShiftY(XTabPanel.MAGIC_TAB_HEIGHT);
 	
 	// Set absolute position of content of TabItem
 	content.setAbsolutePosition();
@@ -102,8 +101,6 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
 	    }
 	    return;
 	}
-
-	
 	super.setProperty(element, name, value);
     }
 }

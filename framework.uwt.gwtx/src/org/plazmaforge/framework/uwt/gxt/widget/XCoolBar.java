@@ -35,6 +35,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class XCoolBar extends HorizontalPanel {
 
+    public static final int MAGIC_HEIGHT = 26;
+    
     public XCoolBar() {
 	super();
 	setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);

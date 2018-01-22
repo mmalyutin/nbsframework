@@ -125,13 +125,7 @@ public class GXTUtils {
 	return new Size(width, height);
     }
     
-//    public static Size computeSize2(int hWidth, int hHeight, Widget widget) {
-//	Size size = computeSize(hWidth, hHeight, widget);
-//	GWT.log("PACK-0: widget=" + widget.getClass().getSimpleName() + ", size=" + size);
-//	return size;
-//
-//    }
-    
+   
     public static Size computeSize(int hWidth, int hHeight, Widget widget) {
 	
 	if (widget == null) {
@@ -150,6 +144,8 @@ public class GXTUtils {
 	    metrics.bind(widget.getElement());
 	    Size size = metrics.getSize(text);
 	    size.setWidth(size.getWidth() + 1);
+	    
+	    // TODO: +2 w/h
 	    return size;
 	}
 	
@@ -167,7 +163,7 @@ public class GXTUtils {
 	if (widget instanceof XCoolBar) {
 	    // TODO: Magic
 	    // Maybe widget.getOffsetHeight() - 63
-	    return new Size(widget.getOffsetWidth(), 26);
+	    return new Size(widget.getOffsetWidth(), XCoolBar.MAGIC_HEIGHT);
 	}
 	return new Size(widget.getOffsetWidth(), widget.getOffsetHeight());
     }
@@ -181,7 +177,7 @@ public class GXTUtils {
 	if (widget instanceof XCoolBar) {
 	    // TODO: Magic
 	    // Maybe widget.getOffsetHeight() - 63
-	    return 26;
+	    return XCoolBar.MAGIC_HEIGHT;
 	}
 	return widget.getOffsetHeight();
     }
@@ -223,7 +219,7 @@ public class GXTUtils {
 	}
 	//if (widget instanceof TabPanel) {
 	    // TabPanel tabPanel = (TabPanel) widget;
-	//    return widget.getOffsetHeight() + 10; // TODO:  + 200
+	//    return widget.getOffsetHeight() + 10;
 	//}
 	return -1;
     }

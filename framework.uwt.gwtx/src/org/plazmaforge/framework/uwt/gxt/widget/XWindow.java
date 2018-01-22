@@ -24,7 +24,6 @@ package org.plazmaforge.framework.uwt.gxt.widget;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.util.Size;
@@ -37,6 +36,8 @@ import com.sencha.gxt.widget.core.client.Window;
  */
 public class XWindow extends Window implements HasLayoutContainer {
 
+    public static final int MAGIC_FRAME_HEIGHT = 20;
+    
     private XLayoutContainer content;
     
     public XWindow() {
@@ -65,7 +66,6 @@ public class XWindow extends Window implements HasLayoutContainer {
     }   
     
     public void pack() {
-	//GWT.log("PACK-1");
 	if (content == null) {
 	    return;
 	}
@@ -75,7 +75,6 @@ public class XWindow extends Window implements HasLayoutContainer {
 	Size computeSize = GXTUtils.computeSize(-1, -1, (Widget) content.getContainer());
 	//Size computeSize = GXTUtils.computePreferredSize(content);
 	if (computeSize == null) {
-	    //GWT.log("PACK-2: computeSize == null");
 	    return;
 	}
 	
@@ -86,13 +85,11 @@ public class XWindow extends Window implements HasLayoutContainer {
 	
 	// Get compute size
 	int computeWidth = computeSize.getWidth()  + frameWidth;
-	int computeHeight = computeSize.getHeight()  + frameHeight + 20;
-
-	//GWT.log("PACK-2: frameSize  [" + frameWidth + ", " + frameHeight + "]");
-	//GWT.log("PACK-2: computeSize[" + computeWidth + ", " + computeHeight + "]");
+	int computeHeight = computeSize.getHeight()  + frameHeight + MAGIC_FRAME_HEIGHT;
 	
 	int width = 0;
 	int height = 0;
+	
 	//if (computeWidth > 0 && frameWidth != computeWidth) {
 	    width = computeWidth; 
 	//}
@@ -101,11 +98,7 @@ public class XWindow extends Window implements HasLayoutContainer {
 	//}
 	
 	if (width > 0 && height > 0) {
-	    GWT.log("PACK-3: pizelSize[" + width + ", " + height + "]");
 	    setPixelSize(width, height);
-	    //getContainerTarget().setWidth(width);
-	    //getContainerTarget().setHeight(height);
-	    //forceLayout();
 	}
     }
 }
