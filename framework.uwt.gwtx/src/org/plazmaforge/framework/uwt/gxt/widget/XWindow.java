@@ -24,6 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.widget;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.util.Size;
@@ -64,6 +65,13 @@ public class XWindow extends Window implements HasLayoutContainer {
     public boolean remove(Widget child) {
 	return content.remove(child);
     }   
+    
+    public void setIcon(ImageResource icon) {
+	if (getHeader() == null) {
+	    return;
+	}
+	getHeader().setIcon(icon);
+    }
     
     public void pack() {
 	if (content == null) {
