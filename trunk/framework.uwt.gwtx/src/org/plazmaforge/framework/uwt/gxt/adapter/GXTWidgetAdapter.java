@@ -35,7 +35,6 @@ import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
 import org.plazmaforge.framework.uwt.widget.Composite;
-//import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -80,14 +79,17 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
     }     
     
+    // Log
     protected void logUnsupportSetProperty(Object widget, String property) {
 	logUnsupportProperty("setProperty", widget, property);
     }
 
+    // Log
     protected void logUnsupportGetProperty(Object widget, String property) {
 	logUnsupportProperty("getProperty", widget, property);
     }
           
+    // Log
     protected void logUnsupportProperty(String title, Object widget, String property) {
   	GWT.log("UWT: " + title + ": Property '"+  property + "' is not supported. Class=" + widget.getClass().getName());
     }
@@ -687,6 +689,87 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return xListener;
     }     
     
+ 
+    ////
+    
+    // SHOW
+    protected com.sencha.gxt.widget.core.client.event.ShowEvent.ShowHandler createShowListener(Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.ShowEvent.ShowHandler xListener = new com.sencha.gxt.widget.core.client.event.ShowEvent.ShowHandler() {
+
+	    @Override
+	    public void onShow(com.sencha.gxt.widget.core.client.event.ShowEvent e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }    
+    
+    // HIDE
+    protected com.sencha.gxt.widget.core.client.event.HideEvent.HideHandler createHideListener(Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.HideEvent.HideHandler xListener = new com.sencha.gxt.widget.core.client.event.HideEvent.HideHandler() {
+
+	    @Override
+	    public void onHide(com.sencha.gxt.widget.core.client.event.HideEvent e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }       
+     
+    // ACTIVATE
+    protected <T> com.sencha.gxt.widget.core.client.event.ActivateEvent.ActivateHandler<T> createActivateListener(Class<T> klass, Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.ActivateEvent.ActivateHandler<T> xListener = new com.sencha.gxt.widget.core.client.event.ActivateEvent.ActivateHandler<T>() {
+
+	    @Override
+	    public void onActivate(com.sencha.gxt.widget.core.client.event.ActivateEvent<T> e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }
+
+    // DEACTIVATE
+    protected <T> com.sencha.gxt.widget.core.client.event.DeactivateEvent.DeactivateHandler<T> createDeactivateListener(Class<T> klass, Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.DeactivateEvent.DeactivateHandler<T> xListener = new com.sencha.gxt.widget.core.client.event.DeactivateEvent.DeactivateHandler<T>() {
+
+	    @Override
+	    public void onDeactivate(com.sencha.gxt.widget.core.client.event.DeactivateEvent<T> e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    } 
+    
+    // MINIMIZE
+    protected com.sencha.gxt.widget.core.client.event.MinimizeEvent.MinimizeHandler createMinimizeListener(Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.MinimizeEvent.MinimizeHandler xListener = new com.sencha.gxt.widget.core.client.event.MinimizeEvent.MinimizeHandler() {
+
+	    @Override
+	    public void onMinimize(com.sencha.gxt.widget.core.client.event.MinimizeEvent e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }      
+    
+    // MAXIMIZE
+    protected com.sencha.gxt.widget.core.client.event.MaximizeEvent.MaximizeHandler createMaximizeListener(Widget widget, final Listener listener) {
+	com.sencha.gxt.widget.core.client.event.MaximizeEvent.MaximizeHandler xListener = new com.sencha.gxt.widget.core.client.event.MaximizeEvent.MaximizeHandler() {
+
+	    @Override
+	    public void onMaximize(com.sencha.gxt.widget.core.client.event.MaximizeEvent e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Events
@@ -754,6 +837,12 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	//event.setItem(item); // TODO
 	return event;
     }
+    
+    protected Event createEvent(com.google.gwt.event.shared.GwtEvent<?> e) {
+  	Event event = new Event();
+  	//event.setItem(e.getSource()); // TODO
+  	return event;
+    }    
 
     // DISABLE:MIGRATION
     /**

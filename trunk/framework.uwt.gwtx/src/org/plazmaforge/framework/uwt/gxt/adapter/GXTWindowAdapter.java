@@ -26,7 +26,6 @@ import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XWindow;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -34,9 +33,9 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Window;
 
-
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HasWidgets;
+
 
 /**
  * 
@@ -68,19 +67,20 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	HasWidgets container = createContainer(layout, xLayout);
 	XWindow xWindow = new XWindow(container, xLayout);
 	
-	//final com.sencha.gxt.widget.core.client.Window xWindow = new com.sencha.gxt.widget.core.client.Window();
 	xWindow.setModal(window.isModal());
 	xWindow.setResizable(window.isResizable());
 	
 	// UPDATE DECORATION
 	updateDecoration(window, xWindow);
 	
+	// Get icon
+	ImageResource xIcon = createImage(window, window.getIcon());
+	if (xIcon != null) {
+	    xWindow.setIcon(xIcon);
+	}
+	
 	//TODO: DISABLE:MIGRATION
 	//addNotifierListener(window, xWindow);
-	
-	
-	
-	
 	
 	return xWindow;
     }
@@ -148,6 +148,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 
     }
     
+   
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	Object delegate = element.getDelegate();
@@ -161,15 +162,13 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	} else if (Window.PROPERTY_ICON.equals(name)) {
 	    ImageResource xIcon = createImage(element, asImage(value));
 	    if (xIcon != null) {
-		//TODO: DISABLE:MIGRATION
-		//xWindow.setIcon(xIcon);
+		xWindow.setIcon(xIcon);
 	    }
 	    return;
 	} else if (Window.PROPERTY_ICON_PATH.equals(name)) {
 	    ImageResource xIcon = createImage(element, asString(value));
 	    if (xIcon != null) {
-		//TODO: DISABLE:MIGRATION
-		//xWindow.setIcon(xImage);
+		xWindow.setIcon(xIcon);
 	    }
 	    return;
 	} else if (Window.PROPERTY_WIDTH.equals(name)) {
@@ -196,17 +195,11 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	} else if (Window.METHOD_CLOSE.equals(methodName)) {
 	    doClose(window, xWindow);
 	} else if (Window.METHOD_LAYOUT.equals(methodName)) {
-	    
-	    //TODO: DISABLE:MIGRATION
 	    doLayout(xWindow);
 	    return null;
-	    
 	} else if (Window.METHOD_PACK.equals(methodName) ) {
-	    
-	    //TODO: DISABLE:MIGRATION
 	    doPack(xWindow);
 	    return null;
-	    
 	} else if (Window.METHOD_CENTER.equals(methodName) ) {
 	    xWindow.center();
 	    return null;
@@ -225,62 +218,22 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	    return null;
 	}
 
-
 	return super.invoke(element, methodName, args);
     }
-
-    //TODO: DISABLE:MIGRATION
 
     protected void doLayout(XWindow xWindow) {
 	xWindow.forceLayout();
     }
 
-
-    
     protected void doPack(XWindow xWindow) {
 	xWindow.pack();
-	
-//	LayoutContainer container = xWindow;
-//	Layout layout = container.getLayout();
-//	if (layout == null) {
-//	    return;
-//	}
-//	if (!(layout instanceof XLayout)) {
-//	    
-//	    // TODO: Must use XLayout:computePreferredSize()
-//	    if (!(layout instanceof FitLayout)) {
-//		return;
-//	    }
-//	    com.google.gwt.user.client.ui.Widget parent = container.getItemCount() == 0 ? null : container.getWidget(0);
-//	    if (parent == null) {
-//		return;
-//	    }
-//	    if (!(parent instanceof LayoutContainer)) {
-//		return;
-//	    }
-//	    container = (LayoutContainer) parent;
-//	    layout = container.getLayout();
-//	    if (!(layout instanceof XLayout)) {
-//		return;
-//	    }
-//	}
-//	
-//	Size size = ((XLayout) layout).computePreferredSize(container);
-//	int fixDeltaWidth = 15;  // TODO: Window trim width
-//	int fixDeltaHeight = 40; // TODO: Window trim height
-//	xWindow.setSize(size.width + fixDeltaWidth, size.height + fixDeltaHeight);
     }
-
 
     protected void doOpen(Window window, XWindow xWindow) {
 	xWindow.setVisible(true);
-	
-	//TODO: DISABLE:MIGRATION
 	doLayout(xWindow);
 	
 	if (window.isPack()) {
-	    
-	    //TODO: DISABLE:MIGRATION
 	    doPack(xWindow);
 	}
 	if (window.isCenter()) {
@@ -311,8 +264,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	window.setData(SYS_PROPERTY_FORCE_CLOSE, forceClose);
     }
     
-    //TODO: DISABLE:MIGRATION
-    /*
+
     @Override
     public void addListener(UIObject element, String eventType, Listener listener) {
 	Window window = (Window) element;
@@ -376,56 +328,61 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
     
     
-    protected void addOpenWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.addListener(com.sencha.gxt.ui.client.event.Events.Show, createListener(widget, listener));
+    protected void addOpenWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createShowListener(widget, listener), com.sencha.gxt.widget.core.client.event.ShowEvent.getType());
     }
     
-    protected void addCloseWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.addListener(com.sencha.gxt.ui.client.event.Events.Hide, createListener(widget, listener));
+    protected void addCloseWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createHideListener(widget, listener), com.sencha.gxt.widget.core.client.event.HideEvent.getType());
     }
 
-    protected void addActivateWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.addListener(com.sencha.gxt.ui.client.event.Events.Activate, createListener(widget, listener));
+    protected void addActivateWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createActivateListener(com.sencha.gxt.widget.core.client.Window.class, widget, listener), com.sencha.gxt.widget.core.client.event.ActivateEvent.getType());
+    }
+  
+    protected void addDeactivateWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createDeactivateListener(com.sencha.gxt.widget.core.client.Window.class, widget, listener), com.sencha.gxt.widget.core.client.event.DeactivateEvent.getType());
     }
 
-    protected void addDeactivateWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.addListener(com.sencha.gxt.ui.client.event.Events.Deactivate, createListener(widget, listener));
-    }
-
-    protected void addIconifyWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.addListener(com.sencha.gxt.ui.client.event.Events.Minimize, createListener(widget, listener)); // TODO Minimize = Iconify (?)
+    protected void addIconifyWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createMinimizeListener(widget, listener), com.sencha.gxt.widget.core.client.event.MinimizeEvent.getType());  // TODO Minimize = Iconify (?)
     }
     
-    protected void addDeiconifyWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.addListener(com.sencha.gxt.ui.client.event.Events.Maximize, createListener(widget, listener)); // TODO Maximize = Deiconify (?)
+    protected void addDeiconifyWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	xWidget.addHandler(createMaximizeListener(widget, listener), com.sencha.gxt.widget.core.client.event.MaximizeEvent.getType()); // TODO Maximize = Deiconify (?)
     }
     
 
 
-    protected void removeOpenWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.removeListener(com.sencha.gxt.ui.client.event.Events.Show, getListener(widget, listener));
+    protected void removeOpenWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Show, getListener(widget, listener));
     }
     
-    protected void removeCloseWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.removeListener(com.sencha.gxt.ui.client.event.Events.Hide, getListener(widget, listener));
+    protected void removeCloseWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Hide, getListener(widget, listener));
     }
 
-    protected void removeActivateWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.removeListener(com.sencha.gxt.ui.client.event.Events.Activate, getListener(widget, listener));
+    protected void removeActivateWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Activate, getListener(widget, listener));
     }
 
-    protected void removeDeactivateWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.removeListener(com.sencha.gxt.ui.client.event.Events.Deactivate, getListener(widget, listener));
+    protected void removeDeactivateWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Deactivate, getListener(widget, listener));
     }
     
-    protected void removeIconifyWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.removeListener(com.sencha.gxt.ui.client.event.Events.Minimize, getListener(widget, listener)); // TODO Minimize = Iconify (?)
+    protected void removeIconifyWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Minimize, getListener(widget, listener)); // TODO Minimize = Iconify (?)
     }
     
-    protected void removeDeiconifyWindowListener(com.sencha.gxt.widget.core.client.Component component, Widget widget, Listener listener) {
-	component.removeListener(com.sencha.gxt.ui.client.event.Events.Maximize, getListener(widget, listener)); // TODO Maximize = Deiconify (?)
+    protected void removeDeiconifyWindowListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.Maximize, getListener(widget, listener)); // TODO Maximize = Deiconify (?)
     }    
     
-*/
-    
+  
 }
