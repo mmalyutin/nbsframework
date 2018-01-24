@@ -78,16 +78,30 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
      * @return
      */
     protected final org.eclipse.swt.widgets.Composite getContent(Object delegate) {
+	
+//	if (delegate instanceof org.eclipse.swt.widgets.TabItem) {
+//	    return (org.eclipse.swt.widgets.Composite) ((org.eclipse.swt.widgets.TabItem) delegate).getControl();    
+//	} else if (delegate instanceof XDesktopItem) {
+//	    return (org.eclipse.swt.widgets.Composite) ((XDesktopItem) delegate).getContent();
+//	} if (delegate instanceof org.eclipse.swt.custom.ScrolledComposite) {
+//	    return (org.eclipse.swt.widgets.Composite) ((org.eclipse.swt.custom.ScrolledComposite) delegate).getContent();
+//	}
+//	return (org.eclipse.swt.widgets.Composite) delegate;
+	
+	if (delegate instanceof org.eclipse.swt.custom.ScrolledComposite) {
+	    return (org.eclipse.swt.widgets.Composite) ((org.eclipse.swt.custom.ScrolledComposite) delegate).getContent();
+	}
+	return getView(delegate);
+    }
+
+    protected final org.eclipse.swt.widgets.Composite getView(Object delegate) {
 	if (delegate instanceof org.eclipse.swt.widgets.TabItem) {
 	    return (org.eclipse.swt.widgets.Composite) ((org.eclipse.swt.widgets.TabItem) delegate).getControl();    
 	} else if (delegate instanceof XDesktopItem) {
 	    return (org.eclipse.swt.widgets.Composite) ((XDesktopItem) delegate).getContent();
-	} if (delegate instanceof org.eclipse.swt.custom.ScrolledComposite) {
-	    return (org.eclipse.swt.widgets.Composite) ((org.eclipse.swt.custom.ScrolledComposite) delegate).getContent();
 	}
 	return (org.eclipse.swt.widgets.Composite) delegate;
     }
-
     
     protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Widget xWidget, UIObject element) {
 	//do nothing
