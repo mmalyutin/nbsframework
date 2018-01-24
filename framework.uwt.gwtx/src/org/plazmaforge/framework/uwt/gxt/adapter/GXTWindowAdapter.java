@@ -79,20 +79,18 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	    xWindow.setIcon(xIcon);
 	}
 	
-	//TODO: DISABLE:MIGRATION
-	//addNotifierListener(window, xWindow);
+	addNotifierListener(window, xWindow);
 	
 	return xWindow;
     }
     
-    //TODO: DISABLE:MIGRATION
-    /*
-    protected void addNotifierListener(final Window window, finalcom.sencha.gxt.widget.core.client.Window xWindow) {
+
+    protected void addNotifierListener(final Window window, final XWindow xWindow) {
 	final Notifier notifier = window.getNotifier(); 
-	xWindow.addListener(com.sencha.gxt.ui.client.event.Events.BeforeHide, new com.sencha.gxt.ui.client.event.Listener<com.sencha.gxt.ui.client.event.WindowEvent>() {
+	xWindow.addHandler(new com.sencha.gxt.widget.core.client.event.BeforeHideEvent.BeforeHideHandler() {
 
 	    @Override
-	    public void handleEvent(final com.sencha.gxt.ui.client.event.WindowEvent be) {
+	    public void onBeforeHide(com.sencha.gxt.widget.core.client.event.BeforeHideEvent be) {
 		if (isForceClose(window)) {
 		    return;
 		}
@@ -121,21 +119,21 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 		});
 	    }
 	    
-	});
+	}, com.sencha.gxt.widget.core.client.event.BeforeHideEvent.getType());
 
-	xWindow.addListener(com.sencha.gxt.ui.client.event.Events.Hide, new com.sencha.gxt.ui.client.event.Listener<com.sencha.gxt.ui.client.event.WindowEvent>() {
+	//TODO: DISABLE:MIGRATION
+	/*
+	xWindow.addHandler(new com.sencha.gxt.widget.core.client.event.HideEvent.HideHandler() {
 
 	    @Override
-	    public void handleEvent(com.sencha.gxt.ui.client.event.WindowEvent be) {
+	    public void onHide(com.sencha.gxt.widget.core.client.event.HideEvent be) {
 		be.setCancelled(true);
 	    }
 	    
-	});
-	
+	}, com.sencha.gxt.widget.core.client.event.HideEvent.getType());
+	*/
 	
     }
-    */
-    
     
     protected void updateDecoration(Window window, XWindow xWindow) {
 	boolean closable = window.isUndecorated() ? false : window.isClosable();  
