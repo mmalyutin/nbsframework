@@ -252,22 +252,31 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     
 
     /**
-     * Return general content of the delegate
+     * Returns general content of the UI object.
      * @param delegate
      * @return
      */
-    protected com.google.gwt.user.client.ui.Widget getContent(Object delegate) {
+    protected final com.google.gwt.user.client.ui.Widget getContent(Object delegate) {
+	return getView(delegate);
+    }
+
+    /**
+     * Returns view widget of UI object.
+     * UI object can be not widget, but UI object can wrap widget. 
+     * @param delegate
+     * @return
+     */
+    protected final com.google.gwt.user.client.ui.Widget getView(Object delegate) {
 	if (delegate instanceof XTabItem) {
+	    // XTabItem is not widget
 	    return  ((XTabItem) delegate).getWidget();
 	}
 	if (delegate instanceof XDesktopItem) {
+	    // XDesktopItem is not widget
 	    return ((XDesktopItem) delegate).getContent();
 	}
 	return (com.google.gwt.user.client.ui.Widget) delegate;
     }
-
-    
-    
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {

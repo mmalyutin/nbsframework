@@ -50,11 +50,15 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    return;
 	}
 	Object xElement = element.getDelegate();
-	if (!(xElement instanceof com.google.gwt.user.client.ui.Widget)) {
-	    logUnsupportSetProperty(xElement, name);
-	    return;
-	}	
-	com.google.gwt.user.client.ui.Widget xWidget = asWidget(xElement);
+	
+	// Get real view widget
+	com.google.gwt.user.client.ui.Widget xWidget = getView(xElement);
+	
+	//if (!(xElement instanceof com.google.gwt.user.client.ui.Widget)) {
+	//    logUnsupportSetProperty(xElement, name);
+	//    return;
+	//}	
+	//com.google.gwt.user.client.ui.Widget xWidget = asWidget(xElement);
 	
 	// GWT-All
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
@@ -188,7 +192,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	if (xControl instanceof com.sencha.gxt.widget.core.client.Component) {
 	    asComponent(xControl).setWidth(toDimension(width));
 	} else {
-	    //TODO
+	    getStyle(xControl).setProperty("width", toDimension(width) + "px");
 	}
     }
   
@@ -196,7 +200,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	if (xControl instanceof com.sencha.gxt.widget.core.client.Component) {
 	    asComponent(xControl).setHeight(toDimension(height));
 	} else {
-	    //TODO
+	    getStyle(xControl).setProperty("height", toDimension(height) + "px");
 	}
     }
     
