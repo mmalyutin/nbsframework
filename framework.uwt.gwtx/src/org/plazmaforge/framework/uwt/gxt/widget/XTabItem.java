@@ -62,7 +62,9 @@ public class XTabItem extends TabItemConfig {
     
     @Override
     public void setContent(String text) {
-	super.setContent(text);
+	// WARNING! Normalize text because we have bug with height of tab
+	// when we use one item
+	super.setContent(normilizeText(text));
 	update();
     }
     
@@ -76,6 +78,24 @@ public class XTabItem extends TabItemConfig {
 	    return;
 	}
 	parent.update(widget, this);
+    }
+    
+    /**
+     * Normalize text
+     * when we use one item
+     * @param text
+     * @return
+     */
+    private String normilizeText(String text) {
+	if (text == null) {
+	    text = "";
+	}
+	
+	// Fix bug with tab height for one tab item
+	if (text == null || text.trim().isEmpty()) {
+	    return "&nbsp;";
+	}
+	return text;
     }
 
 }
