@@ -26,13 +26,13 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.uwt.UIAdapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.sencha.gxt.widget.core.client.container.HasLayout;
 
 /**
  * 
@@ -160,8 +160,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	}
 
 	if (Composite.METHOD_LAYOUT.equals(methodName)) {
-	    if (composite instanceof HasLayout)
-		((HasLayout) composite).forceLayout();
+	    GXTUtils.forceLayout(composite);
 	    return null;
 	}
 	return super.invoke(element, methodName, args);
