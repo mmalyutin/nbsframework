@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 import org.plazmaforge.framework.core.data.Notifier;
+import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 
 import com.google.gwt.user.client.ui.Widget;
 
@@ -98,8 +99,6 @@ public class XDesktopItem {
 	if (content == null) {
 	    return;
 	}
-	if (content instanceof com.sencha.gxt.widget.core.client.container.HasLayout) {
-	    ((com.sencha.gxt.widget.core.client.container.HasLayout) content).forceLayout();
-	}
+	GXTUtils.forceLayout(content);
     }
 }

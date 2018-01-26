@@ -31,6 +31,7 @@ import com.sencha.gxt.core.client.Style;
 import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.core.client.util.TextMetrics;
 import com.sencha.gxt.core.client.util.Util;
+import com.sencha.gxt.widget.core.client.container.HasLayout;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
@@ -223,4 +224,21 @@ public class GXTUtils {
 	//}
 	return -1;
     }
+    
+    public static void forceLayout(Widget widget) {
+	if (widget == null) {
+	    return;
+	}
+	if (widget instanceof HasLayout) {
+	    ((HasLayout) widget).forceLayout();
+	}
+    }
+    
+    public static void forceParentLayout(Widget widget) {
+	if (widget == null) {
+	    return;
+	}
+	forceLayout(widget.getParent());
+    }
+  
 }
