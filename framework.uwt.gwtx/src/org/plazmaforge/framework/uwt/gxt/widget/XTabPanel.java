@@ -40,6 +40,11 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
     
     public XTabPanel() {
 	super();
+	
+	// Set auto selection = false because we have bug with
+	// activate first tab item with bad layout (container size = 0)
+	// We call autoSelect() in forceLayout() method
+	setAutoSelect(false);
     }
 
     public XTabPanel(TabPanelAppearance appearance) {
@@ -63,6 +68,22 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
     public void add(Widget widget, TabItemConfig config) {
 	super.add(widget, config);
 	assign(config);
+    }
+    
+    /**
+     * Auto select tab item
+     */
+    protected void autoSelect() {
+	if (getActiveWidget() == null && getWidgetCount() > 0) {
+	    Widget widget = getWidget(0);
+	    setActiveWidget(widget);
+	}
+    }
+    
+    @Override
+    public void forceLayout() {
+	autoSelect();
+	super.forceLayout();
     }
     
     protected void assign(TabItemConfig config) {
@@ -123,5 +144,6 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
 	    }
 	}
 	return new Size(mWidth, mHeight + MAGIC_TAB_HEIGHT);
+	
     }
 }
