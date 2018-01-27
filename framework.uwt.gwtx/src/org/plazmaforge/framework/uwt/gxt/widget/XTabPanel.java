@@ -82,7 +82,7 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
     
     @Override
     public void forceLayout() {
-	autoSelect();
+	autoSelect();    
 	super.forceLayout();
     }
     
@@ -123,6 +123,15 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
     }
     
     public Size computeSize(int hWidth, int hHeight, boolean layout) {
+	
+	// Real visible flag
+	boolean isVisible = getOffsetWidth() > 0 && getOffsetHeight() > 0;
+	
+	// AutoSelect for visible mode only
+	if (isVisible) {
+	    autoSelect(); 
+	}
+	
 	int count = getWidgetCount();
 	if (count == 0) {
 	    return getOffsetSize();
@@ -133,6 +142,14 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
 	int mHeight = 0;
 	for (int i = 0; i < count; i++) {
 	    widget = getWidget(i);
+	    /*
+	    if (widget instanceof XLayoutContainer) {
+		XLayoutContainer c = (XLayoutContainer) widget;
+		if (c.getContainer() instanceof XGridLayoutContainer) {
+		    ((XGridLayoutContainer) c.getContainer()).setDebugMode(true);
+		}
+	    }
+	    */
 	    ws = GXTUtils.computeSize(hWidth, hHeight, widget);
 	    if  (ws != null) {
 		if (ws.getWidth() > mWidth) {
@@ -143,6 +160,7 @@ public class XTabPanel extends TabPanel implements HasComputeSize {
 		}
 	    }
 	}
+	
 	return new Size(mWidth, mHeight + MAGIC_TAB_HEIGHT);
 	
     }
