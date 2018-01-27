@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
-import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
-import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData.HorizontalAlignment;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData.VerticalAlignment;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 
 import com.google.gwt.core.client.GWT;

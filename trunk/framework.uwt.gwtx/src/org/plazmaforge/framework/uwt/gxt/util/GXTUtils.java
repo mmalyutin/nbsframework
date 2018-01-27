@@ -31,6 +31,7 @@ import com.sencha.gxt.core.client.Style;
 import com.sencha.gxt.core.client.util.Size;
 import com.sencha.gxt.core.client.util.TextMetrics;
 import com.sencha.gxt.core.client.util.Util;
+import com.sencha.gxt.widget.core.client.Component;
 import com.sencha.gxt.widget.core.client.container.HasLayout;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
@@ -166,6 +167,11 @@ public class GXTUtils {
 	    // Maybe widget.getOffsetHeight() - 63
 	    return new Size(widget.getOffsetWidth(), XCoolBar.MAGIC_HEIGHT);
 	}
+	
+	//if (widget instanceof Component) {
+	//    return ((Component) widget).getElement().getSize();
+	//}
+	
 	return new Size(widget.getOffsetWidth(), widget.getOffsetHeight());
     }
     

@@ -29,26 +29,6 @@ package org.plazmaforge.framework.uwt.gxt.layout;
  *
  */
 public class XGridData extends XLayoutData {
-
-    /**
-     * Horizontal alignment enumeration.
-     */
-    public enum HorizontalAlignment {
-      LEFT, CENTER, RIGHT, FILL
-    }
-
-    /**
-     * Vertical alignment enumerations.
-     */
-    public enum VerticalAlignment {
-      TOP, MIDDLE, BOTTOM, FILL;
-    }
-
-    
-    public static HorizontalAlignment DEFAULT_HORIZONTAL_ALIGN = HorizontalAlignment.LEFT;
-    
-    public static VerticalAlignment DEFAULT_VERTICAL_ALIGN = VerticalAlignment.MIDDLE;  
-    
     
     private int colSpan;
     

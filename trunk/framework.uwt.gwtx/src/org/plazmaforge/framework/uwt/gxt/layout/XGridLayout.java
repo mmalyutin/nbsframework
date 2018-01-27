@@ -34,17 +34,7 @@ public class XGridLayout extends XLayout {
     private int horizontalSpacing;
     
     private int verticalSpacing;
-    
-    
-    private int marginLeft;
-    
-    private int marginTop;
-    
-    private int marginRight;
-    
-    private int marginBottom;
-    
-    
+     
     private boolean fix;
     
     public XGridLayout() {
@@ -80,38 +70,6 @@ public class XGridLayout extends XLayout {
         this.verticalSpacing = verticalSpacing;
     }
     
-    public int getMarginLeft() {
-        return marginLeft;
-    }
-
-    public void setMarginLeft(int marginLeft) {
-        this.marginLeft = marginLeft;
-    }
-
-    public int getMarginTop() {
-        return marginTop;
-    }
-
-    public void setMarginTop(int marginTop) {
-        this.marginTop = marginTop;
-    }
-
-    public int getMarginRight() {
-        return marginRight;
-    }
-
-    public void setMarginRight(int marginRight) {
-        this.marginRight = marginRight;
-    }
-
-    public int getMarginBottom() {
-        return marginBottom;
-    }
-
-    public void setMarginBottom(int marginBottom) {
-        this.marginBottom = marginBottom;
-    }
-
     public boolean isFix() {
         return fix;
     }

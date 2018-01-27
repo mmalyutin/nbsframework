@@ -31,6 +31,45 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class XLayout  {
 
+   private int marginLeft;
+    
+    private int marginTop;
+    
+    private int marginRight;
+    
+    private int marginBottom;
+    
+    public int getMarginLeft() {
+        return marginLeft;
+    }
+
+    public void setMarginLeft(int marginLeft) {
+        this.marginLeft = marginLeft;
+    }
+
+    public int getMarginTop() {
+        return marginTop;
+    }
+
+    public void setMarginTop(int marginTop) {
+        this.marginTop = marginTop;
+    }
+
+    public int getMarginRight() {
+        return marginRight;
+    }
+
+    public void setMarginRight(int marginRight) {
+        this.marginRight = marginRight;
+    }
+
+    public int getMarginBottom() {
+        return marginBottom;
+    }
+
+    public void setMarginBottom(int marginBottom) {
+        this.marginBottom = marginBottom;
+    }
     
     protected XLayoutData getXLayoutData(Widget widget) {
 	if (widget == null) {

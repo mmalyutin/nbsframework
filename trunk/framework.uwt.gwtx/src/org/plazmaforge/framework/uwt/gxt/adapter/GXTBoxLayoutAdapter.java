@@ -31,6 +31,7 @@ import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XBoxLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
+import org.plazmaforge.framework.uwt.gxt.widget.XVerticalLayoutContainer;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
 
 /**
@@ -59,7 +60,8 @@ public class GXTBoxLayoutAdapter extends GXTLayoutAdapter {
     public HasWidgets createContainer(XLayout xLayout) {
 	com.sencha.gxt.core.client.Style.Orientation xOrientation = xLayout == null ? null : ((XBoxLayout) xLayout).getOrientation();
 	if (xOrientation == com.sencha.gxt.core.client.Style.Orientation.VERTICAL) {
-	    return new VBoxLayoutContainer();
+	    //return new VBoxLayoutContainer();
+	    return new XVerticalLayoutContainer();
 	}
 	// by default
 	return new HBoxLayoutContainer();
