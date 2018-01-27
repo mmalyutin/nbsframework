@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.layout;
 
+
 /**
  * 
  * @author ohapon
@@ -29,6 +30,25 @@ package org.plazmaforge.framework.uwt.gxt.layout;
  */
 public abstract class XLayoutData {
 
+    /**
+     * Horizontal alignment enumeration.
+     */
+    public enum HorizontalAlignment {
+      LEFT, CENTER, RIGHT, FILL
+    }
+
+    /**
+     * Vertical alignment enumerations.
+     */
+    public enum VerticalAlignment {
+      TOP, MIDDLE, BOTTOM, FILL;
+    }
+
+    
+    public static HorizontalAlignment DEFAULT_HORIZONTAL_ALIGN = HorizontalAlignment.LEFT;
+    
+    public static VerticalAlignment DEFAULT_VERTICAL_ALIGN = VerticalAlignment.MIDDLE;  
+    
     
     private int width = -1;
     

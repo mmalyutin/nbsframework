@@ -25,45 +25,31 @@ import java.util.logging.Logger;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
-import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
-import org.plazmaforge.framework.uwt.gxt.layout.XGridData.HorizontalAlignment;
-import org.plazmaforge.framework.uwt.gxt.layout.XGridData.VerticalAlignment;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData.HorizontalAlignment;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.core.client.dom.XElement;
 import com.sencha.gxt.core.client.resources.CommonStyles;
 import com.sencha.gxt.core.client.util.Size;
-import com.sencha.gxt.widget.core.client.Component;
-import com.sencha.gxt.widget.core.client.container.InsertResizeContainer;
-
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XGridLayoutContainer extends InsertResizeContainer implements HasComputeSize {
+public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> {
     
     private static Logger logger = Logger.getLogger(XGridLayoutContainer.class.getName());
 
-    private XGridLayout gridLayout;
-    
-    protected boolean debugMode;// = true;
-    
-    //private int shiftX;
-    //private int shiftY;
-    //private boolean init;
-    
     public XGridLayoutContainer() {
 	this(new XGridLayout());
     }
     
     public XGridLayoutContainer(XGridLayout gridLayout) {
-	super();
-	this.gridLayout = gridLayout;
+	super(gridLayout);
 	setElement(Document.get().createDivElement());
     }
 
@@ -72,71 +58,22 @@ public class XGridLayoutContainer extends InsertResizeContainer implements HasCo
     // 	container.getStyle().setPosition(Position.ABSOLUTE);
     //} 
     
-    public void setDebugMode(boolean debugMode) {
-        this.debugMode = debugMode;
-    }
-    
-    public XGridLayout getGridLayout() {
-	if (gridLayout == null) {
-	    gridLayout = new XGridLayout();
-	}
-        return gridLayout;
+    @Override
+    protected XGridLayout createLayout() {
+	return new XGridLayout();
     }
     
     public int getColumnCount() {
-        return getGridLayout().getColumnCount();
+        return getLayout().getColumnCount();
     }
 
     protected int getHorizontalSpacing() {
-        return getGridLayout().getHorizontalSpacing();
+        return getLayout().getHorizontalSpacing();
     }
 
     protected int getVerticalSpacing() {
-        return getGridLayout().getVerticalSpacing();
+        return getLayout().getVerticalSpacing();
     }    
-    
-    protected int getMarginLeft() {
-        return getGridLayout().getMarginLeft();
-    }
-
-    protected int getMarginTop() {
-        return getGridLayout().getMarginTop();
-    }
-
-    protected int getMarginRight() {
-        return getGridLayout().getMarginRight();
-    }
-
-    protected int getMarginBottom() {
-        return getGridLayout().getMarginBottom();
-    }
-
-    protected XElement getLayoutContainer() {
-	return getElement();
-    }
-      
-    protected Size getLayoutSize() {
-	XElement container = getLayoutContainer();
-	
-	// Get size of container (style or computed)
-	Size size = container.getStyleSize();
-	return size;
-    }
-    
-    @Override
-    protected void doLayout() {
-	Size size = getLayoutSize();
-	int hWidth = size.getWidth(); // - getScrollOffset();
-	int hHeight = size.getHeight();
-	computeSize(hWidth, hHeight, true);
-    }
-	
-    public Size computeSize() {
-	Size size = getLayoutSize();
-	int hWidth = size.getWidth(); // - getScrollOffset();
-	int hHeight = size.getHeight();
-	return computeSize(hWidth, hHeight, false);
-    }
     
     public Size computeSize(int hWidth, int hHeight, boolean layout) {
 	
@@ -145,23 +82,6 @@ public class XGridLayoutContainer extends InsertResizeContainer implements HasCo
 	    logDebug("LAYOUT: " + (layout ? "doLayout" : "computeSize"));
 	    dumpContainerSize(hWidth, hHeight);
 	}
-	
-	// FIX: TabItem.layout - disable set absolute position
-	/*
-	if (!init) {
-	    init = true;
-	    boolean isAbsolutePosition = isParentAbsolutePosition(debug);
-	    if (isAbsolutePosition) {
-		setAbsolutePosition();
-	    }
-	    
-	    //fixedShift(debug);
-	    //if (shiftY > 0) {
-		//shiftY = 0;
-		//setAbsolutePosition();
-	    //}
-	}
-	*/
 	
  	// Width of container
  	int containerWidth = hWidth;
@@ -211,13 +131,7 @@ public class XGridLayoutContainer extends InsertResizeContainer implements HasCo
  	int clientWidth =  containerWidth  - marginLeft - marginRight;
  	int clientHeight = containerHeight - marginTop - marginBottom;
 
- 	
- 	// GWT/GXT: DISABLE because fix margin of <body> 
- 	//if (fix) {
- 	    //areaWidth -= 20;
- 	    //areaHeight -= 10;
- 	//}
- 	
+
  	// Shift start position by margin
  	int offsetX = getMarginLeft();
  	int offsetY = getMarginTop();
@@ -821,232 +735,6 @@ public class XGridLayoutContainer extends InsertResizeContainer implements HasCo
 	return true;
     }
     
-    protected void setPosition(Widget widget, int x, int y) {
-	if (widget == null) {
-	    return;
-	}
-	if (widget instanceof Component) {
-	    Component c = (Component) widget;
-	    c.setPosition(x, y);
-	    return;
-	}
-	XElement.as(widget.getElement()).setLeftTop(x, y);
-    }
-
-    protected void setSize(Widget widget, int width, int height) {
-	applyLayout(widget, width, height);
-    }
-    
-    protected Size computePreferredSize(Widget widget) {
-	if (widget == null) {
-	    return new Size(0, 0);
-	}
-	
-	boolean debug = isDebug();
-	
-	// Style size
-	int styleWidth = GXTUtils.getStyleWidth(widget); 	
-	int styleHeight = GXTUtils.getStyleHeight(widget);
-	
-	// Offset size
-	int offsetWidth = GXTUtils.getOffsetWidth(widget);
-	int offsetHeight = GXTUtils.getOffsetHeight(widget);	
-
-	// Compute size
-	int computeWidth = -1;
-	int computeHeight = -1;	
-	
-	// Set size. Style size is priority
-	int width = styleWidth;
-	int height = styleHeight;
-	
-	//if (width == -1) {
-	//    width = GXTUtils.computeMinWidth(widget);
-	//}
-	    
-	//if (height == -1) {
-	//    height = GXTUtils.computeMinHeight(widget);
-	//}
-	
-	// If style width/height is not setting then compute size
-	Size computeSize = null;
-	if (width == -1 || height == -1) {
-	    
-	    // Compute size of widget
-	    computeSize = GXTUtils.computeSize(styleWidth, styleHeight, widget);
-	    if (computeSize != null) {
-		computeWidth = computeSize.getWidth();
-		computeHeight = computeSize.getHeight();
-		if (width == -1) {
-		    width = computeWidth;
-		}
-		if (height == -1) {
-		    height = computeHeight;
-		}
-	    }
-
-	}
-	
-	if (width == -1) {
-	    width = GXTUtils.computeMinWidth(widget);
-	}
-	    
-	if (height == -1) {
-	    height = GXTUtils.computeMinHeight(widget);
-	}
-	
-	if (debug) {
-	    boolean warningMarker = styleWidth == -1 && styleHeight == -1 && offsetWidth == 0 && offsetHeight == 0;
-	    String widgetName = widget.getClass().getSimpleName() + (warningMarker ? " (!)" : "");
-	    logDebug("StyleSize :  [" + styleWidth + ", " + styleHeight + "], " + widgetName);
-	    logDebug("OffsetSize:  [" + offsetWidth + ", " + offsetHeight + "], " + widgetName);
-	    logDebug("ComputeSize: [" + (computeSize == null ? "none" : ("" + computeWidth + ", " + computeHeight)) + "], " + widgetName);
-	}
-	
-	return new Size(width, height);
-    }
-    
-    /*
-    protected void fixedShift(boolean debug) {
-	Widget parent = getParent();
-	if (parent == null || !(parent instanceof XLayoutContainer)) {
-	    return;
-	}
-
-	if (debug) {
-	    GWT.log("parent-1=" + parent.getClass());
-	}
-	parent = parent.getParent();
-	if (parent == null) {
-	    return;
-	}
-	if (debug) {
-	    GWT.log("parent-2=" + parent.getClass());
-	}
-
-	parent = parent.getParent();
-	if (parent == null || !(parent instanceof XLayoutContainer)) {
-	    return;
-	}
-	if (debug) {
-	    GWT.log("parent-3=" + parent.getClass());
-	}
-	XLayoutContainer xLayoutContainer = (XLayoutContainer) parent;
-	shiftX = xLayoutContainer.getShiftX();
-	shiftY = xLayoutContainer.getShiftY();
-	if (debug) {
-	    GWT.log("shiftY=" + shiftY);
-	}
-    }
-    
-    protected boolean isParentAbsolutePosition(boolean debug) {
-	Widget parent = getParent();
-	if (parent == null || !(parent instanceof XLayoutContainer)) {
-	    return false;
-	}
-
-	if (debug) {
-	    GWT.log("parent-1=" + parent.getClass());
-	}
-	parent = parent.getParent();
-	if (parent == null) {
-	    return false;
-	}
-	if (debug) {
-	    GWT.log("parent-2=" + parent.getClass());
-	}
-
-	parent = parent.getParent();
-	if (parent == null || !(parent instanceof XLayoutContainer)) {
-	    return false;
-	}
-	if (debug) {
-	    GWT.log("parent-3=" + parent.getClass());
-	}
-	XLayoutContainer xLayoutContainer = (XLayoutContainer) parent;
-	boolean isAbsolutePosition = xLayoutContainer.isAbsolutePosition();
-	if (debug) {
-	    GWT.log("isAbsolutePosition=" + isAbsolutePosition);
-	}
-	return isAbsolutePosition;
-    }
-    */
-    
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // DEBUG
-    //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    protected boolean isDebug() {
-	return debugMode;
-    }
-    
-    protected void dumpContainerSize(int width, int height) {
-	logDebug("container: width=" + width + ", height=" + height);	
-    }
-    
-    protected void dumpCells(Cell[] cells) {
-	if (cells == null || cells.length == 0) {
-	    logDebug("\nDump cells: empty");
-	    return;
-	}
-	logDebug("\nDump cells:");
-	Cell cell = null;
-	for (int k = 0; k < cells.length; k++) {
-	    cell = cells[k];
-	    logDebug("cell[" + k + "]: [" + cell.column + ", " + cell.row + "], [" + cell.colSpan + ", " + cell.rowSpan + "]"
-	    + ", size=[" + cell.preferredSize.getWidth() + ", " + cell.preferredSize.getHeight() + "]");
-	}
-    }
-    
-    protected void dumpColumns(String title, int[] columns) {
-	String name = title == null ? "columns" : title;
-	if (columns == null || columns.length == 0) {
-	    logDebug("\nDump " + name + ": empty");
-	    return;
-	}
-	logDebug("\nDump " + name + ":");
-	for (int k = 0; k < columns.length; k++) {
-	    logDebug("column[" + k + "]: width=" + columns[k]);
-	}
-    }
-    
-    protected void dumpColumns(int[] columns) {
-	dumpColumns(null, columns);
-    }
-    
-    protected void dumpFlexColumns(int[] columns) {
-	dumpColumns("flex-columns", columns);
-    }    
-    
-    protected void logDebug(String message) {
-	if (!debugMode || message == null) {
-	    return;
-	}
-	GWT.log(message);
-    }
-    
-    public static class Cell {
-
-	public int column;
-
-	public int row;
-
-	public int colSpan = 1;
-
-	public int rowSpan = 1;
-
-	public HorizontalAlignment horizontalAlign = XGridData.DEFAULT_HORIZONTAL_ALIGN;
-
-	public VerticalAlignment verticalAlign = XGridData.DEFAULT_VERTICAL_ALIGN;
-
-	public boolean horizontalFlex;
-
-	public boolean verticalFlex;
-
-	public Size preferredSize;
-
-    }
+     
 
 }
