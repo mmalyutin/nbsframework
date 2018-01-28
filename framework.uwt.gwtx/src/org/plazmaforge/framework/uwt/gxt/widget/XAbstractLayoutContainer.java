@@ -251,6 +251,22 @@ public abstract class XAbstractLayoutContainer<L extends XLayout> extends Insert
 	dumpColumns("flex-columns", columns);
     }    
     
+    protected void dumpRows(int[] rows) {
+	dumpRows(null, rows);
+    }
+    
+    protected void dumpRows(String title, int[] rows) {
+	String name = title == null ? "rows" : title;
+	if (rows == null || rows.length == 0) {
+	    logDebug("\nDump " + name + ": empty");
+	    return;
+	}
+	logDebug("\nDump " + name + ":");
+	for (int k = 0; k < rows.length; k++) {
+	    logDebug("row[" + k + "]: height=" + rows[k]);
+	}
+    }
+    
     protected void logDebug(String message) {
 	if (!debugMode || message == null) {
 	    return;

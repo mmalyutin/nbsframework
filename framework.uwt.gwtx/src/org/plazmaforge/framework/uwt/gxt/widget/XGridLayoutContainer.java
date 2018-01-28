@@ -25,14 +25,13 @@ import java.util.logging.Logger;
 
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
+import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData.HorizontalAlignment;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayoutData.VerticalAlignment;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.core.client.resources.CommonStyles;
 import com.sencha.gxt.core.client.util.Size;
 
 /**
@@ -40,7 +39,7 @@ import com.sencha.gxt.core.client.util.Size;
  * @author ohapon
  *
  */
-public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> {
+public class XGridLayoutContainer extends XAbstractCellLayoutContainer<XGridLayout> {
     
     private static Logger logger = Logger.getLogger(XGridLayoutContainer.class.getName());
 
@@ -74,6 +73,14 @@ public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> 
     protected int getVerticalSpacing() {
         return getLayout().getVerticalSpacing();
     }    
+    
+    protected boolean acceptLayoutData(Object ld) {
+	return ld instanceof XGridData;
+    }
+
+    protected XLayoutData createLayoutData() {
+	return new XGridData();
+    }
     
     public Size computeSize(int hWidth, int hHeight, boolean layout) {
 	
@@ -184,68 +191,17 @@ public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> 
  	for (int i = 0; i < count; i++) {
  	    Widget widget = getWidget(i);
  	    
- 	    // Set absolute position mode
- 	    widget.addStyleName(CommonStyles.get().positionable());
- 	    //widget.getElement().getStyle().setPosition(Position.ABSOLUTE);
-	    widget.getElement().getStyle().setMargin(0, Unit.PX);
- 	    
- 	    Object ld = widget.getLayoutData();
- 	    XGridData layoutData = null;
- 	    if (ld != null && ld instanceof XGridData) {
- 		layoutData = (XGridData) ld;
- 	    }
- 	    if (layoutData == null) {
- 		layoutData = new XGridData();
- 		
- 		// Set or override Layout Data
- 		widget.setLayoutData(layoutData);
- 	    }
+ 	    // S-1
+ 	    preparePosition(widget);
  	
- 	    /*
- 	    boolean needCalculateWidth = hWidth == -1 || layoutData.getPreferredWidth() == -1 || layoutData.isHorizontalFlex();
- 	    boolean needCalculateHeight = hHeight == -1 || layoutData.getPreferredHeight() == -1 || layoutData.isVerticalFlex();
- 		    
- 	    if (needCalculateWidth || needCalculateHeight) {
- 		
- 		// First compute size
- 		Size preferredSize = computePreferredSize(c);
- 		
- 		if (needCalculateWidth) {
- 		    layoutData.setPreferredWidth(layoutData.getWidth() == -1 ? preferredSize.getWidth(): layoutData.getWidth());
- 		}
- 		
- 		if (needCalculateHeight) {
- 		    layoutData.setPreferredHeight(layoutData.getHeight() == -1 ? preferredSize.getHeight() : layoutData.getHeight());
- 		}
+ 	    // S-2
+ 	    boolean foundLayoutData = isValidLayoutData(widget);
+ 	    XGridData layoutData = (XGridData) prepareLayoutData(widget);
+ 	   
+ 	    // S-3
+	    Size preferredSize = preparePreferredSize(widget, layoutData); 	    
+     
 
- 	    }*/
- 	    
- 	    int pWidth = layoutData.getPreferredWidth();
- 	    int pHeight = layoutData.getPreferredHeight();
- 	    
- 	    // Initialize preferred size
-  	    // 1. by layout data size 
-	    if (layoutData.getPreferredWidth() == -1) {
-		layoutData.setPreferredWidth(layoutData.getWidth());
-	    }
-	    if (layoutData.getPreferredHeight() == -1) {
-		layoutData.setPreferredHeight(layoutData.getHeight());
-	    }
-
-	    // 2. by compute size
-	    if (layoutData.getPreferredWidth() == -1 || layoutData.getPreferredHeight() == -1) {
-
-		// First compute size
-		Size preferredSize = computePreferredSize(widget);
-		
-		if (layoutData.getPreferredWidth() == -1) {
-		    layoutData.setPreferredWidth(preferredSize.getWidth());
-		}
-		
-		if (layoutData.getPreferredHeight() == -1) {
-		    layoutData.setPreferredHeight(preferredSize.getHeight());
-		}
-	    }
  	    
  	    int colSpan = layoutData.getColSpan();
  	    if (colSpan <= 0 ) {
@@ -256,10 +212,10 @@ public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> 
  		rowSpan = 1;
  	    }
  	    
- 	    if (layoutData.isHorizontalFlex()){
+ 	    if (layoutData.isHorizontalFlex()) {
  		useFlexColumns = true;
  	    }
- 	    if (layoutData.isVerticalFlex()){
+ 	    if (layoutData.isVerticalFlex()) {
  		useFlexRows = true;
  	    }
 
@@ -323,15 +279,18 @@ public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> 
  	    cell.verticalAlign = layoutData.getVerticalAlign();
  	    cell.horizontalFlex = layoutData.isHorizontalFlex();
  	    cell.verticalFlex = layoutData.isVerticalFlex();
- 	    cell.preferredSize = new Size(layoutData.getPreferredWidth(), layoutData.getPreferredHeight());
+ 	    //cell.preferredSize = new Size(layoutData.getPreferredWidth(), layoutData.getPreferredHeight());
+ 	    cell.preferredSize = preferredSize;
  	    
- 	    
- 	    //TODO: RESTORE LayoutData if compute size only
- 	    if (!layout) {
- 		layoutData.setPreferredWidth(pWidth);
- 		layoutData.setPreferredHeight(pHeight);
- 	    }
- 	    
+ 	   if (layout) {
+ 		layoutData.setPreferredWidth(preferredSize.getWidth());
+ 		layoutData.setPreferredHeight(preferredSize.getHeight());
+ 		if (!foundLayoutData) {
+ 		    widget.setLayoutData(layoutData);
+ 		}
+ 	   }
+ 	   
+	   
  	    cells[i] = cell; 
  	    
  	}
@@ -463,6 +422,7 @@ public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> 
  	// DEBUG
  	if (debug) {
  	    dumpColumns(columnWidth);
+ 	    dumpRows(rowHeight);
  	}
  	
  	// POINT-2.2
@@ -689,8 +649,16 @@ public class XGridLayoutContainer extends XAbstractLayoutContainer<XGridLayout> 
 
  	if (hasChildren) {
  	    computeWidth = childrenWidth + marginLeft + marginRight;
- 	    computeHeight = childrenHeight + marginTop + marginBottom;
- 	}
+ 	    //computeHeight = childrenHeight + marginTop + marginBottom;
+ 	    
+ 	    for (int h = 0; h < rowHeight.length; h++) {
+ 		if (h > 0) {
+ 		   computeHeight += verticalSpacing;
+ 		}
+ 		computeHeight += rowHeight[h];
+ 	    }
+ 	    computeHeight += (marginTop + marginBottom);
+  	}
  	
  	//GWT.log("PACK-(: hWidth=" + hWidth + ", hHeight=" + hHeight);
  	//GWT.log("PACK-): computeWidth=" + computeWidth + ", computeHeight=" + computeHeight);
