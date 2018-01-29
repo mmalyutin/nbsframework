@@ -26,11 +26,11 @@
 package org.plazmaforge.framework.uwt.demo;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.CallbackAdapter;
+import org.plazmaforge.framework.core.data.DataWriter;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.core.logging.Logger;
 import org.plazmaforge.framework.uwt.Application;
@@ -491,48 +491,19 @@ public class DemoApplicationBuilder {
     }
     
     private void dump(IData data) {
-	logger.info("DUMP!!!");
-	//System.out.println("DUMP!!!");
+	logger.info("DUMP-DATA");
+
+	DataWriter writer = new DataWriter();
+	writer.addExcludeProperty("$parent");
 	StringBuffer buf = new StringBuffer();
-	addData(buf, data);
-	String toString = buf.toString();
-	logger.info(toString());
+	try {
+	    writer.write(data, buf);
+	} catch (Exception e) {
+	    //e.printStackTrace(e);
+	}
+	String toString = "\n" + buf.toString();
+	logger.info(toString);
     }
     
-    private void addData(StringBuffer buf, IData data) {
-	if (data == null) {
-	    buf.append("{null}");
-	    return;
-	}
-	buf.append("\n{");
-	List<String> properties = data.getPropertyNames();
-	for (String property: properties) {
-	   
-	    if ("$parent".equals(property)) {
-		continue;
-	    }
-	    buf.append("\n" + property + "=");
-	    
-	    Object value = data.get(property);
-	    addValue(buf, value);
-
-	}
-	buf.append("\n}");
-    }
-
-    private void addValue(StringBuffer buf, Object value) {
-	if (value instanceof IData) {
-	    addData(buf, (IData) value);
-	} else if (value instanceof List) {
-	    List list = (List) value;
-	    buf.append("[");
-	    for (Object v : list) {
-		addValue(buf, v);
-		//buf.append("," + v);
-	    }
-	    buf.append("]");
-	} else {
-	    buf.append("" + value);
-	}
-    }
+  
 }
