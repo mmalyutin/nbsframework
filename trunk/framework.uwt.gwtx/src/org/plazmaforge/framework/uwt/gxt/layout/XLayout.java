@@ -22,6 +22,8 @@
 
 package org.plazmaforge.framework.uwt.gxt.layout;
 
+import org.plazmaforge.framework.uwt.UWTException;
+
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -31,7 +33,9 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class XLayout  {
 
-   private int marginLeft;
+    private Widget owner;
+    
+    private int marginLeft;
     
     private int marginTop;
     
@@ -43,6 +47,21 @@ public abstract class XLayout  {
         return marginLeft;
     }
 
+    public Widget getOwner() {
+        return owner;
+    }
+
+    public void assign(Widget owner) {
+	if (this.owner != null) {
+	    throw new UWTException("Can't assign new Owner in Layout. Old Owner is not empty");
+	}
+        this.owner = owner;
+    }
+    
+    public void reset() {
+	this.owner = null;
+    }
+    
     public void setMarginLeft(int marginLeft) {
         this.marginLeft = marginLeft;
     }

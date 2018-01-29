@@ -33,8 +33,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTApplicationAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTBoxLayoutAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTButtonAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTCanvasAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTCanvasAdapter;
-//import org.plazmaforge.framework.uwt.gxt.adapter.GXTCardLayoutAdapter;
+import org.plazmaforge.framework.uwt.gxt.adapter.GXTCardLayoutAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTCheckBoxAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTCollapsePanelAdapter;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTComboBoxAdapter;
@@ -142,7 +141,7 @@ public class UWT_GXT {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.VerticalLayout.class, new GXTVerticalLayoutAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.GridLayout.class, new GXTGridLayoutAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.FitLayout.class, new GXTFitLayoutAdapter());
-//	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.CardLayout.class, new GXTCardLayoutAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.CardLayout.class, new GXTCardLayoutAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.GridData.class, new GXTGridDataAdapter());
 

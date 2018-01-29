@@ -19,44 +19,34 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
-
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.util.Size;
-import com.sencha.gxt.widget.core.client.container.SimpleContainer;
+import com.sencha.gxt.widget.core.client.container.CardLayoutContainer;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class XSimpleContainer extends SimpleContainer implements HasComputeSize {
+public class XCardLayoutContainer extends CardLayoutContainer implements HasComputeSize {
 
-    public XSimpleContainer() {
+    public XCardLayoutContainer() {
 	super();
     }
-
-    public XSimpleContainer(boolean deferElement) {
-	super(deferElement);
-    }
-
-    @Override
-    protected void doLayout() {
-	super.doLayout();
-    }
-    
+ 
     protected Size getOffsetSize() {
 	return GXTUtils.getOffsetSize(this);
     }
-     
+
     public Size computeSize(int hWidth, int hHeight, boolean layout) {
-	Widget container = getWidget();
+	Widget container = getActiveWidget();
 	if (container == null || !(container instanceof HasComputeSize)) {
 	    return getOffsetSize();
 	}
 	return ((HasComputeSize) container).computeSize(hWidth, hHeight, false);
-    }
+    } 
 }
