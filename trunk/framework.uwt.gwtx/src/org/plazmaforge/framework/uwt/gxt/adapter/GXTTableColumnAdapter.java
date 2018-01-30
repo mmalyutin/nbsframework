@@ -35,6 +35,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.gxt.widget.XGrid;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XBaseCell;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
 import org.plazmaforge.framework.uwt.widget.CellRenderer;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
@@ -88,9 +89,12 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	
 	// Create cell by data type
 	Cell cell = GWTUtils.createCell(column.getDataType());
-	if (cell != null) {
-	    xColumn.setCell(cell);
+	if (cell == null) {
+	    cell = new XBaseCell();
 	}
+	//if (cell != null) {
+	    xColumn.setCell(cell);
+	//}
 
 	if (column.getCellRenderer() != null) {
 	    GXTTableCellRenderer xRenderer = new GXTTableCellRenderer(column.getTable(), column);

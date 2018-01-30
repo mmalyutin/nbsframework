@@ -23,8 +23,10 @@
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 import org.plazmaforge.framework.uwt.gxt.data.Model;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XCell;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
 
+import com.google.gwt.cell.client.Cell;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
@@ -76,14 +78,33 @@ public class XColumnConfig<N> extends ColumnConfig<Model, N> {
     }
 
     public XCellRenderer getCellRenderer() {
-        return cellRenderer;
+        //return cellRenderer;
+        XCell<?> xCell = getXCell();
+	if (xCell == null) {
+	    return null;
+	}
+	return xCell.getCellRenderer();
     }
 
     public void setCellRenderer(XCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+	XCell<?> xCell = getXCell();
+	if (xCell == null) {
+	    return;
+	}
+	xCell.setCellRenderer(cellRenderer);
+        //this.cellRenderer = cellRenderer;
     }
 
-    
+    protected XCell<?> getXCell() {
+	Cell<?> cell = getCell();
+	if (cell == null) {
+	    return null;
+	}
+	if (cell instanceof XCell) {
+	    return (XCell) cell;
+	}
+	return null;
+    }
     
     
     
