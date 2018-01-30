@@ -432,7 +432,7 @@ public class TableTab extends AbstractTab {
 	    
 	};
 	
-	//column2.setCellRenderer(cellRenderer2);
+	column2.setCellRenderer(cellRenderer2);
 	
 	table.setItems(items);
 
@@ -454,7 +454,7 @@ public class TableTab extends AbstractTab {
 	contextMenu.addItem(menuItem2);
 	menuItem2.addSelectionListener(selectionListener);
 
-	table.setContextMenu(contextMenu);
+	//table.setContextMenu(contextMenu);
 	
 	panel.add(table);
 	

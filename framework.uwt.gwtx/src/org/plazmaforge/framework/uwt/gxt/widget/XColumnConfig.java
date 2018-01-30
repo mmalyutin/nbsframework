@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 import org.plazmaforge.framework.uwt.gxt.data.Model;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
 
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.sencha.gxt.core.client.ValueProvider;
@@ -39,7 +40,7 @@ public class XColumnConfig<N> extends ColumnConfig<Model, N> {
 
     private Grid<Model> grid;
 
-  
+    private XCellRenderer cellRenderer;
    
     public Grid<Model> getGrid() {
         return grid;
@@ -72,6 +73,14 @@ public class XColumnConfig<N> extends ColumnConfig<Model, N> {
 
     public void setGrid(Grid<Model> grid) {
 	this.grid = grid;
+    }
+
+    public XCellRenderer getCellRenderer() {
+        return cellRenderer;
+    }
+
+    public void setCellRenderer(XCellRenderer cellRenderer) {
+        this.cellRenderer = cellRenderer;
     }
 
     

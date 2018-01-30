@@ -23,15 +23,30 @@
 package org.plazmaforge.framework.uwt.gxt.widget;
 
 
+import java.util.List;
+
 import org.plazmaforge.framework.uwt.gxt.data.Model;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.safecss.shared.SafeStyles;
+import com.google.gwt.safecss.shared.SafeStylesBuilder;
+import com.google.gwt.safecss.shared.SafeStylesUtils;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.sencha.gxt.core.client.GXT;
+import com.sencha.gxt.core.client.ValueProvider;
+import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.SortDir;
 import com.sencha.gxt.widget.core.client.Component;
+import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
+import com.sencha.gxt.widget.core.client.grid.ColumnData;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.grid.GridView;
+import com.sencha.gxt.widget.core.client.grid.GridViewConfig;
+import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import com.sencha.gxt.widget.core.client.menu.CheckMenuItem;
 import com.sencha.gxt.widget.core.client.menu.Menu;
 import com.sencha.gxt.widget.core.client.menu.MenuItem;
@@ -60,9 +75,39 @@ public class XGridView extends GridView<Model> {
     
     private void init() {
 	ownSortable = false;
+	
 	// Use ColumnConfig.setMenuDisabled(true) 
-	// to disable dropdown menu of column (sorting setting) 
+	// to disable DropDown menu of column (sorting setting) 
 	visibleColumnsMenu = false;
+	
+	setViewConfig(new GridViewConfig<Model>() {
+	    
+            @Override
+            public String getColStyle(Model model, ValueProvider<? super Model, ?> valueProvider, int rowIndex, int colIndex) {
+        	ColumnConfig<Model, ?> c = grid.getColumnModel().getColumn(colIndex);
+        	if (c == null) {
+        	    return null;
+        	}
+        	if (!(c instanceof XColumnConfig)) {
+        	    return null;
+        	}
+        	XColumnConfig<?> column = (XColumnConfig<?>) c;
+        	XCellRenderer cellRenderer = column.getCellRenderer();
+        	if (cellRenderer == null) {
+        	    return null;
+        	}
+	
+        	String cellStyle = cellRenderer.getCellStyle(model, valueProvider, rowIndex, colIndex);
+        	GWT.log("CELL-STYLE: " + cellStyle);
+        	return cellStyle;
+            }
+
+            @Override
+            public String getRowStyle(Model model, int rowIndex) {
+                return null;
+            }
+        });
+
     }
     
     public void setTable(Table table) {
@@ -92,6 +137,173 @@ public class XGridView extends GridView<Model> {
 	    doSort(colIndex, sortDir);
 	}
     }
+    
+    
+    /**
+     * Renders the grid view into safe HTML.
+     *
+     * @param cs the column attributes required for rendering
+     * @param rows the data models for the rows to be rendered
+     * @param startRow the index of the first row in <code>rows</code>
+     */
+    protected SafeHtml doRender(List<ColumnData> cs, List<Model> rows, int startRow) {
+      final int colCount = cm.getColumnCount();
+      final int last = colCount - 1;
+
+      int[] columnWidths = getColumnWidths();
+
+      // root builder
+      SafeHtmlBuilder buf = new SafeHtmlBuilder();
+
+      final SafeStyles rowStyles = SafeStylesUtils.fromTrustedString("width: " + getTotalWidth() + "px;");
+
+      final String unselectableClass = unselectable;
+      final String rowAltClass = styles.rowAlt();
+      final String rowDirtyClass = styles.rowDirty();
+
+      final String cellClass = styles.cell() + " " + states.cell();
+      final String cellInnerClass = styles.cellInner() + " " + states.cellInner();
+      final String cellFirstClass = "x-grid-cell-first";
+      final String cellLastClass = "x-grid-cell-last";
+      final String cellDirty = styles.cellDirty();
+
+      final String rowWrap = styles.rowWrap() + " " + states.rowWrap();
+      final String rowBody = styles.rowBody() + " " + states.rowBody();
+      final String rowBodyRow = states.rowBodyRow();
+
+      // loop over all rows
+      for (int j = 0; j < rows.size(); j++) {
+        Model model = rows.get(j);
+
+        ListStore<Model>.Record r = ds.hasRecord(model) ? ds.getRecord(model) : null;
+
+        int rowBodyColSpanCount = colCount;
+        if (enableRowBody) {
+          for (ColumnConfig<Model, ?> c : cm.getColumns()) {
+            if (c instanceof RowExpander) {
+              rowBodyColSpanCount--;
+            }
+          }
+        }
+
+        int rowIndex = (j + startRow);
+
+        String rowClasses = styles.row() + " " + states.row();
+
+        if (!selectable) {
+          rowClasses += " " + unselectableClass;
+        }
+        if (isStripeRows() && ((rowIndex + 1) % 2 == 0)) {
+          rowClasses += " " + rowAltClass;
+        }
+
+        if (isShowDirtyCells() && r != null && r.isDirty()) {
+          rowClasses += " " + rowDirtyClass;
+        }
+
+        if (viewConfig != null) {
+          rowClasses += " " + viewConfig.getRowStyle(model, rowIndex);
+        }
+
+        SafeHtmlBuilder trBuilder = new SafeHtmlBuilder();
+
+        // loop each cell per row
+        for (int i = 0; i < colCount; i++) {
+          SafeHtml rv = getRenderedValue(rowIndex, i, model, r);
+          ColumnConfig<Model, ?> columnConfig = cm.getColumn(i);
+          ColumnData columnData = cs.get(i);
+
+          String cellClasses = cellClass;
+          if (i == 0) {
+            cellClasses += " " + cellFirstClass;
+          } else if (i == last) {
+            cellClasses += " " + cellLastClass;
+          }
+
+          String cellInnerClasses = cellInnerClass;
+          if (columnConfig.getColumnTextClassName() != null) {
+            cellInnerClasses += " " + columnConfig.getColumnTextClassName();
+          }
+          if (!columnConfig.isCellPadding()) {
+            cellInnerClasses += " " + styles.noPadding();
+          }
+
+          if (columnData.getClassNames() != null) {
+            cellClasses += " " + columnData.getClassNames();
+          }
+
+          if (columnConfig.getCellClassName() != null) {
+            cellClasses += " " + columnConfig.getCellClassName();
+          }
+
+          if (isShowDirtyCells() && r != null && r.getChange(columnConfig.getValueProvider()) != null) {
+            cellClasses += " " + cellDirty;
+          }
+
+          //if (viewConfig != null) {
+          //  cellClasses += " " + viewConfig.getColStyle(model, cm.getValueProvider(i), rowIndex, i);
+          //}
+          //final SafeStyles cellStyles = columnData.getStyles();
+  
+          // CHANGE-BEGIN
+          SafeStyles cellStyles = null;
+          if (viewConfig != null) {
+              String colStyle = viewConfig.getColStyle(model, cm.getValueProvider(i), rowIndex, i);
+              if (colStyle != null) {
+        	  SafeStylesBuilder builder = new SafeStylesBuilder();
+        	  builder.append(columnData.getStyles());
+        	  builder.append(SafeStylesUtils.fromTrustedString(colStyle + ";"));
+        	  cellStyles = builder.toSafeStyles();
+              }
+          }
+          if (cellStyles == null) {
+              cellStyles = columnData.getStyles();
+          }
+          // CHANGE-END
+
+          final SafeHtml tdContent;
+          if (enableRowBody && i == 0) {
+            tdContent = tpls.tdRowSpan(i, cellClasses, cellStyles, getRowBodyRowSpan(), cellInnerClasses, rv);
+          } else {
+            if (!selectable && GXT.isIE()) {
+              tdContent = tpls.tdUnselectable(i, cellClasses, cellStyles, cellInnerClasses,
+                  columnConfig.getColumnTextStyle(), rv);
+            } else {
+              tdContent = tpls.td(i, cellClasses, cellStyles, cellInnerClasses, columnConfig.getColumnTextStyle(), rv);
+            }
+
+          }
+          trBuilder.append(tdContent);
+        }
+
+        if (enableRowBody) {
+          String cls = styles.dataTable() + " x-grid-resizer";
+
+          SafeHtmlBuilder sb = new SafeHtmlBuilder();
+          sb.append(tpls.tr("", trBuilder.toSafeHtml()));
+          sb.appendHtmlConstant("<tr class='" + rowBodyRow + "'><td colspan=" + rowBodyColSpanCount + "><div class='"
+              + rowBody + "'></div></td></tr>");
+
+          SafeHtml tdWrap = null;
+          if (!selectable && GXT.isIE()) {
+            tdWrap = tpls.tdWrapUnselectable(colCount, "", rowWrap,
+                tpls.table(cls, rowStyles, sb.toSafeHtml(), renderHiddenHeaders(columnWidths)));
+          } else {
+            tdWrap = tpls.tdWrap(colCount, "", rowWrap,
+                tpls.table(cls, rowStyles, sb.toSafeHtml(), renderHiddenHeaders(columnWidths)));
+          }
+          buf.append(tpls.tr(rowClasses, tdWrap));
+
+        } else {
+          buf.append(tpls.tr(rowClasses, trBuilder.toSafeHtml()));
+        }
+
+      }
+      // end row loop
+      return buf.toSafeHtml();
+
+    }
+    
     
     //DISABLE:MIGRATION
 

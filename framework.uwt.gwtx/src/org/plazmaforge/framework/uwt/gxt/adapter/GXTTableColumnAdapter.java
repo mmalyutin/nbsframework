@@ -30,12 +30,14 @@ import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
+import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTableCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.gxt.widget.XGrid;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
 import org.plazmaforge.framework.uwt.widget.CellRenderer;
+import org.plazmaforge.framework.uwt.widget.LabelProvider;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
@@ -82,15 +84,33 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	HorizontalAlign align = column.getAlign();
 	
 	// Create column
-	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(property, propertyProvider, valueProvider), width, asSafeString(text));
+	XColumnConfig<?> xColumn = new XColumnConfig<Object>(createXValueProvider(property, propertyProvider, valueProvider), width, asSafeString(text));
 	
 	// Create cell by data type
 	Cell cell = GWTUtils.createCell(column.getDataType());
 	if (cell != null) {
 	    xColumn.setCell(cell);
 	}
+
+	if (column.getCellRenderer() != null) {
+	    GXTTableCellRenderer xRenderer = new GXTTableCellRenderer(column.getTable(), column);
+	    xColumn.setCellRenderer(xRenderer);
+	    xRenderer.setCellRenderer(column.getCellRenderer());
+	}
 	
 	setAlign(xColumn, align);
+	
+	column.resetInitProperty(TableColumn.PROPERTY_TEXT);
+	column.resetInitProperty(TableColumn.PROPERTY_PROPERTY);
+	column.resetInitProperty(TableColumn.PROPERTY_WIDTH);
+	column.resetInitProperty(TableColumn.PROPERTY_ALIGN);
+	column.resetInitProperty(TableColumn.PROPERTY_DATA_TYPE);
+	column.resetInitProperty(TableColumn.PROPERTY_FORMAT);
+	column.resetInitProperty(TableColumn.PROPERTY_VALUE_PROVIDER);
+	column.resetInitProperty(TableColumn.PROPERTY_LABEL_PROVIDER);
+	column.resetInitProperty(TableColumn.PROPERTY_CELL_RENDERER);
+	
+	
 	return xColumn;
     }
     
@@ -145,25 +165,24 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	    HorizontalAlign align = (HorizontalAlign) value;
 	    setAlign(xColumn, align);
 	    return;
-//	    
-//	} else if (TableColumn.PROPERTY_LABEL_PROVIDER.equals(name)) {
-//	    GXTTableCellRenderer xRenderer = (GXTTableCellRenderer)  xColumn.getRenderer();
-//	    if  (xRenderer == null) {
-//		xRenderer = new GXTTableCellRenderer(column.getTable(), column);
-//		xColumn.setRenderer(xRenderer);
-//	    }
-//	    xRenderer.setLabelProvider((LabelProvider) value);
-//	    return;
-//	} else if (TableColumn.PROPERTY_CELL_RENDERER.equals(name)) {
-//	    GXTTableCellRenderer xRenderer = (GXTTableCellRenderer)  xColumn.getRenderer();
-//	    if  (xRenderer == null) {
-//		xRenderer = new GXTTableCellRenderer(column.getTable(), column);
-//		xColumn.setRenderer(xRenderer);
-//	    }
-//	    xRenderer.setCellRenderer((CellRenderer) value);
-//	    
-//	    return;
-//	} else if (TableColumn.PROPERTY_CELL_EDITOR.equals(name)) {
+	    
+	} else if (TableColumn.PROPERTY_LABEL_PROVIDER.equals(name)) {
+	    GXTTableCellRenderer xRenderer = (GXTTableCellRenderer)  xColumn.getCellRenderer();
+	    if  (xRenderer == null) {
+		xRenderer = new GXTTableCellRenderer(column.getTable(), column);
+		xColumn.setCellRenderer(xRenderer);
+	    }
+	    xRenderer.setLabelProvider((LabelProvider) value);
+	    return;
+	} else if (TableColumn.PROPERTY_CELL_RENDERER.equals(name)) {
+	    GXTTableCellRenderer xRenderer = (GXTTableCellRenderer)  xColumn.getCellRenderer();
+	    if  (xRenderer == null) {
+		xRenderer = new GXTTableCellRenderer(column.getTable(), column);
+		xColumn.setCellRenderer(xRenderer);
+	    }
+	    xRenderer.setCellRenderer((CellRenderer) value);
+	    return;
+//	}   else if (TableColumn.PROPERTY_CELL_EDITOR.equals(name)) {
 //	    CellEditor cellEditor = (CellEditor) value;
 //	   com.sencha.gxt.widget.core.client.grid.CellEditor xCellEditor = createCellEditor(grid, column, cellEditor);
 //	    xColumn.setEditor(xCellEditor);
