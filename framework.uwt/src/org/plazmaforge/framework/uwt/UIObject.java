@@ -538,6 +538,15 @@ public class UIObject {
 	initProperties.remove(name);
     }
     
+    public void resetInitProperties(String... names) {
+	if (names == null) {
+	    return;
+	}
+	for (String name: names) {
+	    resetInitProperty(name);
+	}
+     }
+    
     /**
      * Activate the object:
      * - Create the delegate

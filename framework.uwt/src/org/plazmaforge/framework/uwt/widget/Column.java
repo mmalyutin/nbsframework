@@ -303,6 +303,7 @@ public class Column extends Item implements HasProperty, HasDataType {
 
     public void setValueProvider(ValueProvider valueProvider) {
         this.valueProvider = valueProvider;
+        fireChangeProperty(PROPERTY_VALUE_PROVIDER, valueProvider);
     }
 
 

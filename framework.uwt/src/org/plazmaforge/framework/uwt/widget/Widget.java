@@ -131,6 +131,8 @@ public class Widget extends UIObject {
     
     public static String PROPERTY_LABEL_PROVIDER = "labelProvider";
     
+    public static String PROPERTY_VALUE_PROVIDER = "valueProvider";
+    
     public static String PROPERTY_CELL_RENDERER = "cellRenderer";
     
     public static String PROPERTY_CELL_EDITOR = "cellEditor";
