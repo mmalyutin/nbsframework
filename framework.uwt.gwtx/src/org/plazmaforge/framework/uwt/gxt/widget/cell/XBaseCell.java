@@ -21,7 +21,7 @@
  */
 package org.plazmaforge.framework.uwt.gxt.widget.cell;
 
-import com.google.gwt.cell.client.Cell;
+import java.util.Set;
 
 /**
  * 
@@ -29,9 +29,21 @@ import com.google.gwt.cell.client.Cell;
  *
  * @param <C>
  */
-public interface XCell<C> extends Cell<C> {
+public class XBaseCell<C> extends XAbstractCell<C> {
 
-    XCellRenderer getCellRenderer();
+    public XBaseCell() {
+	super();
+    }
     
-    void setCellRenderer(XCellRenderer cellRenderer);
+    public XBaseCell(Set<String> consumedEvents) {
+	super(consumedEvents);
+    }
+
+    public XBaseCell(String... consumedEvents) {
+	super(consumedEvents);
+    }
+
+    protected String formatValue(C value) {
+	return value == null ? null : value.toString();
+    }
 }

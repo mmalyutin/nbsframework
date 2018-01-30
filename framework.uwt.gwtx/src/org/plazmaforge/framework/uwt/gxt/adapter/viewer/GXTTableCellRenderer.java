@@ -46,6 +46,7 @@ import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
 /**
  * 
@@ -219,6 +220,8 @@ public class GXTTableCellRenderer implements XCellRenderer {
 	}
 
 	content = imageContent + textContent;	
+	
+	sb.append(SafeHtmlUtils.fromTrustedString(content));
     }
 
     public String getCellStyle(Model model, ValueProvider<? super Model, ?> valueProvider, int rowIndex, int colIndex) {
