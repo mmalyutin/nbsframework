@@ -27,17 +27,22 @@ import java.util.List;
 
 import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XContext;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
+import com.google.gwt.cell.client.Cell;
+import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesBuilder;
 import com.google.gwt.safecss.shared.SafeStylesUtils;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.sencha.gxt.core.client.GXT;
 import com.sencha.gxt.core.client.ValueProvider;
+import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.SortDir;
 import com.sencha.gxt.widget.core.client.Component;
@@ -80,6 +85,8 @@ public class XGridView extends GridView<Model> {
 	// to disable DropDown menu of column (sorting setting) 
 	visibleColumnsMenu = false;
 	
+	//DISABLED
+	/*
 	setViewConfig(new GridViewConfig<Model>() {
 	    
             @Override
@@ -98,7 +105,6 @@ public class XGridView extends GridView<Model> {
         	}
 	
         	String cellStyle = cellRenderer.getCellStyle(model, valueProvider, rowIndex, colIndex);
-        	GWT.log("CELL-STYLE: " + cellStyle);
         	return cellStyle;
             }
 
@@ -107,6 +113,7 @@ public class XGridView extends GridView<Model> {
                 return null;
             }
         });
+        */
 
     }
     
@@ -138,6 +145,33 @@ public class XGridView extends GridView<Model> {
 	}
     }
     
+    protected XContext context;
+    
+    
+    protected <N> SafeHtml getRenderedValue(int rowIndex, int colIndex, Model m, ListStore<Model>.Record record) {
+	ValueProvider<? super Model, N> valueProvider = cm.getValueProvider(colIndex);
+	N val = null;
+	if (record != null) {
+	    val = record.getValue(valueProvider);
+	} else {
+	    val = valueProvider.getValue(m);
+	}
+	Cell<N> r = cm.getCell(colIndex);
+	if (r != null) {
+	    SafeHtmlBuilder sb = new SafeHtmlBuilder();
+	    // CHANGE: Create own XContext
+	    context = new XContext(rowIndex, colIndex, ds.getKeyProvider().getKey(m), m);
+	    r.render(context, val, sb);
+	    return sb.toSafeHtml();
+	}
+
+	String text = null;
+	if (val != null) {
+	    text = val.toString();
+	}
+	return Util.isEmptyString(text) ? Util.NBSP_SAFE_HTML : SafeHtmlUtils.fromString(text);
+    }
+    
     
     /**
      * Renders the grid view into safe HTML.
@@ -146,6 +180,7 @@ public class XGridView extends GridView<Model> {
      * @param rows the data models for the rows to be rendered
      * @param startRow the index of the first row in <code>rows</code>
      */
+    @Override
     protected SafeHtml doRender(List<ColumnData> cs, List<Model> rows, int startRow) {
       final int colCount = cm.getColumnCount();
       final int last = colCount - 1;
@@ -209,6 +244,10 @@ public class XGridView extends GridView<Model> {
 
         // loop each cell per row
         for (int i = 0; i < colCount; i++) {
+            
+          //Object key = ds.getKeyProvider().getKey(model);
+          //XContext context = new XContext(rowIndex, i, ds.getKeyProvider().getKey(model));
+        	  
           SafeHtml rv = getRenderedValue(rowIndex, i, model, r);
           ColumnConfig<Model, ?> columnConfig = cm.getColumn(i);
           ColumnData columnData = cs.get(i);
@@ -240,6 +279,7 @@ public class XGridView extends GridView<Model> {
             cellClasses += " " + cellDirty;
           }
 
+          //DISABLED
           //if (viewConfig != null) {
           //  cellClasses += " " + viewConfig.getColStyle(model, cm.getValueProvider(i), rowIndex, i);
           //}
@@ -247,6 +287,8 @@ public class XGridView extends GridView<Model> {
   
           // CHANGE-BEGIN
           SafeStyles cellStyles = null;
+          
+          /*
           if (viewConfig != null) {
               String colStyle = viewConfig.getColStyle(model, cm.getValueProvider(i), rowIndex, i);
               if (colStyle != null) {
@@ -256,6 +298,16 @@ public class XGridView extends GridView<Model> {
         	  cellStyles = builder.toSafeStyles();
               }
           }
+          */
+          
+          if (context != null && context.getCellStyle() != null) {
+              String colStyle = context.getCellStyle();
+              SafeStylesBuilder builder = new SafeStylesBuilder();
+              builder.append(columnData.getStyles());
+              builder.append(SafeStylesUtils.fromTrustedString(colStyle + ";"));
+              cellStyles = builder.toSafeStyles();
+          }
+          
           if (cellStyles == null) {
               cellStyles = columnData.getStyles();
           }
