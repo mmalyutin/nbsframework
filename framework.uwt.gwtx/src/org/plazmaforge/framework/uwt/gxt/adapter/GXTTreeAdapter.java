@@ -32,8 +32,8 @@ import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
-//import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTreeCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XBaseCell;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -44,6 +44,7 @@ import com.sencha.gxt.data.client.loader.RpcProxy;
 import com.sencha.gxt.data.shared.loader.ChildTreeStoreBinding;
 import com.sencha.gxt.data.shared.loader.TreeLoader;
 import com.sencha.gxt.widget.core.client.tree.TreeStyle;
+import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
@@ -64,7 +65,15 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 	// Create first column to emulate column header
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = new ArrayList<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>>();
 	XColumnConfig<?> xColumn = new XColumnConfig(createXValueProvider(tree.getDisplayProperty(), tree.getPropertyProvider(), null), 100, "");
-	//xColumn.setRenderer(new TreeGridCellRenderer<ModelData>());
+	
+	// Create cell by data type
+	Cell cell = GWTUtils.createCell(null, tree.getDisplayFormat());
+	if (cell == null) {
+	    cell = new XBaseCell();
+	}
+	//if (cell != null) {
+	    xColumn.setCell(cell);
+	//}
 	columns.add(xColumn);
 	
 	
