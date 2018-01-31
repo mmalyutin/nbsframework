@@ -22,7 +22,6 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter.viewer;
 
-import java.util.Date;
 
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
@@ -30,6 +29,7 @@ import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTHelper;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XCell;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XContext;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
@@ -39,12 +39,7 @@ import org.plazmaforge.framework.uwt.widget.LabelProvider;
 import org.plazmaforge.framework.uwt.widget.Viewer;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
-import com.sencha.gxt.core.client.ValueProvider;
-import com.sencha.gxt.widget.core.client.grid.Grid;
-import com.sencha.gxt.widget.core.client.grid.GridSelectionModel;
 import com.google.gwt.cell.client.Cell.Context;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
@@ -264,16 +259,6 @@ public class GXTTableCellRenderer implements XCellRenderer {
 	return GXTHelper.getBean(model);
     }
     
-//    /**
-//     * Return value of model by property
-//     * @param model
-//     * @param property
-//     * @return
-//     */
-//    protected Object getValue(M model, String property) {
-//	return GXTHelper.getValue(model, property);
-//    }
-
     protected String getColorString(Color color) {
 	return GXTHelper.getColorString(color);
     }
@@ -286,46 +271,34 @@ public class GXTTableCellRenderer implements XCellRenderer {
 	return GXTHelper.getFontStyle(font);
     }
     
-    protected String getTextValue(Object value) {
-	return value.toString();
+    protected XCell getCell(TableColumn column) {
+	if (column == null) {
+	    return null;
+	}
+	XColumnConfig xColumn = (XColumnConfig) column.getDelegate();
+	if (xColumn == null) {
+	    return null;
+	}
+	
+	return xColumn.getXCell();
     }
     
-    protected String getTextValue(Object value, TableColumn column) {
-	//TODO
+    protected String getTextValue(Object value) {
 	return value == null ? null : value.toString();
     }
     
-//    protected String getTextValue(Object value, TableColumn column) {
-//	if (value == null) {
-//	    return null;
-//	}
-//	String format = column.getFormat();
-//	if (format == null) {
-//	    return getTextValue(value);
-//	}
-//	
-//	XColumnConfig xColumn = (XColumnConfig) column.getDelegate();
-//	if (xColumn == null) {
-//	    return null;
-//	}
-//	//
-//
-//	if (value instanceof Number) {
-//	    
-//	    // GWT NumberFormat
-//	    NumberFormat numberFormat = xColumn.getNumberFormat();
-//	    return numberFormat == null? getTextValue(value) : numberFormat.format((Number) value);
-//	}
-//	
-//	if (value instanceof Date) {
-//	    
-//	    // GWT DateTimeFormat
-//	    DateTimeFormat dateTimeFormat = xColumn.getDateTimeFormat();
-//	    return dateTimeFormat == null? getTextValue(value) : dateTimeFormat.format((Date) value);
-//	}
-//	
-//	return getTextValue(value);
-//    }
+    protected String getTextValue(Object value, TableColumn column) {
+	if (value == null) {
+	    return null;
+	}
+	
+	XCell xCell = getCell(column);
+	if (xCell == null) {
+	    return getTextValue(value);
+	}
+	
+	return xCell.formatValue(value);
+    }
 
 
    

@@ -94,7 +94,7 @@ public class XNumberCell<N extends Number> extends XAbstractCell<N> {
     }
 
     @Override
-    protected String formatValue(N value) {
+    public String formatValue(N value) {
 	return value == null ? null : format.format(value);
     }
 

@@ -43,7 +43,7 @@ public class XBaseCell<C> extends XAbstractCell<C> {
 	super(consumedEvents);
     }
 
-    protected String formatValue(C value) {
+    public String formatValue(C value) {
 	return value == null ? null : value.toString();
     }
 }

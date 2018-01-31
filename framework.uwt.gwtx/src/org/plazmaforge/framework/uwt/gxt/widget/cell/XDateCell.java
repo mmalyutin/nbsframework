@@ -127,7 +127,7 @@ public class XDateCell extends XAbstractCell<Date> {
 
      
     @Override
-    protected String formatValue(Date value) {
+    public String formatValue(Date value) {
 	return value == null ? null : format.format(value);
     }    
     
