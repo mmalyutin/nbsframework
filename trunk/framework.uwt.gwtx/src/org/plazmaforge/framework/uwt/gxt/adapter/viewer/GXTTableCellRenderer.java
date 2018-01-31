@@ -31,6 +31,7 @@ import org.plazmaforge.framework.uwt.gxt.adapter.GXTHelper;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
+import org.plazmaforge.framework.uwt.gxt.widget.cell.XContext;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 import org.plazmaforge.framework.uwt.widget.CellContext;
 import org.plazmaforge.framework.uwt.widget.CellRenderer;
@@ -39,7 +40,6 @@ import org.plazmaforge.framework.uwt.widget.Viewer;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 import com.sencha.gxt.core.client.ValueProvider;
-import com.sencha.gxt.widget.core.client.grid.ColumnData;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.grid.GridSelectionModel;
 import com.google.gwt.cell.client.Cell.Context;
@@ -103,13 +103,25 @@ public class GXTTableCellRenderer implements XCellRenderer {
         this.labelProvider = labelProvider;
     }
 
+    /**
+     * Render cell value
+     */
     public void render(Context context, Object value, SafeHtmlBuilder sb) {
 	int rowIndex = context.getIndex();
 	int colIndex = context.getColumn();
-	
+
+	Object model = null;
 	Object element = null;
-	// Get cell value of element
-	//Object value = valueProvider.getValue(model); //getValue(model, property);
+	XContext xContext = null;
+	
+	if (context instanceof XContext) {
+	    xContext = (XContext) context;
+	}
+	
+	if (xContext != null) {
+	    model = xContext.getModel();
+	    element = getElement((Model) model);
+	}
 	
 	// Cell image 
 	Image image = null;
@@ -150,129 +162,9 @@ public class GXTTableCellRenderer implements XCellRenderer {
 	    
 	    // Reset cell attributes
 	    //config.cellAttr = null;
-	    
-	    CellContext cellContext = new CellContext();
-	    cellContext.setRow(rowIndex);
-	    cellContext.setColumn(colIndex);
-	    cellContext.setData(element);
-	    cellContext.setValue(value);
-	    cellContext.setText(text);
-	    cellContext.setImage(image);
-	    
-	    //TODO: Selection doesn't support in rendering mode
-	    //cellContext.selected = isSelectedRow(grid, model);
-	    
-	    cellRenderer.render(cellContext);
-	    
-	    text = cellContext.getText();
-	    image = cellContext.getImage();
-	    background = cellContext.getBackground();
-	    foreground = cellContext.getForeground();
-	    font = cellContext.getFont();
-	}
-	
-
-	if (image != null) {
-	    String path = image.getPath();
-	    if (path != null) {
-		String storage = StorageUtils.getImageStorage(viewer, path);
-		String fullPath = StorageUtils.getPath(storage, path);
-		imageAttr = "border='0' style='width: 16px; height: 16px; background: url(" + fullPath + ") no-repeat 0px 0px transparent; '";
-		imageAttr = imageAttr + " src='/application/clear.cache.gif'";
-		// imageAttr = imageAttr + " class='x-tree3-node-icon'";
+	    if (xContext != null) {
+		xContext.setCellStyle(null);
 	    }
-	}
-	if (text == null) {
-	    text = "&#160;";
-	}
-
-	textStyle = "white-space: nowrap; line-height: 11px; text-decoration: none; padding: 0 0 0 3px; position: relative;";
-	if (imageAttr != null) {
-	    textStyle = textStyle + " top: -4px;"; // Fix top if use Image. Why?
-	}
-	// textAttr = " style='white-space: nowrap; line-height: 11px; text-decoration: none; padding: 0 0 0 13px; position: relative;'";
-	
-	if (foreground != null) {
-	    String foregroundString = getColorString(foreground);
-	    textStyle = GXTHelper.applyStyle(textStyle, "color", foregroundString);
-	}
-
-	textAttr = " style='" + textStyle + "'";
-	// textAttr = textAttr + " class='x-tree3-node-text'"; // top: -4px !!!	// if use Image
-	textContent = "<span " + textAttr + " >" + text + "</span>";
-
-	if (imageAttr != null) {
-	    imageContent = "<img " + imageAttr + "/>";
-	    cellStyle = "padding-top: 0px; padding-bottom: 0px;";
-	    // config.cellAttr = "style='padding-top: 0px; padding-bottom: 0px;'"; // Fix padding of cell: big height of row
-	}
-
-	if (background != null) {
-	    String backgroundString = getColorString(background);
-	    cellStyle = GXTHelper.applyStyle(cellStyle, "background", backgroundString);
-	}
-
-	if (cellStyle != null) {
-	    //config.cellAttr = "style='" + cellStyle + "'";
-	}
-	if (imageContent == null) {
-	    imageContent = "";
-	}
-
-	content = imageContent + textContent;	
-	
-	sb.append(SafeHtmlUtils.fromTrustedString(content));
-    }
-
-    public String getCellStyle(Model model, ValueProvider<? super Model, ?> valueProvider, int rowIndex, int colIndex) {
-	
-   // public Object render(Model model, String property, ColumnData config, int rowIndex, int colIndex/*, ListStore<M> store, Grid<M> grid*/) {
-	
-	// Get row element
-	Object element = null; //getElement(model);
-	
-	// Get cell value of element
-	Object value = valueProvider.getValue(model); //getValue(model, property);
-	
-	// Cell image 
-	Image image = null;
-
-	// Cell text 
-	String text = null;
-	
-	// Cell background
-	Color background = null;
-	    
-	// Cell foreground
-	Color foreground = null;
-	  
-	// Cell font
-	Font font = null;    	
-
-	String imageAttr = null;
-	String textStyle = null;
-	String textAttr = null;
-	
-	String cellStyle = null;
-	String cellAttr = null;
-	
-	String content = null;
-	String imageContent = null;
-	String textContent = null;
-	
-	
-	
-	if (labelProvider != null) {
-	    image = labelProvider.getImage(element);
-	    text = labelProvider.getText(element);
-	} else {
-	    text = getTextValue(value, tableColumn);
-	}
-
-	if (cellRenderer != null) {
-	    
-	    // Reset cell attributes
-	    //config.cellAttr = null;
 	    
 	    CellContext cellContext = new CellContext();
 	    cellContext.setRow(rowIndex);
@@ -336,17 +228,23 @@ public class GXTTableCellRenderer implements XCellRenderer {
 	}
 
 	//if (cellStyle != null) {
-	//    config.cellAttr = "style='" + cellStyle + "'";
+	    //config.cellAttr = "style='" + cellStyle + "'";
+	   
 	//}
 	
+	if (xContext != null) {
+	    xContext.setCellStyle(cellStyle);
+	}
+	 
 	if (imageContent == null) {
 	    imageContent = "";
 	}
 
-	content = imageContent + textContent;
+	content = imageContent + textContent;	
 	
-	return cellStyle;
+	sb.append(SafeHtmlUtils.fromTrustedString(content));
     }
+
 
 //    /**
 //     * Return true if row is selected
@@ -361,11 +259,11 @@ public class GXTTableCellRenderer implements XCellRenderer {
 //	GridSelectionModel<M> selectionModel = grid.getSelectionModel();
 //	return selectionModel == null ? false : selectionModel.isSelected(model);
 //    }
-//    
-//    protected Object getElement(M model) {
-//	return GXTHelper.getBean(model);
-//    }
-//    
+    
+    protected Object getElement(Model model) {
+	return GXTHelper.getBean(model);
+    }
+    
 //    /**
 //     * Return value of model by property
 //     * @param model

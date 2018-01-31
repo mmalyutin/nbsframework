@@ -21,17 +21,50 @@
  */
 package org.plazmaforge.framework.uwt.gxt.widget.cell;
 
+import org.plazmaforge.framework.uwt.gxt.data.Model;
 
-import com.google.gwt.cell.client.Cell.Context;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.cell.client.Cell;
 
 /**
  * 
  * @author ohapon
  *
  */
-public interface XCellRenderer {
+public class XContext extends Cell.Context {
 
-  void render(Context context, Object value, SafeHtmlBuilder sb);
+    private Model model;
+    
+    private String cellStyle;
+    
+    public XContext(int index, int column, Object key, int subindex) {
+	super(index, column, key, subindex);
+    }
+
+    public XContext(int index, int column, Object key) {
+	super(index, column, key);
+    }
+
+    public XContext(int index, int column, Object key, int subindex, Model model) {
+	super(index, column, key, subindex);
+	this.model = model;
+    }
+
+    public XContext(int index, int column, Object key, Model model) {
+	super(index, column, key);
+	this.model = model;
+    }
+
+    public Model getModel() {
+	return model;
+    }
+
+    public String getCellStyle() {
+        return cellStyle;
+    }
+
+    public void setCellStyle(String cellStyle) {
+        this.cellStyle = cellStyle;
+    }
+
     
 }
