@@ -26,14 +26,14 @@ package org.plazmaforge.framework.uwt.gxt.widget;
 import java.util.List;
 
 import org.plazmaforge.framework.uwt.gxt.data.Model;
-import org.plazmaforge.framework.uwt.gxt.widget.cell.XCellRenderer;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XContext;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesBuilder;
 import com.google.gwt.safecss.shared.SafeStylesUtils;
@@ -45,14 +45,18 @@ import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.core.client.util.Util;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.SortDir;
-import com.sencha.gxt.widget.core.client.Component;
+import com.sencha.gxt.data.shared.Store.StoreSortInfo;
+import com.sencha.gxt.messages.client.DefaultMessages;
+import com.sencha.gxt.widget.core.client.event.CheckChangeEvent;
+import com.sencha.gxt.widget.core.client.event.CheckChangeEvent.CheckChangeHandler;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnData;
+import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.grid.GridView;
-import com.sencha.gxt.widget.core.client.grid.GridViewConfig;
 import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import com.sencha.gxt.widget.core.client.menu.CheckMenuItem;
+import com.sencha.gxt.widget.core.client.menu.Item;
 import com.sencha.gxt.widget.core.client.menu.Menu;
 import com.sencha.gxt.widget.core.client.menu.MenuItem;
 
@@ -85,7 +89,7 @@ public class XGridView extends GridView<Model> {
 	// to disable DropDown menu of column (sorting setting) 
 	visibleColumnsMenu = false;
 	
-	//DISABLED
+	//DISABLED: See XCellRenderer
 	/*
 	setViewConfig(new GridViewConfig<Model>() {
 	    
@@ -357,130 +361,185 @@ public class XGridView extends GridView<Model> {
     }
     
     
-    //DISABLE:MIGRATION
 
-    /*
+    
+    protected StoreSortInfo<Model> updateSortInfo(int colIndex, SortDir sortDir) {
+	ColumnConfig<Model, ?> column = cm.getColumn(colIndex);
+	return updateSortInfo(column, sortDir);
+    }
+    
+    protected StoreSortInfo<Model> updateSortInfo(ColumnConfig<Model, ?> column, SortDir sortDir) {
+
+	ds.clearSortInfo();
+
+	StoreSortInfo<Model> s = createStoreSortInfo(column, sortDir);
+
+	if (sortDir == null && storeSortInfo != null
+		&& storeSortInfo.getValueProvider().getPath().equals(column.getValueProvider().getPath())) {
+	    s.setDirection(storeSortInfo.getDirection() == SortDir.ASC ? SortDir.DESC : SortDir.ASC);
+	} else if (sortDir == null) {
+	    s.setDirection(SortDir.ASC);
+	}
+	return s;
+    }
+    
+    protected void doLocalSort(int colIndex, SortDir sortDir) {
+	ColumnConfig<Model, ?> column = cm.getColumn(colIndex);
+	StoreSortInfo<Model> s = updateSortInfo(column, sortDir);
+
+	if (GWT.isProdMode()) {
+	    ds.addSortInfo(s);
+	} else {
+	    try {
+		// addSortInfo will apply its sort when called, which might trigger an
+		// exception if the column passed in's data isn't Comparable
+		ds.addSortInfo(s);
+	    } catch (ClassCastException ex) {
+		GWT.log("Column can't be sorted " + column.getValueProvider().getPath()
+			+ " is not Comparable, and no Comparator was set for that column. ", ex);
+		throw ex;
+	    }
+	}
+    }
+
+    @Override
     protected void doSort(int colIndex, SortDir sortDir) {
 	if (!ownSortable) {
 	    doUWTSort(colIndex, sortDir);
 	    return;
 	}
-	ds.sort(cm.getDataIndex(colIndex), sortDir);
+	super.doSort(colIndex, sortDir);
+	//ds.sort(cm.getDataIndex(colIndex), sortDir);
     }
     
-    
+
     protected void doUWTSort(int colIndex, SortDir sortDir) {
 	if (table == null) {
 	    return;
 	}
 	
 	// Change SortInfo: Special for ColumnHeader.updateSortIcon
-	String field = cm.getDataIndex(colIndex);
-	SortInfo sortInfo = ds.getSortState();
-	sortInfo.setSortField(field);
-	sortInfo.setSortDir(sortDir);
+	//String field = cm.getDataIndex(colIndex);
+	//SortInfo sortInfo = ds.getSortState();
+	//sortInfo.setSortField(field);
+	//sortInfo.setSortDir(sortDir);
+	
+	
+	updateSortInfo(colIndex, sortDir);
 	
 	TableColumn column = table.getColumn(colIndex);
 	boolean asc = !SortDir.DESC.equals(sortDir); // ASC = TRUE if sortDir = ASC or sortDit = NONE
 	table.sortByColumn(column, asc);
     }
     
+    /**
+     * Creates a context menu for the given column, including sort menu items and column visibility sub-menu.
+     *
+     * @param colIndex the column index
+     * @return the context menu for the given column
+     */
+    @Override
     protected Menu createContextMenu(final int colIndex) {
-	    final Menu menu = new Menu();
+      final Menu menu = new Menu();
 
-	    if (cm.isSortable(colIndex)) {
-	      MenuItem item = new MenuItem();
-	      item.setText(GXT.MESSAGES.gridView_sortAscText());
-	      item.setIcon(getImages().getSortAsc());
-	      item.addSelectionListener(new SelectionListener<MenuEvent>() {
-	        public void componentSelected(MenuEvent ce) {
-	          doSort(colIndex, SortDir.ASC);
-	        }
+      if (cm.isSortable(colIndex)) {
+        MenuItem item = new MenuItem();
+        item.setText(DefaultMessages.getMessages().gridView_sortAscText());
+        item.setIcon(header.getAppearance().sortAscendingIcon());
+        item.addSelectionHandler(new SelectionHandler<Item>() {
+          @Override
+          public void onSelection(SelectionEvent<Item> event) {
+            doSort(colIndex, SortDir.ASC);
+          }
+        });
+        menu.add(item);
 
-	      });
-	      menu.add(item);
+        item = new MenuItem();
+        item.setText(DefaultMessages.getMessages().gridView_sortDescText());
+        item.setIcon(header.getAppearance().sortDescendingIcon());
+        item.addSelectionHandler(new SelectionHandler<Item>() {
+          @Override
+          public void onSelection(SelectionEvent<Item> event) {
+            doSort(colIndex, SortDir.DESC);
+          }
+        });
+        menu.add(item);
+      }
 
-	      item = new MenuItem();
-	      item.setText(GXT.MESSAGES.gridView_sortDescText());
-	      item.setIcon(getImages().getSortDesc());
-	      item.addSelectionListener(new SelectionListener<MenuEvent>() {
-	        public void componentSelected(MenuEvent ce) {
-	          doSort(colIndex, SortDir.DESC);
-	        }
-	      });
-	      menu.add(item);
-	    }
+      // CHANGE-BEGIN
+      if (!visibleColumnsMenu) {
+	return menu;
+      }
+      // CNANGE-END
+	
+      MenuItem columns = new MenuItem();
+      columns.setText(DefaultMessages.getMessages().gridView_columnsText());
+      columns.setIcon(header.getAppearance().columnsIcon());
+      columns.setData("gxt-columns", "true");
 
-	    if (!visibleColumnsMenu) {
-		return menu;
-	    }
-	    
-	    MenuItem columns = new MenuItem();
-	    columns.setText(GXT.MESSAGES.gridView_columnsText());
-	    columns.setIcon(getImages().getColumns());
-	    columns.setData("gxt-columns", "true");
+      final Menu columnMenu = new Menu();
 
-	    final Menu columnMenu = new Menu();
+      int cols = cm.getColumnCount();
+      for (int i = 0; i < cols; i++) {
+        ColumnConfig<Model, ?> config = cm.getColumn(i);
+        // ignore columns that can't be hidden
+        if (!config.isHideable()) {
+          continue;
+        }
+        final int fcol = i;
+        final CheckMenuItem check = new CheckMenuItem();
+        check.setHideOnClick(false);
+        check.setHTML(cm.getColumnHeader(i));
+        check.setChecked(!cm.isHidden(i));
+        check.setData("gxt-column-index", i);
+        check.addCheckChangeHandler(new CheckChangeHandler<CheckMenuItem>() {
+          @Override
+          public void onCheckChange(CheckChangeEvent<CheckMenuItem> event) {
+            cm.setHidden(fcol, !cm.isHidden(fcol));
+            restrictMenu(cm, columnMenu);
+          }
+        });
+        columnMenu.add(check);
+      }
 
-	    int cols = cm.getColumnCount();
-	    for (int i = 0; i < cols; i++) {
-	      if (shouldNotCount(i, false)) {
-	        continue;
-	      }
-	      final int fcol = i;
-	      final CheckMenuItem check = new CheckMenuItem();
-	      check.setHideOnClick(false);
-	      check.setText(cm.getColumnHeader(i));
-	      check.setChecked(!cm.isHidden(i));
-	      check.addSelectionListener(new SelectionListener<MenuEvent>() {
-	        public void componentSelected(MenuEvent ce) {
-	          cm.setHidden(fcol, !cm.isHidden(fcol));
-	          restrictMenu(columnMenu);
-	        }
-	      });
-	      columnMenu.add(check);
-	    }
-
-	    restrictMenu(columnMenu);
-
-	    columns.setSubMenu(columnMenu);
-	    menu.add(columns);
-	    return menu;
-	  }
+      restrictMenu(cm, columnMenu);
+      columns.setEnabled(columnMenu.getWidgetCount() > 0);
+      columns.setSubMenu(columnMenu);
+      menu.add(columns);
+      return menu;
+    }    
     
-    
-    
-    
-    protected void restrictMenu(Menu columns) {
+    // WARNING!
+    // Special Copy+Past because original method has private access
+    private void restrictMenu(ColumnModel<Model> cm, Menu columns) {
 	int count = 0;
 	for (int i = 0, len = cm.getColumnCount(); i < len; i++) {
-	    if (!shouldNotCount(i, true)) {
-		count++;
+	    ColumnConfig<Model, ?> cc = cm.getColumn(i);
+	    if (cc.isHidden() || !cc.isHideable()) {
+		continue;
 	    }
+	    count++;
 	}
 
 	if (count == 1) {
-	    for (Component item : columns.getItems()) {
-		CheckMenuItem ci = (CheckMenuItem) item;
+	    for (int i = 0, len = columns.getWidgetCount(); i < len; i++) {
+		CheckMenuItem ci = (CheckMenuItem) columns.getWidget(i);
 		if (ci.isChecked()) {
 		    ci.disable();
 		}
 	    }
 	} else {
-	    for (Component item : columns.getItems()) {
-		item.enable();
+	    for (int i = 0, len = columns.getWidgetCount(); i < len; i++) {
+		CheckMenuItem item = (CheckMenuItem) columns.getWidget(i);
+		int col = item.getData("gxt-column-index");
+		ColumnConfig<Model, ?> config = cm.getColumn(col);
+		if (config.isHideable()) {
+		    item.enable();
+		}
 	    }
 	}
     }
 
-    
-    protected boolean shouldNotCount(int columnIndex, boolean includeHidden) {
-	return cm.getColumnHeader(columnIndex) == null
-		|| cm.getColumnHeader(columnIndex).equals("")
-		|| (includeHidden && cm.isHidden(columnIndex))
-		|| cm.isFixed(columnIndex);
-    }
-*/
-    
+ 
 
 }
