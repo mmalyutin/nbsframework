@@ -95,7 +95,7 @@ public class XColumnConfig<N> extends ColumnConfig<Model, N> {
         //this.cellRenderer = cellRenderer;
     }
 
-    protected XCell<?> getXCell() {
+    public XCell<?> getXCell() {
 	Cell<?> cell = getCell();
 	if (cell == null) {
 	    return null;

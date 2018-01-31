@@ -31,6 +31,8 @@ import com.google.gwt.cell.client.Cell;
  */
 public interface XCell<C> extends Cell<C> {
 
+    String formatValue(C value);
+    
     XCellRenderer getCellRenderer();
     
     void setCellRenderer(XCellRenderer cellRenderer);

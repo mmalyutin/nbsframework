@@ -53,7 +53,7 @@ public abstract class XAbstractCell<C>  extends AbstractCell<C> implements XCell
         this.cellRenderer = cellRenderer;
     }
 
-    protected abstract String formatValue(C value);
+    public abstract String formatValue(C value);
     
     public void render(Context context, C value, SafeHtmlBuilder sb) {
 	if (cellRenderer != null) {
