@@ -115,7 +115,7 @@ public class Presenter extends Composite implements IPresenter {
 	// MENU BAR (OPTIONAL)
 	if (isSupportMenuBar() && isEmulateMenuBar()) {
 	    // TODO
-	    menuPanel = new Composite();
+	    menuPanel = new Panel();
 	    menuPanel.setLayoutData(new GridData(1, 1, HorizontalAlign.FILL, VerticalAlign.MIDDLE, true, false));
 	    menuPanel.setLayout(new FitLayout());
 	    add(menuPanel);
@@ -346,7 +346,7 @@ public class Presenter extends Composite implements IPresenter {
     }
 
     protected Composite createContent() {
-	Composite content = new Composite();
+	Composite content = new Panel();
 	GridLayout layout = new GridLayout();
 	layout.resetMargin();
 	content.setLayout(layout);

@@ -88,7 +88,7 @@ public class XMLReader implements XMLInfo {
 	// Node Types
 	///////////////////////////////////////////////////////////////////////
 	
-	nodeTypes.put("composite", UIBuilder.COMPOSITE_TYPE);
+	//nodeTypes.put("composite", UIBuilder.COMPOSITE_TYPE);
 	
 	// Panels
 	nodeTypes.put("panel", UIBuilder.PANEL_TYPE);

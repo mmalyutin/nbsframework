@@ -113,7 +113,7 @@ public class UIBuilder {
     // TYPES
     //////////////////////////////////////////////////////////////////////
     
-    public static final String COMPOSITE_TYPE = "Composite";
+    //public static final String COMPOSITE_TYPE = "Composite";
     public static final String PANEL_TYPE = "Panel";
     public static final String HORIZONTAL_PANEL_TYPE = "HorizontalPanel";
     public static final String VERTICAL_PANEL_TYPE = "VerticalPanel";
@@ -233,7 +233,7 @@ public class UIBuilder {
     static {
 	
 	// Base types
-	builders.put(COMPOSITE_TYPE, new CompositeBuilder());
+	//builders.put(COMPOSITE_TYPE, new CompositeBuilder());
 	builders.put(PANEL_TYPE, new PanelBuilder());
 	builders.put(HORIZONTAL_PANEL_TYPE, new HorizontalPanelBuilder());
 	builders.put(VERTICAL_PANEL_TYPE, new VerticalPanelBuilder());

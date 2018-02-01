@@ -36,12 +36,14 @@ import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
 import org.plazmaforge.framework.uwt.widget.Composite;
 
-public class CompositeGenerator extends ControlGenerator implements IUIGenerator {
+public abstract class CompositeGenerator extends ControlGenerator implements IUIGenerator {
 
+    /*
     @Override
     public boolean accept(String type) {
 	return eq(type, UIBuilder.COMPOSITE_TYPE);
     }
+    */
 
     @Override
     public String generateClass(GeneratorContext context, IData data) {

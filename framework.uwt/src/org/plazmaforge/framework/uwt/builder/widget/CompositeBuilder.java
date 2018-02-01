@@ -36,8 +36,9 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  * @author ohapon
  *
  */
-public class CompositeBuilder extends ControlBuilder {
+public abstract class CompositeBuilder extends ControlBuilder {
 
+    /*
     @Override
     public UIObject buildObject(IData data) {
 	if (data == null) {
@@ -47,6 +48,7 @@ public class CompositeBuilder extends ControlBuilder {
 	populate(data, composite);
 	return composite;
     }
+    */
     
     @Override
     protected void populate(IData data, UIObject element) {

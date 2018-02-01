@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.builder.AbstractBuilder;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
-public class WidgetBuilder extends AbstractBuilder implements IUIBuilder {
+public abstract class WidgetBuilder extends AbstractBuilder implements IUIBuilder {
 
     @Override
     public boolean accept(String type) {
