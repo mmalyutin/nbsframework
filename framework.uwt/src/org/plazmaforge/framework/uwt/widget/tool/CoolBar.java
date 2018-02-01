@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.util.CoreUtils;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
 
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  * @author ohapon
  *
  */
-public class CoolBar extends Composite {
+public class CoolBar extends Container {
 
 //    //@Override
 //    public void setLayout(Layout layout) {

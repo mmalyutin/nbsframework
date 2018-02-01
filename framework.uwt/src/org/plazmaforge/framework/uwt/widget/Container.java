@@ -27,8 +27,13 @@ import java.util.List;
 
 import org.plazmaforge.framework.util.CoreUtils;
 
-
-public abstract class Composite extends Control {
+/**
+ * Base container class
+ * 
+ * @author ohapon
+ *
+ */
+public abstract class Container extends Control {
     
     //////////////////////////////////////////////////////////////////////
     // PROPERTIES

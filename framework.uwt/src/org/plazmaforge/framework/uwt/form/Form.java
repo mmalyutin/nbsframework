@@ -47,7 +47,7 @@ import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.UWT.FormMode;
 import org.plazmaforge.framework.uwt.action.Action;
 import org.plazmaforge.framework.uwt.view.ContainerView;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.IDecorator;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -600,39 +600,39 @@ public abstract class Form<T> extends ContainerView<T> implements IForm<T> {
     }
 
     protected void buildHeader() {
-	Composite header = getHeader();
+	Container header = getHeader();
 	if (header == null) {
 	    return;
 	}
 	buildHeader(header);
     }
 
-    protected void buildHeader(Composite header) {
+    protected void buildHeader(Container header) {
 	// build ToolBar here
     }
 
 
     protected void buildContent() {
-	Composite content = getContent();
+	Container content = getContent();
 	if (content == null) {
 	    return;
 	}
 	buildContent(content);
     }
     
-    protected void buildContent(Composite content) {
+    protected void buildContent(Container content) {
 	// build Content here
     }
 
     protected void buildFooter() {
-	Composite footer = getFooter();
+	Container footer = getFooter();
 	if (footer == null) {
 	    return;
 	}
 	buildFooter(footer);
     }
 
-    protected void buildFooter(Composite footer) {
+    protected void buildFooter(Container footer) {
 	// build Footer here
     }
 

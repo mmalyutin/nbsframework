@@ -27,7 +27,7 @@ import java.util.Date;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.Label;
 
@@ -49,7 +49,7 @@ public class DemoDialog extends Dialog {
     
     
     @Override
-    protected void buildContent(Composite parent) {
+    protected void buildContent(Container parent) {
 	
 	GridLayout layout = new GridLayout(2);
 	parent.setLayout(layout);

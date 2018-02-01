@@ -115,7 +115,7 @@ public class UWT_Swing {
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new SwingFrameAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new SwingDialogAdapter());
 	   
-	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Composite.class, new SwingCompositeAdapter());
+	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new SwingCompositeAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new SwingPanelAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.GroupPanel.class, new SwingGroupPanelAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TitlePanel.class, new SwingTitlePanelAdapter());

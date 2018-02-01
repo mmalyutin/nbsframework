@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
 import org.plazmaforge.framework.uwt.widget.panel.Panel;
 
@@ -52,7 +52,7 @@ public class WindowTab extends AbstractTab {
     protected void createUI() {
 	setLayout(new GridLayout());
 	
-	Composite panel = createButtonPanel();
+	Container panel = createButtonPanel();
 	add(panel);
 	
     }

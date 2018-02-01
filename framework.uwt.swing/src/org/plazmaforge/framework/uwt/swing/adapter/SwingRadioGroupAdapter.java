@@ -26,7 +26,7 @@ import java.awt.FlowLayout;
 
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SwingRadioGroupAdapter extends SwingCompositeAdapter {
 
@@ -55,7 +55,7 @@ public class SwingRadioGroupAdapter extends SwingCompositeAdapter {
 	if (xRadioGroup == null) {
 	    return;
 	}
-	if (eq(Composite.PROPERTY_LAYOUT, name)) {
+	if (eq(Container.PROPERTY_LAYOUT, name)) {
 	    // ignore
 	    // TODO: Use horizontal/vertical orientation
 	    return;

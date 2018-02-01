@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
 import org.plazmaforge.framework.uwt.widget.RadioGroup;
 
-public class RadioGroupGenerator extends CompositeGenerator {
+public class RadioGroupGenerator extends ContainerGenerator {
 
     @Override
     protected void generatePopulateCommon(ScopeContext context, IData data, String bean, SourceWriter sw) {

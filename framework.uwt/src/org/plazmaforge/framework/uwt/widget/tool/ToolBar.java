@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.util.CoreUtils;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
 
-public class ToolBar extends Composite {
+public class ToolBar extends Container {
 
     @Override
     public void setLayout(Layout layout) {

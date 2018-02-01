@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SwingToolBarAdapter extends SwingCompositeAdapter {
 
@@ -43,7 +43,7 @@ public class SwingToolBarAdapter extends SwingCompositeAdapter {
 	if (xToolBar == null) {
 	    return;
 	}
-	if (Composite.PROPERTY_LAYOUT.equals(name) || Composite.PROPERTY_LAYOUT_DATA.equals(name) || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name) || Container.PROPERTY_LAYOUT_DATA.equals(name) || Container.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}

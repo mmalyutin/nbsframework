@@ -1,6 +1,6 @@
 <ui xmlns="http://plazmaforge.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<!-- <composite id="1234567890" name="MyComposite" x="10" y="20" width="100" height="200" visible="true" enabled="true" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip"> -->
-	<composite name="MyComposite" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip">
+	<!-- <panel id="1234567890" name="MyPanel" x="10" y="20" width="100" height="200" visible="true" enabled="true" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip"> -->
+	<panel name="MyPanel" layout="GridLayout(columnCount=2)" locale="en_US" resource="MyResource" background="#123456" foreground="rgb(10,20,30)" font="Arial, 12" tooltip="MyTooltip">
 		<children>
 			<label text="Login"/><text-field value="mylogin"/>
 			<label text="Password"/><password-field/>
@@ -34,13 +34,13 @@
 						<item>List Item 5</item>
 					</items>
 				</list-box>
- 			<composite layout="GridLayout(columnCount=3)" layout-data="GridData(columnSpan=2; align=fill)">
+ 			<panel layout="GridLayout(columnCount=3)" layout-data="GridData(columnSpan=2; align=fill)">
  				<children>
  					<label layout-data="GridData(flex=true)"/>
 					<button name="okButton" text="OK" icon="images/ok.png" width="70"/>
 					<button name="cancelButton" text="Cancel" icon="images/cancel.png" width="70"/>
 				</children>			
-			</composite>
+			</panel>
 		</children>
-	</composite>
+	</panel>
 </ui>

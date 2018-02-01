@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.data.store.DataSorter;
 import org.plazmaforge.framework.uwt.data.store.DataStore;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 
-public abstract class Viewer<T> extends Composite implements IViewer<T> {
+public abstract class Viewer<T> extends Container implements IViewer<T> {
 
 
     //////////////////////////////////////////////////////////////////////

@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.dialog.Dialog;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.TextField;
 
@@ -178,7 +178,7 @@ public class FilterDialog extends Dialog {
     
     
     @Override
-    protected void buildContent(Composite parent) {
+    protected void buildContent(Container parent) {
 	GridLayout layout = new GridLayout(3); 
 	parent.setLayout(layout);
 	List<DisplayField> displayFields = getDisplayFields();

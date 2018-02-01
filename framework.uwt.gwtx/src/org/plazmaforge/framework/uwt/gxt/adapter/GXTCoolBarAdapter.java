@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.widget.XCoolBar;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 
 /**
@@ -49,7 +49,7 @@ public class GXTCoolBarAdapter extends GXTCompositeAdapter {
 	    return;
 	}
 	
-	if (Composite.PROPERTY_LAYOUT.equals(name) || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name) || Container.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}

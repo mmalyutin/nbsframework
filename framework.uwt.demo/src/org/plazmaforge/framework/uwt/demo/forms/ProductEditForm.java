@@ -31,7 +31,7 @@ import org.plazmaforge.framework.core.data.provider.ModelProviderAsync;
 import org.plazmaforge.framework.uwt.demo.model.Product;
 import org.plazmaforge.framework.uwt.form.EditForm;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.CurrencyField;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.TextField;
@@ -56,7 +56,7 @@ public class ProductEditForm extends EditForm<Product> {
     
     
     @Override
-    protected void buildContent(Composite content) {
+    protected void buildContent(Container content) {
 	setTitle("Edit Product");
 	GridLayout layout = new GridLayout(2);
 	content.setLayout(layout);

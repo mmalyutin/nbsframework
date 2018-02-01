@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 
 /**
@@ -88,7 +88,7 @@ public class ContainerView<T> extends ContentView<T> implements IContainerView<T
 	doGetViews().remove(view);
     }
     
-    protected void addViews(Composite parent, List<IView> views) {
+    protected void addViews(Container parent, List<IView> views) {
 	if (parent == null || views == null) {
 	    return;
 	}
@@ -97,15 +97,15 @@ public class ContainerView<T> extends ContentView<T> implements IContainerView<T
 	}
     }
     
-    protected void addView(Composite parent, IView view) {
+    protected void addView(Container parent, IView view) {
 	
     }
     
-    protected void removeView(Composite parent, IView view) {
+    protected void removeView(Container parent, IView view) {
 	
     }
 
-    protected void addControlToContent(Composite content, Control control) {
+    protected void addControlToContent(Container content, Control control) {
 	if (control == null) {
 	    return;
 	}
@@ -115,6 +115,6 @@ public class ContainerView<T> extends ContentView<T> implements IContainerView<T
 	if (views == null | views.isEmpty()) {
 	    return;
 	}
-	addViews((Composite) control, views);
+	addViews((Container) control, views);
     }
 }

@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.widget.tool.CoolBar;
 import org.plazmaforge.framework.uwt.widget.tool.StatusBar;
 import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
 
-public class Presenter extends Composite implements IPresenter {
+public class Presenter extends Container implements IPresenter {
 
     private String title;
     
@@ -44,7 +44,7 @@ public class Presenter extends Composite implements IPresenter {
     
     private MenuBar menuBar;
     
-    private Composite menuPanel;
+    private Container menuPanel;
     
     
     
@@ -59,17 +59,17 @@ public class Presenter extends Composite implements IPresenter {
      * Header container  (optional) 
      * 
      */
-    private Composite header;
+    private Container header;
     
     /**
      * Content container
      */
-    private Composite content;
+    private Container content;
     
     /**
      * Footer container (optional)
      */
-    private Composite footer;
+    private Container footer;
     
     /**
      * Button bar (container of buttons)
@@ -326,11 +326,11 @@ public class Presenter extends Composite implements IPresenter {
         this.supportHeader = supportHeader;
     }
 
-    public Composite getHeader() {
+    public Container getHeader() {
         return header;
     }
 
-    protected Composite createHeader() {
+    protected Container createHeader() {
 	Panel panel = new Panel();
 	GridLayout layout = new GridLayout();
 	panel.setLayout(layout);
@@ -341,12 +341,12 @@ public class Presenter extends Composite implements IPresenter {
     // CONTENT
     //////////////////////////////////////////////////////////////////////////////
     
-    public Composite getContent() {
+    public Container getContent() {
         return content;
     }
 
-    protected Composite createContent() {
-	Composite content = new Panel();
+    protected Container createContent() {
+	Container content = new Panel();
 	GridLayout layout = new GridLayout();
 	layout.resetMargin();
 	content.setLayout(layout);
@@ -366,11 +366,11 @@ public class Presenter extends Composite implements IPresenter {
         this.supportFooter = supportFooter;
     }
 
-    public Composite getFooter() {
+    public Container getFooter() {
         return footer;
     }
 
-    protected Composite createFooter() {
+    protected Container createFooter() {
 	Panel panel = new Panel();
 	GridLayout layout = new GridLayout();
 	panel.setLayout(layout);

@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.view;
 
 import org.plazmaforge.framework.core.data.Customizer;
 import org.plazmaforge.framework.core.data.Notifier;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.IPresenter;
 
@@ -71,13 +71,13 @@ public interface IView extends IPresenter, Notifier {
      * Return main container (body)
      * @return
      */
-    Composite getContainer();
+    Container getContainer();
     
     /**
      * Return content (part of body) 
      * @return
      */
-    Composite getContent();
+    Container getContent();
   
     /**
      * Return general control 

@@ -27,13 +27,13 @@ package org.plazmaforge.framework.uwt.generator.widget.panel;
 
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.generator.UIGenerator;
-import org.plazmaforge.framework.uwt.generator.widget.CompositeGenerator;
+import org.plazmaforge.framework.uwt.generator.widget.ContainerGenerator;
 
 /**
  * @author ohapon
  *
  */
-public class PanelGenerator extends CompositeGenerator {
+public class PanelGenerator extends ContainerGenerator {
 
     @Override
     public boolean accept(String type) {

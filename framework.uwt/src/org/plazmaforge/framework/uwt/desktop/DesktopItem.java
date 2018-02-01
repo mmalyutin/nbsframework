@@ -28,7 +28,7 @@ import java.util.List;
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
 import org.plazmaforge.framework.uwt.graphics.Image;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.IDecorator;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
  * @author ohapon
  *
  */
-public class DesktopItem extends Composite implements IDecorator, Notifier {
+public class DesktopItem extends Container implements IDecorator, Notifier {
 
     /**
      * Title of item

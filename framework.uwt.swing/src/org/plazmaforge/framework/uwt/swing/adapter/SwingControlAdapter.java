@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swing.layout.XCardLayout;
 import org.plazmaforge.framework.uwt.swing.util.SwingLayoutUtils;
 import org.plazmaforge.framework.uwt.swing.widget.IXComponent;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
@@ -82,7 +82,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	}
 	
 	if (xLayout instanceof GridBagLayout) {
-	    Composite composite = (Composite) element.getUIParent();
+	    Container composite = (Container) element.getUIParent();
 	    //GridData gd = (GridData) ((Control) element).getLayoutData();
 	    xParent.add(xElement);
 	    //xParent.add(xElement, gd.getDelegate());
@@ -181,7 +181,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 		GridBagConstraints xConstraints = (GridBagConstraints) xLayoutData;
 		xGridLayout.setConstraints(xControl, xConstraints);
 		Control control = (Control) element;
-		Composite parent = (Composite) control.getParent();
+		Container parent = (Container) control.getParent();
 		SwingLayoutUtils.calculateCell(xParent, parent);
 	    }
 	    return;
@@ -192,11 +192,11 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 		xJControl.setToolTipText(asSafeString(value));
 	    }
 	    return;
-	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {
+	} else if (Container.PROPERTY_BACKGROUND.equals(name)) {
 	    xControl = getViewContent(xControl);
 	    xControl.setBackground(getColor(asColor(value)));
 	    return;
-	} else if (Composite.PROPERTY_FOREGROUND.equals(name)) {
+	} else if (Container.PROPERTY_FOREGROUND.equals(name)) {
 	    xControl = getViewContent(xControl);
 	    xControl.setForeground(getColor(asColor(value)));
 	    return;

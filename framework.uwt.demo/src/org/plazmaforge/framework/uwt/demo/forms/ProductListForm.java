@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.data.store.StoreUtils;
 import org.plazmaforge.framework.uwt.demo.model.Product;
 import org.plazmaforge.framework.uwt.form.ListForm;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.DefaultCellEditor;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Viewer;
@@ -79,7 +79,7 @@ public class ProductListForm extends ListForm<Product> {
     
     
 
-    protected void buildContent(Composite content) {
+    protected void buildContent(Container content) {
 	setTitle(getString("DemoListForm.title"));
 	content.setLayout(new FitLayout());
 	

@@ -26,7 +26,7 @@ package org.plazmaforge.framework.uwt.demo.tabs;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.Link;
@@ -44,7 +44,7 @@ public class AdvancedTab extends AbstractTab {
     }
     
     
-    private void createContent(Composite parent) {
+    private void createContent(Container parent) {
 	
 	// Create grid layout with two columns
 	GridLayout layout = new GridLayout(2); 

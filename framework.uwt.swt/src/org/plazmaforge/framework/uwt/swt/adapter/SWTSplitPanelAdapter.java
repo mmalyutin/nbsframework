@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
 public class SWTSplitPanelAdapter extends SWTCompositeAdapter {
@@ -46,7 +46,7 @@ public class SWTSplitPanelAdapter extends SWTCompositeAdapter {
 	if (xComposite == null) {
 	    return;
 	}
-	if (Composite.PROPERTY_LAYOUT.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name)) {
 	    // ignore
 	    return;
 	}

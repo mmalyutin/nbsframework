@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.wizard;
 
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 
 public interface IWizardPage {
@@ -38,6 +38,6 @@ public interface IWizardPage {
      * Return content of page
      * @return
      */
-    Composite getContent();
+    Container getContent();
     
 }

@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget.panel;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
@@ -55,7 +55,7 @@ public class SplitPanelBuilder extends PanelBuilder {
     }
     
     @Override
-    protected void populateLayout(IData data, Composite composite) {
+    protected void populateLayout(IData data, Container composite) {
 	// Layout is not supported  
     }
 }

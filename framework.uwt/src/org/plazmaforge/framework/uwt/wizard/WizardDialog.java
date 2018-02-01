@@ -26,7 +26,7 @@ import org.plazmaforge.framework.uwt.UIMessages;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.tool.ButtonBar;
 
 public class WizardDialog extends Dialog {
@@ -63,7 +63,7 @@ public class WizardDialog extends Dialog {
     
     
     @Override
-    protected void buildContent(Composite parent) {
+    protected void buildContent(Container parent) {
 
 	FitLayout layout = new FitLayout();
 	parent.setLayout(layout);

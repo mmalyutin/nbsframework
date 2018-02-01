@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.view;
 
 import org.plazmaforge.framework.uwt.layout.FitLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
@@ -37,8 +37,8 @@ import org.plazmaforge.framework.uwt.widget.Layout;
 public class ContentView<T> extends View implements IContentView<T> {
 
     @Override
-    protected Composite createContent() {
-	Composite content = super.createContent();
+    protected Container createContent() {
+	Container content = super.createContent();
 	content.setLayout(createContentLayout());
 	
 	Control control = getControl();
@@ -54,7 +54,7 @@ public class ContentView<T> extends View implements IContentView<T> {
 	return null;
     }
     
-    protected void addControlToContent(Composite content, Control control) {
+    protected void addControlToContent(Container content, Control control) {
 	if (control == null) {
 	    return;
 	}

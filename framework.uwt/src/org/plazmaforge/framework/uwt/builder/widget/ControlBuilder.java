@@ -27,7 +27,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.LayoutData;
 
@@ -115,7 +115,7 @@ public abstract class ControlBuilder extends WidgetBuilder {
     
     
     protected LayoutData getLayoutData(IData data) {
-	Object value = getValue(data, Composite.PROPERTY_LAYOUT_DATA);
+	Object value = getValue(data, Container.PROPERTY_LAYOUT_DATA);
 	if (value == null) {
 	    return null;
 	}

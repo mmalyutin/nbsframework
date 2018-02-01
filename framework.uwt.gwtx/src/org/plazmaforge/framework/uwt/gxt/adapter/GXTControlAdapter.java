@@ -26,7 +26,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -86,13 +86,13 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	} else if (Control.PROPERTY_HEIGHT.equals(name)) {
 	    setHeight(xWidget, asInteger(value));
 	    return;
-	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {
+	} else if (Container.PROPERTY_BACKGROUND.equals(name)) {
 	    setColorAttribute(xWidget, "background", asColor(value));
 	    return;
-	} else if (Composite.PROPERTY_FOREGROUND.equals(name)) {
+	} else if (Container.PROPERTY_FOREGROUND.equals(name)) {
 	    setColorAttribute(xWidget, "color", asColor(value));
 	    return;	    
-	} else if (Composite.PROPERTY_FONT.equals(name)) {
+	} else if (Container.PROPERTY_FONT.equals(name)) {
 	    setFontAttribute(xWidget, "font", asFont(value));
 	    return;	    
 	}
@@ -101,7 +101,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 
 	    // GXT-Component
 	    com.sencha.gxt.widget.core.client.Component xComponent = asComponent(xWidget);
-	    if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
+	    if (Container.PROPERTY_TOOL_TIP.equals(name)) {
 		xComponent.setToolTip(asSafeString(value));
 		return;
 	    } else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {

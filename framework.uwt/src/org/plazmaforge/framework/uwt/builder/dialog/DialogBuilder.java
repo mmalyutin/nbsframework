@@ -26,7 +26,7 @@ import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.widget.WindowBuilder;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 public class DialogBuilder extends WindowBuilder {
 
@@ -58,7 +58,7 @@ public class DialogBuilder extends WindowBuilder {
 	// CONTENT
 	IData contentNode = (IData) getValue(data, Dialog.PROPERTY_CONTENT);
 	if (contentNode != null) {
-	    Composite content = dialog.getContent();
+	    Container content = dialog.getContent();
 	    populateLayout(contentNode, content);
 	    populateContentChildren(contentNode, content);	
 	    

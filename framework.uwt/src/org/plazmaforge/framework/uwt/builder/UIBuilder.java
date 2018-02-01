@@ -44,7 +44,6 @@ import org.plazmaforge.framework.uwt.builder.layout.VerticalLayoutBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.ButtonBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.CheckBoxBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.ComboBoxBuilder;
-import org.plazmaforge.framework.uwt.builder.widget.CompositeBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.CurrencyFieldBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.DateFieldBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.DateTimeFieldBuilder;
@@ -113,7 +112,7 @@ public class UIBuilder {
     // TYPES
     //////////////////////////////////////////////////////////////////////
     
-    //public static final String COMPOSITE_TYPE = "Composite";
+    //public static final String CONTAINER_TYPE = "Container";
     public static final String PANEL_TYPE = "Panel";
     public static final String HORIZONTAL_PANEL_TYPE = "HorizontalPanel";
     public static final String VERTICAL_PANEL_TYPE = "VerticalPanel";

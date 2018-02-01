@@ -24,11 +24,11 @@ package org.plazmaforge.framework.uwt.generator;
 
 import org.junit.Test;
 
-public class CompositeGeneratorTest extends AbstractGeneratorTest {
+public class PanelGeneratorTest extends AbstractGeneratorTest {
 
     @Test
-    public void testCompositeGenerator() throws Exception {
-	String source = generateClass("ui/GridLayoutComposite.ui.xml");
+    public void testPanelGenerator() throws Exception {
+	String source = generateClass("ui/GridLayoutPanel.ui.xml");
 	System.out.println(source);
 
     }

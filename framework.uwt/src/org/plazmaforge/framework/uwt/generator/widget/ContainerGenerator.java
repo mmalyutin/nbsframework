@@ -25,7 +25,6 @@ package org.plazmaforge.framework.uwt.generator.widget;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.generator.ClassContext;
 import org.plazmaforge.framework.uwt.generator.ClassSourceFactory;
 import org.plazmaforge.framework.uwt.generator.GenerateException;
@@ -34,14 +33,14 @@ import org.plazmaforge.framework.uwt.generator.IUIGenerator;
 import org.plazmaforge.framework.uwt.generator.MethodContext;
 import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
-public abstract class CompositeGenerator extends ControlGenerator implements IUIGenerator {
+public abstract class ContainerGenerator extends ControlGenerator implements IUIGenerator {
 
     /*
     @Override
     public boolean accept(String type) {
-	return eq(type, UIBuilder.COMPOSITE_TYPE);
+	return eq(type, UIBuilder.CONTAINER_TYPE);
     }
     */
 
@@ -143,11 +142,11 @@ public abstract class CompositeGenerator extends ControlGenerator implements IUI
     }
     
     protected void generateSetLayout(ScopeContext context, IData data, String bean, SourceWriter sw) {
-	generateSetData(context, "%layout", data, bean, Composite.PROPERTY_LAYOUT, null, sw);
+	generateSetData(context, "%layout", data, bean, Container.PROPERTY_LAYOUT, null, sw);
     }
     
     protected void generateContentChildren(ScopeContext context, IData data, String bean, SourceWriter sw) {
-	List<IData> children = getChildrenOfNode(data, Composite.PROPERTY_CHILDREN);
+	List<IData> children = getChildrenOfNode(data, Container.PROPERTY_CHILDREN);
 	generateContentChildren(context, bean, children, sw);
     }
     

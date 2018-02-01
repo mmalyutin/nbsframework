@@ -22,16 +22,16 @@
 
 package org.plazmaforge.framework.uwt.wizard;
 
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
-public class WizardPage extends Composite implements IWizardPage {
+public class WizardPage extends Container implements IWizardPage {
 
     public WizardPage() {
 	super();
     }
 
     @Override
-    public Composite getContent() {
+    public Container getContent() {
 	return this;
     }
 

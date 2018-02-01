@@ -32,14 +32,14 @@ import org.plazmaforge.framework.uwt.generator.MethodContext;
 import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
 import org.plazmaforge.framework.uwt.generator.UIGenerator;
-import org.plazmaforge.framework.uwt.generator.widget.CompositeGenerator;
+import org.plazmaforge.framework.uwt.generator.widget.ContainerGenerator;
 import org.plazmaforge.framework.uwt.view.View;
 
 /**
  * @author ohapon
  *
  */
-public abstract class AbstractViewGenerator extends CompositeGenerator {
+public abstract class AbstractViewGenerator extends ContainerGenerator {
 
     @Override
     public void generatePopulateCommon(ScopeContext context, IData data, String bean, SourceWriter sw) {
@@ -90,13 +90,13 @@ public abstract class AbstractViewGenerator extends CompositeGenerator {
 	sw.println();
 	sw.print("@Override");
 	sw.println();
-	sw.print("public Composite createContent() {");
+	sw.print("public " + UIGenerator.CONTAINER_TYPE + " createContent() {");
 	
 	sw.println();
 	sw.indent();
 	sw.println();
 	
-	sw.println("Composite content = super.createContent();");
+	sw.println(UIGenerator.CONTAINER_TYPE + " content = super.createContent();");
 	
 	generateSetLayout(context, contentNode, "content", sw);
 	generateContentChildren(context, contentNode, "content", sw);

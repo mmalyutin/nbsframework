@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -44,7 +44,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {
 	
-	Composite composite = (Composite) element;
+	Container composite = (Container) element;
 	
 	Layout layout = composite.getLayout();
 	
@@ -75,7 +75,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	return new XLayoutContainer(container, xLayout);
     }
     
-    protected HasWidgets createContainer(Composite composite) {
+    protected HasWidgets createContainer(Container composite) {
 	Layout layout = composite.getLayout();
 	XLayout xLayout = getXLayout(layout);
 	return createContainer(layout, xLayout);
@@ -159,7 +159,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	    return null;
 	}
 
-	if (Composite.METHOD_LAYOUT.equals(methodName)) {
+	if (Container.METHOD_LAYOUT.equals(methodName)) {
 	    GXTUtils.forceLayout(composite);
 	    return null;
 	}

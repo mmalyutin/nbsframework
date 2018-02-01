@@ -44,7 +44,7 @@ import org.plazmaforge.framework.uwt.generator.layout.VerticalLayoutGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.ButtonGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.CheckBoxGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.ComboBoxGenerator;
-import org.plazmaforge.framework.uwt.generator.widget.CompositeGenerator;
+import org.plazmaforge.framework.uwt.generator.widget.ContainerGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.CurrencyFieldGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.DateFieldGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.DateTimeFieldGenerator;
@@ -183,17 +183,24 @@ public class UIGenerator {
     
     public static final String LAYOUT_REGION_CLASS = STYLE_CLASS + ".LayoutRegion";
     
+
+    /**
+     * Base UWT classes
+     */
     
+    public static final String CONTAINER_TYPE = "Container";
+    
+    public static final String CONTAINER_CLASS = UWT_WIDGET_PACKAGE + "." + CONTAINER_TYPE;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // $type			'widget.Composite'
-    // type			'StyleComposite'
-    // name			'MyComposite'
+    // $type			'widget.panel.Panel'
+    // type			'Panel'
+    // name			'MyPanel'
     // genearatePackage		'com.mycompany.myproject.mypackage'
-    // generateClass		'com.mycompany.myproject.mypackage.MyComposite' (genearatePackage + '.' + name)
-    // generateSuperClass	'org.plazmaforge.uwt.widget.Composite' (getClass by 'widget.Composite' and 'StyleComposite')
+    // generateClass		'com.mycompany.myproject.mypackage.MyPanel' (genearatePackage + '.' + name)
+    // generateSuperClass	'org.plazmaforge.uwt.widget.Container' (getClass by 'widget.panel.Panele' and 'Panel')
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -218,7 +225,7 @@ public class UIGenerator {
     static {
 	
 	// Base types
-	//generators.put(UIBuilder.COMPOSITE_TYPE, new CompositeGenerator());
+	//generators.put(UIBuilder.CONTAINER_TYPE, new ContainerGenerator());
 	generators.put(UIBuilder.PANEL_TYPE, new PanelGenerator());
 	generators.put(UIBuilder.HORIZONTAL_PANEL_TYPE, new HorizontalPanelGenerator());
 	generators.put(UIBuilder.VERTICAL_PANEL_TYPE, new VerticalPanelGenerator());

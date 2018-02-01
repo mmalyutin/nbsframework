@@ -30,14 +30,14 @@ import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
 import org.plazmaforge.framework.uwt.generator.UIGenerator;
-import org.plazmaforge.framework.uwt.generator.widget.CompositeGenerator;
+import org.plazmaforge.framework.uwt.generator.widget.ContainerGenerator;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
 /**
  * @author ohapon
  *
  */
-public class TabItemGenerator extends CompositeGenerator {
+public class TabItemGenerator extends ContainerGenerator {
 
     @Override
     public boolean accept(String type) {

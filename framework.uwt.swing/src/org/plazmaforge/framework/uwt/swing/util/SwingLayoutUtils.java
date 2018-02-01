@@ -31,7 +31,7 @@ import java.util.List;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.swing.widget.XStrut;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class SwingLayoutUtils {
     }
 
     
-    public static void calculateCell(java.awt.Container xContainer, Composite composite) {
+    public static void calculateCell(java.awt.Container xContainer, Container composite) {
 	
  	Object[] layoutData  = composite.getChildrenLayoutData().toArray(new Object[0]);
  	int lCount = layoutData.length;

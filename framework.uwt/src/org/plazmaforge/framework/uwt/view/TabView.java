@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.view;
 
 
 import org.plazmaforge.framework.uwt.UWTException;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
@@ -55,7 +55,7 @@ public class TabView<T> extends ContainerView<T> {
 
     protected void addView(TabPanel tabPanel, IView view) {
 	view.create();
-	Composite body = view.getContainer();
+	Container body = view.getContainer();
 	if (body == null) {
 	    return;
 	}
@@ -67,7 +67,7 @@ public class TabView<T> extends ContainerView<T> {
     }
     
     @Override
-    protected void addView(Composite parent, IView view) {
+    protected void addView(Container parent, IView view) {
 	addView((TabPanel) parent, view);
     }
 

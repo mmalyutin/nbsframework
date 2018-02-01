@@ -60,7 +60,7 @@ import org.plazmaforge.framework.uwt.form.IForm;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.storage.TemplateProviderAsync;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
@@ -102,8 +102,8 @@ public class DemoApplicationBuilder {
 	    // TODO: For GXT only
 	    // Remove this method (createContent()) after implementation setLayout in GXTComposteAdapter
 	    @Override
-	    protected Composite createContent() {
-		Composite content = new Panel();
+	    protected Container createContent() {
+		Container content = new Panel();
 		FitLayout layout = new FitLayout();
 		layout.resetMargin();
 		content.setLayout(layout);
@@ -123,7 +123,7 @@ public class DemoApplicationBuilder {
 	appView.setStatusText("DEMO status");
     }
 
-    public void populateContent(Composite parent) {
+    public void populateContent(Container parent) {
 	
 
 	Application application = Application.getCurrent();
@@ -319,7 +319,7 @@ public class DemoApplicationBuilder {
     }
     
     
-    public void populateTabContent(Composite parent) {
+    public void populateTabContent(Container parent) {
 	
 	tabPanel = new TabPanel();
 	

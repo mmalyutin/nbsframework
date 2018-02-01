@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.widget.panel;
 
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 /**
  * Base panel
@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.widget.Composite;
  * @author ohapon
  *
  */
-public class Panel extends Composite {
+public class Panel extends Container {
 
 
     public Panel() {

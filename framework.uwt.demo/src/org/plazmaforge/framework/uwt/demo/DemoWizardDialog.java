@@ -26,7 +26,7 @@ package org.plazmaforge.framework.uwt.demo;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.TextField;
 import org.plazmaforge.framework.uwt.wizard.IWizard;
@@ -80,7 +80,7 @@ public class DemoWizardDialog extends WizardDialog {
     
     private void addPage1(IWizard wizard) {
 	IWizardPage page = wizard.createPage();
-	Composite content = page.getContent();
+	Container content = page.getContent();
 	GridLayout layout = new GridLayout(2);
 	content.setLayout(layout);
 	
@@ -129,7 +129,7 @@ public class DemoWizardDialog extends WizardDialog {
 
     private void addPage2(IWizard wizard) {
 	IWizardPage page = wizard.createPage();
-	Composite content = page.getContent();
+	Container content = page.getContent();
 	GridLayout layout = new GridLayout(2);
 	content.setLayout(layout);
 	

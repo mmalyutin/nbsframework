@@ -46,7 +46,7 @@ public abstract class Layout extends UIObject {
     /**
      * Owner of Layout
      */
-    private Composite owner;
+    private Container owner;
     
     
     private int marginLeft;
@@ -65,11 +65,11 @@ public abstract class Layout extends UIObject {
 	super();
     }
 
-    public Composite getOwner() {
+    public Container getOwner() {
         return owner;
     }
 
-    public void setOwner(Composite owner) {
+    public void setOwner(Container owner) {
         this.owner = owner;
     }
 

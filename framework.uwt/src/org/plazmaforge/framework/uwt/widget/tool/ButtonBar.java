@@ -28,12 +28,12 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.layout.HorizontalLayout;
 import org.plazmaforge.framework.uwt.layout.VerticalLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
-public class ButtonBar extends Composite {
+public class ButtonBar extends Container {
 
     public static final int BUTTON_WIDTH = 70;
     

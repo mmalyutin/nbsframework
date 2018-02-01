@@ -23,11 +23,11 @@
 package org.plazmaforge.framework.uwt.widget.panel;
 
 import org.plazmaforge.framework.uwt.graphics.Image;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.HasTitleIcon;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
-public class TabItem extends Composite implements HasTitleIcon {
+public class TabItem extends Container implements HasTitleIcon {
 
     /**
      * Title of item
