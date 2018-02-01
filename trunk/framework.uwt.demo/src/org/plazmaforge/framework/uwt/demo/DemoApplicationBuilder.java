@@ -103,7 +103,7 @@ public class DemoApplicationBuilder {
 	    // Remove this method (createContent()) after implementation setLayout in GXTComposteAdapter
 	    @Override
 	    protected Composite createContent() {
-		Composite content = new Composite();
+		Composite content = new Panel();
 		FitLayout layout = new FitLayout();
 		layout.resetMargin();
 		content.setLayout(layout);

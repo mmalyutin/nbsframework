@@ -44,7 +44,7 @@ import org.plazmaforge.framework.uwt.generator.UIGenerator;
 import org.plazmaforge.framework.uwt.generator.UIGeneratorHelper;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
-public class WidgetGenerator extends AbstractGenerator {
+public abstract class WidgetGenerator extends AbstractGenerator {
 
     @Override
     public String getClassName(String baseType, String type) {

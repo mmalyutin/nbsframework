@@ -218,7 +218,7 @@ public class UIGenerator {
     static {
 	
 	// Base types
-	generators.put(UIBuilder.COMPOSITE_TYPE, new CompositeGenerator());
+	//generators.put(UIBuilder.COMPOSITE_TYPE, new CompositeGenerator());
 	generators.put(UIBuilder.PANEL_TYPE, new PanelGenerator());
 	generators.put(UIBuilder.HORIZONTAL_PANEL_TYPE, new HorizontalPanelGenerator());
 	generators.put(UIBuilder.VERTICAL_PANEL_TYPE, new VerticalPanelGenerator());

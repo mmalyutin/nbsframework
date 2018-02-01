@@ -46,7 +46,7 @@ import org.plazmaforge.framework.uwt.event.TypedEvent;
 import org.plazmaforge.framework.uwt.event.TypedListener;
 import org.plazmaforge.framework.uwt.event.UWTEventListener;
 
-public class Widget extends UIObject {
+public abstract class Widget extends UIObject {
     
     
 

@@ -216,7 +216,7 @@ public class WebApplication extends Application implements EntryPoint {
     
     
     private void addTestControls() {
-	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.Composite();
+	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.panel.Panel();
 	uwtContainer.setLayout(new GridLayout(3));
 	
 	//uwtContainer.setLayout(new GridLayout(1));

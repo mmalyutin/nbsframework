@@ -45,7 +45,9 @@ public class SWTApplicationAdapter extends AbstractUIAdapter {
 	org.eclipse.swt.widgets.Display xDisplay = new org.eclipse.swt.widgets.Display();
 	
 	// Create UWT Display wrapper
-	Widget display = new Widget();
+	Widget display = new Widget() {
+	    
+	};
 	display.setDelegate(xDisplay);
 	frame.setParent(display);
 	

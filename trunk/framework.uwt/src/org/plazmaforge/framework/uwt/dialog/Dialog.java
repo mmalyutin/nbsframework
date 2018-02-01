@@ -34,6 +34,7 @@ import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Window;
+import org.plazmaforge.framework.uwt.widget.panel.Panel;
 import org.plazmaforge.framework.uwt.widget.tool.ButtonBar;
 
 
@@ -174,7 +175,7 @@ public class Dialog extends Window implements IDialog {
     }
     
     protected Composite createContent() {
-	Composite content = new Composite();
+	Composite content = new Panel();
 	GridLayout layout = new GridLayout();
 	layout.resetMargin();
 	content.setLayout(layout);

@@ -31,7 +31,12 @@ import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.LayoutData;
 
-public class ControlBuilder extends WidgetBuilder {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public abstract class ControlBuilder extends WidgetBuilder {
 
     protected void populate(IData data, UIObject element) {
   	if (data == null) {

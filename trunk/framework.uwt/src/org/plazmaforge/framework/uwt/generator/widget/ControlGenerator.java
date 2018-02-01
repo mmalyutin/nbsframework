@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.generator.SourceWriter;
 import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Control;
 
-public class ControlGenerator extends WidgetGenerator {
+public abstract class ControlGenerator extends WidgetGenerator {
 
     @Override
     public void generatePopulate(ScopeContext context, IData data, String bean, SourceWriter sw) {

@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.graphics.Rectangle;
 import org.plazmaforge.framework.uwt.graphics.Size;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
-public class Control extends Widget {
+public abstract class Control extends Widget {
 
     
     //////////////////////////////////////////////////////////////////////

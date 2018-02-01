@@ -28,7 +28,7 @@ import java.util.List;
 import org.plazmaforge.framework.util.CoreUtils;
 
 
-public class Composite extends Control {
+public abstract class Composite extends Control {
     
     //////////////////////////////////////////////////////////////////////
     // PROPERTIES

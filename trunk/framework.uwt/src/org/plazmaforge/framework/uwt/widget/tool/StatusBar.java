@@ -27,6 +27,7 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.panel.Panel;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 public class StatusBar extends Composite {
@@ -43,7 +44,7 @@ public class StatusBar extends Composite {
 	layout.resetMargin();
 	setLayout(layout);
 	
-	startPanel = new Composite();
+	startPanel = new Panel();
 	startPanel.setLayoutData(new GridData());
 	add(startPanel);
 	
@@ -51,7 +52,7 @@ public class StatusBar extends Composite {
 	statusLabel.setLayoutData(new GridData(1, 1, HorizontalAlign.FILL, VerticalAlign.MIDDLE, true, false));
 	add(statusLabel);
 	
-	endPanel = new Composite();
+	endPanel = new Panel();
 	endPanel.setLayoutData(new GridData());
 	add(endPanel);
     }
