@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.swing.widget.XDesktopItem;
  * @author ohapon
  *
  */
-public class SwingDesktopItemAdapter extends SwingCompositeAdapter {
+public class SwingDesktopItemAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	DesktopItem desktopItem = (DesktopItem) element;

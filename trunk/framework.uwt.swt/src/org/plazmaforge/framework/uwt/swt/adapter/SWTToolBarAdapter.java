@@ -27,7 +27,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 import org.plazmaforge.framework.uwt.widget.Container;
 
-public class SWTToolBarAdapter extends SWTCompositeAdapter {
+public class SWTToolBarAdapter extends SWTContainerAdapter {
 
     
     public static final String SYS_PROPETY_COOL_ITEM = "$coolItem";

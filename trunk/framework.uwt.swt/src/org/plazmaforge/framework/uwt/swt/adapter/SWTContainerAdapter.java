@@ -29,15 +29,15 @@ import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
-public class SWTCompositeAdapter extends SWTControlAdapter {
+public class SWTContainerAdapter extends SWTControlAdapter {
 
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
-	org.eclipse.swt.widgets.Composite xComposite = new org.eclipse.swt.widgets.Composite(xParent, SWT.NONE);
-	//xComposite.setBackgroundMode(SWT.INHERIT_DEFAULT);
-	addChild(xParent, xComposite, element);
-	return xComposite;
+	org.eclipse.swt.widgets.Composite xContainer = new org.eclipse.swt.widgets.Composite(xParent, SWT.NONE);
+	//xContainer.setBackgroundMode(SWT.INHERIT_DEFAULT);
+	addChild(xParent, xContainer, element);
+	return xContainer;
     }
 
     /**
@@ -91,8 +91,8 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	org.eclipse.swt.widgets.Composite composite = getContent(element.getDelegate());
-	if (composite == null) {
+	org.eclipse.swt.widgets.Composite xContainer = getContent(element.getDelegate());
+	if (xContainer == null) {
 	    return;
 	}
 	
@@ -100,7 +100,7 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
 	    Layout layout = (Layout) value;
 	    
 	    if (layout == null) {
-		composite.setLayout(null);
+		xContainer.setLayout(null);
 		return;
 		
 	    }
@@ -122,7 +122,7 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
 	    }
 	    */
 	    
-	    composite.setLayout(xLayout);
+	    xContainer.setLayout(xLayout);
 	    return;
 	}
 	
@@ -132,13 +132,13 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
     
     @Override
     public Object invoke(UIObject element, String methodName, Object[] args) {
-	org.eclipse.swt.widgets.Composite composite = getContent(element.getDelegate());
-	if (composite == null) {
+	org.eclipse.swt.widgets.Composite xContainer = getContent(element.getDelegate());
+	if (xContainer == null) {
 	    return null;
 	}
 
 	if (Container.METHOD_LAYOUT.equals(methodName)) {
-	    composite.layout();
+	    xContainer.layout();
 	    return null;
 	}
 	return super.invoke(element, methodName, args);

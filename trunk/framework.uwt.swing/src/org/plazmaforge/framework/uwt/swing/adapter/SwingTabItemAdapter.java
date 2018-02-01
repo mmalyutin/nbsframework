@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.widget.panel.TabItem;
  * @author ohapon
  *
  */
-public class SwingTabItemAdapter extends SwingCompositeAdapter {
+public class SwingTabItemAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	

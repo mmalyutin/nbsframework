@@ -36,7 +36,7 @@ import com.google.gwt.resources.client.ImageResource;
  * @author ohapon
  *
  */
-public class GXTTabItemAdapter extends GXTCompositeAdapter {
+public class GXTTabItemAdapter extends GXTContainerAdapter {
 
    
     public Object createDelegate(UIObject parent, UIObject element) {

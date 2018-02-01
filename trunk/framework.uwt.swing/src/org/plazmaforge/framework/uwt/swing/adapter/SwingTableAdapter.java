@@ -44,7 +44,7 @@ import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 
-public class SwingTableAdapter extends SwingCompositeAdapter {
+public class SwingTableAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	Table table = (Table) element;

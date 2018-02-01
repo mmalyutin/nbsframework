@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 
-public class SwingCoolBarAdapter extends SwingCompositeAdapter {
+public class SwingCoolBarAdapter extends SwingContainerAdapter {
     
     public Object createDelegate(UIObject parent, UIObject element) {
 	

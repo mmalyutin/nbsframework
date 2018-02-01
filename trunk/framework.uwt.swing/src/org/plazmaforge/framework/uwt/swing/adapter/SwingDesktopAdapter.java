@@ -28,7 +28,7 @@ import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktop;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktopItem;
 
-public class SwingDesktopAdapter extends SwingCompositeAdapter {
+public class SwingDesktopAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
    	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());

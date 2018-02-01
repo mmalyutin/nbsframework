@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.swing.adapter.SwingCardLayoutAdapter;
 import org.plazmaforge.framework.uwt.swing.adapter.SwingCheckBoxAdapter;
 import org.plazmaforge.framework.uwt.swing.adapter.SwingCollapsePanelAdapter;
 import org.plazmaforge.framework.uwt.swing.adapter.SwingComboBoxAdapter;
-import org.plazmaforge.framework.uwt.swing.adapter.SwingCompositeAdapter;
+import org.plazmaforge.framework.uwt.swing.adapter.SwingContainerAdapter;
 import org.plazmaforge.framework.uwt.swing.adapter.SwingCoolBarAdapter;
 import org.plazmaforge.framework.uwt.swing.adapter.SwingDateFieldAdapter;
 import org.plazmaforge.framework.uwt.swing.adapter.SwingDateTimeFieldAdapter;
@@ -115,7 +115,7 @@ public class UWT_Swing {
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new SwingFrameAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new SwingDialogAdapter());
 	   
-	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new SwingCompositeAdapter());
+	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new SwingContainerAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new SwingPanelAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.GroupPanel.class, new SwingGroupPanelAdapter());
 	   UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TitlePanel.class, new SwingTitlePanelAdapter());

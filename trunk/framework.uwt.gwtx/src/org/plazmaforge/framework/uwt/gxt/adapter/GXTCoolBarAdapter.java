@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Container;
  * @author ohapon
  *
  */
-public class GXTCoolBarAdapter extends GXTCompositeAdapter {
+public class GXTCoolBarAdapter extends GXTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	XCoolBar xCoolBar = new XCoolBar();

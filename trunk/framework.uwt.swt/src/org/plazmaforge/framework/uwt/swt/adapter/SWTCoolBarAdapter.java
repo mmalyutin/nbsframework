@@ -30,7 +30,7 @@ import org.plazmaforge.framework.util.SystemInfo;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Container;
 
-public class SWTCoolBarAdapter extends SWTCompositeAdapter {
+public class SWTCoolBarAdapter extends SWTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
    	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());

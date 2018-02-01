@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Container;
 
-public class SwingToolBarAdapter extends SwingCompositeAdapter {
+public class SwingToolBarAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	

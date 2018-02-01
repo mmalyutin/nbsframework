@@ -49,7 +49,7 @@ import com.sencha.gxt.data.shared.TreeStore;
  * @author ohapon
  *
  */
-public abstract class GXTViewerAdapter extends GXTCompositeAdapter {
+public abstract class GXTViewerAdapter extends GXTContainerAdapter {
 
     
     /**

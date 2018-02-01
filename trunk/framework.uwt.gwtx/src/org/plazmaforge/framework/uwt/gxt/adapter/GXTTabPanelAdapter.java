@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author ohapon
  *
  */
-public class GXTTabPanelAdapter extends GXTCompositeAdapter {
+public class GXTTabPanelAdapter extends GXTContainerAdapter {
 
     public static final int DEFAULT_TAB_PANEL_WIDTH = 450;
     

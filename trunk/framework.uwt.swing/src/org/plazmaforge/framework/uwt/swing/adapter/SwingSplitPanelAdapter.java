@@ -26,7 +26,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
-public class SwingSplitPanelAdapter extends SwingCompositeAdapter {
+public class SwingSplitPanelAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());

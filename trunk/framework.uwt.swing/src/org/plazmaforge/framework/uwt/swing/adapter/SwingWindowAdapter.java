@@ -43,7 +43,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
  * @author ohapon
  *
  */
-public class SwingWindowAdapter extends SwingCompositeAdapter {
+public class SwingWindowAdapter extends SwingContainerAdapter {
 
     
     public Object createDelegate(UIObject parent, UIObject element) {

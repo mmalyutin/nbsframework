@@ -26,7 +26,7 @@ import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
-public class SWTTabPanelAdapter extends SWTCompositeAdapter {
+public class SWTTabPanelAdapter extends SWTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
    	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());

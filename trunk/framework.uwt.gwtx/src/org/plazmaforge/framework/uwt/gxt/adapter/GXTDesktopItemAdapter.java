@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
  * @author ohapon
  *
  */
-public class GXTDesktopItemAdapter extends GXTCompositeAdapter {
+public class GXTDesktopItemAdapter extends GXTContainerAdapter {
     
 
     public Object createDelegate(UIObject parent, UIObject element) {

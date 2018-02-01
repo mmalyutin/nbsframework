@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.LabelProvider;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
-public class SwingTreeAdapter extends SwingCompositeAdapter {
+public class SwingTreeAdapter extends SwingContainerAdapter {
 
     
     public Object createDelegate(UIObject parent, UIObject element) {

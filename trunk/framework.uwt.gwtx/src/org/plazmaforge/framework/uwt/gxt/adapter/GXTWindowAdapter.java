@@ -42,7 +42,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
  * @author ohapon
  *
  */
-public class GXTWindowAdapter extends GXTCompositeAdapter {
+public class GXTWindowAdapter extends GXTContainerAdapter {
     
     private static final String SYS_PROPERTY_FORCE_CLOSE = "$forceClose"; 
     
