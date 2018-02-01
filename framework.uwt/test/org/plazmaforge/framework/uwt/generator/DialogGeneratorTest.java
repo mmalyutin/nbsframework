@@ -34,7 +34,7 @@ import org.junit.Test;
 public class DialogGeneratorTest extends AbstractGeneratorTest {
 
     @Test
-    public void testCompositeGenerator() throws Exception {
+    public void testDialogGenerator() throws Exception {
 	String source = generateClass("ui/Dialog.ui.xml");
 	System.out.println(source);
     }

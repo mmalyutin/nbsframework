@@ -34,7 +34,7 @@ import org.junit.Test;
 public class TreeFormGeneratorTest extends AbstractGeneratorTest {
     
     @Test
-    public void testCompositeGenerator() throws Exception {
+    public void testTreeFormGenerator() throws Exception {
 	String source = generateClass("ui/TreeForm.ui.xml");
 	System.out.println(source);
     }

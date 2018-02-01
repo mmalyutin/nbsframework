@@ -86,12 +86,12 @@ public abstract class ContainerBuilder extends ControlBuilder {
 	return (builder == null) ? null : (Layout) builder.buildObject(layoutData);
     }
 
-    protected void populateLayout(IData data, Container composite) {
+    protected void populateLayout(IData data, Container container) {
 	Layout layout = getLayout(data);
 	if (layout == null) {
 	    return;
 	}
-	composite.setLayout(layout);
+	container.setLayout(layout);
     }
     
     protected void populateContentChildren(IData data, Container container) {

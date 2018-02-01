@@ -74,7 +74,7 @@ public class XMLReader implements XMLInfo {
 	// Root Tags
 	///////////////////////////////////////////////////////////////////////
 	
-	rootTags.add(XML_COMPOSITE);
+	rootTags.add(XML_CONTAINER);
 	rootTags.add(XML_PANEL);
 	rootTags.add(XML_WINDOW);
 	rootTags.add(XML_FRAME);
@@ -88,7 +88,7 @@ public class XMLReader implements XMLInfo {
 	// Node Types
 	///////////////////////////////////////////////////////////////////////
 	
-	//nodeTypes.put("composite", UIBuilder.COMPOSITE_TYPE);
+	//nodeTypes.put("container", UIBuilder.CONTAINER_TYPE);
 	
 	// Panels
 	nodeTypes.put("panel", UIBuilder.PANEL_TYPE);

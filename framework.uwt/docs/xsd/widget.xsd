@@ -11,15 +11,15 @@
 
 	<element name="control" type="ui:ControlType"/>
 
-	<element name="composite" type="ui:CompositeType"/>
+	<element name="container" type="ui:ContainerType"/>
 
-	<element name="content" type="ui:CompositeType"/>
+	<element name="content" type="ui:ContainerType"/>
 	
 	<element name="children">
 		<complexType>
 			<choice minOccurs="0" maxOccurs="unbounded">
 				<element ref="ui:control" minOccurs="0" maxOccurs="unbounded" />
-				<element ref="ui:composite" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:container" minOccurs="0" maxOccurs="unbounded" />
 				<element ref="ui:label" minOccurs="0" maxOccurs="unbounded" />
 				<element ref="ui:separator" minOccurs="0" maxOccurs="unbounded" />
 				<element ref="ui:button" minOccurs="0" maxOccurs="unbounded" />
@@ -234,7 +234,7 @@
 	<element name="radio-group">
 		<complexType>
 			<complexContent>
-				<extension base="ui:AbstractCompositeType">
+				<extension base="ui:AbstractContainerType">
 					<sequence>
 						<element ref="ui:radio-buttons" minOccurs="0" maxOccurs="1" />
 					</sequence>
@@ -370,15 +370,15 @@
 		</complexContent>
 	</complexType>
 
-	<complexType name="AbstractCompositeType">
+	<complexType name="AbstractContainerType">
 		<complexContent>
 			<extension base="ui:ControlType"/>
 		</complexContent>
 	</complexType>
 
-	<complexType name="CompositeType">
+	<complexType name="ContainerType">
 		<complexContent>
-			<extension base="ui:AbstractCompositeType">
+			<extension base="ui:AbstractContainerType">
 				<sequence>
 					<element ref="ui:imports" minOccurs="0" maxOccurs="1" />
 					<element ref="ui:children" minOccurs="0" maxOccurs="1" />
@@ -390,13 +390,13 @@
 
 	<complexType name="PanelType">
 		<complexContent>
-			<extension base="ui:CompositeType"/>
+			<extension base="ui:ContainerType"/>
 		</complexContent>
 	</complexType>
 
 	<complexType name="AbstractWindowType">
 		<complexContent>
-			<extension base="ui:AbstractCompositeType">
+			<extension base="ui:AbstractContainerType">
 				<attribute name="title" type="string" />
 				<attribute name="icon" type="string" /> <!-- TODO -->
 				<attribute name="modal" type="boolean" />
@@ -426,7 +426,7 @@
 
 	<complexType name="PresenterType"> <!--  TODO: Must change name -->
 		<complexContent>
-			<extension base="ui:CompositeType">
+			<extension base="ui:ContainerType">
 				<sequence>
 						<element ref="ui:menu-bar" minOccurs="0" maxOccurs="1" />
 						<element ref="ui:tool-bar" minOccurs="0" maxOccurs="1" />
