@@ -72,7 +72,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 	    return;
 	}
 	if (eq(name, MenuItem.PROPERTY_TEXT)) {
-	    xMenuItem.setText(getSafeString(value));
+	    xMenuItem.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON)) {
 	    AbstractImagePrototype xIcon = createImage(element, (Image) value);
@@ -87,7 +87,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_TOOL_TIP)) {
-	    xMenuItem.setToolTip(getSafeString(value));
+	    xMenuItem.setToolTip(asSafeString(value));
 	    return;
 	}
 

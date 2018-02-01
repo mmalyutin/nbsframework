@@ -115,9 +115,9 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    return;
 	}
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    xControl.setVisible(getBoolean(value));
+	    xControl.setVisible(asBoolean(value));
 	} else if (Control.PROPERTY_ENABLED.equals(name)) {
-	    xControl.setEnabled(getBoolean(value));
+	    xControl.setEnabled(asBoolean(value));
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
 	    UIObject layoutData = (UIObject) value;
 	    layoutData.activateUI();
@@ -188,7 +188,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    xControl.setStyleAttribute("font", fontString);
 	    return;	    
 	} else if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
-	    xControl.setToolTip(getSafeString(value));
+	    xControl.setToolTip(asSafeString(value));
 	    return;
 	}  else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
 	    Menu menu = (Menu) value;

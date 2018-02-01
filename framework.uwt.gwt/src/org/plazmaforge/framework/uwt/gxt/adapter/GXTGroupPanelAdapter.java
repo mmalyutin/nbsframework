@@ -31,7 +31,7 @@ public class GXTGroupPanelAdapter extends GXTPanelAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	GroupPanel groupPanel = (GroupPanel) element;
 	XGroupPanel xGroupPanel = new XGroupPanel();
-	xGroupPanel.setTitle(getSafeString(groupPanel.getTitle()));
+	xGroupPanel.setTitle(asSafeString(groupPanel.getTitle()));
 	xGroupPanel.setLayout(createDefaultCompositeLayout());
 	addToParent(getContent(parent.getDelegate()), xGroupPanel, element);
 	return xGroupPanel;
@@ -45,7 +45,7 @@ public class GXTGroupPanelAdapter extends GXTPanelAdapter {
 	}
 	
 	if (GroupPanel.PROPERTY_TITLE.equals(name)) {
-	    xGroupPanel.setTitle(getSafeString(value));
+	    xGroupPanel.setTitle(asSafeString(value));
 	    return;
 	}
 	

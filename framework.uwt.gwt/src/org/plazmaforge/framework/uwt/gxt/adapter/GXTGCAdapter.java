@@ -188,7 +188,7 @@ public class GXTGCAdapter extends GXTAbstractAdapter {
 		return null;
 	    }
 	    if (args.length == 3) {
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		xGC.beginPath();
@@ -212,7 +212,7 @@ public class GXTGCAdapter extends GXTAbstractAdapter {
 		xGC.setFillStyle(fillStyle);
 		
 	    } else if (args.length == 4) {
-		String text = getString(args[0]);
+		String text = asString(args[0]);
 		int x = intValue(args[1]);
 		int y = intValue(args[2]);
 		int angle = intValue(args[3]);

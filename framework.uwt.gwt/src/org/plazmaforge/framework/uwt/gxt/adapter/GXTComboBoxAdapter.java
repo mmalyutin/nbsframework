@@ -59,7 +59,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	    return;
 	}
 	if (ComboBox.PROPERTY_TEXT.equals(name)) {
-	    xComboBox.setRawValue(getSafeString(value));
+	    xComboBox.setRawValue(asSafeString(value));
 	    return;
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
 	    ModelData model = findModelByBean(comboBox, xComboBox.getStore(), value);
@@ -82,7 +82,7 @@ public class GXTComboBoxAdapter extends GXTViewerAdapter {
 	    
 	    return;
 	} else if (ComboBox.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
-	    xComboBox.setDisplayField(getSafeString(value));
+	    xComboBox.setDisplayField(asSafeString(value));
 	    return;
 	}
 	

@@ -45,10 +45,10 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 	    return;
 	}
 	if (Button.PROPERTY_SELECTED.equals(name)) {
-	    xToggleButton.toggle(getBoolean(value));
+	    xToggleButton.toggle(asBoolean(value));
 	    return;
 	} else if (Button.PROPERTY_GROUP.equals(name)) {
-	    xToggleButton.setToggleGroup(getString(value));
+	    xToggleButton.setToggleGroup(asString(value));
 	    return;
 	}
 	
