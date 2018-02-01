@@ -40,7 +40,7 @@ import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.layout.GridData;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
@@ -120,7 +120,7 @@ public class ViewerApp extends AbstractDesktopApplication {
 	appView.create();
 	frame.add(appView);
 	
-	Composite content = appView.getContent();
+	Container content = appView.getContent();
 	content.setLayout(new FitLayout());
 	
 	scrollPanel = new ScrollPanel();
