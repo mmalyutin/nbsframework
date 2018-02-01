@@ -62,7 +62,7 @@ public class GXTLabelAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLabel.setText(getSafeString(value));
+	    xLabel.setText(asSafeString(value));
 	    return;
 	}
 	super.setProperty(element, name, value);

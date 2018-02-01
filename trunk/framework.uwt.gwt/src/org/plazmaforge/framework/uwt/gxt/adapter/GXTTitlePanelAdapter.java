@@ -51,7 +51,7 @@ public class GXTTitlePanelAdapter extends GXTPanelAdapter {
 	}
 	
 	if (GroupPanel.PROPERTY_TEXT.equals(name)) {
-	    xTitlePanel.getHeader().setText(getSafeString(value));
+	    xTitlePanel.getHeader().setText(asSafeString(value));
 	    return;
 	}
 	

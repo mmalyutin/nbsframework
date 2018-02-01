@@ -50,7 +50,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (CheckBox.PROPERTY_TEXT.equals(name)) {
-	    xCheckBox.setBoxLabel(getSafeString(value));
+	    xCheckBox.setBoxLabel(asSafeString(value));
 	    return;
 	} else if (CheckBox.PROPERTY_VALUE.equals(name)) {
 	    xCheckBox.setValue(booleanValue(value));

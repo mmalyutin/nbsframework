@@ -71,7 +71,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (eq(name, Button.PROPERTY_TEXT)) {
-	    xButton.setText(getSafeString(value));
+	    xButton.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, Button.PROPERTY_ICON)) {
 	    AbstractImagePrototype xIcon = createImage(element, (Image) value);

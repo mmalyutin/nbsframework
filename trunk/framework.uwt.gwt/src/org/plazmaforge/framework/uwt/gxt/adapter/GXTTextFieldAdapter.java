@@ -47,7 +47,7 @@ public class GXTTextFieldAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (TextField.PROPERTY_VALUE.equals(name)) {
-	    xTextField.setValue(getSafeString(value));
+	    xTextField.setValue(asSafeString(value));
 	    return;
 	} 
 	

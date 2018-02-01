@@ -46,7 +46,7 @@ public class GWTTextFieldAdapter extends GWTControlAdapter {
 	    return;
 	}
 	if (TextField.PROPERTY_VALUE.equals(name)) {
-	    textField.setText(getSafeString(value));
+	    textField.setText(asSafeString(value));
 	    return;
 	} 
 	

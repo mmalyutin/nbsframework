@@ -77,7 +77,7 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
 	    return;
 	}
 	if (eq(name, ToolItem.PROPERTY_TEXT)) {
-	    xButton.setText(getSafeString(value));
+	    xButton.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_ICON)) {
 	    AbstractImagePrototype xIcon = createImage(element, (Image) value);
@@ -92,7 +92,7 @@ public class GXTToolItemAdapter extends GXTControlAdapter {
 	    }
 	    return;
 	} else if (eq(name, ToolItem.PROPERTY_TOOL_TIP)) {
-	    xButton.setToolTip(getSafeString(value));
+	    xButton.setToolTip(asSafeString(value));
 	    return;
 	}
 

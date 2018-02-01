@@ -46,7 +46,7 @@ public class GWTCheckBoxAdapter extends GWTControlAdapter {
 	    return;
 	}
 	if (CheckBox.PROPERTY_TEXT.equals(name)) {
-	    checkBox.setText(getSafeString(value));
+	    checkBox.setText(asSafeString(value));
 	    return;
 	} else if (CheckBox.PROPERTY_VALUE.equals(name)) {
 	    checkBox.setValue(booleanValue(value));

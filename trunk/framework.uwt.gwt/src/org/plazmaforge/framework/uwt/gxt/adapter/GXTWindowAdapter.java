@@ -128,7 +128,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
 	}
 	com.extjs.gxt.ui.client.widget.Window xWindow = (com.extjs.gxt.ui.client.widget.Window) delegate;
 	if (Window.PROPERTY_TITLE.equals(name)) {
-	    xWindow.setHeading(getSafeString(value));
+	    xWindow.setHeading(asSafeString(value));
 	    return;
 	} else if (Window.PROPERTY_ICON.equals(name)) {
 	    AbstractImagePrototype xImage = createImage(element, (Image) value);

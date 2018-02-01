@@ -101,7 +101,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 	    
 	    return;
 	} else if (ListBox.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
-	    xListBox.setDisplayProperty(getSafeString(value));
+	    xListBox.setDisplayProperty(asSafeString(value));
 	    return;
 	}
 
