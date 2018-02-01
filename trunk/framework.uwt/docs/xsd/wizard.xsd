@@ -6,7 +6,7 @@
 	<element name="wizard">
 		<complexType>
 			<complexContent>
-				<extension base="ui:CompositeType">
+				<extension base="ui:ContainerType">
 					<attribute name="title" type="string" /> <!-- TODO -->
 					<attribute name="icon" type="string" /> <!-- TODO -->
 				</extension>

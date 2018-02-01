@@ -34,7 +34,7 @@ import org.junit.Test;
 public class TableFormGeneratorTest extends AbstractGeneratorTest {
     
     @Test
-    public void testCompositeGenerator() throws Exception {
+    public void testTableFormGenerator() throws Exception {
 	String source = generateClass("ui/TableForm.ui.xml");
 	System.out.println(source);
     }

@@ -45,7 +45,7 @@ public interface XMLInfo {
     // ROOT ELEMENTS
     //////////////////////////////////////////////////////////////
     
-    String XML_COMPOSITE = "composite";
+    String XML_CONTAINER = "container";
     
     String XML_PANEL = "panel";
     

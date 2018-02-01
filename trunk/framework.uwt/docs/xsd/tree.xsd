@@ -6,7 +6,7 @@
 	<element name="tree">
 		<complexType>
 			<complexContent>
-				<extension base="ui:AbstractCompositeType">
+				<extension base="ui:AbstractContainerType">
 					<sequence>
 						<element ref="ui:columns" minOccurs="0" maxOccurs="1" />
 						<element ref="ui:items" minOccurs="0" maxOccurs="1" />

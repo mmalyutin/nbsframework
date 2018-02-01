@@ -10,7 +10,7 @@
 	<element name="ui">
 		<complexType>
 			<choice minOccurs="0" maxOccurs="unbounded">
-				<element ref="ui:composite" minOccurs="0" maxOccurs="unbounded" />
+				<element ref="ui:container" minOccurs="0" maxOccurs="unbounded" />
 				<element ref="ui:panel" minOccurs="0" maxOccurs="unbounded" />
 				<element ref="ui:window" minOccurs="0" maxOccurs="unbounded" />
 				<element ref="ui:frame" minOccurs="0" maxOccurs="unbounded" />

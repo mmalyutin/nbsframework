@@ -53,7 +53,7 @@ public class VerticalPanelBuilder extends PanelBuilder {
     }
 
     @Override
-    protected void populateLayout(IData data, Container composite) {
+    protected void populateLayout(IData data, Container container) {
 	// Layout is not supported  
     }
 

@@ -34,7 +34,7 @@ import org.junit.Test;
 public class EditFormGeneratorTest extends AbstractGeneratorTest {
 
     @Test
-    public void testCompositeGenerator() throws Exception {
+    public void testEditFormGenerator() throws Exception {
 	String source = generateClass("ui/EditForm.ui.xml");
 	System.out.println(source);
     }

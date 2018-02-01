@@ -57,7 +57,7 @@
 	<element name="tab-item">
 		<complexType>
 			<complexContent>
-				<extension base="ui:CompositeType">
+				<extension base="ui:ContainerType">
 					<attribute name="title" type="string"/>
 					<attribute name="icon" type="string"/>
 				</extension>
