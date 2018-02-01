@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 import org.plazmaforge.framework.uwt.widget.tool.ButtonBar;
@@ -139,7 +139,7 @@ public class SortDialog extends Dialog {
     
 	
     @Override
-    protected void buildContent(Composite parent) {
+    protected void buildContent(Container parent) {
 	GridLayout layout = new GridLayout(3); 
 	parent.setLayout(layout);
 	//parent.setData("debugLayout", true);

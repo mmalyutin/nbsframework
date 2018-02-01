@@ -26,17 +26,17 @@ import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.Panel;
 import org.plazmaforge.framework.uwt.widget.Label;
 
-public class StatusBar extends Composite {
+public class StatusBar extends Container {
 
     private Label statusLabel;
 
-    private Composite startPanel;
+    private Container startPanel;
     
-    private Composite endPanel;
+    private Container endPanel;
     
     public StatusBar() {
 	super();

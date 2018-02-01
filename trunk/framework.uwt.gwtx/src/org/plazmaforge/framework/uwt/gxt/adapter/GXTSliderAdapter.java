@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Slider;
 
 /**
@@ -53,7 +53,7 @@ public class GXTSliderAdapter extends GXTControlAdapter {
 	if (Slider.PROPERTY_VALUE.equals(name)) {
 	    xSlider.setValue(intValue(value));
 	    return;
-	} else if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
+	} else if (Container.PROPERTY_TOOL_TIP.equals(name)) {
 	    //TODO:MIGRATION
 	    // Use SliderCell.setToolTipConfig with anchor Side.RIGTH
 	    return;

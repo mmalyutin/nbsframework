@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.desktop;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 /**
  * The Desktop is the container of Desktop Items
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Composite;
  * @author ohapon
  *
  */
-public class Desktop extends Composite {
+public class Desktop extends Container {
 
     
     //////////////////////////////////////////////////////////////////////

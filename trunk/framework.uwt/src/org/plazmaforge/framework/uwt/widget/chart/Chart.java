@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.graphics.Rectangle;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Canvas;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.widget.chart.dataset.Dataset;
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.chart.dataset.Series;
 import org.plazmaforge.framework.uwt.widget.chart.plot.Plot;
 import org.plazmaforge.framework.uwt.widget.chart.util.ChartGraphicsUtils;
 
-public class Chart extends Composite {
+public class Chart extends Container {
 
     public static Color DEFAULT_TITLE_COLOR = Color.BLACK;
     

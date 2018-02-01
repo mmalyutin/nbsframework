@@ -28,7 +28,7 @@ import java.util.List;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SetupDialog extends Dialog {
 
@@ -44,7 +44,7 @@ public class SetupDialog extends Dialog {
     }
     
     @Override
-    protected void buildContent(Composite parent) {
+    protected void buildContent(Container parent) {
 	GridLayout layout = new GridLayout(1); 
 	parent.setLayout(layout);
 	List<DisplayField> displayFields = getDisplayFields();

@@ -64,7 +64,7 @@ public abstract class AbstractGenerator implements IUIGenerator {
      */
     public String getClassName(IData data) {
 	
-	// Base type (widget.Composite, widget.Label, winget.Button and etc.)
+	// Base type (widget.panel.Panel, widget.Label, winget.Button and etc.)
 	String baseType = getBaseType(data);
 	
 	// Customization type (StylePanel, StyleLable, StyleButton)

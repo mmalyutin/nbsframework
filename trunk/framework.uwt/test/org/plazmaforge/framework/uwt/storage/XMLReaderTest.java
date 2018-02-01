@@ -29,9 +29,8 @@ import org.junit.Test;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.resources.ResourceHelper;
-import org.plazmaforge.framework.uwt.widget.Composite;
 import org.plazmaforge.framework.uwt.widget.Layout;
-
+import org.plazmaforge.framework.uwt.widget.panel.Panel;
 
 import junit.framework.TestCase;
 
@@ -42,15 +41,15 @@ public class XMLReaderTest extends TestCase {
     }
     
     @Test
-    public void testCompositeReader() throws Exception {
+    public void testPanelReader() throws Exception {
 	XMLReader reader = new XMLReader();
-	String fileName = "ui/Composite.ui.xml";
+	String fileName = "ui/Panel.ui.xml";
 	InputStream is = ResourceHelper.getResourceStream(fileName);
 	UIObject ui = reader.readObject(is);
 	assertNotNull(ui);
-	assertTrue(ui instanceof Composite);
-	Composite composite  = (Composite) ui;
-	Layout layout = composite.getLayout();
+	assertTrue(ui instanceof Panel);
+	Panel panel  = (Panel) ui;
+	Layout layout = panel.getLayout();
 	assertNotNull(layout);
 	assertTrue(layout instanceof GridLayout);
 	GridLayout gridLayout = (GridLayout) layout;

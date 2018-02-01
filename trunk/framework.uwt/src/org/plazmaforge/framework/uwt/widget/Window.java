@@ -13,7 +13,7 @@ import org.plazmaforge.framework.uwt.graphics.Image;
  * @author ohapon
  *
  */
-public class Window extends Composite implements IDecorator {
+public class Window extends Container implements IDecorator {
 
 
     public static final String PROPERTY_MODAL = "modal";

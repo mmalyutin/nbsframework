@@ -27,7 +27,7 @@ import java.util.List;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  * @author ohapon
  *
  */
-public abstract class CompositeBuilder extends ControlBuilder {
+public abstract class ContainerBuilder extends ControlBuilder {
 
     /*
     @Override
@@ -44,9 +44,9 @@ public abstract class CompositeBuilder extends ControlBuilder {
 	if (data == null) {
 	    return null;
 	}
-	Composite composite = new Composite();
-	populate(data, composite);
-	return composite;
+	Container container = new Container();
+	populate(data, container);
+	return container;
     }
     */
     
@@ -64,14 +64,14 @@ public abstract class CompositeBuilder extends ControlBuilder {
     }
     
     protected void populateBody(IData data, UIObject element) {
-	Composite composite = (Composite) element;
-	populateLayout(data, composite);
+	Container container = (Container) element;
+	populateLayout(data, container);
 	assignResource(data, element);
-	populateContentChildren(data, composite);	
+	populateContentChildren(data, container);	
     }
     
     protected Layout getLayout(IData data) {
-	Object value = getValue(data, Composite.PROPERTY_LAYOUT);
+	Object value = getValue(data, Container.PROPERTY_LAYOUT);
 	if (value == null) {
 	    return null;
 	}
@@ -86,7 +86,7 @@ public abstract class CompositeBuilder extends ControlBuilder {
 	return (builder == null) ? null : (Layout) builder.buildObject(layoutData);
     }
 
-    protected void populateLayout(IData data, Composite composite) {
+    protected void populateLayout(IData data, Container composite) {
 	Layout layout = getLayout(data);
 	if (layout == null) {
 	    return;
@@ -94,18 +94,18 @@ public abstract class CompositeBuilder extends ControlBuilder {
 	composite.setLayout(layout);
     }
     
-    protected void populateContentChildren(IData data, Composite composite) {
-	List<IData> children = getChildrenOfNode(data, Composite.PROPERTY_CHILDREN);
-	populateContentChildren(children, composite);
+    protected void populateContentChildren(IData data, Container container) {
+	List<IData> children = getChildrenOfNode(data, Container.PROPERTY_CHILDREN);
+	populateContentChildren(children, container);
     }
     
-    protected void populateContentChildren(List<IData> children, Composite composite) {
+    protected void populateContentChildren(List<IData> children, Container container) {
 	 if (children == null || children.isEmpty()) {
 	     return;
 	 }
 	 for (IData child: children) {
 	     Widget childWidget = (Widget) buildDataObject(child);
-	     composite.add(childWidget);
+	     container.add(childWidget);
 	 }
     }
     

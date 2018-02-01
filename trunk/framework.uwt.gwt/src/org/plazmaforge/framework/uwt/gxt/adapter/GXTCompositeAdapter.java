@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import com.extjs.gxt.ui.client.Style.Orientation;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
@@ -61,7 +61,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	// Only for LayoutContainer we can set layout 
 	if (delegate instanceof LayoutContainer) {
 	    LayoutContainer xComposite = (LayoutContainer) delegate;
-	    if (Composite.PROPERTY_LAYOUT.equals(name)) {
+	    if (Container.PROPERTY_LAYOUT.equals(name)) {
 		Layout layout = (Layout) value;
 		layout.activateUI();
 		xComposite.setLayout((com.extjs.gxt.ui.client.widget.Layout) layout.getDelegate());

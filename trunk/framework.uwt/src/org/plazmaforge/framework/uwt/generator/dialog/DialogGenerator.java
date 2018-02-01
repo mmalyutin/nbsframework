@@ -77,7 +77,7 @@ public class DialogGenerator extends WindowGenerator {
 	}
 
 	MethodContext context = new MethodContext(classContext);
-	String className = prepareClassName(context, UIGenerator.UWT_WIDGET_PACKAGE + "." + "Composite");
+	String className = prepareClassName(context, UIGenerator.CONTAINER_CLASS);
 	
 	sw.indent();
 	sw.println();

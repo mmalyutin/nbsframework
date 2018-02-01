@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget.panel;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
-import org.plazmaforge.framework.uwt.builder.widget.CompositeBuilder;
+import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
 
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.panel.TabItem;
  * @author ohapon
  *
  */
-public class TabItemBuilder extends CompositeBuilder {
+public class TabItemBuilder extends ContainerBuilder {
 
     @Override
     public boolean accept(String type) {

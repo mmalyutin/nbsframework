@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.layout.CardLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class GXTCardLayoutAdapter extends GXTLayoutAdapter {
@@ -74,7 +74,7 @@ public class GXTCardLayoutAdapter extends GXTLayoutAdapter {
     }
     
     private void doNavigation(com.extjs.gxt.ui.client.widget.layout.CardLayout xLayout, Layout layout, String methodName) {
-	Composite owner = layout.getOwner();
+	Container owner = layout.getOwner();
 	com.extjs.gxt.ui.client.widget.LayoutContainer xOwner = (com.extjs.gxt.ui.client.widget.LayoutContainer) owner.getDelegate();
 	
 	List<com.extjs.gxt.ui.client.widget.Component> items = xOwner.getItems();

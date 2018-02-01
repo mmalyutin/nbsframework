@@ -24,11 +24,11 @@ package org.plazmaforge.framework.uwt.builder.view;
 
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.builder.widget.CompositeBuilder;
+import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.view.View;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
-public abstract class AbstractViewBuilder extends CompositeBuilder {
+public abstract class AbstractViewBuilder extends ContainerBuilder {
 
     protected abstract View createView(); 
     
@@ -72,7 +72,7 @@ public abstract class AbstractViewBuilder extends CompositeBuilder {
 	// CONTENT
 	IData contentNode = (IData) getValue(data, View.PROPERTY_CONTENT);
 	if (contentNode != null) {
-	    Composite content = view.getContent();
+	    Container content = view.getContent();
 	    populateLayout(contentNode, content);
 	    populateContentChildren(contentNode, content);	
 	    

@@ -108,7 +108,7 @@ public class UWT_GXT {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new GXTFrameAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new GXTDialogAdapter());
 	
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Composite.class, new GXTCompositeAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new GXTCompositeAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new GXTPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.GroupPanel.class, new GXTGroupPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TitlePanel.class, new GXTTitlePanelAdapter());

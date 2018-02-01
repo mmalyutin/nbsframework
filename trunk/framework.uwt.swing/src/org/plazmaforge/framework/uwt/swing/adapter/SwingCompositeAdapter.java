@@ -26,7 +26,7 @@ import java.awt.FlowLayout;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SwingCompositeAdapter extends SwingControlAdapter {
@@ -50,7 +50,7 @@ public class SwingCompositeAdapter extends SwingControlAdapter {
 	if (xComposite == null) {
 	    return;
 	}
-	if (Composite.PROPERTY_LAYOUT.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name)) {
 	    // Get content (JFrame, JDialog)
 	    xComposite = getContent(xComposite);
 	    
@@ -80,7 +80,7 @@ public class SwingCompositeAdapter extends SwingControlAdapter {
 	if (composite == null) {
 	    return null;
 	}
-	if (Composite.METHOD_LAYOUT.equals(methodName)) {
+	if (Container.METHOD_LAYOUT.equals(methodName)) {
 	    composite.doLayout();
 	    return null;
 	}

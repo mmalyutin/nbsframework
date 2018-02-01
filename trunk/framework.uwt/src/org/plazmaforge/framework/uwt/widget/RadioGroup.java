@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.widget;
 
-public class RadioGroup<T> extends Composite implements IField<T>, IRefField<T> {
+public class RadioGroup<T> extends Container implements IField<T>, IRefField<T> {
 
     
     public static final String PROPERTY_RADIO_BUTTONS = "radioButtons";

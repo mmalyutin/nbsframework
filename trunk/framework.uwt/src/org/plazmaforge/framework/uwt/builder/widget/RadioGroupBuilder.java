@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  * @author ohapon
  *
  */
-public class RadioGroupBuilder extends CompositeBuilder {
+public class RadioGroupBuilder extends ContainerBuilder {
     
     @Override
     public UIObject buildObject(IData data) {

@@ -26,7 +26,7 @@ import org.plazmaforge.framework.uwt.event.MouseEvent;
 import org.plazmaforge.framework.uwt.event.MouseListener;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.RadioButton;
 import org.plazmaforge.framework.uwt.widget.RadioGroup;
 import org.plazmaforge.framework.uwt.widget.ToggleButton;
@@ -41,7 +41,7 @@ public class ButtonTab extends AbstractTab {
 	//VerticalLayout layout = new VerticalLayout();
 	setLayout(new GridLayout());
 	
-	Composite panel = createTextButtonPanel();
+	Container panel = createTextButtonPanel();
 	//panel .setBackground(Color.RED);
 	//panel.setLayoutData(new GridData(1, 1, HorizontalAlign.FILL, VerticalAlign.MIDDLE, true, false));
 	add(panel);
@@ -170,7 +170,7 @@ public class ButtonTab extends AbstractTab {
 	return panel;
     }
 
-    private Composite createRadioButtonPanel() {
+    private Container createRadioButtonPanel() {
 	RadioGroup panel = new RadioGroup();
 	panel.setToolTip("Radio Group buttons");
 	

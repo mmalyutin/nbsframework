@@ -42,7 +42,7 @@ import org.plazmaforge.framework.uwt.storage.TemplateProviderAsync;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
@@ -216,7 +216,7 @@ public class WebApplication extends Application implements EntryPoint {
     
     
     private void addTestControls() {
-	org.plazmaforge.framework.uwt.widget.Composite uwtContainer = new  org.plazmaforge.framework.uwt.widget.panel.Panel();
+	org.plazmaforge.framework.uwt.widget.Container uwtContainer = new  org.plazmaforge.framework.uwt.widget.panel.Panel();
 	uwtContainer.setLayout(new GridLayout(3));
 	
 	//uwtContainer.setLayout(new GridLayout(1));

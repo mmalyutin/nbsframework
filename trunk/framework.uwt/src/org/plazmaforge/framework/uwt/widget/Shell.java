@@ -2,7 +2,7 @@ package org.plazmaforge.framework.uwt.widget;
 
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 
-public class Shell extends Composite {
+public class Shell extends Container {
 
     private String title;
     

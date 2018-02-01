@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Window;
 import org.plazmaforge.framework.uwt.widget.panel.Panel;
 import org.plazmaforge.framework.uwt.widget.tool.ButtonBar;
@@ -58,7 +58,7 @@ public class Dialog extends Window implements IDialog {
     /**
      * Content container
      */
-    private Composite content;
+    private Container content;
     
     
     /**
@@ -174,8 +174,8 @@ public class Dialog extends Window implements IDialog {
 
     }
     
-    protected Composite createContent() {
-	Composite content = new Panel();
+    protected Container createContent() {
+	Container content = new Panel();
 	GridLayout layout = new GridLayout();
 	layout.resetMargin();
 	content.setLayout(layout);
@@ -187,7 +187,7 @@ public class Dialog extends Window implements IDialog {
     }
 
 
-    protected void buildContent(Composite parent) {
+    protected void buildContent(Container parent) {
 	// do nothing: use to build content
     }
 
@@ -277,7 +277,7 @@ public class Dialog extends Window implements IDialog {
         this.needFixSize = needFixSize;
     }
 
-    public Composite getContent() {
+    public Container getContent() {
 	checkCreate();
         return content;
     }

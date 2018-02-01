@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.uwt.layout.CardLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 
-public class Wizard extends Composite implements IWizard {
+public class Wizard extends Container implements IWizard {
 
     
     private List<IWizardPage> pages = new ArrayList<IWizardPage>();

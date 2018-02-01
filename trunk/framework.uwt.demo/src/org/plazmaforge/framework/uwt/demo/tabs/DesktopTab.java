@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.form.FormManager;
 import org.plazmaforge.framework.uwt.form.FormProvider;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.storage.TemplateProviderAsync;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Label;
 
@@ -49,7 +49,7 @@ public class DesktopTab extends AbstractTab {
     }
     
     
-    private void createContent(Composite parent) {
+    private void createContent(Container parent) {
 	setLayout(new FitLayout());
 	
 	// Create Desktop

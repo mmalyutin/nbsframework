@@ -50,7 +50,7 @@ import org.plazmaforge.framework.uwt.event.EnterListener;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.IViewer;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -1259,7 +1259,7 @@ public abstract class ListForm<T> extends Form<T> implements IListForm<T> {
     
     protected List<Viewer<?>> findViewers() {
 	List<Viewer<?>> viewers = new ArrayList<Viewer<?>>();
-	Composite content = getContent();
+	Container content = getContent();
 	if (content == null) {
 	    return viewers;
 	}

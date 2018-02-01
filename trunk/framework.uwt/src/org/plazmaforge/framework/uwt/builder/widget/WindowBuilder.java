@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
  * @author ohapon
  *
  */
-public class WindowBuilder extends CompositeBuilder {
+public class WindowBuilder extends ContainerBuilder {
     
     @Override
     public UIObject buildObject(IData data) {

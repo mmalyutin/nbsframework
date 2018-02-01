@@ -24,13 +24,13 @@ package org.plazmaforge.framework.uwt.builder.form;
 
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.builder.widget.CompositeBuilder;
+import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.form.Form;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
 
-public abstract class AbstractFormBuilder extends CompositeBuilder {
+public abstract class AbstractFormBuilder extends ContainerBuilder {
 
     protected abstract Form<?> createForm(); 
     
@@ -93,7 +93,7 @@ public abstract class AbstractFormBuilder extends CompositeBuilder {
 	// CONTENT
 	IData contentNode = getDataValue(data, Form.PROPERTY_CONTENT);
 	if (contentNode != null) {
-	    Composite content = form.getContent();
+	    Container content = form.getContent();
 	    populateLayout(contentNode, content);
 	    populateContentChildren(contentNode, content);	
 	}

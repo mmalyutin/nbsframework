@@ -26,7 +26,7 @@ import org.eclipse.swt.SWT;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SWTCompositeAdapter extends SWTControlAdapter {
@@ -96,7 +96,7 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
 	    return;
 	}
 	
-	if (Composite.PROPERTY_LAYOUT.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name)) {
 	    Layout layout = (Layout) value;
 	    
 	    if (layout == null) {
@@ -137,7 +137,7 @@ public class SWTCompositeAdapter extends SWTControlAdapter {
 	    return null;
 	}
 
-	if (Composite.METHOD_LAYOUT.equals(methodName)) {
+	if (Container.METHOD_LAYOUT.equals(methodName)) {
 	    composite.layout();
 	    return null;
 	}

@@ -28,7 +28,7 @@ import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.desktop.Desktop;
 import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.IDecorator;
 
@@ -217,8 +217,8 @@ public class DesktopFormProvider implements FormProvider {
      * @param form
      * @return
      */
-    protected Composite getFormContainer(IForm form) {
-	return ((Composite) form);
+    protected Container getFormContainer(IForm form) {
+	return ((Container) form);
     }
     
     /**

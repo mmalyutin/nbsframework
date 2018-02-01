@@ -27,7 +27,7 @@ import java.util.List;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
@@ -78,7 +78,7 @@ public class GXTToolBarAdapter extends GXTCompositeAdapter {
 	    return;
 	}
 	
-	if (Composite.PROPERTY_LAYOUT.equals(name) || Composite.PROPERTY_LAYOUT_DATA.equals(name) || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name) || Container.PROPERTY_LAYOUT_DATA.equals(name) || Container.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}

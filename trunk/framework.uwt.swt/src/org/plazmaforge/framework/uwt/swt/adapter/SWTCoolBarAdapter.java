@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.plazmaforge.framework.util.SystemInfo;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SWTCoolBarAdapter extends SWTCompositeAdapter {
 
@@ -47,7 +47,7 @@ public class SWTCoolBarAdapter extends SWTCompositeAdapter {
 	if (xCoolBar == null) {
 	    return;
 	}
-	if (Composite.PROPERTY_LAYOUT.equals(name) || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name) || Container.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}

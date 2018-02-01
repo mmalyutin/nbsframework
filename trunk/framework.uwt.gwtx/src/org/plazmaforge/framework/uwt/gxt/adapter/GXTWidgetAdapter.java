@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -152,8 +152,8 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	Layout layout = null;
 	
 	// Get layout
-	if (p != null && p instanceof Composite) {
-	    layout = ((Composite) p).getLayout();
+	if (p != null && p instanceof Container) {
+	    layout = ((Container) p).getLayout();
 	}
 	
 	// No layout - default add

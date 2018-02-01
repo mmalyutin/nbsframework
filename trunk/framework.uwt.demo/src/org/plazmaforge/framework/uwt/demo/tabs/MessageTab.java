@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
 import org.plazmaforge.framework.uwt.widget.panel.Panel;
 
@@ -43,7 +43,7 @@ public class MessageTab extends AbstractTab {
 	//VerticalLayout layout = new VerticalLayout();
 	setLayout(new GridLayout());
 	
-	Composite panel = createTextButtonPanel();
+	Container panel = createTextButtonPanel();
 	add(panel);
 	
     }

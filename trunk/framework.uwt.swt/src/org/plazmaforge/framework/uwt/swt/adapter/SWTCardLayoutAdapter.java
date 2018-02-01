@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.layout.CardLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SWTCardLayoutAdapter extends SWTLayoutAdapter {
@@ -58,7 +58,7 @@ public class SWTCardLayoutAdapter extends SWTLayoutAdapter {
     }
     
     private void doNavigation(org.eclipse.swt.custom.StackLayout xLayout, Layout layout, String methodName) {
-	Composite owner = layout.getOwner();
+	Container owner = layout.getOwner();
 	org.eclipse.swt.widgets.Composite xOwner = (org.eclipse.swt.widgets.Composite) owner.getDelegate();
 	org.eclipse.swt.widgets.Control[] children = xOwner.getChildren();
 	if (children.length == 0) {

@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.generator.MethodContext;
 import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
 import org.plazmaforge.framework.uwt.generator.UIGenerator;
-import org.plazmaforge.framework.uwt.generator.widget.CompositeGenerator;
+import org.plazmaforge.framework.uwt.generator.widget.ContainerGenerator;
 import org.plazmaforge.framework.uwt.widget.Frame;
 
 
@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.Frame;
  * @author ohapon
  *
  */
-public abstract class AbstractFormGenerator extends CompositeGenerator {
+public abstract class AbstractFormGenerator extends ContainerGenerator {
 
     @Override
     public void generatePopulateCommon(ScopeContext context, IData data, String bean, SourceWriter sw) {
@@ -96,7 +96,7 @@ public abstract class AbstractFormGenerator extends CompositeGenerator {
 	}
 
 	MethodContext context = new MethodContext(classContext);
-	String className = prepareClassName(context, UIGenerator.UWT_WIDGET_PACKAGE + "." + "Composite");
+	String className = prepareClassName(context, UIGenerator.UWT_WIDGET_PACKAGE + "." + "Container");
 
 	sw.indent();
 	sw.println();

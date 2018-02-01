@@ -26,7 +26,6 @@ import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
 /**
- * Tabbed Panel.
  * The TabPanel is container of TabItem's.
  * 
  * @author ohapon

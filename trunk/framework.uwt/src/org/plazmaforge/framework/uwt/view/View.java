@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.action.AbstractAction;
 import org.plazmaforge.framework.uwt.action.Action;
 import org.plazmaforge.framework.uwt.action.ActionHelper;
 import org.plazmaforge.framework.uwt.graphics.Image;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Presenter;
 import org.plazmaforge.framework.uwt.widget.Frame;
@@ -80,7 +80,7 @@ public abstract class View extends Presenter implements IView {
     }
     
     @Override
-    public Composite getContainer() {
+    public Container getContainer() {
 	return this;
     }
     

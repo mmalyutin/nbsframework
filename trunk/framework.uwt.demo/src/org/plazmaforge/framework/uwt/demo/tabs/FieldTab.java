@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.DateTimeField;
 import org.plazmaforge.framework.uwt.widget.IntegerField;
@@ -60,7 +60,7 @@ public class FieldTab extends AbstractTab {
     }
     
     
-    private void createContent(Composite parent) {
+    private void createContent(Container parent) {
 	
 	// Create grid layout with two columns
 	GridLayout layout = new GridLayout(2); 

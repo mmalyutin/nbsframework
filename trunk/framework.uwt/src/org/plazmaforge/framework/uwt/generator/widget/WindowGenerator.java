@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
  * @author ohapon
  *
  */
-public class WindowGenerator extends CompositeGenerator {
+public class WindowGenerator extends ContainerGenerator {
 
     @Override
     public void generatePopulateCommon(ScopeContext context, IData data, String bean, SourceWriter sw) {

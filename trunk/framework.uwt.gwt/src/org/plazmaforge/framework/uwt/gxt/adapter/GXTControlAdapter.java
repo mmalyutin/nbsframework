@@ -27,7 +27,7 @@ import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -133,7 +133,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    xControl.setHeight(v == null ? "0" : (v.toString() + ""));
 	    //xWidget.setStyleAttribute("height", v == null ? "0" : (v.toString() + ""));
 	    return;
-	} else if (Composite.PROPERTY_BACKGROUND.equals(name)) {
+	} else if (Container.PROPERTY_BACKGROUND.equals(name)) {
 	    Color color = (Color) value;
 	    String colorString = getColorString(color);
 	    
@@ -151,7 +151,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    
 	    xControl.setStyleAttribute("background", colorString);
 	    return;
-	} else if (Composite.PROPERTY_FOREGROUND.equals(name)) {
+	} else if (Container.PROPERTY_FOREGROUND.equals(name)) {
 	    Color color = (Color) value;
 	    String colorString = getColorString(color);
 	    
@@ -169,7 +169,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    
 	    xControl.setStyleAttribute("color", colorString);
 	    return;	    
-	} else if (Composite.PROPERTY_FONT.equals(name)) {
+	} else if (Container.PROPERTY_FONT.equals(name)) {
 	    Font font = (Font) value;
 	    String fontString = getFontString(font);
 	    
@@ -187,7 +187,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    
 	    xControl.setStyleAttribute("font", fontString);
 	    return;	    
-	} else if (Composite.PROPERTY_TOOL_TIP.equals(name)) {
+	} else if (Container.PROPERTY_TOOL_TIP.equals(name)) {
 	    xControl.setToolTip(asSafeString(value));
 	    return;
 	}  else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {

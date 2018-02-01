@@ -30,7 +30,7 @@ import java.util.List;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
-import org.plazmaforge.framework.uwt.builder.widget.CompositeBuilder;
+import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
 import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 
@@ -38,7 +38,7 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
  * @author ohapon
  *
  */
-public class ToolBarBuilder extends CompositeBuilder {
+public class ToolBarBuilder extends ContainerBuilder {
 
     @Override
     public UIObject buildObject(IData data) {

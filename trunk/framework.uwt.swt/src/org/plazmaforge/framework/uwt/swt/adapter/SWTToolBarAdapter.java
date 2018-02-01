@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SWTToolBarAdapter extends SWTCompositeAdapter {
 
@@ -67,7 +67,7 @@ public class SWTToolBarAdapter extends SWTCompositeAdapter {
 	if (xToolBar == null) {
 	    return;
 	}
-	if (Composite.PROPERTY_LAYOUT.equals(name) || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name) || Container.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}

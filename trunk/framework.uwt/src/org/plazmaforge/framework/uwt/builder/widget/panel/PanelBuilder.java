@@ -28,14 +28,14 @@ package org.plazmaforge.framework.uwt.builder.widget.panel;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
-import org.plazmaforge.framework.uwt.builder.widget.CompositeBuilder;
+import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.widget.panel.Panel;
 
 /**
  * @author ohapon
  *
  */
-public class PanelBuilder extends CompositeBuilder {
+public class PanelBuilder extends ContainerBuilder {
 
     @Override
     public boolean accept(String type) {

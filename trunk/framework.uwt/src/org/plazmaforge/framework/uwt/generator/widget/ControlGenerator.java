@@ -28,7 +28,7 @@ import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.generator.ScopeContext;
 import org.plazmaforge.framework.uwt.generator.SourceWriter;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Control;
 
 public abstract class ControlGenerator extends WidgetGenerator {
@@ -53,7 +53,7 @@ public abstract class ControlGenerator extends WidgetGenerator {
 	
 	generateSetRSStringProperty(context, data, bean, Control.PROPERTY_TOOL_TIP, "setToolTip", sw);
 
-	generateSetData(context, "%layoutData", data, bean, Composite.PROPERTY_LAYOUT_DATA, null, sw);
+	generateSetData(context, "%layoutData", data, bean, Container.PROPERTY_LAYOUT_DATA, null, sw);
 	
 	// TODO: Populate Control properties:
   	// - LayoutData

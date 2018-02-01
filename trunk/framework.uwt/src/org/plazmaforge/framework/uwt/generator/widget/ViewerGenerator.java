@@ -40,7 +40,7 @@ import org.plazmaforge.framework.uwt.widget.Viewer;
  * @author ohapon
  *
  */
-public abstract class ViewerGenerator extends CompositeGenerator {
+public abstract class ViewerGenerator extends ContainerGenerator {
 
     protected void generatePopulateColumn(ScopeContext context, IData data, String bean, SourceWriter sw) {
 	

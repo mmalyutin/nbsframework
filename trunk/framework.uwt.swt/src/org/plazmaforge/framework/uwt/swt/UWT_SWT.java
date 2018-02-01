@@ -102,7 +102,7 @@ public class UWT_SWT {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new SWTFrameAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new SWTDialogAdapter());
 	
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Composite.class, new SWTCompositeAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new SWTCompositeAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new SWTPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.GroupPanel.class, new SWTGroupPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TitlePanel.class, new SWTTitlePanelAdapter());

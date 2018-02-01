@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 
 public class SWTRadioGroupAdapter extends SWTCompositeAdapter {
@@ -48,7 +48,7 @@ public class SWTRadioGroupAdapter extends SWTCompositeAdapter {
 	if (xRadioGroup == null) {
 	    return;
 	}
-	if (Composite.PROPERTY_LAYOUT.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name)) {
 	    // ignore
 	    // TODO: Use horizontal/vertical orientation
 	    return;

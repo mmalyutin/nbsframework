@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 
 public class GXTRadioGroupAdapter extends GXTCompositeAdapter {
@@ -44,7 +44,7 @@ public class GXTRadioGroupAdapter extends GXTCompositeAdapter {
 	    return;
 	}
 
-	if (Composite.PROPERTY_LAYOUT.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name)) {
 	    // ignore
 	    return;
 	}	

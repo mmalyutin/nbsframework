@@ -30,16 +30,16 @@ import org.plazmaforge.framework.uwt.widget.Column;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Viewer;
 
-public abstract class ViewerBuilder extends CompositeBuilder {
+public abstract class ViewerBuilder extends ContainerBuilder {
 
     @Override
     public UIObject buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
-	Viewer<?> composite = createViewer();
-	populate(data, composite);
-	return composite;
+	Viewer<?> container = createViewer();
+	populate(data, container);
+	return container;
     }
     
     protected abstract Viewer<?> createViewer();

@@ -35,7 +35,7 @@ import org.plazmaforge.framework.core.data.provider.DataProvider;
 import org.plazmaforge.framework.core.data.provider.DataProviderAsync;
 import org.plazmaforge.framework.uwt.UIMessages;
 import org.plazmaforge.framework.uwt.graphics.Image;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.tool.ButtonBar;
@@ -487,7 +487,7 @@ public abstract class EditForm<T> extends Form<T> implements IEditForm<T> {
 	return getFields(getContent());
     }
     
-    protected List<IField<?>> getFields(Composite content) {
+    protected List<IField<?>> getFields(Container content) {
 	List<IField<?>> fields = new ArrayList<IField<?>>();
 	if (content == null) {
 	    return fields;
@@ -497,9 +497,9 @@ public abstract class EditForm<T> extends Form<T> implements IEditForm<T> {
 	    if (child instanceof IField) {
 		// Add field
 		fields.add((IField<?>) child);
-	    } else if (child instanceof Composite) {
+	    } else if (child instanceof Container) {
 		// Add fields of container
-		List<IField<?>> childFields = getFields((Composite) child);
+		List<IField<?>> childFields = getFields((Container) child);
 		if (childFields != null && !childFields.isEmpty() ) {
 		    fields.addAll(childFields);
 		}

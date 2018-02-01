@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.layout.CardLayout;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SwingCardLayoutAdapter extends SwingLayoutAdapter {
@@ -58,7 +58,7 @@ public class SwingCardLayoutAdapter extends SwingLayoutAdapter {
     }
     
     private void doNavigation(org.plazmaforge.framework.uwt.swing.layout.XCardLayout xLayout, Layout layout, String methodName) {
-	Composite owner = layout.getOwner();
+	Container owner = layout.getOwner();
 	java.awt.Container xOwner = (java.awt.Container) owner.getDelegate();
 	int count = xOwner.getComponentCount();
 	if (count == 0) {

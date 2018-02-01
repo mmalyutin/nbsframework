@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.UIObject;
-import org.plazmaforge.framework.uwt.widget.Composite;
+import org.plazmaforge.framework.uwt.widget.Container;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -51,7 +51,7 @@ public class GXTToolBarAdapter extends GXTCompositeAdapter {
 	    return;
 	}
 	
-	if (Composite.PROPERTY_LAYOUT.equals(name) /*|| Composite.PROPERTY_LAYOUT_DATA.equals(name)*/ || Composite.PROPERTY_BACKGROUND.equals(name)) {
+	if (Container.PROPERTY_LAYOUT.equals(name) /*|| Composite.PROPERTY_LAYOUT_DATA.equals(name)*/ || Container.PROPERTY_BACKGROUND.equals(name)) {
 	    // ignore
 	    return;
 	}
