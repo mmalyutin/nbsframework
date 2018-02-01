@@ -39,34 +39,34 @@ import com.google.gwt.user.client.ui.HasWidgets;
  * @author ohapon
  *
  */
-public class GXTCompositeAdapter extends GXTControlAdapter {
+public class GXTContainerAdapter extends GXTControlAdapter {
 
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {
 	
-	Container composite = (Container) element;
+	Container container = (Container) element;
 	
-	Layout layout = composite.getLayout();
+	Layout layout = container.getLayout();
 	
 	// Default implementation with special container wrapper
 	// Create internal content by layout
-	XLayoutContainer xComposite = createLayoutContainer(layout);
+	XLayoutContainer xContainer = createLayoutContainer(layout);
 	
 	// TODO: debug mode
-	if (composite.getData("$debug") != null) {
-	    if (xComposite.getContainer() != null && xComposite.getContainer() instanceof XGridLayoutContainer) {
-		((XGridLayoutContainer) xComposite.getContainer()).setDebugMode(true);
+	if (container.getData("$debug") != null) {
+	    if (xContainer.getContainer() != null && xContainer.getContainer() instanceof XGridLayoutContainer) {
+		((XGridLayoutContainer) xContainer.getContainer()).setDebugMode(true);
 	    }
 	}
 	
 	
 	//TODO: STUB
 	if (parent == null) {
-	    return xComposite;
+	    return xContainer;
 	}
 	
-	addChild(getContent(parent.getDelegate()), xComposite, element);
-	return xComposite;
+	addChild(getContent(parent.getDelegate()), xContainer, element);
+	return xContainer;
     }
     
     protected XLayoutContainer createLayoutContainer(Layout layout) {
@@ -75,8 +75,8 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 	return new XLayoutContainer(container, xLayout);
     }
     
-    protected HasWidgets createContainer(Container composite) {
-	Layout layout = composite.getLayout();
+    protected HasWidgets createContainer(Container container) {
+	Layout layout = container.getLayout();
 	XLayout xLayout = getXLayout(layout);
 	return createContainer(layout, xLayout);
     }
@@ -126,11 +126,11 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 //	
 //	// Only for LayoutContainer we can set layout 
 //	if (delegate instanceof LayoutContainer) {
-//	    LayoutContainer xComposite = (LayoutContainer) delegate;
-//	    if (Composite.PROPERTY_LAYOUT.equals(name)) {
+//	    LayoutContainer xContainer = (LayoutContainer) delegate;
+//	    if (Container.PROPERTY_LAYOUT.equals(name)) {
 //		Layout layout = (Layout) value;
 //		layout.activateUI();
-//		xComposite.setLayout((com.sencha.gxt.widget.core.client.Layout) layout.getDelegate());
+//		xContainer.setLayout((com.sencha.gxt.widget.core.client.Layout) layout.getDelegate());
 //		
 //		//setMargin(container, "Left", layout.getMarginLeft());
 //		//setMargin(container, "Top", layout.getMarginTop());
@@ -154,13 +154,13 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
 
     @Override
     public Object invoke(UIObject element, String methodName, Object[] args) {
-	com.google.gwt.user.client.ui.Widget composite = getContent(element.getDelegate());
-	if (composite == null) {
+	com.google.gwt.user.client.ui.Widget xContainer = getContent(element.getDelegate());
+	if (xContainer == null) {
 	    return null;
 	}
 
 	if (Container.METHOD_LAYOUT.equals(methodName)) {
-	    GXTUtils.forceLayout(composite);
+	    GXTUtils.forceLayout(xContainer);
 	    return null;
 	}
 	return super.invoke(element, methodName, args);

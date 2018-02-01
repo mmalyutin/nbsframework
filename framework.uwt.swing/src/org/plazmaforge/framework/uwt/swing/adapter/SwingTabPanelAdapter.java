@@ -26,7 +26,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
-public class SwingTabPanelAdapter extends SwingCompositeAdapter {
+public class SwingTabPanelAdapter extends SwingContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
    	java.awt.Container xParent = getContent(parent.getDelegate());

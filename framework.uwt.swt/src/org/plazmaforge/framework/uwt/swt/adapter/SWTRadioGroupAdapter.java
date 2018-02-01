@@ -28,7 +28,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 
-public class SWTRadioGroupAdapter extends SWTCompositeAdapter {
+public class SWTRadioGroupAdapter extends SWTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());

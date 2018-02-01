@@ -72,7 +72,7 @@ public class DemoWizardDialog extends WizardDialog {
     }
     
 //    @Override
-//    protected void buildContent(Composite parent) {
+//    protected void buildContent(Container parent) {
 //	super.buildContent(parent);
 //	IWizard wizard = getWizard();
 //	addPage1(wizard);

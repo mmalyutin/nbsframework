@@ -26,7 +26,7 @@ import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
-public class SWTSplitPanelAdapter extends SWTCompositeAdapter {
+public class SWTSplitPanelAdapter extends SWTContainerAdapter {
 
     @Override
     public Object createDelegate(UIObject parent, UIObject element) {

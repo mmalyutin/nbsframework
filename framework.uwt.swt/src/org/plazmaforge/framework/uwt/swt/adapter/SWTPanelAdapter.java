@@ -22,6 +22,6 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-public class SWTPanelAdapter extends SWTCompositeAdapter {
+public class SWTPanelAdapter extends SWTContainerAdapter {
 
 }

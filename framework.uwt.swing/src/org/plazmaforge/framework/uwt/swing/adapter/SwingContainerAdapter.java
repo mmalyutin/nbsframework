@@ -29,13 +29,13 @@ import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
-public class SwingCompositeAdapter extends SwingControlAdapter {
+public class SwingContainerAdapter extends SwingControlAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
-	javax.swing.JPanel xComposite = new javax.swing.JPanel();
-	addChild(xParent, xComposite, element);
-	return xComposite;
+	javax.swing.JPanel xContainer = new javax.swing.JPanel();
+	addChild(xParent, xContainer, element);
+	return xContainer;
     }
     
     protected java.awt.LayoutManager createDefaultCompositeLayout() {
@@ -46,18 +46,18 @@ public class SwingCompositeAdapter extends SwingControlAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	
-	java.awt.Container xComposite = (java.awt.Container) element.getDelegate();
-	if (xComposite == null) {
+	java.awt.Container xContainer = (java.awt.Container) element.getDelegate();
+	if (xContainer == null) {
 	    return;
 	}
 	if (Container.PROPERTY_LAYOUT.equals(name)) {
 	    // Get content (JFrame, JDialog)
-	    xComposite = getContent(xComposite);
+	    xContainer = getContent(xContainer);
 	    
 	    Layout layout = (Layout) value;
-	    layout.setData(SwingLayoutAdapter.SYS_PROPERTY_OWNER, xComposite); // Set owner (container). It use in Swing<Layout>Adapter.createDelegate(); 
+	    layout.setData(SwingLayoutAdapter.SYS_PROPERTY_OWNER, xContainer); // Set owner (container). It use in Swing<Layout>Adapter.createDelegate(); 
 	    layout.activateUI();
-	    xComposite.setLayout((java.awt.LayoutManager) layout.getDelegate());
+	    xContainer.setLayout((java.awt.LayoutManager) layout.getDelegate());
 	    return;
 	}
 	
@@ -76,12 +76,12 @@ public class SwingCompositeAdapter extends SwingControlAdapter {
 	if (element == null) {
 	    return null;
 	}
-	java.awt.Container composite = ((java.awt.Container) element.getDelegate());
-	if (composite == null) {
+	java.awt.Container xContainer = ((java.awt.Container) element.getDelegate());
+	if (xContainer == null) {
 	    return null;
 	}
 	if (Container.METHOD_LAYOUT.equals(methodName)) {
-	    composite.doLayout();
+	    xContainer.doLayout();
 	    return null;
 	}
 	return super.invoke(element, methodName, args);

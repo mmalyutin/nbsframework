@@ -51,7 +51,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
  * @author ohapon
  *
  */
-public class SWTWindowAdapter extends SWTCompositeAdapter {
+public class SWTWindowAdapter extends SWTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	

@@ -28,7 +28,7 @@ import java.awt.FlowLayout;
 import org.plazmaforge.framework.uwt.UIObject;
 import org.plazmaforge.framework.uwt.widget.Container;
 
-public class SwingRadioGroupAdapter extends SwingCompositeAdapter {
+public class SwingRadioGroupAdapter extends SwingContainerAdapter {
 
     public static final String SYS_PROPERTY_GROUP = "$group"; 
     

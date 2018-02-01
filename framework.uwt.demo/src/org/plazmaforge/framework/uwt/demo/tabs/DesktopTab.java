@@ -76,7 +76,7 @@ public class DesktopTab extends AbstractTab {
 	
 	 
 	DesktopItem desktopItem = null;
-	templateProviderAsync.getData("/org/plazmaforge/framework/uwt/demo/ui/GridLayoutComposite.ui.xml", new CallbackAdapter<IData>() {
+	templateProviderAsync.getData("/org/plazmaforge/framework/uwt/demo/ui/GridLayoutPanel.ui.xml", new CallbackAdapter<IData>() {
 	    
 	    @Override
 	    public void onFailure(Throwable error) {

@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.swt.adapter.SWTCardLayoutAdapter;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTCheckBoxAdapter;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTCollapsePanelAdapter;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTComboBoxAdapter;
-import org.plazmaforge.framework.uwt.swt.adapter.SWTCompositeAdapter;
+import org.plazmaforge.framework.uwt.swt.adapter.SWTContainerAdapter;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTCoolBarAdapter;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTDateFieldAdapter;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTDateTimeFieldAdapter;
@@ -102,7 +102,7 @@ public class UWT_SWT {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new SWTFrameAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new SWTDialogAdapter());
 	
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new SWTCompositeAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new SWTContainerAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new SWTPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.GroupPanel.class, new SWTGroupPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TitlePanel.class, new SWTTitlePanelAdapter());

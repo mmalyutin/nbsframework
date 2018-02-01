@@ -22,6 +22,6 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-public class GXTPanelAdapter extends GXTCompositeAdapter {
+public class GXTPanelAdapter extends GXTContainerAdapter {
 
 }

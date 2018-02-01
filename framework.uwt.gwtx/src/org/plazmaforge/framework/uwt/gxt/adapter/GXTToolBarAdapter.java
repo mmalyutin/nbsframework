@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
  * @author ohapon
  *
  */
-public class GXTToolBarAdapter extends GXTCompositeAdapter {
+public class GXTToolBarAdapter extends GXTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	

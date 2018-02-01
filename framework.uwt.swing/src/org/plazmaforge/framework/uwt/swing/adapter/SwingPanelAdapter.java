@@ -22,6 +22,6 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-public class SwingPanelAdapter extends SwingCompositeAdapter {
+public class SwingPanelAdapter extends SwingContainerAdapter {
 
 }

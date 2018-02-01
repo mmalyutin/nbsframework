@@ -33,7 +33,7 @@ import com.sencha.gxt.widget.core.client.container.Container;
  * @author ohapon
  *
  */
-public class GXTSplitPanelAdapter extends GXTCompositeAdapter {
+public class GXTSplitPanelAdapter extends GXTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	XSplitPanel xSplitPanel = new XSplitPanel();

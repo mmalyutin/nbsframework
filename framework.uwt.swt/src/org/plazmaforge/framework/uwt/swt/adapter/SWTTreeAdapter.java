@@ -38,7 +38,7 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
-public class SWTTreeAdapter extends SWTCompositeAdapter {
+public class SWTTreeAdapter extends SWTContainerAdapter {
 
     public static final String SYS_PROPETY_TREE_VIEWER = "$treeViewer";
     

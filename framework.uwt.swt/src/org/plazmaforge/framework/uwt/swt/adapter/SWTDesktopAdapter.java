@@ -29,7 +29,7 @@ import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.swt.widget.XDesktop;
 import org.plazmaforge.framework.uwt.swt.widget.XDesktopItem;
 
-public class SWTDesktopAdapter extends SWTCompositeAdapter {
+public class SWTDesktopAdapter extends SWTContainerAdapter {
 
     
     public Object createDelegate(UIObject parent, UIObject element) {

@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.panel.TabItem;
  *
  */
 
-public class SWTTabItemAdapter extends SWTCompositeAdapter {
+public class SWTTabItemAdapter extends SWTContainerAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
    	org.eclipse.swt.widgets.TabFolder xParent = (org.eclipse.swt.widgets.TabFolder) getContent(parent.getDelegate());

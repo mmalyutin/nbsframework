@@ -48,7 +48,7 @@ import org.plazmaforge.framework.uwt.widget.Viewer.SelectionMode;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
-public class SWTTableAdapter extends SWTCompositeAdapter {
+public class SWTTableAdapter extends SWTContainerAdapter {
 
     public static final String SYS_PROPETY_TABLE = "$table";
     

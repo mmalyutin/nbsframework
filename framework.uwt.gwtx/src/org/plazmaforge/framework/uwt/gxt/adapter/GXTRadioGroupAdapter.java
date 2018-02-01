@@ -32,7 +32,7 @@ import com.sencha.gxt.core.client.util.ToggleGroup;
  * @author ohapon
  *
  */
-public class GXTRadioGroupAdapter extends GXTCompositeAdapter {
+public class GXTRadioGroupAdapter extends GXTContainerAdapter {
 
     public static final String SYS_PROPERTY_GROUP = "$group"; 
     
