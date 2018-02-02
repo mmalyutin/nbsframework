@@ -94,6 +94,75 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
   	GWT.log("UWT: " + title + ": Property '"+  property + "' is not supported. Class=" + widget.getClass().getName());
     }
     
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Cast
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Return GWT Widget
+     * @param delegate
+     * @return
+     */
+    protected final com.google.gwt.user.client.ui.Widget asWidget(Object delegate) {
+	return (com.google.gwt.user.client.ui.Widget) delegate;
+    }
+
+    /**
+     * Return GXT Component
+     * @param delegate
+     * @return
+     */
+    protected final com.sencha.gxt.widget.core.client.Component asComponent(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.Component) delegate;
+    }
+
+    
+    /**
+     * Return GXT Container
+     * @param delegate
+     * @return
+     */
+    protected final com.sencha.gxt.widget.core.client.container.Container asContainer(Object delegate) {
+	return (com.sencha.gxt.widget.core.client.container.Container) delegate;
+    }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Content
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Returns real content of UI object.
+     * @param delegate
+     * @return
+     */
+    protected final com.google.gwt.user.client.ui.Widget getContent(Object delegate) {
+	return getView(delegate);
+    }
+
+    /**
+     * Returns view widget of UI object.
+     * UI object can be not widget, but UI object can wrap widget. 
+     * @param delegate
+     * @return
+     */
+    protected final com.google.gwt.user.client.ui.Widget getView(Object delegate) {
+	if (delegate instanceof XTabItem) {
+	    // XTabItem is not widget
+	    return  ((XTabItem) delegate).getWidget();
+	}
+	if (delegate instanceof XDesktopItem) {
+	    // XDesktopItem is not widget
+	    return ((XDesktopItem) delegate).getContent();
+	}
+	return (com.google.gwt.user.client.ui.Widget) delegate;
+    }    
+    
     /**
      * Add widget to parent
      * @param parent
@@ -222,61 +291,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 
 
 
-    /**
-     * Return GWT Widget
-     * @param delegate
-     * @return
-     */
-    protected final com.google.gwt.user.client.ui.Widget asWidget(Object delegate) {
-	return (com.google.gwt.user.client.ui.Widget) delegate;
-    }
 
-    /**
-     * Return GXT Component
-     * @param delegate
-     * @return
-     */
-    protected final com.sencha.gxt.widget.core.client.Component asComponent(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.Component) delegate;
-    }
-
-    
-    /**
-     * Return GXT Container
-     * @param delegate
-     * @return
-     */
-    protected final com.sencha.gxt.widget.core.client.container.Container asContainer(Object delegate) {
-	return (com.sencha.gxt.widget.core.client.container.Container) delegate;
-    }
-    
-
-    /**
-     * Returns general content of the UI object.
-     * @param delegate
-     * @return
-     */
-    protected final com.google.gwt.user.client.ui.Widget getContent(Object delegate) {
-	return getView(delegate);
-    }
-
-    /**
-     * Returns view widget of UI object.
-     * UI object can be not widget, but UI object can wrap widget. 
-     * @param delegate
-     * @return
-     */
-    protected final com.google.gwt.user.client.ui.Widget getView(Object delegate) {
-	if (delegate instanceof XTabItem) {
-	    // XTabItem is not widget
-	    return  ((XTabItem) delegate).getWidget();
-	}
-	if (delegate instanceof XDesktopItem) {
-	    // XDesktopItem is not widget
-	    return ((XDesktopItem) delegate).getContent();
-	}
-	return (com.google.gwt.user.client.ui.Widget) delegate;
-    }
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
@@ -330,11 +345,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return GXTHelper.applyStyle(baseStyle, style);
     }
     
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // KEY LISTENERS
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     protected void addKeyDownListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
@@ -355,11 +370,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // MOUSE LISTENERS
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected void addMouseDownListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
     }
@@ -398,11 +413,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // MOUSE MOVE LISTENERS
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     protected void addMouseMoveListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
@@ -433,11 +448,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
     
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // FOCUS LISTENERS
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected void addFocusInListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
@@ -458,11 +473,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // SELECTION LISTENER
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     protected void addSelectionListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
@@ -472,11 +487,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	// do nothing
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // ENTER LISTENER
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected void addEnterListener(com.google.gwt.user.client.ui.Widget xWidget, Widget widget, Listener listener) {
 	// do nothing
@@ -779,11 +794,11 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	return xListener;
     }
     
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Events
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     protected Event createEvent(com.google.gwt.event.dom.client.DomEvent<?> e) {

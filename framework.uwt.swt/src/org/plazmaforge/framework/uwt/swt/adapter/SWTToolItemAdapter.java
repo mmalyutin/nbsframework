@@ -41,7 +41,7 @@ public class SWTToolItemAdapter extends SWTWidgetAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	
 	
-	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) getWidget(parent.getDelegate());
+	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) asWidget(parent.getDelegate());
 	org.eclipse.swt.widgets.ToolItem xToolItem = new org.eclipse.swt.widgets.ToolItem(xToolBar, SWT.FLAT);
 	
 	// Get text

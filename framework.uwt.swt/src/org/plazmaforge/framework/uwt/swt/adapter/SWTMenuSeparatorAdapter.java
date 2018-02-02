@@ -36,7 +36,7 @@ public class SWTMenuSeparatorAdapter extends SWTWidgetAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 
-	org.eclipse.swt.widgets.Widget xParent = (org.eclipse.swt.widgets.Widget) getWidget(parent.getDelegate());
+	org.eclipse.swt.widgets.Widget xParent = (org.eclipse.swt.widgets.Widget) asWidget(parent.getDelegate());
 	org.eclipse.swt.widgets.MenuItem xMenuSeparator = null;
 	if (xParent instanceof org.eclipse.swt.widgets.Menu) {
 	    org.eclipse.swt.widgets.Menu xParentMenu = (org.eclipse.swt.widgets.Menu) xParent;
