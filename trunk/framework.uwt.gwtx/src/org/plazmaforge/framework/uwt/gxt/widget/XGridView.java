@@ -48,11 +48,11 @@ import com.sencha.gxt.data.shared.SortDir;
 import com.sencha.gxt.data.shared.Store.StoreSortInfo;
 import com.sencha.gxt.messages.client.DefaultMessages;
 import com.sencha.gxt.widget.core.client.event.CheckChangeEvent;
+import com.sencha.gxt.widget.core.client.event.HeaderClickEvent;
 import com.sencha.gxt.widget.core.client.event.CheckChangeEvent.CheckChangeHandler;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnData;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
-import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.grid.GridView;
 import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import com.sencha.gxt.widget.core.client.menu.CheckMenuItem;
@@ -133,28 +133,25 @@ public class XGridView extends GridView<Model> {
 	column.setData("$sortDir", sortDir);
     }
 
-    // DISABLE: Need onHeaderClick(event);
-    /*
-    protected void onHeaderClick(Grid<Model> grid, int colIndex) {
-	//super.onHeaderClick(event);
-	this.headerColumnIndex = colIndex;
-	if (!headerDisabled && cm.isSortable(colIndex)) {
+    @Override
+    protected void onHeaderClick(HeaderClickEvent event) {
+	headerColumnIndex = event.getColumnIndex();
+	if (!headerDisabled && cm.isSortable(headerColumnIndex)) {
+	    
 	    // Get column by index
-	    TableColumn column = table.getColumn(colIndex);
+	    TableColumn column = table.getColumn(headerColumnIndex);
 	    // Get current SortDir of column
 	    SortDir sortDir = getSortDir(column);
 	    // Inverse SortDir
 	    sortDir = (sortDir == null || sortDir == SortDir.DESC) ? SortDir.ASC: SortDir.DESC;
 	    // Store new SortDir
 	    setSortDir(column, sortDir);
-	    // Sorting
-	    doSort(colIndex, sortDir);
+	    
+	    doSort(headerColumnIndex, sortDir);
 	}
     }
-    */
     
     protected XContext context;
-    
     
     protected <N> SafeHtml getRenderedValue(int rowIndex, int colIndex, Model m, ListStore<Model>.Record record) {
 	ValueProvider<? super Model, N> valueProvider = cm.getValueProvider(colIndex);
@@ -367,12 +364,12 @@ public class XGridView extends GridView<Model> {
     
 
     
-    protected StoreSortInfo<Model> updateSortInfo(int colIndex, SortDir sortDir) {
+    protected StoreSortInfo<Model> createSortInfo(int colIndex, SortDir sortDir) {
 	ColumnConfig<Model, ?> column = cm.getColumn(colIndex);
-	return updateSortInfo(column, sortDir);
+	return createSortInfo(column, sortDir);
     }
     
-    protected StoreSortInfo<Model> updateSortInfo(ColumnConfig<Model, ?> column, SortDir sortDir) {
+    protected StoreSortInfo<Model> createSortInfo(ColumnConfig<Model, ?> column, SortDir sortDir) {
 
 	ds.clearSortInfo();
 
@@ -384,12 +381,17 @@ public class XGridView extends GridView<Model> {
 	} else if (sortDir == null) {
 	    s.setDirection(SortDir.ASC);
 	}
+
+	
+	
 	return s;
     }
     
     protected void doLocalSort(int colIndex, SortDir sortDir) {
 	ColumnConfig<Model, ?> column = cm.getColumn(colIndex);
-	StoreSortInfo<Model> s = updateSortInfo(column, sortDir);
+	
+	ds.clearSortInfo();
+	StoreSortInfo<Model> s = createSortInfo(column, sortDir);
 
 	if (GWT.isProdMode()) {
 	    ds.addSortInfo(s);
@@ -406,8 +408,6 @@ public class XGridView extends GridView<Model> {
 	}
     }
 
-    //DISABLE: WARNING! Incorrect work: Sort icon is not visible
-    /*
     @Override
     protected void doSort(int colIndex, SortDir sortDir) {
 	if (!ownSortable) {
@@ -415,25 +415,22 @@ public class XGridView extends GridView<Model> {
 	    return;
 	}
 	super.doSort(colIndex, sortDir);
-	//ds.sort(cm.getDataIndex(colIndex), sortDir);
     }
-    */
     
-
     protected void doUWTSort(int colIndex, SortDir sortDir) {
 	if (table == null) {
 	    return;
 	}
 	
-	// Change SortInfo: Special for ColumnHeader.updateSortIcon
-	//String field = cm.getDataIndex(colIndex);
-	//SortInfo sortInfo = ds.getSortState();
-	//sortInfo.setSortField(field);
-	//sortInfo.setSortDir(sortDir);
+	// Clear sort info
+	ds.clearSortInfo();
 	
+	// Create new sort info
+	StoreSortInfo<Model> s = createSortInfo(colIndex, sortDir);
 	
-	updateSortInfo(colIndex, sortDir);
-	
+	// Add sort info without refresh data
+	ds.getSortInfo().add(s);
+		
 	TableColumn column = table.getColumn(colIndex);
 	boolean asc = !SortDir.DESC.equals(sortDir); // ASC = TRUE if sortDir = ASC or sortDit = NONE
 	table.sortByColumn(column, asc);
