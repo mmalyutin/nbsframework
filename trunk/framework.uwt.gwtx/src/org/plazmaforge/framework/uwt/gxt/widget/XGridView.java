@@ -133,7 +133,10 @@ public class XGridView extends GridView<Model> {
 	column.setData("$sortDir", sortDir);
     }
 
+    // DISABLE: Need onHeaderClick(event);
+    /*
     protected void onHeaderClick(Grid<Model> grid, int colIndex) {
+	//super.onHeaderClick(event);
 	this.headerColumnIndex = colIndex;
 	if (!headerDisabled && cm.isSortable(colIndex)) {
 	    // Get column by index
@@ -148,6 +151,7 @@ public class XGridView extends GridView<Model> {
 	    doSort(colIndex, sortDir);
 	}
     }
+    */
     
     protected XContext context;
     
@@ -402,6 +406,8 @@ public class XGridView extends GridView<Model> {
 	}
     }
 
+    //DISABLE: WARNING! Incorrect work: Sort icon is not visible
+    /*
     @Override
     protected void doSort(int colIndex, SortDir sortDir) {
 	if (!ownSortable) {
@@ -411,6 +417,7 @@ public class XGridView extends GridView<Model> {
 	super.doSort(colIndex, sortDir);
 	//ds.sort(cm.getDataIndex(colIndex), sortDir);
     }
+    */
     
 
     protected void doUWTSort(int colIndex, SortDir sortDir) {
