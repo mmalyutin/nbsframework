@@ -97,7 +97,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
     
     public void disposeDelegate(UIObject parent, UIObject element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
-	java.awt.Component xElement = getComponent(element.getDelegate());
+	java.awt.Component xElement = asComponent(element.getDelegate());
 	if (xParent != null) {
 	    xParent.remove(xElement);
 	}
@@ -108,7 +108,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	
 	
 	
-	java.awt.Component xControl = getComponent(element.getDelegate());
+	java.awt.Component xControl = asComponent(element.getDelegate());
 	if (xControl == null) {
 	    return;
 	}
@@ -224,7 +224,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
     @Override
     public Object getProperty(UIObject element, String name) {
 	
-	java.awt.Component xControl = getComponent(element.getDelegate());
+	java.awt.Component xControl = asComponent(element.getDelegate());
 	if (xControl == null) {
 	    return null;
 	}

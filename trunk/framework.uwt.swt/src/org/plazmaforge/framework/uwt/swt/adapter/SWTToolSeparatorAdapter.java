@@ -38,7 +38,7 @@ public class SWTToolSeparatorAdapter extends SWTWidgetAdapter {
     public Object createDelegate(UIObject parent, UIObject element) {
 	
 	
-	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) getWidget(parent.getDelegate());
+	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) asWidget(parent.getDelegate());
 	org.eclipse.swt.widgets.ToolItem xToolSeparator = new org.eclipse.swt.widgets.ToolItem(xToolBar, SWT.SEPARATOR);
 	org.eclipse.swt.widgets.CoolItem xCoolItem = (org.eclipse.swt.widgets.CoolItem) xToolBar.getData(SWTToolBarAdapter.SYS_PROPETY_COOL_ITEM);
 	

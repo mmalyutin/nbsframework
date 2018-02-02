@@ -71,7 +71,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	Object delegate = element.getDelegate();
-	org.eclipse.swt.widgets.Control xControl = getControl(delegate);
+	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
 	if (xControl == null) {
 	    return;
 	}
@@ -126,7 +126,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
     @Override
     public Object getProperty(UIObject element, String name) {
 	Object delegate = element.getDelegate();
-	org.eclipse.swt.widgets.Control xControl = getControl(delegate);
+	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
 	if (xControl == null) {
 	    return null;
 	}

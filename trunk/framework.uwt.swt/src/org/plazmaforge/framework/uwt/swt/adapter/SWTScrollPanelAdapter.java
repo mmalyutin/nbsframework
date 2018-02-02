@@ -87,7 +87,7 @@ public class SWTScrollPanelAdapter extends SWTPanelAdapter {
     @Override
     public void setProperty(UIObject element, String name, Object value) {
 	Object delegate = element.getDelegate();
-	org.eclipse.swt.widgets.Control xControl = getControl(delegate);
+	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
 	if (xControl == null) {
 	    return;
 	}

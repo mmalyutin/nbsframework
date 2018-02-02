@@ -32,7 +32,7 @@ public class SWTMenuAdapter extends SWTWidgetAdapter {
 
     public Object createDelegate(UIObject parent, UIObject element) {
 	
-	org.eclipse.swt.widgets.Widget xParent = parent == null ? null : (org.eclipse.swt.widgets.Widget) getWidget(parent.getDelegate());
+	org.eclipse.swt.widgets.Widget xParent = parent == null ? null : (org.eclipse.swt.widgets.Widget) asWidget(parent.getDelegate());
 	Menu menu = (Menu) element;
 	
 	org.eclipse.swt.widgets.Menu xParentMenu = null;

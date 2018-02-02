@@ -40,14 +40,6 @@ public class SWTContainerAdapter extends SWTControlAdapter {
 	return xContainer;
     }
 
-    /**
-     * Return SWT Composite
-     * @param delegate
-     * @return
-     */
-    protected org.eclipse.swt.widgets.Composite getComposite(Object delegate) {
-   	return (org.eclipse.swt.widgets.Composite) delegate;
-    }
     
     /**
      * Create default layout of composite
@@ -69,7 +61,7 @@ public class SWTContainerAdapter extends SWTControlAdapter {
     }
 
     public void checkDelegate(UIObject element) {
-	org.eclipse.swt.widgets.Composite composite = getComposite(element.getDelegate());
+	org.eclipse.swt.widgets.Composite composite = asComposite(element.getDelegate());
 	checkLayout(composite);
     }
     

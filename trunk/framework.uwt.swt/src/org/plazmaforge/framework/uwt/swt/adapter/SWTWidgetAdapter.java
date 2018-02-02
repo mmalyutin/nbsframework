@@ -61,19 +61,48 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     }     
     
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
     // Cast
-    protected final org.eclipse.swt.widgets.Widget getWidget(Object delegate) {
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Returns SWT Widget
+     * @param delegate
+     * @return
+     */
+    protected final org.eclipse.swt.widgets.Widget asWidget(Object delegate) {
 	return (org.eclipse.swt.widgets.Widget) delegate;
     }
     
-    // Cast
-    protected final org.eclipse.swt.widgets.Control getControl(Object delegate) {
+    /**
+     * Returns SWT Control
+     * @param delegate
+     * @return
+     */
+    protected final org.eclipse.swt.widgets.Control asControl(Object delegate) {
 	return (org.eclipse.swt.widgets.Control) delegate;
     }
-
     
     /**
-     * Return general content of delegate 
+     * Returns SWT Composite
+     * @param delegate
+     * @return
+     */
+    protected org.eclipse.swt.widgets.Composite asComposite(Object delegate) {
+   	return (org.eclipse.swt.widgets.Composite) delegate;
+    }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Content
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Returns real content of UI object 
      * @param delegate
      * @return
      */
@@ -119,7 +148,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
     
     public void disposeDelegate(UIObject parent, UIObject element) {
-	org.eclipse.swt.widgets.Widget widget = getWidget(element.getDelegate());
+	org.eclipse.swt.widgets.Widget widget = asWidget(element.getDelegate());
 	if (!widget.isDisposed()) {
 	    widget.dispose();
 	}
@@ -127,7 +156,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
     @Override
     public void setProperty(UIObject element, String name, Object value) {
-	org.eclipse.swt.widgets.Widget widget = getWidget(element.getDelegate());
+	org.eclipse.swt.widgets.Widget widget = asWidget(element.getDelegate());
 	if (widget == null) {
 	    return;
 	}
@@ -151,11 +180,11 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
     
     
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Listeners
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected org.eclipse.swt.internal.SWTEventListener getListener(Widget widget, Listener listener) {
 	return (org.eclipse.swt.internal.SWTEventListener) widget.findListenerDelegate(listener);
@@ -447,11 +476,11 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
 
     
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Events
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Create UWT Event by SWT KeyEvent
