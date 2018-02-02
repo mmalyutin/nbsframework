@@ -153,7 +153,8 @@ public class XValueProvider implements com.sencha.gxt.core.client.ValueProvider<
 
     @Override
     public String getPath() {
-	return null;
+	// WARNING! Very important for sorting/filtering
+	return property;
     }
 
     protected Object getBean(Model item) {
