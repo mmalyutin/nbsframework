@@ -31,6 +31,7 @@ import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.core.resource.BundleResourceProvider;
 import org.plazmaforge.framework.core.resource.ResourceProvider;
 import org.plazmaforge.framework.uwt.AbstractDesktopApplication;
+import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.ApplicationContext;
 import org.plazmaforge.framework.uwt.UIResourceException;
 import org.plazmaforge.framework.uwt.UWT;
@@ -62,23 +63,31 @@ public class DemoUWT extends AbstractDesktopApplication {
 	
 	// Create and start application
 	DemoUWT application = new DemoUWT();
-	application.start(properties);
-    }
-
-    
-    public void start(Map<String, String> properties) {
-
-	// Create application
-	//Application app = new Application();
-
+	
+	////
 	String locale = properties.get(ApplicationContext.CONFIG_LOCALE);
 	if (locale == null) {
 	    locale = "en";
 	}
+	application.getApplicationContext().setProperty(ApplicationContext.CONFIG_LOCALE, locale);
+	////
+	
+	application.start(properties);
+    }
 
-	// TODO: It is desktop always !!!
-	if (UWT.isDesktop()) {
+    public void start(Map<String, String> properties) {
+	setInitializer(new DesktopApplicationInitializer());
+	super.start(properties);
+    }
+  
+    class DesktopApplicationInitializer extends DemoApplicationInitializer {
 
+	@Override
+	protected void initializeApplication(Application application, Callback<Object> callback) {
+	    
+	    final String locale = getApplicationContext().getProperty("locale");
+	    ApplicationContext applicationContext = application.getApplicationContext();
+	    
 	    // i18n provider
 	    ResourceProvider resourceProvider = new BundleResourceProvider();
 	    UWT.setResourceProvider(resourceProvider, locale);
@@ -99,32 +108,50 @@ public class DemoUWT extends AbstractDesktopApplication {
 		
 	    };
 	    
-	    getApplicationContext().setProperty(ApplicationContext.CONFIG_LOCALE, locale);
-	    getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_DATE, "dd-MM-yyyy");
-	    getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_DATE_TIME, "dd-MM-yyyy HH:mm:ss");
-	    getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_TIME, "HH:mm:ss");
-	    getApplicationContext().setProperty("imageStorage", "org/plazmaforge/framework/uwt/resources/images");
+	    applicationContext.setAttribute(ApplicationContext.CONFIG_RESOURCE_PROVIDER, resourceProvider);
+	    applicationContext.setAttribute(ApplicationContext.CONFIG_TEMPLATE_PROVIDER_ASYNC, uiResourceProviderAsync);	   	    
 
-	    getApplicationContext().setAttribute(ApplicationContext.CONFIG_PROPERTY_PROVIDER_FACTORY, new ClassPropertyProviderFactory());
-	    getApplicationContext().setAttribute(ApplicationContext.CONFIG_SERVICE_CALLER_FACTORY, new DemoServiceCallerFactory());
-	    getApplicationContext().setAttribute(ApplicationContext.CONFIG_RESOURCE_PROVIDER, resourceProvider);
+	    // Initialize Application Context
+	    initializeApplicationContext(applicationContext);
 	    
-	    getApplicationContext().setAttribute(ApplicationContext.CONFIG_TEMPLATE_PROVIDER_ASYNC, uiResourceProviderAsync);
+	    // Load Application
+	    loadApplication();
+	    
+	    //callback.onSuccess(Application.METHOD_PRESTART);
+	    callback.onSuccess(null);
+	    
+	}
+
+	@Override
+	protected void initializeApplicationContext(ApplicationContext applicationContext) {
+	    
+	
+	    // Initialize locale (number/date/time formats)
+	    initializeLocale(applicationContext);
+	    
+	    applicationContext.setProperty("imageStorage", "org/plazmaforge/framework/uwt/resources/images");
+	    applicationContext.setAttribute(ApplicationContext.CONFIG_PROPERTY_PROVIDER_FACTORY, new ClassPropertyProviderFactory());
+	    applicationContext.setAttribute(ApplicationContext.CONFIG_SERVICE_CALLER_FACTORY, new DemoServiceCallerFactory());
+	 
 	}
 	
-	// Get frame
-	Frame frame = getFrame();
-	frame.setWidth(640);
-	frame.setHeight(480);
-	frame.setTitle("UWT Demo Application");
+	protected void loadApplication() {
+
+	    // Get frame
+	    Frame frame = getFrame();
+
+	    frame.setWidth(640);
+	    frame.setHeight(480);
+	    frame.setTitle("UWT Demo Application");
+	    frame.setLayout(new FitLayout());
+	    
+	    populateFrame(frame);
+
+	}
 	
-	frame.setLayout(new FitLayout());
-	DemoApplicationBuilder builder = new DemoApplicationBuilder();
-	builder.populateFrame(frame);
-	
-	start();
     }
     
+   
 
 
 }
