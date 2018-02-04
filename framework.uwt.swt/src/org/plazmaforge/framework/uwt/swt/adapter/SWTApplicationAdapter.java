@@ -132,10 +132,9 @@ public class SWTApplicationAdapter extends AbstractUIAdapter {
 	final org.eclipse.swt.widgets.Display xDisplay = (org.eclipse.swt.widgets.Display) display.getDelegate();
 	org.eclipse.swt.widgets.Shell xFrame = (org.eclipse.swt.widgets.Shell) frame.getDelegate();
 	
-	//TODO
-	//xFrame.open();
-	
+	boolean forceLayout = true; 
 	if (frame.isPack()) {
+	    forceLayout = false;
 	    xFrame.pack();
 	}
 	if (frame.isCenter()) {
@@ -144,6 +143,12 @@ public class SWTApplicationAdapter extends AbstractUIAdapter {
 	
 	xFrame.open();
 	
+	// WARNIN! Force layout because we have problem with Shell content layout: children are not vivible
+	// But after resize the shell it is fix.
+	if (forceLayout) {
+	    xFrame.layout(true, true);
+	}
+
 	boolean isPrestart = booleanValue(xFrame.getData(SYS_PRESTART)); 
 	if (isPrestart) {
 	    return;
