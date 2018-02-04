@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.Callback;
+import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory;
 import org.plazmaforge.framework.core.data.DataWrapper;
 import org.plazmaforge.framework.core.data.Initializer;
 import org.plazmaforge.framework.core.data.Parameters;
@@ -22,6 +23,8 @@ import org.plazmaforge.framework.uwt.ApplicationContext;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
 import org.plazmaforge.framework.uwt.demo.DemoApplicationBuilder;
+import org.plazmaforge.framework.uwt.demo.DemoApplicationInitializer;
+import org.plazmaforge.framework.uwt.demo.DemoServiceCallerFactory;
 import org.plazmaforge.framework.uwt.demo.model.Group;
 import org.plazmaforge.framework.uwt.demo.model.Product;
 import org.plazmaforge.framework.uwt.event.EnterEvent;
@@ -135,20 +138,9 @@ public class WebApplication extends Application implements EntryPoint {
         // Create UWT Application
         String locale = "en";
         
-        //UWTApplication = new org.plazmaforge.framework.uwt.Application();
         getApplicationContext().addAttributes(UWT_GXT.getAttributes());
         getApplicationContext().setProperty("locale", locale);
-        getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_DATE, "dd-MM-yyyy");
-        getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_DATE_TIME, "dd-MM-yyyy HH:mm:ss");
-        getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_TIME, "HH:mm:ss");
-        
-        getApplicationContext().setProperty(ApplicationContext.CONFIG_FORMAT_NUMBER, "#.00");
-        
-        
-        getApplicationContext().setProperty("imageStorage", "resources/images");
-        getApplicationContext().setAttribute(ApplicationContext.CONFIG_SERVICE_CALLER_FACTORY, new WebServiceCallerFactory());
-        getApplicationContext().setAttribute(ApplicationContext.CONFIG_TEMPLATE_PROVIDER_ASYNC, new WebTemplateProvider());
-        
+                  
         setInitializer(new WebApplicationInitializer());
         start();
         
@@ -156,11 +148,18 @@ public class WebApplication extends Application implements EntryPoint {
 
     }
     
-    class WebApplicationInitializer implements Initializer {
+    class WebApplicationInitializer extends DemoApplicationInitializer {
 
+	
 	@Override
-	public void initialize(Object object, Callback<Object> callback) {
+	protected void initializeApplication(Application application, Callback<Object> callback) {
+	    
 	    final String locale = getApplicationContext().getProperty("locale");
+	    ApplicationContext applicationContext = application.getApplicationContext();
+	    
+	    // Initialize Application Context
+	    initializeApplicationContext(applicationContext);
+	    
 	    
 	    // List of resources
 	    String[] resourceNames = new String[] {
@@ -173,7 +172,7 @@ public class WebApplication extends Application implements EntryPoint {
 		    @Override
 		    public void onFailure(Throwable caught) {
 			System.out.println(caught);
-			doStart(locale, null);
+			loadApplication(locale, null);
 		    }
 
 		    @Override
@@ -181,7 +180,7 @@ public class WebApplication extends Application implements EntryPoint {
 			
 		        // Create Frame
 			Resource[] resources = result.toArray(new Resource[0]);
-			doStart(locale, resources);
+			loadApplication(locale, resources);
 
 		    }
 	            
@@ -189,30 +188,46 @@ public class WebApplication extends Application implements EntryPoint {
 	    
 	}
 	
+	@Override
+	protected void initializeApplicationContext(ApplicationContext applicationContext) {
+	
+	    // Initialize locale (number/date/time formats)
+	    initializeLocale(applicationContext);
+	    
+	    applicationContext.setProperty("imageStorage", "resources/images");
+	    applicationContext.setAttribute(ApplicationContext.CONFIG_SERVICE_CALLER_FACTORY, new WebServiceCallerFactory());
+	    applicationContext.setAttribute(ApplicationContext.CONFIG_TEMPLATE_PROVIDER_ASYNC, new WebTemplateProvider());
+	        
+	}	
+	
+	protected void loadApplication(String locale, Resource[] resources) {
+
+	    ResourceProvider resourceProvider = new CacheResourceProvider(resources);
+	    UWT.setResourceProvider(resourceProvider, locale);
+
+	    getApplicationContext().setAttribute(ApplicationContext.CONFIG_RESOURCE_PROVIDER, resourceProvider);
+
+	    // viewport.add(new Label("GWT migration"));
+
+	    // TODAY
+	    // addTestControls();
+
+	    Frame frame = getFrame();
+	    frame.setDelegate(viewport);
+
+	    populateFrame(frame);
+	    viewport.forceLayout();
+	}
+	
     }
     
-    protected void doStart(String locale, Resource[] resources) {
-	
-	ResourceProvider resourceProvider = new CacheResourceProvider(resources);
-	UWT.setResourceProvider(resourceProvider, locale);
-	
-	getApplicationContext().setAttribute(ApplicationContext.CONFIG_RESOURCE_PROVIDER, resourceProvider);
-	
-	//viewport.add(new Label("GWT migration"));
-	
-	//TODAY
-	//addTestControls();
-	
-	//DISABLE:MIGRATION
-	Frame frame = getFrame();
-	frame.setDelegate(viewport);
-	DemoApplicationBuilder builder = new DemoApplicationBuilder();
-	builder.populateFrame(frame);
-	
-	//DISABLE:MIGRATION
-	//viewport.layout(true);
-	viewport.forceLayout();
-    }
+   
+    
+    
+    
+    
+    
+    
     
     
     private void addTestControls() {
