@@ -62,7 +62,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	List<com.sencha.gxt.widget.core.client.grid.ColumnConfig<Model, ?>> columns = CoreUtils.cloneList(cm.getColumns());
 	
 	// Create column
-	XColumnConfig<?> xColumn = createColumn(table, column);
+	XColumnConfig<?> xColumn = createColumn(table, column, false);
 	xColumn.setGrid(xGrid);
 	setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); 
 
@@ -74,8 +74,13 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	return xColumn;
     }
     
-    public XColumnConfig<?> createColumn(Table<?> table, TableColumn column) {
+    public XColumnConfig<?> createColumn(Table<?> table, TableColumn column, boolean external) {
 	
+	if (external) {
+	    // WARNING! Very important initialization
+	    column.create();	    
+	}
+   
 	// Get columns properties
 	String property = column.getProperty();
 	PropertyProvider<?> propertyProvider = table.getPropertyProvider();
@@ -88,7 +93,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	XColumnConfig<?> xColumn = new XColumnConfig<Object>(createXValueProvider(property, propertyProvider, valueProvider), width, asSafeString(text));
 	
 	// Create cell by data type
-	Cell cell = GWTUtils.createCell(column.getDataType());
+	Cell cell = GWTUtils.createCell(column.getDataType(), column.getFormat());
 	if (cell == null) {
 	    cell = new XBaseCell();
 	}

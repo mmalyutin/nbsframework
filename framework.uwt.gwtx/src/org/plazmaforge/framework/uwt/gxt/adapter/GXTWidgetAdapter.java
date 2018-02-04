@@ -44,11 +44,8 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.widget.core.client.event.GridEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 
@@ -310,7 +307,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	    //GXT-Component
 	    com.sencha.gxt.widget.core.client.Component xComponent = asComponent(xWidget);
 	    if (Control.PROPERTY_DATA.equals(name)) {
-		// WARNING! BoxComponent has not method setData() without parameters
+		// WARNING! Component has not method setData() without parameters
 		// We use key 'uwt:data'
 		xComponent.setData("uwt:data", value);
 		return;
@@ -868,138 +865,16 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
   	return event;
     }    
 
-    // DISABLE:MIGRATION
-    /**
-     * Create GXT Listener by UWT Listener
-     * @param listener
-     * @return
-     */
-//    protected <E extends BaseEvent> com.sencha.gxt.ui.client.event.Listener<E> createListener(Widget widget, final Listener listener) {
-//	com.sencha.gxt.ui.client.event.Listener<E> xListener = new com.sencha.gxt.ui.client.event.Listener<E>() {
-//	    public void handleEvent(E e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//
-//    protected <E extends BaseEvent> com.sencha.gxt.ui.client.event.Listener<E> getListener(Widget widget, Listener listener) {
-//	return (com.sencha.gxt.ui.client.event.Listener<E>) widget.findListenerDelegate(listener);
-//    }
-//    
-//    protected <E extends BaseEvent> com.sencha.gxt.ui.client.event.Listener<E> getListener(Widget widget, Listener listener, int index) {
-//	return (com.sencha.gxt.ui.client.event.Listener<E>) widget.findListenerDelegate(listener, index);
-//    }
-//
-//
-//    protected <E extends BaseEvent> com.sencha.gxt.ui.client.event.Listener<E> createKEnterListener(final Listener listener) {
-//	return new com.sencha.gxt.ui.client.event.Listener<E>() {
-//	    public void handleEvent(E e) {
-//		if (e instanceof com.sencha.gxt.ui.client.event.DomEvent) {
-//		    com.sencha.gxt.ui.client.event.DomEvent domEvent = (com.sencha.gxt.ui.client.event.DomEvent) e;
-//		    int keyCode = domEvent.getKeyCode();
-//		    if (keyCode != com.google.gwt.event.dom.client.KeyCodes.KEY_ENTER) {
-//			return;
-//		    }
-//		}
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//    }
-
-    
-    /**
-     * Create UWT Event by GXT Event
-     * @param e
-     * @return
-     */
-//    protected Event createEvent(BaseEvent e) {
-//        Event event = new Event();
-//        if (e instanceof DomEvent) {
-//            populateEvent(event, (DomEvent) e);
-//        }
-//        return event;
-//    }
-
-    /**
-     * Populate by DomEvent
-     * @param event
-     * @param e
-     */
-//    protected void populateEvent(Event event, DomEvent e) {
-//	com.google.gwt.user.client.Event nativeEvent = e.getEvent();
-//	if (nativeEvent != null) {
-//	    event.setKeyCode(nativeEvent.getKeyCode());
-//	    event.setCharacter((char) nativeEvent.getCharCode()); // TODO: Must analyze int -> char (Unicode) ???
-//	    int nativeButton = nativeEvent.getButton(); 
-//	    int button = 0;
-//	    if (nativeButton == NativeEvent.BUTTON_LEFT) {
-//		button = 1;
-//	    } else if (nativeButton == NativeEvent.BUTTON_MIDDLE) {
-//		button = 2;
-//	    } else if (nativeButton == NativeEvent.BUTTON_RIGHT) {
-//		button = 3;
-//	    }
-//	    event.setButton(button);
-//	    event.setX(nativeEvent.getClientX());
-//	    event.setY(nativeEvent.getClientY());
-//	    
-//	    int stateMask = 0;
-//	    if (nativeEvent.getShiftKey()) {
-//		stateMask |= KeyEvent.SHIFT_MASK;
-//	    }
-//	    if (nativeEvent.getCtrlKey()) {
-//		stateMask |= KeyEvent.CTRL_MASK;
-//	    }
-//	    if (nativeEvent.getMetaKey()) {
-//		stateMask |= KeyEvent.META_MASK;
-//	    }
-//	    if (nativeEvent.getAltKey()) {
-//		stateMask |= KeyEvent.ALT_MASK;
-//	    }
-//	    event.setStateMask(stateMask);
-//
-//	    // TODO: No info ?
-//	    //event.setCount(count) 
-//	    
-//	}
-//	
-//        //event.stateMask = e.stateMask;
-//        //event.count = e.count;
-//
-//        if (e instanceof ComponentEvent) {
-//            populateEvent(event, (ComponentEvent) e);
-//        }
-//    }
-//    
-//    protected void populateEvent(Event event, ComponentEvent e) {
-//	event.setDelegate(e.getComponent());
-//        if (e instanceof BoxComponentEvent) {
-//            populateEvent(event, (BoxComponentEvent) e);
-//        }
-//    }
-//    
-//    protected void populateEvent(Event event, BoxComponentEvent e) {
-//        
-//        if (e instanceof GridEvent) {
-//            populateEvent(event, (GridEvent) e);
-//        }
-//        
-//    }
-    
     protected void populateEvent(Event event, GridEvent e) {
 	// do nothing
     }    
     
-    //// GXT ////
-        
- 
-    
+    //
+    // Default ListStore
+    //
     protected ListStore<Model> createXDefaultListStore() {
 	return GXTHelper.createXDefaultListStore();
     }
-        
     
     //
     // XLabelProvider
@@ -1030,4 +905,5 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     protected XValueProvider createXValueProvider(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
   	return GXTHelper.createXValueProvider(property, propertyProvider, valueProvider);
     }
+    
 }

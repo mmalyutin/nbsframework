@@ -84,7 +84,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 	    GXTTableColumnAdapter adapter = new GXTTableColumnAdapter();
 	    for (int i = 0; i < columnCount; i++) {
 		TableColumn column = table.getColumn(i);
-		XColumnConfig<?> xColumn = adapter.createColumn(table, column);
+		XColumnConfig<?> xColumn = adapter.createColumn(table, column, true);
 		xColumn.setGrid(xGrid);
 		adapter.setSortable(xColumn, table == null ? false : table.isSortable(), column.isSortable()); 
 		columns.add(xColumn);

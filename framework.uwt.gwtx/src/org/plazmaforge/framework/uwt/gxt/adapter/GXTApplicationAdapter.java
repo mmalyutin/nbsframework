@@ -90,6 +90,7 @@ public class GXTApplicationAdapter extends AbstractUIAdapter {
     private void stop(Application application) {
 	// do nothing
     }
+    
     private void exec(Application application, Runnable runnable, boolean async) {
    	if (runnable == null) {
    	    return;
