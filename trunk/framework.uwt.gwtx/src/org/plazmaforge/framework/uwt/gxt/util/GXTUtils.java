@@ -168,11 +168,13 @@ public class GXTUtils {
 	    return new Size(widget.getOffsetWidth(), XCoolBar.MAGIC_HEIGHT);
 	}
 	
+	// TODO: Need analyze how size is better
+	/*
 	if (widget instanceof Component) {
 	    //return ((Component) widget).getElement().getSize();
-	    
 	    return new Size(((Component) widget).getElement().getComputedWidth(), ((Component) widget).getElement().getComputedHeight());
 	}
+	*/
 	
 	return new Size(widget.getOffsetWidth(), widget.getOffsetHeight());
     }
