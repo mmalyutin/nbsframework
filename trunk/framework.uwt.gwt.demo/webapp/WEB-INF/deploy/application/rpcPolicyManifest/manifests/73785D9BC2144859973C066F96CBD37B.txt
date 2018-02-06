@@ -1,2 +1,0 @@
-serviceClass: org.plazmaforge.uwt.gwt.demo.client.ResourceService
-path: D2A6C2AB160E72774B0CB0656860D87B.gwt.rpc
