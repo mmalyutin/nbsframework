@@ -1,1 +1,1 @@
-java -cp ../lib/antlr/antlr-3.2.jar;../dist/plazma-framework-script-1.0.3.jar org.plazmaforge.framework.script.tool.ScriptTool %1 %2
+java -cp ../lib/antlr/antlr-3.2.jar;../dist/plazma-framework-script-1.0.4.jar org.plazmaforge.framework.script.tool.ScriptTool %1 %2
