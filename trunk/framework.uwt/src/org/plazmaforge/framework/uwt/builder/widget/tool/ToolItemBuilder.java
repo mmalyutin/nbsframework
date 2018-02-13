@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget.tool;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.widget.AbstractItemBuilder;
 import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 public class ToolItemBuilder extends AbstractItemBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -47,7 +47,7 @@ public class ToolItemBuilder extends AbstractItemBuilder {
     }
     
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

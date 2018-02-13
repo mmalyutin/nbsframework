@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
 
 /**
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Button;
  */
 public class ButtonBuilder extends ControlBuilder {
 
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -42,7 +42,7 @@ public class ButtonBuilder extends ControlBuilder {
 	return button;
     }
     
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

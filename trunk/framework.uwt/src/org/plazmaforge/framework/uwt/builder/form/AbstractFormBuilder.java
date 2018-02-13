@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.form;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.form.Form;
 import org.plazmaforge.framework.uwt.widget.Container;
@@ -36,7 +36,7 @@ public abstract class AbstractFormBuilder extends ContainerBuilder {
     
     
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -46,7 +46,7 @@ public abstract class AbstractFormBuilder extends ContainerBuilder {
     }
     
     @Override
-    protected void populateCommon(IData data, UIObject element) {
+    protected void populateCommon(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}
@@ -64,7 +64,7 @@ public abstract class AbstractFormBuilder extends ContainerBuilder {
     }
     
     @Override
-    protected void populateBody(IData data, UIObject element) {
+    protected void populateBody(IData data, UIElement element) {
 	Form<?> form = (Form<?>) element;
 	
 	

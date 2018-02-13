@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.ToggleButton;
@@ -45,7 +45,7 @@ public class CheckBoxBuilder extends AbstractFieldBuilder {
     
 
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	super.populate(data, element);
 	CheckBox checkBox = (CheckBox) element;
 	String text = getString(data, Widget.PROPERTY_TEXT);
@@ -55,7 +55,7 @@ public class CheckBoxBuilder extends AbstractFieldBuilder {
     }
 
     @Override
-    protected void populateValue(IData data, UIObject element) {
+    protected void populateValue(IData data, UIElement element) {
 	CheckBox checkBox = (CheckBox) element; 
 	Boolean value = getBoolean(data, CheckBox.PROPERTY_VALUE);
 	if (value != null) {

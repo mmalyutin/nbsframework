@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.builder.widget;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Column;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Viewer;
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Viewer;
 public abstract class ViewerBuilder extends ContainerBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -117,7 +117,7 @@ public abstract class ViewerBuilder extends ContainerBuilder {
 
     }
 
-    protected void populateItems(IData data, UIObject element) {
+    protected void populateItems(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}
@@ -129,7 +129,7 @@ public abstract class ViewerBuilder extends ContainerBuilder {
 	viewer.setItems(items);
     }
     
-    protected void populateBody(IData data, UIObject element) {
+    protected void populateBody(IData data, UIElement element) {
 	//reset
     }
     

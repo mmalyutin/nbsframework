@@ -22,9 +22,14 @@
 
 package org.plazmaforge.framework.uwt.widget;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
-public abstract class Layout extends UIObject {
+/**
+ * 
+ * @author ohapon
+ *
+ */
+public abstract class Layout extends UIElement {
 
     
     //////////////////////////////////////////////////////////////////////

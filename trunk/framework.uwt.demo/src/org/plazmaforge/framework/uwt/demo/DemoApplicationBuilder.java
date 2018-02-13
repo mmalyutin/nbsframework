@@ -35,7 +35,7 @@ import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.core.logging.Logger;
 import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.ApplicationView;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.demo.tabs.AdvancedTab;
 import org.plazmaforge.framework.uwt.demo.tabs.ButtonTab;
@@ -397,9 +397,9 @@ public class DemoApplicationBuilder {
 		return;
 	    }
 	}
-	CallbackAdapter<UIObject> callback = new CallbackAdapter<UIObject>() {
+	CallbackAdapter<UIElement> callback = new CallbackAdapter<UIElement>() {
 	    @Override
-	    public void onSuccess(UIObject result) {
+	    public void onSuccess(UIElement result) {
 		IForm<?> form = (IForm<?>) result;
 		if (store) {
 		    formStore.put(path, form);
@@ -422,9 +422,9 @@ public class DemoApplicationBuilder {
     }
 
     private void doOpenDialog(Application application, String path) {
-	CallbackAdapter<UIObject> callback = new CallbackAdapter<UIObject>() {
+	CallbackAdapter<UIElement> callback = new CallbackAdapter<UIElement>() {
 	    @Override
-	    public void onSuccess(UIObject result) {
+	    public void onSuccess(UIElement result) {
 		Dialog dialog = (Dialog) result;
 		dialog.open();
 	    }
@@ -433,9 +433,9 @@ public class DemoApplicationBuilder {
     }
     
     private void doOpenWindow(Application application, String path) {
-	CallbackAdapter<UIObject> callback = new CallbackAdapter<UIObject>() {
+	CallbackAdapter<UIElement> callback = new CallbackAdapter<UIElement>() {
 	    @Override
-	    public void onSuccess(UIObject result) {
+	    public void onSuccess(UIElement result) {
 		Window window = (Window) result;
 		window.open();
 	    }
@@ -444,9 +444,9 @@ public class DemoApplicationBuilder {
     }
 
     private void doOpenFrame(Application application, String path) {
-	CallbackAdapter<UIObject> callback = new CallbackAdapter<UIObject>() {
+	CallbackAdapter<UIElement> callback = new CallbackAdapter<UIElement>() {
 	    @Override
-	    public void onSuccess(UIObject result) {
+	    public void onSuccess(UIElement result) {
 		Frame frame = (Frame) result;
 		frame.open();
 	    }
@@ -455,7 +455,7 @@ public class DemoApplicationBuilder {
     }
 
 
-    private void doBuildObject(Application application, final String path, final Callback<UIObject> callback) {
+    private void doBuildObject(Application application, final String path, final Callback<UIElement> callback) {
 	final TemplateProviderAsync templateProviderAsync = (TemplateProviderAsync) application.getConfigAttribute(Application.CONFIG_TEMPLATE_PROVIDER_ASYNC);
 	final UIBuilder uiBuilder = new UIBuilder();
 	
@@ -473,9 +473,9 @@ public class DemoApplicationBuilder {
 	    @Override
 	    public void onSuccess(IData result) {
 		dump(result);
-		UIObject object = null;
+		UIElement object = null;
 		if (result != null) {
-		    object = (UIObject) uiBuilder.buildObject(result);
+		    object = (UIElement) uiBuilder.buildObject(result);
 		}
 		if (object == null ){
 		    MessageBox.error("Load UIOBject error: Object is empty");

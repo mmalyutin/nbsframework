@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.dialog.DialogBuilder;
 import org.plazmaforge.framework.uwt.builder.form.EditFormBuilder;
 import org.plazmaforge.framework.uwt.builder.form.ListFormBuilder;
@@ -88,7 +88,11 @@ import org.plazmaforge.framework.uwt.builder.widget.tool.ToolItemBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.tool.ToolSeparatorBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.tree.TreeBuilder;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class UIBuilder {
 
     //////////////////////////////////////////////////////////////////////
@@ -322,7 +326,7 @@ public class UIBuilder {
      * @param data
      * @return
      */
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	IUIBuilder builder = getBuilder(data, true);
 	return builder.buildObject(data);
     }
@@ -360,7 +364,7 @@ public class UIBuilder {
 	    return null;
 	}
 	String baseType = (String) data.get(UIBuilder.SYS_PROPERTY_TYPE);
-	String type = (String) data.get(UIObject.PROPERTY_TYPE);
+	String type = (String) data.get(UIElement.PROPERTY_TYPE);
 	return getBuilder(baseType, type, check);
     }
 

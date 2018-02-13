@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget.panel;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
@@ -43,7 +43,7 @@ public class GroupPanelBuilder extends PanelBuilder {
     }
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -54,7 +54,7 @@ public class GroupPanelBuilder extends PanelBuilder {
 
     
     @Override
-    protected void populateCommon(IData data, UIObject element) {
+    protected void populateCommon(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

@@ -34,7 +34,7 @@ import org.plazmaforge.framework.core.data.object.Data;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.core.resource.Resource;
 import org.plazmaforge.framework.core.resource.ResourceUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -45,6 +45,11 @@ import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.widget.tree.TreeItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class UIBuilderHelper {
     
     // Alternative Properties
@@ -379,7 +384,7 @@ public class UIBuilderHelper {
 	if (rsKey.isEmpty()) {
 	    return ""; // (?)
 	}
-	UIObject element = (UIObject) data.get(UIBuilder.SYS_PROPERTY_ELEMENT);
+	UIElement element = (UIElement) data.get(UIBuilder.SYS_PROPERTY_ELEMENT);
 	if (element == null) {
 	    return ResourceUtils.getEmptyString(rsKey);
 	}
@@ -592,7 +597,7 @@ public class UIBuilderHelper {
 	    return null;
 	}
 	IData data = createData(dataContainer.getProperties());
-	data.set(UIObject.PROPERTY_TYPE, dataContainer.getName());
+	data.set(UIElement.PROPERTY_TYPE, dataContainer.getName());
 	return data;
     }
 

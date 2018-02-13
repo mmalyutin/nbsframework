@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
@@ -38,7 +38,7 @@ public abstract class AbstractFieldBuilder extends ControlBuilder {
 
     protected abstract IField createField(IData data);
     
-    protected abstract void populateValue(IData data, UIObject element);
+    protected abstract void populateValue(IData data, UIElement element);
 
   
     protected void populateFieldValue(IData data, IField field) {
@@ -49,7 +49,7 @@ public abstract class AbstractFieldBuilder extends ControlBuilder {
   	}
     }
     
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -57,13 +57,13 @@ public abstract class AbstractFieldBuilder extends ControlBuilder {
 	if (field == null) {
 	    return null;
 	}
-	UIObject element = (UIObject) field;
+	UIElement element = (UIElement) field;
 	populate(data, element);
 	return element;
     }    
 
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	super.populate(data, element);
 	
 	IField field = (IField) element;

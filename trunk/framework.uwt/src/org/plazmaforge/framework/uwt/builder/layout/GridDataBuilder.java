@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.layout;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.widget.LayoutData;
@@ -48,7 +48,7 @@ public class GridDataBuilder extends AbstractLayoutDataBuilder {
 	return new GridData();
     }
     
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null || element == null) {
 	    return;
 	}

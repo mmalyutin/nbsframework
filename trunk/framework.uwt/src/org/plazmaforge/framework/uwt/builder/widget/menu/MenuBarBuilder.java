@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget.menu;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 
 /**
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 public class MenuBarBuilder extends MenuBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}

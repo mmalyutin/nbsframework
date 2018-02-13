@@ -29,7 +29,7 @@ import java.util.Map;
 import org.plazmaforge.framework.core.data.formatter.Formatter;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.util.StringUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.DataContainer;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
@@ -42,6 +42,11 @@ import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.widget.tree.TreeItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class AbstractGenerator implements IUIGenerator {
     
   
@@ -56,7 +61,7 @@ public abstract class AbstractGenerator implements IUIGenerator {
     }
 
     public String getType(IData data) {
-	return data == null ? null : (String) data.get(UIObject.PROPERTY_TYPE);
+	return data == null ? null : (String) data.get(UIElement.PROPERTY_TYPE);
     }
 
     /**
@@ -108,7 +113,7 @@ public abstract class AbstractGenerator implements IUIGenerator {
 	if (name != null) {
 	    return packageName == null ? name : (packageName + "." + name);
 	}	
-	name = (String) data.get(UIObject.PROPERTY_NAME);
+	name = (String) data.get(UIElement.PROPERTY_NAME);
 	if (name == null) {
 	    return null;
 	}
@@ -684,11 +689,11 @@ public abstract class AbstractGenerator implements IUIGenerator {
     
     public void generatePopulate(ScopeContext context, IData data, String bean, SourceWriter sw) {
 	
-	generateSetStringProperty(context, data, bean, UIObject.PROPERTY_ID, sw);
-	generateSetStringProperty(context, data, bean, UIObject.PROPERTY_NAME, sw);
-	generateSetStringProperty(context, data, bean, UIObject.PROPERTY_TYPE, sw);
-	generateSetStringProperty(context, data, bean, UIObject.PROPERTY_LOCALE, "setLocaleName", sw);
-	generateSetStringProperty(context, data, bean, UIObject.PROPERTY_RESOURCE, "setResourceName", sw);
+	generateSetStringProperty(context, data, bean, UIElement.PROPERTY_ID, sw);
+	generateSetStringProperty(context, data, bean, UIElement.PROPERTY_NAME, sw);
+	generateSetStringProperty(context, data, bean, UIElement.PROPERTY_TYPE, sw);
+	generateSetStringProperty(context, data, bean, UIElement.PROPERTY_LOCALE, "setLocaleName", sw);
+	generateSetStringProperty(context, data, bean, UIElement.PROPERTY_RESOURCE, "setResourceName", sw);
 	
     }
     

@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget.panel;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
@@ -44,7 +44,7 @@ public class TabItemBuilder extends ContainerBuilder {
     }
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -54,7 +54,7 @@ public class TabItemBuilder extends ContainerBuilder {
     }
 
     @Override
-    protected void populateCommon(IData data, UIObject element) {
+    protected void populateCommon(IData data, UIElement element) {
 	super.populate(data, element);
 	
 	TabItem tabItem = (TabItem) element;

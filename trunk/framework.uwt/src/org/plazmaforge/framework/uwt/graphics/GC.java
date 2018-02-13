@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.graphics;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
  * @author ohapon
  *
  */
-public final class GC extends UIObject {
+public final class GC extends UIElement {
 
 
     public static final  Color DEFAULT_BACKGROUND = Color.WHITE;

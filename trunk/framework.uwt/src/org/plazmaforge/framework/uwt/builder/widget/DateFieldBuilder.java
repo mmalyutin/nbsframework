@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget;
 import java.util.Date;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.IField;
@@ -50,12 +50,12 @@ public class DateFieldBuilder extends AbstractFieldBuilder {
     }
     
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	super.populate(data, element);
 	populateFormat(data, element);
     }
 
-    protected void populateValue(IData data, UIObject element) {
+    protected void populateValue(IData data, UIElement element) {
 	DateField dateField = (DateField) element;
 	Date value = getDate(data, DateField.PROPERTY_VALUE);
 	if (value != null) {
@@ -63,7 +63,7 @@ public class DateFieldBuilder extends AbstractFieldBuilder {
 	}
     }
     
-    protected void populateFormat(IData data, UIObject element) {
+    protected void populateFormat(IData data, UIElement element) {
 	DateField dateField = (DateField) element;
 	String value = getString(data, DateField.PROPERTY_FORMAT);
 	if (value != null) {

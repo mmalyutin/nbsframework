@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 public class FrameBuilder extends WindowBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -47,7 +47,7 @@ public class FrameBuilder extends WindowBuilder {
     }
 
     @Override
-    protected void populateCommon(IData data, UIObject element) {
+    protected void populateCommon(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

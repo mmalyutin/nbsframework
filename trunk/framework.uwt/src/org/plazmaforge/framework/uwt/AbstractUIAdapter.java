@@ -32,7 +32,11 @@ import org.plazmaforge.framework.util.StringUtils;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class AbstractUIAdapter implements UIAdapter {
 
     public static final String MESSAGE_CANT_ADD_WIDGET  = "Can not add widget to parent";
@@ -47,29 +51,29 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return null;
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	return null;
     }
 
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
     }
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
     }
     
 
@@ -248,7 +252,7 @@ public abstract class AbstractUIAdapter implements UIAdapter {
    
     ////
  
-    protected ApplicationContext getApplicationContext(UIObject element) {
+    protected ApplicationContext getApplicationContext(UIElement element) {
 	return StorageUtils.getApplicationContext(element);
     }
 
@@ -262,19 +266,19 @@ public abstract class AbstractUIAdapter implements UIAdapter {
      * @param type
      * @return path
      */
-    protected String getStorage(UIObject element, String type, String path) {
+    protected String getStorage(UIElement element, String type, String path) {
 	return StorageUtils.getStorage(element, type, path);
     }
 
-    protected String getImageStorage(UIObject element, String path) {
+    protected String getImageStorage(UIElement element, String path) {
 	return StorageUtils.getImageStorage(element, path);
     }
 
-    protected String getFontStorage(UIObject element, String path) {
+    protected String getFontStorage(UIElement element, String path) {
 	return StorageUtils.getFontStorage(element, path);
     }
 
-    protected String getFileStorage(UIObject element, String path) {
+    protected String getFileStorage(UIElement element, String path) {
 	return StorageUtils.getFileStorage(element, path);
     }
 

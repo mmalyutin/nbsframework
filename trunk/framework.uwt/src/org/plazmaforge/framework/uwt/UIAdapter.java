@@ -39,7 +39,7 @@ public interface UIAdapter {
      * @param name
      * @param value
      */
-    void setProperty(UIObject element, String name, Object value);
+    void setProperty(UIElement element, String name, Object value);
     
     /**
      *  Get property of delegate
@@ -47,7 +47,7 @@ public interface UIAdapter {
      * @param name
      * @return
      */
-    Object getProperty(UIObject element, String name);
+    Object getProperty(UIElement element, String name);
     
     /**
      * Invoke method of delegate
@@ -56,7 +56,7 @@ public interface UIAdapter {
      * @param args
      * @return
      */
-    Object invoke(UIObject element, String methodName, Object[] args);
+    Object invoke(UIElement element, String methodName, Object[] args);
     
     /**
      * Create delegate
@@ -64,33 +64,33 @@ public interface UIAdapter {
      * @param element
      * @return
      */
-    Object createDelegate(UIObject parent, UIObject element);
+    Object createDelegate(UIElement parent, UIElement element);
     
     /**
      * Dispose delegate
      * @param parent
      * @param element
      */
-    void disposeDelegate(UIObject parent, UIObject element);
+    void disposeDelegate(UIElement parent, UIElement element);
     
     /**
      * Check delegate
      * @param element
      */
-    void checkDelegate(UIObject element);
+    void checkDelegate(UIElement element);
     
     /**
      * Add listener to delegate
      * @param eventType
      * @param listener
      */
-    void addListener(UIObject element, String eventType, Listener listener);
+    void addListener(UIElement element, String eventType, Listener listener);
     
     /**
      * Remove listener from delegate
      * @param eventType
      * @param listener
      */
-    void removeListener(UIObject element, String eventType, Listener listener);
+    void removeListener(UIElement element, String eventType, Listener listener);
     
 }

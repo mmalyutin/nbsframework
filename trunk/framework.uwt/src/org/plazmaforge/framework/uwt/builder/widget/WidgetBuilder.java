@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.builder.widget;
 
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.AbstractBuilder;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -37,11 +37,11 @@ public abstract class WidgetBuilder extends AbstractBuilder implements IUIBuilde
     }
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	return null;
     }
     
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
   	if (data == null) {
   	    return;
   	}

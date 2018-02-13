@@ -29,7 +29,7 @@ import java.util.Map;
 
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.core.resource.Resource;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.widget.Style.Direction;
@@ -39,9 +39,14 @@ import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.widget.tree.TreeItem;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class AbstractBuilder implements IUIBuilder {
 
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null || element == null) {
 	    return;
 	}
@@ -50,23 +55,23 @@ public abstract class AbstractBuilder implements IUIBuilder {
 	
 	// Populate UIObject properties
 	
-	String value = getString(data, UIObject.PROPERTY_ID);
+	String value = getString(data, UIElement.PROPERTY_ID);
 	if (value != null) {
 	    element.setId(value);
 	}
-	value = getString(data, UIObject.PROPERTY_NAME);
+	value = getString(data, UIElement.PROPERTY_NAME);
 	if (value != null) {
 	    element.setName(value);
 	}
-	value = getString(data, UIObject.PROPERTY_TYPE);
+	value = getString(data, UIElement.PROPERTY_TYPE);
 	if (value != null) {
 	    element.setType(value);
 	}
-	value = getString(data, UIObject.PROPERTY_LOCALE);
+	value = getString(data, UIElement.PROPERTY_LOCALE);
 	if (value != null) {
 	    element.setLocaleName(value);
 	}
-	value = getString(data, UIObject.PROPERTY_RESOURCE);
+	value = getString(data, UIElement.PROPERTY_RESOURCE);
 	if (value != null) {
 	    element.setResourceName(value);
 	}	
@@ -74,7 +79,7 @@ public abstract class AbstractBuilder implements IUIBuilder {
 	
     }
 
-    protected void assign(IData data, UIObject element) {
+    protected void assign(IData data, UIElement element) {
 	if (data == null){
 	    return;
 	}
@@ -238,7 +243,7 @@ public abstract class AbstractBuilder implements IUIBuilder {
 	return UIBuilder.getBuilder(data, true);
     }
     
-    protected UIObject buildDataObject(IData data) {
+    protected UIElement buildDataObject(IData data) {
 	IUIBuilder builder = getBuilder(data);
 	if (builder == null) {
 	    // ERROR
@@ -247,7 +252,7 @@ public abstract class AbstractBuilder implements IUIBuilder {
 	return builder.buildObject(data);
     }
 
-    protected UIObject buildNodeObject(IData data, String property) {
+    protected UIElement buildNodeObject(IData data, String property) {
 	IData nodeData = getDataValue(data, property);
 	if (nodeData == null) {
 	    return null;
@@ -327,7 +332,7 @@ public abstract class AbstractBuilder implements IUIBuilder {
 	return UIBuilderHelper.findParentResource(data);
     }
     
-    protected void assignResource(IData data, UIObject element) {
+    protected void assignResource(IData data, UIElement element) {
    	if (data == null || element == null) {
    	    return;
    	}

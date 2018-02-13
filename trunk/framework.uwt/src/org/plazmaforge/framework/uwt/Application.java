@@ -224,7 +224,7 @@ public class Application extends Widget implements IApplication {
     }
 
 
-    public static ErrorHandler getDefaultErrorHandler(UIObject owner) {
+    public static ErrorHandler getDefaultErrorHandler(UIElement owner) {
 	if (defaultErrorHandler == null) {
 	    defaultErrorHandler = createDefaultErrorHandler(owner);
 	}
@@ -232,7 +232,7 @@ public class Application extends Widget implements IApplication {
     }
     
     
-    private static ErrorHandler createDefaultErrorHandler(final UIObject owner) {
+    private static ErrorHandler createDefaultErrorHandler(final UIElement owner) {
 	
 	return new ErrorHandler() {
 

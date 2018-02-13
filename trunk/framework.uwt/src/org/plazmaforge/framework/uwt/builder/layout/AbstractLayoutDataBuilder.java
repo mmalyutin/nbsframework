@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.layout;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.AbstractBuilder;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
 import org.plazmaforge.framework.uwt.widget.LayoutData;
@@ -40,7 +40,7 @@ public abstract class AbstractLayoutDataBuilder extends AbstractBuilder  impleme
     protected abstract LayoutData createLayoutData(IData data);
     
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -52,7 +52,7 @@ public abstract class AbstractLayoutDataBuilder extends AbstractBuilder  impleme
 	return layout;
     } 
     
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	// do nothing by default
     }
 }

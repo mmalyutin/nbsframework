@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * Build UI by IData
@@ -35,5 +35,5 @@ public interface IUIBuilder {
     
     boolean accept(String type);
 
-    UIObject buildObject(IData data);
+    UIElement buildObject(IData data);
 }

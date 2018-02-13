@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.dialog;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.widget.WindowBuilder;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
 import org.plazmaforge.framework.uwt.widget.Container;
@@ -34,7 +34,7 @@ public class DialogBuilder extends WindowBuilder {
     
     
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -48,7 +48,7 @@ public class DialogBuilder extends WindowBuilder {
     }
     
     @Override
-    protected void populateBody(IData data, UIObject element) {
+    protected void populateBody(IData data, UIElement element) {
 	Dialog dialog = (Dialog) element;
 	
 	// STUB

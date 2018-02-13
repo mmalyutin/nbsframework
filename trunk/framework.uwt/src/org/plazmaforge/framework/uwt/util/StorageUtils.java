@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.util;
 
 import org.plazmaforge.framework.uwt.ApplicationContext;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 
 
@@ -113,7 +113,7 @@ public class StorageUtils {
 	return context.getProperty(propertyName);
     }
 
-    public static String getStorage(UIObject element, String type, String path) {
+    public static String getStorage(UIElement element, String type, String path) {
 	return getStorage(getApplicationContext(element), type, path);
     }
 
@@ -126,7 +126,7 @@ public class StorageUtils {
 	return getStorage(context, IMAGE, path);
     }
     
-    public static String getImageStorage(UIObject element, String path) {
+    public static String getImageStorage(UIElement element, String path) {
 	return getImageStorage(getApplicationContext(element), path);
     }
 
@@ -139,7 +139,7 @@ public class StorageUtils {
 	return getStorage(context, FONT, path);
     }
 
-    public static String getFontStorage(UIObject element, String path) {
+    public static String getFontStorage(UIElement element, String path) {
 	return getFontStorage(getApplicationContext(element), path);
     }
 
@@ -152,12 +152,12 @@ public class StorageUtils {
 	return getStorage(context, FILE, path);
     }
 
-    public static String getFileStorage(UIObject element, String path) {
+    public static String getFileStorage(UIElement element, String path) {
 	return StorageUtils.getFileStorage(getApplicationContext(element), path);
     }
     
     
-    public static ApplicationContext getApplicationContext(UIObject element) {
+    public static ApplicationContext getApplicationContext(UIElement element) {
   	return element == null ? null : element.getApplicationContext();
     }
 

@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Window;
 
 /**
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
 public class WindowBuilder extends ContainerBuilder {
     
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -46,7 +46,7 @@ public class WindowBuilder extends ContainerBuilder {
     }
 
     @Override
-    protected void populateCommon(IData data, UIObject element) {
+    protected void populateCommon(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

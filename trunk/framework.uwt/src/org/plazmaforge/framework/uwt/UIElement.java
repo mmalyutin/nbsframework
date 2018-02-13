@@ -42,13 +42,13 @@ import org.plazmaforge.framework.uwt.util.StorageUtils;
  * 
  * @author ohapon
  * 
- * General UI Object.
+ * General UI Element.
  *
- * The <code>UIObject</code> links to native object (delegate) 
+ * The <code>UIElement</code> links to native object (delegate) 
  * and uses <code>UIAdapter</code> to call methods of native object.
  *
  */
-public class UIObject {
+public class UIElement {
 
 
     //////////////////////////////////////////////////////////////////////
@@ -89,20 +89,20 @@ public class UIObject {
     
     
     /**
-     * Identifier of the object.
+     * Identifier of the element.
      */
     private String id;
     
     
     /**
-     * Name of the object.
+     * Name of the element.
      */
     private String name;
     
     
     /**
-     * Type of the object.
-     * Use type to lookup UIAdapter for the UIObject
+     * Type of the element.
+     * Use type to lookup UIAdapter for the UIElement
      */
     private String type;
     
@@ -120,17 +120,17 @@ public class UIObject {
     //////////////////////////////////////////////////////////////////////
     
     /**
-     * Parent of the object
+     * Parent of the element
      */
-    private UIObject parent;
+    private UIElement parent;
     
     /**
-     * Adapter of the object.
+     * Adapter of the element.
      */
     private UIAdapter adapter;
     
     /**
-     * Delegate of the object. 
+     * Delegate of the element. 
      */
     private Object delegate;
     
@@ -204,7 +204,7 @@ public class UIObject {
     private Logger logger;
     
     
-    public UIObject() {
+    public UIElement() {
 	super();
     }
     
@@ -592,12 +592,12 @@ public class UIObject {
     }
 
     
-    public UIObject getUIParent() {
+    public UIElement getUIParent() {
         return parent;
     }
 
 
-    public void setUIParent(UIObject parent) {
+    public void setUIParent(UIElement parent) {
         this.parent = parent;
     }
 
@@ -650,7 +650,7 @@ public class UIObject {
      * @param methodName
      * @return
      */
-    protected Object invokeDelegate(UIObject element, String methodName) {
+    protected Object invokeDelegate(UIElement element, String methodName) {
 	return invokeDelegate(element, methodName, null);
     }
     
@@ -661,7 +661,7 @@ public class UIObject {
      * @param args
      * @return
      */
-    protected Object invokeDelegate(UIObject element, String methodName, Object[] args) {
+    protected Object invokeDelegate(UIElement element, String methodName, Object[] args) {
 	return getAdapter().invoke(element, methodName, args);
     }
 

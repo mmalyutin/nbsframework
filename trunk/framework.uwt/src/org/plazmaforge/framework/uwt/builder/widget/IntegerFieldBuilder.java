@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.IntegerField;
@@ -41,7 +41,7 @@ public class IntegerFieldBuilder extends AbstractFieldBuilder {
 	return new IntegerField();
     }
   
-    protected void populateValue(IData data, UIObject element) {
+    protected void populateValue(IData data, UIElement element) {
 	IntegerField integerField = (IntegerField) element;
 	Integer value = getInteger(data, NumberField.PROPERTY_VALUE);
 	if (value != null) {

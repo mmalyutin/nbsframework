@@ -27,7 +27,7 @@ package org.plazmaforge.framework.uwt.builder.widget;
 
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextBox;
@@ -52,7 +52,7 @@ public class TextFieldBuilder extends AbstractFieldBuilder {
 	return field;
     }
     
-    protected void populateValue(IData data, UIObject element) {
+    protected void populateValue(IData data, UIElement element) {
 	
 	TextControl textField = (TextControl) element;
 
