@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.swt.adapter.viewer;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.plazmaforge.framework.core.data.access.AccessUtils;
 import org.plazmaforge.framework.core.data.access.PropertyAccessor;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.swt.adapter.SWTHelper;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
@@ -137,7 +137,7 @@ public class SWTLabelProvider extends LabelProvider {
 	}
 	
 	// Create SWT image
-	return SWTHelper.createImage((UIObject) viewer, image);
+	return SWTHelper.createImage((UIElement) viewer, image);
     }
     
 }
