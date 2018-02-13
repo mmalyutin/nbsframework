@@ -26,7 +26,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swt.widget.Combo;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 public class SWTComboBoxAdapter extends SWTControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	Combo xComboBox = new Combo(xParent, SWT.BORDER);
 	//ComboViewer viewer = new ComboViever(xComboBox); 
@@ -54,7 +54,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	Combo xComboBox = getCombo(element.getDelegate());
 	if (xComboBox == null) {
@@ -98,7 +98,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
 
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	Combo xComboBox = getCombo(element.getDelegate());
 	if (xComboBox == null) {
 	    return null;
@@ -115,7 +115,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
 
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Combo xComboBox = getCombo(element.getDelegate());
 	if (xComboBox == null) {
 	    return -1;
@@ -132,7 +132,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
     
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	Combo xComboBox = getCombo(element.getDelegate());
@@ -149,7 +149,7 @@ public class SWTComboBoxAdapter extends SWTControlAdapter {
     }
 
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	Combo xComboBox = getCombo(element.getDelegate());

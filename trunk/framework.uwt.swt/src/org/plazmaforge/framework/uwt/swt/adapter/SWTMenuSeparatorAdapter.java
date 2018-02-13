@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * @author ohapon
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  */
 public class SWTMenuSeparatorAdapter extends SWTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	org.eclipse.swt.widgets.Widget xParent = (org.eclipse.swt.widgets.Widget) asWidget(parent.getDelegate());
 	org.eclipse.swt.widgets.MenuItem xMenuSeparator = null;

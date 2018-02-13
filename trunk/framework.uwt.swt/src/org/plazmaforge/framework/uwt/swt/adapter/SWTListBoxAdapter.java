@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTListContentProvider;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTListLabelProvider;
@@ -42,7 +42,7 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
     public static final String SYS_PROPETY_LIST_BOX = "$listBox";
     
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.plazmaforge.framework.uwt.widget.ListBox listBox = (org.plazmaforge.framework.uwt.widget.ListBox) element;
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.List xListBox = new org.eclipse.swt.widgets.List(xParent, SWT.BORDER | SWT.FULL_SELECTION);
@@ -54,12 +54,12 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
     }
     
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
 	// clear super method
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.List xListBox = (org.eclipse.swt.widgets.List) element.getDelegate();
 	if (xListBox == null) {
@@ -97,7 +97,7 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	org.eclipse.swt.widgets.List xListBox = (org.eclipse.swt.widgets.List) element.getDelegate();
 	if (xListBox == null) {
 	    return null;
@@ -114,7 +114,7 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
 
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	org.eclipse.swt.widgets.List xListBox = (org.eclipse.swt.widgets.List) element.getDelegate();
 	if (xListBox == null) {
 	    return -1;
@@ -129,7 +129,7 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
     }
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.List xListBox = (org.eclipse.swt.widgets.List) element.getDelegate();
@@ -150,7 +150,7 @@ public class SWTListBoxAdapter extends SWTControlAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.List xListBox = (org.eclipse.swt.widgets.List) element.getDelegate();

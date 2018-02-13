@@ -8,7 +8,7 @@ import java.util.Map;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.plazmaforge.framework.core.type.TypeUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -142,7 +142,7 @@ public class SWTHelper {
 	 return height;
     }
 
-    public static org.eclipse.swt.graphics.Image createImage(UIObject element, Image image) {
+    public static org.eclipse.swt.graphics.Image createImage(UIElement element, Image image) {
 	if (image == null) {
 	    return null;
 	}
@@ -150,7 +150,7 @@ public class SWTHelper {
 	return createImage(element, path);
     }
 
-    public static org.eclipse.swt.graphics.Image createImage(UIObject element, String path) {
+    public static org.eclipse.swt.graphics.Image createImage(UIElement element, String path) {
 	if (path == null) {
 	    return null;
 	}

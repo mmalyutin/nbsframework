@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 /**
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.Label;
 public class SWTLabelAdapter extends SWTControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Label xLabel = new org.eclipse.swt.widgets.Label(xParent, SWT.NONE);
 	
@@ -62,7 +62,7 @@ public class SWTLabelAdapter extends SWTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Label xLabel = getLabel(element.getDelegate());
 	if (xLabel == null) {

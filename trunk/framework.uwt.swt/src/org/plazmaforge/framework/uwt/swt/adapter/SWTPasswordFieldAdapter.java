@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.widget.XTextField;
 import org.plazmaforge.framework.uwt.widget.IField;
 
 public class SWTPasswordFieldAdapter extends SWTTextFieldAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XTextField xPasswordField = new XTextField(xParent, SWT.BORDER);
 	xPasswordField.setEchoChar('*'); // Set echo char for password text

@@ -34,7 +34,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableItem;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTTableContentProvider;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTTableLabelProvider;
@@ -59,7 +59,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
     
     
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	final Table table = (Table) element;
 	final org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	int style = SWT.BORDER | SWT.FULL_SELECTION;
@@ -113,7 +113,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
 	// clear super method
     }
 
@@ -123,7 +123,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Table xTable = (org.eclipse.swt.widgets.Table) element.getDelegate();
 	if (xTable == null) {
@@ -211,7 +211,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	org.eclipse.swt.widgets.Table xTable = (org.eclipse.swt.widgets.Table) element.getDelegate();
 	if (xTable == null) {
 	    return null;
@@ -224,7 +224,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
 
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Table table = (Table) element;
 	org.eclipse.swt.widgets.Table xTable = (org.eclipse.swt.widgets.Table) element.getDelegate();
 	if (eq(Table.METHOD_GET_SELECTION_INDEX, methodName)) {
@@ -251,7 +251,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.Table xTable = (org.eclipse.swt.widgets.Table) element.getDelegate();
@@ -273,7 +273,7 @@ public class SWTTableAdapter extends SWTContainerAdapter {
     }
 
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.Table xTable = (org.eclipse.swt.widgets.Table) element.getDelegate();

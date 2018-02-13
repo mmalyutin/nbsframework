@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 
 /**
@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
  */
 public class SWTToolSeparatorAdapter extends SWTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	
 	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) asWidget(parent.getDelegate());

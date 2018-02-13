@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 
 public class SWTFrameAdapter extends SWTWindowAdapter {
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.widgets.Shell xFrame = (org.eclipse.swt.widgets.Shell) element.getDelegate();
 	
 	if (xFrame == null) {

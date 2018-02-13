@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.widget.XTextArea;
 import org.plazmaforge.framework.uwt.widget.IField;
 
 public class SWTTextAreaAdapter extends SWTTextFieldAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XTextArea xTextArea = new XTextArea(xParent, SWT.BORDER);
 	xTextArea.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);

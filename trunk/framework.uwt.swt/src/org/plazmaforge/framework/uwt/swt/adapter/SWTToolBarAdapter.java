@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 import org.plazmaforge.framework.uwt.widget.Container;
 
@@ -33,7 +33,7 @@ public class SWTToolBarAdapter extends SWTContainerAdapter {
     public static final String SYS_PROPETY_COOL_ITEM = "$coolItem";
     
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
    	org.eclipse.swt.widgets.ToolBar xToolBar = null;
    	if (xParent instanceof org.eclipse.swt.widgets.CoolBar) {
@@ -61,7 +61,7 @@ public class SWTToolBarAdapter extends SWTContainerAdapter {
     
    
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) element.getDelegate();
 	if (xToolBar == null) {
@@ -77,7 +77,7 @@ public class SWTToolBarAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
  	// clear super method
     }
 

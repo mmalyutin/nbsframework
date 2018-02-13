@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.widget.XDateTimeField;
 import org.plazmaforge.framework.uwt.widget.DateTimeField;
 
 public class SWTDateTimeFieldAdapter extends SWTControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XDateTimeField xDateTimeField = new XDateTimeField(xParent, SWT.BORDER);
 	addChild(xParent, xDateTimeField, element);
@@ -42,7 +42,7 @@ public class SWTDateTimeFieldAdapter extends SWTControlAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XDateTimeField xDateTimeField = getDateTimeField(element.getDelegate());
 	if (xDateTimeField == null) {
 	    return;
@@ -58,7 +58,7 @@ public class SWTDateTimeFieldAdapter extends SWTControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	XDateTimeField xDateTimeField = getDateTimeField(element.getDelegate());
 	if (xDateTimeField == null) {
 	    return null;

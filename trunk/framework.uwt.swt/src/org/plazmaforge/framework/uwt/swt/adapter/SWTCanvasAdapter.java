@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.widget.Canvas;
 
 public class SWTCanvasAdapter extends SWTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Canvas xCanvas = new org.eclipse.swt.widgets.Canvas(xParent, SWT.NO_REDRAW_RESIZE); // SWT.NO_REDRAW_RESIZE
 	xCanvas.setBackgroundMode(SWT.INHERIT_DEFAULT);

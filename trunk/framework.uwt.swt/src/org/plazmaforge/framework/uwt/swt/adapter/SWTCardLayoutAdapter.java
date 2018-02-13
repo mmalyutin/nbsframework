@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.layout.CardLayout;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -30,14 +30,14 @@ import org.plazmaforge.framework.uwt.widget.Layout;
 public class SWTCardLayoutAdapter extends SWTLayoutAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.custom.StackLayout xLayout = new  org.eclipse.swt.custom.StackLayout();
 	return xLayout;
     }
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Layout layout = (Layout) element;
 	org.eclipse.swt.custom.StackLayout xLayout = (org.eclipse.swt.custom.StackLayout) element.getDelegate();
 	if (isNavigation(methodName)) {

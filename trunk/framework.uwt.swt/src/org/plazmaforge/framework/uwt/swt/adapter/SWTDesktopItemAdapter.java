@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.swt.widget.XDesktop;
 import org.plazmaforge.framework.uwt.swt.widget.XDesktopItem;
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.swt.widget.XDesktopItem;
  */
 public class SWTDesktopItemAdapter extends SWTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	DesktopItem desktopItem = (DesktopItem) element;
 	XDesktop xDesktop = (XDesktop) getContent(parent.getDelegate());
 	
@@ -50,7 +50,7 @@ public class SWTDesktopItemAdapter extends SWTWidgetAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XDesktopItem xDesktopItem = (XDesktopItem) element.getDelegate();
 	if (xDesktopItem == null) {
 	    return;
@@ -66,12 +66,12 @@ public class SWTDesktopItemAdapter extends SWTWidgetAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return null;
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	//BLOCK
 	//return super.invoke(element, methodName, args);
 	return null;

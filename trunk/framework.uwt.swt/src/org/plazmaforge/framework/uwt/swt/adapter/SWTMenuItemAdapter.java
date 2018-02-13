@@ -26,7 +26,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ArmEvent;
 import org.eclipse.swt.events.ArmListener;
 import org.eclipse.swt.widgets.ToolTip;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -42,7 +42,7 @@ public class SWTMenuItemAdapter extends SWTWidgetAdapter {
     public static final String SYS_PROPETY_TOOL_TIP = "$toolTip";
     
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	
 	org.eclipse.swt.widgets.Widget xParent = (org.eclipse.swt.widgets.Widget) asWidget(parent.getDelegate());
@@ -80,7 +80,7 @@ public class SWTMenuItemAdapter extends SWTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.MenuItem xMenuItem = getMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
@@ -144,7 +144,7 @@ public class SWTMenuItemAdapter extends SWTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Widget widget = (Widget) element;
 	org.eclipse.swt.widgets.MenuItem xMenuItem = getMenuItem(element.getDelegate());
@@ -162,7 +162,7 @@ public class SWTMenuItemAdapter extends SWTWidgetAdapter {
 
 
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Widget widget = (Widget) element;
 	org.eclipse.swt.widgets.MenuItem xMenuItem = getMenuItem(element.getDelegate());

@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class SWTFillLayoutAdapter extends SWTLayoutAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.layout.FillLayout xFillLayout = new org.eclipse.swt.layout.FillLayout();
 	return xFillLayout;
     }

@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 
 public class SWTRadioButtonAdapter extends SWTButtonAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Button xButton = new org.eclipse.swt.widgets.Button(xParent, SWT.RADIO);
 	addChild(xParent, xButton, element);
@@ -38,7 +38,7 @@ public class SWTRadioButtonAdapter extends SWTButtonAdapter {
 
       
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Button xButton = getButton(element.getDelegate());
 	if (xButton == null) {

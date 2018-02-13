@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
 public class SWTMenuBarAdapter extends SWTWidgetAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	org.eclipse.swt.widgets.Decorations xParent = (org.eclipse.swt.widgets.Decorations) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Menu xMenu = new org.eclipse.swt.widgets.Menu(xParent, SWT.BAR);
@@ -43,7 +43,7 @@ public class SWTMenuBarAdapter extends SWTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Menu xMenu = getMenu(element.getDelegate());
 	if (xMenu == null) {
@@ -57,7 +57,7 @@ public class SWTMenuBarAdapter extends SWTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	org.eclipse.swt.widgets.Menu xMenu = getMenu(element.getDelegate());
 	if (xMenu == null) {

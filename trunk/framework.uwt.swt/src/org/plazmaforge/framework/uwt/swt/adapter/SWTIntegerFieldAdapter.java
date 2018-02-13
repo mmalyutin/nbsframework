@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.widget.XIntegerField;
 import org.plazmaforge.framework.uwt.widget.NumberField;
 
 public class SWTIntegerFieldAdapter extends SWTNumberFieldAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XIntegerField xIntegerField = new XIntegerField(xParent, SWT.BORDER);
 	addChild(xParent, xIntegerField, element);
@@ -42,7 +42,7 @@ public class SWTIntegerFieldAdapter extends SWTNumberFieldAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	XIntegerField xIntegerField = getIntegerField(element.getDelegate());
 	if (xIntegerField == null) {
@@ -59,7 +59,7 @@ public class SWTIntegerFieldAdapter extends SWTNumberFieldAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	XIntegerField xIntegerField = getIntegerField(element.getDelegate());
 	if (xIntegerField == null) {
 	    return null;

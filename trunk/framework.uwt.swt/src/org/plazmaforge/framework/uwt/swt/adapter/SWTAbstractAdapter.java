@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -54,11 +54,11 @@ public abstract class SWTAbstractAdapter extends AbstractUIAdapter {
 	return SWTHelper.getFont(font);
     }
 
-    protected org.eclipse.swt.graphics.Image createImage(UIObject element, Image image) {
+    protected org.eclipse.swt.graphics.Image createImage(UIElement element, Image image) {
 	return SWTHelper.createImage(element, image);
     }
 
-    protected org.eclipse.swt.graphics.Image createImage(UIObject element, String path) {
+    protected org.eclipse.swt.graphics.Image createImage(UIElement element, String path) {
 	return SWTHelper.createImage(element, path);	
     }
     

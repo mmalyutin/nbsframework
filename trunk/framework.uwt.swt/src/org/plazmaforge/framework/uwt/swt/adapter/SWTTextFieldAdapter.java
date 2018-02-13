@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.widget.XTextField;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextField;
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.TextField;
 public class SWTTextFieldAdapter extends SWTControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XTextField xTextField = new XTextField(xParent, SWT.BORDER);
 	xTextField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
@@ -50,7 +50,7 @@ public class SWTTextFieldAdapter extends SWTControlAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XTextField xTextField = getTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return;
@@ -64,7 +64,7 @@ public class SWTTextFieldAdapter extends SWTControlAdapter {
 
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	XTextField xTextField = getTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return null;

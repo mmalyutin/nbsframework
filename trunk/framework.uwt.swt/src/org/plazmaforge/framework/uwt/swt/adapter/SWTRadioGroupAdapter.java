@@ -24,13 +24,13 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 
 public class SWTRadioGroupAdapter extends SWTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	
 	// To emulate RadioGroup we use Composite
@@ -42,7 +42,7 @@ public class SWTRadioGroupAdapter extends SWTContainerAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Composite xRadioGroup = (org.eclipse.swt.widgets.Composite) element.getDelegate();
 	if (xRadioGroup == null) {

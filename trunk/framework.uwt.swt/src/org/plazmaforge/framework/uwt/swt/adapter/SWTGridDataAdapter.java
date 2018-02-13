@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
@@ -33,7 +33,7 @@ public class SWTGridDataAdapter extends SWTLayoutDataAdapter {
 
     
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
    	GridData layoutData = (GridData) element;   
    	org.eclipse.swt.layout.GridData xLayoutData = new org.eclipse.swt.layout.GridData();
@@ -58,7 +58,7 @@ public class SWTGridDataAdapter extends SWTLayoutDataAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 
 	org.eclipse.swt.layout.GridData xLayoutData = getXGridData(element.getDelegate());
 	if (xLayoutData == null) {

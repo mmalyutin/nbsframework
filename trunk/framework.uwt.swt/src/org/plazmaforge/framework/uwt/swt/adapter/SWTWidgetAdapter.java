@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
@@ -132,7 +132,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
 	return (org.eclipse.swt.widgets.Composite) delegate;
     }
     
-    protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Widget xWidget, UIObject element) {
+    protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Widget xWidget, UIElement element) {
 	//do nothing
     }
 
@@ -147,7 +147,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
     
     
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Widget widget = asWidget(element.getDelegate());
 	if (!widget.isDisposed()) {
 	    widget.dispose();
@@ -155,7 +155,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.widgets.Widget widget = asWidget(element.getDelegate());
 	if (widget == null) {
 	    return;
@@ -174,7 +174,7 @@ public abstract class SWTWidgetAdapter extends SWTAbstractAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return super.getProperty(element, name);
     }
     

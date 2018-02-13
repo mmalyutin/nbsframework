@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
  */
 public class SWTTitlePanelAdapter extends SWTPanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	TitlePanel titlePanel = (TitlePanel) element;
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	
@@ -59,7 +59,7 @@ public class SWTTitlePanelAdapter extends SWTPanelAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.nebula.widgets.pgroup.PGroup xTitlePanel = (org.eclipse.swt.nebula.widgets.pgroup.PGroup) element.getDelegate();
 	if (xTitlePanel == null) {
 	    return;

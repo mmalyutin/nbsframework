@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.ToggleButton;
 
 public class SWTToggleButtonAdapter extends SWTButtonAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	ToggleButton toggleButton = (ToggleButton) element;
 	
@@ -47,7 +47,7 @@ public class SWTToggleButtonAdapter extends SWTButtonAdapter {
 
       
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Button xButton = getButton(element.getDelegate());
 	if (xButton == null) {

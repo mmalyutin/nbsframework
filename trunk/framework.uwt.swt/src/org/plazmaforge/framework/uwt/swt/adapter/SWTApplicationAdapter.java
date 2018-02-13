@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.Application;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -34,7 +34,7 @@ public class SWTApplicationAdapter extends AbstractUIAdapter {
     private static final String SYS_PRESTART = "prestart"; 
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	Application application = (Application) element;
 	
@@ -59,17 +59,17 @@ public class SWTApplicationAdapter extends AbstractUIAdapter {
     }
     
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return null;
     }
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Application application = (Application) element;
 	if (Application.METHOD_PRESTART.equals(methodName)) {
 	    prestart(application); 
@@ -98,7 +98,7 @@ public class SWTApplicationAdapter extends AbstractUIAdapter {
 
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
     }
     
     

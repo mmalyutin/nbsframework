@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 
 /**
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
  */
 public class SWTGroupPanelAdapter extends SWTPanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	GroupPanel groupPanel = (GroupPanel) element;
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Group xGroupPanel = new org.eclipse.swt.widgets.Group(xParent, SWT.NONE);
@@ -44,7 +44,7 @@ public class SWTGroupPanelAdapter extends SWTPanelAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.widgets.Group xGroupPanel = (org.eclipse.swt.widgets.Group) element.getDelegate();
 	if (xGroupPanel == null) {
 	    return;
