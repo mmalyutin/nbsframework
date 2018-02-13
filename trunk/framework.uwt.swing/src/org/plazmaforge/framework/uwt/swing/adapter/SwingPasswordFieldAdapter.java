@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XPasswordField;
 import org.plazmaforge.framework.uwt.widget.IField;
 
 public class SwingPasswordFieldAdapter extends SwingTextFieldAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XPasswordField xPasswordField = new XPasswordField();
 	xPasswordField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);

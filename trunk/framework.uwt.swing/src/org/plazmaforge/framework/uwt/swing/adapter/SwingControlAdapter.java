@@ -26,7 +26,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swing.layout.XCardLayout;
 import org.plazmaforge.framework.uwt.swing.util.SwingLayoutUtils;
@@ -50,7 +50,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
      * @param xElement
      * @param element
      */
-    protected void addChild(java.awt.Container xParent, java.awt.Component xElement, UIObject element) {
+    protected void addChild(java.awt.Container xParent, java.awt.Component xElement, UIElement element) {
 	
 	checkNullParent(xParent, MESSAGE_CANT_ADD_WIDGET);
 	checkContainerParent(xParent, MESSAGE_CANT_ADD_WIDGET);
@@ -95,7 +95,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	xParent.add(xElement);
     }
     
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	java.awt.Component xElement = asComponent(element.getDelegate());
 	if (xParent != null) {
@@ -104,7 +104,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	
 	
@@ -159,7 +159,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
 	    
 	    return;
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
-	    UIObject layoutData = (UIObject) value;
+	    UIElement layoutData = (UIElement) value;
 	    
 	    Object xLayoutData = null;
 	    if (layoutData != null) {
@@ -222,7 +222,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	
 	java.awt.Component xControl = asComponent(element.getDelegate());
 	if (xControl == null) {
@@ -241,7 +241,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
  
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	java.awt.Component xControl = getViewComponent(element.getDelegate());
@@ -288,7 +288,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	java.awt.Component xControl = getViewComponent(element.getDelegate());
@@ -335,7 +335,7 @@ public abstract class SwingControlAdapter extends SwingWidgetAdapter {
     }
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	if (Control.METHOD_REPAINT.equals(methodName)) {
 	    java.awt.Component xControl = getViewComponent(element.getDelegate());
 	    if (xControl == null) {

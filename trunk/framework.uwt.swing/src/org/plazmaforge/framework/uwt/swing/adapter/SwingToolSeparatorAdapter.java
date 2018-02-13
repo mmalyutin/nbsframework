@@ -25,7 +25,7 @@
  */
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * @author ohapon
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  */
 public class SwingToolSeparatorAdapter extends SwingControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	javax.swing.JToolBar xToolBar = (javax.swing.JToolBar) getContent(parent.getDelegate());
 	

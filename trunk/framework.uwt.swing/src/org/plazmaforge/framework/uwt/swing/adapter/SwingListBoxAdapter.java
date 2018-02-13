@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import javax.swing.JScrollPane;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingListCellRenderer;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingListModel;
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 public class SwingListBoxAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	ListBox listBox = (ListBox) element;
 	XList xListBox = new XList(new SwingListModel(listBox));
@@ -59,7 +59,7 @@ public class SwingListBoxAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JList xListBox = getJList(element.getDelegate());
 	if (xListBox == null) {
@@ -88,7 +88,7 @@ public class SwingListBoxAdapter extends SwingControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	javax.swing.JList xListBox = getJList(element.getDelegate());
 	if (xListBox == null) {
 	    return null;
@@ -104,7 +104,7 @@ public class SwingListBoxAdapter extends SwingControlAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	javax.swing.JList xList = getJList(element.getDelegate());
 	if (xList == null) {
@@ -125,7 +125,7 @@ public class SwingListBoxAdapter extends SwingControlAdapter {
     
     
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	javax.swing.JList xListBox = getJList(element.getDelegate());
 	if (xListBox == null) {

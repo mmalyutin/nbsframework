@@ -25,14 +25,14 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 import java.awt.FlowLayout;
 
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SwingRadioGroupAdapter extends SwingContainerAdapter {
 
     public static final String SYS_PROPERTY_GROUP = "$group"; 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	// Create Swing ButtonGroup
 	javax.swing.ButtonGroup group = new javax.swing.ButtonGroup();
@@ -49,7 +49,7 @@ public class SwingRadioGroupAdapter extends SwingContainerAdapter {
 
        
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	java.awt.Container xRadioGroup = (java.awt.Container) element.getDelegate();
 	if (xRadioGroup == null) {

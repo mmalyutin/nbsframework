@@ -29,7 +29,7 @@ import javax.swing.WindowConstants;
 
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Frame;
@@ -46,7 +46,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 public class SwingWindowAdapter extends SwingContainerAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Object xParent = parent == null ? null : parent.getDelegate();
 	Window window = (Window) element;
 	if (window.isModal()) {
@@ -140,7 +140,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
 	});
     }
 
-    protected void setWindowProperty(java.awt.Window xWindow, UIObject element, String name, Object value) {
+    protected void setWindowProperty(java.awt.Window xWindow, UIElement element, String name, Object value) {
 	if (xWindow == null) {
 	    return;
 	}
@@ -156,7 +156,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
 	setCommonProperty(xWindow, element, name, value);
     }
 
-    protected void setCommonProperty(java.awt.Window xWindow, UIObject element, String name, Object value) {
+    protected void setCommonProperty(java.awt.Window xWindow, UIElement element, String name, Object value) {
 	if (xWindow == null) {
 	    return;
 	}
@@ -180,7 +180,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
     }
     
     
-    protected void setFrameProperty(javax.swing.JFrame xFrame, UIObject element, String name, Object value) {
+    protected void setFrameProperty(javax.swing.JFrame xFrame, UIElement element, String name, Object value) {
 	if (xFrame == null) {
 	    return;
 	}
@@ -199,7 +199,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
 	setCommonProperty(xFrame, element, name, value);
     }
 
-    public void setDialogProperty(javax.swing.JDialog xDialog, UIObject element, String name, Object value) {
+    public void setDialogProperty(javax.swing.JDialog xDialog, UIElement element, String name, Object value) {
 	if (xDialog == null) {
 	    return;
 	}
@@ -219,7 +219,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	return invokeWindow((Window) element, (java.awt.Window) element.getDelegate(), methodName, args);
     }
 
@@ -289,7 +289,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
     
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	setWindowProperty((java.awt.Window) delegate, element, name, value);
     }
@@ -297,7 +297,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
     
 
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Window window = (Window) element;
 	java.awt.Window xWindow = (java.awt.Window) element.getDelegate();
 	if (xWindow == null) {
@@ -327,7 +327,7 @@ public class SwingWindowAdapter extends SwingContainerAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Window window = (Window) element;
 	java.awt.Window xWindow = (java.awt.Window) element.getDelegate();
 	if (xWindow == null) {

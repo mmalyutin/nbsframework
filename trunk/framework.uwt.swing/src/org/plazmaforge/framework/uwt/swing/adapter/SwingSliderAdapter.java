@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.SpinnerField;
 
 public class SwingSliderAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JSlider xSlider = new  javax.swing.JSlider();
 	addChild(xParent, xSlider, element);	
@@ -40,7 +40,7 @@ public class SwingSliderAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	javax.swing.JSlider xSlider = getSlider(element.getDelegate());
 	if (xSlider == null) {
 	    return;
@@ -53,7 +53,7 @@ public class SwingSliderAdapter extends SwingControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	javax.swing.JSlider xSlider = getSlider(element.getDelegate());
 	if (xSlider == null) {
 	    return null;

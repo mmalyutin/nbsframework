@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTableModel;
 import org.plazmaforge.framework.uwt.widget.table.TableItem;
 
@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.widget.table.TableItem;
 public class SwingTableItemAdapter extends SwingWidgetAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	/*
 	javax.swing.JTable xParent = getJTable(parent.getDelegate());

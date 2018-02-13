@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
 public class SwingSplitPanelAdapter extends SwingContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	SplitPanel p = (SplitPanel) element;
 	int orientation = getSplitOrientation(p.getOrientation());
@@ -38,7 +38,7 @@ public class SwingSplitPanelAdapter extends SwingContainerAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 
 	java.awt.Container xComposite = (java.awt.Container) element.getDelegate();
 	if (xComposite == null) {

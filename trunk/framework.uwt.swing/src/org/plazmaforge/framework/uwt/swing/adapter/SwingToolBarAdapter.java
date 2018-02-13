@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SwingToolBarAdapter extends SwingContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
    	javax.swing.JToolBar xToolBar = new javax.swing.JToolBar();
@@ -37,7 +37,7 @@ public class SwingToolBarAdapter extends SwingContainerAdapter {
    }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JToolBar xToolBar = (javax.swing.JToolBar) element.getDelegate();
 	if (xToolBar == null) {

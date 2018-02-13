@@ -22,11 +22,11 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class SwingFitLayoutAdapter extends SwingLayoutAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	java.awt.BorderLayout xLayout = new java.awt.BorderLayout();
 	

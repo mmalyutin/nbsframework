@@ -22,11 +22,11 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class SwingGridLayoutAdapter extends SwingLayoutAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	//GridLayout layout = (GridLayout) element;
 	//java.awt.Container owner = (java.awt.Container) layout.getData(SwingLayoutAdapter.SYS_PROPERTY_OWNER);

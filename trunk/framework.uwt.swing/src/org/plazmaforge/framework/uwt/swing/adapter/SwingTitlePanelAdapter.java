@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XTitlePanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 public class SwingTitlePanelAdapter extends SwingPanelAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	TitlePanel titlePanel = (TitlePanel) element;
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XTitlePanel xTitlePanel = new XTitlePanel();
@@ -48,7 +48,7 @@ public class SwingTitlePanelAdapter extends SwingPanelAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XTitlePanel xTitlePanel = (XTitlePanel) element.getDelegate();
 	if (xTitlePanel == null) {
 	    return;

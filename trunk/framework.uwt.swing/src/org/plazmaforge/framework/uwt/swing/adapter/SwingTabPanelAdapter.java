@@ -23,12 +23,12 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
 public class SwingTabPanelAdapter extends SwingContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	java.awt.Container xParent = getContent(parent.getDelegate());
    	
    	javax.swing.JTabbedPane xTabPanel = new javax.swing.JTabbedPane();
@@ -38,7 +38,7 @@ public class SwingTabPanelAdapter extends SwingContainerAdapter {
    }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	javax.swing.JTabbedPane xTabPanel = (javax.swing.JTabbedPane) element.getDelegate();
  	if (xTabPanel == null) {
  	    return null;

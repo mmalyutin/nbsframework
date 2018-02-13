@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XCollapsePanel;
 import org.plazmaforge.framework.uwt.widget.panel.CollapsePanel;
 
 
 public class SwingCollapsePanelAdapter extends SwingTitlePanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	CollapsePanel collpasePanel = (CollapsePanel) element;
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	XCollapsePanel xCollapsePanel = new XCollapsePanel();

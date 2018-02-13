@@ -25,7 +25,7 @@
  */
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * @author ohapon
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  */
 public class SwingMenuSeparatorAdapter extends SwingWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	Object xParent = parent.getDelegate();
 	javax.swing.JSeparator xMenuSeparator = null;

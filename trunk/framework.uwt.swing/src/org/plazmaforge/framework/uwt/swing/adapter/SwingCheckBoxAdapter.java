@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 
 public class SwingCheckBoxAdapter extends SwingButtonAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	javax.swing.JCheckBox xCheckBox = new javax.swing.JCheckBox();
 	addChild(xParent, xCheckBox, element);
@@ -40,7 +40,7 @@ public class SwingCheckBoxAdapter extends SwingButtonAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	javax.swing.JCheckBox xCheckBox = getCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return;
@@ -54,7 +54,7 @@ public class SwingCheckBoxAdapter extends SwingButtonAdapter {
     
    
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	javax.swing.JCheckBox xCheckBox = getCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return null;

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.ToggleButton;
 
@@ -30,7 +30,7 @@ public class SwingToggleButtonAdapter extends SwingButtonAdapter {
 
     public static final String SYS_GROUP_KEY = "$group"; 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	ToggleButton toggleButton = (ToggleButton) element;
 		
@@ -65,7 +65,7 @@ public class SwingToggleButtonAdapter extends SwingButtonAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JToggleButton xToogleButton = getJToggleButton(element.getDelegate());
 	if (xToogleButton == null) {
@@ -75,7 +75,7 @@ public class SwingToggleButtonAdapter extends SwingButtonAdapter {
 	    xToogleButton.setSelected(asBoolean(value));
 	    return;
 	} else if (Button.PROPERTY_GROUP.equals(name)) {
-	    UIObject parent = element.getUIParent();
+	    UIElement parent = element.getUIParent();
 	    String groupName = asString(value);
 	    String groupKey = getGroupKey(groupName);
 

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XGroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
  */
 public class SwingGroupPanelAdapter extends SwingPanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	GroupPanel groupPanel = (GroupPanel) element;
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XGroupPanel xGroupPanel = new XGroupPanel();
@@ -44,7 +44,7 @@ public class SwingGroupPanelAdapter extends SwingPanelAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XGroupPanel xGroupPanel = (XGroupPanel) element.getDelegate();
 	if (xGroupPanel == null) {
 	    return;

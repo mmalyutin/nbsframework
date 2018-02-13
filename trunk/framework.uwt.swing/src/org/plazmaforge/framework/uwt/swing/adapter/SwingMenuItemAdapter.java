@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
  */
 public class SwingMenuItemAdapter extends SwingWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	
 	Object xParent = parent.getDelegate();
@@ -87,7 +87,7 @@ public class SwingMenuItemAdapter extends SwingWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JMenuItem xMenuItem = getMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
@@ -121,7 +121,7 @@ public class SwingMenuItemAdapter extends SwingWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
 	javax.swing.JMenuItem xMenuItem = getMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
@@ -137,7 +137,7 @@ public class SwingMenuItemAdapter extends SwingWidgetAdapter {
     }
 
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
 	javax.swing.JMenuItem xMenuItem = getMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
