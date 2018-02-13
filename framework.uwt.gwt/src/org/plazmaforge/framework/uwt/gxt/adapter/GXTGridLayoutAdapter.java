@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 
 public class GXTGridLayoutAdapter extends GXTLayoutAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	GridLayout layout = (GridLayout) element;  
 	XGridLayout xLayout = new XGridLayout(layout.getColumnCount());
 	

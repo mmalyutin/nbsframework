@@ -21,12 +21,12 @@
  */
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 public class GWTLabelAdapter extends GWTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Panel parentDelegate = (com.google.gwt.user.client.ui.Panel) getParentContent(parent.getDelegate());
 	com.google.gwt.user.client.ui.Label delegate = new com.google.gwt.user.client.ui.Label();
 	parentDelegate.add(delegate); // Add to parent
@@ -38,7 +38,7 @@ public class GWTLabelAdapter extends GWTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.google.gwt.user.client.ui.Label label = getLabel(element.getDelegate());
 	if (label == null) {

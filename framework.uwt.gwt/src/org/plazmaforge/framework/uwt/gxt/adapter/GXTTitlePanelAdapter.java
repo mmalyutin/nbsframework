@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.widget.XContentPanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TitlePanel;
 
 public class GXTTitlePanelAdapter extends GXTPanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	TitlePanel titlePanel = (TitlePanel) element;
 	XContentPanel xTitlePanel = new XContentPanel();
 	xTitlePanel.setAnimCollapse(false);
@@ -44,7 +44,7 @@ public class GXTTitlePanelAdapter extends GXTPanelAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XContentPanel xTitlePanel = (XContentPanel) element.getDelegate();
 	if (xTitlePanel == null) {
 	    return;

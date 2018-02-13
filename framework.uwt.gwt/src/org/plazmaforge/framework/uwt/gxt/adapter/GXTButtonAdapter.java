@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Button;
@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
 public class GXTButtonAdapter extends GXTControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.button.Button xButton = new com.extjs.gxt.ui.client.widget.button.Button();
 	
 	Button button = (Button) element;
@@ -64,7 +64,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.button.Button xButton = getButton(element.getDelegate());
 	if (xButton == null) {
@@ -104,7 +104,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.button.Button xButton = getButton(element.getDelegate());
 	if (xButton == null) {
@@ -120,7 +120,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.button.Button xButton = getButton(element.getDelegate());
 	if (xButton == null) {

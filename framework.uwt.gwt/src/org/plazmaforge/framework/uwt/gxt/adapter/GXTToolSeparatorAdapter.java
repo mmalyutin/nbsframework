@@ -25,7 +25,7 @@
  */
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * @author ohapon
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  */
 public class GXTToolSeparatorAdapter extends GXTControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.toolbar.ToolBar xParent = (com.extjs.gxt.ui.client.widget.toolbar.ToolBar) parent.getDelegate();
 	com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem xToolSeparator = new com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem();
 	xParent.add(xToolSeparator); // Add to parent

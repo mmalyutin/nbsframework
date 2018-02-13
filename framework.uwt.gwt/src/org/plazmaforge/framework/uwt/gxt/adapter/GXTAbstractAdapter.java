@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -69,11 +69,11 @@ public abstract class GXTAbstractAdapter extends AbstractUIAdapter {
 	return  GXTHelper.getFontStyle(font);
     }
 
-    protected AbstractImagePrototype createImage(UIObject element, Image image) {
+    protected AbstractImagePrototype createImage(UIElement element, Image image) {
 	return GXTHelper.createImage(element, image);
     }
 
-    protected AbstractImagePrototype createImage(UIObject element, String path) {
+    protected AbstractImagePrototype createImage(UIElement element, String path) {
 	return GXTHelper.createImage(element, path);
     }
     

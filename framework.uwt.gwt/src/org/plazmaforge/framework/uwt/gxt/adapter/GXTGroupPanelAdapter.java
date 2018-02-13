@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.widget.XGroupPanel;
 import org.plazmaforge.framework.uwt.widget.panel.GroupPanel;
 
 public class GXTGroupPanelAdapter extends GXTPanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	GroupPanel groupPanel = (GroupPanel) element;
 	XGroupPanel xGroupPanel = new XGroupPanel();
 	xGroupPanel.setTitle(asSafeString(groupPanel.getTitle()));
@@ -38,7 +38,7 @@ public class GXTGroupPanelAdapter extends GXTPanelAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XGroupPanel xGroupPanel = (XGroupPanel) element.getDelegate();
 	if (xGroupPanel == null) {
 	    return;

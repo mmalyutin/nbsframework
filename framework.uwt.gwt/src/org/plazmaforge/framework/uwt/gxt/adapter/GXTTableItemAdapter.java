@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.table.TableItem;
 
 import com.extjs.gxt.ui.client.data.ModelData;
@@ -34,7 +34,7 @@ import com.extjs.gxt.ui.client.data.ModelData;
 public class GXTTableItemAdapter extends GXTWidgetAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	// DISABLE
 	/*
 	TableItem row = (TableItem) element;
@@ -51,7 +51,7 @@ public class GXTTableItemAdapter extends GXTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	// Do nothing because we use native element
     }
 

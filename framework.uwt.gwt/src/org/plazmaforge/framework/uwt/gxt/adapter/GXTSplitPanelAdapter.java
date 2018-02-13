@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
@@ -30,7 +30,7 @@ import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 
 public class GXTSplitPanelAdapter extends GXTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	LayoutContainer xSplitPanel = new LayoutContainer();
 	xSplitPanel.setLayout(new BorderLayout());
 	addToParent(getContent(parent.getDelegate()), xSplitPanel, element);
@@ -40,7 +40,7 @@ public class GXTSplitPanelAdapter extends GXTCompositeAdapter {
   
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	Object delegate = element.getDelegate();
 	if (delegate == null) {

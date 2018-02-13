@@ -25,7 +25,7 @@
  */
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 
 /**
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  */
 public class GXTMenuSeparatorAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	com.extjs.gxt.ui.client.widget.menu.Menu xMenu = (com.extjs.gxt.ui.client.widget.menu.Menu) parent.getDelegate();
 	com.extjs.gxt.ui.client.widget.menu.SeparatorMenuItem xMenuItem = new com.extjs.gxt.ui.client.widget.menu.SeparatorMenuItem();

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
 public class GXTMenuAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	com.google.gwt.user.client.ui.Widget xWidget = getWidget(parent.getDelegate());
 

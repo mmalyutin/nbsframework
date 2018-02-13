@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.util.StringUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -262,7 +262,7 @@ public class GXTHelper {
     }
 
 
-    public static AbstractImagePrototype createImage(UIObject element, Image image) {
+    public static AbstractImagePrototype createImage(UIElement element, Image image) {
 	if (image == null) {
 	    return null;
 	}
@@ -270,7 +270,7 @@ public class GXTHelper {
 	return createImage(element, path);
     }
 
-    public static AbstractImagePrototype createImage(UIObject element, String path) {
+    public static AbstractImagePrototype createImage(UIElement element, String path) {
 	if (path == null) {
 	    return null;
 	}

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 import org.plazmaforge.framework.uwt.widget.tree.TreeItem;
 
@@ -32,7 +32,7 @@ import com.extjs.gxt.ui.client.data.ModelData;
 public class GXTTreeItemAdapter extends GXTWidgetAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	/*
 	TreeItem item  = (TreeItem) element;
@@ -66,7 +66,7 @@ public class GXTTreeItemAdapter extends GXTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	// Do nothing because we use native element
     }
 

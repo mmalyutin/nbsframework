@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -40,7 +40,7 @@ import com.google.gwt.dom.client.NativeEvent;
 public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 
 
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	
     }
 
@@ -94,7 +94,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.extjs.gxt.ui.client.widget.Component xWidget = (com.extjs.gxt.ui.client.widget.Component) getComponent(element.getDelegate());
 	if (xWidget == null) {
 	    return;
@@ -115,7 +115,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return super.getProperty(element, name);
     }
 

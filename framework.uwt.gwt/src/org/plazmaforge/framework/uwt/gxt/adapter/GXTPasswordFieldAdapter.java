@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.IField;
 
 public class GXTPasswordFieldAdapter extends GXTTextFieldAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	com.extjs.gxt.ui.client.widget.form.TextField<String> xPasswordField = new com.extjs.gxt.ui.client.widget.form.TextField<String>();
    	xPasswordField.setPassword(true);
    	xPasswordField.setWidth(IField.DEFAULT_TEXT_WIDTH);

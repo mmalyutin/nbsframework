@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.SpinnerField;
 
 import com.google.gwt.i18n.client.NumberFormat;
 
 public class GXTSpinnerFieldAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	SpinnerField spinnerField = (SpinnerField) element;
 	
@@ -62,7 +62,7 @@ public class GXTSpinnerFieldAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.form.SpinnerField xSpinner = getSpinnerField(element.getDelegate());
 	if (xSpinner == null) {
@@ -78,7 +78,7 @@ public class GXTSpinnerFieldAdapter extends GXTControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.extjs.gxt.ui.client.widget.form.SpinnerField xSpinner = getSpinnerField(element.getDelegate());
 	if (xSpinner == null) {
 	    return null;

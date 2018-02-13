@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.widget.Container;
 
@@ -30,7 +30,7 @@ import com.extjs.gxt.ui.client.widget.LayoutContainer;
 
 public class GXTCoolBarAdapter extends GXTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	LayoutContainer xCoolBar = new LayoutContainer();
 
 	// TODO: STUB: Must use special HorizontalLayout
@@ -45,7 +45,7 @@ public class GXTCoolBarAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	Object delegate = element.getDelegate();
 	if (delegate == null) {

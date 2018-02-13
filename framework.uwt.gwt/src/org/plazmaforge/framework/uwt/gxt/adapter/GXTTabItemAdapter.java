@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
 public class GXTTabItemAdapter extends GXTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	com.extjs.gxt.ui.client.widget.TabPanel xParent = (com.extjs.gxt.ui.client.widget.TabPanel) parent.getDelegate();
 	com.extjs.gxt.ui.client.widget.TabItem xTabItem = new  com.extjs.gxt.ui.client.widget.TabItem();
@@ -44,7 +44,7 @@ public class GXTTabItemAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.TabItem xTabItem = (com.extjs.gxt.ui.client.widget.TabItem) element.getDelegate();
 	if (xTabItem == null) {

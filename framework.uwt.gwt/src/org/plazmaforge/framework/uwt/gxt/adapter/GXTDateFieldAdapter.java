@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.DateField;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 public class GXTDateFieldAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.form.DateField xDateField = new com.extjs.gxt.ui.client.widget.form.DateField();
 	addToParent(getContent(parent.getDelegate()), xDateField, element); // Add to parent
 	return xDateField;
@@ -40,7 +40,7 @@ public class GXTDateFieldAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.extjs.gxt.ui.client.widget.form.DateField xDateField = getDateField(element.getDelegate());
 	if (xDateField == null) {
 	    return;
@@ -58,7 +58,7 @@ public class GXTDateFieldAdapter extends GXTControlAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.extjs.gxt.ui.client.widget.form.DateField xDateField = getDateField(element.getDelegate());
 	if (xDateField == null) {
 	    return null;

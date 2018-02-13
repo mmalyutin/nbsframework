@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.layout.CardLayout;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Layout;
 public class GXTCardLayoutAdapter extends GXTLayoutAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	CardLayout layout = (CardLayout) element;
 	com.extjs.gxt.ui.client.widget.layout.CardLayout xLayout = new com.extjs.gxt.ui.client.widget.layout.CardLayout();
 	
@@ -46,14 +46,14 @@ public class GXTCardLayoutAdapter extends GXTLayoutAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	//TODO
 	super.setProperty(element, name, value);
 	
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Layout layout = (Layout) element;
 	com.extjs.gxt.ui.client.widget.layout.CardLayout xLayout = (com.extjs.gxt.ui.client.widget.layout.CardLayout) element.getDelegate();
 	if (isNavigation(methodName)) {

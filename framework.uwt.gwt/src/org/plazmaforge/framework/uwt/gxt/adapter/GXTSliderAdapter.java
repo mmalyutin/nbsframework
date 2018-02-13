@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Slider;
 
 public class GXTSliderAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.Slider xSlider = new com.extjs.gxt.ui.client.widget.Slider();
 	com.extjs.gxt.ui.client.widget.form.SliderField xSliderField = new com.extjs.gxt.ui.client.widget.form.SliderField(xSlider);
 	addToParent(getContent(parent.getDelegate()), xSliderField, element); // Add to parent
@@ -39,7 +39,7 @@ public class GXTSliderAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.extjs.gxt.ui.client.widget.form.SliderField xSliderField = getSliderField(element.getDelegate());
 	if (xSliderField == null) {
 	    return;
@@ -53,7 +53,7 @@ public class GXTSliderAdapter extends GXTControlAdapter {
 
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.extjs.gxt.ui.client.widget.form.SliderField xSliderField = getSliderField(element.getDelegate());
 	if (xSliderField == null) {
 	    return null;

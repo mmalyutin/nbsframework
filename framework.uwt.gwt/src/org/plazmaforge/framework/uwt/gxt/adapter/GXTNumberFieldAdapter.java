@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.NumberField;
 
 import com.google.gwt.i18n.client.NumberFormat;
 
 public class GXTNumberFieldAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.form.NumberField xNumberField = createNumberField();
 	//delegate.setStyleAttribute("align", "right");
 	addToParent(getContent(parent.getDelegate()), xNumberField, element); // Add to parent
@@ -47,7 +47,7 @@ public class GXTNumberFieldAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.extjs.gxt.ui.client.widget.form.NumberField xNumberField = getNumberField(element.getDelegate());
 	if (xNumberField == null) {
 	    return;
@@ -68,7 +68,7 @@ public class GXTNumberFieldAdapter extends GXTControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.extjs.gxt.ui.client.widget.form.NumberField xNumberField = getNumberField(element.getDelegate());
 	if (xNumberField == null) {
 	    return null;

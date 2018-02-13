@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 
 public class GXTCheckBoxAdapter extends GXTControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.form.CheckBox xCheckBox = new com.extjs.gxt.ui.client.widget.form.CheckBox();
 	xCheckBox.setBoxLabel(""); // Set empty box label because we have NullPointerException if set box label late.
 	addToParent(getContent(parent.getDelegate()), xCheckBox, element);  // Add to parent
@@ -44,7 +44,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.extjs.gxt.ui.client.widget.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return;
@@ -61,7 +61,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
 
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.extjs.gxt.ui.client.widget.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
 	    return null;
@@ -86,7 +86,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
 	if (xCheckBox == null) {
@@ -102,7 +102,7 @@ public class GXTCheckBoxAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.form.CheckBox xCheckBox = getCheckBox(element.getDelegate());
 	if (xCheckBox == null) {

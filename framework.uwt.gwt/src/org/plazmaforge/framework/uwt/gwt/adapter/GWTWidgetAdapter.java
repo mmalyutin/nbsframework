@@ -23,12 +23,12 @@
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public abstract class GWTWidgetAdapter extends AbstractUIAdapter {
 
 
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	
     }
 }

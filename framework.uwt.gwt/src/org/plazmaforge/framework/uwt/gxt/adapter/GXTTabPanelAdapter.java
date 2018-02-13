@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
 import com.extjs.gxt.ui.client.widget.TabItem;
 
 public class GXTTabPanelAdapter extends GXTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.TabPanel xTabPanel = new  com.extjs.gxt.ui.client.widget.TabPanel();
 	addToParent(getContent(parent.getDelegate()), xTabPanel, element); // Add to parent. Use super method
 	return xTabPanel;
@@ -37,7 +37,7 @@ public class GXTTabPanelAdapter extends GXTCompositeAdapter {
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	com.extjs.gxt.ui.client.widget.TabPanel xTabPanel = (com.extjs.gxt.ui.client.widget.TabPanel) element.getDelegate();
  	if (xTabPanel == null) {
  	    return null;
