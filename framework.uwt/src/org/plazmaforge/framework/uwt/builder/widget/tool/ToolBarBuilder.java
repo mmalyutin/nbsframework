@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget.tool;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.builder.widget.ContainerBuilder;
 import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 public class ToolBarBuilder extends ContainerBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -51,7 +51,7 @@ public class ToolBarBuilder extends ContainerBuilder {
     }
     
     @Override
-    protected void populateBody(IData data, UIObject element) {
+    protected void populateBody(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

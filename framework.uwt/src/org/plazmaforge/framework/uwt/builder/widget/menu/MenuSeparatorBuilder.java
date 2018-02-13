@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget.menu;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.menu.MenuSeparator;
 
 /**
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuSeparator;
 public class MenuSeparatorBuilder extends MenuItemBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -46,7 +46,7 @@ public class MenuSeparatorBuilder extends MenuItemBuilder {
     }
     
     @Override
-    protected void populateItem(IData data, UIObject element) {
+    protected void populateItem(IData data, UIElement element) {
 	// do nothing
     }
 }

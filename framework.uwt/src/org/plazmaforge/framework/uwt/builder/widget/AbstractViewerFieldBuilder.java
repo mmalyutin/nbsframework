@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.IField;
 
@@ -40,16 +40,16 @@ import org.plazmaforge.framework.uwt.widget.IField;
 public abstract class AbstractViewerFieldBuilder extends AbstractFieldBuilder {
 
     
-    protected abstract void populateItems(IData data, UIObject element);
+    protected abstract void populateItems(IData data, UIElement element);
     
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	super.populate(data, element);
 	populateItems(data, element);
     }
     
     @Override
-    protected void populateValue(IData data, UIObject element) {
+    protected void populateValue(IData data, UIElement element) {
 	IField field = (IField) element;
 	populateFieldValue(data, field);
     }
@@ -58,7 +58,7 @@ public abstract class AbstractViewerFieldBuilder extends AbstractFieldBuilder {
 	return getChildrenOfNode(data, "items");
     }
     
-    protected <T> List<T> getItems(Class<T> tClass, IData data, UIObject element) {
+    protected <T> List<T> getItems(Class<T> tClass, IData data, UIElement element) {
 	List<IData> items = getDataItems(data);
 	if  (items == null) {
 	    return null;

@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.layout;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -45,7 +45,7 @@ public class BoxLayoutBuilder extends AbstractLayoutBuilder {
 	return new BoxLayout();
     }
         
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null || element == null) {
 	    return;
 	}

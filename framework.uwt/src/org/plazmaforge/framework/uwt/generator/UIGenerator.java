@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.generator.dialog.DialogGenerator;
 import org.plazmaforge.framework.uwt.generator.form.EditFormGenerator;
@@ -44,7 +44,6 @@ import org.plazmaforge.framework.uwt.generator.layout.VerticalLayoutGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.ButtonGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.CheckBoxGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.ComboBoxGenerator;
-import org.plazmaforge.framework.uwt.generator.widget.ContainerGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.CurrencyFieldGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.DateFieldGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.DateTimeFieldGenerator;
@@ -89,6 +88,11 @@ import org.plazmaforge.framework.uwt.generator.widget.tool.ToolItemGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.tool.ToolSeparatorGenerator;
 import org.plazmaforge.framework.uwt.generator.widget.tree.TreeGenerator;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class UIGenerator {
 
     
@@ -341,7 +345,7 @@ public class UIGenerator {
 	    return null;
 	}
 	String type = (String) data.get(UIBuilder.SYS_PROPERTY_TYPE);
-	String customType = (String) data.get(UIObject.PROPERTY_TYPE);
+	String customType = (String) data.get(UIElement.PROPERTY_TYPE);
 	
 	if (type == null && customType == null) {
 	    if (check) {

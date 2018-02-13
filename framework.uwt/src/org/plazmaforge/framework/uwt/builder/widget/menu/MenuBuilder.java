@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget.menu;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 public class MenuBuilder extends MenuItemBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -51,7 +51,7 @@ public class MenuBuilder extends MenuItemBuilder {
     }
     
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

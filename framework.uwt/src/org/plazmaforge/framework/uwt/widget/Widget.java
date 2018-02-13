@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.EnterEvent;
 import org.plazmaforge.framework.uwt.event.EnterListener;
@@ -52,7 +52,7 @@ import org.plazmaforge.framework.uwt.event.UWTEventListener;
  * @author ohapon
  *
  */
-public abstract class Widget extends UIObject {
+public abstract class Widget extends UIElement {
     
     
 
@@ -243,7 +243,7 @@ public abstract class Widget extends UIObject {
 	setUIParent(parent);
     }
     
-    public void setUIParent(UIObject parent) {
+    public void setUIParent(UIElement parent) {
 	if (!(parent instanceof Widget)) {
 	    throw new IllegalArgumentException("Parent must be Widget");
 	}

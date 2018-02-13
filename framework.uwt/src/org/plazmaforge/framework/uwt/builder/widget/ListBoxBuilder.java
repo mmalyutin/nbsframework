@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.ListBox;
@@ -45,7 +45,7 @@ public class ListBoxBuilder extends AbstractViewerFieldBuilder {
     }
 
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	super.populate(data, element);
 	ListBox listBox = (ListBox) element;
 	String property = getString(data, ComboBox.PROPERTY_DISPLAY_PROPERTY);
@@ -58,7 +58,7 @@ public class ListBoxBuilder extends AbstractViewerFieldBuilder {
 	}
     }   
     
-    protected void populateItems(IData data, UIObject element) {
+    protected void populateItems(IData data, UIElement element) {
 	ListBox listBox = (ListBox) element;
 	List<String> items = getItems(String.class, data, element);
 	listBox.setItems(items);

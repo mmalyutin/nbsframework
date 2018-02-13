@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget.tool;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.tool.ToolSeparator;
 
 /**
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolSeparator;
 public class ToolSeparatorBuilder extends ToolItemBuilder {
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -46,7 +46,7 @@ public class ToolSeparatorBuilder extends ToolItemBuilder {
     }
     
     @Override
-    protected void populateItem(IData data, UIObject element) {
+    protected void populateItem(IData data, UIElement element) {
 	// do nothing
     }
 

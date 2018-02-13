@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.TextBox;
 
@@ -42,7 +42,7 @@ public class TextBoxBuilder extends TextFieldBuilder {
     }
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	TextBox textBox = new TextBox();
 	populate(data, textBox);
 	return textBox;

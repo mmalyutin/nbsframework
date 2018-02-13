@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Item;
 
 /**
@@ -36,7 +36,7 @@ import org.plazmaforge.framework.uwt.widget.Item;
 public abstract class AbstractItemBuilder extends WidgetBuilder {
 
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}
@@ -46,7 +46,7 @@ public abstract class AbstractItemBuilder extends WidgetBuilder {
 	
     }
     
-    protected void populateItem(IData data, UIObject element) {
+    protected void populateItem(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

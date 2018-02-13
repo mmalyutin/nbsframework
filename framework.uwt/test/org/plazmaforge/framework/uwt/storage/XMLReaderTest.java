@@ -26,7 +26,7 @@ package org.plazmaforge.framework.uwt.storage;
 import java.io.InputStream;
 
 import org.junit.Test;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.resources.ResourceHelper;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -45,7 +45,7 @@ public class XMLReaderTest extends TestCase {
 	XMLReader reader = new XMLReader();
 	String fileName = "ui/Panel.ui.xml";
 	InputStream is = ResourceHelper.getResourceStream(fileName);
-	UIObject ui = reader.readObject(is);
+	UIElement ui = reader.readObject(is);
 	assertNotNull(ui);
 	assertTrue(ui instanceof Panel);
 	Panel panel  = (Panel) ui;

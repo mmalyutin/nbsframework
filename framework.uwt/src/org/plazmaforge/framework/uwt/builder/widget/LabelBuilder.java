@@ -23,12 +23,12 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 public class LabelBuilder extends ControlBuilder {
 
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -37,7 +37,7 @@ public class LabelBuilder extends ControlBuilder {
 	return label;
     }
     
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

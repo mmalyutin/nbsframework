@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.layout;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.AbstractBuilder;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
@@ -31,7 +31,7 @@ public abstract class AbstractLayoutBuilder extends AbstractBuilder  {
 
     protected abstract Layout createLayout(IData data);
 
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractLayoutBuilder extends AbstractBuilder  {
 	return layout;
     }    
 
-    protected void populateMargin(IData data, UIObject element) {
+    protected void populateMargin(IData data, UIElement element) {
 	if (data == null || element == null) {
 	    return;
 	}
@@ -68,7 +68,7 @@ public abstract class AbstractLayoutBuilder extends AbstractBuilder  {
 	
     }
 
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	// do nothing by default
     }    
     

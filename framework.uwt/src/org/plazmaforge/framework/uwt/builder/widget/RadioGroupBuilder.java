@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.builder.widget;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.RadioGroup;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -38,7 +38,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
 public class RadioGroupBuilder extends ContainerBuilder {
     
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -48,7 +48,7 @@ public class RadioGroupBuilder extends ContainerBuilder {
     }
 
     @Override
-    protected void populateCommon(IData data, UIObject element) {
+    protected void populateCommon(IData data, UIElement element) {
 	super.populateCommon(data, element);
 	
 	RadioGroup radioGroup = (RadioGroup) element;
@@ -82,7 +82,7 @@ public class RadioGroupBuilder extends ContainerBuilder {
     }
     
     @Override
-    protected void populateBody(IData data, UIObject element) {
+    protected void populateBody(IData data, UIElement element) {
    	RadioGroup radioGroup = (RadioGroup) element;
    	List<IData> children = getChildrenOfNode(data, RadioGroup.PROPERTY_RADIO_BUTTONS);
    	populateContentChildren(children, radioGroup);

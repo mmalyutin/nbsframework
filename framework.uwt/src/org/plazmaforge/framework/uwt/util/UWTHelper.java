@@ -22,32 +22,37 @@
 
 package org.plazmaforge.framework.uwt.util;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class UWTHelper {
 
     
-    public static String getFormat(UIObject element, String name) {
+    public static String getFormat(UIElement element, String name) {
 	if (element == null || name == null) {
 	    return null;
 	}
 	return element.getConfigProperty(name);
     }
     
-    public static String getDateFormat(UIObject element) {
-	return getFormat(element,UIObject.CONFIG_FORMAT_DATE);
+    public static String getDateFormat(UIElement element) {
+	return getFormat(element,UIElement.CONFIG_FORMAT_DATE);
     }
     
-    public static String getDateTimeFormat(UIObject element) {
-	return getFormat(element,UIObject.CONFIG_FORMAT_DATE_TIME);
+    public static String getDateTimeFormat(UIElement element) {
+	return getFormat(element,UIElement.CONFIG_FORMAT_DATE_TIME);
     }
 
-    public static String getTimeFormat(UIObject element) {
-	return getFormat(element,UIObject.CONFIG_FORMAT_TIME);
+    public static String getTimeFormat(UIElement element) {
+	return getFormat(element,UIElement.CONFIG_FORMAT_TIME);
     }
 
-    public static String getNumberFormat(UIObject element) {
-	return getFormat(element,UIObject.CONFIG_FORMAT_NUMBER);
+    public static String getNumberFormat(UIElement element) {
+	return getFormat(element,UIElement.CONFIG_FORMAT_NUMBER);
     }
 
 }

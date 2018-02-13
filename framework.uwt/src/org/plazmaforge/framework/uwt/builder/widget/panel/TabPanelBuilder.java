@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.builder.widget.panel;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
@@ -46,7 +46,7 @@ public class TabPanelBuilder extends PanelBuilder {
     }
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -61,7 +61,7 @@ public class TabPanelBuilder extends PanelBuilder {
     }
 
     @Override
-    protected void populateBody(IData data, UIObject element) {
+    protected void populateBody(IData data, UIElement element) {
 	TabPanel tabPanel = (TabPanel) element;
 	populateTabContent(data, tabPanel);	
     }

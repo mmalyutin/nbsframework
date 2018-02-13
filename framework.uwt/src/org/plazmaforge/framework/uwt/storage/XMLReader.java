@@ -39,7 +39,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.builder.UIBuilderHelper;
 
@@ -214,22 +214,22 @@ public class XMLReader implements XMLInfo {
   
     ////
 
-    public UIObject readObject(String fileName) throws IOException {
+    public UIElement readObject(String fileName) throws IOException {
 	Document doc = readDocument(fileName);
 	return readObject(fileName, doc);
     }
 
-    public UIObject readObject(File file) throws IOException {
+    public UIElement readObject(File file) throws IOException {
 	Document doc = readDocument(file);
 	return readObject(file.getName(), doc);
     }
 
-    public UIObject readObject(String fileName, InputStream is) throws IOException {
+    public UIElement readObject(String fileName, InputStream is) throws IOException {
 	Document doc = readDocument(is);
 	return readObject(fileName, doc);
     }
     
-    public UIObject readObject(InputStream is) throws IOException {
+    public UIElement readObject(InputStream is) throws IOException {
 	return readObject(null, is);
     }
     
@@ -283,7 +283,7 @@ public class XMLReader implements XMLInfo {
      * @param doc
      * @return
      */
-    protected UIObject readObject(String fileName, Document doc) {
+    protected UIElement readObject(String fileName, Document doc) {
 	IData data = readData(fileName, doc);
 	return new UIBuilder().buildObject(data);
     }

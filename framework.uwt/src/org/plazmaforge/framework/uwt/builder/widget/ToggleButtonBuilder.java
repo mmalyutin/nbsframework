@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.ToggleButton;
 
 /**
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.ToggleButton;
 public class ToggleButtonBuilder extends ButtonBuilder {
 
     
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
   	if (data == null) {
   	    return null;
   	}
@@ -43,7 +43,7 @@ public class ToggleButtonBuilder extends ButtonBuilder {
   	return toggleButton;
       }
       
-      protected void populate(IData data, UIObject element) {
+      protected void populate(IData data, UIElement element) {
   	if (data == null) {
   	    return;
   	}

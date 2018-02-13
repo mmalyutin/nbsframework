@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.AbstractBuilder;
 import org.plazmaforge.framework.uwt.builder.IUIBuilder;
 
@@ -45,7 +45,7 @@ public class FieldBuilder extends AbstractBuilder {
     }
 
     @Override
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	IUIBuilder builder = getBuilder(data);
 	return builder.buildObject(data);
     }

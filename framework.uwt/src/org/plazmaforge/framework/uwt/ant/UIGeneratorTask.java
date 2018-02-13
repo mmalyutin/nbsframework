@@ -15,7 +15,7 @@ import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.util.GlobPatternMapper;
 import org.apache.tools.ant.util.SourceFileScanner;
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.generator.BaseGeneratorContext;
 import org.plazmaforge.framework.uwt.generator.UIGenerator;
@@ -254,7 +254,7 @@ public class UIGeneratorTask extends MatchingTask {
 		genFileName = genClassName;
 		
 		// Get simple class name from data
-		String className = (String) data.get(UIObject.PROPERTY_NAME);
+		String className = (String) data.get(UIElement.PROPERTY_NAME);
 		if (className != null) {
 		    className = className.trim();
 		    if  (className.isEmpty()) {

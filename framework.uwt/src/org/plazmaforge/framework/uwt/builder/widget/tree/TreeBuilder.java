@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.builder.widget.tree;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.widget.ViewerBuilder;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Viewer;
@@ -43,7 +43,7 @@ public class TreeBuilder extends ViewerBuilder {
     }
     
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}
@@ -100,7 +100,7 @@ public class TreeBuilder extends ViewerBuilder {
 	populateItems(data, element);
     }
     
-    protected void populateColumns(IData data, UIObject element) {
+    protected void populateColumns(IData data, UIElement element) {
 	Tree<?> tree = (Tree<?>) element;
 	
 	List<IData> columns = getChildrenOfNode(data, Tree.PROPERTY_COLUMNS);
@@ -128,7 +128,7 @@ public class TreeBuilder extends ViewerBuilder {
     
     
     
-    protected void populateItems(IData data, UIObject element) {
+    protected void populateItems(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

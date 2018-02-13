@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.widget;
 
 import org.plazmaforge.framework.uwt.UIAdapter;
 import org.plazmaforge.framework.uwt.UIAdapterFactory;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * Instances of this class are used to inform or warn the user.
@@ -40,7 +40,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  * @author ohapon
  *
  */
-public class MessageBox extends UIObject {
+public class MessageBox extends UIElement {
 
     ////
     

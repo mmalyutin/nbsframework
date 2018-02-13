@@ -26,7 +26,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
 
 /**
@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.widget.ImageBox;
  */
 public class ImageBoxBuilder extends ControlBuilder {
 
-    public UIObject buildObject(IData data) {
+    public UIElement buildObject(IData data) {
 	if (data == null) {
 	    return null;
 	}
@@ -44,7 +44,7 @@ public class ImageBoxBuilder extends ControlBuilder {
 	return imageBox;
     }
     
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	if (data == null) {
 	    return;
 	}

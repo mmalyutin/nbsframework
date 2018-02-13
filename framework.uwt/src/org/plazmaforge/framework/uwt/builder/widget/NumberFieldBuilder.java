@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.builder.widget;
 
 import org.plazmaforge.framework.core.data.object.IData;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.builder.UIBuilder;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.NumberField;
@@ -41,12 +41,12 @@ public class NumberFieldBuilder extends AbstractFieldBuilder {
     }
     
     @Override
-    protected void populate(IData data, UIObject element) {
+    protected void populate(IData data, UIElement element) {
 	super.populate(data, element);
 	populateFormat(data, element);
     }
 
-    protected void populateValue(IData data, UIObject element) {
+    protected void populateValue(IData data, UIElement element) {
 	NumberField numberField = (NumberField) element;
 	Float value = getFloat(data, NumberField.PROPERTY_VALUE); // TODO: May be use Number type
 	if (value != null) {
@@ -54,7 +54,7 @@ public class NumberFieldBuilder extends AbstractFieldBuilder {
 	}
     }
     
-    protected void populateFormat(IData data, UIObject element) {
+    protected void populateFormat(IData data, UIElement element) {
 	NumberField numberField = (NumberField) element;
 	String value = getString(data, NumberField.PROPERTY_FORMAT);
 	if (value != null) {
