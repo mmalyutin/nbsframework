@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -38,7 +38,7 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 public class SWTToolItemAdapter extends SWTWidgetAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	
 	org.eclipse.swt.widgets.ToolBar xToolBar = (org.eclipse.swt.widgets.ToolBar) asWidget(parent.getDelegate());
@@ -71,7 +71,7 @@ public class SWTToolItemAdapter extends SWTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.ToolItem xToolItem = getToolItem(element.getDelegate());
 	if (xToolItem == null) {
@@ -106,7 +106,7 @@ public class SWTToolItemAdapter extends SWTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Widget widget = (Widget) element;
 	org.eclipse.swt.widgets.ToolItem xToolItem = getToolItem(element.getDelegate());
@@ -124,7 +124,7 @@ public class SWTToolItemAdapter extends SWTWidgetAdapter {
     
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Widget widget = (Widget) element;
 	org.eclipse.swt.widgets.ToolItem xToolItem = getToolItem(element.getDelegate());

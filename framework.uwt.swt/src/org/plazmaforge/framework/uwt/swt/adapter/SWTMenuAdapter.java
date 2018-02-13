@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
 public class SWTMenuAdapter extends SWTWidgetAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	org.eclipse.swt.widgets.Widget xParent = parent == null ? null : (org.eclipse.swt.widgets.Widget) asWidget(parent.getDelegate());
 	Menu menu = (Menu) element;
@@ -88,7 +88,7 @@ public class SWTMenuAdapter extends SWTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	// TODO check Menu and MenuItem
 	
@@ -104,7 +104,7 @@ public class SWTMenuAdapter extends SWTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	// TODO check Menu and MenuItem
 	

@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
 import org.plazmaforge.framework.uwt.widget.Label;
@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.widget.Label;
 public class SWTImageBoxAdapter extends SWTControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Label xImageBox = new org.eclipse.swt.widgets.Label(xParent, SWT.NONE);
 	
@@ -54,7 +54,7 @@ public class SWTImageBoxAdapter extends SWTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Label xImageBox = getImageBox(element.getDelegate());
 	if (xImageBox == null) {

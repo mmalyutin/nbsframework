@@ -24,12 +24,12 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.nebula.widgets.pgroup.TwisteToggleRenderer;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.CollapsePanel;
 
 public class SWTCollapsePanelAdapter extends SWTTitlePanelAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	CollapsePanel collapsePanel = (CollapsePanel) element;
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	

@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Separator;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
 public class SWTSeparatorAdapter extends SWTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Separator separator = (Separator) element;
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	int xOrientation = 0;

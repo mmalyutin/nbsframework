@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.desktop.Desktop;
 import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.swt.widget.XDesktop;
@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.swt.widget.XDesktopItem;
 public class SWTDesktopAdapter extends SWTContainerAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	XDesktop xDesktop = new XDesktop(xParent, SWT.NONE);
 	//xDesktop.setBackgroundMode(SWT.INHERIT_DEFAULT);
@@ -42,7 +42,7 @@ public class SWTDesktopAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	XDesktop xDesktop = (XDesktop) element.getDelegate();
 	if (xDesktop == null) {
 	    return null;

@@ -28,7 +28,7 @@ import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.TreeEvent;
 import org.eclipse.swt.events.TreeListener;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTTreeContentProvider;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTTreeLabelProvider;
@@ -43,7 +43,7 @@ public class SWTTreeAdapter extends SWTContainerAdapter {
     public static final String SYS_PROPETY_TREE_VIEWER = "$treeViewer";
     
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	final Tree tree = (Tree) element;
 	
@@ -86,7 +86,7 @@ public class SWTTreeAdapter extends SWTContainerAdapter {
     }
     
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
 	// clear super method
     }
     
@@ -155,7 +155,7 @@ public class SWTTreeAdapter extends SWTContainerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Tree xTree = (org.eclipse.swt.widgets.Tree) element.getDelegate();
 	if (xTree == null) {
@@ -233,7 +233,7 @@ public class SWTTreeAdapter extends SWTContainerAdapter {
     
    
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.Tree xTree = (org.eclipse.swt.widgets.Tree) element.getDelegate();
@@ -255,7 +255,7 @@ public class SWTTreeAdapter extends SWTContainerAdapter {
     }
 
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.Tree xTree = (org.eclipse.swt.widgets.Tree) element.getDelegate();

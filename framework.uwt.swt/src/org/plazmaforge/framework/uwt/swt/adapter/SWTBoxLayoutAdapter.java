@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SWTBoxLayoutAdapter extends SWTLayoutAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	BoxLayout layout = (BoxLayout) element;
 	org.eclipse.swt.layout.RowLayout xLayout = createLayout(layout);
 	populateLayout(layout, xLayout);
@@ -56,7 +56,7 @@ public class SWTBoxLayoutAdapter extends SWTLayoutAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.layout.RowLayout xLayout = (org.eclipse.swt.layout.RowLayout) element.getDelegate();
 	if (xLayout == null) {

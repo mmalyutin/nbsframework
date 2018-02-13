@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
 /**
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
 public class SWTTabItemAdapter extends SWTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	org.eclipse.swt.widgets.TabFolder xParent = (org.eclipse.swt.widgets.TabFolder) getContent(parent.getDelegate());
    	org.eclipse.swt.widgets.TabItem xTabItem = new org.eclipse.swt.widgets.TabItem(xParent, SWT.BORDER);
    	TabItem tabItem = (TabItem) element;
@@ -64,7 +64,7 @@ public class SWTTabItemAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.TabItem xTabItem = (org.eclipse.swt.widgets.TabItem) element.getDelegate();
 	if (xTabItem == null) {
@@ -91,7 +91,7 @@ public class SWTTabItemAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
  	// clear super method
     }
 

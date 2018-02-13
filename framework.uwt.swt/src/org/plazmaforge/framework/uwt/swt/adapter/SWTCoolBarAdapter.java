@@ -27,12 +27,12 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.plazmaforge.framework.util.SystemInfo;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 public class SWTCoolBarAdapter extends SWTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
    	boolean isWindows = SystemInfo.isWindows;
    	org.eclipse.swt.widgets.CoolBar xCoolBar = new org.eclipse.swt.widgets.CoolBar(xParent, isWindows ? SWT.NONE : SWT.FLAT);
@@ -41,7 +41,7 @@ public class SWTCoolBarAdapter extends SWTContainerAdapter {
    }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.CoolBar xCoolBar = (org.eclipse.swt.widgets.CoolBar) element.getDelegate();
 	if (xCoolBar == null) {
@@ -57,7 +57,7 @@ public class SWTCoolBarAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
  	// clear super method
     }
 

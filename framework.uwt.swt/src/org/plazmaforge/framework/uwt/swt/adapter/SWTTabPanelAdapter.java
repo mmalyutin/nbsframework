@@ -23,12 +23,12 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 
 public class SWTTabPanelAdapter extends SWTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
    	org.eclipse.swt.widgets.TabFolder xTabPanel = new org.eclipse.swt.widgets.TabFolder(xParent, SWT.NONE);
    	addChild(xParent, xTabPanel, element);
@@ -36,12 +36,12 @@ public class SWTTabPanelAdapter extends SWTContainerAdapter {
    }
    
    @Override
-   public void checkDelegate(UIObject element) {
+   public void checkDelegate(UIElement element) {
 	// clear super method
    }
    
    @Override
-   public Object invoke(UIObject element, String methodName, Object[] args) {
+   public Object invoke(UIElement element, String methodName, Object[] args) {
        org.eclipse.swt.widgets.TabFolder xTabPanel = (org.eclipse.swt.widgets.TabFolder) element.getDelegate();
 	if (xTabPanel == null) {
 	    return null;

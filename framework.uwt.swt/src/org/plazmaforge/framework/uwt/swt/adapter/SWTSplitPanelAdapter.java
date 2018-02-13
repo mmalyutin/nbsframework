@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
 public class SWTSplitPanelAdapter extends SWTContainerAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	SplitPanel p = (SplitPanel) element; 
 	int style = getSplitOrientation(p.getOrientation());
@@ -40,7 +40,7 @@ public class SWTSplitPanelAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Composite xComposite = (org.eclipse.swt.widgets.Composite) element.getDelegate();
 	if (xComposite == null) {

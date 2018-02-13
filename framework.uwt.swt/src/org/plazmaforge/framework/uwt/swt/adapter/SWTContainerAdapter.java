@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.Layout;
 public class SWTContainerAdapter extends SWTControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	org.eclipse.swt.widgets.Composite xContainer = new org.eclipse.swt.widgets.Composite(xParent, SWT.NONE);
 	//xContainer.setBackgroundMode(SWT.INHERIT_DEFAULT);
@@ -60,7 +60,7 @@ public class SWTContainerAdapter extends SWTControlAdapter {
 	return xContent;
     }
 
-    public void checkDelegate(UIObject element) {
+    public void checkDelegate(UIElement element) {
 	org.eclipse.swt.widgets.Composite composite = asComposite(element.getDelegate());
 	checkLayout(composite);
     }
@@ -81,7 +81,7 @@ public class SWTContainerAdapter extends SWTControlAdapter {
 
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	org.eclipse.swt.widgets.Composite xContainer = getContent(element.getDelegate());
 	if (xContainer == null) {
@@ -123,7 +123,7 @@ public class SWTContainerAdapter extends SWTControlAdapter {
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	org.eclipse.swt.widgets.Composite xContainer = getContent(element.getDelegate());
 	if (xContainer == null) {
 	    return null;

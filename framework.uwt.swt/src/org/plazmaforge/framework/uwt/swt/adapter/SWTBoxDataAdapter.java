@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.layout.BoxData;
 import org.plazmaforge.framework.uwt.widget.Control;
 
 public class SWTBoxDataAdapter extends SWTLayoutDataAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	BoxData layoutData = (BoxData) element;   
    	org.eclipse.swt.layout.RowData xLayoutData = new org.eclipse.swt.layout.RowData();
    	//TODO

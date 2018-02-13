@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 
@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.widget.tree.Tree;
 public class SWTTreeItemAdapter extends SWTWidgetAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	if (parent instanceof Tree) {
 	    org.eclipse.swt.widgets.Tree xParent = (org.eclipse.swt.widgets.Tree) parent.getDelegate();
 	    org.eclipse.swt.widgets.TreeItem xTreeItem = new org.eclipse.swt.widgets.TreeItem(xParent, SWT.NONE);
@@ -44,7 +44,7 @@ public class SWTTreeItemAdapter extends SWTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	if (name == null) {
 	    return;
 	}

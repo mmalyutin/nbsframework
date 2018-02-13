@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.swt.layout.XFitLayout;
 
 public class SWTFitLayoutAdapter extends SWTLayoutAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	FitLayout layout = (FitLayout) element;
 	XFitLayout xLayout = new XFitLayout();

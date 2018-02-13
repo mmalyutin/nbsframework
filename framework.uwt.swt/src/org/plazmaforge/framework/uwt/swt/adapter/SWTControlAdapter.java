@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -41,7 +41,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
      * @param parent
      * @param widget
      */
-    protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Control xControl, UIObject element) {
+    protected void addChild(org.eclipse.swt.widgets.Composite xParent, org.eclipse.swt.widgets.Control xControl, UIElement element) {
 	
 	checkNullParent(xParent, MESSAGE_CANT_ADD_WIDGET);
 	checkContainerParent(xParent, MESSAGE_CANT_ADD_WIDGET);
@@ -69,7 +69,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
   
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
 	if (xControl == null) {
@@ -90,7 +90,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
 	    xControl.setSize(point);
 	    return;
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
-	    UIObject layoutData = (UIObject) value;
+	    UIElement layoutData = (UIElement) value;
 	    if (layoutData == null) {
 		xControl.setLayoutData(null);
 		return;
@@ -124,7 +124,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	Object delegate = element.getDelegate();
 	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
 	if (xControl == null) {
@@ -141,7 +141,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.Control xControl = (org.eclipse.swt.widgets.Control) element.getDelegate();
@@ -190,7 +190,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
     
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Control control = (Control) element;
 	org.eclipse.swt.widgets.Control xControl = (org.eclipse.swt.widgets.Control) element.getDelegate();
@@ -239,7 +239,7 @@ public abstract class SWTControlAdapter extends SWTWidgetAdapter {
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	if (Control.METHOD_REPAINT.equals(methodName)) {
 	    org.eclipse.swt.widgets.Control xControl = (org.eclipse.swt.widgets.Control) element.getDelegate();
 	    if (xControl == null) {

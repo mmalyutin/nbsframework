@@ -26,7 +26,7 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.swt.adapter.viewer.SWTTableLayout;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
@@ -39,7 +39,7 @@ public class SWTTableColumnAdapter extends SWTWidgetAdapter {
     public static final String SYS_PROPETY_TABLE_COLUMN = "$tableColumn";
     
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	TableColumn tableColumn = (TableColumn) element;
 	org.eclipse.swt.widgets.Table xTable = (org.eclipse.swt.widgets.Table) parent.getDelegate();
 	org.eclipse.swt.widgets.TableColumn xTableColumn = new org.eclipse.swt.widgets.TableColumn(xTable, SWT.NONE);
@@ -49,7 +49,7 @@ public class SWTTableColumnAdapter extends SWTWidgetAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.widgets.TableColumn xTableColumn = (org.eclipse.swt.widgets.TableColumn) element.getDelegate();
 	if (xTableColumn == null) {
 	    return;

@@ -26,7 +26,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swt.util.SWTUtils;
@@ -53,7 +53,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
  */
 public class SWTWindowAdapter extends SWTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	Object xParent = null;
 	if (parent != null) {
@@ -214,7 +214,7 @@ public class SWTWindowAdapter extends SWTContainerAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.widgets.Shell xWindow = (org.eclipse.swt.widgets.Shell) element.getDelegate();
 	if (xWindow == null) {
 	    return;
@@ -247,7 +247,7 @@ public class SWTWindowAdapter extends SWTContainerAdapter {
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	org.eclipse.swt.widgets.Shell xWindow = (org.eclipse.swt.widgets.Shell) element.getDelegate();
 	if (xWindow == null) {
 	    return null;
@@ -322,7 +322,7 @@ public class SWTWindowAdapter extends SWTContainerAdapter {
     
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Window window = (Window) element;
 	org.eclipse.swt.widgets.Shell xWindow = (org.eclipse.swt.widgets.Shell) element.getDelegate();
@@ -354,7 +354,7 @@ public class SWTWindowAdapter extends SWTContainerAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	
 	Window window = (Window) element;
 	org.eclipse.swt.widgets.Shell xWindow = (org.eclipse.swt.widgets.Shell) element.getDelegate();

@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.panel.ScrollPanel;
 
 /**
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.panel.ScrollPanel;
  */
 public class SWTScrollPanelAdapter extends SWTPanelAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	org.eclipse.swt.widgets.Composite xParent = (org.eclipse.swt.widgets.Composite) getContent(parent.getDelegate());
 	final org.eclipse.swt.custom.ScrolledComposite xComposite = new org.eclipse.swt.custom.ScrolledComposite(xParent, SWT.NONE | SWT.H_SCROLL | SWT.V_SCROLL);
    	org.eclipse.swt.widgets.Composite xContent = createDefaultContent(xComposite, SWT.BORDER);
@@ -85,7 +85,7 @@ public class SWTScrollPanelAdapter extends SWTPanelAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
 	if (xControl == null) {

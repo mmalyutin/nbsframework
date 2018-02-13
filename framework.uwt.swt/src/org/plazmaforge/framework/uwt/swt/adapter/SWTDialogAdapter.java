@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Window;
 
 public class SWTDialogAdapter extends SWTWindowAdapter {
@@ -36,7 +36,7 @@ public class SWTDialogAdapter extends SWTWindowAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	org.eclipse.swt.widgets.Shell xDialog = (org.eclipse.swt.widgets.Shell) element.getDelegate();
 	if (xDialog == null) {
 	    return;
