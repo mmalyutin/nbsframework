@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridData;
 import org.plazmaforge.framework.uwt.gxt.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.widget.Container;
@@ -34,7 +34,7 @@ import com.extjs.gxt.ui.client.widget.LayoutContainer;
 
 public class GXTToolBarAdapter extends GXTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	LayoutContainer xCoolBar = (LayoutContainer) parent.getDelegate();
 	XGridLayout xLayout = (XGridLayout) xCoolBar.getLayout();
@@ -71,7 +71,7 @@ public class GXTToolBarAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.toolbar.ToolBar xToolBar = (com.extjs.gxt.ui.client.widget.toolbar.ToolBar) element.getDelegate();
 	if (xToolBar == null) {

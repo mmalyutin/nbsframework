@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Color;
@@ -43,7 +43,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 
     
 
-    protected void addToParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+    protected void addToParent(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIElement element) {
 	
 	
 	
@@ -51,7 +51,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	    
 	    com.extjs.gxt.ui.client.widget.LayoutContainer layoutContainer = (com.extjs.gxt.ui.client.widget.LayoutContainer) parent; 
 	    if (element != null) {
-		UIObject p = element.getUIParent();
+		UIElement p = element.getUIParent();
 		if (p instanceof SplitPanel) {
 		    SplitPanel splitPanel = (SplitPanel) p;
 		    int count = splitPanel.getChildrenCount();
@@ -102,14 +102,14 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Widget  parentDelegate = (com.google.gwt.user.client.ui.Widget) getContent(parent.getDelegate());
 	com.google.gwt.user.client.ui.Widget delegate = getWidget(element.getDelegate());
 	removeFromParent(parentDelegate, delegate);
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.extjs.gxt.ui.client.widget.BoxComponent xControl = (com.extjs.gxt.ui.client.widget.BoxComponent) getComponent(element.getDelegate());
 	if (xControl == null) {
 	    return;
@@ -119,7 +119,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
 	} else if (Control.PROPERTY_ENABLED.equals(name)) {
 	    xControl.setEnabled(asBoolean(value));
 	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
-	    UIObject layoutData = (UIObject) value;
+	    UIElement layoutData = (UIElement) value;
 	    layoutData.activateUI();
 	    xControl.setLayoutData(layoutData.getDelegate());
 	    return;
@@ -203,7 +203,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
    
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	
 	com.extjs.gxt.ui.client.widget.BoxComponent xControl = (com.extjs.gxt.ui.client.widget.BoxComponent) getComponent(element.getDelegate());
 	if (xControl == null) {
@@ -378,7 +378,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.BoxComponent xControl = (com.extjs.gxt.ui.client.widget.BoxComponent) getComponent(element.getDelegate());
@@ -429,7 +429,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.BoxComponent xControl = (com.extjs.gxt.ui.client.widget.BoxComponent) getComponent(element.getDelegate());
@@ -478,7 +478,7 @@ public abstract class GXTControlAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	if (Control.METHOD_REPAINT.equals(methodName)) {
 	    com.extjs.gxt.ui.client.widget.BoxComponent xControl = (com.extjs.gxt.ui.client.widget.BoxComponent) getComponent(element.getDelegate());
 	    if (xControl == null) {

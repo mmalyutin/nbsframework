@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import com.extjs.gxt.ui.client.Style.Orientation;
@@ -32,7 +32,7 @@ import com.extjs.gxt.ui.client.widget.LayoutContainer;
 
 public class GXTCompositeAdapter extends GXTControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	LayoutContainer xComposite = new LayoutContainer();
 	xComposite.setLayout(createDefaultCompositeLayout()); 
 	addToParent(getContent(parent.getDelegate()), xComposite, element);
@@ -51,7 +51,7 @@ public class GXTCompositeAdapter extends GXTControlAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	Object delegate = element.getDelegate();
 	if (delegate == null) {

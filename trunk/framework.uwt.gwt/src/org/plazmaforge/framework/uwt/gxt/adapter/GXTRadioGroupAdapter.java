@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 
 public class GXTRadioGroupAdapter extends GXTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.form.RadioGroup xRadioGroup = new com.extjs.gxt.ui.client.widget.form.RadioGroup();
 	addToParent(getContent(parent.getDelegate()), xRadioGroup, element);
 	return xRadioGroup;
@@ -37,7 +37,7 @@ public class GXTRadioGroupAdapter extends GXTCompositeAdapter {
   
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	Object delegate = element.getDelegate();
 	if (delegate == null) {

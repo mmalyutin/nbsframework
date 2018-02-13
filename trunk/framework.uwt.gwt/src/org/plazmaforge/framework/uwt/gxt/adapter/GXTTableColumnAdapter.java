@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTableCellRenderer;
@@ -41,7 +41,7 @@ import com.google.gwt.i18n.client.NumberFormat;
 
 public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	TableColumn column = (TableColumn) element;
 	Table table = column.getTable();
 	com.extjs.gxt.ui.client.widget.grid.Grid xGrid = (com.extjs.gxt.ui.client.widget.grid.Grid) parent.getDelegate();
@@ -65,7 +65,7 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	TableColumn column = (TableColumn) element;
 	XColumnConfig xColumn = (XColumnConfig) element.getDelegate();
 	if (xColumn == null) {

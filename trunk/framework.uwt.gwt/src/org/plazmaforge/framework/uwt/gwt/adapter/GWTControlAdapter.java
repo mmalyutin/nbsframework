@@ -21,7 +21,7 @@
  */
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public abstract class GWTControlAdapter extends GWTWidgetAdapter {
 
@@ -46,7 +46,7 @@ public abstract class GWTControlAdapter extends GWTWidgetAdapter {
     
     
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Panel parentDelegate = (com.google.gwt.user.client.ui.Panel) getPanel(parent.getDelegate());
 	com.google.gwt.user.client.ui.Widget delegate = getWidget(element.getDelegate());
 	if (parentDelegate != null) {

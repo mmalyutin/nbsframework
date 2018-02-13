@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
@@ -43,7 +43,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     private static final String SYS_PROPERTY_FORCE_CLOSE = "$forceClose"; 
     
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Window window = (Window) element;
 	Object xParent = parent == null ? null: parent.getDelegate();
 	return createWindow(xParent, window);
@@ -121,7 +121,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	if (delegate == null || !(delegate instanceof com.extjs.gxt.ui.client.widget.Window)) {
 	    return;
@@ -154,7 +154,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Object delegate = element.getDelegate();
 	if (delegate == null || !(delegate instanceof com.extjs.gxt.ui.client.widget.Window)) {
 	    return null;
@@ -266,7 +266,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Window window = (Window) element;
 	com.extjs.gxt.ui.client.widget.Window xWindow = (com.extjs.gxt.ui.client.widget.Window) element.getDelegate();
 	if (xWindow == null) {
@@ -297,7 +297,7 @@ public class GXTWindowAdapter extends GXTCompositeAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Window window = (Window) element;
 	com.extjs.gxt.ui.client.widget.Window xWindow = (com.extjs.gxt.ui.client.widget.Window) element.getDelegate();
 	if (xWindow == null) {

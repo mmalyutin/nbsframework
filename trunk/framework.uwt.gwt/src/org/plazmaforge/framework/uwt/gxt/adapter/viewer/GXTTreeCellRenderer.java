@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter.viewer;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.gxt.adapter.GXTHelper;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
 public class GXTTreeCellRenderer<M extends ModelData> extends TreeGridCellRenderer<M> {
 
-    private UIObject viewer;
+    private UIElement viewer;
     
     /**
      * UWT LabelProvider
@@ -42,7 +42,7 @@ public class GXTTreeCellRenderer<M extends ModelData> extends TreeGridCellRender
     private LabelProvider labelProvider;
     
     
-    public GXTTreeCellRenderer(UIObject viewer) {
+    public GXTTreeCellRenderer(UIElement viewer) {
 	super();
 	this.viewer = viewer;
     }
@@ -99,7 +99,7 @@ public class GXTTreeCellRenderer<M extends ModelData> extends TreeGridCellRender
     }
     
     
-    protected AbstractImagePrototype createImage(UIObject element, Image image) {
+    protected AbstractImagePrototype createImage(UIElement element, Image image) {
 	return GXTHelper.createImage(element, image);
     }
 }

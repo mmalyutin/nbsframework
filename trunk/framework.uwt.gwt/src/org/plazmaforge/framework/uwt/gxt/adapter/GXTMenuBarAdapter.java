@@ -22,11 +22,11 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class GXTMenuBarAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	com.extjs.gxt.ui.client.widget.LayoutContainer xParent = (com.extjs.gxt.ui.client.widget.LayoutContainer) parent.getDelegate();
 	com.extjs.gxt.ui.client.widget.menu.MenuBar xMenuBar = new com.extjs.gxt.ui.client.widget.menu.MenuBar();
@@ -38,7 +38,7 @@ public class GXTMenuBarAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.menu.MenuBar xMenuBar = (com.extjs.gxt.ui.client.widget.menu.MenuBar) element.getDelegate();
 	if (xMenuBar == null) {

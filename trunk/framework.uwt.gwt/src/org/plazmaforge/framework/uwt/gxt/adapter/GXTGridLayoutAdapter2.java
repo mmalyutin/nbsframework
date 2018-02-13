@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
 
 import com.extjs.gxt.ui.client.widget.layout.TableLayout;
@@ -30,7 +30,7 @@ import com.extjs.gxt.ui.client.widget.layout.TableLayout;
 public class GXTGridLayoutAdapter2 extends GXTLayoutAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	GridLayout layout = (GridLayout) element;  
 	TableLayout xLayout = new TableLayout(layout.getColumnCount());
 	//xLayout.setVerticalSpacing(layout.getVerticalSpacing());

@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
 
 public class GXTRadioButtonAdapter extends GXTCheckBoxAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.form.RadioGroup xParent = (com.extjs.gxt.ui.client.widget.form.RadioGroup) parent.getDelegate();
 	com.extjs.gxt.ui.client.widget.form.Radio xRadioButton = new com.extjs.gxt.ui.client.widget.form.Radio();
 	xParent.add(xRadioButton); // Special add to parent
@@ -39,7 +39,7 @@ public class GXTRadioButtonAdapter extends GXTCheckBoxAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.form.Radio xRadioButton = getRadioButton(element.getDelegate());
 	if (xRadioButton == null) {

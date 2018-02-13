@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.widget.IXField;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextArea;
 
 public class GXTTextAreaAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.extjs.gxt.ui.client.widget.form.TextArea xTextArea = new com.extjs.gxt.ui.client.widget.form.TextArea();
 	xTextArea.setSize(IField.DEFAULT_TEXT_WIDTH, IXField.DEFAULT_FIELD_HEIGHT * 3);
 	addToParent(getContent(parent.getDelegate()), xTextArea, element); // Add to parent
@@ -41,7 +41,7 @@ public class GXTTextAreaAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.form.TextArea xTextArea = getTextArea(element.getDelegate());
 	if (xTextArea == null) {
@@ -56,7 +56,7 @@ public class GXTTextAreaAdapter extends GXTControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	
 	com.extjs.gxt.ui.client.widget.form.TextArea xTextArea = getTextArea(element.getDelegate());
 	if (xTextArea == null) {

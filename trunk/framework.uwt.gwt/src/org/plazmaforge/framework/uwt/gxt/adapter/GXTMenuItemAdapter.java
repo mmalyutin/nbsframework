@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
 public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	com.extjs.gxt.ui.client.widget.menu.Menu xMenu = (com.extjs.gxt.ui.client.widget.menu.Menu) parent.getDelegate();
 	com.extjs.gxt.ui.client.widget.menu.MenuItem xMenuItem = new com.extjs.gxt.ui.client.widget.menu.MenuItem();
@@ -63,7 +63,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	//TODO: ToolItem can be not only Button
 	
@@ -111,7 +111,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
 	com.extjs.gxt.ui.client.widget.menu.MenuItem xMenuItem = getMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
@@ -127,7 +127,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
     }
 
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
 	com.extjs.gxt.ui.client.widget.menu.MenuItem xMenuItem = getMenuItem(element.getDelegate());
 	if (xMenuItem == null) {

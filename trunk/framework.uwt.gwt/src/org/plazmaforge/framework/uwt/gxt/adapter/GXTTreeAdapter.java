@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.GXTTreeCellRenderer;
@@ -46,7 +46,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
 public class GXTTreeAdapter extends GXTViewerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	List<com.extjs.gxt.ui.client.widget.grid.ColumnConfig> columns = new ArrayList<ColumnConfig>();
 	Tree tree =  (Tree) element;
@@ -136,7 +136,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.extjs.gxt.ui.client.widget.treegrid.TreeGrid<ModelData> xTree = getTree(element.getDelegate());
 	Tree tree = (Tree) element;
@@ -306,7 +306,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	com.extjs.gxt.ui.client.widget.treegrid.TreeGrid<ModelData> xTree = getTree(element.getDelegate());
 	if (xTree == null) {

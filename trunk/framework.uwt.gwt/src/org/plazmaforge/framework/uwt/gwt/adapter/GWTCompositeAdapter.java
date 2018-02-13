@@ -21,12 +21,12 @@
  */
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class GWTCompositeAdapter extends GWTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	// TODO Auto-generated method stub
 	return null;
     }

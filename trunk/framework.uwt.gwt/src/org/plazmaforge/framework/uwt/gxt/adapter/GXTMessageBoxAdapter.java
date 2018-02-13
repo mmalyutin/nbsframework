@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
@@ -36,13 +36,13 @@ import com.extjs.gxt.ui.client.widget.button.Button;
 public class GXTMessageBoxAdapter extends GXTWidgetAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	//TODO:
 	return null;
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	
 	//TODO: 
 	int i = 0;

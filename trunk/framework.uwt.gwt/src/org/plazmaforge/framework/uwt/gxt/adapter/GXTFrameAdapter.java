@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 
@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 public class GXTFrameAdapter extends GXTWindowAdapter {
     
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Frame frame = (Frame) element;
 	if (frame.isRootFrame()) {
 	    return "StubFrame";
@@ -39,7 +39,7 @@ public class GXTFrameAdapter extends GXTWindowAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	if (delegate == null || !(delegate instanceof com.extjs.gxt.ui.client.widget.Window)) {
 	    return;
