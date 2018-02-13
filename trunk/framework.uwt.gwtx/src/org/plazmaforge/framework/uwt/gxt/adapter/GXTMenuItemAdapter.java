@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -37,7 +37,7 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	com.sencha.gxt.widget.core.client.menu.Menu xMenu = (com.sencha.gxt.widget.core.client.menu.Menu) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = new com.sencha.gxt.widget.core.client.menu.MenuItem();
@@ -65,7 +65,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	//TODO: ToolItem can be not only Button
 	
@@ -113,7 +113,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
 	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = asMenuItem(element.getDelegate());
 	if (xMenuItem == null) {
@@ -129,7 +129,7 @@ public class GXTMenuItemAdapter extends GXTWidgetAdapter {
     }
 
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
 	com.sencha.gxt.widget.core.client.menu.MenuItem xMenuItem = asMenuItem(element.getDelegate());
 	if (xMenuItem == null) {

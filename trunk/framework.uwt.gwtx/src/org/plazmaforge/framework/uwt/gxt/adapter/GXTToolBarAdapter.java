@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
  */
 public class GXTToolBarAdapter extends GXTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	HasWidgets xParent = (HasWidgets) parent.getDelegate(); // = (com.sencha.gxt.widget.core.client.container.Container) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.toolbar.ToolBar xToolBar = new com.sencha.gxt.widget.core.client.toolbar.ToolBar();
@@ -44,7 +44,7 @@ public class GXTToolBarAdapter extends GXTContainerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.sencha.gxt.widget.core.client.toolbar.ToolBar xToolBar = (com.sencha.gxt.widget.core.client.toolbar.ToolBar) element.getDelegate();
 	if (xToolBar == null) {

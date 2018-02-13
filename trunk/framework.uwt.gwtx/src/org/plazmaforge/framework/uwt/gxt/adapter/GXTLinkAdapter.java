@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Label;
@@ -37,7 +37,7 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 public class GXTLinkAdapter extends GXTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Anchor xLink = new com.google.gwt.user.client.ui.Anchor("", false);
 	Link link = (Link) element;
 
@@ -55,7 +55,7 @@ public class GXTLinkAdapter extends GXTControlAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.google.gwt.user.client.ui.Anchor xLink = asLink(element.getDelegate());
 	if (xLink == null) {
 	    return;
@@ -69,7 +69,7 @@ public class GXTLinkAdapter extends GXTControlAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.google.gwt.user.client.ui.Anchor xLink = asLink(element.getDelegate());
 	if (xLink == null) {
@@ -85,7 +85,7 @@ public class GXTLinkAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.google.gwt.user.client.ui.Anchor xLink = asLink(element.getDelegate());
 	if (xLink == null) {

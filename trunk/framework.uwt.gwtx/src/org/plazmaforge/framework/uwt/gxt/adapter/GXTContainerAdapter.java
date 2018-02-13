@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 
 import org.plazmaforge.framework.uwt.UIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.util.GXTUtils;
 import org.plazmaforge.framework.uwt.gxt.widget.XGridLayoutContainer;
@@ -42,7 +42,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class GXTContainerAdapter extends GXTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	Container container = (Container) element;
 	
@@ -153,7 +153,7 @@ public class GXTContainerAdapter extends GXTControlAdapter {
 //    }
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	com.google.gwt.user.client.ui.Widget xContainer = getContent(element.getDelegate());
 	if (xContainer == null) {
 	    return null;

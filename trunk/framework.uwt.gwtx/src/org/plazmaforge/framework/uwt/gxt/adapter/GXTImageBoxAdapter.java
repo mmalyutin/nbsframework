@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
@@ -36,7 +36,7 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public class GXTImageBoxAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	//com.sencha.gxt.widget.core.client.Status - old implementation
 	com.google.gwt.user.client.ui.Image xImageBox = new com.google.gwt.user.client.ui.Image();
 	ImageBox imageBox = (ImageBox) element;
@@ -56,7 +56,7 @@ public class GXTImageBoxAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.google.gwt.user.client.ui.Image xImageBox = getImageBox(element.getDelegate());
 	if (xImageBox == null) {

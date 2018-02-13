@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.layout.GridData;
 
 public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
    	GridData layoutData = (GridData) element;   
    	XGridData xLayoutData = new XGridData();
@@ -56,7 +56,7 @@ public class GXTGridDataAdapter extends GXTLayoutDataAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 
 	XGridData xLayoutData = getXGridData(element.getDelegate());
 	if (xLayoutData == null) {

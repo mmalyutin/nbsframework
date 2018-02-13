@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.desktop.Desktop;
 import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XDesktop;
@@ -35,14 +35,14 @@ import org.plazmaforge.framework.uwt.gxt.widget.XDesktopItem;
  */
 public class GXTDesktopAdapter extends GXTContainerAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	XDesktop xDesktop = new XDesktop();
 	addChild(getContent(parent.getDelegate()), xDesktop, element); // Add to parent. Use super method
 	return xDesktop;
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	XDesktop xDesktop = (XDesktop) element.getDelegate();
 	if (xDesktop == null) {
 	    return null;

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Label;
  */
 public class GXTLabelAdapter extends GXTControlAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Label xLabel = new com.google.gwt.user.client.ui.Label();
 	
 	Label label = (Label) element;
@@ -59,7 +59,7 @@ public class GXTLabelAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.google.gwt.user.client.ui.Label xLabel = getLabel(element.getDelegate());
 	if (xLabel == null) {

@@ -21,11 +21,11 @@
  */
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class GWTShellAdapter extends GWTCompositeAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	//TODO: STUB
 	return null;
     }

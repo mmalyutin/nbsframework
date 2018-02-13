@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.ToggleButton;
 
@@ -37,7 +37,7 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 
     public static final String SYS_GROUP_KEY = "$group"; 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.sencha.gxt.widget.core.client.button.ToggleButton xToggleButton = new com.sencha.gxt.widget.core.client.button.ToggleButton();
 	ToggleButton toggleButton = (ToggleButton) element;
 	
@@ -62,14 +62,14 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.sencha.gxt.widget.core.client.button.ToggleButton xToggleButton = asToggleButton(element.getDelegate());
 	if (xToggleButton == null) {
 	    return;
 	}
 	ToggleButton toggleButton = (ToggleButton) element;
-	UIObject parent = element.getUIParent();
+	UIElement parent = element.getUIParent();
 	if (Button.PROPERTY_SELECTED.equals(name)) {
 	    xToggleButton.setValue(asBoolean(value));
 	    return;
@@ -96,7 +96,7 @@ public class GXTToggleButtonAdapter extends GXTButtonAdapter {
 	
     }
 
-    private ToggleGroup getToggleGroup(UIObject parent, String groupName, boolean force) {
+    private ToggleGroup getToggleGroup(UIElement parent, String groupName, boolean force) {
 	if (parent == null || groupName == null) {
 	    return null;
 	}

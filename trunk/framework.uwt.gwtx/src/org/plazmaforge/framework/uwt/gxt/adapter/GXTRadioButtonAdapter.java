@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.RadioButton;
 
@@ -37,7 +37,7 @@ import com.sencha.gxt.core.client.util.ToggleGroup;
  */
 public class GXTRadioButtonAdapter extends GXTCheckBoxAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	HasWidgets xParent = (HasWidgets) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.form.Radio xRadioButton = new com.sencha.gxt.widget.core.client.form.Radio();
 	
@@ -62,7 +62,7 @@ public class GXTRadioButtonAdapter extends GXTCheckBoxAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.sencha.gxt.widget.core.client.form.Radio xRadioButton = getRadioButton(element.getDelegate());
 	if (xRadioButton == null) {

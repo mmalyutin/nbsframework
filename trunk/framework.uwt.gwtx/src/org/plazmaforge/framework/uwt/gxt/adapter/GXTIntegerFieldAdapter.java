@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.IntegerField;
 
 
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.IntegerField;
 public class GXTIntegerFieldAdapter extends GXTNumberFieldAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	IntegerField integerField = (IntegerField) element;
 	//String format = integerField.getFormat();
 	

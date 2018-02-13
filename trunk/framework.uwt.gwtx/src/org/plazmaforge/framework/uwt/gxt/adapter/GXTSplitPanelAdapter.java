@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.widget.XSplitPanel;
 import org.plazmaforge.framework.uwt.widget.panel.SplitPanel;
 
@@ -35,7 +35,7 @@ import com.sencha.gxt.widget.core.client.container.Container;
  */
 public class GXTSplitPanelAdapter extends GXTContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	XSplitPanel xSplitPanel = new XSplitPanel();
 
 	// TODO: STUB

@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
@@ -45,7 +45,7 @@ import com.sencha.gxt.data.shared.ListStore;
  */
 public class GXTListBoxAdapter extends GXTViewerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	ListBox<?> listBox = (ListBox<?>) element;
 	
 	ListStore<Model> store = createXDefaultListStore();
@@ -69,7 +69,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	ListBox<?> listBox = (ListBox<?>) element;
 	
 	XListBox xListBox = asListBox(element.getDelegate());
@@ -120,7 +120,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	
 	com.sencha.gxt.widget.core.client.ListView<Model, Object> xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {
@@ -156,7 +156,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	com.sencha.gxt.widget.core.client.ListView<Model, Object> xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {
@@ -176,7 +176,7 @@ public class GXTListBoxAdapter extends GXTViewerAdapter {
 
     
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	com.sencha.gxt.widget.core.client.ListView<Model, Object> xListBox = asListBox(element.getDelegate());
 	if (xListBox == null) {

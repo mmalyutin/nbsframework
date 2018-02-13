@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.TimeField;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
@@ -35,7 +35,7 @@ import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 public class GXTTimeFieldAdapter extends GXTControlAdapter {
     
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.sencha.gxt.widget.core.client.form.TimeField xTimeField = new com.sencha.gxt.widget.core.client.form.TimeField();
 	
 	xTimeField.setTriggerAction(TriggerAction.ALL); // Important to correct selection a item by click DOWN button
@@ -48,7 +48,7 @@ public class GXTTimeFieldAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.sencha.gxt.widget.core.client.form.TimeField xTimeField = getTimeField(element.getDelegate());
 	if (xTimeField == null) {
 	    return;
@@ -66,7 +66,7 @@ public class GXTTimeFieldAdapter extends GXTControlAdapter {
     
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.sencha.gxt.widget.core.client.form.TimeField xTimeField = getTimeField(element.getDelegate());
 	if (xTimeField == null) {
 	    return null;

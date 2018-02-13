@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Control;
@@ -38,7 +38,7 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public class GXTButtonAdapter extends GXTControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.sencha.gxt.widget.core.client.button.TextButton xButton = new com.sencha.gxt.widget.core.client.button.TextButton();
 	
 	Button button = (Button) element;
@@ -70,7 +70,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
@@ -112,7 +112,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {
@@ -128,7 +128,7 @@ public class GXTButtonAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Control control = (Control) element;
 	com.sencha.gxt.widget.core.client.button.CellButtonBase<?> xButton = asButton(element.getDelegate());
 	if (xButton == null) {

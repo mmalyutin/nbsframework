@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 
@@ -37,13 +37,13 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public abstract class GXTLayoutAdapter extends AbstractUIAdapter {
 
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	
     }
     
     public abstract HasWidgets createContainer(XLayout xLayout);
     
-    public void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+    public void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIElement element) {
 	parent.add(widget);
     }
 }

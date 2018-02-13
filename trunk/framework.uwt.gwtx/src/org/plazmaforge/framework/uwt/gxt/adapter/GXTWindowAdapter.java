@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.core.data.Callback;
 import org.plazmaforge.framework.core.data.Notifier;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XWindow;
@@ -47,7 +47,7 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
     private static final String SYS_PROPERTY_FORCE_CLOSE = "$forceClose"; 
     
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Window window = (Window) element;
 	Object xParent = parent == null ? null: parent.getDelegate();
 	return createWindow(xParent, window);
@@ -148,7 +148,7 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
     
    
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return;
@@ -181,7 +181,7 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Object delegate = element.getDelegate();
 	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return null;
@@ -264,7 +264,7 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
     
 
     @Override
-    public void addListener(UIObject element, String eventType, Listener listener) {
+    public void addListener(UIElement element, String eventType, Listener listener) {
 	Window window = (Window) element;
 	com.sencha.gxt.widget.core.client.Window xWindow = (com.sencha.gxt.widget.core.client.Window) element.getDelegate();
 	if (xWindow == null) {
@@ -295,7 +295,7 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, Listener listener) {
+    public void removeListener(UIElement element, String eventType, Listener listener) {
 	Window window = (Window) element;
 	com.sencha.gxt.widget.core.client.Window xWindow = (com.sencha.gxt.widget.core.client.Window) element.getDelegate();
 	if (xWindow == null) {

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.NumberField;
 
 import com.sencha.gxt.widget.core.client.form.NumberPropertyEditor;
@@ -35,7 +35,7 @@ import com.sencha.gxt.widget.core.client.form.NumberPropertyEditor;
 public class GXTNumberFieldAdapter extends GXTControlAdapter {
     
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	NumberField numberField = (NumberField) element;
 	String dataType = numberField.getDataType();
 	String format = numberField.getFormat();
@@ -57,7 +57,7 @@ public class GXTNumberFieldAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.sencha.gxt.widget.core.client.form.NumberField xNumberField = getNumberField(element.getDelegate());
 	if (xNumberField == null) {
 	    return;
@@ -82,7 +82,7 @@ public class GXTNumberFieldAdapter extends GXTControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.sencha.gxt.widget.core.client.form.NumberField<?> xNumberField = getNumberField(element.getDelegate());
 	if (xNumberField == null) {
 	    return null;

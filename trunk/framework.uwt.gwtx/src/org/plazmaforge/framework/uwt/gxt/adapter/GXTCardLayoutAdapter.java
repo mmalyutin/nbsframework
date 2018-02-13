@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.layout.XCardLayout;
 import org.plazmaforge.framework.uwt.gxt.layout.XLayout;
 import org.plazmaforge.framework.uwt.gxt.widget.XCardLayoutContainer;
@@ -39,7 +39,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class GXTCardLayoutAdapter extends GXTLayoutAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	CardLayout layout = (CardLayout) element;
 	XCardLayout xLayout = new XCardLayout();
 	
@@ -61,14 +61,14 @@ public class GXTCardLayoutAdapter extends GXTLayoutAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	//TODO
 	super.setProperty(element, name, value);
 	
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Layout layout = (Layout) element;
 	XCardLayout xLayout = (XCardLayout) element.getDelegate();
 	if (isNavigation(methodName)) {

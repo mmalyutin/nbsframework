@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
@@ -34,16 +34,16 @@ import com.google.gwt.canvas.dom.client.FillStrokeStyle;
 public class GXTGCAdapter extends GXTAbstractAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	return null;
     }
 
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
     }
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	if (element == null) {
 	    return null;
 	}

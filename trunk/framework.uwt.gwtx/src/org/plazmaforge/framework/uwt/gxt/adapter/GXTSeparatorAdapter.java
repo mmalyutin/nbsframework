@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.widget.XSeparator;
 
 
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.gxt.widget.XSeparator;
 public class GXTSeparatorAdapter extends GXTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	XSeparator xSeparator = new XSeparator();
 	addChild(getContent(parent.getDelegate()), xSeparator, element);
 	return xSeparator;

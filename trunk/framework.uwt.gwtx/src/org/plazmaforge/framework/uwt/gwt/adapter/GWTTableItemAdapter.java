@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 
 
 public class GWTTableItemAdapter extends GWTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Grid parentDelegate = (com.google.gwt.user.client.ui.Grid) parent.getDelegate();
 	int columnCount = parentDelegate.getColumnCount();
 	int rowCount = parentDelegate.getRowCount();
