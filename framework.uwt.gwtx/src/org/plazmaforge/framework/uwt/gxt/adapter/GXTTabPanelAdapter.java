@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 //import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
 import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
@@ -40,7 +40,7 @@ public class GXTTabPanelAdapter extends GXTContainerAdapter {
 
     public static final int DEFAULT_TAB_PANEL_WIDTH = 450;
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	XTabPanel xTabPanel = new XTabPanel();
 	xTabPanel.setTabScroll(true);
 	xTabPanel.setAnimScroll(true);
@@ -52,7 +52,7 @@ public class GXTTabPanelAdapter extends GXTContainerAdapter {
    
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	XTabPanel xTabPanel = (XTabPanel) element.getDelegate();
  	if (xTabPanel == null) {
  	    //TODO

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 
 import com.sencha.gxt.core.client.util.ToggleGroup;
@@ -36,7 +36,7 @@ public class GXTRadioGroupAdapter extends GXTContainerAdapter {
 
     public static final String SYS_PROPERTY_GROUP = "$group"; 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.HorizontalPanel xRadioGroup = new com.google.gwt.user.client.ui.HorizontalPanel();
 	//HorizontalLayoutContainer xRadioGroup = new HorizontalLayoutContainer();
 	
@@ -50,7 +50,7 @@ public class GXTRadioGroupAdapter extends GXTContainerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	Object delegate = element.getDelegate();
 	if (delegate == null) {

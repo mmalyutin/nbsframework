@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Window;
 
 /**
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Window;
 public class GXTDialogAdapter extends GXTWindowAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Window window = (Window) element;
 	Object xParent = parent == null ? null: parent.getDelegate();
 	return createWindow(xParent, window);
@@ -41,7 +41,7 @@ public class GXTDialogAdapter extends GXTWindowAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	if (delegate == null || !(delegate instanceof com.sencha.gxt.widget.core.client.Window)) {
 	    return;

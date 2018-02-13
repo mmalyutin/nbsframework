@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.IField;
 
 /**
@@ -32,7 +32,7 @@ import org.plazmaforge.framework.uwt.widget.IField;
  */
 public class GXTPasswordFieldAdapter extends GXTTextFieldAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	com.sencha.gxt.widget.core.client.form.PasswordField xPasswordField = new com.sencha.gxt.widget.core.client.form.PasswordField();
    	xPasswordField.setWidth(IField.DEFAULT_TEXT_WIDTH);
    	addChild(getContent(parent.getDelegate()), xPasswordField, element); // Add to parent

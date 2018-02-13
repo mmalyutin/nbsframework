@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.gxt.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabItem;
 import org.plazmaforge.framework.uwt.gxt.widget.XTabPanel;
@@ -39,7 +39,7 @@ import com.google.gwt.resources.client.ImageResource;
 public class GXTTabItemAdapter extends GXTContainerAdapter {
 
    
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	
 	XTabPanel xParent = (XTabPanel) parent.getDelegate();
@@ -79,7 +79,7 @@ public class GXTTabItemAdapter extends GXTContainerAdapter {
     
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	XTabItem xTabItem = (XTabItem) element.getDelegate();
 	if (xTabItem == null) {

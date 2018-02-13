@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.util.CoreUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
@@ -51,7 +51,7 @@ import com.sencha.gxt.widget.core.client.grid.GridSelectionModel;
  */
 public class GXTTableAdapter extends GXTViewerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	Table<?> table = (Table<?>) element;
 	List<ColumnConfig<Model, ?>> configs = new ArrayList<ColumnConfig<Model, ?>>(); 
@@ -118,7 +118,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Table<?> table = (Table<?>) element;
 	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
@@ -208,7 +208,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
 	    return null;
@@ -223,7 +223,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
 
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	if (Table.METHOD_GET_SELECTION_INDEX.equals(methodName)) {
 	    XGrid xGrid = asGrid(element.getDelegate());
 	    if (xGrid == null) {
@@ -248,7 +248,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {
@@ -268,7 +268,7 @@ public class GXTTableAdapter extends GXTViewerAdapter {
     
     
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	XGrid xGrid = asGrid(element.getDelegate());
 	if (xGrid == null) {

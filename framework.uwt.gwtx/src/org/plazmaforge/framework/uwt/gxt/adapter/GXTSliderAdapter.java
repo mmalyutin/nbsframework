@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Slider;
 
@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.widget.Slider;
 public class GXTSliderAdapter extends GXTControlAdapter {
    
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.sencha.gxt.widget.core.client.Slider xSlider = new com.sencha.gxt.widget.core.client.Slider();
 	addChild(getContent(parent.getDelegate()), xSlider, element); // Add to parent
 	return xSlider;
@@ -45,7 +45,7 @@ public class GXTSliderAdapter extends GXTControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	com.sencha.gxt.widget.core.client.Slider xSlider = getSlider(element.getDelegate());
 	if (xSlider == null) {
 	    return;
@@ -64,7 +64,7 @@ public class GXTSliderAdapter extends GXTControlAdapter {
 
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	com.sencha.gxt.widget.core.client.Slider xSlider = getSlider(element.getDelegate());
 	if (xSlider == null) {
 	    return null;

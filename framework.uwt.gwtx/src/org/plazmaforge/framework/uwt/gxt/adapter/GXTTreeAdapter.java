@@ -27,7 +27,7 @@ import java.util.List;
 
 import org.plazmaforge.framework.core.data.provider.TreeProvider;
 import org.plazmaforge.framework.util.CoreUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.gwt.GWTUtils;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XValueProvider;
@@ -58,7 +58,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public class GXTTreeAdapter extends GXTViewerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	Tree<?> tree =  (Tree<?>) element;
 	
@@ -172,7 +172,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree = asTree(element.getDelegate());
 	Tree<?> tree = (Tree<?>) element;
@@ -341,7 +341,7 @@ public class GXTTreeAdapter extends GXTViewerAdapter {
     }    
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	Control control = (Control) element;
 	com.sencha.gxt.widget.core.client.treegrid.TreeGrid<Model> xTree = asTree(element.getDelegate());
 	if (xTree == null) {

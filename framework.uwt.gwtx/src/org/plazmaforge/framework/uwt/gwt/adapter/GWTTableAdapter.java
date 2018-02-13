@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.gwt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 
 
 
 public class GWTTableAdapter extends GWTCompositeAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Panel parentDelegate = (com.google.gwt.user.client.ui.Panel) getParentContent(parent.getDelegate());
 	com.google.gwt.user.client.ui.Grid delegate = new com.google.gwt.user.client.ui.Grid();
 	parentDelegate.add(delegate); // Add to parent
@@ -41,7 +41,7 @@ public class GWTTableAdapter extends GWTCompositeAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	super.setProperty(element, name, value);
 	//com.google.gwt.user.client.ui.Grid grid = getGrid(element.getDelegate());
 	//if (grid == null) {

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * 
@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.UIObject;
  */
 public class GXTMenuBarAdapter extends GXTWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	com.sencha.gxt.widget.core.client.container.Container xParent = (com.sencha.gxt.widget.core.client.container.Container) parent.getDelegate();
 	com.sencha.gxt.widget.core.client.menu.MenuBar xMenuBar = new com.sencha.gxt.widget.core.client.menu.MenuBar();
@@ -44,7 +44,7 @@ public class GXTMenuBarAdapter extends GXTWidgetAdapter {
     
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	com.sencha.gxt.widget.core.client.menu.MenuBar xMenuBar = (com.sencha.gxt.widget.core.client.menu.MenuBar) element.getDelegate();
 	if (xMenuBar == null) {

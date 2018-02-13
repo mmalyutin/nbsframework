@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.gxt.widget.XCanvas;
 import org.plazmaforge.framework.uwt.widget.Canvas;
@@ -37,7 +37,7 @@ import com.google.gwt.canvas.dom.client.CssColor;
 public class GXTCanvasAdapter extends GXTControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	final Canvas canvas = (Canvas) element;
 	XCanvas xCanvas = new XCanvas() {
 	    

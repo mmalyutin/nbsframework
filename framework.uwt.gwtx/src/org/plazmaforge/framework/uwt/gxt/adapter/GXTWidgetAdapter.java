@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.UIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.gxt.adapter.viewer.XLabelProvider;
@@ -166,7 +166,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
      * @param widget
      * @param element
      */
-    protected void addChild(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+    protected void addChild(com.google.gwt.user.client.ui.Widget parent, com.google.gwt.user.client.ui.Widget widget, UIElement element) {
 	
 	checkNullParent(parent, MESSAGE_CANT_ADD_WIDGET);
 	checkContainerParent(parent, MESSAGE_CANT_ADD_WIDGET);
@@ -175,8 +175,8 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	if (element instanceof Control) {
 	    Control control = (Control) element;
 	    Object layoutData = control.getLayoutData();
-	    if (layoutData != null && layoutData instanceof UIObject) {
-		UIObject uiLayoutData = (UIObject) layoutData;
+	    if (layoutData != null && layoutData instanceof UIElement) {
+		UIElement uiLayoutData = (UIElement) layoutData;
 		uiLayoutData.activateUI();
 
 		// Set LayoutData to xControl
@@ -204,7 +204,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
     //GXT-Container
-    protected void addChild(com.sencha.gxt.widget.core.client.container.Container parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+    protected void addChild(com.sencha.gxt.widget.core.client.container.Container parent, com.google.gwt.user.client.ui.Widget widget, UIElement element) {
 	if (parent instanceof XLayoutContainer) {
 	    addChild((XLayoutContainer) parent, widget, element);
 	    return;
@@ -213,8 +213,8 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
     //GXT-Container: XLayoutContainer
-    protected void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
-	UIObject p = element.getUIParent();
+    protected void addChild(XLayoutContainer parent, com.google.gwt.user.client.ui.Widget widget, UIElement element) {
+	UIElement p = element.getUIParent();
 	Layout layout = null;
 	
 	// Get layout
@@ -248,7 +248,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }    
     
     //GWT-Panel
-    protected void addChild(com.google.gwt.user.client.ui.Panel parent, com.google.gwt.user.client.ui.Widget widget, UIObject element) {
+    protected void addChild(com.google.gwt.user.client.ui.Panel parent, com.google.gwt.user.client.ui.Widget widget, UIElement element) {
 	 parent.add(widget);
     }    
     
@@ -280,7 +280,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     
 
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	com.google.gwt.user.client.ui.Widget  parentDelegate = getContent(parent.getDelegate());
 	com.google.gwt.user.client.ui.Widget delegate = asWidget(element.getDelegate());
 	removeChild(parentDelegate, delegate);
@@ -291,7 +291,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	if (element == null) {
 	    return;
 	}	
@@ -330,7 +330,7 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return super.getProperty(element, name);
     }
 

@@ -28,7 +28,7 @@ package org.plazmaforge.framework.uwt.gxt.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.Application;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 /**
  * @author ohapon
@@ -38,24 +38,24 @@ public class GXTApplicationAdapter extends AbstractUIAdapter {
 
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	// do nothing
 	// Return stub object because GXT has't native application object 
 	return new Object();
     }
     
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	
     }    
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return null;
     }
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Application application = (Application) element;
 	if (Application.METHOD_START.equals(methodName)) {
 	    start(application); 
@@ -80,7 +80,7 @@ public class GXTApplicationAdapter extends AbstractUIAdapter {
 
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
     }
 
     private void start(Application application) {
