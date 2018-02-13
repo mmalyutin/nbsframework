@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -81,7 +81,7 @@ public class SwingHelper {
 	return xFont;
     }
 
-    public static javax.swing.ImageIcon createImageIcon(UIObject element, Image image) {
+    public static javax.swing.ImageIcon createImageIcon(UIElement element, Image image) {
 	if (image == null) {
 	    return null;
 	}
@@ -89,7 +89,7 @@ public class SwingHelper {
 	return createImageIcon(element, path);
     }
 
-    public static javax.swing.ImageIcon createImageIcon(UIObject element, String path) {
+    public static javax.swing.ImageIcon createImageIcon(UIElement element, String path) {
 	if (path == null) {
 	    return null;
 	}

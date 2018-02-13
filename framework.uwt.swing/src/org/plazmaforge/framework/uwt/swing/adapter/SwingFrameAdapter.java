@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Frame;
 
 public class SwingFrameAdapter extends SwingWindowAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	Object xParent = parent == null ? null : parent.getDelegate();
    	Frame frame = (Frame) element;
    	if (frame.isModal() && !frame.isRootFrame()) {
@@ -39,7 +39,7 @@ public class SwingFrameAdapter extends SwingWindowAdapter {
     
   
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 
 	Object delegate = element.getDelegate();
 	if (delegate instanceof  javax.swing.JDialog) {

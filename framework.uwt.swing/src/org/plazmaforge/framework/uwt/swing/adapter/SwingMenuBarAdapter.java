@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
 public class SwingMenuBarAdapter extends SwingWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	// Only Frame can have MenuBar
 	javax.swing.JFrame xFrame = (javax.swing.JFrame) parent.getDelegate();
@@ -47,7 +47,7 @@ public class SwingMenuBarAdapter extends SwingWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JMenuBar xMenuBar = getMenuBar(element.getDelegate());
 	if (xMenuBar == null) {
@@ -61,7 +61,7 @@ public class SwingMenuBarAdapter extends SwingWidgetAdapter {
 
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	javax.swing.JMenuBar xMenuBar = getMenuBar(element.getDelegate());
 	if (xMenuBar == null) {
@@ -77,7 +77,7 @@ public class SwingMenuBarAdapter extends SwingWidgetAdapter {
     }
     
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	javax.swing.JMenuBar xMenuBar = getMenuBar(element.getDelegate());
 	if (xMenuBar == null) {

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.desktop.Desktop;
 import org.plazmaforge.framework.uwt.desktop.DesktopItem;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktop;
@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.swing.widget.XDesktopItem;
 
 public class SwingDesktopAdapter extends SwingContainerAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
    	XDesktop xDesktop  = new XDesktop();
    	addChild(xParent, xDesktop, element);	
@@ -38,7 +38,7 @@ public class SwingDesktopAdapter extends SwingContainerAdapter {
    }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	XDesktop xDesktop = (XDesktop) element.getDelegate();
 	if (xDesktop == null) {
 	    return null;

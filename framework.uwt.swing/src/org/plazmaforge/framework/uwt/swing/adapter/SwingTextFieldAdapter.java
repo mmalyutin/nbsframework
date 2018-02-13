@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XTextField;
 import org.plazmaforge.framework.uwt.widget.IField;
 import org.plazmaforge.framework.uwt.widget.TextField;
@@ -35,7 +35,7 @@ import org.plazmaforge.framework.uwt.widget.TextField;
 public class SwingTextFieldAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XTextField xTextField = new XTextField();
 	xTextField.setPreferredWidth(IField.DEFAULT_TEXT_WIDTH);
@@ -48,7 +48,7 @@ public class SwingTextFieldAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	javax.swing.JTextField xTextField = getTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return;
@@ -61,7 +61,7 @@ public class SwingTextFieldAdapter extends SwingControlAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	javax.swing.JTextField xTextField = getTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return null;

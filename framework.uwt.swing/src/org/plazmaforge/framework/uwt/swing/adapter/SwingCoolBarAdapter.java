@@ -22,11 +22,11 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 
 public class SwingCoolBarAdapter extends SwingContainerAdapter {
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	// Swing hasn't own CoolBar component.
 	// To emulate the CoolBar use JPanel.

@@ -24,14 +24,14 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 
 import javax.swing.SwingConstants;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Separator;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
 public class SwingSeparatorAdapter extends SwingControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Separator separator = (Separator) element;
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	int xOrientation = 0;

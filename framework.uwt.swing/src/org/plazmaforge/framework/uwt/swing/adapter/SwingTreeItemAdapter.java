@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTreeModel;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
 import org.plazmaforge.framework.uwt.widget.tree.TreeItem;
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.tree.TreeItem;
 public class SwingTreeItemAdapter extends SwingWidgetAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	/*
 	TreeItem item  = (TreeItem) element;

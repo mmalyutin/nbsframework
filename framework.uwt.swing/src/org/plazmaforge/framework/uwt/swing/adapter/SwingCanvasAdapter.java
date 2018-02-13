@@ -24,14 +24,14 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import java.awt.RenderingHints;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.widget.Canvas;
 
 public class SwingCanvasAdapter extends SwingControlAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	final Canvas canvas = (Canvas) element;
 	java.awt.Canvas xCanvas = new java.awt.Canvas() {

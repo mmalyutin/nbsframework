@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import javax.swing.JScrollPane;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.TypedEvent;
 import org.plazmaforge.framework.uwt.swing.widget.XDesktopItem;
@@ -171,17 +171,17 @@ public abstract class SwingWidgetAdapter extends SwingAbstractAdapter {
     
     
     
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	super.setProperty(element, name, value);
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return super.getProperty(element, name);
     }
     

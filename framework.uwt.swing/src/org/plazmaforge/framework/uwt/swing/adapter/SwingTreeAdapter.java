@@ -27,7 +27,7 @@ import java.util.List;
 import javax.swing.JScrollPane;
 
 import org.plazmaforge.framework.core.data.provider.TreeProvider;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTreeCellRenderer;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTreeModel;
@@ -39,7 +39,7 @@ import org.plazmaforge.framework.uwt.widget.tree.Tree;
 public class SwingTreeAdapter extends SwingContainerAdapter {
 
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	Tree tree = (Tree) element;
 	
@@ -108,7 +108,7 @@ public class SwingTreeAdapter extends SwingContainerAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 
 	javax.swing.JTree xTree = getJTree(element.getDelegate());
 	Tree tree = (Tree) element;
@@ -173,7 +173,7 @@ public class SwingTreeAdapter extends SwingContainerAdapter {
     
     
     @Override
-    public void addListener(UIObject element, String eventType, final Listener listener) {
+    public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	javax.swing.JTree xTree = getJTree(element.getDelegate());
@@ -195,7 +195,7 @@ public class SwingTreeAdapter extends SwingContainerAdapter {
     
     
     @Override
-    public void removeListener(UIObject element, String eventType, final Listener listener) {
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
 	javax.swing.JTree xTree = getJTree(element.getDelegate());

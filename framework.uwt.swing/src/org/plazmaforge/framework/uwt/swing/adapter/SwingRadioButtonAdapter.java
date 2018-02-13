@@ -22,12 +22,12 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
 
 public class SwingRadioButtonAdapter extends SwingButtonAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JRadioButton xRadioButton = new javax.swing.JRadioButton();
 	addChild(xParent, xRadioButton, element);
@@ -47,7 +47,7 @@ public class SwingRadioButtonAdapter extends SwingButtonAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JRadioButton xRadioButton = getJRadioButton(element.getDelegate());
 	if (xRadioButton == null) {

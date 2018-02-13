@@ -28,14 +28,14 @@ import javax.swing.SwingUtilities;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.Application;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Frame;
 
 public class SwingApplicationAdapter extends AbstractUIAdapter {
 
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	Application application = (Application) element;
 	
 	// Get general frame of the application
@@ -49,17 +49,17 @@ public class SwingApplicationAdapter extends AbstractUIAdapter {
     }
     
     @Override
-    public void disposeDelegate(UIObject parent, UIObject element) {
+    public void disposeDelegate(UIElement parent, UIElement element) {
 	
     }    
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	return null;
     }
 
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Application application = (Application) element;
 	if (Application.METHOD_PRESTART.equals(methodName)) {
 	    prestart(application); 
@@ -86,7 +86,7 @@ public class SwingApplicationAdapter extends AbstractUIAdapter {
 
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
     }
 
     private void prestart(Application application) {

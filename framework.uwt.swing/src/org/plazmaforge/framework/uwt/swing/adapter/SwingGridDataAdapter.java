@@ -24,7 +24,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import java.awt.GridBagConstraints;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 import org.plazmaforge.framework.uwt.layout.GridData;
@@ -33,7 +33,7 @@ public class SwingGridDataAdapter extends SwingLayoutDataAdapter {
 
     
     
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
    	GridData layoutData = (GridData) element;
    	GridBagConstraints xLayoutData = new GridBagConstraints();
@@ -54,7 +54,7 @@ public class SwingGridDataAdapter extends SwingLayoutDataAdapter {
     }
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	GridData layoutData = (GridData) element;
 	GridBagConstraints xLayoutData = getXGridData(element.getDelegate());
 	if (xLayoutData == null) {

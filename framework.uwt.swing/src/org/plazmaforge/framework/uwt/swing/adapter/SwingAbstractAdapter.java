@@ -23,7 +23,7 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
@@ -50,11 +50,11 @@ public abstract class SwingAbstractAdapter extends AbstractUIAdapter {
     }
 
     
-    protected javax.swing.ImageIcon createImageIcon(UIObject element, Image image) {
+    protected javax.swing.ImageIcon createImageIcon(UIElement element, Image image) {
 	return SwingHelper.createImageIcon(element, image);
     }
 
-    protected javax.swing.ImageIcon createImageIcon(UIObject element, String path) {
+    protected javax.swing.ImageIcon createImageIcon(UIElement element, String path) {
 	return SwingHelper.createImageIcon(element, path);
     }
     

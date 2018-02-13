@@ -23,13 +23,13 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
 
 public class SwingBoxLayoutAdapter extends SwingLayoutAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	BoxLayout layout = (BoxLayout) element;
 	java.awt.Container owner = (java.awt.Container) layout.getData(SwingLayoutAdapter.SYS_PROPERTY_OWNER);

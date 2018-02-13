@@ -23,14 +23,14 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XDateTimeField;
 import org.plazmaforge.framework.uwt.widget.DateTimeField;
 
 public class SwingDateTimeFieldAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	XDateTimeField xDateTimeField = new XDateTimeField();
 	addChild(xParent, xDateTimeField, element);
@@ -42,7 +42,7 @@ public class SwingDateTimeFieldAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XDateTimeField xDateTimeField = getDateTimeField(element.getDelegate());
 	if (xDateTimeField == null) {
 	    return;
@@ -58,7 +58,7 @@ public class SwingDateTimeFieldAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	XDateTimeField xDateTimeField = getDateTimeField(element.getDelegate());
 	if (xDateTimeField == null) {
 	    return null;

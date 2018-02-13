@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.swing.widget.XIntegerField;
 import org.plazmaforge.framework.uwt.widget.NumberField;
 
 public class SwingIntegerFieldAdapter extends SwingNumberFieldAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	XIntegerField xIntegerField = new XIntegerField();
 	addChild(xParent, xIntegerField, element);	
@@ -40,7 +40,7 @@ public class SwingIntegerFieldAdapter extends SwingNumberFieldAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	XIntegerField xIntegerField = getIntegerField(element.getDelegate());
 	if (xIntegerField == null) {
 	    return;
@@ -53,7 +53,7 @@ public class SwingIntegerFieldAdapter extends SwingNumberFieldAdapter {
     }
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	XIntegerField xIntegerField = getIntegerField(element.getDelegate());
 	if (xIntegerField == null) {
 	    return null;

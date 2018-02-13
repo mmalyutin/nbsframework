@@ -24,14 +24,14 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import java.awt.FlowLayout;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SwingContainerAdapter extends SwingControlAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = (java.awt.Container) getContent(parent.getDelegate());
 	javax.swing.JPanel xContainer = new javax.swing.JPanel();
 	addChild(xParent, xContainer, element);
@@ -44,7 +44,7 @@ public class SwingContainerAdapter extends SwingControlAdapter {
     
 
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	java.awt.Container xContainer = (java.awt.Container) element.getDelegate();
 	if (xContainer == null) {
@@ -72,7 +72,7 @@ public class SwingContainerAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	if (element == null) {
 	    return null;
 	}

@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.ImageBox;
 import org.plazmaforge.framework.uwt.widget.Label;
@@ -30,7 +30,7 @@ import org.plazmaforge.framework.uwt.widget.Label;
 public class SwingImageBoxAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JLabel xImageBox = new javax.swing.JLabel();
 	
@@ -52,7 +52,7 @@ public class SwingImageBoxAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JLabel xImageBox = getImageBox(element.getDelegate());
 	if (xImageBox == null) {

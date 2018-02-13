@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.dialog.Dialog;
 
 public class SwingDialogAdapter extends SwingWindowAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
    	Object xParent = parent == null ? null : parent.getDelegate();
    	Dialog dialog = (Dialog) element;
    	return createDialog(xParent, dialog);
@@ -36,7 +36,7 @@ public class SwingDialogAdapter extends SwingWindowAdapter {
     
   
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	Object delegate = element.getDelegate();
 	setDialogProperty((javax.swing.JDialog) delegate, element, name, value);
     }

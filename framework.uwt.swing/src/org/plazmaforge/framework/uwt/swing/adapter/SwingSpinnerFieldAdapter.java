@@ -22,13 +22,13 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.SpinnerField;
 
 public class SwingSpinnerFieldAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	SpinnerField spinnerField = (SpinnerField) element;
 	
 	// Get values
@@ -54,7 +54,7 @@ public class SwingSpinnerFieldAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	javax.swing.JSpinner xSpinner = getSpinner(element.getDelegate());
 	if (xSpinner == null) {
 	    return;
@@ -68,7 +68,7 @@ public class SwingSpinnerFieldAdapter extends SwingControlAdapter {
 
 
     @Override
-    public Object getProperty(UIObject element, String name) {
+    public Object getProperty(UIElement element, String name) {
 	javax.swing.JSpinner xSpinner = getSpinner(element.getDelegate());
 	if (xSpinner == null) {
 	    return null;

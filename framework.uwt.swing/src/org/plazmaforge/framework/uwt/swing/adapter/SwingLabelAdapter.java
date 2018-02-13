@@ -22,7 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Label;
 
 /**
@@ -33,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.Label;
 public class SwingLabelAdapter extends SwingControlAdapter {
 
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	java.awt.Container xParent = getContent(parent.getDelegate());
 	javax.swing.JLabel xLabel = new javax.swing.JLabel();
 	
@@ -61,7 +61,7 @@ public class SwingLabelAdapter extends SwingControlAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	
 	javax.swing.JLabel xLabel = getJLabel(element.getDelegate());
 	if (xLabel == null) {

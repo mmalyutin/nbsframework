@@ -22,14 +22,14 @@
 
 package org.plazmaforge.framework.uwt.swing.adapter;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.layout.CardLayout;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
 public class SwingCardLayoutAdapter extends SwingLayoutAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 
 	org.plazmaforge.framework.uwt.swing.layout.XCardLayout xLayout = new org.plazmaforge.framework.uwt.swing.layout.XCardLayout();
 	
@@ -37,7 +37,7 @@ public class SwingCardLayoutAdapter extends SwingLayoutAdapter {
     }
   
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	Layout layout = (Layout) element;
 	org.plazmaforge.framework.uwt.swing.layout.XCardLayout xLayout = (org.plazmaforge.framework.uwt.swing.layout.XCardLayout) element.getDelegate();
 	if (isNavigation(methodName)) {

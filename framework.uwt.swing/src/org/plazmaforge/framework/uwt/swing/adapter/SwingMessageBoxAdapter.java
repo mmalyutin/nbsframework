@@ -24,20 +24,20 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 
 import javax.swing.JOptionPane;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.CallbackHandler;
 import org.plazmaforge.framework.uwt.widget.CallbackResult;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
 
 public class SwingMessageBoxAdapter extends SwingWidgetAdapter {
 
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	//TODO:
 	return null;
     }
     
     @Override
-    public Object invoke(UIObject element, String methodName, Object[] args) {
+    public Object invoke(UIElement element, String methodName, Object[] args) {
 	
 	//TODO: 
 	int i = 0;

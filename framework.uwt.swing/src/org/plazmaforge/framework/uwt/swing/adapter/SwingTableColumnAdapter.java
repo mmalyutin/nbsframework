@@ -26,7 +26,7 @@ package org.plazmaforge.framework.uwt.swing.adapter;
 import javax.swing.JLabel;
 import javax.swing.table.TableCellRenderer;
 
-import org.plazmaforge.framework.uwt.UIObject;
+import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTableCellRenderer;
 import org.plazmaforge.framework.uwt.swing.adapter.viewer.SwingTableModel;
@@ -41,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 public class SwingTableColumnAdapter extends SwingWidgetAdapter {
 
     @Override
-    public Object createDelegate(UIObject parent, UIObject element) {
+    public Object createDelegate(UIElement parent, UIElement element) {
 	
 	javax.swing.JTable xTable = getJTable(parent.getDelegate());
 	TableColumn tableColumn  = (TableColumn) element;
@@ -74,7 +74,7 @@ public class SwingTableColumnAdapter extends SwingWidgetAdapter {
     }
     
     @Override
-    public void setProperty(UIObject element, String name, Object value) {
+    public void setProperty(UIElement element, String name, Object value) {
 	javax.swing.JTable xTable = getJTable(element.getUIParent().getDelegate());
 	javax.swing.table.TableColumn xTableColumn = (javax.swing.table.TableColumn) element.getDelegate();
 	if (xTableColumn == null) {
