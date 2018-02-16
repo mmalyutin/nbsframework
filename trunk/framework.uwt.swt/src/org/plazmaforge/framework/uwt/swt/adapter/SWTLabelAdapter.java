@@ -57,14 +57,14 @@ public class SWTLabelAdapter extends SWTControlAdapter {
     
     
 
-    protected org.eclipse.swt.widgets.Label getLabel(Object delegate) {
+    protected org.eclipse.swt.widgets.Label asLabel(Object delegate) {
 	return (org.eclipse.swt.widgets.Label) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
 	
-	org.eclipse.swt.widgets.Label xLabel = getLabel(element.getDelegate());
+	org.eclipse.swt.widgets.Label xLabel = asLabel(element.getDelegate());
 	if (xLabel == null) {
 	    return;
 	}
