@@ -250,6 +250,43 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 	return value == null ? 0d : asDouble(value);
     }  
    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Log
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    protected void log(String message) {
+	// Default implementation
+	System.out.println(message);
+    }
+    
+    protected void logUI(String message) {
+	log("UWT: " + message);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Log methods
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // Log
+    protected void logUnsupportSetProperty(Object widget, String property) {
+	logUnsupportProperty("setProperty", widget, property);
+    }
+
+    // Log
+    protected void logUnsupportGetProperty(Object widget, String property) {
+	logUnsupportProperty("getProperty", widget, property);
+    }
+          
+    // Log
+    protected void logUnsupportProperty(String title, Object widget, String property) {
+  	logUI("" + title + ": Property '"+  property + "' is not supported. Class=" + widget.getClass().getName());
+    } 
+    
     ////
  
     protected ApplicationContext getApplicationContext(UIElement element) {
