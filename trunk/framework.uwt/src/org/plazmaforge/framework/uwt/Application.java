@@ -22,10 +22,14 @@
 
 package org.plazmaforge.framework.uwt;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.plazmaforge.framework.core.data.CallbackAdapter;
 import org.plazmaforge.framework.core.data.Destroyer;
 import org.plazmaforge.framework.core.data.Initializer;
 import org.plazmaforge.framework.core.exception.ErrorHandler;
+import org.plazmaforge.framework.util.CoreUtils;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.MessageBox;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -37,7 +41,7 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  * @author ohapon
  *
  */
-public class Application extends Widget implements IApplication {
+public abstract class Application extends Widget implements IApplication {
     
     //////////////////////////////////////////////////////////////////////
     // METHODS
@@ -90,6 +94,8 @@ public class Application extends Widget implements IApplication {
 
     private static ErrorHandler defaultErrorHandler;  
     
+    
+    
     public Application() {
 	super();
 	current = this;
@@ -119,7 +125,50 @@ public class Application extends Widget implements IApplication {
 	frame.assign(this);
 	return frame;
     }
+    
+    /**
+     * Return map of properties by array of arguments 
+     * @param args
+     * @return
+     */
+    public static Map<String, String> getProperties(String[] args) {
+	return CoreUtils.toInputMap(args);
+    }
+    
+    
+    public void init() {
+	// do nothing by default
+    }
+    
+    /**
+     * Starts the Application by command line arguments
+     * @param args
+     */
+    public void start(String[] args) {
+	start(getProperties(args));
+    }
+    
+    /**
+     * Start the Application by input properties
+     * @param properties
+     */
+    public void start(Map<String, String> properties) {
+	
+ 	// Transfer start properties to application
+ 	if (properties != null) {
+ 	    ApplicationContext applicationContext = getApplicationContext();
+ 	    Set<String> keys = properties.keySet();
+ 	    for (String key: keys) {
+ 		applicationContext.setProperty(key, properties.get(key));
+ 	    }
+ 	}
+ 	start();
+    }
+         
 
+    /**
+     * Start the Application
+     */
     @Override
     public void start() {
 	
@@ -128,6 +177,10 @@ public class Application extends Widget implements IApplication {
 	}
 	running = true;
 	
+	// Initialize the Application
+	init();
+	
+	// Activate UI
 	activateUI();
 	
 	if (getInitializer() != null) {

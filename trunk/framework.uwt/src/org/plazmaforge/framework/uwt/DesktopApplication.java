@@ -35,7 +35,7 @@ import org.plazmaforge.framework.core.data.Initializer;
  * @author ohapon
  *
  */
-public class DesktopApplication extends AbstractDesktopApplication {
+public class DesktopApplication extends Application {
     
     /**
      * @param args
@@ -52,24 +52,24 @@ public class DesktopApplication extends AbstractDesktopApplication {
 	    System.err.println("UI is not setting. Use argument -ui to set UI in command line");
 	    return;
 	}
+	
 	// Initialize UWT by UI type
-	if (!initUWT(ui)) {
+	if (!UWTDesktopToolit.initUWT(ui)) {
 	    return;
 	}
 	
 	// Create application
 	DesktopApplication application = new DesktopApplication();
 	
-	//TODO: May be transfer properties to application 
 	
 	// Set application initializer
-	Initializer initializer = getInitializer(properties.get("application.initializer"));
+	Initializer initializer = UWTDesktopToolit.getInitializer(properties.get("application.initializer"));
 	if (initializer != null) {
 	    application.setInitializer(initializer);
 	}
 	
 	// Set application destroyer
-	Destroyer destroyer = getDestroyer(properties.get("application.destroyer"));
+	Destroyer destroyer = UWTDesktopToolit.getDestroyer(properties.get("application.destroyer"));
 	if (destroyer != null) {
 	    application.setDestroyer(destroyer);
 	}

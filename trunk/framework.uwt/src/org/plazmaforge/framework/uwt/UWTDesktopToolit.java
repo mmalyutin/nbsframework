@@ -19,38 +19,22 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
-
-/**
- * 
- */
 package org.plazmaforge.framework.uwt;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Set;
 
 import org.plazmaforge.framework.core.data.Destroyer;
 import org.plazmaforge.framework.core.data.Initializer;
-import org.plazmaforge.framework.util.SystemUtils;
 
 /**
+ * Special Toolkit for Desktop mode (Swing, SWT)
+ * 
  * @author ohapon
  *
  */
-public class AbstractDesktopApplication extends Application {
+public class UWTDesktopToolit {
 
-    
-    //[CORE]
-    /**
-     * Return map of properties by array of arguments 
-     * @param args
-     * @return
-     */
-    public static Map<String, String> getProperties(String[] args) {
-	Map<String, String> properties = SystemUtils.toMap(SystemUtils.loadProperties(args));
-	return properties;
-    }
     
     //[CORE]
     /**
@@ -149,23 +133,11 @@ public class AbstractDesktopApplication extends Application {
 	    return "GWT";
 	} else if ("GXT".equals(upper)) {
 	    return "GXT";
+	} else if ("JFX".equals(upper)) {
+	    return "JFX";
 	}
 	return ui;
     }
     
-    public void start(Map<String, String> properties) {
-	
-	// Transfer start properties to application
-	if (properties != null) {
-	    ApplicationContext applicationContext = getApplicationContext();
-	    Set<String> keys = properties.keySet();
-	    for (String key: keys) {
-		applicationContext.setProperty(key, properties.get(key));
-	    }
-	}
-	start();
-    }
     
-
-
 }
