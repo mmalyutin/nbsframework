@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 public class CoreUtils {
@@ -117,5 +116,58 @@ public class CoreUtils {
 	return index > 0 ? className.substring(0, index) : null;
     }
     
-
+    
+    /**
+     * Converts command line arguments to Map<String, String>
+     * @param args
+     * @return
+     */
+    public static Map<String, String> toInputMap(String[] args) {
+	Map<String, String> map  = new HashMap<String, String>();
+	transferArguments(args, map);
+	return map;
+    }
+    
+    
+    /**
+     * Transfers command line arguments to Map
+     * @param args
+     * @param map
+     */
+    public static void transferArguments(String[] args, Map map) {
+   	if (args == null || args.length == 0) {
+   	    return;
+   	}
+   	String p = null;
+   	String v = null;
+      	for (int i = 0; i < args.length; i++) {
+      	    p = normalizeArg(args[i]);
+      	    if (p == null) {
+      		continue;
+      	    }
+      	    if (p.startsWith("-") && p.length() > 1) {
+      		p = p.substring(1);
+      		if ((i + 1) < args.length) {
+      		    v = normalizeArg(args[i + 1]);
+      		    if (v != null && v.startsWith("-")) {
+      			v = "true";
+      		    } else {
+      			i++;
+      		    }
+      		} else {
+      		    v = "true";
+      		}
+      		if (v == null) {
+      		    continue;
+      		}
+      		map.put(p, v);
+      		
+      	    }
+      	}
+    }
+    
+    private static String normalizeArg(String str) {
+	return str; // ?
+    }
+        
 }
