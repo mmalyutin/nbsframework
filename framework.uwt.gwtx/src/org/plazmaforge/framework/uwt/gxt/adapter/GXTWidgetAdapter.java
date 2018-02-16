@@ -76,22 +76,12 @@ public abstract class GXTWidgetAdapter extends GXTAbstractAdapter {
 	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
     }     
     
-    // Log
-    protected void logUnsupportSetProperty(Object widget, String property) {
-	logUnsupportProperty("setProperty", widget, property);
+    @Override
+    protected void log(String message) {
+	// GWT implementation
+	GWT.log(message);
     }
 
-    // Log
-    protected void logUnsupportGetProperty(Object widget, String property) {
-	logUnsupportProperty("getProperty", widget, property);
-    }
-          
-    // Log
-    protected void logUnsupportProperty(String title, Object widget, String property) {
-  	GWT.log("UWT: " + title + ": Property '"+  property + "' is not supported. Class=" + widget.getClass().getName());
-    }
-    
-    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Cast
