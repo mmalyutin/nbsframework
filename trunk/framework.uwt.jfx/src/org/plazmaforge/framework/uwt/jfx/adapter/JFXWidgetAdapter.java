@@ -39,61 +39,83 @@ import org.plazmaforge.framework.uwt.widget.Widget;
  */
 public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     
-//    
-//    // Check
-//    protected void checkNullParent(org.eclipse.swt.widgets.Widget parent, String title) {
-//	if (parent == null) {
-//	    throw new UWTException(title + ". Parent is null");
-//	}
-//    }
-//    
-//    // Check
-//    protected void checkContainerParent(org.eclipse.swt.widgets.Widget parent, String title) {
-//	if (!(parent instanceof org.eclipse.swt.widgets.Composite)) {
-//	    throw new UWTException(title + ". Parent is not container: " + parent.getClass().getName());
-//	}
-//    } 
-//    
-//    // Throw
-//    protected void throwUnsupportParent(org.eclipse.swt.widgets.Widget parent, String title) {
-//	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
-//    }     
-//    
-//    
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    //
-//    // Cast
-//    //
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    
-//    /**
-//     * Returns SWT Widget
-//     * @param delegate
-//     * @return
-//     */
-//    protected final org.eclipse.swt.widgets.Widget asWidget(Object delegate) {
-//	return (org.eclipse.swt.widgets.Widget) delegate;
-//    }
-//    
-//    /**
-//     * Returns SWT Control
-//     * @param delegate
-//     * @return
-//     */
-//    protected final org.eclipse.swt.widgets.Control asControl(Object delegate) {
-//	return (org.eclipse.swt.widgets.Control) delegate;
-//    }
-//    
-//    /**
-//     * Returns SWT Composite
-//     * @param delegate
-//     * @return
-//     */
-//    protected org.eclipse.swt.widgets.Composite asComposite(Object delegate) {
-//   	return (org.eclipse.swt.widgets.Composite) delegate;
-//    }
-//    
-//    
+    
+    // Check
+    protected void checkNullParent(javafx.scene.Node parent, String title) {
+	if (parent == null) {
+	    throw new UWTException(title + ". Parent is null");
+	}
+    }
+    
+    // Check
+    protected void checkContainerParent(javafx.scene.Node parent, String title) {
+	if (!(parent instanceof javafx.scene.Parent)) {
+	    throw new UWTException(title + ". Parent is not container: " + parent.getClass().getName());
+	}
+    } 
+    
+    // Throw
+    protected void throwUnsupportParent(javafx.scene.Node parent, String title) {
+	throw new UWTException(title + ". Parent is not supported: " + parent.getClass().getName());
+    }     
+    
+    @Override
+    protected void log(String message) {
+	//JFX implementation
+	System.out.println(message);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Cast
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Returns JFX Node
+     * @param delegate
+     * @return
+     */
+    protected final javafx.scene.Node asNode(Object delegate) {
+	return (javafx.scene.Node) delegate;
+    }
+    
+    /**
+     * Returns JFX Parent (Container)
+     * @param delegate
+     * @return
+     */
+    protected javafx.scene.Parent asParent(Object delegate) {
+   	return (javafx.scene.Parent) delegate;
+    }
+    
+    /**
+     * Returns JFX Control
+     * @param delegate
+     * @return
+     */
+    protected final javafx.scene.control.Control asControl(Object delegate) {
+	return (javafx.scene.control.Control) delegate;
+    }
+    
+    /**
+     * Return true if delegate is JFX Node
+     * @param delegate
+     * @return
+     */
+    protected final boolean isNode(Object delegate) {
+	return delegate instanceof javafx.scene.Node;
+    }    
+    
+    /**
+     * Returns true if delegate is JFX Parent
+     * @param delegate
+     * @return
+     */
+    protected final boolean isParent(Object delegate) {
+	return delegate instanceof javafx.scene.Parent;
+    } 
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Content
@@ -193,33 +215,42 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
   	//TODO
     }    
     
-//    
-//    @Override
-//    public void setProperty(UIElement element, String name, Object value) {
-//	org.eclipse.swt.widgets.Widget widget = asWidget(element.getDelegate());
-//	if (widget == null) {
-//	    return;
-//	}
-//	if (Widget.PROPERTY_DATA.equals(name)) {
-//	    widget.setData(value);
-//	} else if (startsWith(name, Widget.PROPERTY_DATA_PREFIX)) {
-//	    // WARNING! We use '@' to separate 'data' and 'key' 
-//	    String key = name.substring(Widget.PROPERTY_DATA_PREFIX.length());
-//	    widget.setData(key, value);
-//	    return;	
-//	}
-//	
-//	super.setProperty(element, name, value);
-//    }
-//    
-//    
-//    @Override
-//    public Object getProperty(UIElement element, String name) {
-//	return super.getProperty(element, name);
-//    }
-//    
-//    
-//    
+    
+    @Override
+    public void setProperty(UIElement element, String name, Object value) {
+	
+	Object xElement = element.getDelegate();
+	if (!isNode(xElement)) {
+	    logUnsupportSetProperty(xElement, name);
+	    return;
+	}
+	
+	javafx.scene.Node widget = asNode(element.getDelegate());
+	if (widget == null) {
+	    return;
+	}
+	if (Widget.PROPERTY_DATA.equals(name)) {
+	    widget.setUserData(value);
+	} else if (startsWith(name, Widget.PROPERTY_DATA_PREFIX)) {
+	    // WARNING! We use '@' to separate 'data' and 'key' 
+	    String key = name.substring(Widget.PROPERTY_DATA_PREFIX.length());
+	    
+	    //TODO
+	    //widget.setUserData(key, value);
+	    return;	
+	}
+	
+	super.setProperty(element, name, value);
+    }
+    
+    
+    @Override
+    public Object getProperty(UIElement element, String name) {
+	return super.getProperty(element, name);
+    }
+    
+    
+    
 //    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //    //
 //    // Listeners
