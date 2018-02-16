@@ -59,14 +59,14 @@ public class JFXButtonAdapter extends JFXControlAdapter {
 	return xButton;
     }
 
-    protected javafx.scene.control.Button getButton(Object delegate) {
-	return (javafx.scene.control.Button) delegate;
+    protected javafx.scene.control.ButtonBase asButtonBase(Object delegate) {
+	return (javafx.scene.control.ButtonBase) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
 	
-	javafx.scene.control.Button xButton = getButton(element.getDelegate());
+	javafx.scene.control.ButtonBase xButton = asButtonBase(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
