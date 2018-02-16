@@ -23,70 +23,53 @@
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
-import org.plazmaforge.framework.uwt.widget.Label;
+import org.plazmaforge.framework.uwt.widget.IField;
+import org.plazmaforge.framework.uwt.widget.TextField;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class JFXLabelAdapter extends JFXControlAdapter {
+public class JFXTextFieldAdapter extends JFXControlAdapter {
 
 
     public Object createDelegate(UIElement parent, UIElement element) {
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
-	javafx.scene.control.Label xLabel = new javafx.scene.control.Label();
-	
-	Label label = (Label) element; 
-	// Get text
-	String text = label.getText();
-	if (text != null) {
-	    xLabel.setText(text);
-	}
-
-	// Get icon
-	//javafx.scene.image.Image xIcon = createImage(element, label.getIcon());
-	//if (xIcon != null) {
-	//    xLabel.setImage(xIcon);
-	//}	
-	//TODO		
-		
-	addChild(xParent, xLabel, element);
-	return xLabel;
+	javafx.scene.control.TextField xTextField = new javafx.scene.control.TextField();
+	xTextField.setPrefWidth(IField.DEFAULT_TEXT_WIDTH);
+	addChild(xParent, xTextField, element);
+	return xTextField;
     }
-    
-    
 
-    protected javafx.scene.control.Label asLabel(Object delegate) {
-	return (javafx.scene.control.Label) delegate;
+    protected javafx.scene.control.TextField asTextField(Object delegate) {
+	return (javafx.scene.control.TextField) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
-	
-	javafx.scene.control.Label xLabel = asLabel(element.getDelegate());
-	if (xLabel == null) {
+	javafx.scene.control.TextField xTextField = asTextField(element.getDelegate());
+	if (xTextField == null) {
 	    return;
 	}
-	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLabel.setText(asSafeString(value));
-	    //layout(xLabel);
-	    return;
-	} else if (Label.PROPERTY_ICON.equals(name)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asImage(value));
-	    //if (xIcon != null) {
-		//xLabel.setImage(xIcon);
-	    //}
-	    return;
-	} else if (Label.PROPERTY_ICON_PATH.equals(name)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asString(value));
-	    //if (xIcon != null) {
-		//xLabel.setImage(xIcon);
-	    //}
+	if (TextField.PROPERTY_VALUE.equals(name)) {
+	    xTextField.setText(asSafeString(value));
 	    return;
 	}
-	
 	super.setProperty(element, name, value);
-	
     }
+    
+    @Override
+    public Object getProperty(UIElement element, String name) {
+	javafx.scene.control.TextField xTextField = asTextField(element.getDelegate());
+	if (xTextField == null) {
+	    return null;
+	}
+	if (TextField.PROPERTY_VALUE.equals(name)) {
+	    return xTextField.getText();
+	}
+	return super.getProperty(element, name);
+    }
+    
+    
 }

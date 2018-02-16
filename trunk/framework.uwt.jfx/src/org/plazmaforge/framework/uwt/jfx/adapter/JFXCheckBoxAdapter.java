@@ -23,70 +23,53 @@
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
-import org.plazmaforge.framework.uwt.widget.Label;
+import org.plazmaforge.framework.uwt.widget.CheckBox;
 
 /**
  * 
  * @author ohapon
  *
  */
-public class JFXLabelAdapter extends JFXControlAdapter {
+public class JFXCheckBoxAdapter extends JFXButtonAdapter {
 
 
     public Object createDelegate(UIElement parent, UIElement element) {
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
-	javafx.scene.control.Label xLabel = new javafx.scene.control.Label();
-	
-	Label label = (Label) element; 
-	// Get text
-	String text = label.getText();
-	if (text != null) {
-	    xLabel.setText(text);
-	}
-
-	// Get icon
-	//javafx.scene.image.Image xIcon = createImage(element, label.getIcon());
-	//if (xIcon != null) {
-	//    xLabel.setImage(xIcon);
-	//}	
-	//TODO		
-		
-	addChild(xParent, xLabel, element);
-	return xLabel;
+	javafx.scene.control.CheckBox xCheckBox = new javafx.scene.control.CheckBox();
+	addChild(xParent, xCheckBox, element);
+	return xCheckBox;
     }
-    
-    
 
-    protected javafx.scene.control.Label asLabel(Object delegate) {
-	return (javafx.scene.control.Label) delegate;
+    protected javafx.scene.control.CheckBox asCheckBox(Object delegate) {
+	return (javafx.scene.control.CheckBox) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
 	
-	javafx.scene.control.Label xLabel = asLabel(element.getDelegate());
-	if (xLabel == null) {
+	javafx.scene.control.CheckBox xButton = asCheckBox(element.getDelegate());
+	if (xButton == null) {
 	    return;
 	}
-	if (Label.PROPERTY_TEXT.equals(name)) {
-	    xLabel.setText(asSafeString(value));
-	    //layout(xLabel);
-	    return;
-	} else if (Label.PROPERTY_ICON.equals(name)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asImage(value));
-	    //if (xIcon != null) {
-		//xLabel.setImage(xIcon);
-	    //}
-	    return;
-	} else if (Label.PROPERTY_ICON_PATH.equals(name)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asString(value));
-	    //if (xIcon != null) {
-		//xLabel.setImage(xIcon);
-	    //}
+	if (CheckBox.PROPERTY_VALUE.equals(name)) {
+	    xButton.setSelected(booleanValue(value));
 	    return;
 	}
-	
 	super.setProperty(element, name, value);
+     }
+
+    
+    @Override
+    public Object getProperty(UIElement element, String name) {
 	
-    }
+	javafx.scene.control.CheckBox xButton = asCheckBox(element.getDelegate());
+	if (xButton == null) {
+	    return null;
+	}
+	if (CheckBox.PROPERTY_VALUE.equals(name)) {
+	    return xButton.isSelected();
+	}
+	return super.getProperty(element, name);
+     }
+
 }
