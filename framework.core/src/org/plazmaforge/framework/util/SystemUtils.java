@@ -167,42 +167,12 @@ public class SystemUtils {
 	return list == null ? 0 : list.size();
     }
 
-
-    private static String normalizeArg(String str) {
-	return str; // ?
-    }
-    
     public static Properties loadProperties(String[] args) {
    	Properties properties = new Properties();
    	if (args == null || args.length == 0){
    	    return properties;
    	}
-   	String p = null;
-   	String v = null;
-      	for (int i = 0; i < args.length; i++) {
-      	    p = normalizeArg(args[i]);
-      	    if (p == null) {
-      		continue;
-      	    }
-      	    if (p.startsWith("-") && p.length() > 1) {
-      		p = p.substring(1);
-      		if ((i + 1) < args.length) {
-      		    v = normalizeArg(args[i + 1]);
-      		    if (v != null && v.startsWith("-")) {
-      			v = "true";
-      		    } else {
-      			i++;
-      		    }
-      		} else {
-      		    v = "true";
-      		}
-      		if (v == null) {
-      		    continue;
-      		}
-      		properties.put(p, v);
-      		
-      	    }
-      	}
+   	CoreUtils.transferArguments(args, properties);
       	return properties;
     }    
    
@@ -229,8 +199,7 @@ public class SystemUtils {
 	return map;
     }
 
-    public static Map<String, String> toFilterMap(Properties properties,
-	    String prefix) {
+    public static Map<String, String> toFilterMap(Properties properties, String prefix) {
 	return toFilterMap(properties, prefix, false);
     }
 
