@@ -9,7 +9,7 @@
     	<exclude name="util/FormatUtils.java"/>
     	<exclude name="util/NumberUtils.java"/>
     	<exclude name="util/UWTUtils.java"/>
-    	<exclude name="AbstractDesktopApplication.java"/>
+    	<exclude name="UWTDesktopToolkit.java"/>
     	<exclude name="DesktopApplication.java"/>
     </source>
 </module>

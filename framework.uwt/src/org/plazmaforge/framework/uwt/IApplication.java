@@ -34,6 +34,11 @@ import org.plazmaforge.framework.uwt.widget.Frame;
 public interface IApplication  {
 
     /**
+     * Init the application
+     */
+    void init();
+    
+    /**
      * Start the application
      */
     void start();
