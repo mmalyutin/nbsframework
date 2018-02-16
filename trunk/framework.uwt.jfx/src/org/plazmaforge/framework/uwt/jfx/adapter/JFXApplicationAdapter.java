@@ -25,7 +25,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.UIElement;
-import org.plazmaforge.framework.uwt.jfx.XApplication;
+import org.plazmaforge.framework.uwt.jfx.widget.XApplication;
 import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
