@@ -69,8 +69,8 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXFrameAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXSplitPanelAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabItemAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabPanelAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableColumnAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableColumnAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTextFieldAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTextAreaAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXTimeFieldAdapter;
@@ -154,10 +154,12 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.CardLayout.class, new JFXCardLayoutAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.GridData.class, new JFXGridDataAdapter());
+	*/
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.Table.class, new JFXTableAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.TableColumn.class, new JFXTableColumnAdapter());
 	
+	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new JFXTreeAdapter());
 
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new JFXTabPanelAdapter());
