@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.uwt.widget;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.core.data.Callback;
@@ -277,6 +278,17 @@ public abstract class Viewer<T> extends Container implements IViewer<T> {
 	return getDataStore().getDataList();
     }
     
+    //@Override
+    public void setItems(T[] items) {
+	List<T> list = new ArrayList<T>();
+	if (items != null) {
+	    for (T item : items) {
+		list.add(item);
+	    }
+	}
+	setItems(list);
+    }
+
     @Override
     public void setItems(List<T> dataList) {
 	DataProvider<T> dataProvider = getDataProvider();
