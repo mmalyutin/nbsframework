@@ -66,10 +66,10 @@ public class JFXListBoxAdapter extends JFXViewerAdapter {
 	    return;
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
 	    //xListBox.setValue(value);
-	    setSelectedItem(xListBox.getSelectionModel(), value);
+	    setSelectedItem(xListBox, value);
 	    return;
 	} else if (ComboBox.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    setSelectedIndex(xListBox.getSelectionModel(), intValue(value));
+	    setSelectedIndex(xListBox, intValue(value));
 	    return;
 	} else if (ComboBox.PROPERTY_DATA_LIST.equals(name)) {
 	    
@@ -100,9 +100,9 @@ public class JFXListBoxAdapter extends JFXViewerAdapter {
 	    return null;
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
 	    //return xListBox.getValue();
-	    return xListBox.getSelectionModel().getSelectedItem();
+	    return getSelectedItem(xListBox);
 	} else if (ComboBox.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    return xListBox.getSelectionModel().getSelectedIndex();
+	    return getSelectedIndex(xListBox);
 	}
 	return super.getProperty(element, name);
     }
@@ -110,14 +110,14 @@ public class JFXListBoxAdapter extends JFXViewerAdapter {
     
     @Override
     public Object invoke(UIElement element, String methodName, Object[] args) {
-	javafx.scene.control.ListView xComboBox = asComboBox(element.getDelegate());
-	if (xComboBox == null) {
+	javafx.scene.control.ListView xListBox = asComboBox(element.getDelegate());
+	if (xListBox == null) {
 	    return -1;
 	}
 	if (ComboBox.METHOD_GET_SELECTION.equals(methodName)) {
-	    return xComboBox.getSelectionModel().getSelectedIndex();
+	    return getSelectedIndex(xListBox);
 	} else if (ComboBox.METHOD_SET_SELECTION.equals(methodName)) {
-	    setSelectedIndex(xComboBox.getSelectionModel(), intValue(args[0]));
+	    setSelectedIndex(xListBox, intValue(args[0]));
 	    return null;
 	}
 	return super.invoke(element, methodName, args);
