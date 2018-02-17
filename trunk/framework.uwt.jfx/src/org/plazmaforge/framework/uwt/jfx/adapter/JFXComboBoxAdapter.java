@@ -68,7 +68,7 @@ public class JFXComboBoxAdapter extends JFXViewerAdapter {
 	    xComboBox.setValue(value);
 	    return;
 	} else if (ComboBox.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    setSelectedIndex(xComboBox.getSelectionModel(), intValue(value));
+	    setSelectedIndex(xComboBox, intValue(value));
 	    return;
 	} else if (ComboBox.PROPERTY_DATA_LIST.equals(name)) {
 	    
@@ -100,7 +100,7 @@ public class JFXComboBoxAdapter extends JFXViewerAdapter {
 	} else if (ComboBox.PROPERTY_VALUE.equals(name)) {
 	    return xComboBox.getValue();
 	} else if (ComboBox.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    return xComboBox.getSelectionModel().getSelectedIndex();
+	    return getSelectedIndex(xComboBox);
 	}
 	return super.getProperty(element, name);
     }
@@ -113,9 +113,9 @@ public class JFXComboBoxAdapter extends JFXViewerAdapter {
 	    return -1;
 	}
 	if (ComboBox.METHOD_GET_SELECTION.equals(methodName)) {
-	    return xComboBox.getSelectionModel().getSelectedIndex();
+	    return getSelectedIndex(xComboBox);
 	} else if (ComboBox.METHOD_SET_SELECTION.equals(methodName)) {
-	    setSelectedIndex(xComboBox.getSelectionModel(), intValue(args[0]));
+	    setSelectedIndex(xComboBox, intValue(args[0]));
 	    return null;
 	}
 	return super.invoke(element, methodName, args);

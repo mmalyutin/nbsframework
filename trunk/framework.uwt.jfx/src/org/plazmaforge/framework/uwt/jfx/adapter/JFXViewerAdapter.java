@@ -52,5 +52,33 @@ public abstract class JFXViewerAdapter extends JFXControlAdapter {
 
     protected <T> T getSelectedItem(SelectionModel<T> selectionModel) {
 	return selectionModel.getSelectedItem();
-    }    
+    }  
+    
+    ////
+    protected SelectionModel getSelectionModel(javafx.scene.control.Control xControl) {
+	if (xControl instanceof javafx.scene.control.ComboBox) {
+	    return ((javafx.scene.control.ComboBox) xControl).getSelectionModel();
+	} else if (xControl instanceof javafx.scene.control.ListView) {
+	    return ((javafx.scene.control.ListView) xControl).getSelectionModel();
+	} else if (xControl instanceof javafx.scene.control.TableView) {
+	    return ((javafx.scene.control.TableView) xControl).getSelectionModel();
+	}
+	return null;
+    }
+    
+    protected void setSelectedIndex(javafx.scene.control.Control xControl, int index) {
+	setSelectedIndex(getSelectionModel(xControl), index);
+    }
+
+    protected int getSelectedIndex(javafx.scene.control.Control xControl) {
+	return getSelectedIndex(getSelectionModel(xControl));
+    }
+
+    protected void setSelectedItem(javafx.scene.control.Control xControl, Object item) {
+	setSelectedItem(getSelectionModel(xControl), item);
+    }
+
+    protected Object getSelectedItem(javafx.scene.control.Control xControl) {
+	return getSelectedItem(getSelectionModel(xControl));
+    }      
 }
