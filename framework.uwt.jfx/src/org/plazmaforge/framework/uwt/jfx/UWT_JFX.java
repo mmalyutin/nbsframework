@@ -31,7 +31,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXButtonAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXCardLayoutAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXCheckBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXCollapsePanelAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXComboBoxAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXComboBoxAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXContainerAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXCoolBarAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
@@ -49,7 +49,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXContainerAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXIntegerFieldAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXLabelAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXLinkAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXListBoxAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXListBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuBarAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuItemAdapter;
@@ -138,9 +138,9 @@ public class UWT_JFX {
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TimeField.class, new JFXTimeFieldAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.CheckBox.class, new JFXCheckBoxAdapter());
-	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ComboBox.class, new JFXComboBoxAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ListBox.class, new JFXListBoxAdapter());
+	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Slider.class, new JFXSliderAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Link.class, new JFXLinkAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ImageBox.class, new JFXImageBoxAdapter());
