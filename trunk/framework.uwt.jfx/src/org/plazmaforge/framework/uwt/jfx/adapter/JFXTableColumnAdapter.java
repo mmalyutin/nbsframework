@@ -28,6 +28,8 @@ import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellValueFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XPropertyValueFactory;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
 import org.plazmaforge.framework.uwt.widget.table.Table;
@@ -52,10 +54,10 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	
 	TableColumn tableColumn = (TableColumn) element;
 	javafx.scene.control.TableView xTable = (javafx.scene.control.TableView) parent.getDelegate();
-	javafx.scene.control.TableColumn xTableColumn = createColumn(table, column, false);
+	javafx.scene.control.TableColumn xColumn = createColumn(table, column, false);
 	
-	xTable.getColumns().add(xTableColumn);
-	return xTableColumn;
+	xTable.getColumns().add(xColumn);
+	return xColumn;
     }
 
     public javafx.scene.control.TableColumn createColumn(Table<?> table, TableColumn column, boolean external) {
@@ -73,29 +75,41 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	int width = column.getWidth();
 	HorizontalAlign align = column.getAlign();
 	
-	javafx.scene.control.TableColumn xTableColumn = new javafx.scene.control.TableColumn();
+	// Create column
+	javafx.scene.control.TableColumn xColumn = new javafx.scene.control.TableColumn(text);
 	
+	// width
+	xColumn.setPrefWidth(width);
 	
-	// Create cell by data type
-	XCellFactory cell = JFXUtils.createCell(column.getDataType(), column.getFormat());
-	if (cell != null) {
-	    xTableColumn.setCellFactory(cell);
-	}
+	// Create CellValueFactory
+	xColumn.setCellValueFactory(createCellValueFactory(property));
 
+	// Create CellFactory by data type
+	XCellFactory cellFactory = createCellFactory(column.getDataType(), column.getFormat());
+	if (cellFactory != null) {
+	    xColumn.setCellFactory(cellFactory);
+	}
 		
-	//column.resetInitProperty(TableColumn.PROPERTY_TEXT);
-	//column.resetInitProperty(TableColumn.PROPERTY_PROPERTY);
-	//column.resetInitProperty(TableColumn.PROPERTY_WIDTH);
+	column.resetInitProperty(TableColumn.PROPERTY_TEXT);
+	column.resetInitProperty(TableColumn.PROPERTY_PROPERTY);
+	column.resetInitProperty(TableColumn.PROPERTY_WIDTH);
 	//column.resetInitProperty(TableColumn.PROPERTY_ALIGN);
-	//column.resetInitProperty(TableColumn.PROPERTY_DATA_TYPE);
+	column.resetInitProperty(TableColumn.PROPERTY_DATA_TYPE);
 	column.resetInitProperty(TableColumn.PROPERTY_FORMAT);
 	//column.resetInitProperty(TableColumn.PROPERTY_VALUE_PROVIDER);
 	//column.resetInitProperty(TableColumn.PROPERTY_LABEL_PROVIDER);
 	//column.resetInitProperty(TableColumn.PROPERTY_CELL_RENDERER);
 	
-	return xTableColumn;
+	return xColumn;
     }
     
+    protected XCellValueFactory createCellValueFactory(String property) {
+	return new XPropertyValueFactory<Object, Object>(property);
+    }
+    
+    protected XCellFactory createCellFactory(String type, String pattern) {
+	return JFXUtils.createCell(type, pattern);
+    }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
@@ -107,7 +121,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	//javafx.scene.control.TableView xTable = xTableColumn.getParent();
 	
 	if (TableColumn.PROPERTY_PROPERTY.equals(name)) {
-	    xTableColumn.setCellValueFactory(new PropertyValueFactory<Object, Object>(asString(value)));
+	    xTableColumn.setCellValueFactory(createCellValueFactory(asString(value)));
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
 	    xTableColumn.setText(asString(value));
@@ -116,7 +130,6 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	    xTableColumn.setPrefWidth(intValue(value));
 	    return;
 	} else if (TableColumn.PROPERTY_FORMAT.equals(name)) {
-	    // TODO
 	    // Get pattern
 	    String pattern = asString(value);
 	    if (pattern == null) {
@@ -124,11 +137,11 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	    }
 	    
 	    //TODO: maybe type=dataType
-	    XCellFactory cell = JFXUtils.createCell(null, pattern);
-	    if (cell == null) {
+	    XCellFactory cellFactory = createCellFactory(null, pattern);
+	    if (cellFactory == null) {
 		return;
 	    }
-	    xTableColumn.setCellFactory(cell);
+	    xTableColumn.setCellFactory(cellFactory);
 	    return;
 	} else if (TableColumn.PROPERTY_ALIGN.equals(name)) {
 	    /*
