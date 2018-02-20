@@ -42,31 +42,34 @@ public class JFXButtonAdapter extends JFXControlAdapter {
 	javafx.scene.control.Button xButton = new javafx.scene.control.Button();
 	
 	Button button = (Button) element;
-	
-	// Get text
-	String text = button.getText();
-	if (text != null) {
-	    xButton.setText(text);
-	}
-	
-	// Get icon
-	//javafx.scene.image.Image xIcon = createImage(element, button.getIcon());
-	//if (xIcon != null) {
-	//    xButton.setImage(xIcon);
-	//}
+	initButton(xButton, button);
 	
 	addChild(xParent, xButton, element);
 	return xButton;
     }
 
-    protected javafx.scene.control.ButtonBase asButtonBase(Object delegate) {
+    protected void initButton(javafx.scene.control.ButtonBase xButton, Button button) {
+  	// Get text
+  	String text = button.getText();
+  	if (text != null) {
+  	    xButton.setText(text);
+  	}
+
+  	// Get icon
+  	//javafx.scene.image.Image xIcon = createImage(element, button.getIcon());
+  	//if (xIcon != null) {
+  	//    xButton.setImage(xIcon);
+  	//}
+      }
+    
+    protected javafx.scene.control.ButtonBase asButton(Object delegate) {
 	return (javafx.scene.control.ButtonBase) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
 	
-	javafx.scene.control.ButtonBase xButton = asButtonBase(element.getDelegate());
+	javafx.scene.control.ButtonBase xButton = asButton(element.getDelegate());
 	if (xButton == null) {
 	    return;
 	}
