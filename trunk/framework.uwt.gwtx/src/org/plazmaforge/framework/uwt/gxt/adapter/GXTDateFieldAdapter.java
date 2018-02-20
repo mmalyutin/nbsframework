@@ -22,8 +22,6 @@
 
 package org.plazmaforge.framework.uwt.gxt.adapter;
 
-import java.util.Date;
-
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.HasFormat;
@@ -51,21 +49,21 @@ public class GXTDateFieldAdapter extends GXTControlAdapter {
  	return new com.sencha.gxt.widget.core.client.form.DateField(new DateTimePropertyEditor(format));
     }
     
-    protected com.sencha.gxt.widget.core.client.form.DateField getDateField(Object delegate) {
+    protected com.sencha.gxt.widget.core.client.form.DateField asDateField(Object delegate) {
 	return (com.sencha.gxt.widget.core.client.form.DateField) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
-	com.sencha.gxt.widget.core.client.form.DateField xDateField = getDateField(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.DateField xDateField = asDateField(element.getDelegate());
 	if (xDateField == null) {
 	    return;
 	}
 	if (DateField.PROPERTY_VALUE.equals(name)) {
-	    xDateField.setValue((Date) value);
+	    xDateField.setValue(asDate(value));
 	    return;
 	} else if (DateField.PROPERTY_FORMAT.equals(name)) {
-	    String format = (String) value;
+	    String format = asString(value);
 	    xDateField.setPropertyEditor(createDateTimePropertyEditor(format));
 	    return;
 	} 
@@ -76,7 +74,7 @@ public class GXTDateFieldAdapter extends GXTControlAdapter {
     
     @Override
     public Object getProperty(UIElement element, String name) {
-	com.sencha.gxt.widget.core.client.form.DateField xDateField = getDateField(element.getDelegate());
+	com.sencha.gxt.widget.core.client.form.DateField xDateField = asDateField(element.getDelegate());
 	if (xDateField == null) {
 	    return null;
 	}
