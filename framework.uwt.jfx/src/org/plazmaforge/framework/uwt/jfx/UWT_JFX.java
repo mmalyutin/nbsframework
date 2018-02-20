@@ -34,7 +34,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXCheckBoxAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXComboBoxAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXContainerAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXCoolBarAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateTimeFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDesktopAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDesktopItemAdapter;
@@ -131,7 +131,7 @@ public class UWT_JFX {
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.NumberField.class, new JFXNumberFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.IntegerField.class, new JFXIntegerFieldAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.SpinnerField.class, new JFXSpinnerFieldAdapter());
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.DateField.class, new JFXDateFieldAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.DateField.class, new JFXDateFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.DateTimeField.class, new JFXDateTimeFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TimeField.class, new JFXTimeFieldAdapter());
 	
