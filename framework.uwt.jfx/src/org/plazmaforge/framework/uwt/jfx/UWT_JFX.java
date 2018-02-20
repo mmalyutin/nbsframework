@@ -58,14 +58,14 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXListBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXNumberFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXBoxLayoutAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXPanelAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXPasswordFieldAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXPasswordFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXRadioButtonAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXRadioGroupAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXFrameAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXScrollPanelAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXSeparatorAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXSliderAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXSpinnerFieldAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXSliderAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXSpinnerFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXSplitPanelAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabItemAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabPanelAdapter;
@@ -127,12 +127,10 @@ public class UWT_JFX {
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TextField.class, new JFXTextFieldAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TextArea.class, new JFXTextAreaAdapter());
-	
-	
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.PasswordField.class, new JFXPasswordFieldAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.PasswordField.class, new JFXPasswordFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.NumberField.class, new JFXNumberFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.IntegerField.class, new JFXIntegerFieldAdapter());
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.SpinnerField.class, new JFXSpinnerFieldAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.SpinnerField.class, new JFXSpinnerFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.DateField.class, new JFXDateFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.DateTimeField.class, new JFXDateTimeFieldAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TimeField.class, new JFXTimeFieldAdapter());
@@ -140,8 +138,9 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.CheckBox.class, new JFXCheckBoxAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ComboBox.class, new JFXComboBoxAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ListBox.class, new JFXListBoxAdapter());
-	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Slider.class, new JFXSliderAdapter());
+	
+	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Link.class, new JFXLinkAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ImageBox.class, new JFXImageBoxAdapter());
 	
