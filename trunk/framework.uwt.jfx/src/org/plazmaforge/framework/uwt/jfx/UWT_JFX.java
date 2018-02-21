@@ -50,10 +50,10 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXLabelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXLinkAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXListBoxAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuBarAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuItemAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuSeparatorAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuBarAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuItemAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuSeparatorAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXMessageBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXNumberFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXBoxLayoutAdapter;
@@ -160,12 +160,14 @@ public class UWT_JFX {
 
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new JFXTabPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabItem.class, new JFXTabItemAdapter());
+	*/
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.MenuBar.class, new JFXMenuBarAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.Menu.class, new JFXMenuAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.MenuItem.class, new JFXMenuItemAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.MenuSeparator.class, new JFXMenuSeparatorAdapter());
 	
+	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.ToolBar.class, new JFXToolBarAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.ToolItem.class, new JFXToolItemAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.ToolSeparator.class, new JFXToolSeparatorAdapter());
