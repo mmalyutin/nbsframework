@@ -48,7 +48,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXImageBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXIntegerFieldAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXLabelAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXLinkAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXLinkAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXListBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuBarAdapter;
@@ -59,8 +59,8 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXListBoxAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXBoxLayoutAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXPanelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXPasswordFieldAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXRadioButtonAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXRadioGroupAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXRadioButtonAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXRadioGroupAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXToggleButtonAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXFrameAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXScrollPanelAdapter;
@@ -119,12 +119,9 @@ public class UWT_JFX {
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.ScrollPanel.class, new JFXScrollPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Label.class, new JFXLabelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Button.class, new JFXButtonAdapter());
-	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ToggleButton.class, new JFXToggleButtonAdapter());
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.RadioGroup.class, new JFXRadioGroupAdapter());
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.RadioButton.class, new JFXRadioButtonAdapter());
-	
-	
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.RadioGroup.class, new JFXRadioGroupAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.RadioButton.class, new JFXRadioButtonAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TextField.class, new JFXTextFieldAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.TextArea.class, new JFXTextAreaAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.PasswordField.class, new JFXPasswordFieldAdapter());
@@ -139,9 +136,9 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ComboBox.class, new JFXComboBoxAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ListBox.class, new JFXListBoxAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Slider.class, new JFXSliderAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Link.class, new JFXLinkAdapter());
 	
 	/*
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Link.class, new JFXLinkAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.ImageBox.class, new JFXImageBoxAdapter());
 	
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.FillLayout.class, new JFXFillLayoutAdapter());
