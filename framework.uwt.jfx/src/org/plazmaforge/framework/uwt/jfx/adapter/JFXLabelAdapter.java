@@ -45,11 +45,10 @@ public class JFXLabelAdapter extends JFXControlAdapter {
 	}
 
 	// Get icon
-	//javafx.scene.image.Image xIcon = createImage(element, label.getIcon());
+	//javafx.scene.image.ImageView xIcon = createImageView(element, label.getIcon());
 	//if (xIcon != null) {
-	//    xLabel.setImage(xIcon);
-	//}	
-	//TODO		
+	//    xLabel.setGraphic(xIcon);
+	//}
 		
 	addChild(xParent, xLabel, element);
 	return xLabel;
@@ -70,18 +69,17 @@ public class JFXLabelAdapter extends JFXControlAdapter {
 	}
 	if (Label.PROPERTY_TEXT.equals(name)) {
 	    xLabel.setText(asSafeString(value));
-	    //layout(xLabel);
 	    return;
 	} else if (Label.PROPERTY_ICON.equals(name)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asImage(value));
+	    //javafx.scene.image.ImageView xIcon = createImageView(element, asImage(value));
 	    //if (xIcon != null) {
-		//xLabel.setImage(xIcon);
+	    //    xLabel.setGraphic(xIcon);
 	    //}
 	    return;
 	} else if (Label.PROPERTY_ICON_PATH.equals(name)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asString(value));
+	    //javafx.scene.image.ImageView xIcon = createImageView(element, asString(value));
 	    //if (xIcon != null) {
-		//xLabel.setImage(xIcon);
+	    //    xLabel.setGraphic(xIcon);
 	    //}
 	    return;
 	}

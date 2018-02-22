@@ -23,6 +23,7 @@
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
+import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
 
@@ -42,27 +43,57 @@ public class JFXMenuAdapter extends JFXWidgetAdapter {
 	
 	// Get text
 	String text = menu.getText();
-	if (text == null) {
-	    text = "";
+	if (text != null) {
+	    xMenu.setText(text);
 	}
-	xMenu.setText(text);
 	
-	//TODO
-	// Get image
-	//ImageResource xImage = createImage(element, menu.getIcon());
-	//if (xImage != null) {
-	//  xMenuItem.setIcon(xImage);
-	//}
-	
+	// Get icon
+	javafx.scene.image.ImageView xIcon = createImageView(menu, menu.getIcon());
+	if (xIcon != null) {
+	    xMenu.setGraphic(xIcon);
+	}
+		
 	if (xParent instanceof javafx.scene.control.MenuBar) {
 	    ((javafx.scene.control.MenuBar) xParent).getMenus().addAll(xMenu);
-	    ((javafx.scene.control.MenuBar) xParent).layout();
 	} else if (xParent instanceof javafx.scene.control.Menu) {
 	    ((javafx.scene.control.Menu) xParent).getItems().addAll(xMenu);
-	    ((javafx.scene.control.Menu) xParent).fire();
 	}
+	
+	menu.resetInitProperty(Menu.PROPERTY_TEXT);
+	menu.resetInitProperty(Menu.PROPERTY_ICON);
 	
 	return xMenu;
     }
 
+    protected javafx.scene.control.Menu asMenu(Object delegate) {
+	return (javafx.scene.control.Menu) delegate;
+    }
+    
+    @Override
+    public void setProperty(UIElement element, String name, Object value) {
+	
+	javafx.scene.control.Menu xMenu = asMenu(element.getDelegate());
+	if (xMenu == null) {
+	    return;
+	}
+	if (eq(name, Button.PROPERTY_TEXT)) {
+	    xMenu.setText(asSafeString(value));
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON)) {
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asImage(value));
+	    if (xIcon != null) {
+		xMenu.setGraphic(xIcon);
+	    }
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON_PATH)) {
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asString(value));
+	    if (xIcon != null) {
+		xMenu.setGraphic(xIcon);
+	    }
+	    return;
+	}
+	
+	super.setProperty(element, name, value);
+    }
+    
 }

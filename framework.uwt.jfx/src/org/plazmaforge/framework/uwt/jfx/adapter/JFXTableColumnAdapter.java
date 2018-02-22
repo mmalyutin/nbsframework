@@ -26,6 +26,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 import org.plazmaforge.framework.core.data.PropertyProvider;
 import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.UIElement;
+import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellValueFactory;
@@ -72,12 +73,19 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	PropertyProvider<?> propertyProvider = table.getPropertyProvider();
 	ValueProvider<?> valueProvider = column.getValueProvider();
 	String text = column.getText();
+	Image icon = column.getIcon();
 	int width = column.getWidth();
 	HorizontalAlign align = column.getAlign();
 	
-	// Create column
+	// Create column with text
 	javafx.scene.control.TableColumn xColumn = new javafx.scene.control.TableColumn(text);
 	
+	// Set icon
+	javafx.scene.image.ImageView xIcon = createImageView(column, icon);
+	if (xIcon != null) {
+	    xColumn.setGraphic(xIcon);
+	}
+	    
 	// width
 	xColumn.setPrefWidth(width);
 	
@@ -91,6 +99,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	}
 		
 	column.resetInitProperty(TableColumn.PROPERTY_TEXT);
+	column.resetInitProperty(TableColumn.PROPERTY_ICON);
 	column.resetInitProperty(TableColumn.PROPERTY_PROPERTY);
 	column.resetInitProperty(TableColumn.PROPERTY_WIDTH);
 	//column.resetInitProperty(TableColumn.PROPERTY_ALIGN);
@@ -126,6 +135,12 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
 	    xTableColumn.setText(asString(value));
 	    return;
+	} else if (TableColumn.PROPERTY_ICON.equals(name)) {
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asImage(value));
+	    if (xIcon != null) {
+		xTableColumn.setGraphic(xIcon);
+	    }
+	    return;	    
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
 	    xTableColumn.setPrefWidth(intValue(value));
 	    return;

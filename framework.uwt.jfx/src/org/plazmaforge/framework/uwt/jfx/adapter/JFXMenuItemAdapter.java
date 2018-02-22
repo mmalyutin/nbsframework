@@ -48,13 +48,12 @@ public class JFXMenuItemAdapter extends JFXWidgetAdapter {
 	    xMenuItem.setText(text);
 	}
 	
-	//TODO
-	// Get image
-	//ImageResource xIcon = createImage(element, menuItem.getIcon());
-	//if (xIcon != null) {
-	//    xMenuItem.setIcon(xIcon);
-	//}
-	
+	// Get icon
+	javafx.scene.image.ImageView xIcon = createImageView(menuItem, menuItem.getIcon());
+	if (xIcon != null) {
+	    xMenuItem.setGraphic(xIcon);
+	}
+
 	xMenu.getItems().add(xMenuItem);
 	return xMenuItem;
     }
@@ -73,18 +72,16 @@ public class JFXMenuItemAdapter extends JFXWidgetAdapter {
 	    xMenuItem.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON)) {
-	    //TODO
-	    //ImageResource xIcon = createImage(element, asImage(value));
-	    //if (xIcon != null) {
-		//xMenuItem.setIcon(xIcon);
-	    //}
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asImage(value));
+	    if (xIcon != null) {
+		xMenuItem.setGraphic(xIcon);
+	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_ICON_PATH)) {
-	    //TODO
-	    ///ImageResource xIcon = createImage(element, asString(value));
-	    //if (xIcon != null) {
-		//xMenuItem.setIcon(xIcon);
-	    //}
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asString(value));
+	    if (xIcon != null) {
+		xMenuItem.setGraphic(xIcon);
+	    }
 	    return;
 	} else if (eq(name, MenuItem.PROPERTY_TOOL_TIP)) {
 	    //TODO
