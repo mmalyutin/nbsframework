@@ -86,6 +86,21 @@ public class SwingTableColumnAdapter extends SwingWidgetAdapter {
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
 	    xTableColumn.setHeaderValue(asSafeString(value));
 	    return;
+	    
+	} else if (eq(name, TableColumn.PROPERTY_ICON)) {
+	    javax.swing.Icon xIcon = createImageIcon(element, asImage(value));
+	    if (xIcon != null) {
+		//TODO: Not implemented yet. Create TableHeaderRenderer
+		//xTableColumn.setIcon(xIcon);
+	    }
+	    return;
+	} else if (eq(name, TableColumn.PROPERTY_ICON_PATH)) {
+	    javax.swing.Icon xIcon = createImageIcon(element, asString(value));
+	    if (xIcon != null) {
+		//TODO: Not implemented yet. Create TableHeaderRenderer
+		//xTableColumn.setIcon(xIcon);
+	    }
+	    return;
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
 	    xTableColumn.setWidth(intValue(value));
 	    return;

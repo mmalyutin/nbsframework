@@ -34,6 +34,11 @@ import org.plazmaforge.framework.uwt.widget.CellEditor;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTTableColumnAdapter extends SWTWidgetAdapter {
 
     public static final String SYS_PROPETY_TABLE_COLUMN = "$tableColumn";
@@ -60,14 +65,27 @@ public class SWTTableColumnAdapter extends SWTWidgetAdapter {
 	if (TableColumn.PROPERTY_PROPERTY.equals(name)) {
 	    String[] properties = getArray(xTableViewer.getColumnProperties(), xTable.getColumnCount());
 	    int index = xTable.indexOf(xTableColumn);
-	    properties[index] = (String) value;
+	    properties[index] = asString(value);
 	    xTableViewer.setColumnProperties(properties); // WHY ?
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
-	    xTableColumn.setText((String) value);
+	    xTableColumn.setText(asSafeString(value));
 	    return;
+	    
+	} else if (TableColumn.PROPERTY_ICON.equals(name)) {
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asImage(value));
+	    if (xIcon != null) {
+		xTableColumn.setImage(xIcon);
+	    }
+	    return;
+	} else if (TableColumn.PROPERTY_ICON_PATH.equals(name)) {
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asString(value));
+	    if (xIcon != null) {
+		xTableColumn.setImage(xIcon);
+	    }
+	    return;	    
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
-	    xTableColumn.setWidth((Integer) value);
+	    xTableColumn.setWidth(intValue(value));
 	    return;
 	} else if (TableColumn.PROPERTY_FORMAT.equals(name)) {
 	    // do nothing because format resolve in label provider
