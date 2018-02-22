@@ -22,6 +22,10 @@
 
 package org.plazmaforge.framework.uwt.util;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -50,6 +54,34 @@ public class UWTUtils {
     
     public static final String PROPERTY_ACCESSOR = "accessor";
     
+    //[CORE]
+    public static String normalyzeClassImagePath(String path) {
+	if (path == null || path.isEmpty()) {
+	    return path;
+	}
+	if (path.charAt(0) != '/') {
+	    return "/" + path;
+	}
+	return path;
+    }
+  
+    //[CORE]
+    public static InputStream getInputStream(String path) throws IOException {
+	return new FileInputStream(path);
+    }
+
+    //[CORE]
+    public static InputStream getInputStream(Class<?> clazz, String path) throws IOException {
+	if (path == null || path.isEmpty()) {
+	    return null;
+	}
+	if (path.charAt(0) == '/') {
+	    String newPath = path.substring(1, path.length());
+	    return new BufferedInputStream(clazz.getClassLoader().getResourceAsStream(newPath));
+	} else {
+	    return clazz.getResourceAsStream(path);
+	}
+    }
     
     /**
      * Create <code>java.text.Format</code> by pattern
