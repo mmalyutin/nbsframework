@@ -28,8 +28,14 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.plazmaforge.framework.uwt.util.UWTUtils;
 
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingUtils {
 
     
@@ -41,9 +47,7 @@ public class SwingUtils {
     }
 
     public static ImageIcon getClassImageIcon(String path) {
-	if (path != null && path.length() > 0 && path.charAt(0) != '/') {
-	    path = "/" + path;
-	}
+	path = UWTUtils.normalyzeClassImagePath(path);
 	return getImageIcon(SwingUtils.class, path);
     }
     
@@ -63,7 +67,7 @@ public class SwingUtils {
     }
     
     public static Image getImage(Icon icon) {
-	if (icon == null){
+	if (icon == null) {
 	    return null;
 	}
 	if (icon instanceof ImageIcon) {
