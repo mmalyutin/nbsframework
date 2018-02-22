@@ -1,0 +1,257 @@
+package org.plazmaforge.framework.uwt.jfx;
+
+import java.util.Date;
+
+import org.plazmaforge.framework.uwt.Application;
+import org.plazmaforge.framework.uwt.UWTDesktopToolit;
+import org.plazmaforge.framework.uwt.event.SelectionEvent;
+import org.plazmaforge.framework.uwt.event.SelectionListener;
+import org.plazmaforge.framework.uwt.widget.Button;
+import org.plazmaforge.framework.uwt.widget.CheckBox;
+import org.plazmaforge.framework.uwt.widget.ComboBox;
+import org.plazmaforge.framework.uwt.widget.DateField;
+import org.plazmaforge.framework.uwt.widget.Frame;
+import org.plazmaforge.framework.uwt.widget.Label;
+import org.plazmaforge.framework.uwt.widget.Link;
+import org.plazmaforge.framework.uwt.widget.ListBox;
+import org.plazmaforge.framework.uwt.widget.PasswordField;
+import org.plazmaforge.framework.uwt.widget.RadioButton;
+import org.plazmaforge.framework.uwt.widget.RadioGroup;
+import org.plazmaforge.framework.uwt.widget.Slider;
+import org.plazmaforge.framework.uwt.widget.TextArea;
+import org.plazmaforge.framework.uwt.widget.TextField;
+import org.plazmaforge.framework.uwt.widget.ToggleButton;
+import org.plazmaforge.framework.uwt.widget.menu.Menu;
+import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
+import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
+import org.plazmaforge.framework.uwt.widget.table.Table;
+import org.plazmaforge.framework.uwt.widget.table.TableColumn;
+
+import org.plazmaforge.framework.uwt.widget.SpinnerField;
+
+
+public class MyApplication2 extends Application {
+
+    public static void main(String[] args) {
+	
+	UWTDesktopToolit.initUWT("jfx");
+	
+	// Create application
+	MyApplication2 application = new MyApplication2();
+
+	
+	Frame frame = application.getFrame();
+	frame.setTitle("My Application");
+	
+	final Label label = new Label("Hello World!");
+	frame.add(label);
+	
+	final TextField textField = new TextField();
+	frame.add(textField);
+	
+	final DateField dateField = new DateField();
+	dateField.setValue(new Date());
+	dateField.setFormat("dd.MM.yyyy");
+	frame.add(dateField);
+	
+	
+	final SpinnerField spinner = new SpinnerField();
+	frame.add(spinner);	
+	
+	final Slider slider = new Slider();
+	frame.add(slider);
+	
+	final PasswordField passwordField = new PasswordField();
+	frame.add(passwordField);
+	
+	//final TextArea textArea = new TextArea();
+	//frame.add(textArea);
+	
+	final CheckBox checkBox = new CheckBox();
+	frame.add(checkBox);
+	
+	
+	final Link link = new Link("www,sourceforge.net");
+	frame.add(link);
+	
+	
+	/////////////////////////////////////////////////////
+	//
+	// RADIO GROUP
+	//
+	/////////////////////////////////////////////////////
+	RadioGroup radioGroup = new RadioGroup();
+
+	RadioButton radioButton1 = new RadioButton("FM1");
+	RadioButton radioButton2 = new RadioButton("FM2");
+	RadioButton radioButton3 = new RadioButton("AM");
+	
+	radioGroup.add(radioButton1);
+	radioGroup.add(radioButton2);
+	radioGroup.add(radioButton3);
+
+	frame.add(radioGroup);
+	
+	
+	/////////////////////////////////////////////////////
+	//
+	// TOOGLE GROUP
+	//
+	/////////////////////////////////////////////////////	
+	final ToggleButton redButton = new ToggleButton("Red");
+	redButton.setGroup("group");
+	frame.add(redButton);
+	
+	final ToggleButton blueButton = new ToggleButton("Blue");
+	blueButton.setGroup("group");
+	frame.add(blueButton);
+	
+	final ToggleButton greenButton = new ToggleButton("Green");
+	greenButton.setGroup("group");
+	frame.add(greenButton);
+	
+	final ComboBox<String> comboBox = new ComboBox<String>();
+	comboBox.setItems(new String[] {"Apple", "Tomato", "Potato"});
+	comboBox.setValue("Tomato");
+	frame.add(comboBox);
+	
+	final ListBox<String> listBox = new ListBox<String>();
+	listBox.setItems(new String[] {"Apple", "Tomato", "Potato"});
+	listBox.setValue("Potato");
+	
+	frame.add(listBox);	
+	
+	/////////////////////////////////////////////////////
+	//
+	// MENU BAR
+	//
+	/////////////////////////////////////////////////////	
+	MenuBar menuBar = new MenuBar();
+	
+	Menu menu = new Menu("File");
+	
+	MenuItem menuItem = new MenuItem("New file");
+	menu.addItem(menuItem);
+
+	menuItem = new MenuItem("Open file");
+	menuItem.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
+	menu.addItem(menuItem);
+
+	menuBar.addItem(menu);
+	
+	frame.add(menuBar);
+	
+	
+	
+	
+	final Table table = new Table();
+	table.setWidth(400);
+	TableColumn nameColumn = new TableColumn();
+	nameColumn.setText("First Name");
+	nameColumn.setProperty("firstName");
+	table.addColumn(nameColumn);
+	
+	TableColumn lastNameColumn = new TableColumn();
+	lastNameColumn.setText("Last Name");
+	lastNameColumn.setProperty("lastName");
+	table.addColumn(lastNameColumn);
+	
+	
+	TableColumn emailColumn = new TableColumn();
+	emailColumn.setText("Email");
+	emailColumn.setProperty("email");
+	table.addColumn(emailColumn);
+	
+	TableColumn dateColumn = new TableColumn();
+	dateColumn.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
+	dateColumn.setText("Date");
+	dateColumn.setProperty("date");
+	dateColumn.setFormat("dd.MM.yyyy");
+	table.addColumn(dateColumn);
+	
+	table.setItems(new Object[] {
+		new Person("Jacob", "Smith", "jacob.smith@example.com"),
+		new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
+		new Person("Ethan", "Williams", "ethan.williams@example.com"),
+		new Person("Emma", "Jones", "emma.jones@example.com"),
+		new Person("Michael", "Brown", "michael.brown@example.com")
+	});
+	
+	frame.add(table);	
+	
+	Button button = new Button("Press Me");
+	button.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
+	button.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		label.setText("Hi all!");
+		
+	    }
+	});
+	
+	frame.add(button);
+	
+	// Start application
+	application.start();
+    }
+    
+    public static class Person {
+	
+	private String firstName;
+	
+	private String lastName;
+	
+	private String email;
+	
+	private Date date;
+	
+
+	public Person() {
+	    super();
+	}
+
+	public Person(String firstName, String lastName, String email) {
+	    super();
+	    this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.email = email;
+	    
+	    this.date = new Date();
+	}
+
+	public String getFirstName() {
+	    return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+	    this.firstName = firstName;
+	}
+
+	public String getLastName() {
+	    return lastName;
+	}
+
+	public void setLastName(String lastName) {
+	    this.lastName = lastName;
+	}
+
+	public String getEmail() {
+	    return email;
+	}
+
+	public void setEmail(String email) {
+	    this.email = email;
+	}
+
+	public Date getDate() {
+	    return date;
+	}
+
+	public void setDate(Date date) {
+	    this.date = date;
+	}
+	
+	
+    }
+}
