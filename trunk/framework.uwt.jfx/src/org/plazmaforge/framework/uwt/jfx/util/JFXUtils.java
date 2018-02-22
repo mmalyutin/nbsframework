@@ -22,16 +22,22 @@
 
 package org.plazmaforge.framework.uwt.jfx.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XDateCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XNumberCellFactory;
+import org.plazmaforge.framework.uwt.util.UWTUtils;
+
+import javafx.scene.image.Image;
 
 
 /**
@@ -40,6 +46,66 @@ import org.plazmaforge.framework.uwt.jfx.widget.cell.XNumberCellFactory;
  *
  */
 public class JFXUtils {
+    
+    
+    public static Image getImage(InputStream is) {
+	if (is == null) {
+	    return null;
+	}
+        return new Image(is);
+    }
+    
+    public static Image getClassImage(String path) {
+	path = UWTUtils.normalyzeClassImagePath(path);
+	return getImage(JFXUtils.class, path);
+    }
+    
+    public static Image getFileImage(String path) {
+	Image image = null;
+	try {
+	    InputStream is = UWTUtils.getInputStream(path);
+	    image = normalyzeImage(getImage(is));
+	    close(is);
+	} catch (Exception e) {
+	    image = getMissingImage();
+	}
+	return image;
+    }
+    
+    public static Image getImage(Class<?> clazz, String path) {
+	Image image = null;
+	try {
+	    InputStream is = UWTUtils.getInputStream(clazz, path);
+	    image = normalyzeImage(getImage(is));
+	    close(is);
+	} catch (Exception e) {
+	    image = getMissingImage();
+	}
+	return image;
+    }
+    
+    private static void close(InputStream is) {
+	if (is == null) {
+	    return;
+	}
+	try {
+	    is.close();
+	} catch (IOException ex) {
+	    
+	}
+    }
+    
+    public static Image normalyzeImage(Image image) {
+	return image == null ? getMissingImage() : image;
+    }
+    
+    public static Image getMissingImage() {
+	//TODO
+	return null;
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
     
     public static XCellFactory createCell(String type) {
 	return createCell(type, null);
