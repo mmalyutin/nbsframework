@@ -22,8 +22,7 @@
 
 package org.plazmaforge.framework.uwt.swt.util;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.swt.SWT;
@@ -37,9 +36,79 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
+import org.plazmaforge.framework.uwt.util.UWTUtils;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTUtils {
 
+ 
+    public static Image getImage(InputStream is) {
+	if (is == null) {
+	    return null;
+	}
+        Display display = Display.getCurrent();
+        ImageData data = new ImageData(is);
+        if (data.transparentPixel > 0) {
+            return new Image(display, data, data.getTransparencyMask());
+        }
+        return new Image(display, data);
+    }
+    
+    public static Image getClassImage(String path) {
+	path = UWTUtils.normalyzeClassImagePath(path);
+	return getImage(SWTUtils.class, path);
+    }
+    
+    public static Image getFileImage(String path) {
+	Image image = null;
+	try {
+	    InputStream is = UWTUtils.getInputStream(path);
+	    image = normalyzeImage(getImage(is));
+	    close(is);
+	} catch (Exception e) {
+	    image = getMissingImage();
+	}
+	return image;
+    }
+    
+    public static Image getImage(Class<?> clazz, String path) {
+	Image image = null;
+	try {
+	    InputStream is = UWTUtils.getInputStream(clazz, path);
+	    image = normalyzeImage(getImage(is));
+	    close(is);
+	} catch (Exception e) {
+	    image = getMissingImage();
+	}
+	return image;
+    }
+    
+    private static void close(InputStream is) {
+	if (is == null) {
+	    return;
+	}
+	try {
+	    is.close();
+	} catch (IOException ex) {
+	    
+	}
+    }
+    
+    public static Image normalyzeImage(Image image) {
+	return image == null ? getMissingImage() : image;
+    }
+    
+    public static Image getMissingImage() {
+	//TODO
+	return null;
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     /**
      * Center <code>Shell</code> in parent
      * @param shell
@@ -67,56 +136,7 @@ public class SWTUtils {
 
 	shell.setBounds(shellRect);
 
-    }
-    
-    public static Image getImage(InputStream is) {
-        Display display = Display.getCurrent();
-        ImageData data = new ImageData(is);
-        if (data.transparentPixel > 0) {
-            return new Image(display, data, data.getTransparencyMask());
-        }
-        return new Image(display, data);
-    }
-    
-    public static Image getClassImage(String path) {
-	if (path != null && path.length() > 0 && path.charAt(0) != '/') {
-	    path = "/" + path;
-	}
-	return getImage(SWTUtils.class, path);
-    }
-    
-    public static Image getFileImage(String path) {
-	Image image = null;
-	try {
-	    FileInputStream fis = new FileInputStream(path);
-	    image = getImage(fis);
-	    fis.close();
-	} catch (Exception e) {
-	    image = getMissingImage();
-	}
-	return image;
-    }
-    
-    public static Image getImage(Class<?> clazz, String path) {
-	Image image = null;
-	try {
-	    if (path.length() > 0 && path.charAt(0) == '/') {
-		String newPath = path.substring(1, path.length());
-		image = getImage(new BufferedInputStream(clazz.getClassLoader().getResourceAsStream(newPath)));
-	    } else {
-		image = getImage(clazz.getResourceAsStream(path));
-	    }
-	} catch (Exception e) {
-	    image = getMissingImage();
-	}
-	return image;
-    }
-    
-    public static Image getMissingImage() {
-	//TODO
-	return null;
-    }
-    
+    }    
     
     /**
      * Update size of <code>CoolItem</code> by size of <code>ToolBar</code>
