@@ -250,58 +250,134 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     }
     
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // KEY LISTENERS
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    //
-//    // Listeners
-//    //
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//    protected org.eclipse.swt.internal.SWTEventListener getListener(Widget widget, Listener listener) {
-//	return (org.eclipse.swt.internal.SWTEventListener) widget.findListenerDelegate(listener);
-//    }
-//
-//    protected org.eclipse.swt.internal.SWTEventListener getListener(Widget widget, Listener listener, int index) {
-//	return (org.eclipse.swt.internal.SWTEventListener) widget.findListenerDelegate(listener, index);
-//    }
-//
-//    
-//    // KEY DOWN
-//    protected org.eclipse.swt.events.KeyListener createKeyDownListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.KeyListener xListener = new org.eclipse.swt.events.KeyAdapter() {
-//
-//	    @Override
-//	    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//
-//    // KEY UP
-//    protected org.eclipse.swt.events.KeyListener createKeyUpListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.KeyListener xListener = new org.eclipse.swt.events.KeyAdapter() {
-//
-//	    @Override
-//	    public void keyReleased(org.eclipse.swt.events.KeyEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//
-//    
-//    protected org.eclipse.swt.events.KeyListener getKeyListener(Widget widget, Listener listener) {
-//	return (org.eclipse.swt.events.KeyListener) getListener(widget, listener);
-//    }
-//
-//    protected org.eclipse.swt.events.KeyListener getKeyListener(Widget widget, Listener listener, int index) {
-//	return (org.eclipse.swt.events.KeyListener) getListener(widget, listener, index);
-//    }
-//
-//    
+    protected void addKeyDownListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeKeyDownListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+
+    
+    protected void addKeyUpListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeKeyUpListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // MOUSE LISTENERS
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    protected void addMouseDownListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeMouseDownListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+
+    protected void addMouseUpListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeMouseUpListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+    
+    protected void addMouseClickListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseClickListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+    
+    protected void addMouseDoubleClickListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseDoubleClickListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Listeners
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    @SuppressWarnings("rawtypes")
+    protected javafx.event.EventHandler getListener(Widget widget, Listener listener) {
+	return (javafx.event.EventHandler) widget.findListenerDelegate(listener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    protected javafx.event.EventHandler getListener(Widget widget, Listener listener, int index) {
+	return (javafx.event.EventHandler) widget.findListenerDelegate(listener, index);
+    }
+     
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BASE LISTENER
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+    protected <T extends javafx.event.Event> javafx.event.EventHandler<T> createListener(Class<T> klass, Widget widget, final Listener listener) {
+	javafx.event.EventHandler<T> xListener = new javafx.event.EventHandler<T>() {
+
+	    @Override
+	    public void handle(T e) {
+		listener.handleEvent(createEvent(e));
+	    }
+	};
+	widget.assignListener(listener, xListener);
+	return xListener;
+    }
+    
+    
+    // KEY
+    protected javafx.event.EventHandler<javafx.scene.input.KeyEvent> createKeyListener(Widget widget, final Listener listener) {
+	return createListener(javafx.scene.input.KeyEvent.class, widget, listener);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected javafx.event.EventHandler<javafx.scene.input.KeyEvent> getKeyListener(Widget widget, Listener listener) {
+	return (javafx.event.EventHandler<javafx.scene.input.KeyEvent>) getListener(widget, listener);
+    }
+    
+
+    // MOUSE
+    protected javafx.event.EventHandler<javafx.scene.input.MouseEvent> createMouseListener(Widget widget, final Listener listener) {
+	return createListener(javafx.scene.input.MouseEvent.class, widget, listener);
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected javafx.event.EventHandler<javafx.scene.input.MouseEvent> getMouseListener(Widget widget, Listener listener) {
+	return (javafx.event.EventHandler<javafx.scene.input.MouseEvent>) getListener(widget, listener);
+    }
+    
+    
+    
 //    
 //    // MOUSE DOWN
 //    protected org.eclipse.swt.events.MouseListener createMouseDownListener(Widget widget, final Listener listener) {
@@ -543,70 +619,111 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 //	widget.assignListener(listener, xListener);
 //	return xListener;
 //    }
-//
-//    
-//
-//    
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    //
-//    // Events
-//    //
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//    /**
-//     * Create UWT Event by SWT KeyEvent
-//     * @param e
-//     * @return
-//     */
-//    protected Event createEvent(org.eclipse.swt.events.KeyEvent e) {
-//        Event event = new Event();
-//        event.setKeyCode(e.keyCode);
-//        event.setCharacter(e.character);
-//        event.setStateMask(getStateMask(e.stateMask)); // Convert state mask form SWT to UWT
-//        ////
-//        event.setDevice(UWT.KEYBOARD_DEVICE);
-//        return event;
-//    }
-//    
-//    /**
-//     * Create UWT Event by SWT MouseEvent
-//     * @param e
-//     * @return
-//     */
-//    protected Event createEvent(org.eclipse.swt.events.MouseEvent e) {
-//        Event event = new Event();
-//        event.setButton(e.button); // SWT.BUTTON1 = 1, SWT.BUTTON2 = 2, SWT.BUTTON3 = 3
-//        event.setX(e.x);
-//        event.setY(e.y);
-//	event.setStateMask(getStateMask(e.stateMask)); // Convert state mask form SWT to UWT
-//        event.setCount(e.count);
-//        ////
-//        event.setDevice(UWT.MOUSE_DEVICE);
-//        return event;
-//    }
-//    
-//    /**
-//     * Convert state mask from SWT to UWT
-//     * @return
-//     */
-//    protected int getStateMask(int xStateMask) {
-//	int stateMask = 0;
-//	if ((xStateMask & SWT.SHIFT) != 0) {
-//	    stateMask |= KeyEvent.SHIFT_MASK;
-//	}
-//	if ((xStateMask & SWT.CONTROL) != 0) {
-//	    stateMask |= KeyEvent.CTRL_MASK;
-//	}
-//	// TODO: META_MAST not implemented
-//	//if ((xStateMask & SWT.MOD1) != 0) {
-//	//    modifiers |= KeyEvent.META_MASK;
-//	//}
-//	if ((xStateMask & SWT.ALT) != 0) {
-//	    stateMask |= KeyEvent.ALT_MASK;
-//	}
-//	return stateMask;
-//    }
-//
+
+    
+
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Events
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected Event createEvent(javafx.event.Event e) {
+	if (e instanceof javafx.scene.input.KeyEvent) {
+	    return createEvent((javafx.scene.input.KeyEvent) e);
+	} if (e instanceof javafx.scene.input.MouseEvent) {
+	    return createEvent((javafx.scene.input.MouseEvent) e);
+	}
+	
+	//TODO
+	return null;
+    }
+    
+    /**
+     * Create UWT Event by JFX KeyEvent
+     * @param e
+     * @return
+     */
+    protected Event createEvent(javafx.scene.input.KeyEvent e) {
+        Event event = new Event();
+        javafx.scene.input.KeyCode keyCode = e.getCode();
+        String string = e.getCharacter();
+        
+        //TODO
+        if (keyCode != null) {
+            event.setKeyCode(keyCode.impl_getCode());
+        }
+        //TODO
+        if (string != null && !string.isEmpty()) {
+            event.setCharacter(string.toCharArray()[0]);    
+        }
+        
+        event.setStateMask(getStateMask(e)); // Convert state mask form JFX to UWT
+        ////
+        event.setDevice(UWT.KEYBOARD_DEVICE);
+        return event;
+    }
+    
+    /**
+     * Create UWT Event by SWT MouseEvent
+     * @param e
+     * @return
+     */
+    protected Event createEvent(javafx.scene.input.MouseEvent e) {
+        Event event = new Event();
+        
+        //TODO
+        //event.setButton(e.getButton().); // SWT.BUTTON1 = 1, SWT.BUTTON2 = 2, SWT.BUTTON3 = 3
+        
+        
+        event.setX((int) e.getX());
+        event.setY((int) e.getY());
+	event.setStateMask(getStateMask(e)); // Convert state mask form SWT to UWT
+        event.setCount(e.getClickCount());
+        ////
+        event.setDevice(UWT.MOUSE_DEVICE);
+        return event;
+    }
+    
+    /**
+     * Convert state mask from JFX to UWT
+     * @return
+     */
+    protected int getStateMask(javafx.scene.input.KeyEvent xStateMask) {
+	int stateMask = 0;
+	if (xStateMask.isShiftDown()) {
+	    stateMask |= KeyEvent.SHIFT_MASK;
+	}
+	if (xStateMask.isControlDown()) {
+	    stateMask |= KeyEvent.CTRL_MASK;
+	}
+	if (xStateMask.isMetaDown()) {
+	    stateMask |= KeyEvent.META_MASK;
+	}
+	if (xStateMask.isAltDown()) {
+	    stateMask |= KeyEvent.ALT_MASK;
+	}
+	return stateMask;
+    }
+    
+    protected int getStateMask(javafx.scene.input.MouseEvent xStateMask) {
+ 	int stateMask = 0;
+ 	if (xStateMask.isShiftDown()) {
+ 	    stateMask |= KeyEvent.SHIFT_MASK;
+ 	}
+ 	if (xStateMask.isControlDown()) {
+ 	    stateMask |= KeyEvent.CTRL_MASK;
+ 	}
+ 	if (xStateMask.isMetaDown()) {
+ 	    stateMask |= KeyEvent.META_MASK;
+ 	}
+ 	if (xStateMask.isAltDown()) {
+ 	    stateMask |= KeyEvent.ALT_MASK;
+ 	}
+ 	return stateMask;
+     }    
+
 //    /**
 //     * Create UWT Event by SWT FocusEvent
 //     * @param e
