@@ -34,7 +34,7 @@ public class Link extends Control {
 
     public Link(String text) {
 	super();
-	this.text = text;
+	setText(text);
     }
 
     public String getText() {
