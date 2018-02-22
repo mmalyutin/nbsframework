@@ -100,6 +100,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 		
 	column.resetInitProperty(TableColumn.PROPERTY_TEXT);
 	column.resetInitProperty(TableColumn.PROPERTY_ICON);
+	column.resetInitProperty(TableColumn.PROPERTY_ICON_PATH);
 	column.resetInitProperty(TableColumn.PROPERTY_PROPERTY);
 	column.resetInitProperty(TableColumn.PROPERTY_WIDTH);
 	//column.resetInitProperty(TableColumn.PROPERTY_ALIGN);
@@ -140,7 +141,13 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	    if (xIcon != null) {
 		xTableColumn.setGraphic(xIcon);
 	    }
-	    return;	    
+	    return;
+	} else if (TableColumn.PROPERTY_ICON_PATH.equals(name)) {
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asString(value));
+	    if (xIcon != null) {
+		xTableColumn.setGraphic(xIcon);
+	    }
+	    return;		    
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
 	    xTableColumn.setPrefWidth(intValue(value));
 	    return;

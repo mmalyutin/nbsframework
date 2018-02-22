@@ -36,6 +36,7 @@ import org.plazmaforge.framework.uwt.gxt.data.Model;
 import org.plazmaforge.framework.uwt.gxt.widget.XColumnConfig;
 import org.plazmaforge.framework.uwt.gxt.widget.XGrid;
 import org.plazmaforge.framework.uwt.gxt.widget.cell.XBaseCell;
+import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
 import org.plazmaforge.framework.uwt.widget.CellRenderer;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
@@ -43,6 +44,7 @@ import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
@@ -110,6 +112,8 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	setAlign(xColumn, align);
 	
 	column.resetInitProperty(TableColumn.PROPERTY_TEXT);
+	column.resetInitProperty(TableColumn.PROPERTY_ICON);
+	column.resetInitProperty(TableColumn.PROPERTY_ICON_PATH);
 	column.resetInitProperty(TableColumn.PROPERTY_PROPERTY);
 	column.resetInitProperty(TableColumn.PROPERTY_WIDTH);
 	column.resetInitProperty(TableColumn.PROPERTY_ALIGN);
@@ -150,6 +154,21 @@ public class GXTTableColumnAdapter extends GXTWidgetAdapter {
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
 	    xColumn.setHeader(asString(value));
+	    return;
+	    
+	} else if (eq(name, Button.PROPERTY_ICON)) {
+	    ImageResource xIcon = createImage(element, asImage(value));
+	    if (xIcon != null) {
+		//TODO: Not implemented yet
+		//xColumn.setIcon(xIcon);
+	    }
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON_PATH)) {
+	    ImageResource xIcon = createImage(element, asString(value));
+	    if (xIcon != null) {
+		//TODO: Not implemented yet
+		//xColumn.setIcon(xIcon);
+	    }
 	    return;
 	} else if (TableColumn.PROPERTY_WIDTH.equals(name)) {
 	    xColumn.setWidth(asInteger(value));
