@@ -141,11 +141,15 @@ public class WebApplication extends Application implements EntryPoint {
         getApplicationContext().addAttributes(UWT_GXT.getAttributes());
         getApplicationContext().setProperty("locale", locale);
                   
-        setInitializer(new WebApplicationInitializer());
         start();
         
 	///////////////////////////////////////////////////////////////
 
+    }
+    
+    @Override
+    public void init() {
+	setInitializer(new WebApplicationInitializer());
     }
     
     class WebApplicationInitializer extends DemoApplicationInitializer {
