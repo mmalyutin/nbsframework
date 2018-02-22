@@ -49,19 +49,19 @@ public class JFXButtonAdapter extends JFXControlAdapter {
     }
 
     protected void initButton(javafx.scene.control.ButtonBase xButton, Button button) {
-  	// Get text
-  	String text = button.getText();
-  	if (text != null) {
-  	    xButton.setText(text);
-  	}
+	// Get text
+	String text = button.getText();
+	if (text != null) {
+	    xButton.setText(text);
+	}
 
-  	// Get icon
-  	//javafx.scene.image.Image xIcon = createImage(element, button.getIcon());
-  	//if (xIcon != null) {
-  	//    xButton.setImage(xIcon);
-  	//}
-      }
-    
+	// Get icon
+	javafx.scene.image.ImageView xIcon = createImageView(button, button.getIcon());
+	if (xIcon != null) {
+	    xButton.setGraphic(xIcon);
+	}
+    }
+
     protected javafx.scene.control.ButtonBase asButton(Object delegate) {
 	return (javafx.scene.control.ButtonBase) delegate;
     }
@@ -77,16 +77,16 @@ public class JFXButtonAdapter extends JFXControlAdapter {
 	    xButton.setText(asSafeString(value));
 	    return;
 	} else if (eq(name, Button.PROPERTY_ICON)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asImage(value));
-	    //if (xIcon != null) {
-		//xButton.setImage(xIcon);
-	    //}
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asImage(value));
+	    if (xIcon != null) {
+		xButton.setGraphic(xIcon);
+	    }
 	    return;
 	} else if (eq(name, Button.PROPERTY_ICON_PATH)) {
-	    //javafx.scene.image.Image xIcon = createImage(element, asString(value));
-	    //if (xIcon != null) {
-		//xButton.setImage(xIcon);
-	    //}
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asString(value));
+	    if (xIcon != null) {
+		xButton.setGraphic(xIcon);
+	    }
 	    return;
 	}
 

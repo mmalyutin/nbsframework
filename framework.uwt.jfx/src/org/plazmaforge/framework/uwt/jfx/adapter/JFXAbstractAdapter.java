@@ -54,22 +54,42 @@ public abstract class JFXAbstractAdapter extends AbstractUIAdapter {
     protected org.eclipse.swt.graphics.Font getFont(Font font) {
 	return SWTHelper.getFont(font);
     }
-
-    protected org.eclipse.swt.graphics.Image createImage(UIElement element, Image image) {
-	return SWTHelper.createImage(element, image);
-    }
-
-    protected org.eclipse.swt.graphics.Image createImage(UIElement element, String path) {
-	return SWTHelper.createImage(element, path);	
-    }
-    
-    protected org.eclipse.swt.graphics.Image createImage(String storage, String path) {
-	return SWTHelper.createImage(storage, path);	
-    }
-    
-    protected org.eclipse.swt.graphics.Image createImage(String path) {
-	return SWTHelper.createImage(path);
-    }
     */
+
+    protected javafx.scene.image.Image createImage(UIElement element, Image image) {
+	return JFXHelper.createImage(element, image);
+    }
+
+    protected javafx.scene.image.Image createImage(UIElement element, String path) {
+	return JFXHelper.createImage(element, path);	
+    }
+    
+    protected javafx.scene.image.Image createImage(String storage, String path) {
+	return JFXHelper.createImage(storage, path);	
+    }
+    
+    protected javafx.scene.image.Image createImage(String path) {
+	return JFXHelper.createImage(path);
+    }
+
+    ////
+    
+    protected javafx.scene.image.ImageView createImageView(UIElement element, Image image) {
+	return JFXHelper.createImageView(element, image);
+    }
+
+    protected javafx.scene.image.ImageView createImageView(UIElement element, String path) {
+	return JFXHelper.createImageView(element, path);
+    }
+
+    protected javafx.scene.image.ImageView createImageView(String storage, String path) {
+	return JFXHelper.createImageView(storage, path);
+    }
+
+    protected javafx.scene.image.ImageView createImageView(String path) {
+	return JFXHelper.createImageView(path);
+    }
+      
+      ////
 
 }
