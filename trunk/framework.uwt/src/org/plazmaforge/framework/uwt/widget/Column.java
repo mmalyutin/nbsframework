@@ -26,6 +26,7 @@ import org.plazmaforge.framework.core.data.HasDataType;
 import org.plazmaforge.framework.core.data.HasProperty;
 import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.core.data.formatter.Formatter;
+import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 
 /**
@@ -127,14 +128,43 @@ public class Column extends Item implements HasProperty, HasDataType {
     
     public Column() {
 	super();
-	setWidth(DEFAULT_WIDTH);
-	sortable = true;
-	filterable = true;
-	resizable = true;
-	editable = false;
+	initialize();
     }
 
+    public Column(String text) {
+	super(text);
+	initialize();
+    }
 
+    public Column(String text, Image icon) {
+	super(text, icon);
+	initialize();
+    }
+    
+    public Column(String text, int width) {
+	super(text);
+	initializeFlags();
+	setWidth(width);
+    }
+    
+    public Column(String text, Image icon, int width) {
+	super(text, icon);
+	initializeFlags();
+	setWidth(width);
+    }
+    
+    private void initialize() {
+	initializeFlags();
+	setWidth(DEFAULT_WIDTH);
+    }
+
+    private void initializeFlags() {
+ 	sortable = true;
+ 	filterable = true;
+ 	resizable = true;
+ 	editable = false;
+    }
+    
     @Override
     protected void configure() {
 	super.configure();

@@ -23,9 +23,15 @@
 package org.plazmaforge.framework.uwt.swing.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
+import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SwingMenuAdapter extends SwingWidgetAdapter {
 
     public Object createDelegate(UIElement parent, UIElement element) {
@@ -67,6 +73,9 @@ public class SwingMenuAdapter extends SwingWidgetAdapter {
 	    
 	}
 
+	menu.resetInitProperty(Menu.PROPERTY_TEXT);
+	menu.resetInitProperty(Menu.PROPERTY_ICON);
+	
 	return xMenu;
     }
     
@@ -75,19 +84,41 @@ public class SwingMenuAdapter extends SwingWidgetAdapter {
 	return (javax.swing.MenuElement) delegate;
     }
     
+
+
     @Override
     public void setProperty(UIElement element, String name, Object value) {
-	
-	javax.swing.MenuElement xMenu = getMenu(element.getDelegate());
-	if (xMenu == null) {
+	Object xElement = element.getDelegate();
+	if (xElement == null) {
+	    return;
+	}	
+	if (!(xElement instanceof javax.swing.JMenu)) {
+	    // Maybe it is JPopupMenu: see createDelegate()
+	    // We have 2 variants: JMenu, JPopupMenu
 	    return;
 	}
-	
-	// do nothing
+	javax.swing.JMenu xMenu = (javax.swing.JMenu) xElement;
+
+	if (eq(name, Button.PROPERTY_TEXT)) {
+	    xMenu.setText(asSafeString(value));
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON)) {
+	    javax.swing.Icon xIcon = createImageIcon(element, asImage(value));
+	    if (xIcon != null) {
+		xMenu.setIcon(xIcon);
+	    }
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON_PATH)) {
+	    javax.swing.Icon xIcon = createImageIcon(element, asString(value));
+	    if (xIcon != null) {
+		xMenu.setIcon(xIcon);
+	    }
+	    return;
+	} 
 	
 	super.setProperty(element, name, value);
+	
     }
-
     
     @Override
     public void addListener(UIElement element, String eventType, final Listener listener) {

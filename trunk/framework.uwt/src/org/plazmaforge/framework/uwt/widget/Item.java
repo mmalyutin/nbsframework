@@ -36,18 +36,18 @@ public abstract class Item extends Widget implements HasItem {
     
     public Item(String text) {
 	super();
-	this.text = text;
+	setText(text);
     }
 
     public Item(Image icon) {
 	super();
-	this.icon = icon;
+	setIcon(icon);
     }
 
     public Item(String text, Image icon) {
 	super();
-	this.text = text;
-	this.icon = icon;
+	setText(text);
+	setIcon(icon);
     }
 
     public String getText() {

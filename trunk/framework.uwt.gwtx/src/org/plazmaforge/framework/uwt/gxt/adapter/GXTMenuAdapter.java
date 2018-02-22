@@ -68,11 +68,18 @@ public class GXTMenuAdapter extends GXTWidgetAdapter {
 	    xMenuItem.setSubMenu(xMenu);
 	    xMenuParent.add(xMenuItem);
 	}
+	
+	menu.resetInitProperty(Menu.PROPERTY_TEXT);
+	menu.resetInitProperty(Menu.PROPERTY_ICON);
 
-	
-	
-	
 	return xMenu;
+    }
+    
+    @Override
+    public void setProperty(UIElement element, String name, Object value) {
+	// TODO
+	// Set Text
+	// Set Icon
     }
 
 }
