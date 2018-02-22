@@ -30,11 +30,11 @@ import org.plazmaforge.framework.core.data.ClassPropertyProviderFactory;
 import org.plazmaforge.framework.core.data.object.IData;
 import org.plazmaforge.framework.core.resource.BundleResourceProvider;
 import org.plazmaforge.framework.core.resource.ResourceProvider;
-import org.plazmaforge.framework.uwt.AbstractDesktopApplication;
 import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.ApplicationContext;
 import org.plazmaforge.framework.uwt.UIResourceException;
 import org.plazmaforge.framework.uwt.UWT;
+import org.plazmaforge.framework.uwt.UWTDesktopToolit;
 import org.plazmaforge.framework.uwt.storage.ClassTemplateProvider;
 import org.plazmaforge.framework.uwt.storage.TemplateProvider;
 import org.plazmaforge.framework.uwt.storage.TemplateProviderAsync;
@@ -42,7 +42,7 @@ import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.widget.Frame;
 
 
-public class DemoUWT extends AbstractDesktopApplication {
+public class DemoDesktopApplication extends Application {
 
 
     public static void main(String[] args) {
@@ -57,12 +57,12 @@ public class DemoUWT extends AbstractDesktopApplication {
 	    return;
 	}
 	// Initialize UWT by UI type
-	if (!initUWT(ui)) {
+	if (!UWTDesktopToolit.initUWT(ui)) {
 	    return;
 	}
 	
 	// Create and start application
-	DemoUWT application = new DemoUWT();
+	DemoDesktopApplication application = new DemoDesktopApplication();
 	
 	////
 	String locale = properties.get(ApplicationContext.CONFIG_LOCALE);
@@ -75,11 +75,11 @@ public class DemoUWT extends AbstractDesktopApplication {
 	application.start(properties);
     }
 
-    public void start(Map<String, String> properties) {
+    @Override
+    public void init() {
 	setInitializer(new DesktopApplicationInitializer());
-	super.start(properties);
     }
-  
+    
     class DesktopApplicationInitializer extends DemoApplicationInitializer {
 
 	@Override
