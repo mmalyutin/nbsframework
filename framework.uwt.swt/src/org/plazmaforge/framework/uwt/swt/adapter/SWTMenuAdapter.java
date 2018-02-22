@@ -24,9 +24,15 @@ package org.plazmaforge.framework.uwt.swt.adapter;
 
 import org.eclipse.swt.SWT;
 import org.plazmaforge.framework.uwt.UIElement;
+import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class SWTMenuAdapter extends SWTWidgetAdapter {
 
 
@@ -44,6 +50,9 @@ public class SWTMenuAdapter extends SWTWidgetAdapter {
 	    org.eclipse.swt.widgets.MenuItem xParentMenuItem = (org.eclipse.swt.widgets.MenuItem) xParent;
 	    xParentMenu = xParentMenuItem.getMenu();
 	}
+	
+	menu.resetInitProperty(Menu.PROPERTY_TEXT);
+	menu.resetInitProperty(Menu.PROPERTY_ICON);
 	
 	if (xParentMenu != null) {
 	    
@@ -83,25 +92,47 @@ public class SWTMenuAdapter extends SWTWidgetAdapter {
 	return null;
     }
 
-    protected org.eclipse.swt.widgets.Menu getMenu(Object delegate) {
+    protected org.eclipse.swt.widgets.Menu asMenu(Object delegate) {
 	return (org.eclipse.swt.widgets.Menu) delegate;
+    }
+    
+    protected org.eclipse.swt.widgets.MenuItem asMenuItem(Object delegate) {
+	return (org.eclipse.swt.widgets.MenuItem) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
+	Object xElement = element.getDelegate();
+	if (xElement  == null) {
+	    return;
+	}	
+	if (!(xElement instanceof org.eclipse.swt.widgets.MenuItem)) {
+	    // Maybe it is Menu: see createDelegate()
+	    // We have 2 variants: Menu, MenuItem
+	    return;
+	}
 	
-	// TODO check Menu and MenuItem
-	
-	//org.eclipse.swt.widgets.Menu xMenu = getMenu(element.getDelegate());
-	//if (xMenu == null) {
-	//    return;
-	//}
-	
-	// do nothing
+	org.eclipse.swt.widgets.MenuItem xButton = asMenuItem(element.getDelegate());
+
+	if (eq(name, Button.PROPERTY_TEXT)) {
+	    xButton.setText(asSafeString(value));
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON)) {
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asImage(value));
+	    if (xIcon != null) {
+		xButton.setImage(xIcon);
+	    }
+	    return;
+	} else if (eq(name, Button.PROPERTY_ICON_PATH)) {
+	    org.eclipse.swt.graphics.Image xIcon = createImage(element, asString(value));
+	    if (xIcon != null) {
+		xButton.setImage(xIcon);
+	    }
+	    return;
+	}
 	
 	super.setProperty(element, name, value);
-    }
-
+    }  
     
     @Override
     public void addListener(UIElement element, String eventType, final Listener listener) {
