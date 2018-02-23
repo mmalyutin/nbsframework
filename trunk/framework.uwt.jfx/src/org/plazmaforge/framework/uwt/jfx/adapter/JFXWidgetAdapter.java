@@ -116,6 +116,34 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	return delegate instanceof javafx.scene.Parent;
     } 
     
+    /**
+     * Checks delegate
+     * @param delegate
+     * @param property
+     * @return JFX Node
+     */
+    protected javafx.scene.Node asNodeGetProperty(Object delegate, String property) {
+	if (!isNode(delegate)) {
+	    logUnsupportGetProperty(delegate, property);
+	    return null;
+	}
+	return asNode(delegate);
+    }  
+    
+    /**
+     * Checks delegate
+     * @param delegate
+     * @param property
+     * @return JFX Node
+     */
+    protected javafx.scene.Node asNodeSetProperty(Object delegate, String property) {
+  	if (!isNode(delegate)) {
+  	    logUnsupportSetProperty(delegate, property);
+  	    return null;
+  	}
+  	return asNode(delegate);
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Content
@@ -213,8 +241,39 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
  	    region.setPrefHeight(height);
   	}
   	//TODO
-    }    
+    }   
     
+    protected void setVisible(Object delegate, boolean visible) {
+	javafx.scene.Node node = asNodeSetProperty(delegate, Widget.PROPERTY_VISIBLE);
+	if (node == null) {
+	    return;
+	}
+	node.setVisible(visible);
+    }
+    
+    protected boolean isVisible(Object delegate) {
+	javafx.scene.Node node = asNodeSetProperty(delegate, Widget.PROPERTY_VISIBLE);
+	if (node == null) {
+	    return false;
+	}
+	return node.isVisible();
+    }  
+    
+    protected void setEnabled(Object delegate, boolean enabled) {
+	javafx.scene.Node node = asNodeSetProperty(delegate, Widget.PROPERTY_ENABLED);
+	if (node == null) {
+	    return;
+	}
+	node.setDisable(!enabled);
+    }
+
+    protected boolean isEnabled(Object delegate) {
+	javafx.scene.Node node = asNodeSetProperty(delegate, Widget.PROPERTY_ENABLED);
+	if (node == null) {
+	    return false;
+	}
+	return !node.isDisable();
+    }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
@@ -317,7 +376,93 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	// do nothing
     }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // MOUSE MOVE LISTENERS
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    protected void addMouseMoveListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeMouseMoveListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+    
+    protected void addMouseInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+
+    protected void addMouseOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    protected void removeMouseOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // FOCUS LISTENERS
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected void addFocusInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeFocusInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    
+    
+    protected void addFocusOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeFocusOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // SELECTION LISTENER
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    protected void addSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // ENTER LISTENER
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected void addEnterListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }
+
+    protected void removeEnterListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	// do nothing
+    }    
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -377,66 +522,6 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     }
     
     
-    
-//    
-//    // MOUSE DOWN
-//    protected org.eclipse.swt.events.MouseListener createMouseDownListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.MouseListener xListener = new org.eclipse.swt.events.MouseAdapter() {
-//
-//	    @Override
-//	    public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//
-//    // MOUSE UP
-//    protected org.eclipse.swt.events.MouseListener createMouseUpListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.MouseListener xListener = new org.eclipse.swt.events.MouseAdapter() {
-//
-//	    @Override
-//	    public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//
-//    // MOUSE CLICK
-//    protected org.eclipse.swt.events.MouseListener createMouseClickListener(Widget widget, final Listener listener) {
-//	
-//	// Emulate single MouseClick in SWT by MouseDown 
-//	org.eclipse.swt.events.MouseListener xListener =  new org.eclipse.swt.events.MouseAdapter() {
-//
-//	    private boolean doubleClick;
-//
-//	    @Override
-//	    public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
-//		doubleClick = true;
-//	    }
-//
-//	    @Override
-//	    public void mouseDown(final org.eclipse.swt.events.MouseEvent e) {
-//		doubleClick = false;
-//		Display.getDefault().timerExec(
-//			Display.getDefault().getDoubleClickTime(),
-//			new Runnable() {
-//			    public void run() {
-//				if (!doubleClick) {
-//				    listener.handleEvent(createEvent(e));
-//				}
-//			    }
-//			});
-//	    }
-//
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//
 //    // MOUSE DOUBLE CLICK
 //    protected org.eclipse.swt.events.MouseListener createMouseDoubleClickListener(Widget widget, final Listener listener) {
 //	org.eclipse.swt.events.MouseListener xListener = new org.eclipse.swt.events.MouseAdapter() {
@@ -450,75 +535,8 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 //	return xListener;
 //    }
 //
-//    
-//    protected org.eclipse.swt.events.MouseListener getMouseListener(Widget widget, Listener listener) {
-//	return (org.eclipse.swt.events.MouseListener) getListener(widget, listener);
-//    }
-//
-//    protected org.eclipse.swt.events.MouseListener getMouseListener(Widget widget, Listener listener, int index) {
-//	return (org.eclipse.swt.events.MouseListener) getListener(widget, listener, index);
-//    }
-//
-//    
-//    // MOUSE MOVE
-//    protected org.eclipse.swt.events.MouseMoveListener createMouseMoveListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.MouseMoveListener xListener = new org.eclipse.swt.events.MouseMoveListener() {
-//
-//	    @Override
-//	    public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//    
-//    
-//    protected org.eclipse.swt.events.MouseMoveListener getMouseMoveListener(Widget widget, Listener listener) {
-//	return (org.eclipse.swt.events.MouseMoveListener) getListener(widget, listener);
-//    }
-//
-//    protected org.eclipse.swt.events.MouseMoveListener getMouseMoveListener(Widget widget, Listener listener, int index) {
-//	return (org.eclipse.swt.events.MouseMoveListener) getListener(widget, listener, index);
-//    }
-//
-//    
-//    
-//    // MOUSE IN
-//    protected org.eclipse.swt.events.MouseTrackListener createMouseInListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.MouseTrackListener xListener = new org.eclipse.swt.events.MouseTrackAdapter() {
-//
-//	    @Override
-//	    public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//   
-//    // MOUSE OUT
-//    protected org.eclipse.swt.events.MouseTrackListener createMouseOutListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.MouseTrackListener xListener = new org.eclipse.swt.events.MouseTrackAdapter() {
-//
-//	    @Override
-//	    public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//    
-//    protected org.eclipse.swt.events.MouseTrackListener getMouseTrackListener(Widget widget, Listener listener) {
-//	return (org.eclipse.swt.events.MouseTrackListener) getListener(widget, listener);
-//    }
-//
-//    protected org.eclipse.swt.events.MouseTrackListener getMouseTrackListener(Widget widget, Listener listener, int index) {
-//	return (org.eclipse.swt.events.MouseTrackListener) getListener(widget, listener, index);
-//    }
-//
-//    
+
+  
 //    
 //    // FOCUS IN
 //    protected org.eclipse.swt.events.FocusListener createFocusInListener(Widget widget, final Listener listener) {

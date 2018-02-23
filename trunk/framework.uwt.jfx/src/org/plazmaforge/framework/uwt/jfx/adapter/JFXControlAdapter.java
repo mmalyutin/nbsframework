@@ -100,15 +100,18 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
     public void setProperty(UIElement element, String name, Object value) {
 	
 	Object delegate = element.getDelegate();
-	//org.eclipse.swt.widgets.Control xControl = asControl(delegate);
+	if (delegate == null) {
+	    return;
+	}
+	//javafx.scene.Node xControl = asControl(delegate);
 	//if (xControl == null) {
 	//    return;
 	//}
 	
 	if (Control.PROPERTY_VISIBLE.equals(name)) {
-	    //xControl.setVisible(asBoolean(value));
+	    setVisible(delegate, asBoolean(value));
 	} if (Control.PROPERTY_ENABLED.equals(name)) {
-	   // xControl.setEnabled(asBoolean(value));    
+	    setEnabled(delegate, asBoolean(value));    
 	} else if (Control.PROPERTY_WIDTH.equals(name)) {
 	    setWidth(delegate, asInteger(value));
 	    return;
@@ -151,24 +154,27 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	super.setProperty(element, name, value);
 	
     }
-//    
-//    
-//    @Override
-//    public Object getProperty(UIElement element, String name) {
-//	Object delegate = element.getDelegate();
-//	org.eclipse.swt.widgets.Control xControl = asControl(delegate);
-//	if (xControl == null) {
-//	    return null;
-//	}
-//	if (Control.PROPERTY_VISIBLE.equals(name)) {
-//	    return xControl.getVisible();
-//	} else if (Control.PROPERTY_ENABLED.equals(name)) {
-//	    return xControl.getEnabled();
-//	}
-//
-//	return super.getProperty(element, name);
-//    }
-//
+    
+    
+    @Override
+    public Object getProperty(UIElement element, String name) {
+	Object delegate = element.getDelegate();
+	if (delegate == null) {
+	    return null;
+	}
+	//org.eclipse.swt.widgets.Control xControl = asControl(delegate);
+	//if (xControl == null) {
+	    //return null;
+	//}
+	if (Control.PROPERTY_VISIBLE.equals(name)) {
+	    return isVisible(delegate);
+	} else if (Control.PROPERTY_ENABLED.equals(name)) {
+	    return isEnabled(delegate);
+	}
+
+	return super.getProperty(element, name);
+    }
+
     
     
 
@@ -239,6 +245,84 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	//xWidget.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, createMouseListener(widget, listener));
     }    
     
+    @Override
+    protected void removeMouseDoubleClickListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnDoubleClick, getListener(widget, listener));
+    }
+
+    
+    // MOUSE MOVE
+    @Override
+    protected void addMouseMoveListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	xWidget.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_MOVED, createMouseListener(widget, listener));
+    }
+
+    @Override
+    protected void removeMouseMoveListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	xWidget.removeEventHandler(javafx.scene.input.MouseEvent.MOUSE_MOVED, getMouseListener(widget, listener));
+    }
+        
+
+    // MOUSE IN
+    @Override
+    protected void addMouseInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	xWidget.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, createMouseListener(widget, listener));
+    }
+
+    @Override
+    protected void removeMouseInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	xWidget.removeEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, getMouseListener(widget, listener));
+    }
+    
+    
+    // MOUSE OUT
+    @Override
+    protected void addMouseOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	xWidget.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, createMouseListener(widget, listener));
+    }
+    
+    @Override
+    protected void removeMouseOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	xWidget.removeEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, getMouseListener(widget, listener));
+    }
+
+   
+    // FOCUS IN
+    @Override
+    protected void addFocusInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.addDomHandler(createFocusInListener(widget, listener), com.google.gwt.event.dom.client.FocusEvent.getType());
+    }
+    
+    @Override
+    protected void removeFocusInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnFocus, getListener(widget, listener));
+    }
+     
+
+    // FOCUS OUT
+    @Override
+    protected void addFocusOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//TODO
+	//xWidget.addDomHandler(createFocusOutListener(widget, listener), com.google.gwt.event.dom.client.BlurEvent.getType());
+    }
+
+    @Override
+    protected void removeFocusOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnBlur, getListener(widget, listener));
+    }
+    
+
+    // KEY ENTER
+    @Override
+    protected void addEnterListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//TODO
+    }
+    
+    protected void removeEnterListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+ 	//TODO
+    }
     
     
     @Override
@@ -249,7 +333,6 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	if (xWidget == null) {
 	    return;
 	}
-
 
 	if (eq(Events.KeyDown, eventType)) {
 	    addKeyDownListener(xWidget, control, listener);
@@ -269,20 +352,18 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	} else if (eq(Events.MouseDoubleClick, eventType)) {
 	    addMouseDoubleClickListener(xWidget, control, listener);
 	    return;
-	} 
+	} else if (eq(Events.MouseMove, eventType)) {
+	    addMouseMoveListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseIn, eventType)) {
+	    addMouseInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseOut, eventType)) {
+	    addMouseOutListener(xWidget, control, listener);
+	    return;
+	}
 	
-	//TODO
-	
-//	else if (eq(Events.MouseMove, eventType)) {
-//	    addMouseMoveListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.MouseIn, eventType)) {
-//	    addMouseInListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.MouseOut, eventType)) {
-//	    addMouseOutListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.FocusIn, eventType)) {
+//	else if (eq(Events.FocusIn, eventType)) {
 //	    addFocusInListener(xWidget, control, listener);
 //	    return;
 //	} else if (eq(Events.FocusOut, eventType)) {
@@ -322,19 +403,17 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	} else if (eq(Events.MouseDoubleClick, eventType)) {
 	    removeMouseDoubleClickListener(xWidget, control, listener);
 	    return;
-	}
-	
-	
-	//TODO
-//	else if (eq(Events.MouseMove, eventType)) {
-//	    removeMouseMoveListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.MouseIn, eventType)) {
-//	    removeMouseInListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.MouseOut, eventType)) {
-//	    removeMouseOutListener(xWidget, control, listener);
-//	    return;
+	} else if (eq(Events.MouseMove, eventType)) {
+	    removeMouseMoveListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseIn, eventType)) {
+	    removeMouseInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseOut, eventType)) {
+	    removeMouseOutListener(xWidget, control, listener);
+	    return;
+	}    
+	    
 //	} else if (eq(Events.FocusIn, eventType)) {
 //	    removeFocusInListener(xWidget, control, listener);
 //	    return;
