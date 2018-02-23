@@ -42,13 +42,13 @@ public class JFXTextFieldAdapter extends JFXControlAdapter {
 	return xTextField;
     }
 
-    protected javafx.scene.control.TextField asTextField(Object delegate) {
-	return (javafx.scene.control.TextField) delegate;
+    protected javafx.scene.control.TextInputControl asTextField(Object delegate) {
+	return (javafx.scene.control.TextInputControl) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
-	javafx.scene.control.TextField xTextField = asTextField(element.getDelegate());
+	javafx.scene.control.TextInputControl xTextField = asTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return;
 	}
@@ -61,7 +61,7 @@ public class JFXTextFieldAdapter extends JFXControlAdapter {
     
     @Override
     public Object getProperty(UIElement element, String name) {
-	javafx.scene.control.TextField xTextField = asTextField(element.getDelegate());
+	javafx.scene.control.TextInputControl xTextField = asTextField(element.getDelegate());
 	if (xTextField == null) {
 	    return null;
 	}
