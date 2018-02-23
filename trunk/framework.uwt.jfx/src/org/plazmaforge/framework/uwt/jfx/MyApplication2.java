@@ -4,6 +4,12 @@ import java.util.Date;
 
 import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.UWTDesktopToolit;
+import org.plazmaforge.framework.uwt.event.FocusEvent;
+import org.plazmaforge.framework.uwt.event.FocusListener;
+import org.plazmaforge.framework.uwt.event.MouseAdapter;
+import org.plazmaforge.framework.uwt.event.MouseEvent;
+import org.plazmaforge.framework.uwt.event.MouseListener;
+import org.plazmaforge.framework.uwt.event.MouseMoveListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.widget.Button;
@@ -42,7 +48,7 @@ public class MyApplication2 extends Application {
 	
 	Frame frame = application.getFrame();
 	frame.setTitle("My Application");
-	
+
 	final Label label = new Label("Hello World!");
 	frame.add(label);
 	
@@ -64,8 +70,75 @@ public class MyApplication2 extends Application {
 	final PasswordField passwordField = new PasswordField();
 	frame.add(passwordField);
 	
-	//final TextArea textArea = new TextArea();
-	//frame.add(textArea);
+	final TextArea textArea = new TextArea();
+	frame.add(textArea);
+	
+
+	label.addMouseListener(new MouseListener() {
+	    
+	    @Override
+	    public void mouseUp(MouseEvent e) {
+		// TODO Auto-generated method stub
+		textArea.append("mouseUp\n");
+		
+	    }
+	    
+	    @Override
+	    public void mouseDown(MouseEvent e) {
+		textArea.append("mouseDown\n");
+		
+	    }
+	    
+	    @Override
+	    public void mouseDoubleClick(MouseEvent e) {
+		textArea.append("mouseDoubleClick\n");
+		
+	    }
+	    
+	    @Override
+	    public void mouseClick(MouseEvent e) {
+		textArea.append("mouseClick\n");
+		
+	    }
+	});
+	
+	label.addMouseMoveListener(new MouseMoveListener() {
+	    
+	    @Override
+	    public void mouseOut(MouseEvent e) {
+		textArea.append("mouseOut\n");
+		
+	    }
+	    
+	    @Override
+	    public void mouseMove(MouseEvent e) {
+		textArea.append("mouseMove\n");
+		
+	    }
+	    
+	    @Override
+	    public void mouseIn(MouseEvent e) {
+		textArea.append("mouseIn\n");
+		
+	    }
+	});
+	
+	textField.setText("Focus");
+	
+	textField.addFocusListener(new FocusListener() {
+	    
+	    @Override
+	    public void focusOut(FocusEvent e) {
+		textArea.append("TestField: focusOut\n");
+		
+	    }
+	    
+	    @Override
+	    public void focusIn(FocusEvent e) {
+		textArea.append("TestField: focusIn\n");
+		
+	    }
+	});
 	
 	final CheckBox checkBox = new CheckBox();
 	frame.add(checkBox);
@@ -180,6 +253,16 @@ public class MyApplication2 extends Application {
 	frame.add(table);	
 	
 	Button button = new Button("Press Me");
+	boolean[] flag = new boolean[] {false};
+	button.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClick(MouseEvent e) {
+		String text = flag[0]  ? "Hello !" : "Hi !";
+		flag[0] = !flag[0];
+		label.setText(text);
+	    }
+	});
+	
 	button.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
 	button.addSelectionListener(new SelectionListener() {
 	    

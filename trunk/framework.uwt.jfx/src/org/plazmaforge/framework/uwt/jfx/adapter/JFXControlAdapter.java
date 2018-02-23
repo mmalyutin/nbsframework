@@ -291,26 +291,24 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
     // FOCUS IN
     @Override
     protected void addFocusInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
-	//TODO
-	//xWidget.addDomHandler(createFocusInListener(widget, listener), com.google.gwt.event.dom.client.FocusEvent.getType());
+	xWidget.focusedProperty().addListener(createFocusInListener(widget, listener));
     }
     
     @Override
     protected void removeFocusInListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
-	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnFocus, getListener(widget, listener));
+	xWidget.focusedProperty().removeListener(getFocusListener(widget, listener));
     }
      
 
     // FOCUS OUT
     @Override
     protected void addFocusOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
-	//TODO
-	//xWidget.addDomHandler(createFocusOutListener(widget, listener), com.google.gwt.event.dom.client.BlurEvent.getType());
+	xWidget.focusedProperty().addListener(createFocusOutListener(widget, listener));
     }
 
     @Override
     protected void removeFocusOutListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
-	//xWidget.removeListener(com.sencha.gxt.ui.client.event.Events.OnBlur, getListener(widget, listener));
+	xWidget.focusedProperty().removeListener(getFocusListener(widget, listener));
     }
     
 
@@ -361,15 +359,13 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	} else if (eq(Events.MouseOut, eventType)) {
 	    addMouseOutListener(xWidget, control, listener);
 	    return;
+	} else if (eq(Events.FocusIn, eventType)) {
+	    addFocusInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.FocusOut, eventType)) {
+	    addFocusOutListener(xWidget, control, listener);
+	    return;
 	}
-	
-//	else if (eq(Events.FocusIn, eventType)) {
-//	    addFocusInListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.FocusOut, eventType)) {
-//	    addFocusOutListener(xWidget, control, listener);
-//	    return;
-//	}
 	
 	super.addListener(element, eventType, listener);
 	
@@ -412,15 +408,13 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	} else if (eq(Events.MouseOut, eventType)) {
 	    removeMouseOutListener(xWidget, control, listener);
 	    return;
-	}    
-	    
-//	} else if (eq(Events.FocusIn, eventType)) {
-//	    removeFocusInListener(xWidget, control, listener);
-//	    return;
-//	} else if (eq(Events.FocusOut, eventType)) {
-//	    removeFocusOutListener(xWidget, control, listener);
-//	    return;
-//	}
+	} else if (eq(Events.FocusIn, eventType)) {
+	    removeFocusInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.FocusOut, eventType)) {
+	    removeFocusOutListener(xWidget, control, listener);
+	    return;
+	}
 	
 	super.removeListener(element, eventType, listener);
 	
