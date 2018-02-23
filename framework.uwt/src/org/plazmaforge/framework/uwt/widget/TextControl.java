@@ -22,7 +22,11 @@
 
 package org.plazmaforge.framework.uwt.widget;
 
-
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public abstract class TextControl extends AbstractField<String> implements HasText {
     
     
@@ -51,6 +55,22 @@ public abstract class TextControl extends AbstractField<String> implements HasTe
     public void setText(String text) {
         setValue(text);
         //fireChangeProperty(PROPERTY_TEXT, text);
-    }    
+    }   
+    
+    public void append(Object obj) {
+	append(obj == null ? (String) null : obj.toString());
+    }
+    
+    public void append(String str) {
+	if  (str == null || str.isEmpty()) {
+	    return;
+	}
+	String text = getText();
+	if (text == null || text.isEmpty()) {
+	    setText(str);
+	    return;
+	}
+	setText(text + str);
+    }
 
 }
