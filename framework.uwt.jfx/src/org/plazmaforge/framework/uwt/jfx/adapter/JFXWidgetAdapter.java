@@ -31,6 +31,8 @@ import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
+import javafx.beans.value.ObservableValue;
+
 
 /**
  * 
@@ -537,43 +539,45 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 //
 
   
-//    
-//    // FOCUS IN
-//    protected org.eclipse.swt.events.FocusListener createFocusInListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.FocusListener xlistener = new org.eclipse.swt.events.FocusAdapter() {
-//
-//	    @Override
-//	    public void focusGained(org.eclipse.swt.events.FocusEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xlistener);
-//	return xlistener;
-//    }
-//   
-//    // FOCUS OUT
-//    protected org.eclipse.swt.events.FocusListener createFocusOutListener(Widget widget, final Listener listener) {
-//	org.eclipse.swt.events.FocusListener xListener = new org.eclipse.swt.events.FocusAdapter() {
-//
-//	    @Override
-//	    public void focusLost(org.eclipse.swt.events.FocusEvent e) {
-//		listener.handleEvent(createEvent(e));
-//	    }
-//	};
-//	widget.assignListener(listener, xListener);
-//	return xListener;
-//    }
-//    
-//    protected org.eclipse.swt.events.FocusListener getFocusListener(Widget widget, Listener listener) {
-//	return (org.eclipse.swt.events.FocusListener) getListener(widget, listener);
-//    }
-//
-//    protected org.eclipse.swt.events.FocusListener getFocusListener(Widget widget, Listener listener, int index) {
-//	return (org.eclipse.swt.events.FocusListener) getListener(widget, listener, index);
-//    }
-//
-//    
-//    
+    
+    // FOCUS IN
+    protected javafx.beans.value.ChangeListener<Boolean> createFocusInListener(Widget widget, final Listener listener) {
+	javafx.beans.value.ChangeListener<Boolean> xlistener = new javafx.beans.value.ChangeListener<Boolean>() {
+
+	    @Override
+	    public void changed(ObservableValue<? extends Boolean> e, Boolean oldValue, Boolean newValue) {
+		// newValue: true - in focus
+		if (newValue) {
+	            listener.handleEvent(createEvent(e));
+	        }
+	    }
+	};
+	widget.assignListener(listener, xlistener);
+	return xlistener;
+    }
+   
+    // FOCUS OUT
+    protected javafx.beans.value.ChangeListener<Boolean> createFocusOutListener(Widget widget, final Listener listener) {
+	javafx.beans.value.ChangeListener<Boolean> xlistener = new javafx.beans.value.ChangeListener<Boolean>() {
+
+	    @Override
+	    public void changed(ObservableValue<? extends Boolean> e, Boolean oldValue, Boolean newValue) {
+		// newValue: false - out focus
+		if (!newValue) {
+	            listener.handleEvent(createEvent(e));
+	        }
+	    }
+	};
+	widget.assignListener(listener, xlistener);
+	return xlistener;
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected javafx.beans.value.ChangeListener<Boolean> getFocusListener(Widget widget, Listener listener) {
+	return (javafx.beans.value.ChangeListener<Boolean>) getListener(widget, listener);
+    }
+    
+    
 //    ////
 //
 //    protected org.eclipse.swt.events.SelectionListener createSelectionListener(Widget widget, final Listener listener) {
@@ -742,16 +746,16 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
  	return stateMask;
      }    
 
-//    /**
-//     * Create UWT Event by SWT FocusEvent
-//     * @param e
-//     * @return
-//     */
-//    protected Event createEvent(org.eclipse.swt.events.FocusEvent e) {
-//        Event event = new Event();
-//        return event;
-//    }
-//    
+    /**
+     * Create UWT Event by JFX FocusEvent
+     * @param e
+     * @return
+     */
+    protected Event createEvent(ObservableValue<? extends Boolean> e) {
+        Event event = new Event();
+        return event;
+    }
+    
 //    protected Event createEvent(org.eclipse.swt.events.SelectionEvent e) {
 //        Event event = new Event();
 //        event.setX(e.x);
