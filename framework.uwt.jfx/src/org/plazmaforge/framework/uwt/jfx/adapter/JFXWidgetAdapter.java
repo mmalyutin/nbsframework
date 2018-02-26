@@ -170,6 +170,7 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	    javafx.scene.Scene scene = stage.getScene();
 	    return scene == null ? null : scene.getRoot();
 	}
+	//throw new UWTException("getView: Object is not supported: " + delegate.getClass().getName());
 	// TODO
 	return (javafx.scene.Parent) delegate;
     }
@@ -182,6 +183,7 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	    javafx.scene.Scene scene = stage.getScene();
 	    return scene == null ? null : scene.getRoot();
 	}
+	//throw new UWTException("getRegion: Object is not supported: " + delegate.getClass().getName());
 	// TODO
 	return delegate;
     }
