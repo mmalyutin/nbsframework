@@ -56,8 +56,9 @@ public class SplitPanel extends Panel {
 
     @Override
     protected void checkAddChild(Widget element) {
+	super.checkAddChild(element);
 	if (getChildrenCount() >= 2 ) {
-	    throw new IllegalArgumentException("Split panel has only two elements");
+	    throw new IllegalArgumentException("Can't add child: Split panel has only two elements");
 	}
     }
 }

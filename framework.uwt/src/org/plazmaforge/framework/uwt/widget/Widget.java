@@ -243,6 +243,7 @@ public abstract class Widget extends UIElement {
 	setUIParent(parent);
     }
     
+ 
     public void setUIParent(UIElement parent) {
 	if (!(parent instanceof Widget)) {
 	    throw new IllegalArgumentException("Parent must be Widget");
@@ -474,7 +475,7 @@ public abstract class Widget extends UIElement {
 	    return;
 	}
 	if (getAdapter() == null) {
-	    throw new UWTException("Adapter is empty");
+	    throw new UWTException("Can't add DelegateListener: Adapter is empty");
 	}
 	getAdapter().addListener(this, eventType, listener);
     }
@@ -484,7 +485,7 @@ public abstract class Widget extends UIElement {
 	    return;
 	}
 	if (getAdapter() == null) {
-	    throw new UWTException("Adapter is empty");
+	    throw new UWTException("Can't remove DelegateListener: Adapter is empty");
 	}
 	getAdapter().removeListener(this, eventType, listener);
     }
