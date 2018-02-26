@@ -17,9 +17,12 @@ import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
 import org.plazmaforge.framework.uwt.widget.DateField;
 import org.plazmaforge.framework.uwt.widget.Frame;
+import org.plazmaforge.framework.uwt.widget.ImageBox;
+import org.plazmaforge.framework.uwt.widget.IntegerField;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.Link;
 import org.plazmaforge.framework.uwt.widget.ListBox;
+import org.plazmaforge.framework.uwt.widget.NumberField;
 import org.plazmaforge.framework.uwt.widget.PasswordField;
 import org.plazmaforge.framework.uwt.widget.RadioButton;
 import org.plazmaforge.framework.uwt.widget.RadioGroup;
@@ -32,7 +35,10 @@ import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
-
+import org.plazmaforge.framework.uwt.widget.tool.CoolBar;
+import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
+import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
+import org.plazmaforge.framework.uwt.widget.tool.ToolSeparator;
 import org.plazmaforge.framework.uwt.widget.SpinnerField;
 
 
@@ -52,8 +58,20 @@ public class MyApplication2 extends Application {
 	final Label label = new Label("Hello World!");
 	frame.add(label);
 	
+	ImageBox imageBox = new ImageBox("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
+	frame.add(imageBox);
+	
 	final TextField textField = new TextField();
 	frame.add(textField);
+	
+	
+	final NumberField numberField = new NumberField();
+	numberField.setValue(123.45);
+	frame.add(numberField);
+	
+	final IntegerField integerField = new IntegerField();
+	integerField.setValue(1234567890);
+	frame.add(integerField);
 	
 	final DateField dateField = new DateField();
 	dateField.setValue(new Date());
@@ -147,6 +165,40 @@ public class MyApplication2 extends Application {
 	final Link link = new Link("www,sourceforge.net");
 	frame.add(link);
 	
+	/////////////////////////////////////////////////////
+	//
+	// TOOL BARP
+	//
+	/////////////////////////////////////////////////////	
+	
+	ToolBar toolBar = new ToolBar();
+	
+	toolBar.add(new ToolSeparator());
+	
+	ToolItem toolItem = new ToolItem();
+	toolItem.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/leaf.gif");
+	toolBar.add(toolItem);
+	
+	toolItem = new ToolItem();
+	toolItem.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
+	toolBar.add(toolItem);
+	//frame.add(toolBar);
+	
+	
+	ToolBar toolBar2 = new ToolBar();
+	toolBar2.add(new ToolSeparator());
+	
+	toolItem = new ToolItem();
+	toolItem.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/refresh.gif");
+	toolBar2.add(toolItem);
+	
+	CoolBar coolBar = new CoolBar();
+	coolBar.addItem(toolBar);
+	coolBar.addItem(toolBar2);
+//	
+	frame.add(coolBar);
+	
+	//frame.add(toolBar);
 	
 	/////////////////////////////////////////////////////
 	//
