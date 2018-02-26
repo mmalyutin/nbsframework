@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plazmaforge.framework.util.CoreUtils;
+import org.plazmaforge.framework.uwt.UWTException;
 
 /**
  * Base container class
@@ -128,6 +129,9 @@ public abstract class Container extends Control {
     
     protected void checkAddChild(Widget element) {
 	checkChild(element);
+	if (element.hasParent()) {
+	    throw new UWTException("Can't add child to parent: Child has own parent");
+	}
     }
     
     protected void checkRemoveChild(Widget element) {

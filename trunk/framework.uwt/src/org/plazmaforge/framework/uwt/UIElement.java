@@ -601,6 +601,10 @@ public class UIElement {
         this.parent = parent;
     }
 
+    public boolean hasParent() {
+        return parent != null;
+    }
+
     protected void fireChangeProperty(String name, Object value) {
 	if (name == null) {
 	    return;
