@@ -22,6 +22,7 @@ import org.plazmaforge.framework.uwt.widget.IntegerField;
 import org.plazmaforge.framework.uwt.widget.Label;
 import org.plazmaforge.framework.uwt.widget.Link;
 import org.plazmaforge.framework.uwt.widget.ListBox;
+import org.plazmaforge.framework.uwt.widget.MessageBox;
 import org.plazmaforge.framework.uwt.widget.NumberField;
 import org.plazmaforge.framework.uwt.widget.PasswordField;
 import org.plazmaforge.framework.uwt.widget.RadioButton;
@@ -33,6 +34,8 @@ import org.plazmaforge.framework.uwt.widget.ToggleButton;
 import org.plazmaforge.framework.uwt.widget.menu.Menu;
 import org.plazmaforge.framework.uwt.widget.menu.MenuBar;
 import org.plazmaforge.framework.uwt.widget.menu.MenuItem;
+import org.plazmaforge.framework.uwt.widget.panel.TabItem;
+import org.plazmaforge.framework.uwt.widget.panel.TabPanel;
 import org.plazmaforge.framework.uwt.widget.table.Table;
 import org.plazmaforge.framework.uwt.widget.table.TableColumn;
 import org.plazmaforge.framework.uwt.widget.tool.CoolBar;
@@ -78,6 +81,30 @@ public class MyApplication2 extends Application {
 	dateField.setFormat("dd.MM.yyyy");
 	frame.add(dateField);
 	
+	TabPanel tabPanel = new TabPanel();
+	TabItem tabItem = new TabItem("TabItem 1");
+	
+	tabItem.add(new Button("Button 1.1"));
+	tabItem.add(new Button("Button 1.2"));
+	tabItem.add(new Button("Button 1.3"));
+	tabItem.add(new Button("Button 1.4"));
+	
+	tabPanel.add(tabItem);
+	
+	tabItem = new TabItem("TabItem 2");
+	
+	tabItem.add(new Button("Button 2.1"));
+	tabItem.add(new Button("Button 2.2"));
+	tabItem.add(new Button("Button 2.3"));
+	tabItem.add(new Button("Button 2.4"));
+	
+	tabPanel.add(tabItem);
+	
+	
+	
+	frame.add(tabPanel);
+	
+	
 	
 	final SpinnerField spinner = new SpinnerField();
 	frame.add(spinner);	
@@ -115,6 +142,7 @@ public class MyApplication2 extends Application {
 	    
 	    @Override
 	    public void mouseClick(MouseEvent e) {
+		MessageBox.information("WAU!!!!!!!!!!!!!!!!!!!!!");
 		textArea.append("mouseClick\n");
 		
 	    }
