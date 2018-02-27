@@ -53,7 +53,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuBarAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuItemAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXMenuSeparatorAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXMessageBoxAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXMessageBoxAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXNumberFieldAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXIntegerFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXBoxLayoutAdapter;
@@ -169,10 +169,9 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.ToolItem.class, new JFXToolItemAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.ToolSeparator.class, new JFXToolSeparatorAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.CoolBar.class, new JFXCoolBarAdapter());
-	
-	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.MessageBox.class, new JFXMessageBoxAdapter());
 
+/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.Desktop.class, new JFXDesktopAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.DesktopItem.class, new JFXDesktopItemAdapter());
 	
