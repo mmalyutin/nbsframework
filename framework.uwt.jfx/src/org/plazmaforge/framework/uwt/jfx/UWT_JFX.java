@@ -68,8 +68,8 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXFrameAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXSliderAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXSpinnerFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXSplitPanelAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabItemAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabPanelAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabItemAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabPanelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableColumnAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTextFieldAdapter;
@@ -154,12 +154,11 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.Table.class, new JFXTableAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.TableColumn.class, new JFXTableColumnAdapter());
 	
-	/*
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new JFXTreeAdapter());
+	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new JFXTreeAdapter());
 
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new JFXTabPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabItem.class, new JFXTabItemAdapter());
-	*/
+	
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.MenuBar.class, new JFXMenuBarAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.menu.Menu.class, new JFXMenuAdapter());
@@ -170,8 +169,8 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.ToolSeparator.class, new JFXToolSeparatorAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tool.CoolBar.class, new JFXCoolBarAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.MessageBox.class, new JFXMessageBoxAdapter());
-
-/*
+	
+	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.Desktop.class, new JFXDesktopAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.desktop.DesktopItem.class, new JFXDesktopItemAdapter());
 	
