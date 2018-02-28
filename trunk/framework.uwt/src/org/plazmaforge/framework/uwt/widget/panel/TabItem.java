@@ -44,13 +44,13 @@ public class TabItem extends Container implements HasTitleIcon {
     }
     
     public TabItem(String title) {
-	this.title = title;
+	setTitle(title);
     }
 
     public TabItem(String title, Image icon) {
 	super();
-	this.title = title;
-	this.icon = icon;
+	setTitle(title);
+	setIcon(icon);
     }
 
     public TabPanel getTabPanel() {
