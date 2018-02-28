@@ -23,8 +23,10 @@
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
 
+import org.plazmaforge.framework.uwt.UIAdapter;
 import org.plazmaforge.framework.uwt.UIElement;
-import org.plazmaforge.framework.uwt.widget.Style.Orientation;
+import org.plazmaforge.framework.uwt.jfx.layout.XLayout;
+import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Container;
 import org.plazmaforge.framework.uwt.widget.Layout;
 
@@ -38,30 +40,63 @@ public class JFXContainerAdapter extends JFXControlAdapter {
 
     public Object createDelegate(UIElement parent, UIElement element) {
 	javafx.scene.Parent xParent = (javafx.scene.Parent) getContent(parent.getDelegate());
-	javafx.scene.layout.Pane xContainer = new javafx.scene.layout.Pane();
+	
+	Container container = (Container) element;
+	Layout layout = container.getLayout();
+	
+	// Default implementation with special container wrapper
+	// Create internal content by layout
+	XLayoutContainer xContainer = createLayoutContainer(layout);
+	
 	addChild(xParent, xContainer, element);
 	return xContainer;
     }
-
     
-//    /**
-//     * Create default layout of composite
-//     * @return
-//     */
-//    protected org.eclipse.swt.widgets.Layout createDefaultCompositeLayout() {
-//	return new org.eclipse.swt.layout.RowLayout();
-//    }
-//    
-//    /**
-//     * Create default content
-//     * @param xParent
-//     * @return
-//     */
-//    protected org.eclipse.swt.widgets.Composite createDefaultContent(org.eclipse.swt.widgets.Composite xParent, int style) {
-//	org.eclipse.swt.widgets.Composite xContent = new org.eclipse.swt.widgets.Composite(xParent, style);
-//	xContent.setLayout(createDefaultCompositeLayout());
-//	return xContent;
-//    }
+    protected XLayoutContainer createLayoutContainer(Layout layout) {
+ 	XLayout xLayout = getXLayout(layout);
+ 	javafx.scene.layout.Pane container = createContainer(layout, xLayout);
+ 	return new XLayoutContainer(container, xLayout);
+     }
+     
+     protected javafx.scene.layout.Pane createContainer(Container container) {
+ 	Layout layout = container.getLayout();
+ 	XLayout xLayout = getXLayout(layout);
+ 	return createContainer(layout, xLayout);
+     }
+     
+     protected javafx.scene.layout.Pane createContainer(Layout layout, XLayout xLayout) {
+ 	if (xLayout == null) {
+ 	    return null;
+ 	}
+ 	
+ 	// Get UIAdapter for Layout
+ 	UIAdapter adapter = getAdapter(layout.getClass());
+ 	if (adapter == null) {
+ 	    return null;
+ 	}
+ 	
+ 	// Check adapter class
+ 	if (!(adapter instanceof JFXLayoutAdapter)) {
+ 	    //TODO: warning
+ 	    return null;
+ 	}
+ 		
+ 	// Create container by JFXLayoutAdapter
+ 	javafx.scene.layout.Pane container = ((JFXLayoutAdapter) adapter).createContainer(xLayout);
+ 	
+ 	return container;
+     }
+     
+     
+    protected XLayout getXLayout(Layout layout) {
+	if (layout == null) {
+	    return null;
+	}
+	layout.activateUI();
+	return (XLayout) layout.getDelegate();
+    }   
+    
+
 //
 //    public void checkDelegate(UIElement element) {
 //	org.eclipse.swt.widgets.Composite composite = asComposite(element.getDelegate());
