@@ -21,89 +21,64 @@
  */
 package org.plazmaforge.framework.uwt.jfx.widget;
 
-
-
-import org.plazmaforge.framework.uwt.jfx.layout.XLayout;
-
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 
 /**
- * 
+ * The panel with single control filled horizontal and vertical
  * @author ohapon
  *
  */
-public class XLayoutContainer extends XFitPanel {
-    
-    private Pane container;
-    
-    private XLayout layout;
-
-    public XLayoutContainer() {
-        this(null, null);
+public class XFitPanel extends AnchorPane implements XContainer {
+ 
+    public XFitPanel() {
+        super();
     }
-   
-    public XLayoutContainer(Pane container) {
-	this(container, null);
-    }
-    
-    public XLayoutContainer(Pane container, XLayout layout) {
-	super();
-	
-	initContainer(container);
-	this.layout = layout;
-	//doLayout();
-    }
-
-    protected void initContainer(Pane container) {
-	if (container == null) {
-	    container = createDefaultContainer();
-	}
-	this.container = container;
-	
-	// Add container
-	super.addChild(container);
-    }
-
-    public ObservableList<Node> getContainerChildren() {
-        return container.getChildren();
-    }
-    
+ 
     @Override
     public void addChild(Node child) {
-        getContainerChildren().add(child);
+        resetChild();
+        getChildren().add(child);
+        initChild(child);
     }
  
     @Override
     public void removeChild(Node child) {
-	getContainerChildren().remove(child);
+        getChildren().remove(child);
     }
  
     @Override
     public void removeAll() {
-	getContainerChildren().clear();
+        getChildren().clear();
     }
  
     @Override
     public boolean hasChildren() {
-        return !getContainerChildren().isEmpty();
+        return !getChildren().isEmpty();
     }
  
     @Override
     public int getChildrenCount() {
-        return getContainerChildren().size();
+        return getChildren().size();
     }
  
     @Override
     public Node getChild(int index) {
-        return getContainerChildren().get(index);
-    }    
-    
-    protected Pane createDefaultContainer() {
-	return new FlowPane();
-	//return new VBox();
+        return getChildren().get(index);
+    }
+ 
+    protected void resetChild() {
+        if (hasChildren()) {
+            removeAll();
+        }
+    }
+ 
+    protected void initChild(Node child) {
+        double padding = 0.0d; //TODO
+        AnchorPane.setLeftAnchor(child, padding);
+        AnchorPane.setRightAnchor(child, padding);
+        AnchorPane.setTopAnchor(child, padding);
+        AnchorPane.setBottomAnchor(child, padding);
     }
 
 }
