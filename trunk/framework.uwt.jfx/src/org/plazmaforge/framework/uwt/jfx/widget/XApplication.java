@@ -1,11 +1,8 @@
 package org.plazmaforge.framework.uwt.jfx.widget;
 
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class XApplication extends Application {
@@ -27,10 +24,10 @@ public class XApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
 	
 	// creating a Group object
-	FlowPane group = new FlowPane();
+	Parent container = new XLayoutContainer(); //new FlowPane();
 
 	// Creating a Scene by passing the group object, height and width
-	Scene scene = new Scene(group);
+	Scene scene = new Scene(container);
 	//group.setFill(Color.BROWN);
 
 	// setting color to the scene

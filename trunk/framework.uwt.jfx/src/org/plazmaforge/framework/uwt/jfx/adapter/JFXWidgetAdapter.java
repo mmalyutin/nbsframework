@@ -164,11 +164,21 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 
     protected final javafx.scene.Parent getView(Object delegate) {
 	if (delegate instanceof javafx.scene.Scene) {
+	    //////////////////////////////////////////////////////////////
+	    // Scene: content is root
+	    //////////////////////////////////////////////////////////////
 	    return ((javafx.scene.Scene) delegate).getRoot();
 	} else if (delegate instanceof javafx.stage.Stage) {
+	    
+	    //////////////////////////////////////////////////////////////
+	    // The Primary Stage: content is root of scene
+	    //////////////////////////////////////////////////////////////
 	    javafx.stage.Stage stage = (javafx.stage.Stage) delegate;
+	    
+	    // Get scene
 	    javafx.scene.Scene scene = stage.getScene();
 	    return scene == null ? null : scene.getRoot();
+	    
 	} else if (delegate instanceof javafx.scene.control.Tab) {
 	    return asParent(((javafx.scene.control.Tab) delegate).getContent());
 	}

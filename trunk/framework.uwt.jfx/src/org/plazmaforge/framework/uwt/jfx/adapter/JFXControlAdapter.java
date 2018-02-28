@@ -24,6 +24,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
+import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -83,7 +84,9 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	if (xParent == null) {
 	    return null;
 	}
-	if (xParent instanceof javafx.scene.Group) {
+	if (xParent instanceof XLayoutContainer) {
+	    return ((XLayoutContainer) xParent).getContainerChildren();
+	} else if (xParent instanceof javafx.scene.Group) {
 	    return ((javafx.scene.Group) xParent).getChildren();
 	} else if (xParent instanceof javafx.scene.layout.Pane) {
 	    return ((javafx.scene.layout.Pane) xParent).getChildren();

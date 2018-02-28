@@ -23,10 +23,10 @@
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
+import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
-import javafx.scene.layout.FlowPane;
 
 
 /**
@@ -60,10 +60,7 @@ public class JFXTabItemAdapter extends JFXContainerAdapter {
 	
 	// Default implementation with special container wrapper
 	// Create internal content by layout
-	//XLayoutContainer content = createLayoutContainer(layout);
-	
-	//TODO: Must implement createLayoutContainer(layout)
-	javafx.scene.Parent content = new FlowPane();
+	javafx.scene.Parent content = createLayoutContainer(layout);
 	xTabItem.setContent(content);
 	
 	// Special adding
