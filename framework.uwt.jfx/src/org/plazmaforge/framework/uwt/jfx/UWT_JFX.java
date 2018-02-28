@@ -39,12 +39,13 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDesktopAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDesktopItemAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDialogAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXFitLayoutAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXFitLayoutAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXGCAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXGridDataAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXGridLayoutAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXGroupPanelAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXHorizontalLayoutAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXHorizontalLayoutAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXVerticalLayoutAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXImageBoxAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXLabelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXLinkAdapter;
@@ -80,7 +81,6 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXToolBarAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXToolItemAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXToolSeparatorAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXTreeAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXVerticalLayoutAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXWindowAdapter;
 
 /**
@@ -142,10 +142,14 @@ public class UWT_JFX {
 	/*
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.FillLayout.class, new JFXFillLayoutAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.BoxLayout.class, new JFXBoxLayoutAdapter());
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.HorizontalLayout.class, new JFXHorizontalLayoutAdapter());
-	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.VerticalLayout.class, new JFXVerticalLayoutAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.GridLayout.class, new JFXGridLayoutAdapter());
+	*/
+	
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.HorizontalLayout.class, new JFXHorizontalLayoutAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.VerticalLayout.class, new JFXVerticalLayoutAdapter());	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.FitLayout.class, new JFXFitLayoutAdapter());
+	
+	/*
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.CardLayout.class, new JFXCardLayoutAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.GridData.class, new JFXGridDataAdapter());

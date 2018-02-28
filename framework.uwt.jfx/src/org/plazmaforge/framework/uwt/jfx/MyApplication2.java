@@ -12,6 +12,9 @@ import org.plazmaforge.framework.uwt.event.MouseListener;
 import org.plazmaforge.framework.uwt.event.MouseMoveListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
+import org.plazmaforge.framework.uwt.layout.FitLayout;
+import org.plazmaforge.framework.uwt.layout.HorizontalLayout;
+import org.plazmaforge.framework.uwt.layout.VerticalLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.ComboBox;
@@ -82,7 +85,10 @@ public class MyApplication2 extends Application {
 	frame.add(dateField);
 	
 	TabPanel tabPanel = new TabPanel();
+	
+	// TAB 1
 	TabItem tabItem = new TabItem("TabItem 1");
+	tabItem.setLayout(new VerticalLayout());
 	
 	tabItem.add(new Button("Button 1.1"));
 	tabItem.add(new Button("Button 1.2"));
@@ -91,12 +97,22 @@ public class MyApplication2 extends Application {
 	
 	tabPanel.add(tabItem);
 	
+	// TAB 2
 	tabItem = new TabItem("TabItem 2");
+	tabItem.setLayout(new HorizontalLayout());
 	
 	tabItem.add(new Button("Button 2.1"));
 	tabItem.add(new Button("Button 2.2"));
 	tabItem.add(new Button("Button 2.3"));
 	tabItem.add(new Button("Button 2.4"));
+	
+	tabPanel.add(tabItem);
+	
+	// TAB 3
+	tabItem = new TabItem("TabItem 3");
+	tabItem.setLayout(new FitLayout());
+	
+	tabItem.add(new Button("Big Button"));
 	
 	tabPanel.add(tabItem);
 	

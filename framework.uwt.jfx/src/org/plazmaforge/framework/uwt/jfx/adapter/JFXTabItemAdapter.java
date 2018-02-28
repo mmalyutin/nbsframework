@@ -66,6 +66,8 @@ public class JFXTabItemAdapter extends JFXContainerAdapter {
 	// Special adding
 	xParent.getTabs().add(xTabItem);
 	
+	tabItem.resetInitProperty(TabItem.PROPERTY_LAYOUT);
+	
 	return xTabItem;
     }
     

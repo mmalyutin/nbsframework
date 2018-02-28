@@ -24,6 +24,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
+import org.plazmaforge.framework.uwt.jfx.widget.XContainer;
 import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -73,6 +74,13 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
     }
     
     protected void addChild(javafx.scene.Parent xParent, javafx.scene.Node xChild) {
+	
+	// XContainer: special add method
+	if (xParent instanceof XContainer) {
+	    ((XContainer) xParent).addChild(xChild);
+	    return;
+	}
+	
 	ObservableList<Node> children = getChildren(xParent);
 	if (children == null) {
 	    return;
@@ -90,8 +98,6 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	    return ((javafx.scene.Group) xParent).getChildren();
 	} else if (xParent instanceof javafx.scene.layout.Pane) {
 	    return ((javafx.scene.layout.Pane) xParent).getChildren();
-	} else if (xParent instanceof javafx.scene.Group) {
-	    return ((javafx.scene.Group) xParent).getChildren();
 	}
 	//TODO
         return null;
