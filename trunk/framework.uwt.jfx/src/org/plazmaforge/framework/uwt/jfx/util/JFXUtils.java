@@ -29,7 +29,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.HashMap;
+import java.util.Map;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
@@ -37,6 +38,7 @@ import org.plazmaforge.framework.uwt.jfx.widget.cell.XDateCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XNumberCellFactory;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 
 
@@ -213,5 +215,62 @@ public class JFXUtils {
 	}
 
     }
+    
+    
+    /**
+     * Sets user data to Node
+     * @param node
+     * @param key
+     * @param value
+     */
+    public static void setData(Node node, String key, Object value) {
+	Map<String, Object> map = (Map<String, Object>) node.getUserData();
+	if (map == null) {
+	    map = new HashMap<>();
+	    node.setUserData(map);
+	}
+	map.put(key, value);
+    }
+    
+    /**
+     * Gets user data from Node
+     * @param node
+     * @param key
+     * @return
+     */
+    public static Object getData(Node node, String key) {
+	Map<String, Object> map = (Map<String, Object>) node.getUserData();
+	if (map == null) {
+	    return null;
+	}
+	return map.get(key);
+    }    
 
+    public static <T> T getDataOrNull(Class<T> type, Node node, String key) {
+	Object value = getData(node, key);
+	return asTypeOrNull(type, value);
+    }
+    
+    
+
+    // [CORE]
+    public static boolean isType(Class<?> type, Object value) {
+	if (value == null) {
+	    return false;
+	}
+	return type.isAssignableFrom(value.getClass());
+    }
+ 
+    // [CORE]
+    public static final <T> T asType(Class<T> type, Object value) {
+	return (T) value;
+    } 
+    
+    // [CORE]
+    public static <T> T asTypeOrNull(Class<T> type, Object value) {
+	if (!isType(type, value)) {
+	    return null;
+	}
+	return asType(type, value);
+    }
 }

@@ -46,15 +46,14 @@ public abstract class JFXAbstractAdapter extends AbstractUIAdapter {
      * @param color
      * @return
      */
-    /*
-    protected org.eclipse.swt.graphics.Color getColor(Color color) {
-	return SWTHelper.getColor(color);
+    protected javafx.scene.paint.Color getColor(Color color) {
+    	return JFXHelper.getColor(color);
     }
 
-    protected org.eclipse.swt.graphics.Font getFont(Font font) {
-	return SWTHelper.getFont(font);
-    }
-    */
+    /*
+     * protected org.eclipse.swt.graphics.Font getFont(Font font) { return
+     * SWTHelper.getFont(font); }
+     */
 
     protected javafx.scene.image.Image createImage(UIElement element, Image image) {
 	return JFXHelper.createImage(element, image);

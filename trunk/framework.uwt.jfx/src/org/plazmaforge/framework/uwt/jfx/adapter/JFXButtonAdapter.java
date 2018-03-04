@@ -25,6 +25,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
+import org.plazmaforge.framework.uwt.graphics.Insets;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -89,8 +90,6 @@ public class JFXButtonAdapter extends JFXControlAdapter {
 	    }
 	    return;
 	}
-
-	
 	super.setProperty(element, name, value);
     }
 

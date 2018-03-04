@@ -23,7 +23,6 @@
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
-import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.widget.Layout;
 import org.plazmaforge.framework.uwt.widget.panel.TabItem;
 
@@ -51,10 +50,10 @@ public class JFXTabItemAdapter extends JFXContainerAdapter {
 	}
 	
 	// Get icon
-	//ImageResource xIcon = createImage(element, tabItem.getIcon());
-	//if (xIcon != null) {
-	//    xTabItem.setIcon(xIcon);
-	//}
+	javafx.scene.image.ImageView xIcon = createImageView(tabItem, tabItem.getIcon());
+	if (xIcon != null) {
+	    xTabItem.setGraphic(xIcon);
+	}	
 	
 	Layout layout = tabItem.getLayout();
 	
@@ -66,6 +65,9 @@ public class JFXTabItemAdapter extends JFXContainerAdapter {
 	// Special adding
 	xParent.getTabs().add(xTabItem);
 	
+	tabItem.resetInitProperty(TabItem.PROPERTY_TEXT);
+	tabItem.resetInitProperty(TabItem.PROPERTY_ICON);
+	tabItem.resetInitProperty(TabItem.PROPERTY_ICON_PATH);
 	tabItem.resetInitProperty(TabItem.PROPERTY_LAYOUT);
 	
 	return xTabItem;
@@ -87,16 +89,16 @@ public class JFXTabItemAdapter extends JFXContainerAdapter {
 	    xTabItem.setText(asSafeString(value));
 	    return;
 	} else if (TabItem.PROPERTY_ICON.equals(name)) {
-	    //ImageResource xIcon = createImage(element, asImage(value));
-	    //if (xIcon != null) {
-		//xTabItem.setIcon(xIcon);
-	    //}
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asImage(value));
+	    if (xIcon != null) {
+		xTabItem.setGraphic(xIcon);
+	    }
 	    return;
 	} else if (TabItem.PROPERTY_ICON_PATH.equals(name)) {
-	    //ImageResource xIcon = createImage(element, asString(value));
-	    //if (xIcon != null) {
-		//xTabItem.setIcon(xIcon);
-	    //}
+	    javafx.scene.image.ImageView xIcon = createImageView(element, asString(value));
+	    if (xIcon != null) {
+		xTabItem.setGraphic(xIcon);
+	    }
 	    return;
 	}
 	super.setProperty(element, name, value);

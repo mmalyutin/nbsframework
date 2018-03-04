@@ -23,6 +23,8 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 
 import org.plazmaforge.framework.uwt.UIElement;
+import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
@@ -45,6 +47,35 @@ public class JFXHelper {
     //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //1, RGB(225, 98, 51), HSL(11, 178, 130)
+    //2, RGB(233, 159, 39), HSL(25, 196, 128)
+    //3, RGB(99, 184, 99), HSL(80, 90, 133)
+    //4, RGB(88, 178, 206), HSL(129, 131, 138)
+    //5, RGB(75, 95, 195), HSL(153, 120, 127)
+    //6, RGB(148, 71, 191), HSL(186, 116, 123)
+    //7, RGB(194, 73, 105), HSL(229, 120, 126)
+    //8, RGB(130, 130, 130), HSL(160, 0, 122)
+    
+    /**
+     * Returns JFX Color by UWT Font
+     * @param color
+     * @return
+     */
+    public static javafx.scene.paint.Color getColor(Color color) {
+ 	if (color == null) {
+ 	    return null;
+ 	}
+ 	return javafx.scene.paint.Color.rgb(color.getRed(), color.getGreen(), color.getBlue());
+     }
+
+     /**
+      * Returns JFX Font by UWT Font
+      * @param font
+      * @return
+      */
+     //public static javafx.scene.paint.Font getFont(Font font) {
+	 
+     //}
 
     public static javafx.scene.image.Image createImage(UIElement element, Image image) {
 	if (image == null) {
