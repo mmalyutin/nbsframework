@@ -22,16 +22,19 @@
 
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
-
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
+import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
 import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 
 
 /**
@@ -117,6 +120,30 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     protected final boolean isParent(Object delegate) {
 	return delegate instanceof javafx.scene.Parent;
     } 
+    
+    protected final boolean isType(Class<?> type, Object delegate) {
+	return JFXUtils.isType(type, delegate);
+    }
+    
+    protected final <T> T asType(Class<T> type, Object delegate) {
+	return JFXUtils.asType(type, delegate);
+    }
+    
+    protected <T> T asTypeGetProperty(Class<T> type, Object delegate, String property) {
+	if (!isType(type, delegate)) {
+	    logUnsupportGetProperty(delegate, property);
+	    return null;
+	}
+	return asType(type, delegate);
+    }
+    
+    protected <T> T asTypeSetProperty(Class<T> type, Object delegate, String property) {
+	if (!isType(type, delegate)) {
+  	    logUnsupportSetProperty(delegate, property);
+  	    return null;
+  	}
+	return asType(type, delegate);
+    }
     
     /**
      * Checks delegate
@@ -291,6 +318,39 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	return !node.isDisable();
     }
     
+    protected void setLayoutData(Object delegate, Object layoutData) {
+	javafx.scene.Node node = asTypeSetProperty(javafx.scene.Node.class, delegate, Widget.PROPERTY_LAYOUT_DATA);
+	setData(node, Widget.PROPERTY_LAYOUT_DATA, layoutData);
+    }
+    
+    protected void setBackground(Object delegate, javafx.scene.paint.Color color) {
+	javafx.scene.layout.Region node = asTypeSetProperty(javafx.scene.layout.Region.class, delegate,	Widget.PROPERTY_BACKGROUND);
+	if (node == null) {
+	    return;
+	}
+	node.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
+    }
+    
+    /**
+     * Sets user data to Node
+     * @param node
+     * @param key
+     * @param value
+     */
+    protected void setData(javafx.scene.Node node, String key, Object value) {
+	JFXUtils.setData(node, key, value);
+    }
+    
+    /**
+     * Gets user data from Node
+     * @param node
+     * @param key
+     * @return
+     */
+    protected Object getData(javafx.scene.Node node, String key) {
+	return JFXUtils.getData(node, key);
+    }
+    
     @Override
     public void setProperty(UIElement element, String name, Object value) {
 	
@@ -305,13 +365,11 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	    return;
 	}
 	if (Widget.PROPERTY_DATA.equals(name)) {
-	    widget.setUserData(value);
+	    setData(widget, "@", value);
 	} else if (startsWith(name, Widget.PROPERTY_DATA_PREFIX)) {
 	    // WARNING! We use '@' to separate 'data' and 'key' 
 	    String key = name.substring(Widget.PROPERTY_DATA_PREFIX.length());
-	    
-	    //TODO
-	    //widget.setUserData(key, value);
+	    setData(widget, key, value);
 	    return;	
 	}
 	

@@ -55,8 +55,24 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 //	if (xLayout == null) {
 //	    return;
 //	}
-//	Control control = (Control) element;
+	
+	
+	// Initialize LayoutData	
+	if (element instanceof Control) {
+	    Control control = (Control) element;
+	    Object layoutData = control.getLayoutData();
+	    if (layoutData != null && layoutData instanceof UIElement) {
+		((UIElement) layoutData).activateUI();
+		setLayoutData(xControl, ((UIElement) layoutData).getDelegate());
+		control.resetInitProperties(Control.PROPERTY_LAYOUT_DATA);
+	    }
+	}
+
+	
+	
 //	Object xLayoutData = xControl.getLayoutData();
+	
+	
 //	
 //	if (xLayoutData != null && SWTLayoutUtils.isCompatible(xLayout, xLayoutData)) {
 //	    SWTLayoutUtils.prepare(xParent, xControl, xLayout, xLayoutData);
@@ -69,6 +85,9 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 //	}
 //	
 //	SWTLayoutUtils.prepare(xParent, xControl, xLayout, xLayoutData);
+	
+
+
 	
 	addChild(xParent, xControl);
     }
@@ -127,25 +146,29 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	} else if (Control.PROPERTY_HEIGHT.equals(name)) {
 	    setHeight(delegate, asInteger(value));
 	    return;
-	}
-	
-	/*
-	else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
+	} else if (Control.PROPERTY_LAYOUT_DATA.equals(name)) {
 	    UIElement layoutData = (UIElement) value;
 	    if (layoutData == null) {
-		xControl.setLayoutData(null);
+		setLayoutData(delegate, null);
 		return;
 	    }
 	    layoutData.activateUI();
-	    xControl.setLayoutData(layoutData.getDelegate());
+	    setLayoutData(delegate, layoutData.getDelegate());
 	    return;
+	}
+	
+	/*
 	} else if (Control.PROPERTY_TOOL_TIP.equals(name)) {
 	    xControl.setToolTipText(asSafeString(value));
 	    return;
-	} else if (Control.PROPERTY_BACKGROUND.equals(name)) {
-	    xControl.setBackground(getColor(asColor(value)));
+	}
+	*/
+	 else if (Control.PROPERTY_BACKGROUND.equals(name)) {
+	    setBackground(delegate, getColor(asColor(value)));
 	    return;
-	} else if (Control.PROPERTY_FOREGROUND.equals(name)) {
+	}
+	 
+	 /*else if (Control.PROPERTY_FOREGROUND.equals(name)) {
 	    xControl.setForeground(getColor(asColor(value)));
 	    return;
 	} else if (Control.PROPERTY_FONT.equals(name)) {
@@ -158,8 +181,6 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	    return;
 	}
 	*/
-	
-	
 	super.setProperty(element, name, value);
 	
     }

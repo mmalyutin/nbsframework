@@ -37,7 +37,7 @@ import javafx.scene.layout.Pane;
  */
 public class XLayoutContainer extends XFitPanel {
     
-    private Pane container;
+    private XContainerWrapper containerWrapper;
     
     private XLayout layout;
 
@@ -61,45 +61,59 @@ public class XLayoutContainer extends XFitPanel {
 	if (container == null) {
 	    container = createDefaultContainer();
 	}
-	this.container = container;
+	containerWrapper = new XContainerWrapper(container);
 	
 	// Add container
 	super.addChild(container);
     }
 
     public ObservableList<Node> getContainerChildren() {
-        return container.getChildren();
+        return containerWrapper.getChildren();
     }
     
+    public XLayout getLayout() {
+        return layout;
+    }
+   
+
+    //////////////////////////////////////////////////////////////////////////////////
+    // CONTAINER METHODS
+    //////////////////////////////////////////////////////////////////////////////////
+    
+
     @Override
     public void addChild(Node child) {
-        getContainerChildren().add(child);
+	containerWrapper.addChild(child);
+	containerWrapper.getContainer().layout();
     }
  
     @Override
     public void removeChild(Node child) {
-	getContainerChildren().remove(child);
+	containerWrapper.removeChild(child);
     }
  
     @Override
     public void removeAll() {
-	getContainerChildren().clear();
+	containerWrapper.removeAll();
     }
  
     @Override
     public boolean hasChildren() {
-        return !getContainerChildren().isEmpty();
+	return containerWrapper.hasChildren();
     }
  
     @Override
     public int getChildrenCount() {
-        return getContainerChildren().size();
+	return containerWrapper.getChildrenCount();
     }
  
     @Override
     public Node getChild(int index) {
-        return getContainerChildren().get(index);
-    }    
+	return containerWrapper.getChild(index);
+    }   
+    
+    //////////////////////////////////////////////////////////////////////////////////
+    
     
     protected Pane createDefaultContainer() {
 	return new FlowPane();

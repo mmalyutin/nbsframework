@@ -12,7 +12,10 @@ import org.plazmaforge.framework.uwt.event.MouseListener;
 import org.plazmaforge.framework.uwt.event.MouseMoveListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
+import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
+import org.plazmaforge.framework.uwt.layout.GridData;
+import org.plazmaforge.framework.uwt.layout.GridLayout;
 import org.plazmaforge.framework.uwt.layout.HorizontalLayout;
 import org.plazmaforge.framework.uwt.layout.VerticalLayout;
 import org.plazmaforge.framework.uwt.widget.Button;
@@ -84,6 +87,32 @@ public class MyApplication2 extends Application {
 	dateField.setFormat("dd.MM.yyyy");
 	frame.add(dateField);
 	
+	
+	
+	Button button = new Button("Press Me");
+	button.setBackground(Color.RED);
+	boolean[] flag = new boolean[] {false};
+	button.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClick(MouseEvent e) {
+		String text = flag[0]  ? "Hello !" : "Hi !";
+		flag[0] = !flag[0];
+		label.setText(text);
+	    }
+	});
+	
+	button.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
+	button.addSelectionListener(new SelectionListener() {
+	    
+	    @Override
+	    public void select(SelectionEvent event) {
+		label.setText("Hi all!");
+		
+	    }
+	});
+	
+	frame.add(button);
+	
 	TabPanel tabPanel = new TabPanel();
 	
 	// TAB 1
@@ -116,7 +145,14 @@ public class MyApplication2 extends Application {
 	
 	tabPanel.add(tabItem);
 	
-	
+	// TAB 4
+	tabItem = new TabItem("TabItem 4");
+	tabItem.setLayout(new GridLayout(3));
+
+	tabItem.add(new Button("Big Button dddddddddddd"), new GridData(3, 1));
+	tabItem.add(new Button("sas 1"), new GridData(1, 1));
+	tabItem.add(new Button("sfasdfasd 2"), new GridData(2, 1));
+	tabPanel.add(tabItem);
 	
 	frame.add(tabPanel);
 	
@@ -347,29 +383,7 @@ public class MyApplication2 extends Application {
 	});
 	
 	frame.add(table);	
-	
-	Button button = new Button("Press Me");
-	boolean[] flag = new boolean[] {false};
-	button.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClick(MouseEvent e) {
-		String text = flag[0]  ? "Hello !" : "Hi !";
-		flag[0] = !flag[0];
-		label.setText(text);
-	    }
-	});
-	
-	button.setIcon("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");
-	button.addSelectionListener(new SelectionListener() {
-	    
-	    @Override
-	    public void select(SelectionEvent event) {
-		label.setText("Hi all!");
-		
-	    }
-	});
-	
-	frame.add(button);
+
 	
 	// Start application
 	application.start();
