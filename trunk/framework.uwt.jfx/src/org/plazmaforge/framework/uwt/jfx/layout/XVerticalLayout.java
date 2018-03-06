@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.uwt.jfx.layout;
 
+import javafx.geometry.Orientation;
 
 /**
  * 
@@ -31,7 +32,7 @@ package org.plazmaforge.framework.uwt.jfx.layout;
 public class XVerticalLayout extends XBoxLayout {
 
     public XVerticalLayout() {
-	//super(Orientation.VERTICAL);
+	super(Orientation.VERTICAL);
     }
 
 }

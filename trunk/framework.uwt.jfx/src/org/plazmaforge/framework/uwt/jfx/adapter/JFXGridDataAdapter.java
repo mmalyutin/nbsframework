@@ -24,6 +24,8 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.jfx.layout.XGridData;
+import org.plazmaforge.framework.uwt.jfx.layout.XLayoutData.HorizontalAlignment;
+import org.plazmaforge.framework.uwt.jfx.layout.XLayoutData.VerticalAlignment;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
@@ -95,7 +97,7 @@ public class JFXGridDataAdapter extends JFXLayoutDataAdapter {
    	    xLayoutData.setHorizontalAlign(null);
    	    return;
    	}
-   	/*
+   	
    	if (HorizontalAlign.LEFT.equals(hAlign)) { 
    	    xLayoutData.setHorizontalAlign(HorizontalAlignment.LEFT);
    	} else if (HorizontalAlign.RIGHT.equals(hAlign)) {
@@ -107,7 +109,7 @@ public class JFXGridDataAdapter extends JFXLayoutDataAdapter {
    	} else {
    	    xLayoutData.setHorizontalAlign(null);
    	}
-   	*/
+   	
     }
     
     protected void populateVerticalAlign(XGridData xLayoutData, GridData layoutData) {
@@ -116,7 +118,7 @@ public class JFXGridDataAdapter extends JFXLayoutDataAdapter {
    	    xLayoutData.setVerticalAlign(null);
    	    return;
    	}
-   	/*
+   	
    	if (VerticalAlign.TOP.equals(vAlign)) { 
    	    xLayoutData.setVerticalAlign(VerticalAlignment.TOP);
    	} else if (VerticalAlign.BOTTOM.equals(vAlign)) {
@@ -128,7 +130,7 @@ public class JFXGridDataAdapter extends JFXLayoutDataAdapter {
    	} else {
    	    xLayoutData.setVerticalAlign(null); 
    	}
-   	*/
+   	
     }
 
 }

@@ -22,9 +22,12 @@
 package org.plazmaforge.framework.uwt.jfx.layout;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
- 
+import javafx.scene.layout.Priority;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -70,6 +73,10 @@ public class XGridLayoutHelper {
         public int row;
         public int columnSpan;
         public int rowSpan;
+        public HPos hPos;
+        public VPos vPos;
+        public Priority hGrow;
+        public Priority vGrow;
  
         String type;
  
@@ -79,6 +86,10 @@ public class XGridLayoutHelper {
             + ", row=" + row
             + ", columnSpan=" + columnSpan
             + ", rowSpan=" + rowSpan
+            + ", hPos=" + hPos
+            + ", vPos=" + vPos
+            + ", hGrow=" + hGrow          
+            + ", vGrow=" + vGrow              
             + ", type=" + type
             + "]";
         }
@@ -196,35 +207,17 @@ public class XGridLayoutHelper {
  
     /**
      * Finds place for new cell (columnSpan, rowSpan) and return first free cell
-     * @param cells
-     * @param columnSpan
-     * @param rowSpan
-     * @return
-     */
-    //public static Cell findFreeCell(List<Cell> cells, int columnSpan, int rowSpan) {
-    //   GridLayout layout = getGridLayout(cells);
-    //    return findFreeCell(layout, columnSpan, rowSpan);
-    //}
- 
-    /**
-     * Finds place for new cell (columnSpan, rowSpan) and return first free cell
      * @param layout
      * @param columnSpan
      * @param rowSpan
      * @return
      */
     public static Cell findFreeCell(GridLayout layout, int columnSpan, int rowSpan) {
-        //int columnCount = layout.columnCount;
-
         int columnCount = Math.max(layout.maxColumnCount, layout.columnCount);
         int rowCount = layout.rowCount;
  
-        if (columnSpan < 1) {
-            columnSpan = 1;
-        }
-        if (rowSpan < 1) {
-            rowSpan = 1;
-        }
+        columnSpan = normalyzeSpan(columnSpan);
+        rowSpan = normalyzeSpan(rowSpan);
  
         if (layout.cells == null) {
             return new Cell();
@@ -250,7 +243,6 @@ public class XGridLayoutHelper {
                 cell.columnSpan = columnSpan;
                 cell.rowSpan = rowSpan;
  
-                //if (isFree(cells, column, row, columnSpan, rowSpan)) {
                 if (isFree(cells, cell)) {
  
                     found = true;
@@ -281,7 +273,6 @@ public class XGridLayoutHelper {
             freeColumnSpan = columnCount - freeColumn;
         }
  
-        //cell = new Cell();
         cell.column  = freeColumn;
         cell.row = freeRow;
         cell.columnSpan = freeColumnSpan;
@@ -350,6 +341,10 @@ public class XGridLayoutHelper {
  
     private static int intValue(Integer value, int def) {
         return value == null ? def : value.intValue();
+    }
+    
+    private static int normalyzeSpan(int span) {
+	return span < 1 ? 1 : span;
     }
     
 }

@@ -5,10 +5,14 @@ import org.plazmaforge.framework.uwt.jfx.layout.XGridLayout;
 import org.plazmaforge.framework.uwt.jfx.layout.XGridLayoutHelper;
 import org.plazmaforge.framework.uwt.jfx.layout.XGridLayoutHelper.Cell;
 import org.plazmaforge.framework.uwt.jfx.layout.XGridLayoutHelper.GridLayout;
+import org.plazmaforge.framework.uwt.jfx.layout.XLayoutData;
 import org.plazmaforge.framework.uwt.jfx.layout.XLayoutUtils;
 
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  * 
@@ -26,7 +30,10 @@ public class XGridPanel extends GridPane implements XContainer {
 	
 	// Create new free cell for child
 	Cell cell = createCell(child);
-	add(child, cell.column, cell.row, cell.columnSpan, cell.rowSpan);
+	
+	GridPane.setConstraints(child, cell.column, cell.row, cell.columnSpan, cell.rowSpan, cell.hPos, cell.vPos, cell.hGrow, cell.vGrow);
+	//add(child, cell.column, cell.row, cell.columnSpan, cell.rowSpan);
+	getChildren().add(child);
     }
  
     @Override
@@ -79,6 +86,37 @@ public class XGridPanel extends GridPane implements XContainer {
         layouInfo.maxColumnCount = layout.getColumnCount();
         
         Cell cell = XGridLayoutHelper.findFreeCell(layouInfo, columnSpan, rowSpan);
+        
+        cell.hPos = XLayoutData.toHPos(layoutData.getHorizontalAlign());
+        cell.vPos = XLayoutData.toVPos(layoutData.getVerticalAlign());
+        	
+        cell.hGrow = Priority.NEVER;
+        cell.vGrow = Priority.NEVER;
+        
+        //TODO: Must analyze
+        if (cell.hPos == null) {
+            cell.hPos = HPos.LEFT;
+            if (XLayoutData.isFill(layoutData.getHorizontalAlign())) {
+        	cell.hGrow = Priority.SOMETIMES;
+            }
+        }
+        if (cell.vPos == null) {
+            cell.vPos = VPos.CENTER;
+            if (XLayoutData.isFill(layoutData.getVerticalAlign())) {
+        	cell.vPos = VPos.TOP;
+        	cell.hGrow = Priority.SOMETIMES;
+            }
+        }
+        
+        if (layoutData.isHorizontalFlex()) {
+            cell.hGrow = Priority.ALWAYS;
+        }
+        if (layoutData.isVerticalFlex()) {
+            cell.vGrow = Priority.ALWAYS;
+        }
+        
+        //cell.hGrow = layoutData.isHorizontalFlex() ? Priority.SOMETIMES : Priority.NEVER;
+        //cell.vGrow = layoutData.isVerticalFlex() ? Priority.ALWAYS : Priority.NEVER;
         
         System.out.println(cell);
         

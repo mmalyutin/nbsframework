@@ -13,6 +13,7 @@ import org.plazmaforge.framework.uwt.event.MouseMoveListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.layout.GridData;
 import org.plazmaforge.framework.uwt.layout.GridLayout;
@@ -49,6 +50,8 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolBar;
 import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
 import org.plazmaforge.framework.uwt.widget.tool.ToolSeparator;
 import org.plazmaforge.framework.uwt.widget.SpinnerField;
+import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
+import org.plazmaforge.framework.uwt.widget.Style.VerticalAlign;
 
 
 public class MyApplication2 extends Application {
@@ -146,10 +149,10 @@ public class MyApplication2 extends Application {
 	tabPanel.add(tabItem);
 	
 	// TAB 4
-	tabItem = new TabItem("TabItem 4");
-	tabItem.setLayout(new GridLayout(3));
+	tabItem = new TabItem("TabItem 4", new Image("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif"));
+	tabItem.setLayout(new GridLayout(4));
 
-	tabItem.add(new Button("Big Button dddddddddddd"), new GridData(3, 1));
+	tabItem.add(new Button("Big Button dddddddddddd"), new GridData(4, 1, HorizontalAlign.LEFT, VerticalAlign.MIDDLE, true, false));
 	tabItem.add(new Button("sas 1"), new GridData(1, 1));
 	tabItem.add(new Button("sfasdfasd 2"), new GridData(2, 1));
 	tabPanel.add(tabItem);
