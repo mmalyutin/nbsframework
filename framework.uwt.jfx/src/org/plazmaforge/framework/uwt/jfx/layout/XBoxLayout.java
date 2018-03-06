@@ -22,6 +22,7 @@
 
 package org.plazmaforge.framework.uwt.jfx.layout;
 
+import javafx.geometry.Orientation;
 
 /**
  * 
@@ -30,19 +31,19 @@ package org.plazmaforge.framework.uwt.jfx.layout;
  */
 public class XBoxLayout extends XLayout {
 
-    //private Orientation orientation;
+    private Orientation orientation;
     
     public XBoxLayout() {
-	//this(Orientation.HORIZONTAL);
+	this(Orientation.HORIZONTAL);
     }
 
-//    public XBoxLayout(Orientation orientation) {
-//	this.orientation = orientation;
-//    }
-//
-//    public Orientation getOrientation() {
-//        return orientation;
-//    }
+    public XBoxLayout(Orientation orientation) {
+	this.orientation = orientation;
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
 
     
 }

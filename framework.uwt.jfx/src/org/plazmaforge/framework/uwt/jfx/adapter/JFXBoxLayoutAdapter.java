@@ -24,9 +24,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.jfx.layout.XBoxLayout;
-import org.plazmaforge.framework.uwt.jfx.layout.XHorizontalLayout;
 import org.plazmaforge.framework.uwt.jfx.layout.XLayout;
-import org.plazmaforge.framework.uwt.jfx.layout.XVerticalLayout;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
 import javafx.scene.layout.HBox;
@@ -49,9 +47,7 @@ public class JFXBoxLayoutAdapter extends JFXLayoutAdapter {
     }
     
     protected XBoxLayout createLayout(BoxLayout layout) {
-	//TODO
-	//return new XBoxLayout(layout.getOrientation().equals(Orientation.HORIZONTAL) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
-	return layout.getOrientation().equals(Orientation.VERTICAL) ? new XVerticalLayout() : new XHorizontalLayout();
+	return new XBoxLayout(layout.getOrientation().equals(Orientation.VERTICAL) ? javafx.geometry.Orientation.VERTICAL : javafx.geometry.Orientation.HORIZONTAL);
     }
 
     protected XBoxLayout getXBoxLayout(Object delegate) {
@@ -60,10 +56,8 @@ public class JFXBoxLayoutAdapter extends JFXLayoutAdapter {
 
     @Override
     public javafx.scene.layout.Pane createContainer(XLayout xLayout) {
-	//TODO
-	//Orientation xOrientation = xLayout == null ? null : ((XBoxLayout) xLayout).getOrientation();
-	//return (xOrientation == Orientation.VERTICAL) ? new VBox() : new HBox();
-	return (xLayout instanceof XVerticalLayout) ? new VBox() : new HBox();
+	javafx.geometry.Orientation xOrientation = xLayout == null ? null : ((XBoxLayout) xLayout).getOrientation();
+	return (xOrientation == javafx.geometry.Orientation.VERTICAL) ? new VBox() : new HBox();
     }
     
     

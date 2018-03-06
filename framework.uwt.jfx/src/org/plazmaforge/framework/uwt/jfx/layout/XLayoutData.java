@@ -22,6 +22,8 @@
 
 package org.plazmaforge.framework.uwt.jfx.layout;
 
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 
 /**
  * 
@@ -29,6 +31,10 @@ package org.plazmaforge.framework.uwt.jfx.layout;
  *
  */
 public abstract class XLayoutData {
+    
+    // WARNNING!
+    // We use own horizontal/vertical alignments 
+    // because native alignments don't implement FILL mode
 
     /**
      * Horizontal alignment enumeration.
@@ -59,6 +65,61 @@ public abstract class XLayoutData {
     private int preferredHeight = -1;
 
 
+    /**
+     * Returns true if HorizontalAlignment is FILL
+     * @param align
+     * @return
+     */
+    public static boolean isFill(HorizontalAlignment align) {
+	return HorizontalAlignment.FILL == align;
+    }
+    
+    /**
+     * Returns true if VerticalAlignment is FILL
+     * @param align
+     * @return
+     */
+    public static boolean isFill(VerticalAlignment align) {
+	return VerticalAlignment.FILL == align;
+    }
+    
+
+    /**
+     * Converts HorizontalAlignment to HPos
+     * @param align
+     * @return
+     */
+    public static HPos toHPos(HorizontalAlignment align) {
+	if (HorizontalAlignment.LEFT == align) {
+	    return HPos.LEFT;
+	} else if (HorizontalAlignment.CENTER == align) {
+	    return HPos.CENTER;
+	} else if (HorizontalAlignment.RIGHT == align) {
+	    return HPos.RIGHT;
+	}
+	
+	// HorizontalAlignment.FILL or null
+	return null;
+    }
+    
+    /**
+     * Converts VerticalAlignment to VPos
+     * @param align
+     * @return
+     */
+    public static VPos toVPos(VerticalAlignment align) {
+	if (VerticalAlignment.TOP == align) {
+	    return VPos.TOP;
+	} else if (VerticalAlignment.MIDDLE == align) {
+	    return VPos.CENTER;
+	} else if (VerticalAlignment.BOTTOM == align) {
+	    return VPos.BOTTOM;
+	}
+
+	// VerticalAlignment.FILL or null
+	return null;
+    }
+    
     public int getWidth() {
         return width;
     }
