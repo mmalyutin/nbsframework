@@ -50,11 +50,14 @@ public abstract class JFXAbstractAdapter extends AbstractUIAdapter {
     	return JFXHelper.getColor(color);
     }
 
-    /*
-     * protected org.eclipse.swt.graphics.Font getFont(Font font) { return
-     * SWTHelper.getFont(font); }
-     */
+    protected javafx.scene.text.Font getFont(Font font) {
+	return JFXHelper.getFont(font);
+    }
 
+    protected String toWebString(javafx.scene.paint.Color color) {
+    	return JFXHelper.toWebString(color);
+    }
+    
     protected javafx.scene.image.Image createImage(UIElement element, Image image) {
 	return JFXHelper.createImage(element, image);
     }
@@ -89,6 +92,6 @@ public abstract class JFXAbstractAdapter extends AbstractUIAdapter {
 	return JFXHelper.createImageView(path);
     }
       
-      ////
+    ////
 
 }

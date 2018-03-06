@@ -152,11 +152,13 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
      * @return JFX Node
      */
     protected javafx.scene.Node asNodeGetProperty(Object delegate, String property) {
-	if (!isNode(delegate)) {
-	    logUnsupportGetProperty(delegate, property);
-	    return null;
-	}
-	return asNode(delegate);
+	return asTypeGetProperty(javafx.scene.Node.class, delegate, property);
+	
+//	if (!isNode(delegate)) {
+//	    logUnsupportGetProperty(delegate, property);
+//	    return null;
+//	}
+//	return asNode(delegate);
     }  
     
     /**
@@ -166,11 +168,13 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
      * @return JFX Node
      */
     protected javafx.scene.Node asNodeSetProperty(Object delegate, String property) {
-  	if (!isNode(delegate)) {
-  	    logUnsupportSetProperty(delegate, property);
-  	    return null;
-  	}
-  	return asNode(delegate);
+	return asTypeSetProperty(javafx.scene.Node.class, delegate, property);
+	
+//  	if (!isNode(delegate)) {
+//  	    logUnsupportSetProperty(delegate, property);
+//  	    return null;
+//  	}
+//  	return asNode(delegate);
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,11 +328,44 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     }
     
     protected void setBackground(Object delegate, javafx.scene.paint.Color color) {
+	// Only Region has Background
 	javafx.scene.layout.Region node = asTypeSetProperty(javafx.scene.layout.Region.class, delegate,	Widget.PROPERTY_BACKGROUND);
 	if (node == null) {
 	    return;
 	}
 	node.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
+    }
+    
+    protected void setForeground(Object delegate, javafx.scene.paint.Color color) {
+	if (delegate instanceof javafx.scene.control.Labeled) {
+	    // Labeled:setTextFill
+	    ((javafx.scene.control.Labeled) delegate).setTextFill(color);
+	    return;
+	}
+	if  (delegate instanceof javafx.scene.control.TextInputControl) {
+	    //TextInputControl: setStyle
+	    ((javafx.scene.control.TextInputControl) delegate).setStyle(color == null ? null : ("-fx-text-fill: " + toWebString(color)));
+	    return;
+	    
+	}
+	logUnsupportSetProperty(delegate, Widget.PROPERTY_FOREGROUND);
+ 	//TODO: Other node?
+     }
+    
+    protected void setFont(Object delegate, javafx.scene.text.Font font) {
+	if (delegate instanceof javafx.scene.control.Labeled) {
+	    // Labeled:setFont
+	    ((javafx.scene.control.Labeled) delegate).setFont(font);
+	    return;
+	}
+	if  (delegate instanceof javafx.scene.control.TextInputControl) {
+	    //TextInputControl: setFont
+	    ((javafx.scene.control.TextInputControl) delegate).setFont(font);
+	    return;
+	    
+	}
+	logUnsupportSetProperty(delegate, Widget.PROPERTY_FONT);
+	//TODO: Other node?
     }
     
     /**
