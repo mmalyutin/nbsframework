@@ -13,6 +13,7 @@ import org.plazmaforge.framework.uwt.event.MouseMoveListener;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.graphics.Color;
+import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
 import org.plazmaforge.framework.uwt.layout.GridData;
@@ -68,6 +69,8 @@ public class MyApplication2 extends Application {
 	frame.setTitle("My Application");
 
 	final Label label = new Label("Hello World!");
+	label.setFont(new Font("Verdana", 12, Font.BOLD));
+	label.setForeground(Color.BLUE);
 	frame.add(label);
 	
 	ImageBox imageBox = new ImageBox("/org/plazmaforge/framework/uwt/resources/images/widget/folder-open.gif");

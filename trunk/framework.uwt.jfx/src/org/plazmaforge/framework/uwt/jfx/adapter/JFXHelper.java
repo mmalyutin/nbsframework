@@ -29,6 +29,9 @@ import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+
 
 /**
  * 
@@ -66,17 +69,37 @@ public class JFXHelper {
  	    return null;
  	}
  	return javafx.scene.paint.Color.rgb(color.getRed(), color.getGreen(), color.getBlue());
-     }
+    }
 
-     /**
-      * Returns JFX Font by UWT Font
-      * @param font
-      * @return
-      */
-     //public static javafx.scene.paint.Font getFont(Font font) {
-	 
-     //}
+    /**
+     * Returns JFX Font by UWT Font
+     * 
+     * @param font
+     * @return
+     */
+    public static javafx.scene.text.Font getFont(Font font) {
+	if (font  == null) {
+	    return null;
+	}
+	FontWeight weight = font.isBold() ? FontWeight.BOLD : null;
+	FontPosture posture = font.isItalic() ? FontPosture.ITALIC : null;
+	return javafx.scene.text.Font.font(font.getName(), weight, posture, font.getSize());
+    }
 
+    public static String toWebString(javafx.scene.paint.Color color) {
+	if (color == null) {
+	    return null;
+	}
+	int red = toColorAttr(color.getRed());
+	int green = toColorAttr(color.getGreen());
+	int blue = toColorAttr(color.getBlue());
+	return Color.toWebString(red, green, blue);
+    }
+    
+    private static int toColorAttr(double value) {
+	return ((int) value) * 255;
+    }
+    
     public static javafx.scene.image.Image createImage(UIElement element, Image image) {
 	if (image == null) {
 	    return null;

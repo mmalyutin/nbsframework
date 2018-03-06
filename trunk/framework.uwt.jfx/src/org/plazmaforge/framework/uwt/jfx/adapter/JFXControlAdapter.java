@@ -163,18 +163,19 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	    return;
 	}
 	*/
+	
 	 else if (Control.PROPERTY_BACKGROUND.equals(name)) {
 	    setBackground(delegate, getColor(asColor(value)));
 	    return;
-	}
-	 
-	 /*else if (Control.PROPERTY_FOREGROUND.equals(name)) {
-	    xControl.setForeground(getColor(asColor(value)));
+	} else if (Control.PROPERTY_FOREGROUND.equals(name)) {
+	    setForeground(delegate, getColor(asColor(value)));
 	    return;
 	} else if (Control.PROPERTY_FONT.equals(name)) {
-	    xControl.setFont(getFont(asFont(value)));
+	    setFont(delegate, getFont(asFont(value)));
 	    return;
-	} else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
+	}
+	
+	/*else if (Control.PROPERTY_CONTEXT_MENU.equals(name)) {
 	    Menu menu = (Menu) value;
 	    menu.activateUI();
 	    xControl.setMenu((org.eclipse.swt.widgets.Menu) menu.getDelegate());
