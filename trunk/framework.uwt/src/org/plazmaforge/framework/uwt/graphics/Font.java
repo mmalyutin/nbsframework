@@ -68,6 +68,10 @@ public class Font extends PathResource {
 	this(name, size, NORMAL); // By default NORMAL style
     }
 
+    public Font(String name) {
+	this(name, 0, NORMAL); // By default NORMAL style
+    }
+    
     public Font(String name, int size, int style) {
 	super();
 	this.name = normalizeName(name);

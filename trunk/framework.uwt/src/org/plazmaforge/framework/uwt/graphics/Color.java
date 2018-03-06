@@ -147,20 +147,61 @@ public class Color extends Resource {
     public String toString() {
 	return "Color[" + key + "]";
     }
+    
+    private static String toHexString(int value) {
+	return value < 16 ? "0" + Integer.toHexString(value) : Integer.toHexString(value);
+    }
 
     /**
-     * Return hex presentation of color
+     * Returns hex string presentation of this Color
+     * @param color
+     * @return
+     */
+    public static String toHexString(Color color) {
+	if (color == null) {
+	    return null;
+	}
+	return toHexString(color.getRed(), color.getGreen(), color.getBlue());
+    }
+    
+    public static String toHexString(int red, int green, int blue) {
+	//TODO: Alpha
+	return toHexString(red) + toHexString(green) + toHexString(blue);
+    }
+  
+    /**
+     * Returns hex string presentation of this Color
      * @return
      */
     public String toHexString() {
-	return toHexString(getRed()) + toHexString(getGreen()) + toHexString(getBlue());
+	return toHexString(this/*getRed()) + toHexString(getGreen()) + toHexString(getBlue()*/);
     }
     
-    private String toHexString(int value) {
-	return value < 16 ? "0" + Integer.toHexString(value) : Integer.toHexString(value);
+    /**
+     * Returns web string presentation of this Color
+     * @param color
+     * @return
+     */
+    public static String toWebString(Color color) {
+	if (color == null) {
+	    return null;
+	}
+	return "#" + toHexString(color);
     }
     
+    public static String toWebString(int red, int green, int blue) {
+	//TODO: Alpha
+	return "#" + toHexString(red, green, blue);
+    }
     
+    public String toWebString() {
+	return toWebString(this);
+    }
+    
+    /**
+     * Returns RGB string presentation of Color
+     * @return
+     */
     public static String toRGBString(Color color) {
 	if (color == null) {
 	    return null;
