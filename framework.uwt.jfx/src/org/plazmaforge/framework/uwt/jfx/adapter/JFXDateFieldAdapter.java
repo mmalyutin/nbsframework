@@ -111,7 +111,13 @@ public class JFXDateFieldAdapter extends JFXControlAdapter {
 	@Override
         public String toString(LocalDate date) {
             if (date != null) {
-                return dateFormatter.format(date);
+        	try {
+        	    return dateFormatter.format(date);    
+        	} catch (Exception e) {
+        	    //TODO
+        	    System.err.println(e);
+        	    return "";
+        	}
             } else {
                 return "";
             }
@@ -120,7 +126,13 @@ public class JFXDateFieldAdapter extends JFXControlAdapter {
         @Override
         public LocalDate fromString(String string) {
             if (string != null && !string.isEmpty()) {
-                return LocalDate.parse(string, dateFormatter);
+        	try {
+        	    return LocalDate.parse(string, dateFormatter); 
+        	} catch (Exception e) {
+        	    //TODO
+        	    System.err.println(e);
+        	    return null;
+        	}
             } else {
                 return null;
             }

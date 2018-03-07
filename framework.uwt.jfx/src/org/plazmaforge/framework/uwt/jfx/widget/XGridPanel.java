@@ -61,6 +61,14 @@ public class XGridPanel extends GridPane implements XContainer {
         return getChildren().get(index);
     }
  
+    protected XGridData getGridData(Node child) {
+	XGridData layoutData = XLayoutUtils.getLayoutData(XGridData.class, child);
+	if (layoutData == null) {
+	    layoutData = new XGridData();
+	}
+	return layoutData ;	
+    }
+    
     protected XGridLayout getGridLayout() {
 	XGridLayout layout = XLayoutUtils.getLayout(XGridLayout.class, getParent());
 	if (layout == null) {
@@ -123,8 +131,6 @@ public class XGridPanel extends GridPane implements XContainer {
         return cell;
     }
     
-    protected XGridData getGridData(Node child) {
-	return XLayoutUtils.getLayoutData(XGridData.class, child);
-    }
+  
 
 }
