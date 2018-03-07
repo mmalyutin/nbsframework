@@ -24,6 +24,7 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.widget.Button;
+import org.plazmaforge.framework.uwt.widget.CheckBox;
 import org.plazmaforge.framework.uwt.widget.RadioButton;
 
 
@@ -32,7 +33,7 @@ import org.plazmaforge.framework.uwt.widget.RadioButton;
  * @author ohapon
  *
  */
-public class JFXRadioButtonAdapter extends JFXCheckBoxAdapter {
+public class JFXRadioButtonAdapter extends JFXButtonAdapter /*JFXCheckBoxAdapter*/ {
 
     public Object createDelegate(UIElement parent, UIElement element) {
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
@@ -73,4 +74,18 @@ public class JFXRadioButtonAdapter extends JFXCheckBoxAdapter {
 	
     }
 
+    @Override
+    public Object getProperty(UIElement element, String name) {
+	
+	javafx.scene.control.RadioButton xRadioButton = getRadioButton(element.getDelegate());
+	if (xRadioButton == null) {
+	    return null;
+	}
+	if (CheckBox.PROPERTY_VALUE.equals(name)) {
+	    return xRadioButton.isSelected();
+	}
+	return super.getProperty(element, name);
+     }
+    
+    
 }
