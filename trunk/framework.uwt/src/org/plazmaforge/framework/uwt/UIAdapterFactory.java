@@ -25,6 +25,15 @@ package org.plazmaforge.framework.uwt;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.uwt.widget.Label;
+
+
+/**
+ * The Adapter Factory creates a Adapter
+ * 
+ * @author ohapon
+ *
+ */
 public class UIAdapterFactory {
     
     public static final int DEFAULT_TRY_COUNT = 10; // 4
@@ -32,6 +41,8 @@ public class UIAdapterFactory {
     private static Map<String, UIAdapter> adapters = new HashMap<String, UIAdapter>(); 
     
     private static int tryCount = DEFAULT_TRY_COUNT;
+    
+    private static boolean useUnknownAdapter = true;
     
     public static int getTryCount() {
         return tryCount;
@@ -42,6 +53,10 @@ public class UIAdapterFactory {
 	    new IllegalArgumentException("TryCount must be > 0");
 	}
         UIAdapterFactory.tryCount = tryCount;
+    }
+
+    public static void setUseUnknownAdapter(boolean useUnknownAdapter) {
+        UIAdapterFactory.useUnknownAdapter = useUnknownAdapter;
     }
 
     public static UIAdapter getAdapter(Class<?> uiObjectClass) {	
@@ -57,7 +72,8 @@ public class UIAdapterFactory {
 	    
 	    // Check 'curObjectClass' because 'getSuperclass()' can return null.
 	    if (curObjectClass == null) {
-		throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
+		return getUnknownAdapter(thisClassName);
+		//throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
 	    }
 	    String className = curObjectClass.getName();
 	    
@@ -74,9 +90,53 @@ public class UIAdapterFactory {
 	    curObjectClass = curObjectClass.getSuperclass();
 	    
 	}
-	throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
+	//throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
+	return getUnknownAdapter(thisClassName);
     }
     
+    private static UIAdapter getUnknownAdapter(String thisClassName) {
+	if (!useUnknownAdapter) {
+	    throwNotFounException(thisClassName);
+	    return null;
+	}
+	UIAdapter adapter = createUnknownAdapter();
+	if (adapter != null) {
+	    return adapter;
+	}
+	throwNotFounException(thisClassName);
+	return null;
+    }
+    
+    private static UIAdapter createUnknownAdapter() {
+	UIAdapter adapter = adapters.get(Label.class.getName());
+	if (adapter == null) {
+	    return null;
+	}
+	UIAdapter adapterWrapper = new UIAdapterWrapper(adapter) {
+	    
+	    @Override
+	    public Object createDelegate(UIElement parent, UIElement element) {
+		
+		// Set UNKNOWN text
+		//if (element != null && element instanceof Label) {
+		//    Label label = (Label) element;
+		//    label.setText("[UNKNOWN]");
+		//}
+		
+		Label label = new Label("[UNKNOWN]");
+		//label.setText("[UNKNOWN]");
+		    
+		return super.createDelegate(parent, label);
+	    }
+
+	};
+	return adapterWrapper;
+    }
+  
+    private static void throwNotFounException(String thisClassName) {
+	throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
+    }
+  
     public static void addAdapter(Class<?> uiObjectClass, UIAdapter adapter) {
 	if (uiObjectClass == null || adapter == null) {
 	    return;
