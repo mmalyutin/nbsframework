@@ -41,6 +41,8 @@ public class JFXTabItemAdapter extends JFXContainerAdapter {
 	
 	javafx.scene.control.TabPane xParent = (javafx.scene.control.TabPane) parent.getDelegate();
 	javafx.scene.control.Tab xTabItem = new javafx.scene.control.Tab();
+	xTabItem.setClosable(false); // by default no close button
+	
 	TabItem tabItem = (TabItem) element;
 	
 	// Get text
