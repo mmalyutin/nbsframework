@@ -39,7 +39,7 @@ public class XIntegerField extends XAbstractNumberField<Integer> {
     
     protected Integer castValue(Number value) {
 	//TODO
-	return (Integer) value;
+	return value == null ? null : value.intValue();
     }
     
     @Override

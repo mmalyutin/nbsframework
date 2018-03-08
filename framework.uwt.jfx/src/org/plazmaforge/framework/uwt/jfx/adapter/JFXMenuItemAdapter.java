@@ -137,5 +137,17 @@ public class JFXMenuItemAdapter extends JFXWidgetAdapter {
 	
 	super.removeListener(element, eventType, listener);
     }
+    
+    @Override
+    protected void addSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	javafx.scene.control.MenuItem xMenuItem = asMenuItem(widget.getDelegate());
+	xMenuItem.setOnAction(createActionListener(widget, listener));
+    }
+
+    @Override
+    protected void removeSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	javafx.scene.control.MenuItem xMenuItem = asMenuItem(widget.getDelegate());
+	xMenuItem.setOnAction(null);
+    }      
 
 }
