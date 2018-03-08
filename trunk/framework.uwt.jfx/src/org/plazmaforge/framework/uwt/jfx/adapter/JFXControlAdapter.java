@@ -68,27 +68,6 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
 	    }
 	}
 
-	
-	
-//	Object xLayoutData = xControl.getLayoutData();
-	
-	
-//	
-//	if (xLayoutData != null && SWTLayoutUtils.isCompatible(xLayout, xLayoutData)) {
-//	    SWTLayoutUtils.prepare(xParent, xControl, xLayout, xLayoutData);
-//	    return;
-//	}
-//	
-//	xLayoutData = SWTLayoutUtils.createDefaultLayoutData(xLayout, control);
-//	if (xLayoutData != null) {
-//	    xControl.setLayoutData(xLayoutData);
-//	}
-//	
-//	SWTLayoutUtils.prepare(xParent, xControl, xLayout, xLayoutData);
-	
-
-
-	
 	addChild(xParent, xControl);
     }
     
@@ -207,7 +186,116 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
     }
 
     
+//  
+//  @Override
+//  public Object invoke(UIElement element, String methodName, Object[] args) {
+//	if (Control.METHOD_REPAINT.equals(methodName)) {
+//	    org.eclipse.swt.widgets.Control xControl = (org.eclipse.swt.widgets.Control) element.getDelegate();
+//	    if (xControl == null) {
+//		return null;
+//	    }
+//	    xControl.redraw();
+//	}
+//	return super.invoke(element, methodName, args);
+//  }
+//  
     
+    @Override
+    public void addListener(UIElement element, String eventType, final Listener listener) {
+	
+	Control control = (Control) element;
+	javafx.scene.Node xWidget = asControl(element.getDelegate());
+	if (xWidget == null) {
+	    return;
+	}
+
+	if (eq(Events.KeyDown, eventType)) {
+	    addKeyDownListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.KeyUp, eventType)) {
+	    addKeyUpListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseDown, eventType)) {
+	    addMouseDownListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseUp, eventType)) {
+	    addMouseUpListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseClick, eventType)) {
+	    addMouseClickListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseDoubleClick, eventType)) {
+	    addMouseDoubleClickListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseMove, eventType)) {
+	    addMouseMoveListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseIn, eventType)) {
+	    addMouseInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseOut, eventType)) {
+	    addMouseOutListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.FocusIn, eventType)) {
+	    addFocusInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.FocusOut, eventType)) {
+	    addFocusOutListener(xWidget, control, listener);
+	    return;
+	}
+	
+	super.addListener(element, eventType, listener);
+	
+    }
+    
+   
+    @Override
+    public void removeListener(UIElement element, String eventType, final Listener listener) {
+	
+	Control control = (Control) element;
+	javafx.scene.Node xWidget = asControl(element.getDelegate());
+	if (xWidget == null) {
+	    return;
+	}
+
+	if (eq(Events.KeyDown, eventType)) {
+	    removeKeyDownListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.KeyUp, eventType)) {
+	    removeKeyUpListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseDown, eventType)) {
+	    removeMouseDownListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseUp, eventType)) {
+	    removeMouseUpListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseClick, eventType)) {
+	    removeMouseClickListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseDoubleClick, eventType)) {
+	    removeMouseDoubleClickListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseMove, eventType)) {
+	    removeMouseMoveListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseIn, eventType)) {
+	    removeMouseInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.MouseOut, eventType)) {
+	    removeMouseOutListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.FocusIn, eventType)) {
+	    removeFocusInListener(xWidget, control, listener);
+	    return;
+	} else if (eq(Events.FocusOut, eventType)) {
+	    removeFocusOutListener(xWidget, control, listener);
+	    return;
+	}
+	
+	super.removeListener(element, eventType, listener);
+	
+    }    
 
     // KEY DOWN
     @Override
@@ -354,118 +442,7 @@ public abstract class JFXControlAdapter extends JFXWidgetAdapter {
     }
     
     
-    @Override
-    public void addListener(UIElement element, String eventType, final Listener listener) {
-	
-	Control control = (Control) element;
-	javafx.scene.Node xWidget = asControl(element.getDelegate());
-	if (xWidget == null) {
-	    return;
-	}
-
-	if (eq(Events.KeyDown, eventType)) {
-	    addKeyDownListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.KeyUp, eventType)) {
-	    addKeyUpListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseDown, eventType)) {
-	    addMouseDownListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseUp, eventType)) {
-	    addMouseUpListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseClick, eventType)) {
-	    addMouseClickListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseDoubleClick, eventType)) {
-	    addMouseDoubleClickListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseMove, eventType)) {
-	    addMouseMoveListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseIn, eventType)) {
-	    addMouseInListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseOut, eventType)) {
-	    addMouseOutListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.FocusIn, eventType)) {
-	    addFocusInListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.FocusOut, eventType)) {
-	    addFocusOutListener(xWidget, control, listener);
-	    return;
-	}
-	
-	super.addListener(element, eventType, listener);
-	
-    }
-    
-   
-    @Override
-    public void removeListener(UIElement element, String eventType, final Listener listener) {
-	
-	Control control = (Control) element;
-	javafx.scene.Node xWidget = asControl(element.getDelegate());
-	if (xWidget == null) {
-	    return;
-	}
-
-	if (eq(Events.KeyDown, eventType)) {
-	    removeKeyDownListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.KeyUp, eventType)) {
-	    removeKeyUpListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseDown, eventType)) {
-	    removeMouseDownListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseUp, eventType)) {
-	    removeMouseUpListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseClick, eventType)) {
-	    removeMouseClickListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseDoubleClick, eventType)) {
-	    removeMouseDoubleClickListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseMove, eventType)) {
-	    removeMouseMoveListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseIn, eventType)) {
-	    removeMouseInListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.MouseOut, eventType)) {
-	    removeMouseOutListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.FocusIn, eventType)) {
-	    removeFocusInListener(xWidget, control, listener);
-	    return;
-	} else if (eq(Events.FocusOut, eventType)) {
-	    removeFocusOutListener(xWidget, control, listener);
-	    return;
-	}
-	
-	super.removeListener(element, eventType, listener);
-	
-    }
-    
-    
-//    
-//    
-//    @Override
-//    public Object invoke(UIElement element, String methodName, Object[] args) {
-//	if (Control.METHOD_REPAINT.equals(methodName)) {
-//	    org.eclipse.swt.widgets.Control xControl = (org.eclipse.swt.widgets.Control) element.getDelegate();
-//	    if (xControl == null) {
-//		return null;
-//	    }
-//	    xControl.redraw();
-//	}
-//	return super.invoke(element, methodName, args);
-//    }
-//    
+ 
 //    /**
 //     * Do layout parent of control if control is visible 
 //     * @param control

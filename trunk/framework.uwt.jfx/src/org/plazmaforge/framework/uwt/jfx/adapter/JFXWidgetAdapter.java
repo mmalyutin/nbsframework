@@ -687,6 +687,13 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     }
     
     
+    
+    // ACTION/SELECTION: Button, ToolItem, MenuItem
+    protected javafx.event.EventHandler<javafx.event.ActionEvent> createActionListener(Widget widget, final Listener listener) {
+	return createListener(javafx.event.ActionEvent.class, widget, listener);
+    } 
+    
+    
 //    ////
 //
 //    protected org.eclipse.swt.events.SelectionListener createSelectionListener(Widget widget, final Listener listener) {
@@ -762,13 +769,29 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 
     protected Event createEvent(javafx.event.Event e) {
 	if (e instanceof javafx.scene.input.KeyEvent) {
+	    
+	    // KeyEvent
 	    return createEvent((javafx.scene.input.KeyEvent) e);
 	} if (e instanceof javafx.scene.input.MouseEvent) {
+	    
+	    // MouseEvent
 	    return createEvent((javafx.scene.input.MouseEvent) e);
+	} if (e instanceof javafx.event.ActionEvent ) {
+	    
+	    // ActionEvent
+	   return createBaseEvent((javafx.event.ActionEvent) e);
 	}
-	
-	//TODO
-	return null;
+	throw new UWTException("Event is not supported: " + e.getClass().getName());
+    }
+    
+    /**
+     * Create UWT Event by JFX base Event
+     * @param e
+     * @return
+     */
+    protected Event createBaseEvent(javafx.event.Event e) {
+	Event event = new Event();
+	return event;
     }
     
     /**
@@ -777,7 +800,7 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
      * @return
      */
     protected Event createEvent(javafx.scene.input.KeyEvent e) {
-        Event event = new Event();
+        Event event = createBaseEvent(e);
         javafx.scene.input.KeyCode keyCode = e.getCode();
         String string = e.getCharacter();
         
@@ -802,7 +825,7 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
      * @return
      */
     protected Event createEvent(javafx.scene.input.MouseEvent e) {
-        Event event = new Event();
+        Event event = createBaseEvent(e);
         
         //TODO
         //event.setButton(e.getButton().); // SWT.BUTTON1 = 1, SWT.BUTTON2 = 2, SWT.BUTTON3 = 3

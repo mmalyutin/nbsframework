@@ -103,18 +103,6 @@ public class JFXToolItemAdapter extends JFXControlAdapter {
 	super.setProperty(element, name, value);
 	
     }
-
-    
-    @Override
-    protected void addSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
-	//TODO
-    }
-
-    @Override
-    protected void removeSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
-	//TODO
-    }
-    
     
     @Override
     public void addListener(UIElement element, String eventType, Listener listener) {
@@ -150,4 +138,17 @@ public class JFXToolItemAdapter extends JFXControlAdapter {
 	super.removeListener(element, eventType, listener);
     }
 
+    @Override
+    protected void addSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//TODO: ToolItem can be not only Button
+	javafx.scene.control.ButtonBase xButton = asButton(xWidget);
+	xButton.setOnAction(createActionListener(widget, listener));
+    }
+
+    @Override
+    protected void removeSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	//TODO: ToolItem can be not only Button
+	javafx.scene.control.ButtonBase xButton = asButton(xWidget);
+	xButton.setOnAction(null);
+    }       
 }

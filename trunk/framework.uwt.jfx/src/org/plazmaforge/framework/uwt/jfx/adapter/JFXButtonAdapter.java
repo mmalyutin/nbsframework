@@ -25,10 +25,10 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
-import org.plazmaforge.framework.uwt.graphics.Insets;
 import org.plazmaforge.framework.uwt.widget.Button;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
+import org.plazmaforge.framework.uwt.widget.Widget;
 
 /**
  * 
@@ -93,40 +93,50 @@ public class JFXButtonAdapter extends JFXControlAdapter {
 	super.setProperty(element, name, value);
     }
 
-//    
-//    @Override
-//    public void addListener(UIElement element, String eventType, final Listener listener) {
-//	
-//	Control control = (Control) element;
-//	org.eclipse.swt.widgets.Button xButton = getButton(element.getDelegate());
-//	if (xButton == null) {
-//	    return;
-//	}
-//
-//	if (eq(Events.Selection, eventType)) {
-//	    xButton.addSelectionListener(createSelectionListener(control, listener));
-//	    return;
-//	} 
-//	
-//	super.addListener(element, eventType, listener);
-//    }
-//    
-//    @Override
-//    public void removeListener(UIElement element, String eventType, Listener listener) {
-//	
-//	Control control = (Control) element;
-//	org.eclipse.swt.widgets.Button xButton = getButton(element.getDelegate());
-//	if (xButton == null) {
-//	    return;
-//	}
-//
-//	if (eq(Events.Selection, eventType)) {
-//	    xButton.removeSelectionListener(getSelectionListener(control, listener));
-//	    return;
-//	}
-// 	
-//	super.removeListener(element, eventType, listener);
-//    }
     
+    @Override
+    public void addListener(UIElement element, String eventType, final Listener listener) {
+	
+	Control control = (Control) element;
+	javafx.scene.control.ButtonBase xButton = asButton(element.getDelegate());
+	if (xButton == null) {
+	    return;
+	}
+
+	if (eq(Events.Selection, eventType)) {
+	    addSelectionListener(xButton, control, listener);
+	    return;
+	} 
+	
+	super.addListener(element, eventType, listener);
+    }
     
+    @Override
+    public void removeListener(UIElement element, String eventType, Listener listener) {
+	
+	Control control = (Control) element;
+	javafx.scene.control.ButtonBase xButton = asButton(element.getDelegate());
+	if (xButton == null) {
+	    return;
+	}
+
+	if (eq(Events.Selection, eventType)) {
+	    removeSelectionListener(xButton, control, listener);
+	    return;
+	}
+ 	
+	super.removeListener(element, eventType, listener);
+    }
+    
+    @Override
+    protected void addSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	javafx.scene.control.ButtonBase xButton = asButton(xWidget);
+	xButton.setOnAction(createActionListener(widget, listener));
+    }
+
+    @Override
+    protected void removeSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+	javafx.scene.control.ButtonBase xButton = asButton(xWidget);
+	xButton.setOnAction(null);
+    }   
 }
