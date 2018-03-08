@@ -54,6 +54,20 @@ public class XDesktop extends Composite {
 	//[TDI]
 	tabFolder = new CTabFolder(this, SWT.CLOSE | SWT.FLAT);
 	
+	// http://www.java2s.com/Code/Java/SWT-JFace-Eclipse/CreateaCTabFolderwithminandmaxbuttonsaswellasclosebuttonand.htm
+	// WITHOUT CLOSE BUTTONS
+	//tabFolder = new CTabFolder(this, SWT.NONE);
+	
+	// DECORATION
+	/*
+	tabFolder.setSimple(false);
+	tabFolder.setUnselectedImageVisible(false);
+	tabFolder.setUnselectedCloseVisible(false);
+	
+	tabFolder.setMinimizeVisible(true);
+	tabFolder.setMaximizeVisible(true);
+	*/
+	
 	tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 		public void close(CTabFolderEvent e) {
 		    CTabItem tabItem = (CTabItem) e.item;
