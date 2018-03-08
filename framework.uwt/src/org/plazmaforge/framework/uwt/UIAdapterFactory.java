@@ -25,7 +25,11 @@ package org.plazmaforge.framework.uwt;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.plazmaforge.framework.uwt.widget.Container;
+import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Label;
+import org.plazmaforge.framework.uwt.widget.Window;
+import org.plazmaforge.framework.uwt.widget.panel.Panel;
 
 
 /**
@@ -59,25 +63,23 @@ public class UIAdapterFactory {
         UIAdapterFactory.useUnknownAdapter = useUnknownAdapter;
     }
 
-    public static UIAdapter getAdapter(Class<?> uiObjectClass) {	
-	if (uiObjectClass == null) {
+    public static UIAdapter getAdapter(Class<?> elementClass) {	
+	if (elementClass == null) {
 	    return null;
 	}
 	int tryCount = getTryCount();
 	//String stopClassName = null;
-	String thisClassName = uiObjectClass.getName();
-	Class<?> curObjectClass = uiObjectClass;
-	
+	Class<?> curClass = elementClass;
+	String curClassName = null;
 	for (int i = 0; i < tryCount; i++) {
 	    
-	    // Check 'curObjectClass' because 'getSuperclass()' can return null.
-	    if (curObjectClass == null) {
-		return getUnknownAdapter(thisClassName);
-		//throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
+	    // Check 'curClass' because 'getSuperclass()' can return null.
+	    if (curClass == null) {
+		return getUnknownAdapter(elementClass);
 	    }
-	    String className = curObjectClass.getName();
+	    curClassName = curClass.getName();
 	    
-	    UIAdapter adapter = adapters.get(className);
+	    UIAdapter adapter = adapters.get(curClassName);
 	    if (adapter != null) {
 		return adapter;
 	    }
@@ -87,31 +89,66 @@ public class UIAdapterFactory {
 		//break;
 	    //}
 	    
-	    curObjectClass = curObjectClass.getSuperclass();
+	    // Next class in hierarchy
+	    curClass = curClass.getSuperclass();
 	    
 	}
-	//throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
-	return getUnknownAdapter(thisClassName);
+	return getUnknownAdapter(elementClass);
     }
     
-    private static UIAdapter getUnknownAdapter(String thisClassName) {
+    private static UIAdapter getUnknownAdapter(Class<?> elementClass) {
+	String elementClassName = elementClass.getName();
 	if (!useUnknownAdapter) {
-	    throwNotFounException(thisClassName);
+	    throwNotFounException(elementClassName);
 	    return null;
 	}
-	UIAdapter adapter = createUnknownAdapter();
+	UIAdapter adapter = createUnknownAdapter(elementClass);
 	if (adapter != null) {
 	    return adapter;
 	}
-	throwNotFounException(thisClassName);
+	throwNotFounException(elementClassName);
 	return null;
     }
     
-    private static UIAdapter createUnknownAdapter() {
-	UIAdapter adapter = adapters.get(Label.class.getName());
+    private static boolean isRequiredAdapter(Class<?> elementClass) {
+	return Window.class.isAssignableFrom(elementClass);
+    }
+    
+    private static boolean isContainer(Class<?> elementClass) {
+  	return Container.class.isAssignableFrom(elementClass);
+    }
+    
+    private static boolean isControl(Class<?> elementClass) {
+	return Control.class.isAssignableFrom(elementClass);
+    }
+    
+    private static UIAdapter createUnknownAdapter(Class<?> elementClass) {
+	if (isRequiredAdapter(elementClass)) {
+	    return null;
+	}
+	Class<?> proxyCalss = null;
+	if (isContainer(elementClass)) {
+	    
+	    // Container -> Panel
+	    proxyCalss = Panel.class;
+	} else if (isControl(elementClass)) {
+	    
+	    // Control -> Label
+	    proxyCalss = Label.class;
+	} else {
+	    //TODO
+	    proxyCalss = Label.class;
+	}
+	
+	UIAdapter adapter = adapters.get(proxyCalss.getName());
 	if (adapter == null) {
 	    return null;
 	}
+	
+	if (proxyCalss != Label.class) {
+	    return adapter;
+	}
+	
 	UIAdapter adapterWrapper = new UIAdapterWrapper(adapter) {
 	    
 	    @Override
@@ -137,11 +174,11 @@ public class UIAdapterFactory {
 	throw new UWTException("UIAdapter not found for class '" + thisClassName + "'");
     }
   
-    public static void addAdapter(Class<?> uiObjectClass, UIAdapter adapter) {
-	if (uiObjectClass == null || adapter == null) {
+    public static void addAdapter(Class<?> elementClass, UIAdapter adapter) {
+	if (elementClass == null || adapter == null) {
 	    return;
 	}
-	adapters.put(uiObjectClass.getName(), adapter);
+	adapters.put(elementClass.getName(), adapter);
     }
     
 
