@@ -33,6 +33,8 @@ public class XBoxLayout extends XLayout {
 
     private Orientation orientation;
     
+    private int spacing;
+    
     public XBoxLayout() {
 	this(Orientation.HORIZONTAL);
     }
@@ -43,6 +45,14 @@ public class XBoxLayout extends XLayout {
 
     public Orientation getOrientation() {
         return orientation;
+    }
+
+    public int getSpacing() {
+        return spacing;
+    }
+
+    public void setSpacing(int spacing) {
+        this.spacing = spacing;
     }
 
     

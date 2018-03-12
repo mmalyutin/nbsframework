@@ -28,6 +28,7 @@ import org.plazmaforge.framework.uwt.jfx.layout.XLayout;
 import org.plazmaforge.framework.uwt.widget.Style.Orientation;
 
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import org.plazmaforge.framework.uwt.layout.BoxLayout;
@@ -47,7 +48,9 @@ public class JFXBoxLayoutAdapter extends JFXLayoutAdapter {
     }
     
     protected XBoxLayout createLayout(BoxLayout layout) {
-	return new XBoxLayout(layout.getOrientation().equals(Orientation.VERTICAL) ? javafx.geometry.Orientation.VERTICAL : javafx.geometry.Orientation.HORIZONTAL);
+	XBoxLayout xLayout = new XBoxLayout(layout.getOrientation().equals(Orientation.VERTICAL) ? javafx.geometry.Orientation.VERTICAL : javafx.geometry.Orientation.HORIZONTAL);
+	xLayout.setSpacing(layout.getSpacing());
+	return xLayout;
     }
 
     protected XBoxLayout getXBoxLayout(Object delegate) {
@@ -56,8 +59,20 @@ public class JFXBoxLayoutAdapter extends JFXLayoutAdapter {
 
     @Override
     public javafx.scene.layout.Pane createContainer(XLayout xLayout) {
-	javafx.geometry.Orientation xOrientation = xLayout == null ? null : ((XBoxLayout) xLayout).getOrientation();
-	return (xOrientation == javafx.geometry.Orientation.VERTICAL) ? new VBox() : new HBox();
+	XBoxLayout xBoxLayout = (XBoxLayout) xLayout;
+	javafx.geometry.Orientation xOrientation = xBoxLayout.getOrientation();
+	Pane xPanel = null;
+	if (xOrientation == javafx.geometry.Orientation.VERTICAL) {
+	    VBox xBox = new VBox();
+	    xBox.setSpacing(xBoxLayout.getSpacing());
+	    xPanel = xBox;
+	} else {
+	    HBox xBox = new HBox();
+	    xBox.setSpacing(xBoxLayout.getSpacing());
+	    xPanel = xBox;
+	}
+	xPanel.setPadding(createPadding(xBoxLayout));
+	return xPanel; 
     }
     
     

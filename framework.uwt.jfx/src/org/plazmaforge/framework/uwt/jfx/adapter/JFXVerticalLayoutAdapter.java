@@ -35,7 +35,9 @@ import org.plazmaforge.framework.uwt.layout.BoxLayout;
 public class JFXVerticalLayoutAdapter extends JFXBoxLayoutAdapter {
 
     protected XBoxLayout createLayout(BoxLayout layout) {
-	return new XVerticalLayout();
+	XVerticalLayout xLayout = new XVerticalLayout();
+	xLayout.setSpacing(layout.getSpacing());
+	return xLayout;
     }
 
 }
