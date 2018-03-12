@@ -31,8 +31,11 @@ public class BoxLayout extends Layout {
     
     private Orientation orientation = Orientation.HORIZONTAL;
 
+    private int spacing;
+    
     public BoxLayout() {
 	super();
+	initialize();
     }
 
     public BoxLayout(Orientation orientation) {
@@ -40,12 +43,27 @@ public class BoxLayout extends Layout {
 	    throw new IllegalArgumentException("Orientation must be not null");
 	}
 	this.orientation = orientation;
+	initialize();
+    }
+    
+    private void initialize() {
+	this.spacing = DEFAULT_SPACING;
+	setMargin(DEFAULT_MARGIN);
     }
 
+    
     public Orientation getOrientation() {
         return orientation;
     }
     
+    public int getSpacing() {
+        return spacing;
+    }
+
+    public void setSpacing(int spacing) {
+        this.spacing = spacing;
+    }
+
     public boolean isCompatible(Object layoutData) {
 	return true;
     }
