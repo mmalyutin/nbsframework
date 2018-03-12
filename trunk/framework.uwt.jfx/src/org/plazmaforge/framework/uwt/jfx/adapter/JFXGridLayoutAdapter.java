@@ -62,7 +62,17 @@ public class JFXGridLayoutAdapter extends JFXLayoutAdapter {
 
     @Override
     public javafx.scene.layout.Pane createContainer(XLayout xLayout) {
-	return new XGridPanel();
+	XGridLayout xGridLayout = (XGridLayout) xLayout;
+	XGridPanel xGridPanel = new XGridPanel();
+	
+	// Padding
+	xGridPanel.setPadding(createPadding(xGridLayout));
+	
+	// H/V Spacing
+	xGridPanel.setHgap(xGridLayout.getHorizontalSpacing());
+	xGridPanel.setVgap(xGridLayout.getVerticalSpacing());
+	return xGridPanel;
     }
+    
 
 }

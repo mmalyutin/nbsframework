@@ -44,4 +44,13 @@ public abstract class JFXLayoutAdapter extends AbstractUIAdapter {
     public void addChild(XLayoutContainer parent, javafx.scene.Node widget, UIElement element) {
 	parent.getChildren().add(widget);
     }
+    
+    
+    protected javafx.geometry.Insets createInsets(double top, double right, double bottom, double left) {
+	return new javafx.geometry.Insets(top, right, bottom, left);
+    }
+
+    protected javafx.geometry.Insets createPadding(XLayout xLayout) {
+	return new javafx.geometry.Insets(xLayout.getMarginTop(), xLayout.getMarginRight(), xLayout.getMarginBottom(), xLayout.getMarginLeft());
+    }
 }
