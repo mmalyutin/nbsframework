@@ -111,15 +111,21 @@ public class UIAdapterFactory {
     }
     
     private static boolean isRequiredAdapter(Class<?> elementClass) {
-	return Window.class.isAssignableFrom(elementClass);
+	return isAssignableFrom(Window.class, elementClass);
     }
     
     private static boolean isContainer(Class<?> elementClass) {
-  	return Container.class.isAssignableFrom(elementClass);
+  	return isAssignableFrom(Container.class, elementClass);
     }
     
     private static boolean isControl(Class<?> elementClass) {
-	return Control.class.isAssignableFrom(elementClass);
+	return isAssignableFrom(Control.class, elementClass);
+    }
+    
+    private static boolean isAssignableFrom(Class<?> superClass, Class<?> elementClass) {
+	//TODO: noJS
+	//JS doesn't support Class.isAssignableFrom
+	return false; //return superClass.isAssignableFrom(elementClass);
     }
     
     private static UIAdapter createUnknownAdapter(Class<?> elementClass) {

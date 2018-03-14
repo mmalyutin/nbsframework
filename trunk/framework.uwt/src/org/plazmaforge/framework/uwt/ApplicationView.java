@@ -32,7 +32,7 @@ public class ApplicationView extends View {
     protected boolean isSupportMenuBar() {
 	
 	// TODO: STUB
-	if (UWT.isUIType("GXT")) {
+	if (isUWTSupportMenuBar()) {
 	    return true;
 	}
         return super.isSupportMenuBar();
@@ -41,11 +41,15 @@ public class ApplicationView extends View {
     protected boolean isEmulateMenuBar() {
 	
 	// TODO: STUB
-	if (UWT.isUIType("GXT")) {
+	if (isUWTSupportMenuBar()) {
 	    return true;
 	}
         return super.isEmulateMenuBar();
     }
     
+    
+    protected boolean isUWTSupportMenuBar() {
+	return (UWT.isUIType(UWT.GXT_UI) || UWT.isUIType(UWT.JFX_UI));
+    }
     
 }
