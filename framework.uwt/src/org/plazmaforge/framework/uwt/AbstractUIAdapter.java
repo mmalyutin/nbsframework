@@ -250,6 +250,31 @@ public abstract class AbstractUIAdapter implements UIAdapter {
 	return value == null ? 0d : asDouble(value);
     }  
    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Convert methods
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    protected <T extends Number> T toNumber(Number value, Class<T> type) {
+	if (value == null) {
+	    return null;
+	}
+	
+	// TODO: See utils.NumberUtils
+	// but utils.NumberUtils uses non JS code
+	
+	if (Integer.class == type) {
+	    return (T) new Integer(value.intValue());
+	} else if (Float.class == type) {
+	    return (T) new Float(value.floatValue());
+	} else if (Double.class == type) {
+	    return (T) new Double(value.doubleValue());
+	}
+	
+	//TODO
+	return (T) value;
+    }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //

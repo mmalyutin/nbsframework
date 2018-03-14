@@ -22,11 +22,14 @@
 
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
+import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
+
+import javafx.scene.control.SpinnerValueFactory;
 
 /**
  * 
@@ -94,4 +97,14 @@ public abstract class JFXAbstractAdapter extends AbstractUIAdapter {
       
     ////
 
+    protected SpinnerValueFactory<?> createSpinnerValueFactory(String dataType, Number value, Number minValue, Number maxValue, Number incrementValue) {
+	Class<?> dataClass = TypeUtils.getClass(dataType);
+	return createSpinnerValueFactory(dataClass, value, minValue, maxValue, incrementValue);
+    }
+    
+    protected SpinnerValueFactory<?> createSpinnerValueFactory(Class<?> type, Number value, Number minValue, Number maxValue, Number incrementValue) {
+	return JFXHelper.createSpinnerValueFactory(type, value, minValue, maxValue, incrementValue);
+    }
+    
+    
 }

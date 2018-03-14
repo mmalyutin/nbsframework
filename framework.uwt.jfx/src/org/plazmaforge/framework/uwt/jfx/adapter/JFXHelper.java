@@ -29,6 +29,7 @@ import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
@@ -163,6 +164,49 @@ public class JFXHelper {
 	return new javafx.scene.image.ImageView(xImage);
     }
  
+    ////
     
+    
+    /**
+     * Return SpinnerValueFactory by data type
+     * @param type
+     * @param value
+     * @param minValue
+     * @param maxValue
+     * @param incrementValue
+     * @return
+     */
+    public static SpinnerValueFactory<?> createSpinnerValueFactory(Class<?> type, Number value, Number minValue, Number maxValue, Number incrementValue) {
+	if (type == null) {
+	    type = Double.class;
+	}
+	if (Double.class.equals(type)) {
+	    return new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue.doubleValue(), maxValue.doubleValue(), value.doubleValue(), incrementValue.doubleValue());
+	} else if (Integer.class.equals(type)) {
+	    return new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue.intValue(), maxValue.intValue(), value.intValue(), incrementValue.intValue());
+	}
+	
+	//default
+	return new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue.doubleValue(), maxValue.doubleValue(), value.doubleValue(), incrementValue.doubleValue());	
+    }
+    
+    /**
+     * Returns data type of SpinnerValueFactory
+     * @return
+     */
+    public static Class<?> getDataType(SpinnerValueFactory<?> factory) {
+	if (factory == null) {
+	    return Double.class;
+	}
+	Class<?> type = factory.getClass();
+	if (SpinnerValueFactory.DoubleSpinnerValueFactory.class.equals(type)) {
+	    return Double.class;
+	} else if (SpinnerValueFactory.IntegerSpinnerValueFactory.class.equals(type)) {
+	    return Integer.class;
+	}
+	
+	//default
+	return Double.class;
+    }
 
 }
