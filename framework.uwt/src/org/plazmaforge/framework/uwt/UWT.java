@@ -95,6 +95,8 @@ public class UWT {
     
     public static final String SWING_UI = "Swing";
     
+    public static final String JFX_UI = "JFX";
+    
     public static final String SWT_UI = "SWT";
     
     public static final String GWT_UI = "GWT";
@@ -127,7 +129,10 @@ public class UWT {
 	if (UWT.uiType == null) {
 	    return true;
 	}
-	return UWT.uiType.equals(AWT_UI)  || UWT.uiType.equals(SWING_UI) || UWT.uiType.equals(SWT_UI); 
+	return UWT.uiType.equals(AWT_UI) 
+		|| UWT.uiType.equals(SWING_UI)
+		|| UWT.uiType.equals(JFX_UI)
+		|| UWT.uiType.equals(SWT_UI); 
     }
 
     public static boolean isWeb() {
