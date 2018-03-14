@@ -43,17 +43,19 @@ public class JFXSpinnerFieldAdapter extends JFXControlAdapter {
 	// Get values
 	int decimals = spinnerField.getDecimals();
 	
+	String dataType = null;
 	Number value = spinnerField.doubleValue();
 	Number minValue = spinnerField.getMinValue();
 	Number maxValue = spinnerField.getMaxValue();
 	Number incrementValue = spinnerField.getIncrementValue();
 		
-	SpinnerValueFactory valueFactory = null;
 	if (decimals > 0) {
-	    valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue.doubleValue(), maxValue.doubleValue(), value.doubleValue(), incrementValue.doubleValue());
+	    dataType =  "Double";
 	} else {
-	    valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue.intValue(), maxValue.intValue(), value.intValue(), incrementValue.intValue());
+	    dataType = "Integer";
 	}
+	
+	SpinnerValueFactory valueFactory = createSpinnerValueFactory(dataType, value, minValue, maxValue, incrementValue);
 	javafx.scene.control.Spinner xSpinner = new javafx.scene.control.Spinner();
 	xSpinner.setValueFactory(valueFactory);
 	
@@ -75,7 +77,10 @@ public class JFXSpinnerFieldAdapter extends JFXControlAdapter {
 	    return;
 	}
 	if (SpinnerField.PROPERTY_VALUE.equals(name)) {
-	    xSpinner.getValueFactory().setValue(value);
+	    SpinnerValueFactory valueFactory = xSpinner.getValueFactory();
+	    Class<Number> type = (Class<Number>) JFXHelper.getDataType(valueFactory);
+	    Number numberValue = toNumber((Number) value, type);
+	    xSpinner.getValueFactory().setValue(numberValue);
 	    return;
 	} 
 	
