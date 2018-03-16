@@ -92,18 +92,6 @@ public class JFXMenuItemAdapter extends JFXWidgetAdapter {
 	
     }    
 
-
-    //@Override
-    protected void addSelectionListener(javafx.scene.control.Control xWidget, Widget widget, Listener listener) {
-	//TODO
-    }
-
-    //@Override
-    protected void removeSelectionListener(javafx.scene.control.Control xWidget, Widget widget, Listener listener) {
-	//TODO
-    }
-
-    
     @Override
     public void addListener(UIElement element, String eventType, final Listener listener) {
 	Widget widget = (Widget) element;
@@ -113,8 +101,7 @@ public class JFXMenuItemAdapter extends JFXWidgetAdapter {
 	}
 	
 	if (eq(Events.Selection, eventType)) {
-	    //TODO
-	    //addSelectionListener(xMenuItem, widget, listener);
+	    addSelectionListener(xMenuItem, widget, listener);
 	    return;
 	} 
 	
@@ -130,22 +117,21 @@ public class JFXMenuItemAdapter extends JFXWidgetAdapter {
 	}
 
 	if (eq(Events.Selection, eventType)) {
-	    //TODO
-	    //removeSelectionListener(xMenuItem, widget, listener);
+	    removeSelectionListener(xMenuItem, widget, listener);
 	    return;
 	} 
 	
 	super.removeListener(element, eventType, listener);
     }
     
-    @Override
-    protected void addSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+    //MenuItem: special, because MenuItem is not Node
+    protected void addSelectionListener(javafx.scene.control.MenuItem xWidget, Widget widget, Listener listener) {
 	javafx.scene.control.MenuItem xMenuItem = asMenuItem(widget.getDelegate());
 	xMenuItem.setOnAction(createActionListener(widget, listener));
     }
 
-    @Override
-    protected void removeSelectionListener(javafx.scene.Node xWidget, Widget widget, Listener listener) {
+    //MenuItem: special, because MenuItem is not Node
+    protected void removeSelectionListener(javafx.scene.control.MenuItem xWidget, Widget widget, Listener listener) {
 	javafx.scene.control.MenuItem xMenuItem = asMenuItem(widget.getDelegate());
 	xMenuItem.setOnAction(null);
     }      

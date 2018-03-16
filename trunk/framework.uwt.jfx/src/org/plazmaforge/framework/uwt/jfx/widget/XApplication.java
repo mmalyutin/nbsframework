@@ -1,7 +1,8 @@
 package org.plazmaforge.framework.uwt.jfx.widget;
 
+import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
+
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -23,11 +24,9 @@ public class XApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 	
-	// creating a Group object
-	Parent container = new XLayoutContainer(); //new FlowPane();
-
-	// Creating a Scene by passing the group object, height and width
-	Scene scene = new Scene(container);
+	// Create Scene
+	Scene scene = JFXUtils.createScene();
+	
 	//group.setFill(Color.BROWN);
 
 	// setting color to the scene
