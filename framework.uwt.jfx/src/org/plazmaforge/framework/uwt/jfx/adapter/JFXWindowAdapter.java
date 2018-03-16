@@ -27,21 +27,15 @@ import org.plazmaforge.framework.core.data.Notifier;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.event.Events;
+import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Window;
 
+import javafx.stage.Modality;
 
 
-////////////////////////////////////////////////////////////
-// SWT Style
-////////////////////////////////////////////////////////////
-//
-// SHELL_TRIM = CLOSE | TITLE | MIN | MAX | RESIZE;
-// DIALOG_TRIM = TITLE | CLOSE | BORDER;
-//
-////////////////////////////////////////////////////////////
 
 /**
  * 
@@ -57,45 +51,34 @@ public class JFXWindowAdapter extends JFXContainerAdapter {
 	    xParent = parent.getDelegate();
 	}
 	Window window = (Window) element;
-	javafx.stage.Stage xWindow = new javafx.stage.Stage();
+	javafx.stage.Stage xWindow = createWindow(xParent, window);
 	//addNotifierListener(window, xWindow);
 	return xWindow;
     }
+    
+    protected javafx.stage.Stage createWindow(Object xParent, Window window) {
+	javafx.stage.Stage xWindow = new javafx.stage.Stage();
+	
+	String title = asSafeString(window.getTitle());
+	xWindow.setTitle(title);
+	
+	javafx.scene.Scene xScene = JFXUtils.createScene();
+	xWindow.setScene(xScene);
+	
+	if (window.isModal()) {
+	    //xWindow.initOwner(primaryStage);
+	    //xWindow.initModality(Modality.WINDOW_MODAL);
+	}
+	
+	// TODO: STYLE
+	// SHELL_TRIM = CLOSE | TITLE | MIN | MAX | RESIZE;
+	// DIALOG_TRIM = TITLE | CLOSE | BORDER;
+	// location, size
+	
+	return xWindow;
+    }
   
-//    protected Shell createShell(Object xParent, Window window) {
-//	
-//	// Display and other Shell can be parent of Shell
-//	org.eclipse.swt.widgets.Shell xShell = null;
-//	org.eclipse.swt.widgets.Display xDisplay = null;
-//
-//	if (xParent instanceof org.eclipse.swt.widgets.Shell) {
-//	    xShell = (org.eclipse.swt.widgets.Shell) xParent;
-//	} else if (xParent instanceof org.eclipse.swt.widgets.Display) {
-//	    xDisplay = (org.eclipse.swt.widgets.Display) xParent;
-//	}
-//
-//	
-//	int style = getShellStyle(window);
-//	
-//	org.eclipse.swt.widgets.Shell xWindow = null;
-//	if (xShell != null) {
-//	    //if (style == SWT.NONE) {
-//		//xWindow = new org.eclipse.swt.widgets.Shell(xShell);
-//	    //} else {
-//		xWindow = new org.eclipse.swt.widgets.Shell(xShell, style);
-//	    //}
-//	} else {
-//	    //if (style == SWT.NONE) {
-//		//xWindow = new org.eclipse.swt.widgets.Shell(xDisplay);
-//	    //} else {
-//		xWindow = new org.eclipse.swt.widgets.Shell(xDisplay, style);
-//	    //}
-//	}
-//	
-//	xWindow.setLocation(0, 0); // FIX: reset location
-//	xWindow.setSize(0, 0); // FIX: reset size
-//	return xWindow;
-//    }
+
 //    
 //    protected void addNotifierListener(final Window window, final org.eclipse.swt.widgets.Shell xWindow) {
 //	final Notifier notifier = window.getNotifier();
@@ -148,67 +131,8 @@ public class JFXWindowAdapter extends JFXContainerAdapter {
 //	});
 //
 //    }
-//
-//    
-//    protected int getShellStyle(Window window) {
-//	int style = SWT.NONE;
-//	
-//	// SHELL_TRIM = CLOSE | TITLE | MIN | MAX | RESIZE;
-//	// DIALOG_TRIM = TITLE | CLOSE | BORDER;
-//	
-//	
-//	style = updateModalStyle(window, style);
-//	style = updateResizeStyle(window, style);
-//	style = updateTitleStyle(window, style);
-//	style = updateButtonsStyle(window, style);
-//	
-//	return style;
-//    }
-//
-//    protected int updateModalStyle(Window window, int style) {
-//	if (window.isModal() ) { 
-//	    style |= SWT.APPLICATION_MODAL; // Modal mode
-//	}
-//	return style;
-//    }
-//    
-//    protected int updateResizeStyle(Window window, int style) {
-//	if (window.isResizable()) {
-//	    style |= SWT.RESIZE; // Resizible mode
-//	}
-//	return style;
-//    }
-//    
-//    
-//    protected int updateTitleStyle(Window window, int style) {
-//	if (!window.isUndecorated()) {
-//	    style |= SWT.TITLE;
-//	}
-//	return style;
-//    }
-//    
-//    protected int updateButtonsStyle(Window window, int style) {
-//	if (window.isUndecorated()) {
-//	    // NO DECORATION - NO BUTTONS
-//	    return style;
-//	}
-//	if (window.isClosable()) {
-//	    style |= SWT.CLOSE;	// Close button
-//	}
-//	if (window.isMinimizable() ) {
-//	    style |= SWT.MIN;	// Iconified button
-//	}
-//	if (window.isMaximizable() ) {
-//	    style |= SWT.MAX;	// Min/Max button
-//	}
-//	return style;
-//    }
-//
-//
-//    
-//    protected void centerShell(Shell shell) {
-//	SWTUtils.centerShell(shell);
-//    }
+   
+
 
     @Override
     public void setProperty(UIElement element, String name, Object value) {
@@ -244,82 +168,92 @@ public class JFXWindowAdapter extends JFXContainerAdapter {
 
 	super.setProperty(element, name, value);
     }
-//    
-//    @Override
-//    public Object invoke(UIElement element, String methodName, Object[] args) {
-//	org.eclipse.swt.widgets.Shell xWindow = (org.eclipse.swt.widgets.Shell) element.getDelegate();
-//	if (xWindow == null) {
-//	    return null;
-//	}
-//	Window window = (Window) element; 
-//	if (Window.METHOD_OPEN.equals(methodName)) {
-//	    doOpen(window, xWindow);
-//	} else if (Window.METHOD_CLOSE.equals(methodName)) {
-//	    doClose(window, xWindow);
-//	} else if (Window.METHOD_LAYOUT.equals(methodName)) {
-//	    xWindow.layout();
-//	    return null;
-//	} else if (Window.METHOD_PACK.equals(methodName)) {
-//	    xWindow.pack();
-//	    return null;
-//	} else if (Window.METHOD_CENTER.equals(methodName)) {
-//	    centerShell(xWindow);
-//	    return null;
-//	} else if (Window.METHOD_ACTIVATE.equals(methodName)) {
-//	    xWindow.setActive();
-//	    return null;
-//	} else if (Window.METHOD_DEACTIVATE.equals(methodName)) {
-//	    //TODO
-//	    return null;
-//	} else if (Window.METHOD_MAXIMIZE.equals(methodName)) {
-//	    xWindow.setMaximized(true);
-//	    return null;
-//	} else if (Window.METHOD_MINIMIZE.equals(methodName)) {
-//	    xWindow.setMinimized(true);
-//	    return null;
-//	}
-//	
-//	return super.invoke(element, methodName, args);
-//    }
-//
-//    /**
-//     * Open window
-//     * @param window
-//     * @param xWindow
-//     */
-//    protected void doOpen(Window window, org.eclipse.swt.widgets.Shell xWindow) {
-//	if  (xWindow == null || xWindow.isDisposed()) {
-//	    return;
-//	}
-//	xWindow.layout();
-//	if (window.isPack()) {
-//	    xWindow.pack();
-//	}
-//	if (window.isCenter()) {
-//	    centerShell(xWindow);
-//	}
-//	xWindow.setVisible(true);
-//	
-//	// Auto activate (set focus)
-//	xWindow.setActive();
-//    }
-//    
-//    /**
-//     * Close window
-//     * @param window
-//     * @param xWindow
-//     */
-//    protected void doClose(Window window, org.eclipse.swt.widgets.Shell xWindow) {
-//	if  (xWindow == null || xWindow.isDisposed()) {
-//	    return;
-//	}
-//	xWindow.setVisible(false);
-//	if (window.isDisposeWhenClose()) {
-//	    xWindow.dispose();
-//	}
-//    }
-//    
-//    
+   
+    @Override
+    public Object invoke(UIElement element, String methodName, Object[] args) {
+	javafx.stage.Stage xWindow = (javafx.stage.Stage) element.getDelegate();
+	if (xWindow == null) {
+	    return null;
+	}
+	Window window = (Window) element; 
+	if (Window.METHOD_OPEN.equals(methodName)) {
+	    doOpen(window, xWindow);
+	} else if (Window.METHOD_CLOSE.equals(methodName)) {
+	    doClose(window, xWindow);
+	} else if (Window.METHOD_LAYOUT.equals(methodName)) {
+	    //TODO
+	    //xWindow.layout();
+	    return null;
+	} else if (Window.METHOD_PACK.equals(methodName)) {
+	    doPack(xWindow);
+	    return null;
+	} else if (Window.METHOD_CENTER.equals(methodName)) {
+	    doCenter(xWindow);
+	    return null;
+	} else if (Window.METHOD_ACTIVATE.equals(methodName)) {
+	    xWindow.toFront();
+	    return null;
+	} else if (Window.METHOD_DEACTIVATE.equals(methodName)) {
+	    xWindow.toBack();
+	    return null;
+	} else if (Window.METHOD_MAXIMIZE.equals(methodName)) {
+	    xWindow.setMaximized(true);
+	    return null;
+	} else if (Window.METHOD_MINIMIZE.equals(methodName)) {
+	    xWindow.setMaximized(false);
+	    return null;
+	}
+	
+	return super.invoke(element, methodName, args);
+    }
+
+    /**
+     * Open window
+     * @param window
+     * @param xWindow
+     */
+    protected void doOpen(Window window, javafx.stage.Stage xWindow) {
+	if  (xWindow == null) {
+	    return;
+	}
+	//TODO
+	//xWindow.layout();
+	if (window.isPack()) {
+	    doPack(xWindow);
+	}
+	if (window.isCenter()) {
+	    doCenter(xWindow);
+	}
+	
+	// Open window
+	xWindow.show();
+    }
+    
+    /**
+     * Close window
+     * @param window
+     * @param xWindow
+     */
+    protected void doClose(Window window, javafx.stage.Stage xWindow) {
+	if  (xWindow == null) {
+	    return;
+	}
+	
+	// Close window
+	xWindow.hide();
+    }
+
+    protected void doPack(javafx.stage.Stage xWindow) {
+	// TODO: Need pack size to preferred children area
+	// but sizeToScene() pack to window size
+	xWindow.sizeToScene();
+    }
+    
+    protected void doCenter(javafx.stage.Stage xWindow) {
+	xWindow.centerOnScreen();
+    }
+        
+
 //    @Override
 //    public void addListener(UIElement element, String eventType, final Listener listener) {
 //	

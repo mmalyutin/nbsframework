@@ -33,12 +33,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
+import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XDateCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XNumberCellFactory;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
 
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
 
@@ -108,6 +111,16 @@ public class JFXUtils {
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
+    public static Scene createScene() {
+	
+	// Create default container
+	Parent container = new XLayoutContainer(); //new FlowPane();
+
+	// Create Scene
+	Scene scene = new Scene(container);
+	
+	return scene;
+    }
     
     public static XCellFactory createCell(String type) {
 	return createCell(type, null);
