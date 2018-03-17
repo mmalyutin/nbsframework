@@ -13,6 +13,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 /**
  * 
@@ -31,11 +32,50 @@ public class XGridPanel extends GridPane implements XContainer {
 	// Create new free cell for child
 	Cell cell = createCell(child);
 	
-	GridPane.setConstraints(child, cell.column, cell.row, cell.columnSpan, cell.rowSpan, cell.hPos, cell.vPos, cell.hGrow, cell.vGrow);
+	GridPane.setConstraints(child, 
+		cell.column,
+		cell.row,
+		cell.columnSpan,
+		cell.rowSpan,
+		cell.hPos,
+		cell.vPos,
+		cell.hGrow,
+		cell.vGrow);
+	
+	GridPane.setFillWidth(child, cell.hFill);
+	GridPane.setFillHeight(child, cell.vFill);
+	
+	if (child instanceof Region) {
+	    if (isFillWidth(cell)) {
+		((Region) child).setMaxWidth(Double.MAX_VALUE);
+	    }
+	    if (isFillHeight(cell)) {
+		((Region) child).setMaxHeight(Double.MAX_VALUE);
+	    }	    
+	}
+	
 	//add(child, cell.column, cell.row, cell.columnSpan, cell.rowSpan);
 	getChildren().add(child);
     }
- 
+    
+    protected boolean isFillWidth(Cell cell) {
+	if (cell == null) {
+	    return false;
+	}
+	return cell.hFill || isGrow(cell.hGrow);
+    }
+
+    protected boolean isFillHeight(Cell cell) {
+	if (cell == null) {
+	    return false;
+	}
+	return cell.vFill || isGrow(cell.vGrow);
+    }
+    
+    protected boolean isGrow(Priority priority) {
+	return priority == Priority.ALWAYS || priority == Priority.SOMETIMES;
+    }
+    
     @Override
     public void removeChild(Node child) {
         getChildren().remove(child);
@@ -66,7 +106,7 @@ public class XGridPanel extends GridPane implements XContainer {
 	if (layoutData == null) {
 	    layoutData = new XGridData();
 	}
-	return layoutData ;	
+	return layoutData;	
     }
     
     protected XGridLayout getGridLayout() {
@@ -97,36 +137,25 @@ public class XGridPanel extends GridPane implements XContainer {
         
         cell.hPos = XLayoutData.toHPos(layoutData.getHorizontalAlign());
         cell.vPos = XLayoutData.toVPos(layoutData.getVerticalAlign());
-        	
-        cell.hGrow = Priority.NEVER;
-        cell.vGrow = Priority.NEVER;
         
-        //TODO: Must analyze
+        cell.hFill = XLayoutData.isFill(layoutData.getHorizontalAlign());
+        cell.vFill = XLayoutData.isFill(layoutData.getVerticalAlign());
+        
+        cell.hGrow = layoutData.isHorizontalFlex() ? Priority.ALWAYS : Priority.NEVER;
+        cell.vGrow = layoutData.isVerticalFlex() ? Priority.ALWAYS : Priority.NEVER;
+        
+        // adopt
         if (cell.hPos == null) {
             cell.hPos = HPos.LEFT;
-            if (XLayoutData.isFill(layoutData.getHorizontalAlign())) {
-        	cell.hGrow = Priority.SOMETIMES;
-            }
         }
         if (cell.vPos == null) {
             cell.vPos = VPos.CENTER;
-            if (XLayoutData.isFill(layoutData.getVerticalAlign())) {
+            if (cell.vFill) {
         	cell.vPos = VPos.TOP;
-        	cell.hGrow = Priority.SOMETIMES;
             }
         }
         
-        if (layoutData.isHorizontalFlex()) {
-            cell.hGrow = Priority.ALWAYS;
-        }
-        if (layoutData.isVerticalFlex()) {
-            cell.vGrow = Priority.ALWAYS;
-        }
-        
-        //cell.hGrow = layoutData.isHorizontalFlex() ? Priority.SOMETIMES : Priority.NEVER;
-        //cell.vGrow = layoutData.isVerticalFlex() ? Priority.ALWAYS : Priority.NEVER;
-        
-        System.out.println(cell);
+        //System.out.println(cell);
         
         return cell;
     }

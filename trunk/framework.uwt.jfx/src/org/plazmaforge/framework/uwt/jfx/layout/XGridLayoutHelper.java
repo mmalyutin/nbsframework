@@ -75,6 +75,8 @@ public class XGridLayoutHelper {
         public int rowSpan;
         public HPos hPos;
         public VPos vPos;
+        public boolean hFill;
+        public boolean vFill;
         public Priority hGrow;
         public Priority vGrow;
  
@@ -88,6 +90,8 @@ public class XGridLayoutHelper {
             + ", rowSpan=" + rowSpan
             + ", hPos=" + hPos
             + ", vPos=" + vPos
+            + ", hFill=" + hFill          
+            + ", vFill=" + vFill             
             + ", hGrow=" + hGrow          
             + ", vGrow=" + vGrow              
             + ", type=" + type
