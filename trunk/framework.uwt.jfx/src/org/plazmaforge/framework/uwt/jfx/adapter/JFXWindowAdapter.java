@@ -29,11 +29,13 @@ import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.widget.Event;
+import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 import org.plazmaforge.framework.uwt.widget.Window;
 
 import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 
 
 
@@ -59,27 +61,59 @@ public class JFXWindowAdapter extends JFXContainerAdapter {
     protected javafx.stage.Stage createWindow(Object xParent, Window window) {
 	javafx.stage.Stage xWindow = new javafx.stage.Stage();
 	
+	// Set position (left, top)
+	xWindow.setX(0);
+	xWindow.setY(0);
+	
+	// Set title
 	String title = asSafeString(window.getTitle());
 	xWindow.setTitle(title);
+
+	// Update decoration
+	updateDecoration(window, xWindow);
 	
 	javafx.scene.Scene xScene = JFXUtils.createScene();
 	xWindow.setScene(xScene);
 	
 	if (window.isModal()) {
-	    //xWindow.initOwner(primaryStage);
-	    //xWindow.initModality(Modality.WINDOW_MODAL);
+	    xWindow.initOwner(getPrimaryStage(window));
+	    xWindow.initModality(Modality.WINDOW_MODAL);
 	}
-	
-	// TODO: STYLE
-	// SHELL_TRIM = CLOSE | TITLE | MIN | MAX | RESIZE;
-	// DIALOG_TRIM = TITLE | CLOSE | BORDER;
-	// location, size
 	
 	return xWindow;
     }
   
 
-//    
+    
+    protected void updateDecoration(Window window, javafx.stage.Stage xWindow) {
+	
+	// Set style
+	xWindow.setResizable(window.isResizable());
+	if (window.isUndecorated()) {
+	    // No decoration:
+	    //  title - no,
+	    //  min - no,
+	    //  max - no,
+	    //  close - no
+	    xWindow.initStyle(StageStyle.UNDECORATED);
+	} else {
+	    // Utility decoration:
+	    //  title - yes,
+	    //  min - no,
+	    //  max - no,
+	    //  close - yes
+	    if (!window.isMinimizable() && !window.isMaximizable()) {
+		xWindow.initStyle(StageStyle.UTILITY);
+	    }
+
+	    // TODO: Not implemented in JFX
+	    //  min - no/yes,
+	    //  max - no/yes,
+	    //  close - no/yes
+
+	}	
+    }
+    
 //    protected void addNotifierListener(final Window window, final org.eclipse.swt.widgets.Shell xWindow) {
 //	final Notifier notifier = window.getNotifier();
 //	xWindow.addShellListener(new org.eclipse.swt.events.ShellListener() {
@@ -143,29 +177,19 @@ public class JFXWindowAdapter extends JFXContainerAdapter {
 	if (Window.PROPERTY_TITLE.equals(name)) {
 	    xWindow.setTitle(asSafeString(value));
 	    return;
+	} else if (Window.PROPERTY_ICON.equals(name)) {
+	    javafx.scene.image.Image xIcon = createImage(element, asImage(value));
+	    if (xIcon != null) {
+		xWindow.getIcons().add(xIcon);
+	    }
+	    return;
+	} else if (Window.PROPERTY_ICON_PATH.equals(name)) {
+	    javafx.scene.image.Image xIcon = createImage(element, asString(value));
+	    if (xIcon != null) {
+		xWindow.getIcons().add(xIcon);
+	    }
+	    return;
 	}
-	
-//	else if (Window.PROPERTY_ICON.equals(name)) {
-//	    org.eclipse.swt.graphics.Image xImage = createImage(element, asImage(value));
-//	    if (xImage != null) {
-//		xWindow.setImage(xImage);
-//	    }
-//	    return;
-//	} else if (Window.PROPERTY_ICON_PATH.equals(name)) {
-//	    org.eclipse.swt.graphics.Image xImage = createImage(element, asString(value));
-//	    if (xImage != null) {
-//		xWindow.setImage(xImage);
-//	    }
-//	    return;
-//	} else if (Window.PROPERTY_VISIBLE.equals(name)) {
-//	    super.setProperty(element, name, value);
-//	    if (booleanValue(value)) {
-//		// Auto activate (set focus) if window is visible
-//		xWindow.setActive();
-//	    }
-//	    return;
-//	} 
-
 	super.setProperty(element, name, value);
     }
    
