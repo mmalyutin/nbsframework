@@ -68,7 +68,7 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
 	XWindow xWindow = new XWindow(container, xLayout);
 	
 	xWindow.setModal(window.isModal());
-	xWindow.setResizable(window.isResizable());
+
 	
 	// UPDATE DECORATION
 	updateDecoration(window, xWindow);
@@ -136,14 +136,14 @@ public class GXTWindowAdapter extends GXTContainerAdapter {
     }
     
     protected void updateDecoration(Window window, XWindow xWindow) {
-	boolean closable = window.isUndecorated() ? false : window.isClosable();  
 	boolean minimizable = window.isUndecorated() ? false : window.isMinimizable();
 	boolean maximizable = window.isUndecorated() ? false : window.isMaximizable();
+	boolean closable = window.isUndecorated() ? false : window.isClosable(); 
 	
-	xWindow.setClosable(closable);	// Close button
+	xWindow.setResizable(window.isResizable());
 	xWindow.setMinimizable(minimizable); // Iconified button
 	xWindow.setMaximizable(maximizable); // Min/Max button
-
+	xWindow.setClosable(closable);	// Close button
     }
     
    

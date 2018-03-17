@@ -28,6 +28,7 @@ import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Color;
 import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
+import org.plazmaforge.framework.uwt.widget.Frame;
 
 import javafx.scene.control.SpinnerValueFactory;
 
@@ -106,5 +107,10 @@ public abstract class JFXAbstractAdapter extends AbstractUIAdapter {
 	return JFXHelper.createSpinnerValueFactory(type, value, minValue, maxValue, incrementValue);
     }
     
+    ////
     
+    protected javafx.stage.Stage getPrimaryStage(UIElement element) {
+	Frame frame = getApplicationFrame(element);
+	return frame == null ? null : (javafx.stage.Stage) frame.getDelegate();
+    }
 }

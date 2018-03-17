@@ -29,6 +29,7 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.util.StorageUtils;
 import org.plazmaforge.framework.util.StringUtils;
+import org.plazmaforge.framework.uwt.widget.Frame;
 import org.plazmaforge.framework.uwt.widget.Listener;
 
 
@@ -313,11 +314,20 @@ public abstract class AbstractUIAdapter implements UIAdapter {
     } 
     
     ////
+    
+    protected Application getApplication(UIElement element) {
+  	return element == null ? null : element.getApplication();
+    }
  
     protected ApplicationContext getApplicationContext(UIElement element) {
-	return StorageUtils.getApplicationContext(element);
+	return element == null ? null : element.getApplicationContext();
     }
 
+    protected Frame getApplicationFrame(UIElement element) {
+	Application application = getApplication(element);
+  	return application == null ? null : application.getFrame();
+    }
+    
     protected String getPath(String storage, String path) {
 	return StorageUtils.getPath(storage, path);
     }
