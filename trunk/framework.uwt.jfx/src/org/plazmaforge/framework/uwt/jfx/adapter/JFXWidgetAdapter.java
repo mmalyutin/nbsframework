@@ -210,9 +210,17 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	    javafx.scene.Scene scene = stage.getScene();
 	    return scene == null ? null : scene.getRoot();
 	    
+	} else if (delegate instanceof javafx.scene.control.Dialog) {
+	    
+	    //////////////////////////////////////////////////////////////
+	    // Dialog: content
+	    //////////////////////////////////////////////////////////////	    
+	    
+	    return asParent(((javafx.scene.control.Dialog<?>) delegate).getDialogPane().getContent());   
 	} else if (delegate instanceof javafx.scene.control.Tab) {
 	    return asParent(((javafx.scene.control.Tab) delegate).getContent());
 	}
+	
 	//throw new UWTException("getView: Object is not supported: " + delegate.getClass().getName());
 	// TODO
 	return (javafx.scene.Parent) delegate;

@@ -38,7 +38,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDateTimeFieldAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDesktopAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXDesktopItemAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXDialogAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXDialogAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXFitLayoutAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXGCAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXGridDataAdapter;
@@ -106,7 +106,7 @@ public class UWT_JFX {
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Window.class, new JFXWindowAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Frame.class, new JFXFrameAdapter());
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new JFXDialogAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.dialog.Dialog.class, new JFXDialogAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Container.class, new JFXContainerAdapter());
 	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.Panel.class, new JFXPanelAdapter());
