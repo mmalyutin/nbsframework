@@ -111,10 +111,17 @@ public class JFXUtils {
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
+    public static Parent createContainer() {
+
+	// Create default container
+	Parent container = new XLayoutContainer(); // new FlowPane();
+	return container;
+    }
+    
     public static Scene createScene() {
 	
 	// Create default container
-	Parent container = new XLayoutContainer(); //new FlowPane();
+	Parent container = createContainer();
 
 	// Create Scene
 	Scene scene = new Scene(container);

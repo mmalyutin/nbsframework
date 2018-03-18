@@ -102,7 +102,7 @@ public class JFXWindowAdapter extends JFXContainerAdapter {
 	    //  min - no,
 	    //  max - no,
 	    //  close - yes
-	    if (!window.isMinimizable() && !window.isMaximizable()) {
+	    if (!window.isMinimizable() && !window.isMaximizable() && window.isResizable()) {
 		xWindow.initStyle(StageStyle.UTILITY);
 	    }
 
