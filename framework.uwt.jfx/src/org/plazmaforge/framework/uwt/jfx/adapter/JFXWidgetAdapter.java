@@ -33,9 +33,6 @@ import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
 
 import javafx.beans.value.ObservableValue;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 
 
 /**
@@ -154,12 +151,6 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
      */
     protected javafx.scene.Node asNodeGetProperty(Object delegate, String property) {
 	return asTypeGetProperty(javafx.scene.Node.class, delegate, property);
-	
-//	if (!isNode(delegate)) {
-//	    logUnsupportGetProperty(delegate, property);
-//	    return null;
-//	}
-//	return asNode(delegate);
     }  
     
     /**
@@ -170,12 +161,6 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
      */
     protected javafx.scene.Node asNodeSetProperty(Object delegate, String property) {
 	return asTypeSetProperty(javafx.scene.Node.class, delegate, property);
-	
-//  	if (!isNode(delegate)) {
-//  	    logUnsupportSetProperty(delegate, property);
-//  	    return null;
-//  	}
-//  	return asNode(delegate);
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,7 +329,7 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	if (node == null) {
 	    return;
 	}
-	node.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
+	node.setBackground(JFXHelper.createBackground(color));
     }
     
     protected void setForeground(Object delegate, javafx.scene.paint.Color color) {

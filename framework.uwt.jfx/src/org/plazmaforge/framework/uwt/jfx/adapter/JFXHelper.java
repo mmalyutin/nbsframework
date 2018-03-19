@@ -130,6 +130,25 @@ public class JFXHelper {
 	return path == null ? null : JFXUtils.getClassImage(path);
     }
     
+    ////
+    
+    /**
+     * Create empty Background by JFX color
+     * @param color
+     */
+    public static javafx.scene.layout.Background createBackground(javafx.scene.paint.Color color) {
+	return new javafx.scene.layout.Background(createBackgroundFill(color));
+    }
+
+    /**
+     * Create empty BackgroundFill by JFX color
+     * @param color
+     * @return
+     */
+    public static javafx.scene.layout.BackgroundFill createBackgroundFill(javafx.scene.paint.Color color) {
+	return new javafx.scene.layout.BackgroundFill(color, javafx.scene.layout.CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY);
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public static javafx.scene.image.ImageView createImageView(UIElement element, Image image) {
