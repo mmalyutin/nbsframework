@@ -34,10 +34,11 @@ import com.google.gwt.dom.client.Style.Position;
  */
 public class XCanvas extends SimpleContainer {
 
-    static final int height = 400;
-    static final int width = 400;
+    public static final int DEFAULT_WIDTH = 400;
+    
+    public static final int DEFAULT_HEIGHT = 400;
 
-    final Canvas canvas; 
+    private final Canvas canvas; 
 	    
     public XCanvas() {
 	super();
@@ -47,7 +48,10 @@ public class XCanvas extends SimpleContainer {
 	    return;
 	}
 
-	// init the canvases
+	// init the canvas
+	int width = DEFAULT_WIDTH;
+	int height = DEFAULT_HEIGHT;
+	
 	canvas.setWidth(width + "px");
 	canvas.setHeight(height + "px");
 	canvas.setCoordinateSpaceWidth(width);
