@@ -27,6 +27,7 @@ import org.plazmaforge.framework.uwt.UWT;
 import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
+import org.plazmaforge.framework.uwt.jfx.widget.HasContent;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Widget;
@@ -219,6 +220,8 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	    return asParent(((javafx.scene.control.Dialog<?>) delegate).getDialogPane().getContent());   
 	} else if (delegate instanceof javafx.scene.control.Tab) {
 	    return asParent(((javafx.scene.control.Tab) delegate).getContent());
+	} else if (delegate instanceof HasContent) {
+	    return asParent(((HasContent) delegate).getContent());
 	}
 	
 	//throw new UWTException("getView: Object is not supported: " + delegate.getClass().getName());
