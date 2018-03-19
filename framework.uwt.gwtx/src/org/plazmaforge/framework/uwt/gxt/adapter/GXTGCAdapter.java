@@ -31,6 +31,11 @@ import org.plazmaforge.framework.uwt.graphics.Size;
 import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.canvas.dom.client.FillStrokeStyle;
 
+/**
+ * 
+ * @author ohapon
+ *
+ */
 public class GXTGCAdapter extends GXTAbstractAdapter {
 
     @Override
@@ -343,6 +348,8 @@ public class GXTGCAdapter extends GXTAbstractAdapter {
 	    // Add point (center of arc) to fill path 
 	    xGC.moveTo(ox, oy);
 	}
+	
+	//TODO: Where is 'ry' ???
 	xGC.arc(ox, oy, rx, startRadian, endRadian, true);
     }
     
