@@ -28,6 +28,8 @@ import org.plazmaforge.framework.uwt.graphics.Font;
 import org.plazmaforge.framework.uwt.graphics.GC;
 import org.plazmaforge.framework.uwt.graphics.Size;
 
+import javafx.scene.shape.ArcType;
+
 
 /**
  * 
@@ -178,9 +180,9 @@ public class JFXGCAdapter extends JFXAbstractAdapter {
 		int startAngle = intValue(args[4]);
 		int endAngle = intValue(args[5]);
 		
-		xGC.beginPath();
-		drawArc(xGC, x, y, width, height, startAngle, endAngle);
-		xGC.stroke(); 
+		//xGC.beginPath();
+		//drawArc(xGC, x, y, width, height, startAngle, endAngle);
+		xGC.strokeArc(x, y, width, height, startAngle, endAngle - startAngle, ArcType.ROUND); // TODO: Need without 2radius
 	    }
 	    return null;
 	} else if (eq(methodName, GC.METHOD_DRAW_TEXT)) { 
@@ -297,9 +299,10 @@ public class JFXGCAdapter extends JFXAbstractAdapter {
 		int startAngle = intValue(args[4]);
 		int endAngle = intValue(args[5]);
 		
-		xGC.beginPath();
-		drawArc(xGC, x, y, width, height, startAngle, endAngle, true);
-		xGC.fill(); 
+		//xGC.beginPath();
+		//drawArc(xGC, x, y, width, height, startAngle, endAngle, true);
+		xGC.fillArc(x, y, width, height, startAngle, endAngle - startAngle, ArcType.ROUND);
+		//xGC.fill(); 
 	    }
 	    return null;
 	}
@@ -328,6 +331,7 @@ public class JFXGCAdapter extends JFXAbstractAdapter {
 	
     }
     
+    /*
     protected void drawArc(javafx.scene.canvas.GraphicsContext xGC, int x, int y, int width, int height, int startAngle, int endAngle) {
 	drawArc(xGC, x, y, width, height, startAngle, endAngle, false);
     }
@@ -345,6 +349,7 @@ public class JFXGCAdapter extends JFXAbstractAdapter {
 	}
 	xGC.arc(ox, oy, rx, ry, startRadian, endRadian);
     }
+    */
     
     protected double toRadian(int degrees) {
 	return degrees * Math.PI / 180;
