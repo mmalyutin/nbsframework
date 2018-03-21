@@ -45,7 +45,7 @@ public class JFXTableAdapter extends JFXViewerAdapter {
     public Object createDelegate(UIElement parent, UIElement element) {
 	Table table = (Table) element;
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
-	javafx.scene.control.TableView xTable = new javafx.scene.control.TableView();
+	javafx.scene.control.TableView<?> xTable = new javafx.scene.control.TableView();
 	
 	// TODO: SelectionMode(Single, Multi), HeaderVisible, LinesVisible
 
@@ -59,8 +59,8 @@ public class JFXTableAdapter extends JFXViewerAdapter {
 	// clear super method
     }
 
-    protected javafx.scene.control.TableView asTable(Object delegate) {
-	return (javafx.scene.control.TableView) delegate;
+    protected javafx.scene.control.TableView<?> asTable(Object delegate) {
+	return (javafx.scene.control.TableView<?>) delegate;
     }
     
     @Override
@@ -117,7 +117,7 @@ public class JFXTableAdapter extends JFXViewerAdapter {
     
     @Override
     public Object getProperty(UIElement element, String name) {
-	javafx.scene.control.TableView xTable = asTable(element.getDelegate());
+	javafx.scene.control.TableView<?> xTable = asTable(element.getDelegate());
 	if (xTable == null) {
 	    return null;
 	}
@@ -131,7 +131,7 @@ public class JFXTableAdapter extends JFXViewerAdapter {
     @Override
     public Object invoke(UIElement element, String methodName, Object[] args) {
 	Table table = (Table) element;
-	javafx.scene.control.TableView xTable = asTable(element.getDelegate());
+	javafx.scene.control.TableView<?> xTable = asTable(element.getDelegate());
 	if (eq(Table.METHOD_GET_SELECTION_INDEX, methodName)) {
 	    if (xTable == null) {
 		return -1;
@@ -150,7 +150,7 @@ public class JFXTableAdapter extends JFXViewerAdapter {
     public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
-	javafx.scene.control.TableView xTable = asTable(element.getDelegate());
+	javafx.scene.control.TableView<?> xTable = asTable(element.getDelegate());
 	if (xTable == null) {
 	    return;
 	}
@@ -174,7 +174,7 @@ public class JFXTableAdapter extends JFXViewerAdapter {
     public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
-	javafx.scene.control.TableView xTable = asTable(element.getDelegate());
+	javafx.scene.control.TableView<?> xTable = asTable(element.getDelegate());
 	if (xTable == null) {
 	    return;
 	}

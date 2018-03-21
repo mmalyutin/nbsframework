@@ -54,7 +54,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	Table<?> table = column.getTable();
 	
 	TableColumn tableColumn = (TableColumn) element;
-	javafx.scene.control.TableView xTable = (javafx.scene.control.TableView) parent.getDelegate();
+	javafx.scene.control.TableView<?> xTable = (javafx.scene.control.TableView) parent.getDelegate();
 	javafx.scene.control.TableColumn xColumn = createColumn(table, column, false);
 	
 	xTable.getColumns().add(xColumn);
@@ -90,7 +90,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	xColumn.setPrefWidth(width);
 	
 	// Create CellValueFactory
-	xColumn.setCellValueFactory(createCellValueFactory(property));
+	xColumn.setCellValueFactory(createCellValueFactory(property, propertyProvider, valueProvider));
 
 	// Create CellFactory by data type
 	XCellFactory cellFactory = createCellFactory(column.getDataType(), column.getFormat());
@@ -113,16 +113,10 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	return xColumn;
     }
     
-    protected XCellValueFactory createCellValueFactory(String property) {
-	return new XPropertyValueFactory<Object, Object>(property);
-    }
-    
-    protected XCellFactory createCellFactory(String type, String pattern) {
-	return JFXUtils.createCell(type, pattern);
-    }
-    
+
     @Override
     public void setProperty(UIElement element, String name, Object value) {
+	TableColumn column = (TableColumn) element;
 	javafx.scene.control.TableColumn xTableColumn = (javafx.scene.control.TableColumn) element.getDelegate();
 	if (xTableColumn == null) {
 	    return;
@@ -131,7 +125,9 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	//javafx.scene.control.TableView xTable = xTableColumn.getParent();
 	
 	if (TableColumn.PROPERTY_PROPERTY.equals(name)) {
-	    xTableColumn.setCellValueFactory(createCellValueFactory(asString(value)));
+	    PropertyProvider<?> propertyProvider = column.getTable() == null ? null : column.getTable().getPropertyProvider();
+	    ValueProvider<?> valueProvider = column.getValueProvider();
+	    xTableColumn.setCellValueFactory(createCellValueFactory(asString(value), propertyProvider, valueProvider));
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
 	    xTableColumn.setText(asString(value));
