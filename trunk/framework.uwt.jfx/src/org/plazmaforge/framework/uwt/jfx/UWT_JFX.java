@@ -80,7 +80,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXTextAreaAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXToolBarAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXToolItemAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXToolSeparatorAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXTreeAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXTreeAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXWindowAdapter;
 
 /**
@@ -151,7 +151,7 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.Table.class, new JFXTableAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.TableColumn.class, new JFXTableColumnAdapter());
 	
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new JFXTreeAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.tree.Tree.class, new JFXTreeAdapter());
 
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabPanel.class, new JFXTabPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TabItem.class, new JFXTabItemAdapter());

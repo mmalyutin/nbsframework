@@ -26,6 +26,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionModel;
+import javafx.scene.control.TreeItem;
 
 /**
  * 
@@ -37,6 +38,20 @@ public abstract class JFXViewerAdapter extends JFXControlAdapter {
     protected <T> ObservableList<T> toFXList(List<T> dataList) {
 	return FXCollections.observableArrayList(dataList);
     }
+    
+    protected <T> TreeItem<T> toTreeItem(List<T> dataList) {
+	TreeItem<T> root = new TreeItem<T>();
+	if (dataList == null) {
+	    return root;
+	}
+	TreeItem<T> item = null;
+	for (T e: dataList ) {
+	    item = new TreeItem<T>(e);
+	    root.getChildren().add(item);
+	}
+	return root;
+      }
+    
     
     protected <T> void setSelectedIndex(SelectionModel<T> selectionModel, int index) {
 	selectionModel.select(index);
