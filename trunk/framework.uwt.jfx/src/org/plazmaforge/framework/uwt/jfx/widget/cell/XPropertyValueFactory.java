@@ -21,6 +21,12 @@
  */
 package org.plazmaforge.framework.uwt.jfx.widget.cell;
 
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
+
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
@@ -32,8 +38,62 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class XPropertyValueFactory<S, T> extends PropertyValueFactory<S, T> implements XCellValueFactory<S, T> {
 
+    private PropertyProvider propertyProvider;
+    
+    private ValueProvider valueProvider;
+    
     public XPropertyValueFactory(String property) {
 	super(property);
     }
+    
+    public XPropertyValueFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+	super(property);
+	this.propertyProvider = propertyProvider;
+	this.valueProvider = valueProvider;
+    }
 
+    public PropertyProvider getPropertyProvider() {
+        return propertyProvider;
+    }
+
+    public void setPropertyProvider(PropertyProvider propertyProvider) {
+        this.propertyProvider = propertyProvider;
+    }
+
+    public ValueProvider getValueProvider() {
+        return valueProvider;
+    }
+
+    public void setValueProvider(ValueProvider valueProvider) {
+        this.valueProvider = valueProvider;
+    }
+    
+    protected Object getBean(CellDataFeatures<S,T> param) {
+	return param.getValue();
+    }
+
+    protected ObservableValue<T> createWrapper(T value) {
+	return new ReadOnlyObjectWrapper<T>(value);
+    }
+    
+    @Override
+    public ObservableValue<T> call(CellDataFeatures<S,T> param) {
+	
+	Object bean = null;
+	
+	// Check ValueProvider
+	if (valueProvider != null) {
+	    bean = getBean(param);
+	    return createWrapper((T) valueProvider.getValue(bean));
+	}
+	
+	// Check PropertyProvider
+	if (propertyProvider != null) {
+	    bean = getBean(param);
+	    return createWrapper((T) propertyProvider.getValue(bean, getProperty()));
+	}
+	
+        return super.call(param);
+    }
+    
 }
