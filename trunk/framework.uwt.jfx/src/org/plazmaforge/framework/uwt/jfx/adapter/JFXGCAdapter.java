@@ -182,7 +182,7 @@ public class JFXGCAdapter extends JFXAbstractAdapter {
 		
 		//xGC.beginPath();
 		//drawArc(xGC, x, y, width, height, startAngle, endAngle);
-		xGC.strokeArc(x, y, width, height, startAngle, endAngle - startAngle, ArcType.ROUND); // TODO: Need without 2radius
+		xGC.strokeArc(x, y, width, height, startAngle, endAngle - startAngle, ArcType.OPEN); // TODO: Need without 2radius
 	    }
 	    return null;
 	} else if (eq(methodName, GC.METHOD_DRAW_TEXT)) { 
