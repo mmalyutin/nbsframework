@@ -24,9 +24,10 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import java.util.List;
 
-
+import org.plazmaforge.framework.core.data.provider.TreeProvider;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
+import org.plazmaforge.framework.uwt.jfx.adapter.viewer.JFXTreeItem;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.Viewer.AutoResizeColumns;
@@ -71,7 +72,7 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	if (xTable == null) {
 	    return;
 	}
-	
+	Tree tree = (Tree) element;
 	if (Tree.PROPERTY_LAYOUT.equals(name)) {
 	    // ignore layout
 	    return;
@@ -84,7 +85,12 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	} else if (Tree.PROPERTY_DATA_LIST.equals(name)) {
 	    List<?> dataList = (List<?>) value;
 	    
-	    TreeItem<?> root = toTreeItem(dataList);
+	    //TreeItem<?> root = toTreeItem(dataList);
+	    //root.setExpanded(true);
+	    
+	    JFXTreeItem root = new JFXTreeItem();
+	    root.setProvider((TreeProvider) tree.getDataProvider());
+	    JFXTreeItem.populateItem(root, dataList);
 	    root.setExpanded(true);
 	    xTable.setRoot(root);
 	    return;
