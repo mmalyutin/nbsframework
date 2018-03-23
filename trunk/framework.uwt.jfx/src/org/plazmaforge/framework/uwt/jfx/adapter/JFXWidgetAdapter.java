@@ -902,12 +902,12 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     
     ////
     
-    protected XTableCellValueFactory createCellValueFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+    protected XTableCellValueFactory createTableCellValueFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
 	return new XPropertyValueFactory<Object, Object>(property, propertyProvider, valueProvider);
     }
     
-    protected XTableCellFactory createCellFactory(String type, String pattern) {
-	return JFXUtils.createCell(type, pattern);
+    protected XTableCellFactory createTableCellFactory(String type, String pattern) {
+	return JFXUtils.createTableCell(type, pattern);
     }
     
     

@@ -26,11 +26,15 @@ import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 
 /**
- * 
+ * TreeCellFactory:
+ *  - DataBinding
+ *  - CellRendering
+ *  
  * @author ohapon
  *
  * @param <T>
+ * @param <FV> - formatted value
  */
-public interface XTreeCellFactory<T> extends Callback<TreeView<T>, TreeCell<T>> {
+public interface XTreeCellFactory<T, FV> extends Callback<TreeView<T>, TreeCell<T>> {
 
 }

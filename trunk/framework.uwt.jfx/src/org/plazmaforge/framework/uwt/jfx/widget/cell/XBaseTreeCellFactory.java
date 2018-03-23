@@ -30,7 +30,7 @@ import org.plazmaforge.framework.core.data.ValueProvider;
  *
  * @param <T>
  */
-public class XBaseTreeCellFactory<T> extends XAbstractTreeCellFactory<T>{
+public class XBaseTreeCellFactory<T, FV> extends XAbstractTreeCellFactory<T, FV> {
 
     public XBaseTreeCellFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
 	super(property, propertyProvider, valueProvider);
@@ -41,7 +41,7 @@ public class XBaseTreeCellFactory<T> extends XAbstractTreeCellFactory<T>{
     }
 
     @Override
-    protected String formatValue(T value) {
+    protected String formatValue(FV value) {
 	return value == null ? null : value.toString();
     }
 

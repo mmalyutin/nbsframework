@@ -30,7 +30,8 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * Table PropertyValueFactory
+ * Table PropertyValueFactory:
+ * - DataBinding only
  * 
  * @author ohapon
  *
@@ -39,8 +40,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class XPropertyValueFactory<S, T> extends PropertyValueFactory<S, T> implements XTableCellValueFactory<S, T> {
 
+    // UWT PropertyProvider
     private PropertyProvider propertyProvider;
     
+    // UWT ValueProvider
     private ValueProvider valueProvider;
     
     public XPropertyValueFactory(String property) {

@@ -57,6 +57,17 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	//TODO
     }
     
+    protected void updateIcons(Tree<?> tree, javafx.scene.control.TreeView<?> xTree, javafx.scene.image.ImageView xIcon) {
+	if (xIcon != null) {
+	    JFXTreeItem root = (JFXTreeItem) xTree.getRoot();
+	    if (root == null) {
+		root = new JFXTreeItem();
+		xTree.setRoot(root);
+	    }
+	    root.setGraphic(xIcon);
+	}
+    }
+    
     @Override
     public void checkDelegate(UIElement element) {
 	// clear super method
@@ -89,7 +100,12 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	    //TreeItem<?> root = toTreeItem(dataList);
 	    //root.setExpanded(true);
 	    
+	    JFXTreeItem root2 = (JFXTreeItem) xTree.getRoot();
+
 	    JFXTreeItem root = new JFXTreeItem();
+	    if (root2 != null && root2.getGraphic() != null) {
+		root.setGraphic(root2.getGraphic());
+	    }
 	    root.setTreeProvider((TreeProvider) tree.getDataProvider());
 	    JFXTreeItem.populateItem(root, dataList);
 	    root.setExpanded(true);
@@ -101,7 +117,7 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	    
 	    PropertyProvider<?> propertyProvider = tree.getPropertyProvider();
 	    ValueProvider<?> valueProvider = null; //tree.getValueProvider(); //TODO
-	    xTree.setCellFactory(new XBaseTreeCellFactory<Object>(asString(value), propertyProvider, valueProvider));
+	    xTree.setCellFactory(new XBaseTreeCellFactory<Object, Object>(asString(value), propertyProvider, valueProvider));
 	    
 	    
 	    return;
@@ -140,6 +156,7 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 		
 	    // Update leaf icon if need
 	    updateIcons(tree, xTree, Tree.PROPERTY_LEAF_ICON);
+	    //updateIcons(tree, xTree, createImageView(element, asImage(value)));
 	    
 	    return;
 	    
@@ -147,18 +164,22 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 		
 	    // Update node (open/close) icon if need
 	    updateIcons(tree, xTree, Tree.PROPERTY_NODE_ICON);
+	    //updateIcons(tree, xTree, createImageView(element, asImage(value)));
+
 	    
 	    return;
 	} else if (Tree.PROPERTY_OPEN_ICON.equals(name)) {
 		
 	    // Update open icon if need
 	    updateIcons(tree, xTree, Tree.PROPERTY_OPEN_ICON);
+	    updateIcons(tree, xTree, createImageView(element, asImage(value)));
 	    
 	    return;
 	} else if (Tree.PROPERTY_CLOSE_ICON.equals(name)) {
 		
 	    // Update close icon if need
 	    updateIcons(tree, xTree, Tree.PROPERTY_CLOSE_ICON);
+	    //updateIcons(tree, xTree, createImageView(element, asImage(value)));
 	    
 	    return;
 		    
