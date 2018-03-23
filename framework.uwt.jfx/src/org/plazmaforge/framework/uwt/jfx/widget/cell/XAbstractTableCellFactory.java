@@ -26,7 +26,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 
 /**
- * 
+ * Abstract TableCellFactory:
+ *  - CellRendering only
+ *  
  * @author ohapon
  *
  * @param <S>

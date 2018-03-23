@@ -26,7 +26,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 
 /**
- * Table CellValueFactory
+ * TableCellValueFactory:
+ * - DataBinding only
+ * 
  * CellDataFeatures - only for Table
  * 
  * @author ohapon

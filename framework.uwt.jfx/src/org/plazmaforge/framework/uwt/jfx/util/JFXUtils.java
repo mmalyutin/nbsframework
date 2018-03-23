@@ -129,11 +129,11 @@ public class JFXUtils {
 	return scene;
     }
     
-    public static XTableCellFactory createCell(String type) {
-	return createCell(type, null);
+    public static XTableCellFactory createTableCell(String type) {
+	return createTableCell(type, null);
     }
     
-    public static XTableCellFactory createCell(String type, String pattern) {
+    public static XTableCellFactory createTableCell(String type, String pattern) {
 	if (type == null && pattern == null) {
 	    return null;
 	}
@@ -146,13 +146,13 @@ public class JFXUtils {
 	    
 	    NumberFormat formatter1 = createNumberFormat(pattern);
 	    if (formatter1 != null) {
-		XNumberTableCellFactory cell = createNumberCell(Number.class, formatter1);
+		XNumberTableCellFactory cell = createNumberTableCell(Number.class, formatter1);
 		return cell;
 	    }
 	    
 	    DateFormat formatter2 = createDateTimeFormat(pattern);
 	    if (formatter2 != null) {
-		XDateTableCellFactory cell = createDateCell(formatter2);
+		XDateTableCellFactory cell = createDateTableCell(formatter2);
 		return cell;
 	    }
 	    
@@ -161,11 +161,11 @@ public class JFXUtils {
 	
 	if (TypeUtils.isLikeNumberType(type)) {
 	    NumberFormat formatter = createNumberFormat(pattern);
-	    XNumberTableCellFactory cell = createNumberCell(klass, formatter);
+	    XNumberTableCellFactory cell = createNumberTableCell(klass, formatter);
 	    return cell;
 	} else if (TypeUtils.isLikeDateType(type) || TypeUtils.isLikeDateType(type)) {
 	    DateFormat formatter = createDateTimeFormat(pattern);
-	    XDateTableCellFactory cell = createDateCell(formatter);
+	    XDateTableCellFactory cell = createDateTableCell(formatter);
 	    return cell;
 	}
 	
@@ -174,11 +174,11 @@ public class JFXUtils {
     }
     
  
-    public static XNumberTableCellFactory createNumberCell(Class<?> type, NumberFormat format) {
+    public static XNumberTableCellFactory createNumberTableCell(Class<?> type, NumberFormat format) {
 	return format == null ? new XNumberTableCellFactory() : new XNumberTableCellFactory(format);
     }
     
-    public static XDateTableCellFactory createDateCell(DateFormat format) {
+    public static XDateTableCellFactory createDateTableCell(DateFormat format) {
 	return format == null ? new XDateTableCellFactory() : new XDateTableCellFactory(format);
     }
     

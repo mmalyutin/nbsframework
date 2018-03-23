@@ -31,28 +31,36 @@ import com.sun.javafx.scene.control.Logging;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import sun.util.logging.PlatformLogger;
 import sun.util.logging.PlatformLogger.Level;
 
 /**
- * 
+ * Abstract TreeCellFactory:
+ *  - DataBinding
+ *  - CellRendering
+ *  
  * @author ohapon
  *
- * @param <S>
+
  * @param <T>
+ * @param <FV> - formated value 
  */
-public abstract class XAbstractTreeCellFactory<T>  implements XTreeCellFactory<T> {
+public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFactory<T, FV> {
 
     private final String property;
 
     private Class<?> columnClass;
-    private String previousProperty;
-    private PropertyReference<T> propertyRef;
     
-    //
+    private String previousProperty;
+    
+    private PropertyReference<FV> propertyRef;
+    
+    // UWT PropertyProvider
     private PropertyProvider propertyProvider;
     
+    // UWT ValueProvider
     private ValueProvider valueProvider;
     
     
@@ -92,13 +100,21 @@ public abstract class XAbstractTreeCellFactory<T>  implements XTreeCellFactory<T
             @Override
             protected void updateItem(T item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setText(null);
-                } else {
-                    //TODO
-                    T value = getItemValue(item);
-                    setText(formatValue(value));
-                }
+                
+                // Get cell value
+        	FV value = (item == null || empty) ? null : getValue(item);
+        	String text = getValueText(value);
+        	
+        	setText(text);
+       	
+        	setGraphic((item == null || empty) ? null : getTreeItem().getGraphic());
+        	
+        	//TreeItem treeItem = getTreeItem() ;
+        	//if  (treeItem != null){
+        	//    setGraphic((item == null || empty) ? null : getTreeItem().getGraphic());
+        	//}
+        	
+
             }
         };
     }
@@ -107,25 +123,44 @@ public abstract class XAbstractTreeCellFactory<T>  implements XTreeCellFactory<T
     
     ////
     
-    private ObservableValue<T> callValue(T rowData) {
-        if (getProperty() == null || getProperty().isEmpty() || rowData == null) return null;
+    protected String getValueText(FV value) {
+	return value == null ? null : formatValue(value);
+    }
+    
+    protected FV getValue(T bean) {
+	
+	// Check ValueProvider
+	if (valueProvider != null) {
+	    return (FV) valueProvider.getValue(bean);
+	}
+	
+	// Check PropertyProvider
+	if (propertyProvider != null) {
+	    return (FV) propertyProvider.getValue(bean, getProperty());
+	}
+	ObservableValue<FV> v = callValue(bean);
+        return v == null ? null : v.getValue();
+    }
+    
+    protected ObservableValue<FV> callValue(T bean) {
+        if (getProperty() == null || getProperty().isEmpty() || bean == null) return null;
 
         try {
             if (columnClass == null || previousProperty == null ||
-                    ! columnClass.equals(rowData.getClass()) ||
+                    ! columnClass.equals(bean.getClass()) ||
                     ! previousProperty.equals(getProperty())) {
 
                 // create a new PropertyReference
-                this.columnClass = rowData.getClass();
+                this.columnClass = bean.getClass();
                 this.previousProperty = getProperty();
-                this.propertyRef = new PropertyReference<T>(rowData.getClass(), getProperty());
+                this.propertyRef = new PropertyReference<FV>(bean.getClass(), getProperty());
             }
 
             if (propertyRef.hasProperty()) {
-                return propertyRef.getProperty(rowData);
+                return propertyRef.getProperty(bean);
             } else {
-                T value = propertyRef.get(rowData);
-                return new ReadOnlyObjectWrapper<T>(value);
+                FV value = propertyRef.get(bean);
+                return new ReadOnlyObjectWrapper<FV>(value);
             }
         } catch (IllegalStateException e) {
             // log the warning and move on
@@ -133,7 +168,7 @@ public abstract class XAbstractTreeCellFactory<T>  implements XTreeCellFactory<T
             if (logger.isLoggable(Level.WARNING)) {
                logger.finest("Can not retrieve property '" + getProperty() +
                         "' in PropertyValueFactory: " + this +
-                        " with provided class type: " + rowData.getClass(), e);
+                        " with provided class type: " + bean.getClass(), e);
             }
         }
 
@@ -141,23 +176,6 @@ public abstract class XAbstractTreeCellFactory<T>  implements XTreeCellFactory<T
     }  
     
     ////
- 
-   
-    public T getItemValue(T bean) {
-	
-	// Check ValueProvider
-	if (valueProvider != null) {
-	    return (T) valueProvider.getValue(bean);
-	}
-	
-	// Check PropertyProvider
-	if (propertyProvider != null) {
-	    return (T) propertyProvider.getValue(bean, getProperty());
-	}
-	ObservableValue<T> v = callValue(bean);
-        return v == null ? null : v.getValue();
-    }
     
-    ////
-    protected abstract String formatValue(T value);
+    protected abstract String formatValue(FV value);
 }

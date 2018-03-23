@@ -90,10 +90,10 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	xColumn.setPrefWidth(width);
 	
 	// Create CellValueFactory
-	xColumn.setCellValueFactory(createCellValueFactory(property, propertyProvider, valueProvider));
+	xColumn.setCellValueFactory(createTableCellValueFactory(property, propertyProvider, valueProvider));
 
 	// Create CellFactory by data type
-	XTableCellFactory cellFactory = createCellFactory(column.getDataType(), column.getFormat());
+	XTableCellFactory cellFactory = createTableCellFactory(column.getDataType(), column.getFormat());
 	if (cellFactory != null) {
 	    xColumn.setCellFactory(cellFactory);
 	}
@@ -127,7 +127,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	if (TableColumn.PROPERTY_PROPERTY.equals(name)) {
 	    PropertyProvider<?> propertyProvider = column.getTable() == null ? null : column.getTable().getPropertyProvider();
 	    ValueProvider<?> valueProvider = column.getValueProvider();
-	    xTableColumn.setCellValueFactory(createCellValueFactory(asString(value), propertyProvider, valueProvider));
+	    xTableColumn.setCellValueFactory(createTableCellValueFactory(asString(value), propertyProvider, valueProvider));
 	    return;
 	} else if (TableColumn.PROPERTY_TEXT.equals(name)) {
 	    xTableColumn.setText(asString(value));
@@ -155,7 +155,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	    }
 	    
 	    //TODO: maybe type=dataType
-	    XTableCellFactory cellFactory = createCellFactory(null, pattern);
+	    XTableCellFactory cellFactory = createTableCellFactory(null, pattern);
 	    if (cellFactory == null) {
 		return;
 	    }

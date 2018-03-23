@@ -27,7 +27,8 @@ import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
 /**
- * TableCellFactory
+ * TableCellFactory:
+ *  - CellRendering only
  * 
  * @author ohapon
  *
