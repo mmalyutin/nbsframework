@@ -19,7 +19,11 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
+
 package org.plazmaforge.framework.uwt.jfx.widget.cell;
+
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 
 /**
  * 
@@ -28,11 +32,22 @@ package org.plazmaforge.framework.uwt.jfx.widget.cell;
  * @param <S>
  * @param <T>
  */
-public class XBaseCellFactory<S, T> extends XAbstractCellFactory<S, T> {
+public abstract class XAbstractTableCellFactory<S, T> implements XTableCellFactory<S, T> {
 
     @Override
-    protected String formatValue(T value) {
-	return value == null ? null : value.toString();
+    public TableCell<S, T> call(TableColumn<S, T> param) {
+        return new TableCell<S, T>() {
+            @Override
+            protected void updateItem(T item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(formatValue(item));
+                }
+            }
+        };
     }
 
+    protected abstract String formatValue(T value);
 }

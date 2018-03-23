@@ -19,20 +19,30 @@
  * Kyiv, UKRAINE
  * ohapon@users.sourceforge.net
  */
-
 package org.plazmaforge.framework.uwt.jfx.widget.cell;
 
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
 
 /**
  * 
  * @author ohapon
  *
- * @param <S>
  * @param <T>
  */
-public interface XCellFactory<S, T> extends Callback<TableColumn<S, T>, TableCell<S, T>> {
+public class XBaseTreeCellFactory<T> extends XAbstractTreeCellFactory<T>{
+
+    public XBaseTreeCellFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+	super(property, propertyProvider, valueProvider);
+    }
+
+    public XBaseTreeCellFactory(String property) {
+	super(property);
+    }
+
+    @Override
+    protected String formatValue(T value) {
+	return value == null ? null : value.toString();
+    }
 
 }

@@ -22,7 +22,6 @@
 package org.plazmaforge.framework.uwt.jfx.adapter.viewer;
 
 import java.util.List;
-
 import org.plazmaforge.framework.core.data.provider.TreeProvider;
 
 import javafx.collections.ObservableList;
@@ -41,7 +40,11 @@ public class JFXTreeItem<T> extends TreeItem<T> {
 	
     private boolean isLeaf;
     
-    private TreeProvider provider;
+    /**
+     * UWT TreeProvider
+     */
+    private TreeProvider treeProvider;
+    
     
     public JFXTreeItem() {
 	super();
@@ -54,29 +57,13 @@ public class JFXTreeItem<T> extends TreeItem<T> {
     public JFXTreeItem(T value) {
 	super(value);
     }
-
-    public void setProvider(TreeProvider provider) {
-        this.provider = provider;
-    }
-
-    protected TreeProvider getProvider() {
-	if (provider != null) {
-	    return provider;
-	}
-	TreeItem<T> root = getRoot();
-	if (root == null) {
-	    return null;
-	}
-	if (root instanceof JFXTreeItem) {
-	    return ((JFXTreeItem) root).getOwnProvider();
-	}
-	return null;
-    }
     
-    protected TreeProvider getOwnProvider() {
-	return provider;
-    }
-    
+    //[UTIL]
+    /**
+     * Populates parent item
+     * @param parent
+     * @param dataList
+     */
     public static <T> void populateItem(JFXTreeItem<T> parent, List<T> dataList) {
 	if (dataList == null) {
 	    return;
@@ -88,6 +75,12 @@ public class JFXTreeItem<T> extends TreeItem<T> {
 	}
     }
     
+    //[UTIL]
+    /**
+     * Returns root of item
+     * @param item
+     * @return
+     */
     public static <T> TreeItem<T> getRoot(TreeItem<T> item) {
 	if (item == null) {
 	    return null;
@@ -99,10 +92,59 @@ public class JFXTreeItem<T> extends TreeItem<T> {
 	return getRoot(parent);
     }
     
-    protected void loadChildren() {
-	loadChildren(getProvider());
+    /**
+     * Return root of this item
+     * @return
+     */
+    public TreeItem<T> getRoot() {
+	return getRoot(this);
+    }    
+    
+    /**
+     * Sets UWT TreeProvider
+     * @param provider
+     */
+    public void setTreeProvider(TreeProvider provider) {
+        this.treeProvider = provider;
+    }
+
+    /**
+     * Gets UWT TreeProvider (own or root)
+     * @return
+     */
+    protected TreeProvider getTreeProvider() {
+	if (treeProvider != null) {
+	    return treeProvider;
+	}
+	TreeItem<T> root = getRoot();
+	if (root == null) {
+	    return null;
+	}
+	if (root instanceof JFXTreeItem) {
+	    return ((JFXTreeItem) root).getOwnTreeProvider();
+	}
+	return null;
     }
     
+    /**
+     * Gets own UWT TreeProvider
+     * @return
+     */
+    protected TreeProvider getOwnTreeProvider() {
+	return treeProvider;
+    }
+    
+    /**
+     * Loads children
+     */
+    protected void loadChildren() {
+	loadChildren(getTreeProvider());
+    }
+    
+    /**
+     * Loads children by UWT TreeProvider
+     * @param provider
+     */
     protected void loadChildren(TreeProvider provider) {
 	load = true;
 	if (provider == null) {
@@ -116,26 +158,26 @@ public class JFXTreeItem<T> extends TreeItem<T> {
 	populateItem(this, dataList);
     }
     
+    protected ObservableList<TreeItem<T>> doGetChildren() {
+	return super.getChildren();
+    }
+    
     protected boolean hasChildren() {
-	return !super.getChildren().isEmpty();
-    }
-    
-    public void addItem(TreeItem<T> item) {
-	super.getChildren().add(item);
-    }
-    
-    public void removeItem(TreeItem<T> item) {
-	super.getChildren().remove(item);
+	return !doGetChildren().isEmpty();
     }
     
     protected boolean isLoad() {
 	return load || hasChildren();
     }
     
-
-
-    public TreeItem<T> getRoot() {
-	return getRoot(this);
+    ////
+    
+    public void addItem(TreeItem<T> item) {
+	doGetChildren().add(item);
+    }
+    
+    public void removeItem(TreeItem<T> item) {
+	doGetChildren().remove(item);
     }
     
     ////
