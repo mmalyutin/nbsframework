@@ -30,13 +30,14 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
+ * Table PropertyValueFactory
  * 
  * @author ohapon
  *
  * @param <S>
  * @param <T>
  */
-public class XPropertyValueFactory<S, T> extends PropertyValueFactory<S, T> implements XCellValueFactory<S, T> {
+public class XPropertyValueFactory<S, T> extends PropertyValueFactory<S, T> implements XTableCellValueFactory<S, T> {
 
     private PropertyProvider propertyProvider;
     

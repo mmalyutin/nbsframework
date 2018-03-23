@@ -21,9 +21,9 @@
  */
 package org.plazmaforge.framework.uwt.jfx.widget.cell;
 
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.util.Callback;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * 
@@ -32,6 +32,37 @@ import javafx.util.Callback;
  * @param <S>
  * @param <T>
  */
-public interface XCellValueFactory<S, T> extends Callback<CellDataFeatures<S, T>, ObservableValue<T>> {
+public class XNumberTableCellFactory<S, T extends Number> extends XAbstractTableCellFactory<S, T> {
+
+    private NumberFormat formatter;
+    
+    public XNumberTableCellFactory() {
+	super();
+	//TODO
+	initFormatter("yyyy-MM-dd");
+    }
+    
+    public XNumberTableCellFactory(NumberFormat formatter) {
+	super();
+	this.formatter = formatter;
+    }
+
+    public XNumberTableCellFactory(String format) {
+  	super();
+  	initFormatter(format);
+      }
+    
+    protected void initFormatter(String format) {
+	formatter = createFormatter(format);
+    }
+    
+    protected NumberFormat createFormatter(String format) {
+	return new DecimalFormat(format);
+    }
+
+    @Override
+    protected String formatValue(T value) {
+	return value == null ? null : formatter.format(value);
+    }
 
 }

@@ -30,8 +30,8 @@ import org.plazmaforge.framework.uwt.UWTException;
 import org.plazmaforge.framework.uwt.event.KeyEvent;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.HasContent;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellValueFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellValueFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XPropertyValueFactory;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -902,11 +902,11 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
     
     ////
     
-    protected XCellValueFactory createCellValueFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+    protected XTableCellValueFactory createCellValueFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
 	return new XPropertyValueFactory<Object, Object>(property, propertyProvider, valueProvider);
     }
     
-    protected XCellFactory createCellFactory(String type, String pattern) {
+    protected XTableCellFactory createCellFactory(String type, String pattern) {
 	return JFXUtils.createCell(type, pattern);
     }
     

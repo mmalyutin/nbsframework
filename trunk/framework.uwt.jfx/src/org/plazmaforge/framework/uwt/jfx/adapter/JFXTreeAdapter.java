@@ -24,17 +24,17 @@ package org.plazmaforge.framework.uwt.jfx.adapter;
 
 import java.util.List;
 
+import org.plazmaforge.framework.core.data.PropertyProvider;
+import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.core.data.provider.TreeProvider;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
 import org.plazmaforge.framework.uwt.jfx.adapter.viewer.JFXTreeItem;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XBaseTreeCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XPropertyValueFactory;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
-import org.plazmaforge.framework.uwt.widget.Viewer.AutoResizeColumns;
-import org.plazmaforge.framework.uwt.widget.Viewer.SelectionMode;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
-
-import javafx.scene.control.TreeItem;
 
 /**
  * 
@@ -45,31 +45,32 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 
     
     public Object createDelegate(UIElement parent, UIElement element) {
-	Tree table = (Tree) element;
+	Tree tree = (Tree) element;
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
 	javafx.scene.control.TreeView<?> xTable = new javafx.scene.control.TreeView();
 	
-	// TODO: SelectionMode(Single, Multi), HeaderVisible, LinesVisible
-
 	addChild(xParent, xTable, element);
 	return xTable;
     }
     
+    protected void updateIcons(Tree<?> tree, javafx.scene.control.TreeView<?>  xTree, String icon) {
+	//TODO
+    }
     
     @Override
     public void checkDelegate(UIElement element) {
 	// clear super method
     }
 
-    protected javafx.scene.control.TreeView<?> asTable(Object delegate) {
+    protected javafx.scene.control.TreeView<?> asTree(Object delegate) {
 	return (javafx.scene.control.TreeView<?>) delegate;
     }
     
     @Override
     public void setProperty(UIElement element, String name, Object value) {
 	
-	javafx.scene.control.TreeView xTable = asTable(element.getDelegate());
-	if (xTable == null) {
+	javafx.scene.control.TreeView xTree = asTree(element.getDelegate());
+	if (xTree == null) {
 	    return;
 	}
 	Tree tree = (Tree) element;
@@ -89,79 +90,90 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	    //root.setExpanded(true);
 	    
 	    JFXTreeItem root = new JFXTreeItem();
-	    root.setProvider((TreeProvider) tree.getDataProvider());
+	    root.setTreeProvider((TreeProvider) tree.getDataProvider());
 	    JFXTreeItem.populateItem(root, dataList);
 	    root.setExpanded(true);
-	    xTable.setRoot(root);
+	    xTree.setRoot(root);
 	    return;
-	} else if (Tree.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    setSelectedIndex(xTable, intValue(value));
+	    
+	    
+	} else if (Tree.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
+	    
+	    PropertyProvider<?> propertyProvider = tree.getPropertyProvider();
+	    ValueProvider<?> valueProvider = null; //tree.getValueProvider(); //TODO
+	    xTree.setCellFactory(new XBaseTreeCellFactory<Object>(asString(value), propertyProvider, valueProvider));
+	    
+	    
 	    return;
-	} else if (Tree.PROPERTY_AUTO_RESIZE_COLUMNS.equals(name)) {
-	    
-	    AutoResizeColumns autoResizeMode = (AutoResizeColumns) value;
-	    
-	    // - OFF	Yes
-	    // - ALL	Yes
-	    // - LAST	No
+	} else if (Tree.PROPERTY_DISPLAY_FORMAT.equals(name)) {
 
-	    // TODO
-	    return;
-	} else if (Tree.PROPERTY_SELECTION_MODE.equals(name)) {
-	    // TODO: ROW, CELL Selection
-	    SelectionMode selectionMode = (SelectionMode) value;
 	    
-	    if (selectionMode == null || SelectionMode.ROW == selectionMode) {
-		//TODO
-	    } else if (SelectionMode.CELL == selectionMode) {
-		//TODO
-	    }
+	    //DISABLE:MIGRATION
+	    // Number format
+//	    NumberFormat numberFormat = GWTUtils.createNumberFormat(pattern);
+//	    if (numberFormat != null ) {
+//		xColumn.setNumberFormat(numberFormat);
+//		return;
+//	    }
+//	    
+//	    // Date format
+//	    DateTimeFormat dateTimeFormat = GWTUtils.createDateTimeFormat(pattern);
+//	    if (dateTimeFormat != null ) {
+//		xColumn.setDateTimeFormat(dateTimeFormat);
+//		return;
+//	    }
+	    
 	    return;
-	} else if (Tree.PROPERTY_CHECK_SELECTION.equals(name)) {
-	    // TODO
+	    
+	} else if (Tree.PROPERTY_LABEL_PROVIDER.equals(name)) {
+	    
+	    //DISABLE:MIGRATION
+	    //GXTTreeCellRenderer renderer = getTreeCellRenderer(tree, xTree);
+	    //renderer.setLabelProvider((LabelProvider) value);
+	    
+	    // Update leaf/open/close icon if need
+	    //updateIcons(tree, xTree, null);
+	    
 	    return;
-	}
+	    
+	} else if (Tree.PROPERTY_LEAF_ICON.equals(name)) {
+		
+	    // Update leaf icon if need
+	    updateIcons(tree, xTree, Tree.PROPERTY_LEAF_ICON);
+	    
+	    return;
+	    
+	} else if (Tree.PROPERTY_NODE_ICON.equals(name)) {
+		
+	    // Update node (open/close) icon if need
+	    updateIcons(tree, xTree, Tree.PROPERTY_NODE_ICON);
+	    
+	    return;
+	} else if (Tree.PROPERTY_OPEN_ICON.equals(name)) {
+		
+	    // Update open icon if need
+	    updateIcons(tree, xTree, Tree.PROPERTY_OPEN_ICON);
+	    
+	    return;
+	} else if (Tree.PROPERTY_CLOSE_ICON.equals(name)) {
+		
+	    // Update close icon if need
+	    updateIcons(tree, xTree, Tree.PROPERTY_CLOSE_ICON);
+	    
+	    return;
+		    
+	} 
 	
 	super.setProperty(element, name, value);
     }
     
-    @Override
-    public Object getProperty(UIElement element, String name) {
-	javafx.scene.control.TreeView<?> xTable = asTable(element.getDelegate());
-	if (xTable == null) {
-	    return null;
-	}
-	if (Tree.PROPERTY_SELECTION_INDEX.equals(name)) {
-	    return getSelectedIndex(xTable);
-	}
-	return super.getProperty(element, name);
-    }
 
-    
-    @Override
-    public Object invoke(UIElement element, String methodName, Object[] args) {
-	Tree table = (Tree) element;
-	javafx.scene.control.TreeView<?> xTable = asTable(element.getDelegate());
-	if (eq(Tree.METHOD_GET_SELECTION_INDEX, methodName)) {
-	    if (xTable == null) {
-		return -1;
-	    }
-	    return getSelectedIndex(xTable);
-	} else if (eq(Tree.METHOD_UPDATE_COLUMNS, methodName)) {
-	    // Reset sort columns mode
-	    // TODO
-	    return null;
-	}
-	return super.invoke(element, methodName, args);
-    }
-    
-    
     @Override
     public void addListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
-	javafx.scene.control.TreeView<?> xTable = asTable(element.getDelegate());
-	if (xTable == null) {
+	javafx.scene.control.TreeView<?> xTree = asTree(element.getDelegate());
+	if (xTree == null) {
 	    return;
 	}
 
@@ -184,8 +196,8 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
     public void removeListener(UIElement element, String eventType, final Listener listener) {
 	
 	Control control = (Control) element;
-	javafx.scene.control.TreeView<?> xTable = asTable(element.getDelegate());
-	if (xTable == null) {
+	javafx.scene.control.TreeView<?> xTreee = asTree(element.getDelegate());
+	if (xTreee == null) {
 	    return;
 	}
 

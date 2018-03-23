@@ -34,9 +34,9 @@ import java.util.Map;
 
 import org.plazmaforge.framework.core.type.TypeUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XDateCellFactory;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XNumberCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XDateTableCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XNumberTableCellFactory;
 import org.plazmaforge.framework.uwt.util.UWTUtils;
 
 import javafx.scene.Node;
@@ -129,11 +129,11 @@ public class JFXUtils {
 	return scene;
     }
     
-    public static XCellFactory createCell(String type) {
+    public static XTableCellFactory createCell(String type) {
 	return createCell(type, null);
     }
     
-    public static XCellFactory createCell(String type, String pattern) {
+    public static XTableCellFactory createCell(String type, String pattern) {
 	if (type == null && pattern == null) {
 	    return null;
 	}
@@ -146,13 +146,13 @@ public class JFXUtils {
 	    
 	    NumberFormat formatter1 = createNumberFormat(pattern);
 	    if (formatter1 != null) {
-		XNumberCellFactory cell = createNumberCell(Number.class, formatter1);
+		XNumberTableCellFactory cell = createNumberCell(Number.class, formatter1);
 		return cell;
 	    }
 	    
 	    DateFormat formatter2 = createDateTimeFormat(pattern);
 	    if (formatter2 != null) {
-		XDateCellFactory cell = createDateCell(formatter2);
+		XDateTableCellFactory cell = createDateCell(formatter2);
 		return cell;
 	    }
 	    
@@ -161,11 +161,11 @@ public class JFXUtils {
 	
 	if (TypeUtils.isLikeNumberType(type)) {
 	    NumberFormat formatter = createNumberFormat(pattern);
-	    XNumberCellFactory cell = createNumberCell(klass, formatter);
+	    XNumberTableCellFactory cell = createNumberCell(klass, formatter);
 	    return cell;
 	} else if (TypeUtils.isLikeDateType(type) || TypeUtils.isLikeDateType(type)) {
 	    DateFormat formatter = createDateTimeFormat(pattern);
-	    XDateCellFactory cell = createDateCell(formatter);
+	    XDateTableCellFactory cell = createDateCell(formatter);
 	    return cell;
 	}
 	
@@ -174,12 +174,12 @@ public class JFXUtils {
     }
     
  
-    public static XNumberCellFactory createNumberCell(Class<?> type, NumberFormat format) {
-	return format == null ? new XNumberCellFactory() : new XNumberCellFactory(format);
+    public static XNumberTableCellFactory createNumberCell(Class<?> type, NumberFormat format) {
+	return format == null ? new XNumberTableCellFactory() : new XNumberTableCellFactory(format);
     }
     
-    public static XDateCellFactory createDateCell(DateFormat format) {
-	return format == null ? new XDateCellFactory() : new XDateCellFactory(format);
+    public static XDateTableCellFactory createDateCell(DateFormat format) {
+	return format == null ? new XDateTableCellFactory() : new XDateTableCellFactory(format);
     }
     
     public static NumberFormat createNumberFormat(String pattern) {

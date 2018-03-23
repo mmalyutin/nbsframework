@@ -21,47 +21,19 @@
  */
 package org.plazmaforge.framework.uwt.jfx.widget.cell;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.util.Callback;
 
 /**
+ * Table CellValueFactory
+ * CellDataFeatures - only for Table
  * 
  * @author ohapon
  *
  * @param <S>
+ * @param <T>
  */
-public class XDateCellFactory<S> extends XAbstractCellFactory<S, Date> {
-
-    private DateFormat formatter;
-    
-    public XDateCellFactory() {
-	super();
-	//TODO
-	initFormatter("yyyy-MM-dd");
-    }
-    
-    public XDateCellFactory(DateFormat formatter) {
-	super();
-	this.formatter = formatter;
-    }
-
-    public XDateCellFactory(String format) {
-	super();
-	initFormatter(format);
-    }
-    
-    protected void initFormatter(String format) {
-	formatter = createFormatter(format);
-    }
-    
-    protected DateFormat createFormatter(String format) {
-	return new SimpleDateFormat(format);
-    }
-
-    @Override
-    protected String formatValue(Date value) {
-	return value == null ? null : formatter.format(value);
-    }
+public interface XTableCellValueFactory<S, T> extends Callback<CellDataFeatures<S, T>, ObservableValue<T>> {
 
 }

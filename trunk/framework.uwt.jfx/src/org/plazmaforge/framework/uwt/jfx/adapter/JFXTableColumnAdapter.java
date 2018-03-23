@@ -28,8 +28,8 @@ import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellFactory;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XCellValueFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellValueFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XPropertyValueFactory;
 import org.plazmaforge.framework.uwt.widget.Style.HorizontalAlign;
 import org.plazmaforge.framework.uwt.widget.CellEditor;
@@ -93,7 +93,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	xColumn.setCellValueFactory(createCellValueFactory(property, propertyProvider, valueProvider));
 
 	// Create CellFactory by data type
-	XCellFactory cellFactory = createCellFactory(column.getDataType(), column.getFormat());
+	XTableCellFactory cellFactory = createCellFactory(column.getDataType(), column.getFormat());
 	if (cellFactory != null) {
 	    xColumn.setCellFactory(cellFactory);
 	}
@@ -155,7 +155,7 @@ public class JFXTableColumnAdapter extends JFXWidgetAdapter {
 	    }
 	    
 	    //TODO: maybe type=dataType
-	    XCellFactory cellFactory = createCellFactory(null, pattern);
+	    XTableCellFactory cellFactory = createCellFactory(null, pattern);
 	    if (cellFactory == null) {
 		return;
 	    }

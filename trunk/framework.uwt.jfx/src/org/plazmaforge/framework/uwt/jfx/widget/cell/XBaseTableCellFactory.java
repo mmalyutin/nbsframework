@@ -21,10 +21,6 @@
  */
 package org.plazmaforge.framework.uwt.jfx.widget.cell;
 
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 /**
  * 
  * @author ohapon
@@ -32,37 +28,11 @@ import java.text.NumberFormat;
  * @param <S>
  * @param <T>
  */
-public class XNumberCellFactory<S, T extends Number> extends XAbstractCellFactory<S, T> {
-
-    private NumberFormat formatter;
-    
-    public XNumberCellFactory() {
-	super();
-	//TODO
-	initFormatter("yyyy-MM-dd");
-    }
-    
-    public XNumberCellFactory(NumberFormat formatter) {
-	super();
-	this.formatter = formatter;
-    }
-
-    public XNumberCellFactory(String format) {
-  	super();
-  	initFormatter(format);
-      }
-    
-    protected void initFormatter(String format) {
-	formatter = createFormatter(format);
-    }
-    
-    protected NumberFormat createFormatter(String format) {
-	return new DecimalFormat(format);
-    }
+public class XBaseTableCellFactory<S, T> extends XAbstractTableCellFactory<S, T> {
 
     @Override
     protected String formatValue(T value) {
-	return value == null ? null : formatter.format(value);
+	return value == null ? null : value.toString();
     }
 
 }
