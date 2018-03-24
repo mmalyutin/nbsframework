@@ -29,9 +29,9 @@ import org.plazmaforge.framework.core.data.ValueProvider;
 import org.plazmaforge.framework.core.data.provider.TreeProvider;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.event.Events;
+import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.jfx.adapter.viewer.JFXTreeItem;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XBaseTreeCellFactory;
-import org.plazmaforge.framework.uwt.jfx.widget.cell.XPropertyValueFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTreeCellFactory;
 import org.plazmaforge.framework.uwt.widget.Control;
 import org.plazmaforge.framework.uwt.widget.Listener;
 import org.plazmaforge.framework.uwt.widget.tree.Tree;
@@ -47,26 +47,67 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
     public Object createDelegate(UIElement parent, UIElement element) {
 	Tree tree = (Tree) element;
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
-	javafx.scene.control.TreeView<?> xTable = new javafx.scene.control.TreeView();
+	javafx.scene.control.TreeView<?> xTree = new javafx.scene.control.TreeView();
 	
-	addChild(xParent, xTable, element);
-	return xTable;
+	// Property, Property Provider, Value Provider, Item Icons
+	XTreeCellFactory factory = createTreeCellFactory(tree, xTree);
+	xTree.setCellFactory(factory);
+	
+	tree.resetInitProperty(Tree.PROPERTY_DISPLAY_PROPERTY);
+	tree.resetInitProperty(Tree.PROPERTY_LEAF_ICON);
+	tree.resetInitProperty(Tree.PROPERTY_NODE_ICON);
+	tree.resetInitProperty(Tree.PROPERTY_OPEN_ICON);
+	tree.resetInitProperty(Tree.PROPERTY_CLOSE_ICON);
+	
+	addChild(xParent, xTree, element);
+	return xTree;
     }
     
-    protected void updateIcons(Tree<?> tree, javafx.scene.control.TreeView<?>  xTree, String icon) {
-	//TODO
+    protected XTreeCellFactory createTreeCellFactory(Tree<?> tree, javafx.scene.control.TreeView<?> xTree) {
+	String property = tree.getDisplayProperty();
+	PropertyProvider<?> propertyProvider = tree.getPropertyProvider();
+	ValueProvider<?> valueProvider = null; //tree.getValueProvider(); //TODO
+	XTreeCellFactory factory = createTreeCellFactory(property, propertyProvider, valueProvider);
+	 
+	updateIcons(factory, tree, xTree);
+	return factory;
     }
     
-    protected void updateIcons(Tree<?> tree, javafx.scene.control.TreeView<?> xTree, javafx.scene.image.ImageView xIcon) {
-	if (xIcon != null) {
-	    JFXTreeItem root = (JFXTreeItem) xTree.getRoot();
-	    if (root == null) {
-		root = new JFXTreeItem();
-		xTree.setRoot(root);
-	    }
-	    root.setGraphic(xIcon);
+    /**
+     * Update all item icons in tree
+     * @param factory
+     * @param tree
+     * @param xTree
+     */
+    protected void updateIcons(XTreeCellFactory factory, Tree<?> tree, javafx.scene.control.TreeView<?> xTree) {
+	factory.setLeafIcon(createImage(tree, tree.getLeafIcon()));
+	factory.setNodeIcon(createImage(tree, tree.getNodeIcon()));
+	factory.setOpenIcon(createImage(tree, tree.getOpenIcon()));	
+	factory.setCloseIcon(createImage(tree, tree.getCloseIcon()));
+    }
+    
+    /**
+     * Update item icon by name
+     * @param tree
+     * @param xTree
+     * @param iconName
+     * @param icon
+     */
+    protected void updateIcons(Tree<?> tree, javafx.scene.control.TreeView<?> xTree, String iconName, Image icon) {
+	if (iconName == null) {
+	    return;
 	}
-    }
+	XTreeCellFactory factory = (XTreeCellFactory) xTree.getCellFactory();
+	if (Tree.PROPERTY_LEAF_ICON.equals(iconName)) {
+	    factory.setLeafIcon(createImage(tree, icon));
+	} else if (Tree.PROPERTY_NODE_ICON.equals(iconName)) {
+	    factory.setNodeIcon(createImage(tree, icon));
+	} else if (Tree.PROPERTY_OPEN_ICON.equals(iconName)) {
+	    factory.setOpenIcon(createImage(tree, icon));
+	} else if (Tree.PROPERTY_CLOSE_ICON.equals(iconName)) {
+	    factory.setCloseIcon(createImage(tree, icon));
+	}
+     }    
     
     @Override
     public void checkDelegate(UIElement element) {
@@ -115,10 +156,13 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	    
 	} else if (Tree.PROPERTY_DISPLAY_PROPERTY.equals(name)) {
 	    
+	    String property = asString(value);
 	    PropertyProvider<?> propertyProvider = tree.getPropertyProvider();
 	    ValueProvider<?> valueProvider = null; //tree.getValueProvider(); //TODO
-	    xTree.setCellFactory(new XBaseTreeCellFactory<Object, Object>(asString(value), propertyProvider, valueProvider));
 	    
+	    XTreeCellFactory factory = createTreeCellFactory(property, propertyProvider, valueProvider);
+	    xTree.setCellFactory(factory);
+	    updateIcons(factory, tree, xTree);
 	    
 	    return;
 	} else if (Tree.PROPERTY_DISPLAY_FORMAT.equals(name)) {
@@ -155,32 +199,23 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	} else if (Tree.PROPERTY_LEAF_ICON.equals(name)) {
 		
 	    // Update leaf icon if need
-	    updateIcons(tree, xTree, Tree.PROPERTY_LEAF_ICON);
-	    //updateIcons(tree, xTree, createImageView(element, asImage(value)));
-	    
+	    updateIcons(tree, xTree, Tree.PROPERTY_LEAF_ICON, asImage(value));
 	    return;
 	    
 	} else if (Tree.PROPERTY_NODE_ICON.equals(name)) {
 		
 	    // Update node (open/close) icon if need
-	    updateIcons(tree, xTree, Tree.PROPERTY_NODE_ICON);
-	    //updateIcons(tree, xTree, createImageView(element, asImage(value)));
-
-	    
+	    updateIcons(tree, xTree, Tree.PROPERTY_NODE_ICON, asImage(value));
 	    return;
 	} else if (Tree.PROPERTY_OPEN_ICON.equals(name)) {
 		
 	    // Update open icon if need
-	    updateIcons(tree, xTree, Tree.PROPERTY_OPEN_ICON);
-	    updateIcons(tree, xTree, createImageView(element, asImage(value)));
-	    
+	    updateIcons(tree, xTree, Tree.PROPERTY_OPEN_ICON, asImage(value));
 	    return;
 	} else if (Tree.PROPERTY_CLOSE_ICON.equals(name)) {
 		
 	    // Update close icon if need
-	    updateIcons(tree, xTree, Tree.PROPERTY_CLOSE_ICON);
-	    //updateIcons(tree, xTree, createImageView(element, asImage(value)));
-	    
+	    updateIcons(tree, xTree, Tree.PROPERTY_CLOSE_ICON, asImage(value));
 	    return;
 		    
 	} 

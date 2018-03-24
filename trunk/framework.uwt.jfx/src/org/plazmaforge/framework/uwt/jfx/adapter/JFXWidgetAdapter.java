@@ -32,6 +32,8 @@ import org.plazmaforge.framework.uwt.jfx.util.JFXUtils;
 import org.plazmaforge.framework.uwt.jfx.widget.HasContent;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XTableCellValueFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XTreeCellFactory;
+import org.plazmaforge.framework.uwt.jfx.widget.cell.XBaseTreeCellFactory;
 import org.plazmaforge.framework.uwt.jfx.widget.cell.XPropertyValueFactory;
 import org.plazmaforge.framework.uwt.widget.Event;
 import org.plazmaforge.framework.uwt.widget.Listener;
@@ -900,7 +902,7 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 //    }
 
     
-    ////
+    //// Table
     
     protected XTableCellValueFactory createTableCellValueFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
 	return new XPropertyValueFactory<Object, Object>(property, propertyProvider, valueProvider);
@@ -910,6 +912,10 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	return JFXUtils.createTableCell(type, pattern);
     }
     
+    //// Tree
     
+    protected XTreeCellFactory createTreeCellFactory(String property, PropertyProvider propertyProvider, ValueProvider valueProvider) {
+	return new XBaseTreeCellFactory<Object, Object>(property, propertyProvider, valueProvider);
+    }
 
 }

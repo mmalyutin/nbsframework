@@ -30,9 +30,12 @@ import com.sun.javafx.scene.control.Logging;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import sun.util.logging.PlatformLogger;
 import sun.util.logging.PlatformLogger.Level;
 
@@ -49,6 +52,7 @@ import sun.util.logging.PlatformLogger.Level;
  */
 public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFactory<T, FV> {
 
+    // JFX Property
     private final String property;
 
     private Class<?> columnClass;
@@ -57,11 +61,23 @@ public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFacto
     
     private PropertyReference<FV> propertyRef;
     
+    ////
+    
     // UWT PropertyProvider
     private PropertyProvider propertyProvider;
     
     // UWT ValueProvider
     private ValueProvider valueProvider;
+    
+    ////
+    
+    private Image leafIcon;
+    
+    private Image nodeIcon;
+    
+    private Image openIcon;
+    
+    private Image closeIcon;
     
     
     public XAbstractTreeCellFactory(String property) {
@@ -94,6 +110,38 @@ public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFacto
         this.valueProvider = valueProvider;
     }
     
+    public Image getLeafIcon() {
+        return leafIcon;
+    }
+
+    public void setLeafIcon(Image leafIcon) {
+        this.leafIcon = leafIcon;
+    }
+
+    public Image getNodeIcon() {
+        return nodeIcon;
+    }
+
+    public void setNodeIcon(Image nodeIcon) {
+        this.nodeIcon = nodeIcon;
+    }
+
+    public Image getOpenIcon() {
+        return openIcon;
+    }
+
+    public void setOpenIcon(Image openIcon) {
+        this.openIcon = openIcon;
+    }
+
+    public Image getCloseIcon() {
+        return closeIcon;
+    }
+
+    public void setCloseIcon(Image closeIcon) {
+        this.closeIcon = closeIcon;
+    }
+
     @Override
     public TreeCell<T> call(TreeView<T> param) {
         return new TreeCell<T>() {
@@ -101,19 +149,23 @@ public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFacto
             protected void updateItem(T item, boolean empty) {
                 super.updateItem(item, empty);
                 
+                if (item == null || empty) {
+                    // Very important for root and virtual empty items 
+                    setText(null);
+                    setGraphic(null);
+                    return;
+                }
+                
                 // Get cell value
-        	FV value = (item == null || empty) ? null : getValue(item);
-        	String text = getValueText(value);
+                TreeItem<T> treeItem = getTreeItem();
+        	FV value = getValue(item);
+        	
+        	String text = getItemText(value);
+        	Node graphic = getItemGraphic(treeItem, value);
         	
         	setText(text);
-       	
-        	setGraphic((item == null || empty) ? null : getTreeItem().getGraphic());
-        	
-        	//TreeItem treeItem = getTreeItem() ;
-        	//if  (treeItem != null){
-        	//    setGraphic((item == null || empty) ? null : getTreeItem().getGraphic());
-        	//}
-        	
+        	setGraphic(graphic);
+      	
 
             }
         };
@@ -123,8 +175,32 @@ public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFacto
     
     ////
     
-    protected String getValueText(FV value) {
+    protected String getItemText(FV value) {
 	return value == null ? null : formatValue(value);
+    }
+    
+    protected Node getItemGraphic(TreeItem<T> item, FV value) {
+	Image icon = getItemIcon(item);
+	return icon == null ? null : new ImageView(icon);
+    }
+
+    protected Image getItemIcon(TreeItem<T> item) {
+	if (item == null) {
+	    return getItemIcon();
+	}
+	if (item.isLeaf()) {
+	    return leafIcon;
+	}
+	Image icon = null;
+	icon = item.isExpanded() ? openIcon : closeIcon;
+	if (icon == null) {
+	   icon = nodeIcon;  
+	}
+	return icon;
+    }
+    
+    protected Image getItemIcon() {
+ 	return nodeIcon;
     }
     
     protected FV getValue(T bean) {
