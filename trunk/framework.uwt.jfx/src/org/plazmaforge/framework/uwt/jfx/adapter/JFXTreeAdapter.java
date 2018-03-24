@@ -49,6 +49,9 @@ public class JFXTreeAdapter extends JFXViewerAdapter {
 	javafx.scene.Parent xParent = getContent(parent.getDelegate());
 	javafx.scene.control.TreeView<?> xTree = new javafx.scene.control.TreeView();
 	
+	// Set invisible root node by default
+	xTree.setShowRoot(false);
+	
 	// Property, Property Provider, Value Provider, Item Icons
 	XTreeCellFactory factory = createTreeCellFactory(tree, xTree);
 	xTree.setCellFactory(factory);
