@@ -23,6 +23,7 @@ package org.plazmaforge.framework.uwt.jfx.widget.cell;
 
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.util.Callback;
 
 /**
@@ -37,4 +38,21 @@ import javafx.util.Callback;
  */
 public interface XTreeCellFactory<T, FV> extends Callback<TreeView<T>, TreeCell<T>> {
 
+    
+    Image getLeafIcon();
+
+    void setLeafIcon(Image leafIcon);
+
+    Image getNodeIcon();
+
+    void setNodeIcon(Image nodeIcon);
+
+    Image getOpenIcon() ;
+
+    void setOpenIcon(Image openIcon);
+
+    Image getCloseIcon();
+
+    void setCloseIcon(Image closeIcon);
+    
 }
