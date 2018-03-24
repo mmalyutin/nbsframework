@@ -165,7 +165,6 @@ public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFacto
         	
         	setText(text);
         	setGraphic(graphic);
-      	
 
             }
         };
@@ -181,7 +180,32 @@ public abstract class XAbstractTreeCellFactory<T, FV>  implements XTreeCellFacto
     
     protected Node getItemGraphic(TreeItem<T> item, FV value) {
 	Image icon = getItemIcon(item);
-	return icon == null ? null : new ImageView(icon);
+	if (icon == null) {
+	    return null;
+	}
+	
+	// WARNING! We create new ImageView of TreeItem each time (if need: previous icon is different)
+	// because we have problems with rendering common ImageView - no rendering
+	// Only last ImageView is rendered
+	
+	ImageView imageView = (ImageView) item.getGraphic();
+	
+	// Check previous icon
+	// If it is different then reset
+	if (imageView != null && imageView.getImage() != icon) {
+	    imageView = null;
+	}
+	
+	// Return if icon is equals
+	if (imageView != null) {
+	    return imageView;
+	}
+	
+	// Create new ImageView
+	imageView = new ImageView(icon);
+	item.setGraphic(imageView);
+
+	return imageView;
     }
 
     protected Image getItemIcon(TreeItem<T> item) {
