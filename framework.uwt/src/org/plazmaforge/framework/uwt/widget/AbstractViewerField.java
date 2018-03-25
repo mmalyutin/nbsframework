@@ -45,7 +45,7 @@ import org.plazmaforge.framework.uwt.event.SelectionListener;
  *
  * @param <T>
  */
-public abstract class AbstractViewerField<T> extends AbstractField<T> implements IViewer<T> {
+public abstract class AbstractViewerField<T> extends AbstractField<T> implements ICellViewer<T> {
 
     
     /**
@@ -66,6 +66,16 @@ public abstract class AbstractViewerField<T> extends AbstractField<T> implements
     private PropertyProvider<T> propertyProvider;
 
     
+    /**
+     * Display property
+     */
+    private String displayProperty;
+    
+    
+    /**
+     * Display format
+     */
+    private String displayFormat;
     
     
     /**
@@ -138,6 +148,28 @@ public abstract class AbstractViewerField<T> extends AbstractField<T> implements
 	
     }
 
+    @Override
+    public String getDisplayProperty() {
+        return displayProperty;
+    }
+
+    @Override
+    public void setDisplayProperty(String displayProperty) {
+        this.displayProperty = displayProperty;
+        fireChangeProperty(PROPERTY_DISPLAY_PROPERTY, displayProperty);
+    }
+        
+    @Override
+    public String getDisplayFormat() {
+        return displayFormat;
+    }
+    
+    @Override
+    public void setDisplayFormat(String displayFormat) {
+        this.displayFormat = displayFormat;
+        fireChangeProperty(PROPERTY_DISPLAY_FORMAT, displayFormat);
+    }
+    
     ////
 
     public DataProviderAsync<T> getDataProviderAsync() {

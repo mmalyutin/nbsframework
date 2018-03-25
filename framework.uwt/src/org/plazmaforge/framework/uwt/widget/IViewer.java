@@ -60,7 +60,6 @@ public interface IViewer<T> extends HasDataItems<T>, HasSelection<T> {
     boolean hasPropertyProvider();
     
     
-    
     boolean isClientData();
 
     void setClientData(boolean clientData);

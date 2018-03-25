@@ -32,9 +32,15 @@ import org.plazmaforge.framework.uwt.event.EnterListener;
 import org.plazmaforge.framework.uwt.graphics.Image;
 import org.plazmaforge.framework.uwt.widget.HasSelection;
 import org.plazmaforge.framework.uwt.widget.LabelProvider;
-import org.plazmaforge.framework.uwt.widget.Viewer;
+import org.plazmaforge.framework.uwt.widget.CellViewer;
 
-public class Tree<T> extends Viewer<T> implements HasSelection<T> {
+/**
+ * 
+ * @author ohapon
+ *
+ * @param <T>
+ */
+public class Tree<T> extends CellViewer<T> implements HasSelection<T> {
 
     
     public static final String PROPERTY_LEAF_ICON = "leafIcon";
@@ -61,11 +67,6 @@ public class Tree<T> extends Viewer<T> implements HasSelection<T> {
     private boolean linesVisible;
     
     private boolean headerVisible;
-    
-    
-    private String displayProperty;
-    
-    private String displayFormat;
     
     
     private Image leafIcon;
@@ -107,26 +108,6 @@ public class Tree<T> extends Viewer<T> implements HasSelection<T> {
     
     protected boolean isChildrenProperty(String name) {
 	return PROPERTY_COLUMNS.equals(name) || PROPERTY_ITEMS.equals(name) || PROPERTY_CHILDREN.equals(name);
-    }
-    
-
-
-    public String getDisplayProperty() {
-        return displayProperty;
-    }
-
-    public void setDisplayProperty(String displayProperty) {
-        this.displayProperty = displayProperty;
-        fireChangeProperty(PROPERTY_DISPLAY_PROPERTY, displayProperty);
-    }
-
-    public String getDisplayFormat() {
-        return displayFormat;
-    }
-
-    public void setDisplayFormat(String displayFormat) {
-        this.displayFormat = displayFormat;
-        fireChangeProperty(PROPERTY_DISPLAY_FORMAT, displayFormat);
     }
     
     public boolean isLinesVisible() {

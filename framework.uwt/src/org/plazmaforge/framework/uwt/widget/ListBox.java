@@ -29,8 +29,6 @@ import org.plazmaforge.framework.uwt.event.EnterListener;
 
 public class ListBox<T> extends AbstractViewerField<T> implements HasSelectionIndex<T>, HasEnter, IField<T>, IRefField<T> {
 
-    private String displayProperty;
-    
     private String refProperty;
     
     private Object refValue;
@@ -55,15 +53,7 @@ public class ListBox<T> extends AbstractViewerField<T> implements HasSelectionIn
 	return dataProvider;
     }
 
-    public String getDisplayProperty() {
-        return displayProperty;
-    }
-
-    public void setDisplayProperty(String displayProperty) {
-        this.displayProperty = displayProperty;
-        fireChangeProperty(PROPERTY_DISPLAY_PROPERTY, displayProperty);
-    }
-    
+ 
     ////
     
     public int getSelectionIndex() {

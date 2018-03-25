@@ -25,10 +25,15 @@ package org.plazmaforge.framework.uwt.widget;
 import org.plazmaforge.framework.core.data.provider.ArrayProvider;
 import org.plazmaforge.framework.core.data.provider.DataProvider;
 
+/**
+ * 
+ * @author ohapon
+ *
+ * @param <T>
+ */
 public class ComboBox<T> extends AbstractViewerField<T> implements HasSelectionIndex<T>, IRefField<T> {
 
-    private String displayProperty;
-    
+   
     private String refProperty;
     
     private Object refValue;
@@ -52,18 +57,9 @@ public class ComboBox<T> extends AbstractViewerField<T> implements HasSelectionI
 	return dataProvider;
     }
     
-    public String getDisplayProperty() {
-        return displayProperty;
-    }
-
-    public void setDisplayProperty(String displayProperty) {
-        this.displayProperty = displayProperty;
-        fireChangeProperty(PROPERTY_DISPLAY_PROPERTY, displayProperty);
-    }
     
     ////
-    
- 
+
     
     public int getSelectionIndex() {
 	if (isReadyInput()) {
