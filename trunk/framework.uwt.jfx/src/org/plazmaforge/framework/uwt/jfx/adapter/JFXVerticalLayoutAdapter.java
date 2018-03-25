@@ -36,7 +36,13 @@ public class JFXVerticalLayoutAdapter extends JFXBoxLayoutAdapter {
 
     protected XBoxLayout createLayout(BoxLayout layout) {
 	XVerticalLayout xLayout = new XVerticalLayout();
+	
+	// Margin
+	updateMargin(layout, xLayout);
+	
+	// Spacing
 	xLayout.setSpacing(layout.getSpacing());
+	
 	return xLayout;
     }
 
