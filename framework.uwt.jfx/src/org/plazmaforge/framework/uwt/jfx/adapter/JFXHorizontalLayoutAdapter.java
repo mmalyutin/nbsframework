@@ -35,7 +35,13 @@ public class JFXHorizontalLayoutAdapter extends JFXBoxLayoutAdapter {
 
     protected XBoxLayout createLayout(BoxLayout layout) {
 	XHorizontalLayout xLayout = new XHorizontalLayout();
+	
+	// Margin
+	updateMargin(layout, xLayout);
+	
+	// Spacing
 	xLayout.setSpacing(layout.getSpacing());
+	
 	return xLayout;
     }
 

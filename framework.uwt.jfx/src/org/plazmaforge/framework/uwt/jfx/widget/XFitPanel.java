@@ -21,6 +21,7 @@
  */
 package org.plazmaforge.framework.uwt.jfx.widget;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -31,10 +32,20 @@ import javafx.scene.layout.AnchorPane;
  */
 public class XFitPanel extends AnchorPane implements XContainer {
  
+    private Insets anchorPadding;
+    
     public XFitPanel() {
         super();
     }
  
+    public Insets getAnchorPadding() {
+        return anchorPadding;
+    }
+
+    public void setAnchorPadding(Insets anchorPadding) {
+        this.anchorPadding = anchorPadding;
+    }
+
     @Override
     public void addChild(Node child) {
         resetChild();
@@ -74,11 +85,24 @@ public class XFitPanel extends AnchorPane implements XContainer {
     }
  
     protected void initChild(Node child) {
-        double padding = 0.0d; //TODO
-        AnchorPane.setLeftAnchor(child, padding);
-        AnchorPane.setRightAnchor(child, padding);
-        AnchorPane.setTopAnchor(child, padding);
-        AnchorPane.setBottomAnchor(child, padding);
+        double leftPadding = 0.0d;
+        double rightPadding = 0.0d;
+        double topPadding = 0.0d;
+        double bottomPadding = 0.0d;
+        Insets insets = getInsets();
+        if (insets != null) {
+            leftPadding = doubleValue(insets.getLeft());
+            rightPadding = doubleValue(insets.getRight());
+            topPadding = doubleValue(insets.getTop());
+            bottomPadding = doubleValue(insets.getBottom());
+        }
+        AnchorPane.setLeftAnchor(child, leftPadding);
+        AnchorPane.setRightAnchor(child, rightPadding);
+        AnchorPane.setTopAnchor(child, topPadding);
+        AnchorPane.setBottomAnchor(child, bottomPadding);
     }
 
+    protected double doubleValue(Double value) {
+	return value == null ? 0: value;
+    }
 }

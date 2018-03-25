@@ -22,17 +22,17 @@
 
 package org.plazmaforge.framework.uwt.jfx.adapter;
 
-import org.plazmaforge.framework.uwt.AbstractUIAdapter;
 import org.plazmaforge.framework.uwt.UIElement;
 import org.plazmaforge.framework.uwt.jfx.layout.XLayout;
 import org.plazmaforge.framework.uwt.jfx.widget.XLayoutContainer;
+import org.plazmaforge.framework.uwt.widget.Layout;
 
 /**
  * 
  * @author ohapon
  *
  */
-public abstract class JFXLayoutAdapter extends AbstractUIAdapter {
+public abstract class JFXLayoutAdapter extends JFXAbstractAdapter {
 
     @Override
     public void disposeDelegate(UIElement parent, UIElement element) {
@@ -53,4 +53,13 @@ public abstract class JFXLayoutAdapter extends AbstractUIAdapter {
     protected javafx.geometry.Insets createPadding(XLayout xLayout) {
 	return new javafx.geometry.Insets(xLayout.getMarginTop(), xLayout.getMarginRight(), xLayout.getMarginBottom(), xLayout.getMarginLeft());
     }
+    
+    protected void updateMargin(Layout layout, XLayout xLayout) {
+	// Margin
+	xLayout.setMarginLeft(layout.getMarginLeft());
+	xLayout.setMarginTop(layout.getMarginTop());
+	xLayout.setMarginRight(layout.getMarginRight());
+	xLayout.setMarginBottom(layout.getMarginBottom());
+    }
+    
 }

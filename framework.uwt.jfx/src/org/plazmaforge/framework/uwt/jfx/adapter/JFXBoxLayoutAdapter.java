@@ -49,6 +49,11 @@ public class JFXBoxLayoutAdapter extends JFXLayoutAdapter {
     
     protected XBoxLayout createLayout(BoxLayout layout) {
 	XBoxLayout xLayout = new XBoxLayout(layout.getOrientation().equals(Orientation.VERTICAL) ? javafx.geometry.Orientation.VERTICAL : javafx.geometry.Orientation.HORIZONTAL);
+	
+	// Margin
+	updateMargin(layout, xLayout);
+	
+	// Spacing
 	xLayout.setSpacing(layout.getSpacing());
 	return xLayout;
     }

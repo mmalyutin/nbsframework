@@ -42,12 +42,20 @@ public class JFXFitLayoutAdapter extends JFXLayoutAdapter {
 	FitLayout layout = (FitLayout) element;
 	
 	XFitLayout xLayout = new XFitLayout();
+	
+	// Margin
+	updateMargin(layout, xLayout);
+	
 	return xLayout;
     }
 
     @Override
     public javafx.scene.layout.Pane createContainer(XLayout xLayout) {
-	return new XFitPanel();
+	XFitLayout xFitLayout = (XFitLayout) xLayout;
+	XFitPanel xPanel = new XFitPanel();
+	
+	xPanel.setPadding(createPadding(xFitLayout));
+	return xPanel;
     }
       
 }

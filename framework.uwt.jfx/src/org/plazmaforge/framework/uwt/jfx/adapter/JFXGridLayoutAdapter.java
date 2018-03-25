@@ -41,17 +41,14 @@ public class JFXGridLayoutAdapter extends JFXLayoutAdapter {
 	GridLayout layout = (GridLayout) element;  
 	XGridLayout xLayout = new XGridLayout(layout.getColumnCount());
 	
+	// Margin
+	updateMargin(layout, xLayout);
+	
 	// Spacing
 	xLayout.setVerticalSpacing(layout.getVerticalSpacing());
 	xLayout.setHorizontalSpacing(layout.getHorizontalSpacing());
 	
-	xLayout.setFix(layout.isFix());
-	
-	// Margin
-	xLayout.setMarginLeft(layout.getMarginLeft());
-	xLayout.setMarginTop(layout.getMarginTop());
-	xLayout.setMarginRight(layout.getMarginRight());
-	xLayout.setMarginBottom(layout.getMarginBottom());
+	xLayout.setFix(layout.isFix());	
 	
 	return xLayout;
     }
