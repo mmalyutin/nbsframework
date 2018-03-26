@@ -212,6 +212,8 @@ public abstract class JFXWidgetAdapter extends JFXAbstractAdapter {
 	    return asParent(((javafx.scene.control.Dialog<?>) delegate).getDialogPane().getContent());   
 	} else if (delegate instanceof javafx.scene.control.Tab) {
 	    return asParent(((javafx.scene.control.Tab) delegate).getContent());
+	} else if (delegate instanceof javafx.scene.control.TitledPane) {
+	    return asParent(((javafx.scene.control.TitledPane) delegate).getContent());	    
 	} else if (delegate instanceof HasContent) {
 	    return asParent(((HasContent) delegate).getContent());
 	}
