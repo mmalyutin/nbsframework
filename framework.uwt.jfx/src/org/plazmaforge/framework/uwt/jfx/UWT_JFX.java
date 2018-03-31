@@ -28,7 +28,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXApplicationAdapter;
 
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXButtonAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXCanvasAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXCardLayoutAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXCardLayoutAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXCheckBoxAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXCollapsePanelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXComboBoxAdapter;
@@ -145,7 +145,7 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.VerticalLayout.class, new JFXVerticalLayoutAdapter());	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.FitLayout.class, new JFXFitLayoutAdapter());
 	
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.CardLayout.class, new JFXCardLayoutAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.CardLayout.class, new JFXCardLayoutAdapter());
 	
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.layout.GridData.class, new JFXGridDataAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.table.Table.class, new JFXTableAdapter());
