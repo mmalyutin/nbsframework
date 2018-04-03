@@ -7,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.swt"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/framework.report"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.swing"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework.uwt.jfx"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
