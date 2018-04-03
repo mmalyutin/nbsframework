@@ -34,8 +34,9 @@ import org.plazmaforge.framework.report.export.ReportExporter;
 import org.plazmaforge.framework.report.model.document.Document;
 import org.plazmaforge.framework.report.model.document.Page;
 import org.plazmaforge.framework.report.storage.xml.document.XMLDocumentReader;
-import org.plazmaforge.framework.uwt.AbstractDesktopApplication;
+import org.plazmaforge.framework.uwt.Application;
 import org.plazmaforge.framework.uwt.ApplicationView;
+import org.plazmaforge.framework.uwt.UWTDesktopToolit;
 import org.plazmaforge.framework.uwt.event.SelectionEvent;
 import org.plazmaforge.framework.uwt.event.SelectionListener;
 import org.plazmaforge.framework.uwt.layout.FitLayout;
@@ -52,7 +53,7 @@ import org.plazmaforge.framework.uwt.widget.tool.ToolItem;
  * @author ohapon
  *
  */
-public class ViewerApp extends AbstractDesktopApplication {
+public class ViewerApp extends Application {
 
     private static Logger logger = Logger.getLogger(ViewerApp.class.getName());
 
@@ -94,7 +95,7 @@ public class ViewerApp extends AbstractDesktopApplication {
 	    return;
 	}
 	// Initialize UWT by UI type
-	if (!initUWT(ui)) {
+	if (!UWTDesktopToolit.initUWT(ui)) {
 	    return;
 	}
 
