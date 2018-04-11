@@ -85,17 +85,6 @@ public class XCardPanel extends StackPane implements XContainer {
   	}
       }
     
-    
-//    @Override
-//    public void addChild(Node child) {
-//	
-//    }
-//    
-//    @Override
-//    public void removeChild(Node child) {
-//        getChildren().remove(child);
-//    }
- 
     @Override
     public void removeAll() {
         getChildren().clear();

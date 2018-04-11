@@ -68,7 +68,7 @@ import org.plazmaforge.framework.uwt.jfx.adapter.JFXScrollPanelAdapter;
 //import org.plazmaforge.framework.uwt.jfx.adapter.JFXSeparatorAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXSliderAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXSpinnerFieldAdapter;
-//import org.plazmaforge.framework.uwt.jfx.adapter.JFXSplitPanelAdapter;
+import org.plazmaforge.framework.uwt.jfx.adapter.JFXSplitPanelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabItemAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTabPanelAdapter;
 import org.plazmaforge.framework.uwt.jfx.adapter.JFXTableAdapter;
@@ -114,7 +114,7 @@ public class UWT_JFX {
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.GroupPanel.class, new JFXGroupPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.TitlePanel.class, new JFXTitlePanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.CollapsePanel.class, new JFXCollapsePanelAdapter());
-	//UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.SplitPanel.class, new JFXSplitPanelAdapter());
+	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.SplitPanel.class, new JFXSplitPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.panel.ScrollPanel.class, new JFXScrollPanelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Label.class, new JFXLabelAdapter());
 	UIAdapterFactory.addAdapter(org.plazmaforge.framework.uwt.widget.Button.class, new JFXButtonAdapter());
