@@ -11,22 +11,22 @@
 <table cellspacing="0" cellpadding="5">
     <thead>
       <tr>
-        <th class="grid-th grid-cell" width="300px">Widget</th>
-        <th class="grid-th grid-cell" width="200px">UWT</th>
-        <th class="grid-th grid-cell" width="200px">Swing</th>
-        <th class="grid-th grid-cell" width="200px">SWT</th>
-        <th class="grid-th grid-cell" width="200px">JavaFX</th>
-        <th class="grid-th grid-cell" width="200px">GXT</th>
+        <th class="grid-th" width="200px">Widget</th>
+        <th class="grid-th" width="220px">UWT</th>
+        <th class="grid-th" width="220px">Swing</th>
+        <th class="grid-th" width="220px">SWT</th>
+        <th class="grid-th" width="220px">JavaFX</th>
+        <th class="grid-th" width="220px">GXT</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="grid-cell">Display static text</td>
-        <td class="grid-cell">Label</td>
-        <td class="grid-cell">JLabel</td>
-        <td class="grid-cell">Label</td>
-        <td class="grid-cell">Label</td>
-        <td class="grid-cell">Label</td>
+        <td class="grid-cell-group">Display static text</td>
+        <td class="grid-cell-group">Label</td>
+        <td class="grid-cell-group">JLabel</td>
+        <td class="grid-cell-group">Label</td>
+        <td class="grid-cell-group">Label</td>
+        <td class="grid-cell-group">Label</td>
       </tr>
       <tr>
         <td class="grid-cell">Single-line text entry</td>
@@ -48,9 +48,9 @@
         <td class="grid-cell">Password field</td>
         <td class="grid-cell">PasswordField</td>
         <td class="grid-cell">JPasswordField</td>
-        <td class="grid-cell">Text (setEchohar)</td>
+        <td class="grid-cell">Text: setEchohar('*')</td>
         <td class="grid-cell">PasswordField</td>
-        <td class="grid-cell">TextField (setPassword)</td>
+        <td class="grid-cell">PasswordField</td>
       </tr>
       <tr>
         <td class="grid-cell">Number entry</td>
@@ -95,12 +95,12 @@
      </tr>
  
       <tr>
-        <td class="grid-cell">On/off check box</td>
-        <td class="grid-cell">CheckBox</td>
-        <td class="grid-cell">JCheckBox</td>
-        <td class="grid-cell">Button (SWT.CHECK)</td>
-        <td class="grid-cell">CheckBox</td>
-        <td class="grid-cell">CheckBox</td>
+        <td class="grid-cell-group">On/off check box</td>
+        <td class="grid-cell-group">CheckBox</td>
+        <td class="grid-cell-group">JCheckBox</td>
+        <td class="grid-cell-group">Button (SWT.CHECK)</td>
+        <td class="grid-cell-group">CheckBox</td>
+        <td class="grid-cell-group">CheckBox</td>
       </tr>
       <tr>
         <td class="grid-cell">Simple push button</td>
@@ -143,12 +143,12 @@
         <td class="grid-cell">ListView</td>
       </tr>
       <tr>
-        <td class="grid-cell">Select from range of values</td>
-        <td class="grid-cell">Slider</td>
-        <td class="grid-cell">JSlider</td>
-        <td class="grid-cell">Scale</td>
-        <td class="grid-cell">Slider</td>
-        <td class="grid-cell">Slider</td>
+        <td class="grid-cell-group">Select from range of values</td>
+        <td class="grid-cell-group">Slider</td>
+        <td class="grid-cell-group">JSlider</td>
+        <td class="grid-cell-group">Scale</td>
+        <td class="grid-cell-group">Slider</td>
+        <td class="grid-cell-group">Slider</td>
       </tr>
       <tr>
         <td class="grid-cell">Select from discrete range of values</td>
@@ -159,12 +159,12 @@
         <td class="grid-cell">SpinnerField</td>
       </tr>          
       <tr>
-        <td class="grid-cell">Display tabular info</td>
-        <td class="grid-cell">Table</td>
-        <td class="grid-cell">JTable</td>
-        <td class="grid-cell">Table</td>
-        <td class="grid-cell">TableView</td>
-        <td class="grid-cell">Grid</td>
+        <td class="grid-cell-group">Display tabular info</td>
+        <td class="grid-cell-group">Table</td>
+        <td class="grid-cell-group">JTable</td>
+        <td class="grid-cell-group">Table</td>
+        <td class="grid-cell-group">TableView</td>
+        <td class="grid-cell-group">Grid</td>
       </tr>
       <tr>
         <td class="grid-cell">Display hierarchical info</td>
@@ -175,12 +175,12 @@
         <td class="grid-cell">Tree</td>
       </tr>            
       <tr>
-        <td class="grid-cell">General container of other widgets</td>
-        <td class="grid-cell">Panel</td>
-        <td class="grid-cell">JPanel</td>
-        <td class="grid-cell">Composite</td>
-        <td class="grid-cell">Pane</td>
-        <td class="grid-cell">Container (?)</td>
+        <td class="grid-cell-group">General container of other widgets</td>
+        <td class="grid-cell-group">Panel</td>
+        <td class="grid-cell-group">JPanel</td>
+        <td class="grid-cell-group">Composite</td>
+        <td class="grid-cell-group">Pane</td>
+        <td class="grid-cell-group">Container (?)</td>
       </tr>
       <tr>
         <td class="grid-cell">Panel with border and title</td>
@@ -194,9 +194,9 @@
         <td class="grid-cell">Panel with header (bar)</td>
         <td class="grid-cell">TitlePanel</td>
         <td class="grid-cell">JPanel (GradientPanel)</td>
-        <td class="grid-cell">PGroup (setToggleRenderer(null))</td>
+        <td class="grid-cell">PGroup: setToggleRenderer(null)</td>
         <td class="grid-cell">TitledPane</td>
-        <td class="grid-cell">ContentPanel (setCollapsible(false))</td>
+        <td class="grid-cell">ContentPanel: setCollapsible(false)</td>
       </tr>
       <tr>
         <td class="grid-cell">Panel with collapse/expand mode</td>
@@ -204,7 +204,7 @@
         <td class="grid-cell">JPanel (GradientPanel, collapse mode)</td>
         <td class="grid-cell">PGroup</td>
         <td class="grid-cell">TitledPane</td>
-        <td class="grid-cell">ContentPanel (setCollapsible(true))</td>
+        <td class="grid-cell">ContentPanel: setCollapsible(true)</td>
       </tr>  
       <tr>
         <td class="grid-cell">Divide space between areas</td>
@@ -224,42 +224,78 @@
       </tr>
                  
       <tr>
-        <td class="grid-cell">Generic window</td>
-        <td class="grid-cell">Window</td>
+        <td class="grid-cell-group">Generic window</td>
+        <td class="grid-cell-group">Window</td>
+        <td class="grid-cell-group">JWindow</td>
+        <td class="grid-cell-group">Shell</td>
+        <td class="grid-cell-group">Stage</td>
+        <td class="grid-cell-group">Window</td>
       </tr>
       <tr>
         <td class="grid-cell">Frame window</td>
         <td class="grid-cell">Frame</td>
+        <td class="grid-cell">JFrame</td>
+        <td class="grid-cell">Shell (SWT.SHELL_TRIM)</td>
+        <td class="grid-cell">Stage</td>
+        <td class="grid-cell">Window</td>        
       </tr>
        <tr>
         <td class="grid-cell">Dialog window</td>
         <td class="grid-cell">Dialog</td>
+        <td class="grid-cell">JDialog</td>
+        <td class="grid-cell">Shell (SWT.DIALOG_TRIM)</td>
+        <td class="grid-cell">Dialog</td>
+        <td class="grid-cell">Window</td>        
       </tr>
      
       <tr>
-        <td class="grid-cell">Menu bar</td>
-        <td class="grid-cell">MenuBar</td>
+        <td class="grid-cell-group">Menu bar</td>
+        <td class="grid-cell-group">MenuBar</td>
+        <td class="grid-cell-group">JMenuBar</td>
+        <td class="grid-cell-group">Menu (SWT.BAR)</td>
+        <td class="grid-cell-group">MenuBar</td>
+        <td class="grid-cell-group">MenuBar</td>
       </tr>     
       <tr>
+        <td class="grid-cell">Menu</td>
+        <td class="grid-cell">Menu</td>
+        <td class="grid-cell">JMenu</td>
+        <td class="grid-cell">Menu (SWT.CASCADE, SWT.DROP_DOWN)</td>
         <td class="grid-cell">Menu</td>
         <td class="grid-cell">Menu</td>
       </tr>
       <tr>
         <td class="grid-cell">Menu item</td>
         <td class="grid-cell">MenuItem</td>
+        <td class="grid-cell">JMenuItem</td>
+        <td class="grid-cell">MenuItem (SWT.PUSH)</td>
+        <td class="grid-cell">MenuItem</td>
+        <td class="grid-cell">MenuItem</td>
       </tr>           
         
       <tr>
-        <td class="grid-cell">Tool bar</td>
-        <td class="grid-cell">ToolBar</td>
+        <td class="grid-cell-group">Tool bar</td>
+        <td class="grid-cell-group">ToolBar</td>
+        <td class="grid-cell-group">JToolBar</td>
+        <td class="grid-cell-group">ToolBar</td>
+        <td class="grid-cell-group">ToolBar</td>
+        <td class="grid-cell-group">ToolBar</td>
       </tr>     
       <tr>
         <td class="grid-cell">Tool item</td>
         <td class="grid-cell">ToolItem</td>
+        <td class="grid-cell">JButton (by default)</td>
+        <td class="grid-cell">ToolItem</td>
+        <td class="grid-cell">Button (by default)</td>
+        <td class="grid-cell">TextButton (by default)</td>
       </tr>
       <tr>
         <td class="grid-cell">Container of tool bars</td>
         <td class="grid-cell">CoolBar</td>
+        <td class="grid-cell">JPanel</td>
+        <td class="grid-cell">CoolBar</td>
+        <td class="grid-cell">Pane</td>
+        <td class="grid-cell">Panel</td>
       </tr>      
                                                                          
     </tbody>
