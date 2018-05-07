@@ -1,0 +1,94 @@
+<html>
+<head>
+  <title>Plazma UWT: Layouts</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+  <h2>Layouts</h2>
+  
+
+<table cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th class="grid-th" width="200px">Layout</th>
+        <th class="grid-th" width="220px">Description</th>
+        <th class="grid-th" width="220px">Swing</th>
+        <th class="grid-th" width="220px">SWT</th>
+        <th class="grid-th" width="220px">JavaFX</th>
+        <th class="grid-th" width="220px">GXT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="grid-cell-group">FillLayout</td>
+        <td class="grid-cell-group">Flow (left-right, up-down)</td>        
+        <td class="grid-cell-group">- (FlowLayout)</td>
+        <td class="grid-cell-group">FillLayout</td>
+        <td class="grid-cell-group">- (FlowPane*)</td>
+        <td class="grid-cell-group">- (FlowLayoutContainer*)</td>
+      </tr>
+      
+      <tr>
+        <td class="grid-cell">HorizonlalLayout</td>
+        <td class="grid-cell">One row</td>        
+        <td class="grid-cell">BoxLayout (X_AXIS)</td>
+        <td class="grid-cell">RowLayout (SWT.HORIZONTAL)</td>
+        <td class="grid-cell">HBox*</td>
+        <td class="grid-cell">HBoxLayoutContainer*</td>
+      </tr>
+      <tr>
+        <td class="grid-cell">VerticalLayout</td>
+        <td class="grid-cell">One column</td>        
+        <td class="grid-cell">BoxLayout (Y_AXIS)</td>
+        <td class="grid-cell">RowLayout (SWT.VERTICAL)</td>
+        <td class="grid-cell">VBox*</td>
+        <td class="grid-cell">VBoxLayoutContainer*</td>
+      </tr>
+      <tr>
+        <td class="grid-cell">BoxLayout</td>
+        <td class="grid-cell">One row/column (horizontal/vertical)</td>        
+        <td class="grid-cell">BoxLayout (X_AXIS/Y_AXIS)</td>
+        <td class="grid-cell">RowLayout (SWT.HORIZONTAL/SWT.VERTICAL)</td>
+        <td class="grid-cell">HBox/VBox*</td>
+        <td class="grid-cell">HBoxLayoutContainer/VBoxLayoutContainer*</td>
+      </tr>      
+      <tr>
+        <td class="grid-cell">FitLayout</td>
+        <td class="grid-cell">One row/column (horizontal/vertical)</td>        
+        <td class="grid-cell">BorderLayout (?)</td>
+        <td class="grid-cell">XFitLayout (?)</td>
+        <td class="grid-cell">XFitPanel* (AnchorPane)</td>
+        <td class="grid-cell">XSimpleContainer* (XSimpleContainer)</td>
+      </tr>
+      <tr>
+        <td class="grid-cell">CardLayout</td>
+        <td class="grid-cell">Card (only one widget is visible)</td>        
+        <td class="grid-cell">XCardLayout (?)</td>
+        <td class="grid-cell">StackLayout</td>
+        <td class="grid-cell">XCardPanel* (StackPane)</td>
+        <td class="grid-cell">XCardLayoutContainer* (CardLayoutContainer)</td>
+      </tr>   
+      <tr>
+        <td class="grid-cell">BorderLayout</td>
+        <td class="grid-cell">Border side (LEFT, TOP, RIGHT, BOTTOM, CENTER)</td>        
+        <td class="grid-cell">- (?)</td>
+        <td class="grid-cell">- (?)</td>
+        <td class="grid-cell">- (?)</td>
+        <td class="grid-cell">- (?)</td>
+      </tr> 
+      <tr>
+        <td class="grid-cell">GridLayout</td>
+        <td class="grid-cell">Grid (rows and columns)</td>        
+        <td class="grid-cell">GridBagLayout</td>
+        <td class="grid-cell">GridLayout</td>
+        <td class="grid-cell">XGridPanel* (GridPane)</td>
+        <td class="grid-cell">XGridLayoutContainer* (InsertResizeContainer)</td>
+      </tr> 
+    </tbody>
+  </table>
+  
+
+    
+</body>
+</html>
